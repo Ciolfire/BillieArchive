@@ -1,0 +1,56 @@
+Name: Name
+Age: Age
+Player: Player
+Concept: Concept
+Virtue: Virtue
+Vice: Vice
+Chronicle: Chronicle
+Faction: Faction
+Group name: Group Name
+merits: Merits
+mental: Mental
+physical: Physical
+social: Social
+
+attribute:
+  starting: 5/4/3 | Fifth dot cost two
+
+  intelligence: Intelligence
+  wits: Wits
+  resolve: Resolve
+  strength: Strength
+  dexterity: Dexterity
+  stamina: Stamina
+  presence: Presence
+  manipulation: Manipulation
+  composure: Composure
+skill:
+  unskilled:
+    mental: "-3 unskilled"
+    physical: "-1 unskilled"
+    social: "-1 unskilled"
+
+  academics: Academics
+  computer: Computer
+  crafts: Crafts
+  investigation: Investigation
+  medecine: Medecine
+  occult: Occult
+  politics: Politics
+  science: Science
+  athletics: Athletics
+  brawl: Brawl
+  drive: Drive
+  firearms: Firearms
+  larceny: Larceny
+  stealth: Stealth
+  survival: Survival
+  weaponry: Weaponry
+  animal_ken: Animal Ken
+  empathy: Empathy
+  expression: Expression
+  intimidation: Intimidation
+  persuasion: Persuasion
+  socialize: Socialize
+  streetwise: Streetwise
+  subterfuge: Subterfuge

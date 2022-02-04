@@ -1,0 +1,45 @@
+{% trans_default_domain 'character' %}
+
+{% block header %}
+<div class="row">
+  <div class="col-12 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ form_row(form.name) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.age) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.player) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ form_row(form.concept) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.virtue) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.vice) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ form_row(form.chronicle) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.faction) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(form.groupName) }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

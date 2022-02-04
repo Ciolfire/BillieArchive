@@ -1,0 +1,23 @@
+@import "lib";
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-control {
+  color: $mainColor;
+  background-color: #0000001f;
+  &:focus {
+    color: $mainColor;
+    background-color: #ffffff05;
+    box-shadow: $mainColor 0px 0px 4px 1px;
+  }
+  border: none;
+}

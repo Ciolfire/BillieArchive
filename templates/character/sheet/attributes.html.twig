@@ -1,0 +1,44 @@
+{% trans_default_domain 'character' %}
+
+{% block attributes %}
+<h2 class="text-center">Attributes</h2>
+<p class="text-center text-sub">({% trans %}attribute.starting{% endtrans %})</p>
+{% set max = 5 %}
+{% set min = 1 %}
+{% set base = 1 %}
+{# <div class="row">
+  <div class="d-none d-lg-flex col-lg-1">
+    <div class="row h-100 align-items-center">
+      <div class="col-12">Power</div>
+      <div class="col-12">Finesse</div>
+      <div class="col-12">Resistance</div>
+    </div>
+  </div>
+</div> #}
+<div class="row">
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block attribute-block">
+      <h3 class="text-center">{% trans %}mental{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'intelligence', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'wits', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'resolve', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block attribute-block">
+      <h3 class="text-center">{% trans %}physical{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'strength', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'dexterity', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'stamina', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block attribute-block">
+      <h3 class="text-center">{% trans %}social{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'presence', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'manipulation', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'attribute': 'composure', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+</div>
+{% endblock %}

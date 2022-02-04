@@ -1,0 +1,52 @@
+{% trans_default_domain 'character' %}
+
+{% block skills %}
+<h2 class="text-center mt-3">Skills</h2>
+{% set max = 5 %}
+{% set min = 0 %}
+{% set base = 0 %}
+<div class="row">
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block skill-block">
+      <h3 class="d-md-none d-block text-center">{% trans %}mental{% endtrans %}</h3>
+      <p class="text-center text-sub mb-0">({% trans %}skill.unskilled.mental{% endtrans %})</p>
+      {% include "character/sheet/skill.html.twig" with {'skill': 'academics', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'computer', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'crafts', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'investigation', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'medecine', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'occult', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'politics', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'science', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block skill-block">
+      <h3 class="d-md-none d-block text-center">{% trans %}physical{% endtrans %}</h3>
+      <p class="text-center text-sub mb-0">({% trans %}skill.unskilled.physical{% endtrans %})</p>
+      {% include "character/sheet/skill.html.twig" with {'skill': 'athletics', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'brawl', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'drive', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'firearms', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'larceny', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'stealth', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'survival', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'weaponry', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+  <div class="col-md-4 d-md-flex justify-content-center">
+    <div class="block skill-block">
+      <h3 class="d-md-none d-block text-center">{% trans %}social{% endtrans %}</h3>
+      <p class="text-center text-sub mb-0">({% trans %}skill.unskilled.social{% endtrans %})</p>
+      {% include "character/sheet/skill.html.twig" with {'skill': 'animal_ken', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'empathy', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'expression', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'intimidation', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'persuasion', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'socialize', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'streetwise', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/skill.html.twig" with {'skill': 'subterfuge', 'base': base, 'max': max, 'min': min } %}
+    </div>
+  </div>
+</div>
+{% endblock %}

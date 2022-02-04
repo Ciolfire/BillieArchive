@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}New Character
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('character_new') }}
+{% endblock %}
+
+{% block body %}
+  <h1>Create new Character</h1>
+  {{ form_start(form) }}
+    <a href="{{ path('character_index') }}">back to list</a>
+    {{ include('character/sheet.html.twig') }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+  {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  
+  {{ encore_entry_script_tags('character_new') }}
+{% endblock %}

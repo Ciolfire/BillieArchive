@@ -1,0 +1,37 @@
+@import "~bootstrap/scss/bootstrap";
+@import "lib";
+@import "form";
+
+body {
+  background-color: $pageColor;
+  background-image: url("../images/back1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: $textColor;
+}
+
+body {
+  font-family: "escalidogothico";
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-family: "PlasticMan";
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-family: "escalidogothico";
+}
+
+.block {
+  background-color: $blockColor;
+  box-shadow: $mainColor 0px 20px 30px -10px;
+  margin-bottom: 1rem !important;
+}
+
+.text-sub {
+  font-family: "goudy";
+}

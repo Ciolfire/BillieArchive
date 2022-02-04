@@ -1,0 +1,56 @@
+Name: Nom
+Age: Age
+Player: Joueur
+Concept: Concept
+Virtue: Vertu
+Vice: Vice
+Chronicle: Chronique
+Faction: Faction
+Group name: Nom du groupe
+merits: Atouts
+mental: Mental
+physical: Physique
+social: Social
+
+attribute:
+  starting: 5/4/3 | Le cinquième point coûte double
+
+  intelligence: Intelligence
+  wits: Astuce
+  resolve: Résolution
+  strength: Force
+  dexterity: Dextérité
+  stamina: Vigueur
+  presence: Présence
+  manipulation: Manipulation
+  composure: Calme
+skill:
+  unskilled:
+    mental: "-3 si incompétent"
+    physical: "-1 si incompétent"
+    social: "-1 si incompétent"
+
+  academics: Érudition
+  computer: Informatique
+  crafts: Artisanats
+  investigation: Investigation
+  medecine: Médecine
+  occult: Occulte
+  politics: Politique
+  science: Science
+  athletics: Sports
+  brawl: Bagarre
+  drive: Conduite
+  firearms: Armes à feu
+  larceny: Larcin
+  stealth: Discrétion
+  survival: Survie
+  weaponry: Armes blanches
+  animal_ken: Animaux
+  empathy: Empathie
+  expression: Expression
+  intimidation: Intimidation
+  persuasion: Persuasion
+  socialize: Entregent
+  streetwise: Expérience de la rue
+  subterfuge: Subterfuge

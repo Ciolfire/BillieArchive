@@ -1,0 +1,33 @@
+$pageColor: rgb(37, 37, 37);
+$blockColor: #121626b8;
+$mainColor: #3b4984;
+$textColor: #a1a5b9;
+
+// Vampire
+// $mainColor: #4d0000;
+
+@font-face {
+  font-family: 'CaslonAntique';
+  src: url('../fonts/CaslonAntique.ttf');
+}
+
+@font-face {
+  font-family: 'PlasticMan';
+  src: url('../fonts/PlasticMan.ttf');
+}
+
+@font-face {
+  font-family: 'escalidogothico';
+  src: url('../fonts/escalidogothico.ttf');
+}
+
+@font-face {
+  font-family: 'goudy';
+  src: url('../fonts/goudy.ttf');
+}
+
+@font-face {
+  font-family: 'goudy';
+  src: url('../fonts/GoudyItalic.ttf');
+  font-style: italic, oblique;
+}

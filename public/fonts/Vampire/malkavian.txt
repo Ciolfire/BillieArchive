@@ -1,0 +1,30 @@
+Font Name: 
+				Malkavian Font
+File Name: 
+				Malki.ttf
+Used For: 
+				Title Malkavian, and header on Malkavian character sheet.
+Problems: 
+				None known.
+Bonuses:
+				Contains the accents for the Western sets.
+
+Font Name:
+				Ad Lib BT
+File Name:
+				Adlibn.ttf
+Used For:
+				Headers in the Malkavian clan book, as far as I know.
+Problems:
+				None known.
+Bonuses:
+				Contains the accents for the Western set.
+
+===========================================
+|Info provided by:                        |
+|				Deke Martin                       |
+|				glasswalker@naxs.net              |
+|				http://members.aol.com/dekemartin | 
+|                                         |
+|				21 October, 1999                  |
+===========================================

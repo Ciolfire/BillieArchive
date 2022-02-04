@@ -1,0 +1,19 @@
+Font Name: 
+			Viata Script SSi
+File Name: 
+			Viata.ttf
+Used For: 
+			Gypsy title and headers, also a modified version is used for the Nagaraja clan.
+Problems: 
+			Double quote is not mapped properly.  Only contains a few extra symbols.  Requires modification to work as the Nagaraja font.
+Bonuses:
+			None none.
+
+===========================================
+|Info provided by:                        |
+|				Deke Martin                       |
+|				glasswalker@naxs.net              |
+|				http://members.aol.com/dekemartin | 
+|                                         |
+|				November 05, 1999                 |
+===========================================
