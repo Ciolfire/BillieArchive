@@ -1,5 +1,3 @@
-@import "lib";
-
 .attribute {
   &-dot {
     background-color: transparent;
@@ -37,7 +35,7 @@
 }
 
 .btn-check:active + .skill-dot, .btn-check:checked + .skill-dot, .skill-dot.active, .skill-dot.dropdown-toggle.show, .skill-dot:active {
-  background-color: #3b4984;
+  background-color: $mainColor;
 }
 
 .btn-check:active + .locked-dot, .btn-check:checked + .locked-dot {

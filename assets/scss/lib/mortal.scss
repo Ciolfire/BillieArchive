@@ -1,0 +1,40 @@
+$fonts: "../../fonts";
+
+$pageColor: rgb(37, 37, 37);
+$blockColor: #121626b8;
+$mainColor: #3b4984;
+$textColor: #a1a5b9;
+$inputBackColor: #0000001f;
+$inputActiveBColor: #ffffff05;
+
+$background: "images/back1.jpg";
+$mainFont: "escalidogothico";
+$h2Font: "PlasticMan";
+$h3Font: "escalidogothico";
+$subTextFont: "goudy";
+
+@font-face {
+  font-family: 'CaslonAntique';
+  src: url('#{$fonts}/CaslonAntique.ttf');
+}
+
+@font-face {
+  font-family: 'PlasticMan';
+  src: url('#{$fonts}/PlasticMan.ttf');
+}
+
+@font-face {
+  font-family: 'escalidogothico';
+  src: url('#{$fonts}/escalidogothico.ttf');
+}
+
+@font-face {
+  font-family: 'goudy';
+  src: url('#{$fonts}/goudy.ttf');
+}
+
+@font-face {
+  font-family: 'goudy';
+  src: url('#{$fonts}/GoudyItalic.ttf');
+  font-style: italic, oblique;
+}

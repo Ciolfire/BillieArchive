@@ -1,0 +1,34 @@
+$fonts: "../../fonts";
+
+$pageColor: rgb(37, 37, 37);
+$blockColor: #151212b8;
+$mainColor: #4d0000;
+$textColor: #a1a5b9;
+$inputBackColor: #00000070;
+$inputActiveBColor: #ffffff41;
+
+$background: "images/back2.jpg";
+$mainFont: "mrsEaves-bold";
+$h2Font: "Cezanne";
+$h3Font: "Cezanne";
+$subTextFont: "goudy";
+
+@font-face {
+  font-family: 'Cezanne';
+  src: url('#{$fonts}/P22 Cezanne Regular.ttf');
+}
+
+@font-face {
+  font-family: 'HopperEdward';
+  src: url('#{$fonts}/P22_Hopper_Edward.ttf');
+}
+
+@font-face {
+  font-family: 'goudy';
+  src: url('#{$fonts}/goudy.ttf');
+}
+
+@font-face {
+  font-family: 'MrsEavesBold';
+  src: url('#{$fonts}/MrsEavesBold.otf');
+}

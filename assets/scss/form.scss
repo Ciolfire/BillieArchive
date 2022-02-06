@@ -1,5 +1,3 @@
-@import "lib";
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -13,10 +11,10 @@ input[type=number] {
 
 .form-control {
   color: $mainColor;
-  background-color: #0000001f;
+  background-color: $inputBackColor;
   &:focus {
     color: $mainColor;
-    background-color: #ffffff05;
+    background-color: $inputActiveBColor;
     box-shadow: $mainColor 0px 0px 4px 1px;
   }
   border: none;

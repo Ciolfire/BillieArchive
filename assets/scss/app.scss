@@ -1,10 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
-@import "lib";
 @import "form";
+@import "character";
 
 body {
   background-color: $pageColor;
-  background-image: url("../images/back1.jpg");
+  background-image: url("../#{$background}");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -13,17 +13,17 @@ body {
 }
 
 body {
-  font-family: "escalidogothico";
+  font-family: $mainFont;
 }
 
 h2 {
-  font-size: 1.3rem;
-  font-family: "PlasticMan";
+  // font-size: 1.3rem;
+  font-family: $h2Font;
 }
 
 h3 {
   font-size: 1.1rem;
-  font-family: "escalidogothico";
+  font-family: $h3Font;
 }
 
 .block {
@@ -33,5 +33,5 @@ h3 {
 }
 
 .text-sub {
-  font-family: "goudy";
+  font-family: $subTextFont;
 }
