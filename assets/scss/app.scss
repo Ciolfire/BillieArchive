@@ -17,13 +17,17 @@ body {
 }
 
 h2 {
-  // font-size: 1.3rem;
+  font-size: 1.3rem;
   font-family: $h2Font;
+  color: $titleColor;
+  text-shadow: 2px 2px #00000063;
 }
 
 h3 {
   font-size: 1.1rem;
   font-family: $h3Font;
+  color: $titleColor;
+  text-shadow: 2px 2px #00000063;
 }
 
 .block {
@@ -34,4 +38,17 @@ h3 {
 
 .text-sub {
   font-family: $subTextFont;
+}
+
+.text {
+  font-family: $textFont;
+}
+
+.ok {
+  color: green;
+  font-weight: bold;
+}
+
+.ko {
+  color: red;
 }

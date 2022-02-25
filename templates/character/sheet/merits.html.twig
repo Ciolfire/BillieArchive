@@ -1,0 +1,35 @@
+{% trans_default_domain 'character' %}
+
+{% block attributes %}
+<h2 class="text-center">{% trans %}merit.title{% endtrans %}</h2>
+<p class="text-center text-sub" data-character--creation-target="creationMerit">({% trans %}merit.creation{% endtrans %})</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for merit in merits %}
+      <div class="col">
+        <div class="card block">
+          <div class="card-header">
+            {% include "character/sheet/merit/header.html.twig" with {'merit' : merit } %}
+          </div>
+          <div id="meritText{{ merit.id }}" class="card-body text-center text collapse">
+            <div class="card-text">{{ merit.effect|markdown_to_html }}</div>
+            {% if merit.isExpanded %}
+              <div class="card-text"><input class="form-control"/></div>
+            {% endif %}
+          </div>
+          <div class="card-footer text d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#meritText{{ merit.id }}" type="button" aria-expanded="false" aria-controls="meritText{{ merit.id }}">
+            <i class="fas fa-caret-down"></i>&nbsp;
+            {# TEMP #}
+            {% for type in merit.prerequisites %}
+                {% if loop.index > 1 %},{% endif %}
+              {% for prerequisite in type %}
+                {% if loop.index > 1 %},{% endif %}
+                {{ prerequisite|join(" ") }}
+              {% endfor %}
+            {% endfor %}
+            {# I WANT TO CHANGE THE ENTITY TO REFLECT THE DATA I WANT #}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

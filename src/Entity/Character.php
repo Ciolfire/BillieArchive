@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -113,6 +115,11 @@ class Character
      */
     private $merits = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="personnage", orphanRemoval=true)
+     */
+    private $specialities;
+
     public function __construct()
     {
         $this->intelligence = 1;
@@ -126,6 +133,7 @@ class Character
         $this->presence = 1;
         $this->manipulation = 1;
         $this->composure = 1;
+        $this->specialities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -357,6 +365,36 @@ class Character
     public function setMerits(?array $merits): self
     {
         $this->merits = $merits;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialty[]
+     */
+    public function getSpecialities(): Collection
+    {
+        return $this->specialities;
+    }
+
+    public function addSpecialty(Specialty $specialty): self
+    {
+        if (!$this->specialities->contains($specialty)) {
+            $this->specialities[] = $specialty;
+            $specialty->setPersonnage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): self
+    {
+        if ($this->specialities->removeElement($specialty)) {
+            // set the owning side to null (unless already changed)
+            if ($specialty->getPersonnage() === $this) {
+                $specialty->setPersonnage(null);
+            }
+        }
 
         return $this;
     }

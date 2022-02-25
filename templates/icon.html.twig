@@ -1,0 +1,11 @@
+{% if type is not defined or type == 'merit' %}
+  {% if icon == 'mental' %}
+    <i class="fas fa-brain"></i>
+  {% elseif icon == 'physical' %}
+    <i class="fas fa-running"></i>
+  {% elseif icon == 'social' %}
+    <i class="fas fa-glass-cheers"></i>
+  {% endif %}
+{% else %}
+  {{ icon }}
+{% endif %}

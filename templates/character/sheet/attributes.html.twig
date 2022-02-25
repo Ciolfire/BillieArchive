@@ -2,7 +2,7 @@
 
 {% block attributes %}
 <h2 class="text-center">Attributes</h2>
-<p class="text-center text-sub">({% trans %}attribute.starting{% endtrans %})</p>
+<p class="text-center text-sub" data-character--creation-target="creationAttr">({% trans %}attribute.creation{% endtrans %})</p>
 {% set max = 5 %}
 {% set min = 1 %}
 {% set base = 1 %}
@@ -18,26 +18,26 @@
 <div class="row">
   <div class="col-md-4 d-md-flex justify-content-center">
     <div class="block attribute-block">
-      <h3 class="text-center">{% trans %}mental{% endtrans %}</h3>
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'intelligence', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'wits', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'resolve', 'base': base, 'max': max, 'min': min } %}
+      <h3 class="text-center pt-1">{% trans %}mental{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'mental', 'attribute': 'intelligence', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'mental', 'attribute': 'wits', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'mental', 'attribute': 'resolve', 'base': base, 'max': max, 'min': min } %}
     </div>
   </div>
   <div class="col-md-4 d-md-flex justify-content-center">
     <div class="block attribute-block">
-      <h3 class="text-center">{% trans %}physical{% endtrans %}</h3>
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'strength', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'dexterity', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'stamina', 'base': base, 'max': max, 'min': min } %}
+      <h3 class="text-center pt-1">{% trans %}physical{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'physical', 'attribute': 'strength', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'physical', 'attribute': 'dexterity', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'physical', 'attribute': 'stamina', 'base': base, 'max': max, 'min': min } %}
     </div>
   </div>
   <div class="col-md-4 d-md-flex justify-content-center">
     <div class="block attribute-block">
-      <h3 class="text-center">{% trans %}social{% endtrans %}</h3>
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'presence', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'manipulation', 'base': base, 'max': max, 'min': min } %}
-      {% include "character/sheet/attribute.html.twig" with {'attribute': 'composure', 'base': base, 'max': max, 'min': min } %}
+      <h3 class="text-center pt-1">{% trans %}social{% endtrans %}</h3>
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'social', 'attribute': 'presence', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'social', 'attribute': 'manipulation', 'base': base, 'max': max, 'min': min } %}
+      {% include "character/sheet/attribute.html.twig" with {'categorie': 'social', 'attribute': 'composure', 'base': base, 'max': max, 'min': min } %}
     </div>
   </div>
 </div>

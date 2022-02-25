@@ -1,43 +1,36 @@
-.attribute {
-  &-dot {
-    background-color: transparent;
-    border-color: black;
-    margin-left: 1px !important;
-    border-radius: 50% !important;
-    padding: 8px 5px;
-    border-width: 2px;
+.dot {
+  background-color: transparent;
+  border-color: black;
+  margin-left: 1px !important;
+  border-radius: 50% !important;
+  padding: 8px 5px;
+  border-width: 2px;
+  &-disabled {
+    background-color: rgba(225, 195, 188, 0.26);
   }
+}
+
+.btn-check:active, .btn-check:checked {
+  + .dot {
+    background-color: $mainColor;
+    &-locked {
+      background-color: black;
+    }
+  }
+}
+
+.attribute {
   &-dots {
     position: relative;
     display: inline-flex;
     vertical-align: middle;
   }
-}
-
-.btn-check:active + .attribute-dot, .btn-check:checked + .attribute-dot, .attribute-dot.active, .attribute-dot.dropdown-toggle.show, .attribute-dot:active {
-  background-color: $mainColor;
 }
 
 .skill {
-  &-dot {
-    background-color: transparent;
-    border-color: black;
-    margin-left: 1px !important;
-    border-radius: 50% !important;
-    padding: 8px 5px;
-    border-width: 2px;
-  }
   &-dots {
     position: relative;
     display: inline-flex;
     vertical-align: middle;
   }
-}
-
-.btn-check:active + .skill-dot, .btn-check:checked + .skill-dot, .skill-dot.active, .skill-dot.dropdown-toggle.show, .skill-dot:active {
-  background-color: $mainColor;
-}
-
-.btn-check:active + .locked-dot, .btn-check:checked + .locked-dot {
-  background-color: black;
 }

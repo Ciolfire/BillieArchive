@@ -1,0 +1,22 @@
+<div class="row align-items-center px-2">
+  <div class="col" data-bs-toggle="collapse" data-bs-target="#meritText{{ merit.id }}" type="button" aria-expanded="false" aria-controls="meritText{{ merit.id }}">{% include "icon.html.twig" with {'type': 'merit', 'icon' : merit.category } only %}<span>{{ merit.name }}</span></div>
+  <div class="col-auto">
+    <div class="my-1" role="group" aria-label="{{ merit.id }}" data-controller="dot" data-dot-base-value="{{ 0 }}" data-dot-min-value="{{ 0 }}">
+      <input type="hidden" data-dot-target="input" data-character--creation-target="{{merit.id ~ "Merit"}}">
+      <div class="attribute-dots">
+        {% for value in 1..merit.max %}
+          {% if value % 5 == 1 %}
+            </div>
+            <div class="attribute-dots">
+          {% endif %}
+          <input type="checkbox" class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          <label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
+            data-action="click->dot#click"
+            {# data-action="click->dot#checkDots click->character--creation#attributeUpdate" #}
+            data-dot-value-param="{{ value }}">
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

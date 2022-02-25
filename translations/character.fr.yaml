@@ -13,7 +13,7 @@ physical: Physique
 social: Social
 
 attribute:
-  starting: 5/4/3 | Le cinquième point coûte double
+  creation: 5/4/3 | Le cinquième point coûte double
 
   intelligence: Intelligence
   wits: Astuce
@@ -25,6 +25,8 @@ attribute:
   manipulation: Manipulation
   composure: Calme
 skill:
+  title: Skills
+  creation: 11/7/4 | Le cinquième point coûte double
   unskilled:
     mental: "-3 si incompétent"
     physical: "-1 si incompétent"
@@ -54,3 +56,6 @@ skill:
   socialize: Entregent
   streetwise: Expérience de la rue
   subterfuge: Subterfuge
+specialty:
+  title: Specialisations
+  creation: Choisissez trois spécialités de votre choix.

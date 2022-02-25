@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merit index{% endblock %}
+
+{% block body %}
+<div class="container block py-3">
+
+    <h1>Merit index</h1>
+
+    <table class="table" style="color:white;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>IsFighting</th>
+                <th>IsExpanded</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>IsUnique</th>
+                <th>IsCreationOnly</th>
+                <th>Prerequisites</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for merit in merits %}
+            <tr>
+                <td>{{ merit.id }}</td>
+                <td>{{ merit.name }}</td>
+                <td>{{ merit.category }}</td>
+                <td>{{ merit.isFighting ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.isExpanded ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.min }}</td>
+                <td>{{ merit.max }}</td>
+                <td>{{ merit.isUnique ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.isCreationOnly ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.prerequisites ? merit.prerequisites|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('merit_show', {'id': merit.id}) }}">show</a>
+                    <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <a href="{{ path('merit_new') }}">Create new</a>
+{% endblock %}

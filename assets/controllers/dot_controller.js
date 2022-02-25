@@ -2,36 +2,38 @@ import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-  static targets = ["skill"];
+  static targets = ["dot", "input"];
   static values = {
     base: 0,
     min: 0,
-    last: 0
+    last: 0,
   }
 
   connect() {
-    this.updateDots(this.baseValue);
+    this.updateDots(this.inputTarget.value);
   }
 
-  checkDots(event) {
-    event.preventDefault()
+  click(event) {
+    event.preventDefault();
     
     let value = event.params.value;
+
     if (value == this.lastValue) {
-      this.skillTarget.checked = true;
+      this.dotTarget.checked = true;
       value = this.minValue;
     }
     this.updateDots(value);
   }
 
   updateDots(value) {
-    this.skillTargets.forEach(skill => {
-      if (skill.value <= value) {
-        skill.checked = true;
+    this.dotTargets.forEach(dot => {
+      if (dot.value <= value) {
+        dot.checked = true;
       } else {
-        skill.checked = false;
+        dot.checked = false;
       }
     });
     this.lastValue = value;
+    this.inputTarget.value = value;
   }
 }

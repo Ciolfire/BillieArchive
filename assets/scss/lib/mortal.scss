@@ -1,9 +1,11 @@
 $fonts: "../../fonts";
 
 $pageColor: rgb(37, 37, 37);
-$blockColor: #121626b8;
+$blockColor: #131828db;
 $mainColor: #3b4984;
+$labelColor: #a1a5b9;
 $textColor: #a1a5b9;
+$titleColor: #3b4984;
 $inputBackColor: #0000001f;
 $inputActiveBColor: #ffffff05;
 
@@ -11,7 +13,11 @@ $background: "images/back1.jpg";
 $mainFont: "escalidogothico";
 $h2Font: "PlasticMan";
 $h3Font: "escalidogothico";
+$textFont: "goudy";
 $subTextFont: "goudy";
+$labelFont: "escalidogothico";
+$inputFont: "escalidogothico";
+
 
 @font-face {
   font-family: 'CaslonAntique';

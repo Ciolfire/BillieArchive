@@ -1,21 +1,28 @@
 $fonts: "../../fonts";
 
 $pageColor: rgb(37, 37, 37);
-$blockColor: #151212b8;
+$blockColor: #6a6a6a82;
 $mainColor: #4d0000;
+$labelColor: #4d0000;
 $textColor: #a1a5b9;
-$inputBackColor: #00000070;
-$inputActiveBColor: #ffffff41;
+$titleColor: #4d0000;
+$inputBackColor: #2d2d2d1f;
+$inputActiveBColor: #0000001f;
 
 $background: "images/back2.jpg";
 $mainFont: "mrsEaves-bold";
 $h2Font: "Cezanne";
 $h3Font: "Cezanne";
+$textFont: "goudy";
 $subTextFont: "goudy";
+$labelFont: "Cezanne";
+$inputFont: "goudy";
+
 
 @font-face {
   font-family: 'Cezanne';
   src: url('#{$fonts}/P22 Cezanne Regular.ttf');
+  size-adjust: 125%;
 }
 
 @font-face {

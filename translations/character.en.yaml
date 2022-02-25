@@ -13,7 +13,7 @@ physical: Physical
 social: Social
 
 attribute:
-  starting: 5/4/3 | Fifth dot cost two
+  creation: 5/4/3 | Fifth dot cost two
 
   intelligence: Intelligence
   wits: Wits
@@ -24,7 +24,13 @@ attribute:
   presence: Presence
   manipulation: Manipulation
   composure: Composure
+
+merit:
+  title: Merits
+  creation: Spend 7 dots | Fifth dot cost two
 skill:
+  title: Skills
+  creation: 11/7/4 | Fifth dot cost two
   unskilled:
     mental: "-3 unskilled"
     physical: "-1 unskilled"
@@ -54,3 +60,6 @@ skill:
   socialize: Socialize
   streetwise: Streetwise
   subterfuge: Subterfuge
+specialty:
+  title: Specialties
+  creation: Take three Skill Specialties of your choice.

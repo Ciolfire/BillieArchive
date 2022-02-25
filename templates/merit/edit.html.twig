@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Merit{% endblock %}
+
+{% block body %}
+    <h1>Edit Merit</h1>
+
+    {{ include('merit/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('merit_index') }}">back to list</a>
+
+    {{ include('merit/_delete_form.html.twig') }}
+{% endblock %}
