@@ -45,6 +45,8 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      dd($request->request);
+      dd($form);
       $entityManager->persist($character);
       $entityManager->flush();
 

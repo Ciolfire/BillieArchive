@@ -45,10 +45,10 @@ h3 {
 }
 
 .ok {
-  color: green;
+  color: $mainColor;
   font-weight: bold;
 }
 
 .ko {
-  color: red;
+  color: $wrongColor;
 }

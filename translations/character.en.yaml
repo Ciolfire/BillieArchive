@@ -12,9 +12,10 @@ mental: Mental
 physical: Physical
 social: Social
 
-attribute:
-  creation: 5/4/3 | Fifth dot cost two
+dot:
+  fifth: Fifth dot cost two
 
+attribute:
   intelligence: Intelligence
   wits: Wits
   resolve: Resolve
@@ -26,11 +27,12 @@ attribute:
   composure: Composure
 
 merit:
-  title: Merits
   creation: Spend 7 dots | Fifth dot cost two
+  initial: Character creation only.
+  style: Fighting Style
+  title: Merits
 skill:
   title: Skills
-  creation: 11/7/4 | Fifth dot cost two
   unskilled:
     mental: "-3 unskilled"
     physical: "-1 unskilled"

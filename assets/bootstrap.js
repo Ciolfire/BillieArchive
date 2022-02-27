@@ -11,5 +11,11 @@ export const app = startStimulusApp(require.context(
 // app.register('some_controller_name', SomeImportedController);
 
 // Import other 'tuff
-import 'bootstrap';
+import { Tooltip } from 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all.js';
+
+// Activate tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new Tooltip(tooltipTriggerEl)
+})

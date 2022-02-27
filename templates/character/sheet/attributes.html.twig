@@ -2,7 +2,12 @@
 
 {% block attributes %}
 <h2 class="text-center">Attributes</h2>
-<p class="text-center text-sub" data-character--creation-target="creationAttr">({% trans %}attribute.creation{% endtrans %})</p>
+<p class="text-center text-sub">
+  <span data-character--creation-target="creationAttr">0</span>/5 |
+  <span data-character--creation-target="creationAttr">0</span>/4 |
+  <span data-character--creation-target="creationAttr">0</span>/3 |
+  {% trans %}dot.fifth{% endtrans %}
+</p>
 {% set max = 5 %}
 {% set min = 1 %}
 {% set base = 1 %}

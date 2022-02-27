@@ -1,35 +1,34 @@
 {% trans_default_domain 'character' %}
 
-{% block attributes %}
 <h2 class="text-center">{% trans %}merit.title{% endtrans %}</h2>
-<p class="text-center text-sub" data-character--creation-target="creationMerit">({% trans %}merit.creation{% endtrans %})</p>
+<p class="text-center text-sub"><span data-character--creation-target="creationMerit">0</span>/7 |{% trans %}dot.fifth{% endtrans %}</p>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for merit in merits %}
       <div class="col">
-        <div class="card block">
+        <div class="card card-merit block" name="{{ "merit-" ~ merit.id }}" data-unique="{{ merit.isUnique|number_format }}">
           <div class="card-header">
             {% include "character/sheet/merit/header.html.twig" with {'merit' : merit } %}
           </div>
-          <div id="meritText{{ merit.id }}" class="card-body text-center text collapse">
-            <div class="card-text">{{ merit.effect|markdown_to_html }}</div>
+          <div class="card-body text-center text py-0">
+            <div class="merit-text-{{ merit.id }} card-text show" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+              {{ merit.description }}
+            </div>
             {% if merit.isExpanded %}
-              <div class="card-text"><input class="form-control"/></div>
+              <div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
             {% endif %}
+            <div class="merit-text-{{ merit.id }} card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+              {{ merit.effect|markdown_to_html }}
+              <p class="text-end">{{ merit.book }}</p>
+            </div>
           </div>
-          <div class="card-footer text d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#meritText{{ merit.id }}" type="button" aria-expanded="false" aria-controls="meritText{{ merit.id }}">
-            <i class="fas fa-caret-down"></i>&nbsp;
-            {# TEMP #}
-            {% for type in merit.prerequisites %}
-                {% if loop.index > 1 %},{% endif %}
-              {% for prerequisite in type %}
-                {% if loop.index > 1 %},{% endif %}
-                {{ prerequisite|join(" ") }}
-              {% endfor %}
-            {% endfor %}
-            {# I WANT TO CHANGE THE ENTITY TO REFLECT THE DATA I WANT #}
+          <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+            {% include "character/sheet/merit/prerequisites.html.twig" %}
+          </div>
+          <div class="card-footer text py-0 d-flex flex-column justify-content-center" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+            <span class="merit-text-{{ merit.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+            <span class="merit-text-{{ merit.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
-{% endblock %}

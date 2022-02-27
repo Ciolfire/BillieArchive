@@ -14,48 +14,163 @@ export default class extends Controller {
     "creationSpec",
     "specialties",
     "advantage",
+    "creationMerit",
+    "merit",
+    "prerequisite",
   ];
   static values = {
   }
 
   connect() {
+    this.checkPrerequisite('race');
     this.attributeUpdate();
+    this.skillUpdate();
+    this.specialtyUpdate();
+    this.meritUpdate();
   }
 
-  attributeUpdate() {
-    let categories = [this.cost(this.mentalAttrTargets, 'attr'), this.cost(this.physicalAttrTargets, 'attr'), this.cost(this.socialAttrTargets, 'attr')].sort((a, b) => a - b);
+  attributeUpdate(event) {
+    let changed = null;
+    let categories = [this.cost(this.mentalAttrTargets, 'attr'), this.cost(this.physicalAttrTargets, 'attr'), this.cost(this.socialAttrTargets, 'attr')].sort((a, b) => b - a);
+    let goal = [5, 4, 3];
 
-    if (categories[0] == 3 && categories[1] == 4 && categories[2] == 5) {
-      this.switch(this.creationAttrTarget, "ok", "ko");
-    } else {
-      this.switch(this.creationAttrTarget, "ko", "ok");
-    }
+    categories.forEach((categorie, index) => {
+      this.creationAttrTargets[index].innerText = categorie;
+      if (categorie == goal[index]) {
+        this.switch(this.creationAttrTargets[index], "ok", "ko");
+      } else {
+        this.switch(this.creationAttrTargets[index], "ko", "ok");
+      }
+    });
     this.advantagesUpdate();
+    if (event) {
+      changed = event.target.getAttribute("for").split('-')[0];
+    }
+    this.checkPrerequisite('attribute', changed);
   }
 
-  skillUpdate() {
-    let categories = [this.cost(this.mentalSkillTargets, 'skill'), this.cost(this.physicalSkillTargets, 'skill'), this.cost(this.socialSkillTargets, 'skill')].sort((a, b) => a - b);
-    if (categories[0] == 4 && categories[1] == 7 && categories[2] == 11) {
-      this.switch(this.creationSkillTarget, "ok", "ko");
-    } else {
-      this.switch(this.creationSkillTarget, "ko", "ok");
+  skillUpdate(event) {
+    let changed = null;
+    let categories = [this.cost(this.mentalSkillTargets, 'skill'), this.cost(this.physicalSkillTargets, 'skill'), this.cost(this.socialSkillTargets, 'skill')].sort((a, b) => b - a);
+    let goal = [11, 7, 4];
+
+    categories.forEach((categorie, index) => {
+      this.creationSkillTargets[index].innerText = categorie;
+      if (categorie == goal[index]) {
+        this.switch(this.creationSkillTargets[index], "ok", "ko");
+      } else {
+        this.switch(this.creationSkillTargets[index], "ko", "ok");
+      }
+    });
+    if (event) {
+      changed = event.target.getAttribute("for").split('-')[0];
     }
+    this.checkPrerequisite('skill', changed);
   }
 
   specialtyUpdate() {
     let missing = this.specialtiesTargets.some(specialty => {
       if (specialty.value === "") {
-        console.log(specialty.value);
         this.switch(this.creationSpecTarget, "ko", "ok");
         return true;
       } else {
         return false;
       }
     });
-    console.log(missing);
+
     if (!missing) {
       this.switch(this.creationSpecTarget, "ok", "ko");
     }
+  }
+
+
+  meritUpdate(event) {
+    let changed = null;
+    let total = this.cost(this.meritTargets, 'merit');
+
+    this.creationMeritTarget.innerText = total;
+    if (total == 7) {
+      this.switch(this.creationMeritTarget, "ok", "ko");
+    } else {
+      this.switch(this.creationMeritTarget, "ko", "ok");
+    }
+    
+    if (event) {
+      changed = event.target.getAttribute("for").split('-')[0];
+    }
+    this.checkPrerequisite('merit', changed)
+  }
+
+  meritClick(event) {
+    let card = event.target.closest(".block");
+    if (false == card.dataset.unique) {
+      let merits = document.getElementsByName(card.attributes.name.value);
+      if (card.getElementsByClassName("merit-value")[0].value > 0) {
+        let needNew = true;
+        merits.forEach(merit => {
+          if (merit.getElementsByClassName("merit-value")[0].value == 0) {
+              needNew = false;
+            }
+        });
+        if (needNew) {
+          let newCard = card.parentNode.cloneNode(true);
+          let valueInput = newCard.getElementsByClassName("merit-value")[0];
+          let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
+          let id = valueInput.dataset.id;
+          let newId = `${id}-${length}`;
+          // Update all classes
+          let collapsableElements = newCard.getElementsByClassName(`merit-text-${id}`);
+          while (collapsableElements.length > 0) {
+            let element = collapsableElements[0];
+            element.classList.remove(`merit-text-${id}`);
+            element.classList.add(`merit-text-${newId}`);
+          }
+          valueInput.name = `character[merits][${newId}][level]`;
+          detailsInput.name = `character[merits][${newId}][level]`;
+          // reset the values for the new form
+          valueInput.value = 0;
+          detailsInput.value = "";
+          card.parentNode.after(newCard);
+        }
+      } else if (merits.length > 1) {
+        card.parentNode.remove();
+      }
+    }
+    
+    this.meritUpdate(event);
+  }
+
+  checkPrerequisite(type, changed=null) {
+    this.prerequisiteTargets.forEach(prerequisite => {
+      let data = prerequisite.dataset;
+      switch (type) {
+        case 'race':
+          if (document.getElementById('character_race').value == data.name) {
+            this.switch(prerequisite, "ok", "ko");
+          } else {
+            this.switch(prerequisite, "ko", "ok");
+          }
+          break;
+        case 'merit':
+          if ((changed !== null && data.name == changed) || data.type == type) {
+            if (document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
+              this.switch(prerequisite, "ok", "ko");
+            } else {
+              this.switch(prerequisite, "ko", "ok");
+            }
+          }
+          break;
+        default:
+          if ((changed !== null && data.name == changed) || data.type == type) {
+            if (this.attr(data.name) >= data.value) {
+              this.switch(prerequisite, "ok", "ko");
+            } else {
+              this.switch(prerequisite, "ko", "ok");
+            }
+          }
+          break;
+      }
+    });
   }
 
   attr(name) {

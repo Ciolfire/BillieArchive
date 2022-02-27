@@ -77,6 +77,28 @@ class MeritController extends AbstractController
             'form' => $form,
         ]);
     }
+    
+    /**
+     * @Route("/{id}/translate/{language}", name="merit_translate", methods={"GET", "POST"})
+     */
+    public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(MeritType::class, $merit);
+        $form->handleRequest($request);
+        $merit->setTranslatableLocale($language); // change locale
+        // dd($merit);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($merit);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('merit_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('merit/edit.html.twig', [
+            'merit' => $merit,
+            'form' => $form,
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="merit_delete", methods={"POST"})

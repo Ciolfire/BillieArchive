@@ -3,7 +3,7 @@
 <div class="row align-items-center px-2">
   <div class="col">{{ ("attribute." ~ attribute)|trans }}</div>
   <div class="col-auto">
-    <div class="my-1" role="group" aria-label="{{ attribute }}" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
+    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
       {{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': categorie ~ "Attr"}}) }}
       <div class="attribute-dots">
         {% for value in 1..max %}

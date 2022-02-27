@@ -1,0 +1,21 @@
+{% for type, prerequisites in merit.prerequisites %}
+  {# {% if not loop.first %}|{% endif %} #}
+  {% for prerequisite in prerequisites %}
+    {# {% if not loop.first %},{% endif %} #}
+    {% if prerequisite[0] == 'con' %}
+      {{ prerequisite[1] }}
+    {% else %}
+      <span data-character--creation-target="prerequisite" data-type="{{ type }}" data-name="{{ prerequisite[0] }}" data-value="{{ prerequisite[1] }}">
+        {% if type == 'merit' %}
+          {% for merit in merits %}
+            {% if merit.id == prerequisite[0] %}
+              {{ merit.name ~ " " ~ prerequisite[1]}}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {{ prerequisite[0] ~ " " ~ prerequisite[1]}}
+        {% endif %}
+      </span>
+    {% endif %}
+  {% endfor %}
+{% endfor %}

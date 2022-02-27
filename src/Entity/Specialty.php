@@ -26,7 +26,7 @@ class Specialty
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialities")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $personnage;
+    private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Skill::class)
@@ -51,14 +51,14 @@ class Specialty
         return $this;
     }
 
-    public function getPersonnage(): ?Character
+    public function getCharacter(): ?Character
     {
-        return $this->personnage;
+        return $this->character;
     }
 
-    public function setPersonnage(?Character $personnage): self
+    public function setCharacter(?Character $character): self
     {
-        $this->personnage = $personnage;
+        $this->character = $character;
 
         return $this;
     }

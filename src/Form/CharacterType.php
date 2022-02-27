@@ -26,6 +26,7 @@ class CharacterType extends AbstractType
       ->add('chronicle')
       ->add('faction')
       ->add('groupName')
+      ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('intelligence', HiddenType::class)
       ->add('wits', HiddenType::class)
       ->add('resolve', HiddenType::class)
@@ -61,8 +62,7 @@ class CharacterType extends AbstractType
       ->add('subterfuge', HiddenType::class, ['mapped' => false])
       ->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
       ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
-      ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false])
-      ->add('merits');
+      ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
@@ -70,6 +70,7 @@ class CharacterType extends AbstractType
     $resolver->setDefaults([
       'data_class' => Character::class,
       'translation_domain' => 'character',
+      "allow_extra_fields" => true,
     ]);
   }
 }

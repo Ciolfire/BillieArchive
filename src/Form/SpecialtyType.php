@@ -19,7 +19,7 @@ class SpecialtyType extends AbstractType
           'data-action' => 'character--creation#specialtyUpdate'
         ]
       ])
-      ->add('personnage', HiddenType::class)
+      ->add('character', HiddenType::class)
       ->add('skill', null, ["choice_translation_domain" => 'character']);
   }
 

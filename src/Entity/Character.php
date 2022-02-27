@@ -116,7 +116,7 @@ class Character
     private $merits = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="personnage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true)
      */
     private $specialities;
 
