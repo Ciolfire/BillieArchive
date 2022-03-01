@@ -52,3 +52,8 @@ h3 {
 .ko {
   color: $wrongColor;
 }
+
+.btn.btn-primary {
+  background-color: $blockColor;
+  border-color: $borderColor;
+}
