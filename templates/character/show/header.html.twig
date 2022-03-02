@@ -1,0 +1,45 @@
+{% trans_default_domain 'character' %}
+
+{% block header %}
+<div class="row">
+  <div class="col-12 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ character.name }}
+      </div>
+      <div class="col-12">
+        {{ character.age }}
+      </div>
+      <div class="col-12">
+        {{ character.player }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ character.concept }}
+      </div>
+      <div class="col-12">
+        {{ character.virtue }}
+      </div>
+      <div class="col-12">
+        {{ character.vice }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {{ character.chronicle }}
+      </div>
+      <div class="col-12">
+        {{ character.faction }}
+      </div>
+      <div class="col-12">
+        {{ character.groupName }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

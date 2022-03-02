@@ -1,14 +1,14 @@
 <div class="row align-items-center px-2">
   <div class="col" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button" aria-expanded="false" aria-controls="meritText{{ merit.id }}">
-    {% include "icon.html.twig" with {'type': 'merit', 'icon' : merit.category } only %}
+    {% include "icon.html.twig" with {'icon' : merit.category } only %}
     <span class="merit-name">{{ merit.name }}</span>
   </div>
   <div class="col-auto">
     <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ 0 }}" data-dot-min-value="{{ 0 }}">
-      <input class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-dot-target="input" data-character--creation-target="{{ "merit" }}">
+      <input class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--creation-target="{{ "merit" }}">
       <div class="attribute-dots">
-        {% if merit.isFighting %}<span data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans from "character" %}merit.style{% endtrans %}"><i class="fa-solid fa-hand-fist"></i>{% endif %}
-        {% if merit.isCreationOnly %}<span data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans from "character" %}merit.initial{% endtrans %}"><i class="fa-solid fa-key"></i></span>{% endif %}
+        {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+        {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
         {% for value in 1..merit.max %}
           {% if value % 5 == 1 %}
             </div>

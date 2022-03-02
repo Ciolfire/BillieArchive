@@ -34,9 +34,9 @@ export default class extends Controller {
     let categories = [this.cost(this.mentalAttrTargets, 'attr'), this.cost(this.physicalAttrTargets, 'attr'), this.cost(this.socialAttrTargets, 'attr')].sort((a, b) => b - a);
     let goal = [5, 4, 3];
 
-    categories.forEach((categorie, index) => {
-      this.creationAttrTargets[index].innerText = categorie;
-      if (categorie == goal[index]) {
+    categories.forEach((category, index) => {
+      this.creationAttrTargets[index].innerText = category;
+      if (category == goal[index]) {
         this.switch(this.creationAttrTargets[index], "ok", "ko");
       } else {
         this.switch(this.creationAttrTargets[index], "ko", "ok");
@@ -103,8 +103,10 @@ export default class extends Controller {
 
   meritClick(event) {
     let card = event.target.closest(".block");
+    let merits = document.getElementsByName(card.attributes.name.value);
+
     if (false == card.dataset.unique) {
-      let merits = document.getElementsByName(card.attributes.name.value);
+      
       if (card.getElementsByClassName("merit-value")[0].value > 0) {
         let needNew = true;
         merits.forEach(merit => {
@@ -113,31 +115,35 @@ export default class extends Controller {
             }
         });
         if (needNew) {
-          let newCard = card.parentNode.cloneNode(true);
-          let valueInput = newCard.getElementsByClassName("merit-value")[0];
-          let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
-          let id = valueInput.dataset.id;
-          let newId = `${id}-${length}`;
-          // Update all classes
-          let collapsableElements = newCard.getElementsByClassName(`merit-text-${id}`);
-          while (collapsableElements.length > 0) {
-            let element = collapsableElements[0];
-            element.classList.remove(`merit-text-${id}`);
-            element.classList.add(`merit-text-${newId}`);
-          }
-          valueInput.name = `character[merits][${newId}][level]`;
-          detailsInput.name = `character[merits][${newId}][level]`;
-          // reset the values for the new form
-          valueInput.value = 0;
-          detailsInput.value = "";
-          card.parentNode.after(newCard);
+          this.meritGeneration(card, merits.length);
         }
       } else if (merits.length > 1) {
         card.parentNode.remove();
       }
     }
-    
     this.meritUpdate(event);
+  }
+
+  meritGeneration(card, length) {
+    
+    let newCard = card.parentNode.cloneNode(true);
+    let valueInput = newCard.getElementsByClassName("merit-value")[0];
+    let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
+    let id = valueInput.dataset.id;
+    let newId = `${id}-${length}`;
+    // Update all classes
+    let collapsableElements = newCard.getElementsByClassName(`merit-text-${id}`);
+    while (collapsableElements.length > 0) {
+      let element = collapsableElements[0];
+      element.classList.remove(`merit-text-${id}`);
+      element.classList.add(`merit-text-${newId}`);
+    }
+    valueInput.name = `character[merits][${newId}][level]`;
+    detailsInput.name = `character[merits][${newId}][level]`;
+    // reset the values for the new form
+    valueInput.value = 0;
+    detailsInput.value = "";
+    card.parentNode.after(newCard);
   }
 
   checkPrerequisite(type, changed=null) {
@@ -229,5 +235,20 @@ export default class extends Controller {
       }
     });
     healthElem.innerText = health;
+  }
+
+  meritFilter(event) {
+    let category = event.params.category;
+
+    this.meritTargets.forEach(merit => {
+      let card = merit.closest('.card').parentElement;
+      if (merit.dataset.category == category || category == "") {
+        if (card.classList.contains('d-none')) {
+          card.classList.remove('d-none')
+        }
+      } else {
+        card.classList.add('d-none')
+      }
+    });
   }
 }

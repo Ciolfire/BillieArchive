@@ -1,58 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character{% endblock %}
+{% block title %}Character
+{% endblock %}
 
 {% block body %}
-    <h1>Character</h1>
+  {{ include('character/show/sheet.html.twig') }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ character.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ character.name }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ character.age }}</td>
-            </tr>
-            <tr>
-                <th>Player</th>
-                <td>{{ character.player }}</td>
-            </tr>
-            <tr>
-                <th>Virtue</th>
-                <td>{{ character.virtue }}</td>
-            </tr>
-            <tr>
-                <th>Vice</th>
-                <td>{{ character.vice }}</td>
-            </tr>
-            <tr>
-                <th>Concept</th>
-                <td>{{ character.concept }}</td>
-            </tr>
-            <tr>
-                <th>Chronicle</th>
-                <td>{{ character.chronicle }}</td>
-            </tr>
-            <tr>
-                <th>Faction</th>
-                <td>{{ character.faction }}</td>
-            </tr>
-            <tr>
-                <th>GroupName</th>
-                <td>{{ character.groupName }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('character_index') }}">back to list</a>
+  <a href="{{ path('character_index') }}">back to list</a>
 
-    <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>
+  <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>
 
-    {{ include('character/_delete_form.html.twig') }}
+  {{ include('character/_delete_form.html.twig') }}
 {% endblock %}

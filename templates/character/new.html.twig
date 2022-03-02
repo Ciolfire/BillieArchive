@@ -13,7 +13,7 @@
   <h1>Create new Character</h1>
   {{ form_start(form, {'attr': {'data-controller': 'character--creation'}}) }}
     <a href="{{ path('character_index') }}">back to list</a>
-    {{ include('character/sheet.html.twig') }}
+    {{ include('character/edit/sheet.html.twig') }}
   {{ form_end(form) }}
 {% endblock %}
 

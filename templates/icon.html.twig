@@ -1,13 +1,83 @@
-<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{icon|trans}}">
-{% if type is not defined or type == 'merit' %}
-  {% if icon == 'mental' %}
+{% trans_default_domain 'icon' %}
+
+<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}">
+  {% if icon == 'hide' %}
+    <i class="fa-solid fa-eye-slash"></i>
+  {% elseif icon == 'power' %}
+    <i class="fa-solid fa-fire-alt fa-fw"></i>
+  {% elseif icon == 'finesse' %}
+    <i class="fa-solid fa-feather fa-fw"></i>
+  {% elseif icon == 'resistance' %}
+    <i class="fa-solid fa-shield fa-fw"></i>
+  {% elseif icon == 'mental' %}
     <i class="fas fa-brain"></i>
   {% elseif icon == 'physical' %}
     <i class="fas fa-running"></i>
   {% elseif icon == 'social' %}
-    <i class="fas fa-glass-cheers"></i>
+    <i class="fa-solid fa-comments"></i>
+{# Merits #}
+  {% elseif icon == 'creation' %}
+    <i class="fa-solid fa-key"></i>
+  {% elseif icon == 'style' %}
+    <i class="fa-solid fa-hand-fist"></i>
+  {% elseif icon == 'all' %}
+    <i class="fa-solid fa-earth-europe"></i>
+{# Skills #}
+  {# mental #}
+  {% elseif icon == 'academics' %}
+    <i class="fa-solid fa-book fa-fw"></i>
+  {% elseif icon == 'computer' %}
+    <i class="fa-solid fa-desktop fa-fw"></i>
+  {% elseif icon == 'crafts' %}
+    <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
+  {% elseif icon == 'investigation' %}
+    <i class="fa-solid fa-magnifying-glass fa-fw"></i>
+  {% elseif icon == 'medecine' %}
+    <i class="fa-solid fa-kit-medical fa-fw"></i>
+  {% elseif icon == 'occult' %}
+    <i style='padding-right: 3px;font-weight:bold;'>⛧</i>
+  {% elseif icon == 'politics' %}
+    <i class="fa-solid fa-landmark fa-fw"></i>
+  {% elseif icon == 'science' %}
+    <i class="fa-solid fa-flask fa-fw"></i>
+  {# physical #}
+  {% elseif icon == 'athletics' %}
+    <i class="fa-solid fa-person-running fa-fw"></i>
+  {% elseif icon == 'brawl' %}
+    <i class="fa-regular fa-hand-back-fist fa-fw"></i>
+  {% elseif icon == 'drive' %}
+    <i class="fa-solid fa-car-crash fa-fw"></i>
+  {% elseif icon == 'firearms' %}
+    <i class="fa-solid fa-gun fa-fw"></i>
+  {% elseif icon == 'larceny' %}
+    <i class="fa-solid fa-vault fa-fw"></i>
+  {% elseif icon == 'stealth' %}
+    <i class="fa-solid fa-user-secret fa-fw"></i>
+  {% elseif icon == 'survival' %}
+    <i class="fa-solid fa-compass fa-fw"></i>
+  {% elseif icon == 'weaponry' %}
+    <i class="fa-solid fa-hammer fa-fw"></i>
+    {# <i style='padding-right: 3px;'>🗡</i> #}
+  {# social #}
+  {% elseif icon == 'animal_ken' %}
+    <i class="fa-solid fa-crow fa-fw"></i>
+  {% elseif icon == 'empathy' %}
+    <i class="fa-solid fa-heart-pulse fa-fw"></i>
+  {% elseif icon == 'expression' %}
+    <i class="fa-solid fa-guitar fa-fw"></i>
+  {% elseif icon == 'intimidation' %}
+    <i class="fa-solid fa-face-angry fa-fw"></i>
+    {# <i class="fa-solid fa-head-side-cough fa-fw"></i> #}
+  {% elseif icon == 'persuasion' %}
+    <i class="fa-solid fa-handshake fa-fw"></i>
+  {% elseif icon == 'socialize' %}
+    <i class="fa-solid fa-champagne-glasses fa-fw"></i>
+  {% elseif icon == 'streetwise' %}
+    <i class="fa-solid fa-city fa-fw"></i>
+  {% elseif icon == 'subterfuge' %}
+    <i class="fa-solid fa-masks-theater fa-fw"></i>
+{# Not found #}
+  {% else %}
+    {{ icon }}
   {% endif %}
-{% else %}
-  {{ icon }}
-{% endif %}
 </span>

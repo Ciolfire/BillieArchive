@@ -1,0 +1,7 @@
+all: All
+creation: Character creation only.
+hide: Hide
+mental: Mental
+physical: Physical
+social: Social
+style: Fighting Style

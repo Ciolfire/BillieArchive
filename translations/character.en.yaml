@@ -28,8 +28,6 @@ attribute:
 
 merit:
   creation: Spend 7 dots | Fifth dot cost two
-  initial: Character creation only.
-  style: Fighting Style
   title: Merits
 skill:
   title: Skills

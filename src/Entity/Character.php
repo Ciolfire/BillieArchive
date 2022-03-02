@@ -36,16 +36,6 @@ class Character
     private $player;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     */
-    private $virtue;
-
-    /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     */
-    private $vice;
-
-    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $concept;
@@ -116,9 +106,24 @@ class Character
     private $merits = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
      */
     private $specialities;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $willpower;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Virtue::class)
+     */
+    private $virtue;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Vice::class)
+     */
+    private $vice;
 
     public function __construct()
     {
@@ -133,6 +138,7 @@ class Character
         $this->presence = 1;
         $this->manipulation = 1;
         $this->composure = 1;
+        $this->willpower = $this->composure + $this->resolve;
         $this->specialities = new ArrayCollection();
     }
 
@@ -173,30 +179,6 @@ class Character
     public function setPlayer(string $player): self
     {
         $this->player = $player;
-
-        return $this;
-    }
-
-    public function getVirtue(): ?string
-    {
-        return $this->virtue;
-    }
-
-    public function setVirtue(string $virtue): self
-    {
-        $this->virtue = $virtue;
-
-        return $this;
-    }
-
-    public function getVice(): ?string
-    {
-        return $this->vice;
-    }
-
-    public function setVice(string $vice): self
-    {
-        $this->vice = $vice;
 
         return $this;
     }
@@ -381,7 +363,6 @@ class Character
     {
         if (!$this->specialities->contains($specialty)) {
             $this->specialities[] = $specialty;
-            $specialty->setPersonnage($this);
         }
 
         return $this;
@@ -390,11 +371,43 @@ class Character
     public function removeSpecialty(Specialty $specialty): self
     {
         if ($this->specialities->removeElement($specialty)) {
-            // set the owning side to null (unless already changed)
-            if ($specialty->getPersonnage() === $this) {
-                $specialty->setPersonnage(null);
-            }
         }
+
+        return $this;
+    }
+
+    public function getWillpower(): ?int
+    {
+        return $this->willpower;
+    }
+
+    public function setWillpower(int $willpower): self
+    {
+        $this->willpower = $willpower;
+
+        return $this;
+    }
+
+    public function getVirtue(): ?Virtue
+    {
+        return $this->virtue;
+    }
+
+    public function setVirtue(?Virtue $virtue): self
+    {
+        $this->virtue = $virtue;
+
+        return $this;
+    }
+
+    public function getVice(): ?Vice
+    {
+        return $this->vice;
+    }
+
+    public function setVice(?Vice $vice): self
+    {
+        $this->vice = $vice;
 
         return $this;
     }

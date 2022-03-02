@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Character;
 use App\Entity\Merit;
+use App\Entity\Specialty;
 use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
+use App\Service\CreationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharacterController extends AbstractController
 {
   private $doctrine;
+  private $create;
 
-  public function __construct(ManagerRegistry $doctrine) {
+  public function __construct(ManagerRegistry $doctrine, CreationService $create) {
     $this->doctrine = $doctrine;
+    $this->create = $create;
   }
 
   /**
@@ -45,8 +49,10 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      dd($request->request);
-      dd($form);
+      $character->setMerits($this->create->getMerits($form->getExtraData()['merits']));
+      $this->create->getSpecialties($character, $form);
+      $this->create->getWillpower($character);
+      
       $entityManager->persist($character);
       $entityManager->flush();
 

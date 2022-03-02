@@ -1,34 +1,18 @@
 {% trans_default_domain 'character' %}
 
 <h2 class="text-center">{% trans %}merit.title{% endtrans %}</h2>
-<p class="text-center text-sub"><span data-character--creation-target="creationMerit">0</span>/7 |{% trans %}dot.fifth{% endtrans %}</p>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="position-relative row">
+  <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">{% include "icon.html.twig" with {'icon' : 'hide' } only %}</div>
+  <p class="text-center text-sub"><span data-character--creation-target="creationMerit">0</span>/7 |{% trans %}dot.fifth{% endtrans %}</p>
+  <p class="merit-filters mb-1 ms-5">
+    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="">{% include "icon.html.twig" with {'icon' : 'all' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="mental">{% include "icon.html.twig" with {'icon' : 'mental' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="physical">{% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="social">{% include "icon.html.twig" with {'icon' : 'social' } only %}</span>
+  </p>
+  <div id="meritsWrapper" class="row row-cols-1 row-cols-md-3 mt-0 g-4 collapse show">
     {% for merit in merits %}
-      <div class="col">
-        <div class="card card-merit block" name="{{ "merit-" ~ merit.id }}" data-unique="{{ merit.isUnique|number_format }}">
-          <div class="card-header">
-            {% include "character/sheet/merit/header.html.twig" with {'merit' : merit } %}
-          </div>
-          <div class="card-body text-center text py-0">
-            <div class="merit-text-{{ merit.id }} card-text show" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
-              {{ merit.description }}
-            </div>
-            {% if merit.isExpanded %}
-              <div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
-            {% endif %}
-            <div class="merit-text-{{ merit.id }} card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
-              {{ merit.effect|markdown_to_html }}
-              <p class="text-end">{{ merit.book }}</p>
-            </div>
-          </div>
-          <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
-            {% include "character/sheet/merit/prerequisites.html.twig" %}
-          </div>
-          <div class="card-footer text py-0 d-flex flex-column justify-content-center" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
-            <span class="merit-text-{{ merit.id }} text-center show"><i class="fas fa-caret-down"></i></span>
-            <span class="merit-text-{{ merit.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
-          </div>
-        </div>
-      </div>
+      {% include "character/sheet/merit/card.html.twig" %}
     {% endfor %}
   </div>
+</div>
