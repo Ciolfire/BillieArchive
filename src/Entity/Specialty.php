@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SpecialtyRepository::class)
+ * @ORM\Table(name="characters_specialty")
  */
 class Specialty
 {
@@ -23,7 +24,7 @@ class Specialty
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialities")
+     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $character;

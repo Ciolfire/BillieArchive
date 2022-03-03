@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Character;
+use App\Entity\CharacterSkills;
 use App\Entity\Specialty;
 
 use App\Form\SpecialtyType;
@@ -36,30 +37,7 @@ class CharacterType extends AbstractType
       ->add('presence', HiddenType::class)
       ->add('manipulation', HiddenType::class)
       ->add('composure', HiddenType::class)
-      ->add('academics', HiddenType::class, ['mapped' => false])
-      ->add('computer', HiddenType::class, ['mapped' => false])
-      ->add('crafts', HiddenType::class, ['mapped' => false])
-      ->add('investigation', HiddenType::class, ['mapped' => false])
-      ->add('medecine', HiddenType::class, ['mapped' => false])
-      ->add('occult', HiddenType::class, ['mapped' => false])
-      ->add('politics', HiddenType::class, ['mapped' => false])
-      ->add('science', HiddenType::class, ['mapped' => false])
-      ->add('athletics', HiddenType::class, ['mapped' => false])
-      ->add('brawl', HiddenType::class, ['mapped' => false])
-      ->add('drive', HiddenType::class, ['mapped' => false])
-      ->add('firearms', HiddenType::class, ['mapped' => false])
-      ->add('larceny', HiddenType::class, ['mapped' => false])
-      ->add('stealth', HiddenType::class, ['mapped' => false])
-      ->add('survival', HiddenType::class, ['mapped' => false])
-      ->add('weaponry', HiddenType::class, ['mapped' => false])
-      ->add('animal_ken', HiddenType::class, ['mapped' => false])
-      ->add('empathy', HiddenType::class, ['mapped' => false])
-      ->add('expression', HiddenType::class, ['mapped' => false])
-      ->add('intimidation', HiddenType::class, ['mapped' => false])
-      ->add('persuasion', HiddenType::class, ['mapped' => false])
-      ->add('socialize', HiddenType::class, ['mapped' => false])
-      ->add('streetwise', HiddenType::class, ['mapped' => false])
-      ->add('subterfuge', HiddenType::class, ['mapped' => false])
+      ->add('skills', CharacterSkillsType::class)
       ->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
       ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
       ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false]);

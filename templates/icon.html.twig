@@ -1,6 +1,10 @@
 {% trans_default_domain 'icon' %}
 
-<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}">
+{% if hasTips|default(true) == true %}
+  <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}">
+{% else %}
+  <span>
+{% endif %}
   {% if icon == 'hide' %}
     <i class="fa-solid fa-eye-slash"></i>
   {% elseif icon == 'power' %}
@@ -59,7 +63,7 @@
     <i class="fa-solid fa-hammer fa-fw"></i>
     {# <i style='padding-right: 3px;'>🗡</i> #}
   {# social #}
-  {% elseif icon == 'animal_ken' %}
+  {% elseif icon == 'animalKen' %}
     <i class="fa-solid fa-crow fa-fw"></i>
   {% elseif icon == 'empathy' %}
     <i class="fa-solid fa-heart-pulse fa-fw"></i>
@@ -76,6 +80,8 @@
     <i class="fa-solid fa-city fa-fw"></i>
   {% elseif icon == 'subterfuge' %}
     <i class="fa-solid fa-masks-theater fa-fw"></i>
+  {% elseif icon == 'specialties' %}
+  <i class="fa-solid fa-sm fa-star fa-fw"></i>
 {# Not found #}
   {% else %}
     {{ icon }}

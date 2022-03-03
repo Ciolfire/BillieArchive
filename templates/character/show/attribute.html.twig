@@ -13,7 +13,7 @@
             </div>
             <div class="attribute-dots">
           {% endif %}
-          <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot" {% if value <= base %}checked{% endif %} disabled>
+          <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
           <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute ~ '-' ~ value }}">
           </label>
         {% endfor %}

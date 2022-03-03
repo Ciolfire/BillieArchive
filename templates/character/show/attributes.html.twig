@@ -27,7 +27,7 @@
       <div class="block attribute-block">
         <h3 class="text-center pt-1">{{ category|trans }}</h3>
         {% for type, attribute in attributes %}
-          {% include "character/show/attribute.html.twig" with {'type': type, 'attribute': attribute, 'base': attribute(character, attribute), 'max': max, 'min': min } %}
+          {% include "character/show/attribute.html.twig" with { 'base': attribute(character, attribute) } %}
         {% endfor %}
       </div>
     </div>

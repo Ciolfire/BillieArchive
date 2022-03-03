@@ -1,25 +1,35 @@
 {% trans_default_domain 'character' %}
+{% set specialties = attribute(character, 'skillSpecialties', [skill]) %}
 
 <div class="row align-items-center px-2">
   <div class="col">
-    {% include "icon.html.twig" with {'icon' : skill } only %}
-    {{ ("skill." ~ skill)|trans }}
+    {% include "icon.html.twig" with {'icon': skill, 'hasTips': 0 } only %}
+    <span class="user-select-none">{{ ("skill." ~ skill)|trans }}</span>
   </div>
   <div class="col-auto">
-    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
+    <div class="my-1" role="group">
+    {% if specialties|length > 0 %}
+      <span role="button" data-bs-toggle="collapse" data-bs-target="#{{ skill ~ "specialties" }}">
+        {% include "icon.html.twig" with {'icon': 'specialties' } only %}
+      </span>
+    {% endif %}
       <div class="skill-dots">
         {% for value in 1..max %}
           {% if value > 1 and value % 5 == 1 %}
           </div>
             <div class="skill-dots">
           {% endif %}
-          <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-          <label class="btn dot" for="{{ skill ~ '-' ~ value }}" 
-            data-action="click->dot#click click->character--creation#skillUpdate"
-            data-dot-value-param="{{ value }}">
-          </label>
+          <input type="checkbox" class="btn-check" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
+          <label class="btn dot" for="{{ skill ~ '-' ~ value }}"></label>
         {% endfor %}
       </div>
     </div>
+  </div>
+</div>
+<div id="{{ skill ~ "specialties" }}" class="row align-items-center px-2 collapse">
+  <div class="col">
+    {% for specialty in specialties %}
+      {{ specialty.name }}
+    {% endfor %}
   </div>
 </div>

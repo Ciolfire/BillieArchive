@@ -5,3 +5,33 @@ mental: Mental
 physical: Physical
 social: Social
 style: Fighting Style
+power: Power
+finesse: Finesse
+resistance: Resistance
+
+academics: Academics
+computer: Computer
+crafts: Crafts
+investigation: Investigation
+medecine: Medecine
+occult: Occult
+politics: Politics
+science: Science
+athletics: Athletics
+brawl: Brawl
+drive: Drive
+firearms: Firearms
+larceny: Larceny
+stealth: Stealth
+survival: Survival
+weaponry: Weaponry
+animalKen: Animal Ken
+empathy: Empathy
+expression: Expression
+intimidation: Intimidation
+persuasion: Persuasion
+socialize: Socialize
+streetwise: Streetwise
+subterfuge: Subterfuge
+
+specialties: Show skill specialties

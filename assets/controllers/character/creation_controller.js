@@ -166,6 +166,15 @@ export default class extends Controller {
             }
           }
           break;
+        case 'skill':
+          if ((changed !== null && data.name == changed) || data.type == type) {
+            if (this.attr("skills_" + data.name) >= data.value) {
+              this.switch(prerequisite, "ok", "ko");
+            } else {
+              this.switch(prerequisite, "ko", "ok");
+            }
+          }
+          break;
         default:
           if ((changed !== null && data.name == changed) || data.type == type) {
             if (this.attr(data.name) >= data.value) {
@@ -180,7 +189,12 @@ export default class extends Controller {
   }
 
   attr(name) {
-    return +document.getElementById(`character_${name}`).value;
+    let attr = document.getElementById(`character_${name}`);
+    if (attr) {
+      return +attr.value;
+    } else {
+      console.log("attribute not found: " + name);
+    }
   }
 
   cost(targets, type) {
