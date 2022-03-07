@@ -16,7 +16,7 @@
           {% endif %}
           <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
           <label class="btn dot" for="{{ skill ~ '-' ~ value }}" 
-            data-action="click->dot#click click->character--creation#skillUpdate"
+            data-action="click->dot#activate click->character--creation#skillUpdate"
             data-dot-value-param="{{ value }}">
           </label>
         {% endfor %}

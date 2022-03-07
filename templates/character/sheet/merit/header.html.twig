@@ -16,7 +16,7 @@
           {% endif %}
           <input type="checkbox" class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
           <label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
-            data-action="click->dot#click click->character--creation#meritClick"
+            data-action="click->dot#activate click->character--creation#meritClick"
             data-dot-value-param="{{ value }}">
           </label>
         {% endfor %}

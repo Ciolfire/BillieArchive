@@ -1,0 +1,25 @@
+{% trans_default_domain 'character' %}
+
+<div class="d-inline-block text-center">
+  <div>
+    <span role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ (trait ~ '.' ~ current )|trans }}">
+      <input type="checkbox" class="btn-check" id="{{ trait ~ '-' ~ current }}" value="{{ current }}" autocomplete="off" {% if current <= max %}checked{% endif %} disabled>
+      <label class="btn dot" for="{{ trait ~ '-' ~ current }}"></label>
+    </span>
+  </div>
+  <div>
+    <svg class="trait-box{% if current > max %} disabled{% endif %}" viewBox="0 0 100 100" role="button" data-controller="trait" data-trait-target="input" data-trait-id-value="{{ character.id }}" data-trait-type-value="{{ trait }}" data-trait-current-value="{{ value }}" data-action="click->trait#switch" class="text-center">
+      <line class="trait-fill d-none on" x1="10" y1="90" x2="90" y2="10"/>
+      <line class="trait-fill d-none on" x1="10" y1="10" x2="90" y2="90"/>
+      {# <rect x="5" y="5" class="trait-fill d-none on" width="90" height="90"/> #}
+    </svg>
+  </div>
+  <div class="malus-box">
+    {% if current > floor and current <= max %}
+      &nbsp;
+      {# {{ max - current - 3 }} #}
+    {% else %}
+      &nbsp;
+    {% endif %}
+  </div>
+</div>

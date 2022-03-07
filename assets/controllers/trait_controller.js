@@ -6,26 +6,29 @@ export default class extends Controller {
   static values = {
     current: 0,
     id: 0,
+    type: 'null',
   }
 
   connect() {
     this.update();
   }
 
-  take() {
-    this.currentValue = this.currentValue + 1;
+  switch() {
+    if (this.currentValue == 1) {
+      this.currentValue = 0;
+    } else {
+      this.currentValue = 1;
+    }
     this.update();
-    this.save('take');
+    this.save();
   }
 
-  heal(event) {
-    event.preventDefault();
-
-    this.currentValue = this.currentValue - 1;
-    this.update();
-    this.save('heal');
-
-    return false;
+  update() {
+    if (this.currentValue == 1) {
+      this.show("none");
+    } else {
+      this.show("on");
+    }
   }
 
   show(type) {
@@ -38,31 +41,19 @@ export default class extends Controller {
     }
   }
 
-  update() {
-    if (this.currentValue == 1) {
-      this.show("bashing");
-    } else if (this.currentValue == 2) {
-      this.show("lethal");
-    } else if (this.currentValue == 3) {
-      this.show("aggravated");
-    } else {
-      this.currentValue = 0;
-      this.show("none");
-    }
-  }
-
-  save(action) {
+  save() {
     let xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
+        console.log(xhttp.responseText);
       }
     };
-    xhttp.open("POST", `/character/${this.idValue}/wounds/update`, true);
+    xhttp.open("POST", `/character/${this.idValue}/trait/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
-    let data = JSON.stringify({'value': this.currentValue, 'action': action});
+    let data = JSON.stringify({'value': this.currentValue, 'trait': this.typeValue});
     xhttp.send(data);
   }
 }

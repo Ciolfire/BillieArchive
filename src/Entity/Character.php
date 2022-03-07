@@ -101,11 +101,6 @@ class Character
   private $composure = 1;
 
   /**
-   * @ORM\Column(type="json", nullable=true)
-   */
-  private $merits = [];
-
-  /**
    * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
    */
   private $specialties;
@@ -143,13 +138,33 @@ class Character
   /**
    * @ORM\Column(type="smallint")
    */
-  private $health;
+  private $size = 5;
+
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  private $currentWillpower;
+
+  /**
+   * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true)
+   */
+  private $merits;
+
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  private $xpTotal = 0;
+
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  private $xpUsed = 0;
 
   public function __construct()
   {
     $this->willpower = $this->composure + $this->resolve;
-    $this->health = /*size */ 5;
     $this->specialities = new ArrayCollection();
+    $this->merits = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -349,18 +364,6 @@ class Character
     return $this;
   }
 
-  public function getMerits(): ?array
-  {
-    return $this->merits;
-  }
-
-  public function setMerits(?array $merits): self
-  {
-    $this->merits = $merits;
-
-    return $this;
-  }
-
   /**
    * @return Collection|Specialty[]
    */
@@ -462,26 +465,119 @@ class Character
     return $this;
   }
 
-  public function getWounds(): ?array
+  public function getWounds(): array
   {
-      return $this->wounds;
+    if (!$this->wounds) {
+      $this->wounds = ['B' => 0, 'L' => 0, 'A' => 0];
+    }
+
+    return $this->wounds;
   }
 
-  public function setWounds(?array $wounds): self
+  public function setWounds(array $wounds): self
   {
-      $this->wounds = $wounds;
+    $this->wounds = $wounds;
 
-      return $this;
+    return $this;
+  }
+
+  public function getSize(): ?int
+  {
+    return $this->size;
+  }
+
+  public function setSize(int $size): self
+  {
+    $this->size = $size;
+
+    return $this;
   }
 
   public function getHealth(): ?int
   {
-      return $this->health;
+    return $this->size + $this->stamina;
   }
 
-  public function setHealth(int $health): self
+  public function getCurrentWillpower(): ?int
   {
-      $this->health = $health;
+    return $this->currentWillpower;
+  }
+
+  public function getSpeed(): ?int
+  {
+    return $this->strength + $this->dexterity + 5;
+  }
+
+  public function setCurrentWillpower(int $currentWillpower): self
+  {
+    $this->currentWillpower = $currentWillpower;
+
+    return $this;
+  }
+
+  public function getInitiative(): int
+  {
+    $bonus = 0;
+
+    return $this->dexterity + $this->composure + $bonus;
+  }
+
+  public function getDefense(): int
+  {
+
+    return min($this->dexterity, $this->wits);
+  }
+
+  /**
+   * @return Collection|CharacterMerit[]
+   */
+  public function getMerits(): Collection
+  {
+      return $this->merits;
+  }
+
+  public function addMerit(CharacterMerit $merit): self
+  {
+      if (!$this->merits->contains($merit)) {
+          $this->merits[] = $merit;
+          $merit->setCharacter($this);
+      }
+
+      return $this;
+  }
+
+  public function removeMerit(CharacterMerit $merit): self
+  {
+      if ($this->merits->removeElement($merit)) {
+          // set the owning side to null (unless already changed)
+          if ($merit->getCharacter() === $this) {
+              $merit->setCharacter(null);
+          }
+      }
+
+      return $this;
+  }
+
+  public function getXpTotal(): ?int
+  {
+      return $this->xpTotal;
+  }
+
+  public function setXpTotal(int $xpTotal): self
+  {
+      $this->xpTotal = $xpTotal;
+
+      return $this;
+  }
+
+  public function getXpUsed(): ?int
+  {
+      return $this->xpUsed;
+  }
+
+  public function setXpUsed(int $xpUsed): self
+  {
+      $this->xpUsed = $xpUsed;
 
       return $this;
   }

@@ -13,7 +13,7 @@ export default class extends Controller {
     this.updateDots(this.inputTarget.value);
   }
 
-  click(event) {
+  activate(event) {
     event.preventDefault();
     
     let value = event.params.value;

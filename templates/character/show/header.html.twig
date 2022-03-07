@@ -1,43 +1,44 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
+<h1 class="text-center text">{{ character.name }}</h1>
 <div class="row">
   <div class="col-12 col-sm">
     <div class="row">
       <div class="col-12">
-        {{ character.name }}
+        {# {{ character.name }} #}
       </div>
       <div class="col-12">
-        {{ character.age }}
+        {% trans %}Age{% endtrans %}: {{ character.age }}
       </div>
       <div class="col-12">
-        {{ character.player }}
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm">
-    <div class="row">
-      <div class="col-12">
-        {{ character.concept }}
-      </div>
-      <div class="col-12">
-        {{ character.virtue }}
-      </div>
-      <div class="col-12">
-        {{ character.vice }}
+        {% trans %}Player{% endtrans %}: {{ character.player }}
       </div>
     </div>
   </div>
   <div class="col-6 col-sm">
     <div class="row">
       <div class="col-12">
-        {{ character.chronicle }}
+        {% trans %}Concept{% endtrans %}: {{ character.concept }}
       </div>
       <div class="col-12">
-        {{ character.faction }}
+        {% trans %}Virtue{% endtrans %}: {{ character.virtue }}
       </div>
       <div class="col-12">
-        {{ character.groupName }}
+        {% trans %}Vice{% endtrans %}: {{ character.vice }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-sm">
+    <div class="row">
+      <div class="col-12">
+        {% trans %}Chronicle{% endtrans %}: {{ character.chronicle }}
+      </div>
+      <div class="col-12">
+        {% trans %}Faction{% endtrans %}: {{ character.faction }}
+      </div>
+      <div class="col-12">
+        {% trans %}Group name{% endtrans %}: {{ character.groupName }}
       </div>
     </div>
   </div>

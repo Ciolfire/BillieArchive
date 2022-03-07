@@ -16,6 +16,11 @@ body {
   font-family: $mainFont;
 }
 
+h1 {
+  color: $titleColor;
+  text-shadow: 2px 2px #00000063;
+}
+
 h2 {
   font-size: 1.3rem;
   font-family: $h2Font;
@@ -56,4 +61,24 @@ h3 {
 .btn.btn-primary {
   background-color: $blockColor;
   border-color: $borderColor;
+}
+
+.nav-tabs {
+  border-color: $borderColor;
+  .nav-link {
+    background-color: $tabColor;
+    color: $subtextColor;
+    border-color: $borderColor;
+    border-width: 0 0 1px 0;
+    border-radius: 0%;
+    &.active, &:focus, &:hover {
+      color: $textColor;
+      background-color: $main50pColor;
+      border-color: $borderColor;
+      border-color: transparent;
+    }
+    .active {
+      color: $mainColor;
+    }
+  }
 }

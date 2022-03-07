@@ -7,13 +7,16 @@ use App\Entity\Merit;
 use App\Entity\Specialty;
 use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
+use App\Service\CharacterService;
 use App\Service\CreationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 /**
  * @Route("/character")
@@ -107,5 +110,40 @@ class CharacterController extends AbstractController
     }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+
+  /**
+   * @Route("/{character}/wounds/update", name="character_wounds_update", methods={"POST"})
+   * @param Character $character
+   */
+  public function updateWounds(Request $request, Character $character, CharacterService $characterService)
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      if ($data->action == "take") {
+        $characterService->takeWound($character, $data->value);
+      } else {
+        $characterService->healWound($character, $data->value);
+      }
+      return new JsonResponse($data);
+    } else {
+      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
+  }
+
+  /**
+   * @Route("/{character}/trait/update", name="character_trait_update", methods={"POST"})
+   * @param Character $character
+   */
+  public function updateTrait(Request $request, Character $character, CharacterService $characterService)
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $characterService->updateTrait($character, $data);
+      return new JsonResponse($character->getCurrentWillpower());
+    } else {
+      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
   }
 }

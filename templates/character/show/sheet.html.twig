@@ -1,7 +1,30 @@
 <div class="container block py-3 mt-5">
   {{ include('character/show/header.html.twig') }}
-  {{ include('character/show/attributes.html.twig') }}
-  {{ include('character/show/skills.html.twig') }}
-  {# {{ include('character/sheet/advantages.html.twig') }} #}
-  {# {{ include('character/sheet/merits.html.twig') }} #}
+  <div data-controller="tabs" data-tabs-initial-value="general">
+    <ul class="nav nav-tabs row g-0 my-3">
+      <li class="nav-item col">
+        <a id="generalTab" class="nav-link" href="#" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="general">General</a>
+      </li>
+      <li class="nav-item col">
+        <a id="meritsTab" class="nav-link" href="#" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="merits">Merits</a>
+      </li>
+    </ul>
+    <div id="general" data-tabs-target="page">
+      {{ include('character/show/attributes.html.twig') }}
+      {{ include('character/show/skills.html.twig') }}
+      <div class="row">
+        <div class="col">
+          {{ include('character/show/health.html.twig') }}
+        </div>
+        <div class="col">
+          {{ include('character/show/willpower.html.twig') }}
+        </div>
+      </div>
+      {{ include('character/show/advantages.html.twig') }}
+      {# {{ include('character/sheet/merits.html.twig') }} #}
+    </div>
+    <div id="merits" data-tabs-target="page">
+      MeritsPage
+    </div>
+  </div>
 </div>

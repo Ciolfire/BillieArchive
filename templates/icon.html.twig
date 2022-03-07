@@ -8,7 +8,8 @@
   {% if icon == 'hide' %}
     <i class="fa-solid fa-eye-slash"></i>
   {% elseif icon == 'power' %}
-    <i class="fa-solid fa-fire-alt fa-fw"></i>
+    <i class="fa-solid fa-meteor fa-fw"></i>
+    {# <i class="fa-solid fa-fire-alt fa-fw"></i> #}
   {% elseif icon == 'finesse' %}
     <i class="fa-solid fa-feather fa-fw"></i>
   {% elseif icon == 'resistance' %}
@@ -19,6 +20,10 @@
     <i class="fas fa-running"></i>
   {% elseif icon == 'social' %}
     <i class="fa-solid fa-comments"></i>
+  {% elseif icon == 'health' %}
+    <i class="fa-solid fa-heart fa-fw"></i>
+  {% elseif icon == 'willpower' %}
+    <i class="fa-solid fa-hand-fist fa-fw"></i>
 {# Merits #}
   {% elseif icon == 'creation' %}
     <i class="fa-solid fa-key"></i>
@@ -64,7 +69,8 @@
     {# <i style='padding-right: 3px;'>🗡</i> #}
   {# social #}
   {% elseif icon == 'animalKen' %}
-    <i class="fa-solid fa-crow fa-fw"></i>
+    <i class="fa-solid fa-paw fa-fw"></i>
+    {# <i class="fa-solid fa-crow fa-fw"></i> #}
   {% elseif icon == 'empathy' %}
     <i class="fa-solid fa-heart-pulse fa-fw"></i>
   {% elseif icon == 'expression' %}
@@ -81,7 +87,21 @@
   {% elseif icon == 'subterfuge' %}
     <i class="fa-solid fa-masks-theater fa-fw"></i>
   {% elseif icon == 'specialties' %}
-  <i class="fa-solid fa-sm fa-star fa-fw"></i>
+  {# <i class="fa-solid fa-2xs fa-certificate fa-fw"></i> #}
+  {# <i class="fa-solid fa-2xs fa-graduation-cap fa-fw"></i> #}
+  <i class="fa-solid fa-2xs fa-star fa-fw"></i>
+  {# advantages #}
+  {% elseif icon == 'speed' %}
+    <i class="fa-solid fa-person-running"></i>
+  {% elseif icon == 'size' %}
+    <i class="fa-solid fa-arrows-up-down"></i>
+  {% elseif icon == 'initiative' %}
+    {# <i class="fa-solid fa-star-shooting"></i> #}
+    <i class="fa-solid fa-angles-right"></i>
+  {% elseif icon == 'defense' %}
+    <i class="fa-solid fa-wind"></i>
+  {% elseif icon == 'armor' %}
+    <i class="fa-solid fa-shield"></i>
 {# Not found #}
   {% else %}
     {{ icon }}
