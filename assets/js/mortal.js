@@ -10,3 +10,4 @@ import '../scss/mortal.scss';
 
 // start the Stimulus application
 import '../bootstrap';
+import './wrabbit';
