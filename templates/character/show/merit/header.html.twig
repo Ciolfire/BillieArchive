@@ -7,11 +7,14 @@
   </div>
   <div class="col-auto">
     <div class="my-1" role="group">
-      {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
-      {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+        {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+        {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
       <div class="dots">
         {% for value in 1..merit.max %}
-          <input type="checkbox" class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          {% if value % 5 == 1 %}
+            <span class="ms-1"></span>
+          {% endif %}
+          <input type="checkbox" class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot" {% if value <= chMerit.level %}checked{% endif %} disabled>
           <label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
             data-action="click->dot#activate click->character--creation#meritClick"
             data-dot-value-param="{{ value }}">

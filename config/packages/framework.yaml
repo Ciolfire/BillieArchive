@@ -16,7 +16,10 @@ framework:
     #fragments: true
     php_errors:
         log: true
-
+    assets:
+        packages:
+            characters:
+                base_path: '/images/characters/'
 when@test:
     framework:
         test: true

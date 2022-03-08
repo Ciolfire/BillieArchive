@@ -10,102 +10,102 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CharacterMerit
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+  /**
+   * @ORM\Id
+   * @ORM\GeneratedValue
+   * @ORM\Column(type="integer")
+   */
+  private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Merit::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $merit;
+  /**
+   * @ORM\ManyToOne(targetEntity=Merit::class)
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $merit;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $choice;
+  /**
+   * @ORM\Column(type="string", length=255, nullable=true)
+   */
+  private $choice;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $details = [];
+  /**
+   * @ORM\Column(type="json", nullable=true)
+   */
+  private $details = [];
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $level;
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  private $level;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $character;
+  /**
+   * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $character;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function getMerit(): ?Merit
-    {
-        return $this->merit;
-    }
+  public function getMerit(): ?Merit
+  {
+    return $this->merit;
+  }
 
-    public function setMerit(?Merit $merit): self
-    {
-        $this->merit = $merit;
+  public function setMerit(?Merit $merit): self
+  {
+    $this->merit = $merit;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getChoice(): ?string
-    {
-        return $this->choice;
-    }
+  public function getChoice(): ?string
+  {
+    return $this->choice;
+  }
 
-    public function setChoice(?string $choice): self
-    {
-        $this->choice = $choice;
+  public function setChoice(?string $choice): self
+  {
+    $this->choice = $choice;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getDetails(): ?array
-    {
-        return $this->details;
-    }
+  public function getDetails(): ?array
+  {
+    return $this->details;
+  }
 
-    public function setDetails(?array $details): self
-    {
-        $this->details = $details;
+  public function setDetails(?array $details): self
+  {
+    $this->details = $details;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
+  public function getLevel(): ?int
+  {
+    return $this->level;
+  }
 
-    public function setLevel(int $level): self
-    {
-        $this->level = $level;
+  public function setLevel(int $level): self
+  {
+    $this->level = $level;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCharacter(): ?Character
-    {
-        return $this->character;
-    }
+  public function getCharacter(): ?Character
+  {
+    return $this->character;
+  }
 
-    public function setCharacter(?Character $character): self
-    {
-        $this->character = $character;
+  public function setCharacter(?Character $character): self
+  {
+    $this->character = $character;
 
-        return $this;
-    }
+    return $this;
+  }
 }

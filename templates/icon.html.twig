@@ -7,6 +7,10 @@
 {% endif %}
   {% if icon == 'hide' %}
     <i class="fa-solid fa-eye-slash"></i>
+  {% elseif icon == 'general' %}
+    <i class="fa-solid fa-id-card"></i>
+  {% elseif icon == 'notes' %}
+    <i class="fa-solid fa-pen-fancy"></i>
   {% elseif icon == 'power' %}
     <i class="fa-solid fa-meteor fa-fw"></i>
     {# <i class="fa-solid fa-fire-alt fa-fw"></i> #}
@@ -25,6 +29,8 @@
   {% elseif icon == 'willpower' %}
     <i class="fa-solid fa-hand-fist fa-fw"></i>
 {# Merits #}
+  {% elseif icon == 'merits' %}
+    <i class="fa-solid fa-certificate"></i>
   {% elseif icon == 'creation' %}
     <i class="fa-solid fa-key"></i>
   {% elseif icon == 'style' %}
@@ -102,6 +108,7 @@
     <i class="fa-solid fa-wind"></i>
   {% elseif icon == 'armor' %}
     <i class="fa-solid fa-shield"></i>
+{# merit #}
 {# Not found #}
   {% else %}
     {{ icon }}

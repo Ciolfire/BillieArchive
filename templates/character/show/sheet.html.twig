@@ -1,13 +1,13 @@
+
+{% trans_default_domain 'character' %}
+
 <div class="container block py-3 mt-5">
   {{ include('character/show/header.html.twig') }}
   <div data-controller="tabs" data-tabs-initial-value="general">
     <ul class="nav nav-tabs row g-0 my-3">
-      <li class="nav-item col">
-        <a id="generalTab" class="nav-link" href="#" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="general">General</a>
-      </li>
-      <li class="nav-item col">
-        <a id="meritsTab" class="nav-link" href="#" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="merits">Merits</a>
-      </li>
+      {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
+      {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+      {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
     </ul>
     <div id="general" data-tabs-target="page">
       {{ include('character/show/attributes.html.twig') }}
@@ -21,10 +21,9 @@
         </div>
       </div>
       {{ include('character/show/advantages.html.twig') }}
-      {# {{ include('character/sheet/merits.html.twig') }} #}
     </div>
     <div id="merits" data-tabs-target="page">
-      MeritsPage
+      {{ include('character/show/merits.html.twig') }}
     </div>
   </div>
 </div>

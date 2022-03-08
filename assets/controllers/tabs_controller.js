@@ -8,9 +8,12 @@ export default class extends Controller {
   };
 
   connect() {
-    console.log(this.initialValue);
-    this.selectPage(this.initialValue);
-    this.selectTab(`${this.initialValue}Tab`);
+    let hash = this.initialValue;
+    if (window.location.hash) {
+      hash = window.location.hash.substring(1);
+    }
+    this.selectPage(hash);
+    this.selectTab(`${hash}Tab`);
   }
 
   show(event) {

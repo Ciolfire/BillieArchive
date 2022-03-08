@@ -1,0 +1,28 @@
+{% trans_default_domain 'character' %}
+
+<div class="col">
+  <div class="card card-merit block" name="{{ "merit-" ~ merit.id }}">
+    <div class="card-header">
+      {% include "character/show/merit/header.html.twig" with {'merit' : merit } %}
+    </div>
+    <div class="card-body text-center text py-0">
+      {% if merit.isExpanded %}
+        <h3>{{ chMerit.choice }}</h3>
+      {% endif %}
+      <div class="merit-text-{{ merit.id }} card-text show" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+        {{ merit.description }}
+      </div>
+      <div class="merit-text-{{ merit.id }} card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+        {{ merit.effect|markdown_to_html }}
+        <p class="text-end">{{ merit.book }}</p>
+      </div>
+    </div>
+    <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+      {% include "character/sheet/merit/prerequisites.html.twig" %}
+    </div>
+    <div class="card-footer text py-0 d-flex flex-column justify-content-center" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
+      <span class="merit-text-{{ merit.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+      <span class="merit-text-{{ merit.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+    </div>
+  </div>
+</div>

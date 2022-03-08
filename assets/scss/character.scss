@@ -1,3 +1,45 @@
+%full-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.character {
+  &-avatar {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    background-color: rgba(#000, .1);
+    color: $mainColor;
+    box-shadow: inset 0 0 0 1px rgba($mainColor, .5);
+    &::before,
+    &::after {
+      @extend %full-fill;
+      content: '';
+      z-index: 10;
+      margin: -1 * .05 * 100%;
+      box-shadow: inset 0 0 0 2px;
+      animation: clipMe 8s linear infinite;
+    }
+  
+    &::before {
+      animation-delay: 8s * -.5;
+    }
+  }
+}
+
+$clip-size: 100px * (1 + .05 * 2);
+$path-width: 2px;
+
+@keyframes clipMe {
+  0%, 100% {clip: rect(0px, $clip-size, $path-width, 0px); }
+  25% {clip: rect(0px, $path-width, $clip-size, 0px); }
+  50% {clip: rect($clip-size - $path-width, $clip-size, $clip-size, 0px); }
+  75% {clip: rect(0px, $clip-size, $clip-size, $clip-size - $path-width); }
+}
+
 .dot {
   background-color: transparent;
   border-color: black;
@@ -20,20 +62,10 @@
   }
 }
 
-.attribute {
-  &-dots {
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-  }
-}
-
-.skill {
-  &-dots {
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-  }
+.dots {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
 }
 
 // .card-merit {
