@@ -4,12 +4,15 @@
 <div class="container block py-3 mt-5">
   {{ include('character/show/header.html.twig') }}
   <div data-controller="tabs" data-tabs-initial-value="general">
-    <ul class="nav nav-tabs row g-0 my-3">
+    <ul class="nav nav-tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+      {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %}
+      {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
     </ul>
     <div id="general" data-tabs-target="page">
+      {{ include('character/show/advantages.html.twig') }}
       {{ include('character/show/attributes.html.twig') }}
       {{ include('character/show/skills.html.twig') }}
       <div class="row">
@@ -20,7 +23,6 @@
           {{ include('character/show/willpower.html.twig') }}
         </div>
       </div>
-      {{ include('character/show/advantages.html.twig') }}
     </div>
     <div id="merits" data-tabs-target="page">
       {{ include('character/show/merits.html.twig') }}

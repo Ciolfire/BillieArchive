@@ -2,13 +2,11 @@
 
 <div class="row">
   <div class="col-12 text-center">
-    <div class="block">
-      <div class="col-12 text-center">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-          {% for chMerit in character.merits %}
-            {% include "character/show/merit/card.html.twig" with {'merit': chMerit.merit} %}
-          {% endfor %}
-        </div>
+    <div class="col-12 text-center">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        {% for chMerit in character.merits %}
+          {% include "character/show/merit/card.html.twig" with {'merit': chMerit.merit} %}
+        {% endfor %}
       </div>
     </div>
   </div>

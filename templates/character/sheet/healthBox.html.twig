@@ -6,7 +6,7 @@
     <label class="btn dot" for="{{ 'health-' ~ current }}"></label>
   </div>
   <div>
-    <svg class="health-box {% if current > health %}disabled{% endif %}" viewBox="0 0 100 100" role="button" data-controller="damage" data-damage-target="input" data-damage-id-value="{{ character.id }}" data-damage-current-value="{{ value }}" data-action="click->damage#take contextmenu->damage#heal" class="text-center">
+    <svg class="health-box {% if current > health %}disabled{% endif %}" viewBox="0 0 100 100" role="button" data-controller="character--damage" data-character--damage-target="input" data-character--damage-id-value="{{ character.id }}" data-character--damage-current-value="{{ value }}" data-action="click->character--damage#take contextmenu->character--damage#heal" class="text-center">
       <line class="health-fill d-none bashing lethal aggravated" x1="10" y1="90" x2="90" y2="10"/>
       <line class="health-fill d-none lethal aggravated" x1="10" y1="10" x2="90" y2="90"/>
       <path class="health-fill d-none aggravated" d="M5 50 H95 H50 V5 V95 V50"/>

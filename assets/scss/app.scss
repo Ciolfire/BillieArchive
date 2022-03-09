@@ -39,6 +39,9 @@ h3 {
   background-color: $blockColor;
   box-shadow: $mainColor 0px 0px 7px 3px;
   margin-bottom: 1rem !important;
+  &-solid {
+    background-color: $solidBlockColor;
+  }
 }
 
 .text-sub {

@@ -1,8 +1,8 @@
 {% trans_default_domain domain %}
 
-<li class="nav-item col">
-  <a id="{{ name }}Tab" class="nav-link" href="#{{ name }}" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">
+<li class="nav-item col text-center">
+  <a id="{{ name }}Tab" class="nav-link h-100" href="#{{ name }}" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">    
     {% include "icon.html.twig" with {'icon': name, 'hasTips': 0} only %}
-    {{ name|trans }}
+    <span class="d-none d-md-inline">{{ name|trans }}</span>
   </a>
 </li>

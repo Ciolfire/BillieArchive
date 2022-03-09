@@ -93,3 +93,6 @@ skill:
 specialty:
   title: Specialties
   creation: Take three Skill Specialties of your choice.
+
+xp:
+  add: Input how many points to award the character

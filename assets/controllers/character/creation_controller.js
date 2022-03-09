@@ -26,7 +26,7 @@ export default class extends Controller {
     this.attributeUpdate();
     this.skillUpdate();
     this.specialtyUpdate();
-    this.meritUpdate();
+    this.meritUpdate(null);
   }
 
   attributeUpdate(event) {
@@ -83,24 +83,6 @@ export default class extends Controller {
     }
   }
 
-
-  meritUpdate(event) {
-    let changed = null;
-    let total = this.cost(this.meritTargets, 'merit');
-
-    this.creationMeritTarget.innerText = total;
-    if (total == 7) {
-      this.switch(this.creationMeritTarget, "ok", "ko");
-    } else {
-      this.switch(this.creationMeritTarget, "ko", "ok");
-    }
-    
-    if (event) {
-      changed = event.target.getAttribute("for").split('-')[0];
-    }
-    this.checkPrerequisite('merit', changed)
-  }
-
   meritClick(event) {
     let card = event.target.closest(".block");
     let merits = document.getElementsByName(card.attributes.name.value);
@@ -122,6 +104,23 @@ export default class extends Controller {
       }
     }
     this.meritUpdate(event);
+  }
+
+  meritUpdate(event) {
+    let changed = null;
+    let total = this.cost(this.meritTargets, 'merit');
+
+    this.creationMeritTarget.innerText = total;
+    if (total == 7) {
+      this.switch(this.creationMeritTarget, "ok", "ko");
+    } else {
+      this.switch(this.creationMeritTarget, "ko", "ok");
+    }
+    
+    if (event) {
+      changed = event.target.getAttribute("for").split('-')[0];
+    }
+    this.checkPrerequisite('merit', changed)
   }
 
   meritGeneration(card, length) {
@@ -158,7 +157,7 @@ export default class extends Controller {
           }
           break;
         case 'merit':
-          if ((changed !== null && data.name == changed) || data.type == type) {
+          if ((changed != null && data.name == changed) || data.type == type) {
             if (document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {

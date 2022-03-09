@@ -8,11 +8,11 @@
   <div class="col-auto">
     <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
       {{ form_row(attribute(form.skills, skill), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--creation-target': category ~ "Skill"}}) }}
-      <div class="skill-dots">
+      <div class="dots">
         {% for value in 1..max %}
           {% if value > 1 and value % 5 == 1 %}
           </div>
-            <div class="skill-dots">
+            <div class="dots">
           {% endif %}
           <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
           <label class="btn dot" for="{{ skill ~ '-' ~ value }}" 

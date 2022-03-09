@@ -8,6 +8,28 @@
   <div class="col">{% include "icon.html.twig" with {'icon': 'initiative'} only %}initiative: <span id="initiative">{{ character.initiative }}</span></div>
   <div class="col">{% include "icon.html.twig" with {'icon': 'defense'} only %}defense: <span id="defense">{{ character.defense }}</span></div>
   <div class="col">{% include "icon.html.twig" with {'icon': 'armor'} only %}armor: <span id="armor">0</span></div>
+  <div class="col fw-bold" data-controller="character--experience">
+    {% include "icon.html.twig" with {'icon': 'xp'} only %}
+    <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
+    <span role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content block-solid">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{'xp.add'|trans }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input class="form-control" type="number" step="1" min="1" data-character--experience-target="input"/>
+          </div>
+          <div class="modal-footer">
+            {# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> #}
+            <button type="button" class="btn btn-primary" data-action="click->character--experience#earn">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   {# <div class="col">{% include "icon.html.twig" with {'icon': 'morality'} only %}morality: <span id="morality">7</span></div> #}
 </div>
 {% endblock %}

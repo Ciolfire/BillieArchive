@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 // Easter Rabbit
 let rabbit = document.querySelector('#rabbit');
 let maxLeft = window.innerWidth/2;
-let increment = getRandomInt(0, maxLeft/100);
+let increment = getRandomInt(1, maxLeft/100);
 let idleInDelay = getRandomInt(3, 120);
 let moveDelay = idleInDelay + 4;
 let idleOutDelay = moveDelay + (2.4 * increment);

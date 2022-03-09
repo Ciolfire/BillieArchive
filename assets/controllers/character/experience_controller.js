@@ -1,0 +1,26 @@
+import { Controller } from '@hotwired/stimulus';
+
+/* stimulusFetch: 'lazy' */
+export default class extends Controller {
+  static targets = ["input"];
+  static values = {
+    current: 0,
+    id: 0,
+  }
+
+  save() {
+    let xhttp = new XMLHttpRequest();
+    
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == XMLHttpRequest.DONE) {
+        //ok
+        console.log(xhttp.responseText);
+      }
+    };
+    xhttp.open("POST", `/character/${this.idValue}/trait/update`, true);
+    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({'value': this.currentValue, 'trait': this.typeValue});
+    xhttp.send(data);
+  }
+}

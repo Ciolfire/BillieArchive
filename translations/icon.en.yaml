@@ -1,3 +1,4 @@
+add: Add
 all: All
 creation: Character creation only.
 hide: Hide
@@ -35,3 +36,5 @@ streetwise: Streetwise
 subterfuge: Subterfuge
 
 specialties: Show skill specialties
+
+xp: Experience Points
