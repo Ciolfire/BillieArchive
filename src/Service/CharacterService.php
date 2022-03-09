@@ -87,4 +87,16 @@ class CharacterService
     }
   }
 
+  public function updateExperience(Character $character, $data)
+  {
+    if ($data->method == "add") {
+      $total = $character->getXpTotal();
+      $new = $total + $data->value;
+      $character->setXpTotal($new);
+      $this->em->flush();
+
+      return $new;
+    }
+  }
+
 }

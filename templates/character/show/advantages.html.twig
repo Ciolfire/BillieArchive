@@ -8,7 +8,7 @@
   <div class="col">{% include "icon.html.twig" with {'icon': 'initiative'} only %}initiative: <span id="initiative">{{ character.initiative }}</span></div>
   <div class="col">{% include "icon.html.twig" with {'icon': 'defense'} only %}defense: <span id="defense">{{ character.defense }}</span></div>
   <div class="col">{% include "icon.html.twig" with {'icon': 'armor'} only %}armor: <span id="armor">0</span></div>
-  <div class="col fw-bold" data-controller="character--experience">
+  <div class="col fw-bold" data-controller="character--experience" data-character--experience-id-value="{{ character.id }}">
     {% include "icon.html.twig" with {'icon': 'xp'} only %}
     <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
     <span role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
@@ -24,7 +24,9 @@
           </div>
           <div class="modal-footer">
             {# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> #}
-            <button type="button" class="btn btn-primary" data-action="click->character--experience#earn">Save changes</button>
+            <button type="button" class="btn btn-primary" data-action="click->character--experience#update" data-character--experience-method-param="add">
+              {{ 'xp.save'|trans }}
+            </button>
           </div>
         </div>
       </div>

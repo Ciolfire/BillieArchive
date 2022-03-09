@@ -141,7 +141,22 @@ class CharacterController extends AbstractController
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       $characterService->updateTrait($character, $data);
-      return new JsonResponse($character->getCurrentWillpower());
+      return new JsonResponse('ok');
+    } else {
+      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
+  }
+
+  /**
+   * @Route("/{character}/experience/update", name="character_trait_update", methods={"POST"})
+   * @param Character $character
+   */
+  public function updateExperience(Request $request, Character $character, CharacterService $characterService)
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $characterService->updateExperience($character, $data);
+      return new JsonResponse(['used' => $character->getXpUsed(), 'total' => $character->getXpTotal()]);
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }

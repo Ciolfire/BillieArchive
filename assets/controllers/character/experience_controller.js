@@ -2,25 +2,27 @@ import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-  static targets = ["input"];
+  static targets = ["input", "total", "used"];
   static values = {
-    current: 0,
     id: 0,
   }
 
-  save() {
+  update(event) {
     let xhttp = new XMLHttpRequest();
-    
+    var target = this.totalTarget;
+
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        console.log(xhttp.responseText);
+        target.innerText = JSON.parse(xhttp.responseText).total;
       }
     };
-    xhttp.open("POST", `/character/${this.idValue}/trait/update`, true);
+    xhttp.open("POST", `/character/${this.idValue}/experience/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
-    let data = JSON.stringify({'value': this.currentValue, 'trait': this.typeValue});
+    console.log(JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method }));
+
+    let data = JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method });
     xhttp.send(data);
   }
 }
