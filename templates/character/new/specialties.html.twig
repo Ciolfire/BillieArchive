@@ -1,0 +1,21 @@
+{% trans_default_domain 'character' %}
+
+<h2 class="text-center mt-3">{% trans %}specialty.title{% endtrans %}</h2>
+<p class="text-center text-sub" data-character--creation-target="creationSpec">({% trans %}specialty.creation{% endtrans %})</p>
+<div class="row">
+  <div class="col-4">
+    <div class="block p-1">
+      {{ form_row(form.specialty1) }}
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="block p-1">
+      {{ form_row(form.specialty2) }}
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="block p-1">
+      {{ form_row(form.specialty3) }}
+    </div>
+  </div>
+</div>

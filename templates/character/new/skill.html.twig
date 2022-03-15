@@ -1,0 +1,26 @@
+{% trans_default_domain 'character' %}
+
+<div class="row align-items-center px-2">
+  <div class="col">
+    {% include "icon.html.twig" with {'icon' : skill, 'hasTips': 0 } only %}
+    {{ ("skill." ~ skill)|trans }}
+  </div>
+  <div class="col-auto">
+    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
+      {{ form_row(attribute(form.skills, skill), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--creation-target': category ~ "Skill"}}) }}
+      <div class="dots">
+        {% for value in 1..max %}
+          {% if value > 1 and value % 5 == 1 %}
+          </div>
+            <div class="dots">
+          {% endif %}
+          <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ skill ~ '-' ~ value }}" 
+            data-action="click->dot#activate click->character--creation#skillUpdate"
+            data-dot-value-param="{{ value }}">
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

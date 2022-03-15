@@ -18,8 +18,11 @@ export default class extends Controller {
     
     let value = event.params.value;
 
+    if (value < this.minValue) {
+      return;
+    }
+
     if (value == this.lastValue) {
-      this.dotTarget.checked = true;
       value = this.minValue;
     }
     this.updateDots(value);

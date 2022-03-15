@@ -138,7 +138,7 @@ export default class extends Controller {
       element.classList.add(`merit-text-${newId}`);
     }
     valueInput.name = `character[merits][${newId}][level]`;
-    detailsInput.name = `character[merits][${newId}][level]`;
+    detailsInput.name = `character[merits][${newId}][details]`;
     // reset the values for the new form
     valueInput.value = 0;
     detailsInput.value = "";

@@ -3,15 +3,16 @@
 namespace App\Service;
 
 use App\Entity\Character;
+use App\Entity\Merit;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CharacterService
 {
-  private $em;
+  private $doctrine;
 
   public function __construct(EntityManagerInterface $entityManager)
   {
-    $this->em = $entityManager;
+    $this->doctrine = $entityManager;
   }
 
   public function takeWound(Character $character, int $value)
@@ -40,7 +41,7 @@ class CharacterService
         break;
     }
     $character->setWounds($wounds);
-    $this->em->flush();
+    $this->doctrine->flush();
   }
 
   public function healWound(Character $character, int $value)
@@ -66,7 +67,7 @@ class CharacterService
         break;
     }
     $character->setWounds($wounds);
-    $this->em->flush();
+    $this->doctrine->flush();
   }
 
   public function updateTrait(Character $character, $data)
@@ -75,10 +76,10 @@ class CharacterService
       case 'willpower':
         if ($data->value == 1) {
           $character->setCurrentWillpower(min($character->getWillpower(), $character->getCurrentWillpower() + 1));
-          $this->em->flush();
+          $this->doctrine->flush();
         } else if ($data->value == 0) {
           $character->setCurrentWillpower(max(0, $character->getCurrentWillpower() - 1));
-          $this->em->flush();
+          $this->doctrine->flush();
         }
         break;
       default:
@@ -93,10 +94,28 @@ class CharacterService
       $total = $character->getXpTotal();
       $new = $total + $data->value;
       $character->setXpTotal($new);
-      $this->em->flush();
+      $this->doctrine->flush();
 
       return $new;
     }
+  }
+
+  public function filterMerits(Character $character)
+  {
+    $merits = $this->doctrine->getRepository(Merit::class)->findAll();
+
+    foreach ($merits as $key => $merit) {
+      /** @var Merit $merit */
+      if ($merit->getIsUnique() && $character->hasMerit($merit->getId())) {
+        // Character already has this merit, we remove it from the list
+        unset($merits[$key]);
+      } else if ($merit->getIsCreationOnly()) {
+        // Level 1 merit
+        unset($merits[$key]);
+      }
+      // else if not right race
+    }
+    return $merits;
   }
 
 }

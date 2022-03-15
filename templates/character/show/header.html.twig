@@ -27,7 +27,7 @@
         {% trans %}Vice{% endtrans %}: {{ character.vice }}
       </div>
       <div class="col-12">
-        <div class="btn btn-sm btn-primary position-relative">Evolution</div>
+        <a href="{{ path('character_edit', {'id': character.id}) }}" class="btn btn-sm btn-primary position-relative">Evolution</a>
       </div>
     </div>
   </div>

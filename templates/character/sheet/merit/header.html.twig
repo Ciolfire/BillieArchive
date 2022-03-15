@@ -9,7 +9,7 @@
     <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ 0 }}" data-dot-min-value="{{ 0 }}">
       {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
       {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
-        <input class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-dot-target="input" data-character--creation-target="{{ "merit" }}">
+        <input class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--creation-target="{{ "merit" }}">
         <div class="dots">
         {% for value in 1..merit.max %}
           <input type="checkbox" class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">

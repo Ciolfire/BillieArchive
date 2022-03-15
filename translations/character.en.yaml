@@ -96,3 +96,5 @@ specialty:
 
 xp:
   add: Input how many points to award the character
+  details.none: Nothing to change
+  save: Confirm

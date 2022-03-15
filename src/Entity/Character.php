@@ -163,7 +163,8 @@ class Character
   public function __construct()
   {
     $this->willpower = $this->composure + $this->resolve;
-    $this->specialities = new ArrayCollection();
+    $this->currentWillpower = $this->willpower;
+    $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
   }
 
@@ -556,6 +557,19 @@ class Character
       }
 
       return $this;
+  }
+
+  public function hasMerit(int $id): bool
+  {
+    foreach ($this->merits as $merit) {
+      /** @var CharacterMerit $merit */
+      if ($merit->getMerit()->getId() == $id) {
+
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public function getXpTotal(): ?int

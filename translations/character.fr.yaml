@@ -59,3 +59,7 @@ skill:
 specialty:
   title: Specialisations
   creation: Choisissez trois spécialités de votre choix.
+
+xp:
+  add: Choisissez le nombre de points d'experience à attribuer au personnage.
+  save: Valider

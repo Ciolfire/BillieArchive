@@ -37,18 +37,21 @@ class CharacterType extends AbstractType
       ->add('presence', HiddenType::class)
       ->add('manipulation', HiddenType::class)
       ->add('composure', HiddenType::class)
-      ->add('skills', CharacterSkillsType::class)
-      ->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
-      ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
-      ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false]);
+      ->add('skills', CharacterSkillsType::class);
+      if (!$options['is_edit']) {
+        $builder->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
+        ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
+        ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false]);
+      }
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      'data_class' => Character::class,
-      'translation_domain' => 'character',
+      "data_class" => Character::class,
+      "translation_domain" => 'character',
       "allow_extra_fields" => true,
+      "is_edit" => false,
     ]);
   }
 }

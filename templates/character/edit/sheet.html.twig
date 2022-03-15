@@ -1,10 +1,12 @@
-<div class="container block py-3">
-  {{ include('character/edit/header.html.twig') }}
-  {{ include('character/edit/attributes.html.twig') }}
-  {{ include('character/edit/skills.html.twig') }}
-  {{ include('character/sheet/advantages.html.twig') }}
-  {{ include('character/sheet/merits.html.twig') }}
-  <div class="d-grid gap-2">
-    <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'data-controller': 'character--edit', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
+  <div class="container block py-3">
+    {{ include('character/edit/header.html.twig') }}
+    {{ include('character/edit/attributes.html.twig') }}
+    {{ include('character/edit/skills.html.twig') }}
+    {{ include('character/edit/calculator.html.twig') }}
+    {{ include('character/sheet/merits.html.twig') }}
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+    </div>
   </div>
-</div>
+{{ form_end(form) }}

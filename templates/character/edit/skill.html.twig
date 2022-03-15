@@ -6,8 +6,8 @@
     {{ ("skill." ~ skill)|trans }}
   </div>
   <div class="col-auto">
-    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
-      {{ form_row(attribute(form.skills, skill), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--creation-target': category ~ "Skill"}}) }}
+    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="skill" data-name="{{ ("skill." ~ skill)|trans }}">
+      {{ form_row(attribute(form.skills, skill), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
       <div class="dots">
         {% for value in 1..max %}
           {% if value > 1 and value % 5 == 1 %}
@@ -15,9 +15,13 @@
             <div class="dots">
           {% endif %}
           <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-          <label class="btn dot" for="{{ skill ~ '-' ~ value }}" 
-            data-action="click->dot#activate click->character--creation#skillUpdate"
-            data-dot-value-param="{{ value }}">
+          <label class="btn dot{% if value <= min %} dot-locked{% endif %}" for="{{ skill ~ '-' ~ value }}"
+            data-action="click->dot#activate click->character--edit#pay"
+            data-dot-value-param="{{ value }}"
+            data-character--edit-value-param="{{ value }}"
+            data-character--edit-min-param="{{ min }}"
+            data-character--edit-name-param="{{ ("skill." ~ skill)|trans }}"
+            data-character--edit-type-param="skill">
           </label>
         {% endfor %}
       </div>

@@ -3,21 +3,41 @@
 namespace App\Service;
 
 use App\Entity\Character;
+use App\Entity\CharacterMerit;
 use App\Entity\Specialty;
+use App\Entity\Merit;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CreationService
 {
-  public function getMerits($formMerits): array
+  private $doctrine;
+  private $create;
+
+  public function __construct(ManagerRegistry $doctrine) {
+    $this->doctrine = $doctrine;
+  }
+
+  public function updateMerits(Character $character, $formMerits)
   {
     $merits = [];
-
+    
     foreach ($formMerits as $key => $merit) {
       if (!empty($merit['level'])) {
         $merits[$key] = $merit;
       }
     }
-
-    return $merits;
+    
+    foreach ($merits as $id => $merit) {
+      $entityMerit = $this->doctrine->getRepository(Merit::class)->find($id);
+      $characterMerit = new CharacterMerit;
+      $characterMerit->setMerit($entityMerit);
+      $characterMerit->setLevel(intval($merit['level']));
+      if (isset($merit['details'])) {
+        $characterMerit->setChoice($merit['details']);
+      }
+      $character->addMerit($characterMerit);
+      $this->doctrine->getManager()->persist($characterMerit);
+    }
   }
 
   public function getSkills($formMerits): array
