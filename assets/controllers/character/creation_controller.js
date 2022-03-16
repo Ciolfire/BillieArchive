@@ -16,17 +16,13 @@ export default class extends Controller {
     "advantage",
     "creationMerit",
     "merit",
-    "prerequisite",
   ];
-  static values = {
-  }
 
   connect() {
-    this.checkPrerequisite('race');
     this.attributeUpdate();
+    this.meritUpdate();
     this.skillUpdate();
     this.specialtyUpdate();
-    this.meritUpdate(null);
   }
 
   attributeUpdate(event) {
@@ -46,7 +42,7 @@ export default class extends Controller {
     if (event) {
       changed = event.target.getAttribute("for").split('-')[0];
     }
-    this.checkPrerequisite('attribute', changed);
+    this.dispatch("change", { detail: { type: 'attribute', target: changed } });
   }
 
   skillUpdate(event) {
@@ -65,7 +61,7 @@ export default class extends Controller {
     if (event) {
       changed = event.target.getAttribute("for").split('-')[0];
     }
-    this.checkPrerequisite('skill', changed);
+    this.dispatch("change", { detail: { type: 'skill', target: changed } });
   }
 
   specialtyUpdate() {
@@ -83,29 +79,6 @@ export default class extends Controller {
     }
   }
 
-  meritClick(event) {
-    let card = event.target.closest(".block");
-    let merits = document.getElementsByName(card.attributes.name.value);
-
-    if (false == card.dataset.unique) {
-      
-      if (card.getElementsByClassName("merit-value")[0].value > 0) {
-        let needNew = true;
-        merits.forEach(merit => {
-          if (merit.getElementsByClassName("merit-value")[0].value == 0) {
-              needNew = false;
-            }
-        });
-        if (needNew) {
-          this.meritGeneration(card, merits.length);
-        }
-      } else if (merits.length > 1) {
-        card.parentNode.remove();
-      }
-    }
-    this.meritUpdate(event);
-  }
-
   meritUpdate(event) {
     let changed = null;
     let total = this.cost(this.meritTargets, 'merit');
@@ -120,71 +93,6 @@ export default class extends Controller {
     if (event) {
       changed = event.target.getAttribute("for").split('-')[0];
     }
-    this.checkPrerequisite('merit', changed)
-  }
-
-  meritGeneration(card, length) {
-    
-    let newCard = card.parentNode.cloneNode(true);
-    let valueInput = newCard.getElementsByClassName("merit-value")[0];
-    let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
-    let id = valueInput.dataset.id;
-    let newId = `${id}-${length}`;
-    // Update all classes
-    let collapsableElements = newCard.getElementsByClassName(`merit-text-${id}`);
-    while (collapsableElements.length > 0) {
-      let element = collapsableElements[0];
-      element.classList.remove(`merit-text-${id}`);
-      element.classList.add(`merit-text-${newId}`);
-    }
-    valueInput.name = `character[merits][${newId}][level]`;
-    detailsInput.name = `character[merits][${newId}][details]`;
-    // reset the values for the new form
-    valueInput.value = 0;
-    detailsInput.value = "";
-    card.parentNode.after(newCard);
-  }
-
-  checkPrerequisite(type, changed=null) {
-    this.prerequisiteTargets.forEach(prerequisite => {
-      let data = prerequisite.dataset;
-      switch (type) {
-        case 'race':
-          if (document.getElementById('character_race').value == data.name) {
-            this.switch(prerequisite, "ok", "ko");
-          } else {
-            this.switch(prerequisite, "ko", "ok");
-          }
-          break;
-        case 'merit':
-          if ((changed != null && data.name == changed) || data.type == type) {
-            if (document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
-            } else {
-              this.switch(prerequisite, "ko", "ok");
-            }
-          }
-          break;
-        case 'skill':
-          if ((changed !== null && data.name == changed) || data.type == type) {
-            if (this.attr("skills_" + data.name) >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
-            } else {
-              this.switch(prerequisite, "ko", "ok");
-            }
-          }
-          break;
-        default:
-          if ((changed !== null && data.name == changed) || data.type == type) {
-            if (this.attr(data.name) >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
-            } else {
-              this.switch(prerequisite, "ko", "ok");
-            }
-          }
-          break;
-      }
-    });
   }
 
   attr(name) {
@@ -248,20 +156,5 @@ export default class extends Controller {
       }
     });
     healthElem.innerText = health;
-  }
-
-  meritFilter(event) {
-    let category = event.params.category;
-
-    this.meritTargets.forEach(merit => {
-      let card = merit.closest('.card').parentElement;
-      if (merit.dataset.category == category || category == "") {
-        if (card.classList.contains('d-none')) {
-          card.classList.remove('d-none')
-        }
-      } else {
-        card.classList.add('d-none')
-      }
-    });
   }
 }

@@ -5,7 +5,7 @@
     {% if prerequisite[0] == 'con' %}
       {{ prerequisite[1] }}
     {% else %}
-      <span data-character--creation-target="prerequisite" data-type="{{ type }}" data-name="{{ prerequisite[0] }}" data-value="{{ prerequisite[1] }}">
+      <span data-character--merits-target="prerequisite" data-type="{{ type }}" data-name="{{ prerequisite[0] }}" data-value="{{ prerequisite[1] }}">
         {% if type == 'merit' %}
           {% for merit in merits %}
             {% if merit.id == prerequisite[0] %}

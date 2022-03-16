@@ -5,10 +5,10 @@
   <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper"><span class="position-sticky top-50">{% include "icon.html.twig" with {'icon' : 'hide' } only %}</span></div>
   <p class="text-center text-sub"><span data-character--creation-target="creationMerit">0</span>/7 |{% trans %}dot.fifth{% endtrans %}</p>
   <p class="merit-filters mb-1 ms-5">
-    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="">{% include "icon.html.twig" with {'icon' : 'all' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="mental">{% include "icon.html.twig" with {'icon' : 'mental' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="physical">{% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--creation#meritFilter" data-character--creation-category-param="social">{% include "icon.html.twig" with {'icon' : 'social' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-category-param="">{% include "icon.html.twig" with {'icon' : 'all' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-category-param="mental">{% include "icon.html.twig" with {'icon' : 'mental' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-category-param="physical">{% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-category-param="social">{% include "icon.html.twig" with {'icon' : 'social' } only %}</span>
   </p>
   <div id="meritsWrapper" class="row row-cols-1 row-cols-md-3 ps-5 mt-0 g-4 collapse show">
     {% for merit in merits %}

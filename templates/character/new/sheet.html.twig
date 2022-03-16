@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr': {'data-controller': 'character--creation'}}) }}
+{{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
   <div class="container block py-3">
     {{ include('character/edit/header.html.twig') }}
     {{ include('character/new/attributes.html.twig') }}
