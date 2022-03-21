@@ -59,6 +59,8 @@ wound:
 
 merit:
   creation: Spend 7 dots | Fifth dot cost two
+  improve: Improve an owned merit
+  new: Buy a new merit
   title: Merits
 
 skill:

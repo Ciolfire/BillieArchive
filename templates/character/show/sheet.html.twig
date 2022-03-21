@@ -1,10 +1,9 @@
-
 {% trans_default_domain 'character' %}
 
-<div class="container block py-3 mt-5">
+<div class="container block py-3 mt-5 g-0">
   {{ include('character/show/header.html.twig') }}
   <div data-controller="tabs" data-tabs-initial-value="general">
-    <ul class="nav nav-tabs row g-0 my-2">
+    <ul class="nav tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %}

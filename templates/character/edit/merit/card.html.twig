@@ -1,0 +1,25 @@
+{% extends "character/sheet/merit/card.html.twig" %}
+
+{% block controller %}data-controller="dot"{% endblock %}
+
+{% block values %}data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
+
+{% block input %}
+  <input class="merit-value" value="{{ chMerit.level|default(0) }}" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--merits-target="merit">
+{% endblock %}
+
+{% block dot %}
+<input type="checkbox" {% if chMerit is defined and value <= chMerit.level %}checked{% endif %} class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+<label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
+  data-action="click->dot#activate click->character--edit#pay"
+  data-dot-value-param="{{ value }}"
+  data-character--edit-value-param="{{ value }}"
+  data-character--edit-min-param="{{ chMerit.level|default(0) }}"
+  data-character--edit-name-param="{{ merit.name }}"
+  data-character--edit-type-param="merit">
+</label>
+{% endblock %}
+
+{% block expanded %}
+<div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
+{% endblock %}

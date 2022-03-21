@@ -44,6 +44,12 @@ h3 {
   }
 }
 
+.title-block {
+  background-color: $inputBackColor;
+  padding: 0.2em 1.5em;
+  border-radius: 0.2em;
+}
+
 .text-sub {
   font-family: $subTextFont;
 }
@@ -66,22 +72,31 @@ h3 {
   border-color: $borderColor;
 }
 
-.nav-tabs {
-  border-color: $borderColor;
-  .nav-link {
-    background-color: $tabColor;
-    color: $subtextColor;
-    border-color: $borderColor;
-    border-width: 0 0 1px 0;
-    border-radius: 0%;
-    &.active, &:focus, &:hover {
-      color: $textColor;
-      background-color: $main50pColor;
+.tabs {
+  border: none;
+  li:first-child > .nav-link {
+    border-left-width: 0!important;
+  }
+  li:last-child > .nav-link {
+    border-right-width: 0!important;
+  }
+  .nav-item {
+    .nav-link {
+      background-color: $tabColor;
+      color: $subtextColor;
       border-color: $borderColor;
-      border-color: transparent;
-    }
-    .active {
-      color: $mainColor;
+      border-width: 0 0 1px 0;
+      border-radius: 0%;
+      border-style: solid;
+      &.active, &:active, &:focus, &:hover {
+        color: $textColor;
+        background-color: transparent;
+        border-color: $borderColor;
+        border-width: 1px 1px 0 1px;
+      }
+      .active {
+        color: $mainColor;
+      }
     }
   }
 }

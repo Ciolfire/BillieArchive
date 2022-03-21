@@ -13,12 +13,14 @@ export default class extends Controller {
       hash = window.location.hash.substring(1);
     }
     this.selectPage(hash);
-    this.selectTab(`${hash}Tab`);
+    this.unselectTab();
+    document.getElementById(`${hash}Tab`).classList.add("active");
   }
 
   show(event) {
     this.selectPage(event.params.target);
-    this.selectTab(event.target.id);
+    this.unselectTab(event.target.id);
+    event.target.classList.add("active");
   }
 
   selectPage(selected) {
@@ -31,13 +33,9 @@ export default class extends Controller {
     });
   }
 
-  selectTab(selected) {
+  unselectTab() {
     this.tabTargets.forEach(tab => {
-      if (tab.id == selected) {
-        tab.classList.add("active");
-      } else {
-        tab.classList.remove("active");
-      }
+      tab.classList.remove("active");
     });
   }
 }

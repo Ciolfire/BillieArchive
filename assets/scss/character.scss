@@ -79,11 +79,14 @@ $path-width: 2px;
   &-hide {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 12px;
     height:100%;
     width: auto;
     background-color: $main50pColor;
-    border-left: solid 5px $mainColor;
+    border: 1px solid $mainColor;
+    border-left: none;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
   }
 }
 

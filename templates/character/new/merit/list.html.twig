@@ -1,0 +1,9 @@
+{% extends "character/sheet/merit/list.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block list %}
+  {% for merit in merits %}
+    {% include "character/new/merit/card.html.twig" %}
+  {% endfor %}
+{% endblock %}
