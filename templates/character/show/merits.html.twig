@@ -2,6 +2,6 @@
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 m-4">
   {% for chMerit in character.merits %}
-    {% include "character/show/merit/card.html.twig" with {'merit': chMerit.merit} %}
+    {% include "character/show/merit.html.twig" with {'merit': chMerit.merit} %}
   {% endfor %}
 </div>

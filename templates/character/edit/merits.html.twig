@@ -1,4 +1,4 @@
-{% extends "character/sheet/merit/list.html.twig" %}
+{% extends "character/sheet/merits.html.twig" %}
 
 {% trans_default_domain 'character' %}
 
@@ -6,12 +6,12 @@
   <div class="w-100 user-select-none"><h3 class="text-center"><span class="title-block">{% trans %}merit.improve{% endtrans %}</span></h3></div>
   {% for chMerit in character.merits %}
     {% if chMerit.level < chMerit.merit.max %}
-      {% include "character/edit/merit/card.html.twig" with {'merit': chMerit.merit} %}
+      {% include "character/edit/merit.html.twig" with {'merit': chMerit.merit} %}
     {% endif %}
   {% endfor %}
   <div class="w-100"></div>
   <div class="w-100 user-select-none"><h3 class="text-center"><span class="title-block">{% trans %}merit.new{% endtrans %}</h3></div>
   {% for merit in merits %}
-    {% include "character/edit/merit/card.html.twig" %}
+    {% include "character/edit/merit.html.twig" %}
   {% endfor %}
 {% endblock %}

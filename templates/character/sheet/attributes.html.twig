@@ -1,0 +1,36 @@
+{% trans_default_domain 'character' %}
+
+{% set attributes = {
+  'mental': {
+    'power': 'intelligence',
+    'finesse': 'wits',
+    'resistance': 'resolve'
+  }, 
+  'physical': {
+    'power': 'strength',
+    'finesse': 'dexterity',
+    'resistance': 'stamina'
+  }, 
+  'social': {
+    'power': 'presence',
+    'finesse': 'manipulation',
+    'resistance': 'composure'
+  }
+} %}
+
+{% block attributes %}
+<h2 class="text-center">Attributes</h2>
+{% block creation %}{% endblock %}
+<div class="row">
+  {% for category, attributes in attributes %}
+    <div class="col-md-4 d-md-flex justify-content-center">
+      <div class="block attribute-block">
+        <h3 class="text-center pt-1">{{ category|trans }}</h3>
+        {% for type, attribute in attributes %}
+          {% block attribute %}{% endblock %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
