@@ -1,30 +1,23 @@
 {% trans_default_domain 'character' %}
 
-<div class="row align-items-center px-2">
-  <div class="col">
-    {% include "icon.html.twig" with {'icon' : type } only %}
-    {{ ("attribute." ~ attribute)|trans }}
-  </div>
-  <div class="col-auto">
-    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="attribute" data-name="{{ ("attribute." ~ attribute)|trans }}">
-      {{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
-      <div class="dots">
-        {% for value in 1..max %}
-          {% if value % 5 == 1 %}
-            </div>
-            <div class="dots">
-          {% endif %}
-          <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-          <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute ~ '-' ~ value }}" 
-            data-action="click->dot#activate click->character--edit#pay"
-            data-dot-value-param="{{ value }}"
-            data-character--edit-value-param="{{ value }}"
-            data-character--edit-min-param="{{ min }}"
-            data-character--edit-name-param="{{ ("attribute." ~ attribute)|trans }}"
-            data-character--edit-type-param="attribute">
-          </label>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
+{% extends "character/sheet/attribute.html.twig" %}
+
+{% block controller %}data-controller="dot"{% endblock %}
+
+{% block values %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="attribute" data-name="{{ ("attribute." ~ attribute)|trans }}"{% endblock %}
+
+{% block input %}
+  {{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
+{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute ~ '-' ~ value }}" 
+    data-action="click->dot#activate click->character--edit#pay"
+    data-dot-value-param="{{ value }}"
+    data-character--edit-value-param="{{ value }}"
+    data-character--edit-min-param="{{ min }}"
+    data-character--edit-name-param="{{ ("attribute." ~ attribute)|trans }}"
+    data-character--edit-type-param="attribute">
+  </label>
+{% endblock %}

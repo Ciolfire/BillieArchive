@@ -6,19 +6,15 @@
     {{ ("attribute." ~ attribute)|trans }}
   </div>
   <div class="col-auto">
-    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
-      {{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': category ~ "Attr"}}) }}
+    <div class="my-1" role="group" {% block controller %}{% endblock %} {% block values %}{% endblock %}>
+      {% block input %}{% endblock %}
       <div class="dots">
         {% for value in 1..max %}
           {% if value % 5 == 1 %}
             </div>
             <div class="dots">
           {% endif %}
-          <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-          <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute ~ '-' ~ value }}" 
-            data-action="click->dot#activate click->character--creation#attributeUpdate"
-            data-dot-value-param="{{ value }}">
-          </label>
+          {% block dot %}{% endblock %}
         {% endfor %}
       </div>
     </div>
