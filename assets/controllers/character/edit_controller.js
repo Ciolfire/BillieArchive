@@ -45,7 +45,7 @@ export default class extends Controller {
   payDot(name, min, value, type) {
     let cost = this.calculateCost(this.costsValue[type], +min + 1, value);
     console.log(name, min, value, type);
-    if (this.spendInfoValue[name] != null && this.spendInfoValue[name]['info']['cost'] == cost) {
+    if ((this.spendInfoValue[name] != null && this.spendInfoValue[name]['info']['cost'] == cost) || value <= min) {
       this.spendInfoValue[name] = null;
     } else {
       this.spendInfoValue[name] = {
