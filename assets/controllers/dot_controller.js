@@ -19,7 +19,7 @@ export default class extends Controller {
     let value = event.params.value;
 
     if (value < this.minValue) {
-      return;
+      value = this.minValue;
     }
 
     if (value == this.lastValue) {
