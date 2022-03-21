@@ -38,6 +38,15 @@
   ]
 } %}
 <div class="row">
+  <span class="d-none">
+    <div class="row g-0 align-items-center px-2 new-specialty" data-character--edit-target="specialtyInput" data-trans="{{ 'specialty.name'|trans}}">
+      <div class="col-8 offset-1 py-1">
+        <input class="form-control" type="text">
+      </div>
+      <div class="col-3 ps-1" role="button" data-action="click->character--edit#removeSpecialty">{% include "icon.html.twig" with {'icon': 'remove-specialty' } only %}</div>
+      {# data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" #}
+    </div>
+  </span>
   {% for category, skills in skills %}
     <div class="col-md-4 d-md-flex justify-content-center">
       <div class="block skill-block">

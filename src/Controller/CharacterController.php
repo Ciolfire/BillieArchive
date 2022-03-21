@@ -93,6 +93,7 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      dd($form);
       $entityManager->flush();
 
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
@@ -155,7 +156,7 @@ class CharacterController extends AbstractController
   }
 
   /**
-   * @Route("/{character}/experience/update", name="character_trait_update", methods={"POST"})
+   * @Route("/{character}/experience/update", name="character_experience_update", methods={"POST"})
    * @param Character $character
    */
   public function updateExperience(Request $request, Character $character)

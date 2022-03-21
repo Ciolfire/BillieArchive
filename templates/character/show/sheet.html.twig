@@ -27,5 +27,12 @@
     <div id="merits" data-tabs-target="page">
       {{ include('character/show/merits.html.twig') }}
     </div>
+    <div id="background" data-tabs-target="page">
+      <div class="col-12 d-flex justify-content-center my-2">
+        <div>
+          <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+        </div>
+      </div>
+    </div>
   </div>
 </div>

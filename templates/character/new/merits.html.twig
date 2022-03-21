@@ -1,8 +1,10 @@
 {% trans_default_domain 'character' %}
 
 <h2 class="text-center">{% trans %}merit.title{% endtrans %}</h2>
-<div class="position-relative row">
-  <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper"><span class="position-sticky top-50">{% include "icon.html.twig" with {'icon' : 'hide' } only %}</span></div>
+<div class="position-relative row mb-2">
+  <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
+    <span class="position-sticky top-50 my-2">{% include "icon.html.twig" with {'icon' : 'hide' } only %}</span>
+  </div>
   <p class="text-center text-sub"><span data-character--creation-target="creationMerit">0</span>/7 |{% trans %}dot.fifth{% endtrans %}</p>
   <p class="merit-filters mb-1 ms-5">
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-category-param="">{% include "icon.html.twig" with {'icon' : 'all' } only %}</span>

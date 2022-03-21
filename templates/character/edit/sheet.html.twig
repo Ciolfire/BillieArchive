@@ -1,12 +1,22 @@
-{{ form_start(form, {'attr': {'data-controller': 'character--edit', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
+{{ form_start(form, {'attr': {'data-controller': 'character--merits character--edit', 'data-action': 'character--edit:change->character--merits#checkPrerequisite', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
   <div class="container block py-3">
     {{ include('character/edit/header.html.twig') }}
-    {{ include('character/edit/attributes.html.twig') }}
-    {{ include('character/edit/skills.html.twig') }}
     {{ include('character/edit/calculator.html.twig') }}
-    {{ include('character/sheet/merits.html.twig') }}
-    <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+    <div data-controller="tabs" data-tabs-initial-value="general">
+      <ul class="nav nav-tabs row g-0 my-2">
+        {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
+        {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+      </ul>
+      <div id="general" data-tabs-target="page">
+        {{ include('character/edit/attributes.html.twig') }}
+        {{ include('character/edit/skills.html.twig') }}
+      </div>
+      <div id="merits" data-tabs-target="page">
+        {{ include('character/edit/merits.html.twig') }}
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+      </div>
     </div>
   </div>
 {{ form_end(form) }}

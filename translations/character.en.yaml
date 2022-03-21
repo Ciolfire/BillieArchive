@@ -30,10 +30,17 @@ attribute:
   manipulation: Manipulation
   composure: Composure
 
+general: General
+relations: Relations
+background: Background
+notes: Notes
+
 dot:
   fifth: Fifth dot cost two
 
+
 willpower:
+  name: Willpower
   0: Exhausted
   1: Spineless
   2: Weak
@@ -46,6 +53,7 @@ willpower:
   9: Iron-willed
   10: Implacable
 
+health: Health
 wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
 
@@ -54,6 +62,7 @@ merit:
   title: Merits
 
 skill:
+  name: Skill
   0: Unskilled
   1: Novice. Basic knowledge and/or techniques.
   2: Practitioner. Solid working knowledge and/or techniques.
@@ -91,6 +100,7 @@ skill:
   streetwise: Streetwise
   subterfuge: Subterfuge
 specialty:
+  name: Specialty
   title: Specialties
   creation: Take three Skill Specialties of your choice.
 

@@ -105,9 +105,21 @@
   {% elseif icon == 'subterfuge' %}
     <i class="fa-solid fa-masks-theater fa-fw"></i>
   {% elseif icon == 'specialties' %}
-  {# <i class="fa-solid fa-2xs fa-certificate fa-fw"></i> #}
-  {# <i class="fa-solid fa-2xs fa-graduation-cap fa-fw"></i> #}
-  <i class="fa-solid fa-2xs fa-star fa-fw"></i>
+    {# <i class="fa-solid fa-2xs fa-certificate fa-fw"></i> #}
+    {# <i class="fa-solid fa-2xs fa-graduation-cap fa-fw"></i> #}
+    <i class="fa-solid fa-2xs fa-star fa-fw"></i>
+  {% elseif icon == 'add-specialty' %}
+    <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">
+      <i class="fa-solid fa-star fa-stack-2x"></i>
+      <i class="fa-solid fa-lg fa-circle-plus fa-stack-1x" style="color:black;padding-top:1px;"></i>
+      <i class="fa-solid fa-lg fa-plus fa-stack-1x" style="color:white;padding-top:1px;"></i>
+    </span>
+{% elseif icon == 'remove-specialty' %}
+    <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">
+      <i class="fa-solid fa-star fa-stack-2x"></i>
+      <i class="fa-solid fa-lg fa-circle-minus fa-stack-1x" style="color:black;padding-top:1px;"></i>
+      <i class="fa-solid fa-lg fa-minus fa-stack-1x" style="color:white;padding-top:1px;"></i>
+    </span>
   {# advantages #}
   {% elseif icon == 'speed' %}
     <i class="fa-solid fa-person-running"></i>

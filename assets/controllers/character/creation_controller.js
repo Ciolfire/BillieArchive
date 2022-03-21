@@ -80,7 +80,6 @@ export default class extends Controller {
   }
 
   meritUpdate(event) {
-    let changed = null;
     let total = this.cost(this.meritTargets, 'merit');
 
     this.creationMeritTarget.innerText = total;
@@ -88,10 +87,6 @@ export default class extends Controller {
       this.switch(this.creationMeritTarget, "ok", "ko");
     } else {
       this.switch(this.creationMeritTarget, "ko", "ok");
-    }
-    
-    if (event) {
-      changed = event.target.getAttribute("for").split('-')[0];
     }
   }
 

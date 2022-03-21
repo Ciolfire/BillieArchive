@@ -40,19 +40,6 @@ class CreationService
     }
   }
 
-  public function getSkills($formMerits): array
-  {
-    $skills = [];
-
-    foreach ($formMerits as $key => $merit) {
-      if (!empty($merit['level'])) {
-        $merits[$key] = $merit;
-      }
-    }
-
-    return $merits;
-  }
-
   public function getSpecialties(Character $character, $form): void
   {
     $specialties = [$form['specialty1'], $form['specialty2'], $form['specialty3']];
