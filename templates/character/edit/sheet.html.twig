@@ -1,6 +1,6 @@
 {{ form_start(form, {'attr': {'data-controller': 'character--merits character--edit', 'data-action': 'character--edit:change->character--merits#checkPrerequisite', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
   <div class="container block py-3 g-0">
-    {{ include('character/edit/header.html.twig') }}
+    {{ include('character/sheet/header.html.twig') }}
     {{ include('character/edit/calculator.html.twig') }}
     <div data-controller="tabs" data-tabs-initial-value="general">
       <ul class="nav tabs row g-0 my-2">
