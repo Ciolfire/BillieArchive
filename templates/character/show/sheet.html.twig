@@ -1,8 +1,8 @@
 {% trans_default_domain 'character' %}
 
-<div class="container block py-3 mt-5 g-0">
+<div class="container block py-3 mt-5">
   {{ include('character/show/header.html.twig') }}
-  <div data-controller="tabs" data-tabs-initial-value="general">
+  <div class="row" data-controller="tabs" data-tabs-initial-value="general">
     <ul class="nav tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
@@ -11,9 +11,6 @@
       {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
     </ul>
     <div id="general" data-tabs-target="page">
-      {{ include('character/show/advantages.html.twig') }}
-      {{ include('character/show/attributes.html.twig') }}
-      {{ include('character/show/skills.html.twig') }}
       <div class="row">
         <div class="col">
           {{ include('character/show/health.html.twig') }}
@@ -22,6 +19,9 @@
           {{ include('character/show/willpower.html.twig') }}
         </div>
       </div>
+      {{ include('character/show/advantages.html.twig') }}
+      {{ include('character/show/attributes.html.twig') }}
+      {{ include('character/show/skills.html.twig') }}
     </div>
     <div id="merits" data-tabs-target="page">
       {{ include('character/show/merits.html.twig') }}
@@ -29,7 +29,7 @@
     <div id="background" data-tabs-target="page">
       <div class="col-12 d-flex justify-content-center my-2">
         <div>
-          <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+          <img class="p-1 w-100" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
         </div>
       </div>
     </div>

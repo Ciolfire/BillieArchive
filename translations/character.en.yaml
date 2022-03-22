@@ -13,12 +13,12 @@ physical: Physical
 social: Social
 
 attribute:
-  0: Absolute vacancy
-  1: Poor. Unexercised, unpracticed or inept.
-  2: Average. The result of occasional effort or application.
-  3: Good. Regular practice or effort, or naturally talented.
-  4: Exceptional. Frequently applied, tested and honed, or naturally gifted.
-  5: Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.
+  0: 0 - Absolute vacancy
+  1: 1 - Poor. Unexercised, unpracticed or inept.
+  2: 2 - Average. The result of occasional effort or application.
+  3: 3 - Good. Regular practice or effort, or naturally talented.
+  4: 4 - Exceptional. Frequently applied, tested and honed, or naturally gifted.
+  5: 5 - Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.
 
   intelligence: Intelligence
   wits: Wits
@@ -41,17 +41,17 @@ dot:
 
 willpower:
   name: Willpower
-  0: Exhausted
-  1: Spineless
-  2: Weak
-  3: Timid
-  4: Certain
-  5: Confident
-  6: Resolute
-  7: Driven
-  8: Determined
-  9: Iron-willed
-  10: Implacable
+  0: 0 - Exhausted
+  1: 1 - Spineless
+  2: 2 - Weak
+  3: 3 - Timid
+  4: 4 - Certain
+  5: 5 - Confident
+  6: 6 - Resolute
+  7: 7 - Driven
+  8: 8 - Determined
+  9: 9 - Iron-willed
+  10: 10 - Implacable
 
 health: Health
 wound:
@@ -65,12 +65,12 @@ merit:
 
 skill:
   name: Skill
-  0: Unskilled
-  1: Novice. Basic knowledge and/or techniques.
-  2: Practitioner. Solid working knowledge and/or techniques.
-  3: Professional. Broad, detailed knowledge and/or techniques.
-  4: Expert. Exceptional depth of knowledge and/or techniques.
-  5: Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
+  0: 0 - Unskilled
+  1: 1 - Novice. Basic knowledge and/or techniques.
+  2: 2 - Practitioner. Solid working knowledge and/or techniques.
+  3: 3 - Professional. Broad, detailed knowledge and/or techniques.
+  4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
+  5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
   title: Skills
   unskilled:
     mental: "-3 unskilled"
