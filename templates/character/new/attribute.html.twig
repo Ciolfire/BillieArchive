@@ -2,7 +2,7 @@
 
 {% block controller %}data-controller="dot"{% endblock %}
 
-{% block values %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"{% endblock %}
+{% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"{% endblock %}
 
 {% block input %}{{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': category ~ "Attr"}}) }}{% endblock %}
 

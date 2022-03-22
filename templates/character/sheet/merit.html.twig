@@ -7,7 +7,7 @@
           <span class="merit-name">{{ merit.name }}</span>
         </div>
         <div class="col-auto">
-          <div class="my-1" role="group" {% block controller %}{% endblock %}>
+          <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
             {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
             {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
               {% block input %}{% endblock %}
