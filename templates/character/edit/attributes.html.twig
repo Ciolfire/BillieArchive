@@ -2,15 +2,6 @@
 
 {% trans_default_domain 'character' %}
 
-{% block creation %}
-  <p class="text-center text-sub">
-    <span data-character--creation-target="creationAttr">0</span>/5 |
-    <span data-character--creation-target="creationAttr">0</span>/4 |
-    <span data-character--creation-target="creationAttr">0</span>/3 |
-    {% trans %}dot.fifth{% endtrans %}
-  </p>
-{% endblock %}
-
 {% block attribute %}
   {% set max = 5 %}
   {% set min = 1 %}

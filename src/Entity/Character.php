@@ -595,4 +595,11 @@ class Character
 
       return $this;
   }
+
+  public function spendXp(int $spent): self
+  {
+      $this->xpUsed += $spent;
+
+      return $this;
+  }
 }

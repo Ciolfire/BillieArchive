@@ -15,7 +15,7 @@
         {{ include('character/edit/merits.html.twig') }}
       </div>
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+        <button class="btn btn-primary" type="button" data-action="click->character--edit#clean">{{ button_label|default('Save') }}</button>
       </div>
     </div>
   </div>

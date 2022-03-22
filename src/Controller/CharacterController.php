@@ -55,7 +55,9 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->create->updateMerits($character, $form->getExtraData()['merits']);
+      if (isset($form->getExtraData()['merits'])) {
+        $this->create->addMerits($character, $form->getExtraData()['merits']);
+      }
       $this->create->getSpecialties($character, $form);
       $this->create->getWillpower($character);
       
@@ -93,17 +95,27 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      dd($form);
+      if (isset($form->getExtraData()['merits'])) {
+        $this->create->addMerits($character, $form->getExtraData()['merits']);
+      }
+      if (isset($form->getExtraData()['meritsUp'])) {
+        $this->create->updateMerits($character, $form->getExtraData()['meritsUp']);
+      }
+      if (isset($form->getExtraData()['specialties'])) {
+        $this->create->addSpecialties($character, $form->getExtraData()['specialties']);
+      }
+      if (isset($form->getExtraData()['xp'])) {
+        $character->spendXp($form->getExtraData()['xp']['spend']);
+      }
       $entityManager->flush();
 
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('character/edit.html.twig', [
       'character' => $character,
       'form' => $form,
-      'merits' => $merits,
-      'isEdit' => true,
+      'merits' => $merits
     ]);
   }
 
@@ -118,6 +130,16 @@ class CharacterController extends AbstractController
     }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+    /**
+   * @Route("/{id}/embrace", name="character_embrace", methods={"GET", "POST"})
+   */
+  public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
+  {
+    return $this->renderForm('character/show.html.twig', [
+      'character' => $character,
+    ]);
   }
 
 

@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Character;
 use App\Entity\CharacterMerit;
 use App\Entity\Specialty;
+use App\Entity\Skill;
 use App\Entity\Merit;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,7 +18,7 @@ class CreationService
     $this->doctrine = $doctrine;
   }
 
-  public function updateMerits(Character $character, $formMerits)
+  public function addMerits(Character $character, $formMerits)
   {
     $merits = [];
     
@@ -37,6 +38,43 @@ class CreationService
       }
       $character->addMerit($characterMerit);
       $this->doctrine->getManager()->persist($characterMerit);
+    }
+  }
+
+  public function updateMerits(Character $character, $formMerits)
+  {
+    $merits = [];
+    
+    foreach ($formMerits as $key => $merit) {
+      if (!empty($merit['level'])) {
+        $merits[$key] = $merit;
+      }
+    }
+    
+    foreach ($merits as $id => $merit) {
+      /** @var CharacterMerit $characterMerit */
+      $characterMerit = $this->doctrine->getRepository(CharacterMerit::class)->find($id);
+      $characterMerit->setLevel($merit['level']);
+      if (isset($merit['details'])) {
+        $characterMerit->setChoice($merit['details']);
+      }
+    }
+  }
+
+  public function addSpecialties(Character $character, $formSpecialties)
+  {
+    foreach ($formSpecialties as $skill => $skillSpec) {
+      if (!empty($skillSpec)) {
+
+        foreach ($skillSpec as $id => $name) {
+          $skill = $this->doctrine->getRepository(Skill::class)->findOneBy(['name' => $skill]);
+          $specialty = new Specialty($character, $skill, $name);
+          
+          $specialty->setCharacter($character);
+          $character->addSpecialty($specialty);
+          $this->doctrine->getManager()->persist($specialty);
+        }
+      }
     }
   }
 

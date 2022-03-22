@@ -19,7 +19,6 @@ export default class extends Controller {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
         target.innerText = JSON.parse(xhttp.responseText).total;
-        
       }
     };
     xhttp.open("POST", `/character/${this.idValue}/experience/update`, true);

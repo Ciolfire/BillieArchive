@@ -35,6 +35,13 @@ class Specialty
      */
     private $skill;
 
+    public function __construct(Character $character, $skill, $name)
+    {
+        $this->character = $character;
+        $this->skill = $skill;
+        $this->name = $name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -6,7 +6,8 @@ export default class extends Controller {
     "dot",
     "using",
     "usingInfo",
-    "specialtyInput"
+    "specialtyInput",
+    "spend",
   ];
   static values = {
     total: Number,
@@ -28,6 +29,7 @@ export default class extends Controller {
     this.dotTargets.forEach(target => {
       let data = target.parentElement.dataset;
       if (target.value > target.parentElement.dataset.dotBaseValue) {
+        console.log(target.parentElement);
         this.payDot(data.name, data.dotMinValue, target.value, data.type);
       }
     });
@@ -86,6 +88,7 @@ export default class extends Controller {
       }
     }
     this.spendValue = total;
+    this.spendTarget.value = total;
     this.usingTarget.innerText = this.spendValue;
     if (this.usedValue + this.spendValue > this.totalValue) {
       this.usingTarget.innerHTML = `<span class="ko">${this.usingTarget.innerText}</span>`;
@@ -119,5 +122,24 @@ export default class extends Controller {
     this.spendInfoValue[element.id] = null;
     element.parentNode.removeChild(element);
     this.updateSpend();
+  }
+
+  removeMerits() {
+    let merits = document.getElementsByClassName('merit-value');
+    for (const merit of merits) {
+      if (merit.value == 0) {
+        let name = merit.getAttribute('name');
+        merit.setAttribute('name', '');
+        let detail = document.getElementsByName(name.replace('level', 'details'))[0];
+        if (detail) {
+          detail.setAttribute('name', '');
+        }
+      }
+    }
+  }
+
+  clean(event) {
+    this.removeMerits();
+    document.forms['character'].submit();
   }
 }
