@@ -1,59 +1,16 @@
+{% extends "character/sheet/skills.html.twig" %}
+
 {% trans_default_domain 'character' %}
 
-{% block skills %}
-<h2 class="text-center mt-3">{% trans %}skill.title{% endtrans %}</h2>
-<p class="text-center text-sub">
-  <span data-character--creation-target="creationSkill">0</span>/11 |
-  <span data-character--creation-target="creationSkill">0</span>/7 |
-  <span data-character--creation-target="creationSkill">0</span>/4 |
-  {% trans %}dot.fifth{% endtrans %}
-</p>
-{% set max = 5 %}
-{% set min = 0 %}
-{% set base = 0 %}
-{% set skills = {
-  'mental': [
-    'academics',
-    'computer',
-    'crafts',
-    'investigation',
-    'medecine',
-    'occult',
-    'politics',
-    'science',
-  ],
-  'physical': [
-    'athletics',
-    'brawl',
-    'drive',
-    'firearms',
-    'larceny',
-    'stealth',
-    'survival',
-    'weaponry',
-  ],
-  'social': [
-    'animalKen',
-    'empathy',
-    'expression',
-    'intimidation',
-    'persuasion',
-    'socialize',
-    'streetwise',
-    'subterfuge',
-  ]
-} %}
-<div class="row">
-  {% for category, skills in skills %}
-    <div class="col-md-4 d-md-flex justify-content-center">
-      <div class="block skill-block">
-        <h3 class="d-md-none d-block text-center pt-1">{{ category|trans }}</h3>
-          <p class="text-center text-sub mb-0">({{("skill.unskilled." ~ category)|trans }})</p>
-        {% for skill in skills %}
-          {% include "character/new/skill.html.twig" %}
-        {% endfor %}
-      </div>
-    </div>
-  {% endfor %}
-</div>
+{% block creation %}
+  <p class="text-center text-sub">
+    <span data-character--creation-target="creationSkill">0</span>/11 |
+    <span data-character--creation-target="creationSkill">0</span>/7 |
+    <span data-character--creation-target="creationSkill">0</span>/4 |
+    {% trans %}dot.fifth{% endtrans %}
+  </p>
+{% endblock %}
+
+{% block skill %}
+  {% include "character/new/skill.html.twig" %}
 {% endblock %}

@@ -1,0 +1,26 @@
+{% trans_default_domain 'character' %}
+
+{% set specialties = attribute(character, 'skillSpecialties', [skill]) %}
+
+<div class="row align-items-center px-2" {% block wrapper %}{% endblock %}>
+  <div class="col">
+    {% include "icon.html.twig" with {'icon' : skill, 'hasTips': 0 } only %}
+    {{ ("skill." ~ skill)|trans }}
+    {% block specialty %}{% endblock %}
+  </div>
+  <div class="col-auto">
+    <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
+      {% block input %}{% endblock %}
+      <div class="dots">
+        {% for value in 1..max %}
+          {% if value > 1 and value % 5 == 1 %}
+          </div>
+            <div class="dots">
+          {% endif %}
+          {% block dot %}{% endblock %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% block specialties %}{% endblock %}

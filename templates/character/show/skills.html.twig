@@ -1,53 +1,19 @@
+{% extends "character/sheet/skills.html.twig" %}
+
 {% trans_default_domain 'character' %}
 
-{% block skills %}
-<h2 class="text-center mt-3">{% trans %}skill.title{% endtrans %}</h2>
-{% set max = 5 %}
-{% set min = 0 %}
-{% set base = 0 %}
-{% set skills = {
-  'mental': [
-    'academics',
-    'computer',
-    'crafts',
-    'investigation',
-    'medecine',
-    'occult',
-    'politics',
-    'science',
-  ],
-  'physical': [
-    'athletics',
-    'brawl',
-    'drive',
-    'firearms',
-    'larceny',
-    'stealth',
-    'survival',
-    'weaponry',
-  ],
-  'social': [
-    'animalKen',
-    'empathy',
-    'expression',
-    'intimidation',
-    'persuasion',
-    'socialize',
-    'streetwise',
-    'subterfuge',
-  ]
-} %}
-<div class="row">
-  {% for category, skills in skills %}
-    <div class="col-md-4 d-md-flex justify-content-center">
-      <div class="block skill-block">
-        <h3 class="d-md-none d-block text-center pt-1">{{ category|trans }}</h3>
-        <p class="text-center text-sub mb-0">({{("skill.unskilled." ~ category)|trans }})</p>
-        {% for skill in skills %}
-          {% include "character/show/skill.html.twig" with {'base': attribute(character.skills, skill) } %}
-        {% endfor %}
+{% block creation %}
+  <span class="d-none">
+    <div class="row g-0 align-items-center px-2 new-specialty" data-character--edit-target="specialtyInput" data-trans="{{ 'specialty.name'|trans}}">
+      <div class="col-8 offset-1 py-1">
+        <input class="form-control" type="text">
       </div>
+      <div class="col-3 ps-1" role="button" data-action="click->character--edit#removeSpecialty">{% include "icon.html.twig" with {'icon': 'remove-specialty' } only %}</div>
     </div>
-  {% endfor %}
-</div>
+  </span>
+{% endblock %}
+
+
+{% block skill %}
+  {% include "character/show/skill.html.twig" with {'base': attribute(character.skills, skill) } %}
 {% endblock %}
