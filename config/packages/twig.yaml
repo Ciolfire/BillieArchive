@@ -4,6 +4,9 @@ twig:
     locales: '%locales%'
   form_themes:
     - "bootstrap_5_horizontal_layout.html.twig"
+    - 'forms/radiobutton.html.twig'
+  paths:
+    '%kernel.project_dir%/public/images': images
 when@test:
   twig:
     strict_variables: true

@@ -8,15 +8,19 @@ $borderColor: #4d0000;
 $mainColor: #4d0000;
 $mainDarkColor: #290101;
 $main50pColor: #4d000088;
-$labelColor: #4d0000;
-$textColor: #a1a5b9;
-$subtextColor: #a1a5b9a1;
-$titleColor: #4d0000;
 $inputBackColor: #2d2d2d1f;
 $inputActiveBColor: #0000001f;
 $wrongColor: #b53434;
 
 $background: "images/back2.jpg";
+
+// Text
+$textColor: #a1a5b9;
+$titleColor: $mainColor;
+$btnColor: $titleColor;
+$labelColor: $titleColor;
+$subtextColor: #a1a5b9a1;
+// Font
 $mainFont: "mrsEaves-bold";
 $h2Font: "Cezanne";
 $h3Font: "Cezanne";
@@ -25,11 +29,10 @@ $subTextFont: "goudy";
 $labelFont: "Cezanne";
 $inputFont: "goudy";
 
-
 @font-face {
   font-family: 'Cezanne';
   src: url('#{$fonts}/P22 Cezanne Regular.ttf');
-  size-adjust: 125%;
+  size-adjust: 150%;
 }
 
 @font-face {

@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "form";
 @import "character";
+@import "rabbit";
 
 body {
   background-color: $pageColor;
@@ -70,6 +71,24 @@ h3 {
 .btn.btn-primary {
   background-color: $blockColor;
   border-color: $borderColor;
+  color: $btnColor;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem $main50pColor;
+  }
+}
+
+.btn-check {
+  &:checked + .btn-primary, &:active + .btn-primary {
+    color: $textColor;
+    background-color: $btnColor;
+    border: $mainDarkColor;
+  }
+  &:focus + .btn-primary, .btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem $main50pColor;
+    color: $textColor;
+    background-color: $btnColor;
+    border: $mainDarkColor;
+  }
 }
 
 .tabs {
@@ -101,91 +120,4 @@ h3 {
   }
 }
 
-:root {
-  --top: 50px;
-  --right: 50px;
-  
-  --idle-rabbit: url("../images/rabbit_idle.gif");
-  --idle-in-delay: 1s;
-  --idle-duration: 4s;
-  
-  --move-rabbit: url("../images/rabbit_move.gif");
-  --move-delay: 5s;
-  --move-duration: 2.4s;
-  
-  --increment: 1;
-  
-  --idle-out-delay: 7.4s;
-  
-}
 
-#rabbit {
-  position: fixed;
-  pointer-events: none;
-  top: var(--top);
-  right: var(--right);
-  width: 32px;
-  height: 32px;
-  background-image: var(--move-rabbit), var(--idle-rabbit);
-  background-size: cover;
-  animation-name: idleInRabbit, moveRabbit, idleOutRabbit;
-  animation-delay: var(--idle-in-delay), var(--move-delay), var(--idle-out-delay);
-  animation-duration: var(--idle-duration), calc(var(--move-duration) * var(--increment)), var(--idle-duration);
-  animation-iteration-count: 1, 1, 1;
-  animation-timing-function: linear;
-  opacity: 0;
-}
-
-@keyframes idleInRabbit {
-  0% {
-    background-image: var(--idle-rabbit);
-  }
-  10% {
-    opacity: 1;
-  }
-  99% {
-    background-image: var(--idle-rabbit);
-  }
-  100% {
-    opacity: 1;
-    background-image: var(--move-rabbit);
-  }
-}
-
-@keyframes moveRabbit {
-  0% {
-    background-image: var(--move-rabbit);
-    opacity: 1;
-    right: var(--right);
-  }
-  10% {
-    right: calc(var(--right) + var(--increment) * 10px);
-  }
-  40% {
-    right: calc(var(--right) + var(--increment) * 40px);
-  }
-  70% {
-    right: calc(var(--right) + var(--increment) * 70px);
-  }
-  100% {
-    background-image: var(--move-rabbit);
-    opacity: 1;
-    right: calc(var(--right) + var(--increment) * 100px);
-  }
-}
-
-@keyframes idleOutRabbit {
-  0% {
-    background-image: var(--idle-rabbit);
-    right: calc(var(--right) + var(--increment) * 100px);
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    background-image: var(--idle-rabbit);
-    right: calc(var(--right) + var(--increment) * 100px);
-    opacity: 0;
-  }
-}

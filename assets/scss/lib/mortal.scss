@@ -8,15 +8,19 @@ $borderColor: #3b4984;
 $mainColor: #3b4984;
 $mainDarkColor: #161c31;
 $main50pColor: #3b49844f;
-$labelColor: #a1a5b9;
-$textColor: #a1a5b9;
-$subtextColor: #a1a5b9a1;
-$titleColor: #3b4984;
 $inputBackColor: #00000052;
 $inputActiveBColor: #ffffff05;
 $wrongColor: #b53434;
 
 $background: "images/back1.jpg";
+
+// Text
+$textColor: #a1a5b9;
+$btnColor: $textColor;
+$titleColor: #3b4984;
+$labelColor: $textColor;
+$subtextColor: #a1a5b9a1;
+// Font
 $mainFont: "escalidogothico";
 $h2Font: "PlasticMan";
 $h3Font: "escalidogothico";
@@ -24,7 +28,6 @@ $textFont: "goudy";
 $subTextFont: "goudy";
 $labelFont: "escalidogothico";
 $inputFont: "escalidogothico";
-
 
 @font-face {
   font-family: 'CaslonAntique';
