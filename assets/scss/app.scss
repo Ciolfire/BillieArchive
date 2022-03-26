@@ -36,6 +36,10 @@ h3 {
   text-shadow: 2px 2px #00000063;
 }
 
+.d-hide {
+  visibility: hidden;
+}
+
 .block {
   background-color: $blockColor;
   box-shadow: $mainColor 0px 0px 7px 3px;

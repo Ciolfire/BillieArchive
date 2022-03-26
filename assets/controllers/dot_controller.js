@@ -39,4 +39,17 @@ export default class extends Controller {
     this.lastValue = value;
     this.inputTarget.value = value;
   }
+
+  checkDots() {
+    let value = this.inputTarget.value;
+    this.dotTargets.forEach(dot => {
+      if (dot.value <= value) {
+        dot.checked = true;
+      } else {
+        dot.checked = false;
+      }
+    });
+    this.lastValue = value;
+    this.inputTarget.value = value;
+  }
 }

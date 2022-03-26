@@ -110,3 +110,15 @@ xp:
   add: Input how many points to award the character
   details.none: Nothing to change
   save: Confirm
+
+
+vampire:
+  age: Age of Death
+  sire: Sire
+
+embrace:
+  discipline:
+    creation:
+      info: Choose three dots of Disciplines, at least two of which must come from the clan favored powers.
+      favored: Favored
+      all: Total

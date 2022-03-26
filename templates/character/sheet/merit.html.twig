@@ -13,7 +13,7 @@
               {% block input %}{% endblock %}
               <div class="dots">
               {% for value in 1..merit.max %}
-                {% if value % 5 == 1 %}
+                {% if value >= 5 and value % 5 == 1 %}
                   <span class="ms-1"></span>
                 {% endif %}
                 {% block dot %}{% endblock %}

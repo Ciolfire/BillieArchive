@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Attribute;
 use App\Entity\Character;
-use App\Entity\Merit;
-use App\Entity\Specialty;
+use App\Entity\Clan;
+use App\Entity\Discipline;
 use App\Form\CharacterType;
+use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 /**
  * @Route("/character")
@@ -115,7 +115,7 @@ class CharacterController extends AbstractController
     return $this->renderForm('character/edit.html.twig', [
       'character' => $character,
       'form' => $form,
-      'merits' => $merits
+      'merits' => $merits,
     ]);
   }
 
@@ -137,8 +137,21 @@ class CharacterController extends AbstractController
    */
   public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
-    return $this->renderForm('character/show.html.twig', [
+    $clans = $this->doctrine->getRepository(Clan::class)->findAll();
+    $attributes = $this->doctrine->getRepository(Attribute::class)->findAll();
+    $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
+    $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      dd($form);
+    }
+    return $this->renderForm('character/embrace.html.twig', [
       'character' => $character,
+      'clans' => $clans,
+      'disciplines' => $disciplines,
+      'form' => $form,
+      'type' => "vampire",
     ]);
   }
 

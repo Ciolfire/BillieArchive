@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Embrace{% endblock %}
+
+{% block body %}
+  <h1>You have been embraced...</h1>
+  {{ include('vampire/embrace/sheet.html.twig') }}
+  <a href="{{ path('character_show', {'id': character.id }) }}">back to character</a>
+{% endblock %}
