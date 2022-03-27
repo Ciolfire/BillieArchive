@@ -2,6 +2,7 @@
 
 <div class="container block py-3 mt-5">
   {{ include('character/show/header.html.twig') }}
+  {{ include('character/show/menu.html.twig') }}
   <div class="row" data-controller="tabs" data-tabs-initial-value="general">
     <ul class="nav tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}

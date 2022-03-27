@@ -1,7 +1,7 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
-<h1 class="text-center text">{{ character.name }} ({{ character.player }})</h1>
+<h1 class="text-center text">{{ character.name }}</h1>
 <div class="row g-1">
   <div class="col-12 col-sm">
     <div class="row text-center">
@@ -25,12 +25,6 @@
       </div>
       <div class="col-12">
         {% trans %}Vice{% endtrans %}: {{ character.vice }}
-      </div>
-      <div class="col-12">
-        <a href="{{ path('character_edit', {'id': character.id}) }}" class="btn btn-sm btn-primary position-relative">Evolution</a>
-      </div>
-      <div class="col-12">
-        <a href="{{ path('character_embrace', {'id': character.id}) }}" class="btn btn-sm btn-primary position-relative">Embrace</a>
       </div>
     </div>
   </div>

@@ -184,8 +184,24 @@ class Character
     return $this->id;
   }
 
-  public function getType(): string {
+  public function getType(): string
+  {
     return lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
+  }
+
+  public function getLimit(): int
+  {
+    return $this->limit;
+  }
+
+  public function isMortal(): bool
+  {
+    $race = get_class($this);
+    if ($race == Vampire::class) {
+      return false;
+    }
+
+    return true;
   }
 
   public function getName(): ?string

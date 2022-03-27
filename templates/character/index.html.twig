@@ -1,50 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character index{% endblock %}
+{% block title %}Character index
+{% endblock %}
 
 {% block body %}
-    <h1>Character index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Player</th>
-                <th>Virtue</th>
-                <th>Vice</th>
-                <th>Concept</th>
-                <th>Chronicle</th>
-                <th>Faction</th>
-                <th>GroupName</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for character in characters %}
-            <tr>
-                <td>{{ character.id }}</td>
-                <td>{{ character.name }}</td>
-                <td>{{ character.age }}</td>
-                <td>{{ character.player }}</td>
-                <td>{{ character.virtue }}</td>
-                <td>{{ character.vice }}</td>
-                <td>{{ character.concept }}</td>
-                <td>{{ character.chronicle }}</td>
-                <td>{{ character.faction }}</td>
-                <td>{{ character.groupName }}</td>
-                <td>
-                    <a href="{{ path('character_show', {'id': character.id}) }}">show</a>
-                    <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path('character_new') }}">Create new</a>
+<h1 class="text-center">Characters</h1>
+<div class="block container">
+  {% for character in characters %}
+    <div class="row" role="button" onclick='location.href="{{ path('character_show', {'id': character.id}) }}"'>
+      <div class="col">{{ character.name }}</div>
+      <div class="col">{{ character.type }}</div>
+      <div class="col">{{ character.player }}</div>
+      <div class="col">{{ character.concept }}</div>
+      <div class="col">{{ character.chronicle }}</div>
+    </div>
+  {% else %}
+    <tr>
+      <td colspan="11">no records found</td>
+    </tr>
+  {% endfor %}
+</div>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-6">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('character_new') }}">Create new</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

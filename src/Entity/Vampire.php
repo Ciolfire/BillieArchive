@@ -61,7 +61,6 @@ class Vampire extends Character
         $this->$property = $value;
       }
     }
-    $limit = max($this->limit, $this->potency);
     $this->skills = new CharacterSkills();
   }
 
@@ -70,11 +69,9 @@ class Vampire extends Character
     return $this->id;
   }
 
-  public function setId(int $id)
+  public function getLimit(): int
   {
-    $this->id = $id;
-
-    return $this;
+    return max($this->limit, $this->potency);
   }
 
   public function getSire(): ?string
