@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\Human;
+use App\Entity\Vampire;
 use App\Entity\Clan;
 use App\Entity\Discipline;
 use App\Form\CharacterType;
@@ -11,6 +13,7 @@ use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
+use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +29,13 @@ class CharacterController extends AbstractController
 {
   private $doctrine;
   private $service;
+  private $vService;
   private $create;
 
-  public function __construct(ManagerRegistry $doctrine, CreationService $create, CharacterService $service) {
+  public function __construct(ManagerRegistry $doctrine, CreationService $create, CharacterService $service, VampireService $vService) {
     $this->doctrine = $doctrine;
     $this->service = $service;
+    $this->vService = $vService;
     $this->create = $create;
   }
 
@@ -49,7 +54,7 @@ class CharacterController extends AbstractController
    */
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
-    $character = new Character();
+    $character = new Human();
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);
@@ -81,6 +86,7 @@ class CharacterController extends AbstractController
   {
     return $this->render('character/show.html.twig', [
       'character' => $character,
+      'type' => $character->getType(),
     ]);
   }
 
@@ -90,7 +96,7 @@ class CharacterController extends AbstractController
   public function edit(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
 
-    $merits = $this->service->filterMerits($character);
+    $merits = $this->service->filterMerits($character, false);
     $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true]);
     $form->handleRequest($request);
 
@@ -144,7 +150,7 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      dd($form);
+      $this->vService->embrace($character, $form);
     }
     return $this->renderForm('character/embrace.html.twig', [
       'character' => $character,

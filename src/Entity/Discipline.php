@@ -30,7 +30,7 @@ class Discipline
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isRestricted;
+    private $isRestricted = 1;
 
     public function getId(): ?int
     {

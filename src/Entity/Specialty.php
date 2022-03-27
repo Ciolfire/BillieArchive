@@ -24,7 +24,7 @@ class Specialty
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialties")
+     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialties", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $character;
@@ -35,7 +35,8 @@ class Specialty
      */
     private $skill;
 
-    public function __construct(Character $character, $skill, $name)
+
+    public function __construct(Character $character = null, Skill $skill = null, string $name = null)
     {
         $this->character = $character;
         $this->skill = $skill;

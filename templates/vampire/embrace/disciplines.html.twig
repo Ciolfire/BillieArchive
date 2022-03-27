@@ -4,10 +4,9 @@
 
 {% block create %}
 <div class="col-12 text-center block-solid mt-2">
-  {% trans %}embrace.discipline.creation.info{% endtrans %}
+  <span class="text-sub fw-bold">{{ "embrace.discipline.creation.info"|trans|raw }}</span>
+  ({% trans %}embrace.discipline.creation.favored{% endtrans %}: <span data-character--embrace-target="disciplinesFavored">0</span>)
   <br>
-  {% trans %}embrace.discipline.creation.favored{% endtrans %}
-  <span data-character--embrace-target="disciplinesFavored">0</span>/<span class="ok">2</span>
   {% trans %}embrace.discipline.creation.all{% endtrans %}
   <span data-character--embrace-target="disciplinesTotal">0</span>/<span class="ok">3</span>
 </div>

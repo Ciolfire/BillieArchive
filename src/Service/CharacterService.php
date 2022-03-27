@@ -100,7 +100,7 @@ class CharacterService
     }
   }
 
-  public function filterMerits(Character $character)
+  public function filterMerits(Character $character, $isCreation = true)
   {
     $merits = $this->doctrine->getRepository(Merit::class)->findAll();
 
@@ -109,7 +109,7 @@ class CharacterService
       if ($merit->getIsUnique() && $character->hasMerit($merit->getId())) {
         // Character already has this merit, we remove it from the list
         unset($merits[$key]);
-      } else if ($merit->getIsCreationOnly()) {
+      } else if (!$isCreation && $merit->getIsCreationOnly()) {
         // Level 1 merit
         unset($merits[$key]);
       }

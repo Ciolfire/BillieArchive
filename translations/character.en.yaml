@@ -117,8 +117,9 @@ vampire:
   sire: Sire
 
 embrace:
+  save: Start your Requiem
   discipline:
     creation:
-      info: Choose three dots of Disciplines, at least two of which must come from the clan favored powers.
-      favored: Favored
+      info: "Choose <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
+      favored: Currently
       all: Total

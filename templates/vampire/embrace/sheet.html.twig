@@ -1,5 +1,7 @@
 {% trans_default_domain 'character' %}
 
+{% trans_default_domain 'character' %}
+
 <div class="container block py-3 mt-5">
   <h2 class="text-center">{{ character.name }}</h2>
   {{ form_start(form, {'attr': {'data-controller': 'character--embrace'}}) }}
@@ -16,7 +18,7 @@
   {% include "vampire/embrace/disciplines.html.twig" %}
   <div class="row">
     <div class="col">
-      <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit">{{ "Welcome to the Requiem... "|default('Save') }}</button>
+      <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit" data-action="click->character--embrace#clean">{{ "embrace.save"|trans }}</button>
     </div>
   </div>
   {{ form_end(form) }}

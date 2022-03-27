@@ -39,7 +39,7 @@ class CharacterMerit
   private $level;
 
   /**
-   * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits")
+   * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits", cascade={"persist"})
    * @ORM\JoinColumn(nullable=false)
    */
   private $character;

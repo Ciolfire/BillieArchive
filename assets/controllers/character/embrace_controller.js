@@ -127,4 +127,13 @@ export default class extends Controller {
     target.classList.remove(hide);
     target.classList.add(show);
   }
+
+  clean(event) {
+    this.disciplineValueTargets.forEach(element => {
+      if (element.value == 0) {
+        element.setAttribute('name', '');
+      }
+    });
+    document.forms['embrace'].submit();
+  }
 }

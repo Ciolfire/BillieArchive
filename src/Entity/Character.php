@@ -1,164 +1,170 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
  * @ORM\Table(name="characters")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
  */
 class Character
 {
+  // Probably not needed
+  //  * @ORM\DiscriminatorMap({"human" = "Human", "vampire" = "Vampire", "mage" = "Mage", "werewolf" = "Werewolf"})
+  
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
    */
-  private $id;
+  protected $id;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
    */
-  private $name;
+  protected $name;
 
   /**
    * @ORM\Column(type="integer", nullable=true, options={"unsigned":true})
    */
-  private $age;
+  protected $age;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
    */
-  private $player;
+  protected $player;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
    */
-  private $concept;
+  protected $concept;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
    */
-  private $chronicle;
+  protected $chronicle;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
    */
-  private $faction;
+  protected $faction;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
    */
-  private $groupName;
+  protected $groupName;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $intelligence = 1;
+  protected $intelligence = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $wits = 1;
+  protected $wits = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $resolve = 1;
+  protected $resolve = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $strength = 1;
+  protected $strength = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $dexterity = 1;
+  protected $dexterity = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $stamina = 1;
+  protected $stamina = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $presence = 1;
+  protected $presence = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $manipulation = 1;
+  protected $manipulation = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
    */
-  private $composure = 1;
+  protected $composure = 1;
 
   /**
    * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
    */
-  private $specialties;
+  protected $specialties;
 
   /**
    * @ORM\Column(type="smallint")
    */
-  private $willpower;
+  protected $willpower;
 
   /**
    * @ORM\ManyToOne(targetEntity=Virtue::class)
    */
-  private $virtue;
+  protected $virtue;
 
   /**
    * @ORM\ManyToOne(targetEntity=Vice::class)
    */
-  private $vice;
+  protected $vice;
 
   /**
    * @ORM\Column(type="smallint")
    */
-  private $moral = 7;
+  protected $moral = 7;
 
   /**
    * @ORM\OneToOne(targetEntity=CharacterSkills::class, cascade={"persist", "remove"})
    */
-  private $skills;
+  protected $skills;
 
   /**
    * @ORM\Column(type="json", nullable=true)
    */
-  private $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
+  protected $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
 
   /**
    * @ORM\Column(type="smallint")
    */
-  private $size = 5;
+  protected $size = 5;
 
   /**
    * @ORM\Column(type="smallint")
    */
-  private $currentWillpower;
+  protected $currentWillpower;
 
   /**
-   * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true)
+   * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
    */
-  private $merits;
-
-  /**
-   * @ORM\Column(type="smallint")
-   */
-  private $xpTotal = 0;
+  protected $merits;
 
   /**
    * @ORM\Column(type="smallint")
    */
-  private $xpUsed = 0;
+  protected $xpTotal = 0;
+
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  protected $xpUsed = 0;
+
+  protected $limit = 5;
 
   public function __construct()
   {
@@ -168,9 +174,18 @@ class Character
     $this->merits = new ArrayCollection();
   }
 
+  public function __toString()
+  {
+    return $this->name;
+  }
+
   public function getId(): ?int
   {
     return $this->id;
+  }
+
+  public function getType(): string {
+    return lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
   }
 
   public function getName(): ?string
@@ -259,7 +274,7 @@ class Character
 
   public function getIntelligence(): ?int
   {
-    return $this->intelligence;
+    return min($this->limit, $this->intelligence);
   }
 
   public function setIntelligence(int $intelligence): self
@@ -271,7 +286,7 @@ class Character
 
   public function getWits(): ?int
   {
-    return $this->wits;
+    return min($this->limit, $this->wits);
   }
 
   public function setWits(int $wits): self
@@ -283,7 +298,7 @@ class Character
 
   public function getResolve(): ?int
   {
-    return $this->resolve;
+    return min($this->limit, $this->resolve);
   }
 
   public function setResolve(int $resolve): self
@@ -295,7 +310,7 @@ class Character
 
   public function getStrength(): ?int
   {
-    return $this->strength;
+    return min($this->limit, $this->strength);
   }
 
   public function setStrength(int $strength): self
@@ -307,7 +322,7 @@ class Character
 
   public function getDexterity(): ?int
   {
-    return $this->dexterity;
+    return min($this->limit, $this->dexterity);
   }
 
   public function setDexterity(int $dexterity): self
@@ -319,7 +334,7 @@ class Character
 
   public function getStamina(): ?int
   {
-    return $this->stamina;
+    return min($this->limit, $this->stamina);
   }
 
   public function setStamina(int $stamina): self
@@ -331,7 +346,7 @@ class Character
 
   public function getPresence(): ?int
   {
-    return $this->presence;
+    return min($this->limit, $this->presence);
   }
 
   public function setPresence(int $presence): self
@@ -343,7 +358,7 @@ class Character
 
   public function getManipulation(): ?int
   {
-    return $this->manipulation;
+    return min($this->limit, $this->manipulation);
   }
 
   public function setManipulation(int $manipulation): self
@@ -355,12 +370,20 @@ class Character
 
   public function getComposure(): ?int
   {
-    return $this->composure;
+    return min($this->limit, $this->composure);
   }
 
   public function setComposure(int $composure): self
   {
     $this->composure = $composure;
+
+    return $this;
+  }
+
+  public function addAttribute($attribute, int $value)
+  {
+    $attribute = lcfirst($attribute);
+    $this->$attribute += $value;
 
     return $this;
   }
