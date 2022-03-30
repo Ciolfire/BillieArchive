@@ -50,6 +50,17 @@ class CharacterController extends AbstractController
   }
 
   /**
+   * @Route("/v/", name="vampire_index", methods={"GET"})
+   */
+  public function vampires(CharacterRepository $characterRepository): Response
+  {
+    return $this->render('character/index.html.twig', [
+      'characters' => $this->doctrine->getRepository(Vampire::class)->findAll(),
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
    * @Route("/new", name="character_new", methods={"GET", "POST"})
    */
   public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -120,6 +131,7 @@ class CharacterController extends AbstractController
 
     return $this->renderForm('character/edit.html.twig', [
       'character' => $character,
+      'type' => $character->getType(),
       'form' => $form,
       'merits' => $merits,
     ]);

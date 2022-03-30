@@ -4,7 +4,7 @@
   <a id="{{ name }}Tab" class="nav-link h-100" href="#{{ name }}" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">
     <span class="pe-none">
       {% include "icon.html.twig" with {'icon': name, 'hasTips': 0} only %}
-      <span class="d-none d-md-inline">{{ name|trans }}</span>
+      <span class="d-none d-lg-inline">{{ ('tab.' ~ name)|trans }}</span>
     </span>
   </a>
 </li>

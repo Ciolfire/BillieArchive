@@ -20,6 +20,9 @@ export default class extends Controller {
       'specialty': 3,
       'merit': 2,
       'morality': 3,
+      'discipline': 7,
+      'favoredDiscipline': 5,
+      'willpower': 8,
     },
     spendInfo: []
   }

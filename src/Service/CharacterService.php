@@ -76,16 +76,21 @@ class CharacterService
       case 'willpower':
         if ($data->value == 1) {
           $character->setCurrentWillpower(min($character->getWillpower(), $character->getCurrentWillpower() + 1));
-          $this->doctrine->flush();
         } else if ($data->value == 0) {
           $character->setCurrentWillpower(max(0, $character->getCurrentWillpower() - 1));
-          $this->doctrine->flush();
         }
         break;
       default:
-        # code...
+        $getTrait = "get".ucfirst($data->trait);
+        $setTrait = "set".ucfirst($data->trait);
+        if ($data->value == 1) {
+          $character->$setTrait($character->$getTrait() + 1);
+        } else {
+          $character->$setTrait(max(0, $character->$getTrait() - 1));
+        }
         break;
-    }
+      }
+    $this->doctrine->flush();
   }
 
   public function updateExperience(Character $character, $data)

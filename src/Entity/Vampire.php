@@ -122,6 +122,22 @@ class Vampire extends Character
       return $this;
   }
 
+  public function getMaxVitae(): int
+  {
+    switch ($this->potency) {
+      case 10:
+        return 100;
+      case 9:
+        return 50;
+      case 8:
+        return 30;
+      case 7:
+        return 20;
+      default:
+        return $this->potency + 9;
+    }
+  }
+
   public function getVitae(): ?int
   {
       return $this->vitae;

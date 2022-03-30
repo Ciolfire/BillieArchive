@@ -7,18 +7,24 @@
     <ul class="nav tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+      {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
     </ul>
     <div id="general" data-tabs-target="page">
       <div class="row">
-        <div class="col">
+        <div class="col-12 col-md-6 col-lg">
           {{ include('character/show/health.html.twig') }}
         </div>
-        <div class="col">
+        <div class="col-12 col-md-6 col-lg">
           {{ include('character/show/willpower.html.twig') }}
         </div>
+        {% if character.type != "human" %}
+          <div class="col-12 col-lg">
+            {{ include(character.type ~ '/show/trait.html.twig') }}
+          </div>
+        {% endif %}
       </div>
       {{ include('character/show/advantages.html.twig') }}
       {{ include('character/show/attributes.html.twig') }}
@@ -27,6 +33,11 @@
     <div id="merits" data-tabs-target="page">
       {{ include('character/show/merits.html.twig') }}
     </div>
+    {% if character.type != "human" %}
+      <div id="powers" data-tabs-target="page">
+        {{ include(character.type ~ '/show/powers.html.twig') }}
+      </div>
+    {% endif %}
     <div id="background" data-tabs-target="page">
       <div class="col-12 d-flex justify-content-center my-2">
         <div>

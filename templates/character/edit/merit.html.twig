@@ -10,7 +10,7 @@
 
 {% block dot %}
 <input type="checkbox" {% if chMerit is defined and value <= chMerit.level %}checked{% endif %} class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-<label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
+<label class="btn dot {% if value < merit.min %}dot-disabled disabled{% endif %}{% if chMerit is defined and value <= chMerit.level %} dot-locked{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
   data-action="click->dot#activate click->character--merits#add click->character--edit#pay"
   data-dot-value-param="{{ value }}"
   data-character--edit-value-param="{{ value }}"

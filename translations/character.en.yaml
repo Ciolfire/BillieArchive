@@ -7,7 +7,6 @@ Vice: Vice
 Chronicle: Chronicle
 Faction: Faction
 Group name: Group Name
-merits: Merits
 mental: Mental
 physical: Physical
 social: Social
@@ -30,10 +29,14 @@ attribute:
   manipulation: Manipulation
   composure: Composure
 
-general: General
-relations: Relations
-background: Background
-notes: Notes
+tab:
+  background: Background
+  general: General
+  merits: Merits
+  notes: Notes
+  powers: Powers
+  relations: Relations
+  vampire: Vampire
 
 dot:
   fifth: Fifth dot cost two
@@ -115,6 +118,10 @@ xp:
 vampire:
   age: Age of Death
   sire: Sire
+  potency:
+    name: Blood Potency
+  hungry: The vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
+  starved: The vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
 
 embrace:
   save: Start your Requiem

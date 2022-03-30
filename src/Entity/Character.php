@@ -319,6 +319,14 @@ class Character
 
   public function setResolve(int $resolve): self
   {
+    if ($resolve != $this->resolve) {
+      $difference = $resolve - $this->resolve;
+      $this->willpower = $this->willpower + $difference;
+      if ($difference > 0) {
+        $this->currentWillpower = $this->currentWillpower + $difference;
+      }
+    }
+
     $this->resolve = $resolve;
 
     return $this;
@@ -386,11 +394,19 @@ class Character
 
   public function getComposure(): ?int
   {
+
     return min($this->limit, $this->composure);
   }
 
   public function setComposure(int $composure): self
   {
+    if ($composure != $this->composure) {
+      $difference = $composure - $this->composure;
+      $this->willpower = $this->willpower + $difference;
+      if ($difference > 0) {
+        $this->currentWillpower = $this->currentWillpower + $difference;
+      }
+    }
     $this->composure = $composure;
 
     return $this;
@@ -399,6 +415,10 @@ class Character
   public function addAttribute($attribute, int $value)
   {
     $attribute = lcfirst($attribute);
+    if ($attribute == 'composure' || $attribute == 'calme') {
+      $this->willpower++;
+      $this->currentWillpower++;
+    }
     $this->$attribute += $value;
 
     return $this;
