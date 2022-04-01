@@ -6,5 +6,5 @@
   {% set max = 5 %}
   {% set min = 1 %}
   {% set base = 1 %}
-    {% include "character/edit/attribute.html.twig" with {'base': attribute(character, attribute), 'min': attribute(character, attribute) } %}
+    {% include "character/edit/attribute.html.twig" with {'base': attribute(character.attributes, attribute), 'min': attribute(character.attributes, attribute) } %}
 {% endblock %}

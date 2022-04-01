@@ -36,6 +36,13 @@ h3 {
   text-shadow: 2px 2px #00000063;
 }
 
+h5 {
+  font-size: 1rem;
+  font-family: $h2Font;
+  color: $titleColor;
+  text-shadow: 1px 2px 1px #00000063;
+}
+
 .d-hide {
   visibility: hidden;
 }
@@ -119,7 +126,7 @@ h3 {
       border-radius: 0%;
       border-style: solid;
       &.active, &:active, &:focus, &:hover {
-        color: $textColor;
+        color: $titleColor;
         background-color: transparent;
         border-color: $borderColor;
         border-width: 1px 1px 0 1px;
@@ -128,6 +135,17 @@ h3 {
         color: $mainColor;
       }
     }
+  }
+}
+
+.fluff, blockquote {
+  font-size: small;
+  font-style: italic;
+  background-color: #000000a1;
+  padding: 0.5rem;
+  border-radius: 0.5em;
+  p {
+    margin-bottom: 0;
   }
 }
 

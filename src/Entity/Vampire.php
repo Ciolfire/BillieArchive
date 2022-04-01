@@ -61,7 +61,8 @@ class Vampire extends Character
         $this->$property = $value;
       }
     }
-    $this->skills = new CharacterSkills();
+    $this->attributes->setLimit($this->getLimit());
+    $this->skills->setLimit($this->getLimit());
   }
 
   public function getId(): ?int

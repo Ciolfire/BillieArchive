@@ -1,0 +1,12 @@
+{% extends "vampire/sheet/disciplines.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block discipline %}
+  {# {% set max = discipline.limit %} #}
+  {% set max = 5 %}
+  {% set min = 0 %}
+  {% set base = charDiscipline.level %}
+  {% set discipline = charDiscipline.discipline %}
+  {% include "vampire/show/discipline.html.twig" %}
+{% endblock %}

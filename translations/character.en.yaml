@@ -115,6 +115,8 @@ xp:
   save: Confirm
 
 
+power: "{0}No Power|{1}Power|]1,Inf[Powers"
+
 vampire:
   age: Age of Death
   sire: Sire

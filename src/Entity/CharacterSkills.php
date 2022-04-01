@@ -138,13 +138,26 @@ class CharacterSkills
    */
   private $subterfuge = 0;
 
+  protected $limit = 5;
+
   public function __construct()
   {
+  }
+
+  public function setLimit(int $limit): self
+  {
+    $this->limit = $limit;
+    return $this;
   }
 
   public function getId(): ?int
   {
     return $this->id;
+  }
+
+  public function get($skill): ?int
+  {
+    return min($this->limit, $this->$skill);
   }
 
   public function getAcademics(): ?int

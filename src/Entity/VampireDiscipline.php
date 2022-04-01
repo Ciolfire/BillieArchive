@@ -46,6 +46,11 @@ class VampireDiscipline
     return $this->id;
   }
 
+  public function getName(): string
+  {
+    return $this->discipline->getName();
+  }
+
   public function getDiscipline(): ?Discipline
   {
     return $this->discipline;

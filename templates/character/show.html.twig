@@ -6,10 +6,5 @@
 {% block body %}
   {{ include('character/show/sheet.html.twig') }}
 
-
-  <a href="{{ path('character_index') }}">back to list</a>
-
-  <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>
-
-  {{ include('character/_delete_form.html.twig') }}
+  {# {{ include('character/_delete_form.html.twig') }} #}
 {% endblock %}

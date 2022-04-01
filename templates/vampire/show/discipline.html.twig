@@ -1,0 +1,70 @@
+{% trans_default_domain 'character' %}
+
+{% extends "vampire/sheet/discipline.html.twig" %}
+
+{% block controller %}role="group"{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ discipline.name ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
+  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ discipline.name ~ '-' ~ value }}"></label>
+{% endblock %}
+
+{% block rulesBtn %}
+  {% if discipline.rules %}
+    <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
+      <span class="d-flex flex-column justify-content-center text-center">
+        rules
+        <span class="discipline-rules-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+        <span class="collapse-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+      </span>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block powersBtn %}
+<div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-powers-{{ discipline.id }}" type="button">
+  <span class="d-flex flex-column justify-content-center text-center">
+    {{ 'power'|trans({'%count%': discipline.powers|length}) }}
+    <span class="discipline-powers-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+    <span class="collapse-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+  </span>
+</div>
+{% endblock %}
+
+{% block rules %}
+{% if discipline.rules %}
+    <div class="col-12 discipline-rules-{{ discipline.id }} collapse">
+      {{ discipline.rules|markdown_to_html }}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block powers %}
+  {% if discipline.singlePower %}
+    <div class="col-12">
+      <div class="discipline-powers-{{ discipline.id }} collapse">{{ discipline.power.details|markdown_to_html }}</div>
+    </div>
+  {% else %}
+    {% for power in discipline.powers %}
+      {% if power.level <= charDiscipline.level %}
+        <div class="col-12">
+          <div class="discipline-powers-{{ discipline.id }} collapse">
+            <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">
+              <div class="col">{{ power.levelDots }}</div>
+              <div class="col">{{ power }}</div>
+              <div class="col text-end">
+                {% if power.attribute and power.skill %}
+                  <span class="text">
+                    {{ power.dicePool(character) }}
+                  </span>
+                  <i class="fa-solid fa-diamond"></i>
+                {% endif %}
+              </div>
+            </h5>
+            <div class="discipline-power-{{ power.id }} collapse">{{ power.details|markdown_to_html }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}

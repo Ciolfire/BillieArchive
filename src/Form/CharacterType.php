@@ -28,15 +28,7 @@ class CharacterType extends AbstractType
       ->add('faction')
       ->add('groupName')
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
-      ->add('intelligence', HiddenType::class)
-      ->add('wits', HiddenType::class)
-      ->add('resolve', HiddenType::class)
-      ->add('strength', HiddenType::class)
-      ->add('dexterity', HiddenType::class)
-      ->add('stamina', HiddenType::class)
-      ->add('presence', HiddenType::class)
-      ->add('manipulation', HiddenType::class)
-      ->add('composure', HiddenType::class)
+      ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
       if (!$options['is_edit']) {
         $builder->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])

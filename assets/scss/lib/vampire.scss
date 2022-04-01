@@ -1,13 +1,13 @@
 $fonts: "../../fonts";
 
 $pageColor: rgb(37, 37, 37);
-$blockColor: #6a6a6ab4;
+$blockColor: #151515b5;
 $solidBlockColor: #6a6a6a;
 $tabColor: #6a6a6a4f;
-$borderColor: #4d0000;
-$mainColor: #4d0000;
-$mainDarkColor: #290101;
-$main50pColor: #4d000088;
+$borderColor: #7d0000;
+$mainColor: #7d0000;
+$mainDarkColor: #4d0000;
+$main50pColor: #7d000088;
 $inputBackColor: #2d2d2d1f;
 $inputActiveBColor: #0000001f;
 $wrongColor: #b53434;
@@ -48,4 +48,8 @@ $inputFont: "goudy";
 @font-face {
   font-family: 'MrsEavesBold';
   src: url('#{$fonts}/MrsEavesBold.otf');
+}
+
+.collapse-block {
+  background-color: rgba(0, 0, 0, 0.29);
 }

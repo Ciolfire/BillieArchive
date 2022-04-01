@@ -7,7 +7,7 @@
 {% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="attribute" data-name="{{ ("attribute." ~ attribute)|trans }}"{% endblock %}
 
 {% block input %}
-  {{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
+  {{ form_row(attribute(form.attributes, attribute), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
 {% endblock %}
 
 {% block dot %}

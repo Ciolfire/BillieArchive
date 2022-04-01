@@ -34,7 +34,7 @@
       {{ include('character/show/merits.html.twig') }}
     </div>
     {% if character.type != "human" %}
-      <div id="powers" data-tabs-target="page">
+      <div id="{{ character.type }}" data-tabs-target="page">
         {{ include(character.type ~ '/show/powers.html.twig') }}
       </div>
     {% endif %}

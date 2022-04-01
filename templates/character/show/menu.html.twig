@@ -3,13 +3,16 @@
 <div id="calculator" class="block text-center text">
   <div class="container">
     <div class="row g-0">
-      <div class="col">
+      <div class="col px-1">
         <a href="{{ path('character_edit', {'id': character.id}) }}" class="btn btn-sm btn-primary w-100">Evolution</a>
       </div>
-      <div class="col">
+      <div class="col px-1">
         {% if character.isMortal %}
           <a href="{{ path('character_embrace', {'id': character.id}) }}" class="btn btn-sm btn-primary w-100">Embrace</a>
         {% endif %}
+      </div>
+      <div class="col px-1">
+        <a href="{{ path('character_index') }}" class="btn btn-sm btn-primary w-100">back</a>
       </div>
     </div>
   </div>

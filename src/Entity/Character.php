@@ -60,51 +60,6 @@ class Character
   protected $groupName;
 
   /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $intelligence = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $wits = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $resolve = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $strength = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $dexterity = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $stamina = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $presence = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $manipulation = 1;
-
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   */
-  protected $composure = 1;
-
-  /**
    * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
    */
   protected $specialties;
@@ -128,6 +83,11 @@ class Character
    * @ORM\Column(type="smallint")
    */
   protected $moral = 7;
+
+  /**
+   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"})
+   */
+  protected $attributes;
 
   /**
    * @ORM\OneToOne(targetEntity=CharacterSkills::class, cascade={"persist", "remove"})
@@ -168,7 +128,7 @@ class Character
 
   public function __construct()
   {
-    $this->willpower = $this->composure + $this->resolve;
+    $this->willpower = $this->attributes->getComposure() + $this->attributes->getResolve();
     $this->currentWillpower = $this->willpower;
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
@@ -288,133 +248,8 @@ class Character
     return $this;
   }
 
-  public function getIntelligence(): ?int
-  {
-    return min($this->limit, $this->intelligence);
-  }
-
-  public function setIntelligence(int $intelligence): self
-  {
-    $this->intelligence = $intelligence;
-
-    return $this;
-  }
-
-  public function getWits(): ?int
-  {
-    return min($this->limit, $this->wits);
-  }
-
-  public function setWits(int $wits): self
-  {
-    $this->wits = $wits;
-
-    return $this;
-  }
-
-  public function getResolve(): ?int
-  {
-    return min($this->limit, $this->resolve);
-  }
-
-  public function setResolve(int $resolve): self
-  {
-    if ($resolve != $this->resolve) {
-      $difference = $resolve - $this->resolve;
-      $this->willpower = $this->willpower + $difference;
-      if ($difference > 0) {
-        $this->currentWillpower = $this->currentWillpower + $difference;
-      }
-    }
-
-    $this->resolve = $resolve;
-
-    return $this;
-  }
-
-  public function getStrength(): ?int
-  {
-    return min($this->limit, $this->strength);
-  }
-
-  public function setStrength(int $strength): self
-  {
-    $this->strength = $strength;
-
-    return $this;
-  }
-
-  public function getDexterity(): ?int
-  {
-    return min($this->limit, $this->dexterity);
-  }
-
-  public function setDexterity(int $dexterity): self
-  {
-    $this->dexterity = $dexterity;
-
-    return $this;
-  }
-
-  public function getStamina(): ?int
-  {
-    return min($this->limit, $this->stamina);
-  }
-
-  public function setStamina(int $stamina): self
-  {
-    $this->stamina = $stamina;
-
-    return $this;
-  }
-
-  public function getPresence(): ?int
-  {
-    return min($this->limit, $this->presence);
-  }
-
-  public function setPresence(int $presence): self
-  {
-    $this->presence = $presence;
-
-    return $this;
-  }
-
-  public function getManipulation(): ?int
-  {
-    return min($this->limit, $this->manipulation);
-  }
-
-  public function setManipulation(int $manipulation): self
-  {
-    $this->manipulation = $manipulation;
-
-    return $this;
-  }
-
-  public function getComposure(): ?int
-  {
-
-    return min($this->limit, $this->composure);
-  }
-
-  public function setComposure(int $composure): self
-  {
-    if ($composure != $this->composure) {
-      $difference = $composure - $this->composure;
-      $this->willpower = $this->willpower + $difference;
-      if ($difference > 0) {
-        $this->currentWillpower = $this->currentWillpower + $difference;
-      }
-    }
-    $this->composure = $composure;
-
-    return $this;
-  }
-
   public function addAttribute($attribute, int $value)
   {
-    $attribute = lcfirst($attribute);
     if ($attribute == 'composure' || $attribute == 'calme') {
       $this->willpower++;
       $this->currentWillpower++;
@@ -513,6 +348,18 @@ class Character
     return $this;
   }
 
+  public function getAttributes(): ?CharacterAttributes
+  {
+    return $this->attributes;
+  }
+
+  public function setAttributes(?CharacterAttributes $attributes): self
+  {
+    $this->attributes = $attributes;
+
+    return $this;
+  }
+
   public function getSkills(): ?CharacterSkills
   {
     return $this->skills;
@@ -555,7 +402,7 @@ class Character
 
   public function getHealth(): ?int
   {
-    return $this->size + $this->stamina;
+    return $this->size + $this->attributes->getStamina();
   }
 
   public function getCurrentWillpower(): ?int
@@ -565,7 +412,7 @@ class Character
 
   public function getSpeed(): ?int
   {
-    return $this->strength + $this->dexterity + 5;
+    return $this->attributes->getStrength() + $this->attributes->getDexterity() + 5;
   }
 
   public function setCurrentWillpower(int $currentWillpower): self
@@ -579,13 +426,13 @@ class Character
   {
     $bonus = 0;
 
-    return $this->dexterity + $this->composure + $bonus;
+    return $this->attributes->getDexterity() + $this->attributes->getComposure() + $bonus;
   }
 
   public function getDefense(): int
   {
 
-    return min($this->dexterity, $this->wits);
+    return min($this->attributes->getDexterity(), $this->attributes->getWits());
   }
 
   /**
@@ -660,5 +507,20 @@ class Character
       $this->xpUsed += $spent;
 
       return $this;
+  }
+
+  public function dicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
+  {
+    $attributeDice = $this->attributes->get($attribute->getName());
+    $skillDice = $this->skills->get($skill->getName());
+    if ($skillDice == 0) {
+      if ($skill->getCategory() == "mental") {
+        $skillDice = -3;
+      } else {
+        $skillDice = -1;
+      }
+    }
+
+    return $attributeDice + $skillDice + $bonus;
   }
 }
