@@ -4,7 +4,7 @@
 
 {% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"{% endblock %}
 
-{% block input %}{{ form_row(attribute(form, attribute), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': category ~ "Attr"}}) }}{% endblock %}
+{% block input %}{{ form_row(attribute(form.attributes, attribute), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': category ~ "Attr"}}) }}{% endblock %}
 
 {% block dot %}
   <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">

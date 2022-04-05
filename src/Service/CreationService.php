@@ -93,6 +93,6 @@ class CreationService
 
   public function getWillpower(Character $character): void
   {
-    $character->setWillpower($character->getResolve() + $character->getComposure());
+    $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
   }
 }

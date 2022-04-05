@@ -138,16 +138,13 @@ class CharacterSkills
    */
   private $subterfuge = 0;
 
-  protected $limit = 5;
+  /**
+   * @ORM\OneToOne(targetEntity=Character::class, mappedBy="skills")
+   */
+  private $character;
 
   public function __construct()
   {
-  }
-
-  public function setLimit(int $limit): self
-  {
-    $this->limit = $limit;
-    return $this;
   }
 
   public function getId(): ?int
@@ -155,9 +152,21 @@ class CharacterSkills
     return $this->id;
   }
 
-  public function get($skill): ?int
+  public function setCharacter(Character $character)
   {
-    return min($this->limit, $this->$skill);
+    $this->character = $character;
+  }
+
+  public function get(string $skill): ?int
+  {
+    return min($this->character->getLimit(), $this->$skill);
+  }
+
+  public function set(string $skill, int $value): self
+  {
+    $this->$skill = $value;
+
+    return $this;
   }
 
   public function getAcademics(): ?int

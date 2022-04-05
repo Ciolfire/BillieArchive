@@ -59,7 +59,7 @@ export default class extends Controller {
         //ok
       }
     };
-    xhttp.open("POST", `/character/${this.idValue}/wounds/update`, true);
+    xhttp.open("POST", `/en/character/${this.idValue}/wounds/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
     let data = JSON.stringify({'value': this.currentValue, 'action': action});

@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/character")
+ * @Route("/{_locale<%supported_locales%>?%default_locale%}/character")
  */
 class CharacterController extends AbstractController
 {

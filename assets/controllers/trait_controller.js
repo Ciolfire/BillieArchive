@@ -50,7 +50,7 @@ export default class extends Controller {
         console.log(xhttp.responseText);
       }
     };
-    xhttp.open("POST", `/character/${this.idValue}/trait/update`, true);
+    xhttp.open("POST", `/en/character/${this.idValue}/trait/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
     let data = JSON.stringify({'value': this.currentValue, 'trait': this.typeValue});

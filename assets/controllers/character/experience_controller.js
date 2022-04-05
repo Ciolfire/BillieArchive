@@ -21,7 +21,7 @@ export default class extends Controller {
         target.innerText = JSON.parse(xhttp.responseText).total;
       }
     };
-    xhttp.open("POST", `/character/${this.idValue}/experience/update`, true);
+    xhttp.open("POST", `/en/character/${this.idValue}/experience/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
     console.log(JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method }));

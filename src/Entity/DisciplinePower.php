@@ -138,7 +138,13 @@ class DisciplinePower
 
   public function dicePool(Vampire $character)
   {
-    $discipline = $character->getDisciplines()->get($this->discipline->getId());
+    // dd($character->getDisciplines(), $this);
+    $discipline = $character->getDisciplines()->filter(function($element) {
+      if ($element->getDiscipline() == $this->discipline) {
+        return $element;
+      }
+    })->first();
+    
     return $character->dicePool($this->attribute, $this->skill, $discipline->getLevel());
   }
 }

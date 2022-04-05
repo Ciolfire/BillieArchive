@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/merit")
+ * @Route("/{_locale<%supported_locales%>?%default_locale%}/merit")
  */
 class MeritController extends AbstractController
 {

@@ -7,7 +7,9 @@
     <ul class="nav tabs row g-0 my-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
-      {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
+      {% if character.type != "human" %}
+        {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
+      {% endif %}
       {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}

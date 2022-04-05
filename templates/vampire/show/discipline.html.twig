@@ -46,7 +46,7 @@
     </div>
   {% else %}
     {% for power in discipline.powers %}
-      {% if power.level <= charDiscipline.level %}
+      {% if power.level < charDiscipline.level %}
         <div class="col-12">
           <div class="discipline-powers-{{ discipline.id }} collapse">
             <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">

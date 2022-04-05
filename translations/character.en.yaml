@@ -41,7 +41,6 @@ tab:
 dot:
   fifth: Fifth dot cost two
 
-
 willpower:
   name: Willpower
   0: 0 - Exhausted
@@ -61,9 +60,9 @@ wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
 
 merit:
-  creation: Spend 7 dots | Fifth dot cost two
-  improve: Improve an owned merit
-  new: Buy a new merit
+  creation: Spend 7 dots
+  improve: Improve an owned Merit
+  new: Buy a new Merit
   title: Merits
 
 skill:
@@ -129,6 +128,6 @@ embrace:
   save: Start your Requiem
   discipline:
     creation:
-      info: "Choose <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
+      info: "Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
       favored: Currently
       all: Total

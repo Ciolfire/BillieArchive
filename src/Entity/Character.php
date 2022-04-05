@@ -90,7 +90,7 @@ class Character
   protected $attributes;
 
   /**
-   * @ORM\OneToOne(targetEntity=CharacterSkills::class, cascade={"persist", "remove"})
+   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"})
    */
   protected $skills;
 
@@ -128,6 +128,9 @@ class Character
 
   public function __construct()
   {
+    if (!$this->attributes) {
+      $this->setAttributes(new CharacterAttributes());
+    }
     $this->willpower = $this->attributes->getComposure() + $this->attributes->getResolve();
     $this->currentWillpower = $this->willpower;
     $this->specialties = new ArrayCollection();
@@ -356,6 +359,7 @@ class Character
   public function setAttributes(?CharacterAttributes $attributes): self
   {
     $this->attributes = $attributes;
+    $attributes->setCharacter($this);
 
     return $this;
   }
@@ -368,6 +372,7 @@ class Character
   public function setSkills(?CharacterSkills $skills): self
   {
     $this->skills = $skills;
+    $skills->setCharacter($this);
 
     return $this;
   }

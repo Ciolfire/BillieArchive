@@ -77,6 +77,11 @@ class CharacterAttributes
     return $this->id;
   }
 
+  public function setCharacter(Character $character)
+  {
+    $this->character = $character;
+  }
+
   public function get($attribute) {
     return min($this->character->getLimit(), $this->$attribute);
   }

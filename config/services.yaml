@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
   locales: [fr, en] # add prefix in annotations.yaml for the url generation
-
+  supported_locales: 'fr|en'
+  default_locale: 'fr'
 services:
   # default configuration for services in *this* file
   _defaults:
