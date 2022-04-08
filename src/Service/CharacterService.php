@@ -3,16 +3,21 @@
 namespace App\Service;
 
 use App\Entity\Character;
+use App\Entity\Discipline;
 use App\Entity\Merit;
 use Doctrine\ORM\EntityManagerInterface;
+
+use function PHPUnit\Framework\isNull;
 
 class CharacterService
 {
   private $doctrine;
+  private $vService;
 
-  public function __construct(EntityManagerInterface $entityManager)
+  public function __construct(EntityManagerInterface $entityManager, VampireService $vService)
   {
     $this->doctrine = $entityManager;
+    $this->vService = $vService;
   }
 
   public function takeWound(Character $character, int $value)
@@ -93,6 +98,11 @@ class CharacterService
     $this->doctrine->flush();
   }
 
+  public function updateWillpower(Character $character, int $willpower)
+  {
+    $character->setWillpower($willpower);
+  }
+
   public function updateExperience(Character $character, $data)
   {
     if ($data->method == "add") {
@@ -118,9 +128,20 @@ class CharacterService
         // Level 1 merit
         unset($merits[$key]);
       }
-      // else if not right race
+      else if ($merit->getType() != "" && $character->getType() != $merit->getType()) {
+        unset($merits[$key]);
+      }
     }
     return $merits;
   }
 
+  public function getSpecial(Character $character)
+  {
+    if ($character->getType() == 'vampire') {
+      return $this->vService->getSpecial($character);
+    } else {
+
+      return null;
+    }
+  }
 }

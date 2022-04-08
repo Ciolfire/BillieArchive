@@ -1,16 +1,16 @@
+{% trans_default_domain 'character' %}
+
 {% block disciplines %}
 <h2 class="text-center py-3 user-select-none">disciplines</h2>
 {% block creation %}{% endblock %}
 <div class="row">
-  {% for charDiscipline in character.disciplines %}
-    <div class="col-12 col-lg-6 justify-content-center">
-      <div class="block w-100 container g-0">
-        {# <h5 class="text-center pt-1">{{ discipline.name|trans }}</h5> #}
-        {# {% for type, attribute in attributes %} #}
-          {% block discipline %}{% endblock %}
-        {# {% endfor %} #}
+  {% block list %}
+    {% for charDiscipline in character.disciplines %}
+      <div class="col-12 col-lg-6 justify-content-center">
+        <div class="block w-100 container g-0">
+        </div>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  {% endblock %}
 </div>
 {% endblock %}

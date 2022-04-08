@@ -67,7 +67,7 @@ class Character
   /**
    * @ORM\Column(type="smallint")
    */
-  protected $willpower;
+  protected $willpower = 0;
 
   /**
    * @ORM\ManyToOne(targetEntity=Virtue::class)
@@ -107,7 +107,7 @@ class Character
   /**
    * @ORM\Column(type="smallint")
    */
-  protected $currentWillpower;
+  protected $currentWillpower = 0;
 
   /**
    * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
@@ -131,8 +131,6 @@ class Character
     if (!$this->attributes) {
       $this->setAttributes(new CharacterAttributes());
     }
-    $this->willpower = $this->attributes->getComposure() + $this->attributes->getResolve();
-    $this->currentWillpower = $this->willpower;
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
   }
@@ -257,7 +255,7 @@ class Character
       $this->willpower++;
       $this->currentWillpower++;
     }
-    $this->$attribute += $value;
+    $this->attributes->set($attribute, $this->attributes->get($attribute) + $value);
 
     return $this;
   }
@@ -310,6 +308,9 @@ class Character
 
   public function setWillpower(int $willpower): self
   {
+    if ($willpower > $this->willpower) {
+      $this->currentWillpower += $willpower - $this->willpower;
+    }
     $this->willpower = $willpower;
 
     return $this;

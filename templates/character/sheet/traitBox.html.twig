@@ -4,7 +4,7 @@
   <div>
     <span role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ (trait ~ '.' ~ current )|trans }}">
       <input type="checkbox" class="btn-check" id="{{ trait ~ '-' ~ current }}" value="{{ current }}" autocomplete="off" {% if current <= max %}checked{% endif %} disabled>
-      <label class="btn dot" for="{{ trait ~ '-' ~ current }}"></label>
+      <label class="btn dot {% if current > limit|default(max) %}dot-disabled{% endif %}" for="{{ trait ~ '-' ~ current }}"></label>
     </span>
   </div>
   <div>

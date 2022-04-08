@@ -20,9 +20,10 @@ export default class extends Controller {
       'specialty': 3,
       'merit': 2,
       'morality': 3,
+      'willpower': 8,
       'discipline': 7,
       'favoredDiscipline': 5,
-      'willpower': 8,
+      'potency': 8,
     },
     spendInfo: []
   }
@@ -32,7 +33,6 @@ export default class extends Controller {
     this.dotTargets.forEach(target => {
       let data = target.parentElement.dataset;
       if (target.value > target.parentElement.dataset.dotBaseValue) {
-        console.log(target.parentElement);
         this.payDot(data.name, data.dotMinValue, target.value, data.type);
       }
     });
@@ -48,7 +48,7 @@ export default class extends Controller {
   }
 
   payDot(name, min, value, type) {
-    let cost = this.calculateCost(this.costsValue[type], +min + 1, value);
+    let cost = this.calculateCost(this.costsValue[type], +min, value, type);
     if ((this.spendInfoValue[name] != null && this.spendInfoValue[name]['info']['cost'] == cost) || value <= min) {
       this.spendInfoValue[name] = null;
     } else {
@@ -64,11 +64,15 @@ export default class extends Controller {
     this.updateSpend();
   }
   
-  calculateCost(cost, min, value) {
+  calculateCost(cost, min, value, type) {
     let total = 0;
     
-    for (let i = min; i <= value; i++) {
-      total = total + i * cost;
+    if (type != 'willpower') {
+      for (let i = min+1; i <= value; i++) {
+        total += i * cost;
+      }
+    } else {
+      total = cost * (value - min);
     }
 
     return total;
@@ -127,12 +131,12 @@ export default class extends Controller {
     this.updateSpend();
   }
 
-  removeMerits() {
-    let merits = document.getElementsByClassName('merit-value');
-    for (const merit of merits) {
-      if (merit.value == 0) {
-        let name = merit.getAttribute('name');
-        merit.setAttribute('name', '');
+  removeElements(type) {
+    let elements = document.getElementsByClassName(`${type}-value`);
+    for (const element of elements) {
+      if (element.value == 0) {
+        let name = element.getAttribute('name');
+        element.setAttribute('name', '');
         let detail = document.getElementsByName(name.replace('level', 'details'))[0];
         if (detail) {
           detail.setAttribute('name', '');
@@ -142,7 +146,8 @@ export default class extends Controller {
   }
 
   clean(event) {
-    this.removeMerits();
+    this.removeElements('merit');
+    this.removeElements('discipline');
     document.forms['character'].submit();
   }
 }

@@ -60,16 +60,18 @@ export default class extends Controller {
     this.prerequisiteTargets.forEach(prerequisite => {
       let data = prerequisite.dataset;
       switch (type) {
-        case 'race':
-          if (document.getElementById('character_race').value == data.name) {
-            this.switch(prerequisite, "ok", "ko");
-          } else {
-            this.switch(prerequisite, "ko", "ok");
-          }
-          break;
         case 'merit':
           if ((target != null && data.name == target) || data.type == type) {
             if (document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
+              this.switch(prerequisite, "ok", "ko");
+            } else {
+              this.switch(prerequisite, "ko", "ok");
+            }
+          }
+          break;
+        case 'attribute':
+          if ((target !== null && data.name == target) || data.type == type) {
+            if (this.attr("attributes_" + data.name) >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {
               this.switch(prerequisite, "ko", "ok");

@@ -13,6 +13,8 @@ class MeritType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description')
+            ->add('type')
             ->add('category')
             ->add('isFighting')
             ->add('isExpanded')
@@ -22,6 +24,7 @@ class MeritType extends AbstractType
             ->add('isCreationOnly')
             ->add('prerequisites')
             ->add('effect')
+            ->add('book')
         ;
     }
 

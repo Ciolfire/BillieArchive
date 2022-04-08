@@ -1,0 +1,30 @@
+{% trans_default_domain 'character' %}
+
+<div id="menu" class="">
+  <div class="row block text-center text">
+    <div class="col">
+      <a href="{{ path('character_show', {'id': character.id}) }}" class="btn btn-sm btn-primary">Back</a>
+    </div>
+    <div class="col-auto">
+      <input value="0" type="hidden" name="character[xp][spend]" data-character--edit-target="spend">
+      <div>{{ character.xpUsed }}
+        +
+        <span data-character--edit-target="using">0</span>/<span>{{ character.xpTotal }}</div>
+        <div class="collapse usingInfo" data-character--edit-target="usingInfo">{{ 'xp.details.none'|trans }}</div>
+        <div class="d-flex flex-row justify-content-center border-top" data-bs-toggle="collapse" role="button" data-bs-target=".usingInfo">
+          <span>details&nbsp;</span>
+          <div class="py-0 d-flex flex-column justify-content-center">
+            <span class="usingInfo show">
+              <i class="fas fa-caret-down"></i>
+            </span>
+            <span class="usingInfo collapse">
+              <i class="fas fa-caret-up"></i>
+            </span>
+          </div>
+        </div>
+    </div>
+    <div class="col px-1">
+      <button class="btn btn-sm btn-primary" type="button" data-action="click->character--edit#clean">{{ button_label|default('Save') }}</button>
+    </div>
+  </div>
+</div>

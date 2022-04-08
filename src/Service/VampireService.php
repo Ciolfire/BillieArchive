@@ -21,6 +21,18 @@ class VampireService
     $this->doctrine = $doctrine;
   }
 
+  public function getSpecial(Vampire $vampire)
+  {
+    $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
+      foreach ($disciplines as $key => $discipline) {
+        if ($vampire->hasDiscipline($discipline->getId())) {
+          unset($disciplines[$key]);
+        }
+      }
+
+    return ['disciplines' => $disciplines];
+  }
+
   public function embrace(Character $character, FormInterface $form)
   {
     $connection = $this->doctrine->getConnection();
@@ -43,13 +55,34 @@ class VampireService
     $this->doctrine->resetManager();
     $vampire = $this->doctrine->getRepository(Vampire::class)->find($character->getId());
     $vampire->addAttribute($data['attribute']->getName(), 1);
-    foreach ($form->getExtraData()['disciplines'] as $id => $level) {
+    $this->addDiscipline($vampire, $form->getExtraData()['disciplines']);
+    $this->doctrine->getManager()->persist($vampire);
+    $this->doctrine->getManager()->flush();
+  }
+
+  public function handleEdit(Vampire $vampire, array $data)
+  {
+    foreach ($data['disciplinesUp'] as $id => $level) {
+      $discipline = $vampire->getDiscipline($id);
+      $discipline->setLevel($level);
+    }
+    if (isset($data['disciplines'])) {
+      $this->addDiscipline($vampire, $data['disciplines']);
+    }
+    if (isset($data['potency']) && $data['potency'] > $vampire->getPotency()) {
+      $vampire->setPotency($data['potency']);
+    }
+
+    $this->doctrine->getManager()->flush();
+  }
+
+  public function addDiscipline(Vampire $vampire, array $disciplines)
+  {
+    foreach ($disciplines as $id => $level) {
       $discipline = $this->doctrine->getRepository(Discipline::class)->find($id);
       $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
       $this->doctrine->getManager()->persist($newDiscipline);
       $vampire->addDiscipline($newDiscipline);
     }
-    $this->doctrine->getManager()->persist($vampire);
-    $this->doctrine->getManager()->flush();
   }
 }

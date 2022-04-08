@@ -121,8 +121,12 @@ vampire:
   sire: Sire
   potency:
     name: Blood Potency
-  hungry: The vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
-  starved: The vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
+  feeding:
+    animal: The Vampire can feed on animal, Human and Kindred alike
+    human: The Vampire must find sustenance from Human or Kindred
+    vampire: Only the pure Vitae from a kindred can nourish the Vampire
+  hungry: The Vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
+  starved: The Vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
 
 embrace:
   save: Start your Requiem

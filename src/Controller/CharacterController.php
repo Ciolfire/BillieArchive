@@ -110,19 +110,26 @@ class CharacterController extends AbstractController
     $merits = $this->service->filterMerits($character, false);
     $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true]);
     $form->handleRequest($request);
+    $extraData = $form->getExtraData();
 
     if ($form->isSubmitted() && $form->isValid()) {
-      if (isset($form->getExtraData()['merits'])) {
-        $this->create->addMerits($character, $form->getExtraData()['merits']);
+      if (isset($extraData['merits'])) {
+        $this->create->addMerits($character, $extraData['merits']);
       }
-      if (isset($form->getExtraData()['meritsUp'])) {
-        $this->create->updateMerits($character, $form->getExtraData()['meritsUp']);
+      if (isset($extraData['meritsUp'])) {
+        $this->create->updateMerits($character, $extraData['meritsUp']);
       }
-      if (isset($form->getExtraData()['specialties'])) {
-        $this->create->addSpecialties($character, $form->getExtraData()['specialties']);
+      if (isset($extraData['specialties'])) {
+        $this->create->addSpecialties($character, $extraData['specialties']);
       }
-      if (isset($form->getExtraData()['xp'])) {
-        $character->spendXp($form->getExtraData()['xp']['spend']);
+      if (isset($extraData['willpower'])) {
+        $this->service->updateWillpower($character, $extraData['willpower']);
+      }
+      if ($character->getType() == "vampire") {
+        $this->vService->handleEdit($character, $extraData);
+      }
+      if (isset($extraData['xp'])) {
+        $character->spendXp($extraData['xp']['spend']);
       }
       $entityManager->flush();
 
@@ -134,6 +141,7 @@ class CharacterController extends AbstractController
       'type' => $character->getType(),
       'form' => $form,
       'merits' => $merits,
+      $character->getType() => $this->service->getSpecial($character),
     ]);
   }
 
@@ -163,6 +171,7 @@ class CharacterController extends AbstractController
     
     if ($form->isSubmitted() && $form->isValid()) {
       $this->vService->embrace($character, $form);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
     return $this->renderForm('character/embrace.html.twig', [
       'character' => $character,

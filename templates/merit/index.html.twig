@@ -6,18 +6,16 @@
 <div class="container block py-3">
 
     <h1>Merit index</h1>
-
-    <table class="table" style="color:white;">
+    <a href="{{ path('merit_new') }}">Create new</a>
+    <table class="table text-sub" style="color:white;">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Category</th>
-                <th>IsFighting</th>
-                <th>IsExpanded</th>
+                <th>Details</th>
                 <th>Min</th>
                 <th>Max</th>
-                <th>IsUnique</th>
                 <th>IsCreationOnly</th>
                 <th>Prerequisites</th>
                 <th>actions</th>
@@ -26,14 +24,12 @@
         <tbody>
         {% for merit in merits %}
             <tr>
-                <td>{{ merit.id }}</td>
                 <td>{{ merit.name }}</td>
+                <td>{{ merit.type|default('universal') }}</td>
                 <td>{{ merit.category }}</td>
-                <td>{{ merit.isFighting ? 'Yes' : 'No' }}</td>
-                <td>{{ merit.isExpanded ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.description }}</td>
                 <td>{{ merit.min }}</td>
                 <td>{{ merit.max }}</td>
-                <td>{{ merit.isUnique ? 'Yes' : 'No' }}</td>
                 <td>{{ merit.isCreationOnly ? 'Yes' : 'No' }}</td>
                 <td>{{ merit.prerequisites ? merit.prerequisites|json_encode : '' }}</td>
                 <td>
@@ -49,5 +45,4 @@
         </tbody>
     </table>
 </div>
-    <a href="{{ path('merit_new') }}">Create new</a>
 {% endblock %}

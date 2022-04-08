@@ -3,7 +3,7 @@
 <div class="row align-items-center px-2 user-select-none">
   <div class="col-1"></div>
   <div class="col text-center p-2">
-    <h2>{{ charDiscipline.discipline.name }}</h2>
+    <h2>{{ discipline.name }}</h2>
   </div>
   <div class="col-auto">
     <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
@@ -20,12 +20,62 @@
     </div>
   </div>
 </div>
-<div class="fluff">{{ charDiscipline.discipline.description }}</div>
+<div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
 <div class="row ok">
-  {% block rulesBtn %}{% endblock %}
-  {% block powersBtn %}{% endblock %}
+  {% block rulesBtn %}
+    {% if discipline.rules %}
+      <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
+        <span class="d-flex flex-column justify-content-center text-center">
+          rules
+          <span class="discipline-rules-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+          <span class="collapse-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+        </span>
+      </div>
+    {% endif %}
+  {% endblock %}
+  {% block powersBtn %}
+    <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-powers-{{ discipline.id }}" type="button">
+      <span class="d-flex flex-column justify-content-center text-center">
+        {{ 'power'|trans({'%count%': discipline.powers|length}) }}
+        <span class="discipline-powers-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
+        <span class="collapse-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+      </span>
+    </div>
+  {% endblock %}
 </div>
 <div class="row m-0 pt-2 collapse-block">
-  {% block rules %}{% endblock %}
-  {% block powers %}{% endblock %}
+  {% block rules %}
+    {% if discipline.rules %}
+      <div class="col-12 discipline-rules-{{ discipline.id }} collapse">
+        {{ discipline.rules|markdown_to_html }}
+      </div>
+    {% endif %}
+  {% endblock %}
+  {% if discipline.singlePower %}
+    <div class="col-12">
+      <div class="discipline-powers-{{ discipline.id }} collapse">{{ discipline.power.details|markdown_to_html }}</div>
+    </div>
+  {% else %}
+    {% for power in discipline.powers %}
+        {% if power.level <= maxPower %}
+        <div class="col-12">
+          <div class="discipline-powers-{{ discipline.id }} collapse">
+            <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">
+              <div class="col">{{ power.levelDots }}</div>
+              <div class="col">{{ power }}</div>
+              <div class="col text-end">
+                {% if power.attribute and power.skill %}
+                  <span class="text">
+                    {{ power.dicePool(character) }}
+                  </span>
+                  <i class="fa-solid fa-diamond"></i>
+                {% endif %}
+              </div>
+            </h5>
+            <div class="discipline-power-{{ power.id }} collapse">{{ power.details|markdown_to_html }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 </div>

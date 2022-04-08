@@ -144,7 +144,12 @@ class DisciplinePower
         return $element;
       }
     })->first();
+    if ($discipline) {
+      $level = $discipline->getLevel();
+    } else {
+      $level = 0;
+    }
     
-    return $character->dicePool($this->attribute, $this->skill, $discipline->getLevel());
+    return $character->dicePool($this->attribute, $this->skill, $level);
   }
 }

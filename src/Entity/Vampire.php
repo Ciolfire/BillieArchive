@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\VampireDiscipline;
 use App\Repository\VampireRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -113,14 +114,14 @@ class Vampire extends Character
 
   public function getPotency(): ?int
   {
-      return $this->potency;
+    return $this->potency;
   }
 
   public function setPotency(int $potency): self
   {
-      $this->potency = $potency;
+    $this->potency = $potency;
 
-      return $this;
+    return $this;
   }
 
   public function getMaxVitae(): int
@@ -141,14 +142,14 @@ class Vampire extends Character
 
   public function getVitae(): ?int
   {
-      return $this->vitae;
+    return $this->vitae;
   }
 
   public function setVitae(int $vitae): self
   {
-      $this->vitae = $vitae;
+    $this->vitae = $vitae;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -156,28 +157,54 @@ class Vampire extends Character
    */
   public function getDisciplines(): Collection
   {
-      return $this->disciplines;
+    return $this->disciplines;
   }
 
   public function addDiscipline(VampireDiscipline $discipline): self
   {
-      if (!$this->disciplines->contains($discipline)) {
-          $this->disciplines[] = $discipline;
-          $discipline->setVampire($this);
-      }
+    if (!$this->disciplines->contains($discipline)) {
+      $this->disciplines[] = $discipline;
+      $discipline->setVampire($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeDiscipline(VampireDiscipline $discipline): self
   {
-      if ($this->disciplines->removeElement($discipline)) {
-          // set the owning side to null (unless already changed)
-          if ($discipline->getVampire() === $this) {
-              $discipline->setVampire(null);
-          }
+    if ($this->disciplines->removeElement($discipline)) {
+      // set the owning side to null (unless already changed)
+      if ($discipline->getVampire() === $this) {
+        $discipline->setVampire(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getDiscipline(int $id): ?VampireDiscipline
+  {
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      if ($discipline->getDiscipline()->getId() == $id) {
+
+        return $discipline;
+      }
+    }
+
+    return null;
+  }
+
+  public function hasDiscipline(int $id): bool
+  {
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      if ($discipline->getDiscipline()->getId() == $id) {
+
+        return true;
+      }
+    }
+
+    return false;
   }
 }

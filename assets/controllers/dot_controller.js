@@ -10,7 +10,7 @@ export default class extends Controller {
   }
 
   connect() {
-    this.updateDots(this.inputTarget.value);
+    this.updateDots(+this.inputTarget.value);
   }
 
   activate(event) {

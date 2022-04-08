@@ -1,0 +1,29 @@
+{% trans_default_domain 'character' %}
+
+{% extends "character/sheet/willpower.html.twig" %}
+
+{% block controller %}data-controller="dot" role="group"{% endblock %}
+
+{% block data %}data-name="{{ 'willpower.name'|trans }}" data-type="{{ trait }}" data-dot-base-value="{{ max }}" data-dot-min-value="{{ max }}"{% endblock %}
+
+{% block input %}
+  <input class="{{ trait }}-value" value="{{ max }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
+{% endblock %}
+
+{% block dot %}
+{% if index <= max %}
+  {% set value = 1 %}
+{% else %}
+  {% set value = 0 %}
+{% endif %}
+<input type="checkbox" {% if value == 1 %}checked {% endif %}{% if index > limit %}disabled{% endif %}
+ class="btn-check" id="{{ trait ~'-' ~ index }}" value="{{ index }}" autocomplete="off" data-dot-target="dot">
+<label class="btn dot{% if value == 1 %} dot-locked{% endif %}{% if index > limit %} dot-disabled{% endif %}" for="{{ trait ~ '-' ~ index }}"
+  data-action="click->dot#activate click->character--edit#pay"
+  data-dot-value-param="{{ index }}"
+  data-character--edit-value-param="{{ index }}"
+  data-character--edit-min-param="{{ current }}"
+  data-character--edit-name-param="{{ 'willpower.name'|trans }}"
+  data-character--edit-type-param="{{ trait }}">
+</label>
+{% endblock %}

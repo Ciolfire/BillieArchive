@@ -92,6 +92,11 @@ class Merit implements Translatable
      */
     private $book;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,6 +247,18 @@ class Merit implements Translatable
     public function setBook(?string $book): self
     {
         $this->book = $book;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

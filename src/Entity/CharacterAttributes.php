@@ -86,6 +86,13 @@ class CharacterAttributes
     return min($this->character->getLimit(), $this->$attribute);
   }
 
+  public function set(string $attribute, int $value): self
+  {
+    $this->$attribute = $value;
+
+    return $this;
+  }
+
   public function getIntelligence(): ?int
   {
     return min($this->character->getLimit(), $this->intelligence);

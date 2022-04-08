@@ -1,7 +1,9 @@
+{% trans_default_domain 'character' %}
+
 {{ form_start(form, {'attr': {'data-controller': 'character--merits character--edit', 'data-action': 'character--edit:change->character--merits#checkPrerequisite', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
-  <div class="container block py-3 g-0">
+  <div class="container block py-3 mt-5 g-0">
     {{ include('character/sheet/header.html.twig') }}
-    {{ include('character/edit/calculator.html.twig') }}
+    {{ include('character/edit/menu.html.twig') }}
     <div data-controller="tabs" data-tabs-initial-value="general">
       <ul class="nav tabs row g-0 my-2">
         {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
@@ -15,11 +17,8 @@
       <div id="merits" data-tabs-target="page">
         {{ include('character/edit/merits.html.twig') }}
       </div>
-      <div id="type" data-tabs-target="page">
-        {# {{ include(character.type ~ 'character/edit/.html.twig') }} #}
-      </div>
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button" data-action="click->character--edit#clean">{{ button_label|default('Save') }}</button>
+      <div id="{{ character.type }}" data-tabs-target="page">
+        {{ include(character.type ~ '/edit/special.html.twig') }}
       </div>
     </div>
   </div>

@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ character.name }}
-{% endblock %}
+{% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
   {{ include('character/show/sheet.html.twig') }}
-
   {# {{ include('character/_delete_form.html.twig') }} #}
 {% endblock %}
