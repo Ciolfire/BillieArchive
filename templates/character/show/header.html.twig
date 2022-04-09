@@ -13,7 +13,7 @@
             <input class="form-control" type="file" name="avatar[upload]"/>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
             {{ 'avatar.save'|trans }}
           </button>
         </div>
@@ -25,9 +25,9 @@
 <div class="row g-1">
   <div class="col-12 col-sm">
     <div class="row text-center">
-      <div class="col-12 d-flex justify-content-center my-2">
+      <div class="col-12 d-flex justify-content-center my-2"  data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
         <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative">
-          <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" width="100" height="100">
+          <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
         </div>
       </div>
       <div class="col-12">

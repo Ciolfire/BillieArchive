@@ -23,8 +23,8 @@
   {% for character in characters %}
     <div class="row" role="button" onclick='location.href="{{ path('character_show', {'id': character.id}) }}"'>
       <div class="col">
-        <div class="character-frame character-frame-list position-relative">
-          <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" width="50" height="50">
+        <div class="character-frame character-frame-list position-relative text-center">
+          <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
         </div>
       </div>
       <div class="col">{{ character.name }}</div>

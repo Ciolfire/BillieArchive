@@ -29,6 +29,10 @@ attribute:
   manipulation: Manipulation
   composure: Composure
 
+avatar:
+  change: Change character avatar
+  save: Save new avatar
+
 tab:
   background: Background
   general: General
