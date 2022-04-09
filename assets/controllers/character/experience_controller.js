@@ -24,7 +24,6 @@ export default class extends Controller {
     xhttp.open("POST", `/en/character/${this.idValue}/experience/update`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
-    console.log(JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method }));
 
     let data = JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method });
     xhttp.send(data);

@@ -1,13 +1,33 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
+<div class="modal fade" id="avatarModal" aria-labelledby="avatarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <form data-action="character--avatar#update" name="avatar" data-character--avatar-target="form" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input class="form-control" type="file" name="avatar[upload]"/>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">
+            {{ 'avatar.save'|trans }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <h1 class="text-center text">{{ character.name }}</h1>
 <div class="row g-1">
   <div class="col-12 col-sm">
     <div class="row text-center">
       <div class="col-12 d-flex justify-content-center my-2">
-        <div class="character-frame character-frame-avatar position-relative">
-          <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" width="100" height="100">
+        <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative">
+          <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" width="100" height="100">
         </div>
       </div>
       <div class="col-12">

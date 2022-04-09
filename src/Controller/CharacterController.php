@@ -16,7 +16,9 @@ use App\Service\CreationService;
 use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -227,6 +229,29 @@ class CharacterController extends AbstractController
       $data = json_decode($request->getContent());
       $this->service->updateExperience($character, $data);
       return new JsonResponse(['used' => $character->getXpUsed(), 'total' => $character->getXpTotal()]);
+    } else {
+      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
+  }
+
+  /**
+   * @Route("/{character}/avatar/update", name="character_avatar_update", methods={"POST"})
+   * @param Character $character
+   */
+  public function updateAvatar(Request $request, Character $character, LoggerInterface $logger)
+  {
+    if ($request->isXmlHttpRequest()) {
+      /** @var UploadedFile $avatarFile */
+      $avatarFile = $request->files->get('avatar')['upload'];
+      if ($avatarFile) {
+        $newFilename = $character->getId().".jpg";
+        
+        $avatarFile->move(
+          $this->getParameter('characters_directory'),
+          $newFilename
+        );
+      }
+      return new JsonResponse($newFilename);
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-<div class="container block py-3 mt-5">
+<div class="container block py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
   {{ include('character/show/header.html.twig') }}
   {{ include('character/show/menu.html.twig') }}
   <div class="row" data-controller="tabs" data-tabs-initial-value="general">

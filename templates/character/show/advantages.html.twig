@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-{% block attributes %}
+{% block advantages %}
 {# <h2 class="text-center">Advantages</h2> #}
 <div class="row block mx-0 text">
   <div class="col">{% include "icon.html.twig" with {'icon': 'size'} only %}size: <span id="size">{{ character.size }}</span></div>
@@ -11,12 +11,12 @@
   <div class="col fw-bold" data-controller="character--experience" data-character--experience-id-value="{{ character.id }}">
     {% include "icon.html.twig" with {'icon': 'xp'} only %}
     <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
-    <span role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <span role="button" data-bs-toggle="modal" data-bs-target="#xpModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
+    <div class="modal fade" id="xpModal" tabindex="-1" aria-labelledby="xpModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content block-solid">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{'xp.add'|trans }}</h5>
+            <h5 class="modal-title" id="xpModalLabel">{{'xp.add'|trans }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
