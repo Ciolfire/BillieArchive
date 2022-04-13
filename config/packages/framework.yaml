@@ -20,6 +20,8 @@ framework:
         packages:
             characters:
                 base_path: '/images/characters/'
+            images:
+                base_path: '/images/'
 when@test:
     framework:
         test: true

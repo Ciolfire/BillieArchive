@@ -6,7 +6,7 @@
 parameters:
   locales: [fr, en] # add prefix in annotations.yaml for the url generation
   supported_locales: 'fr|en'
-  default_locale: 'fr'
+  default_locale: 'en'
   upload_directory: '%kernel.project_dir%/public/uploads/'
   characters_directory: '%kernel.project_dir%/public/images/characters'
 

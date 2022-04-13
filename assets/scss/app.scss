@@ -3,6 +3,10 @@
 @import "character";
 @import "rabbit";
 
+nav {
+  height: 50px;
+}
+
 body {
   background-color: $pageColor;
   background-image: url("../#{$background}");
