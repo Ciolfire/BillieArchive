@@ -35,19 +35,9 @@ class Character
   protected $age;
 
   /**
-   * @ORM\Column(type="string", length=25, nullable=true)
-   */
-  protected $player;
-
-  /**
    * @ORM\Column(type="string", length=50, nullable=true)
    */
   protected $concept;
-
-  /**
-   * @ORM\Column(type="string", length=25, nullable=true)
-   */
-  protected $chronicle;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
@@ -126,6 +116,16 @@ class Character
 
   protected $limit = 5;
 
+  /**
+   * @ORM\ManyToOne(targetEntity=User::class, inversedBy="characters")
+   */
+  private $player;
+
+  /**
+   * @ORM\ManyToOne(targetEntity=Chronicle::class, inversedBy="characters")
+   */
+  private $chronicle;
+
   public function __construct()
   {
     if (!$this->attributes) {
@@ -189,16 +189,16 @@ class Character
     return $this;
   }
 
-  public function getPlayer(): ?string
+  public function getPlayer(): ?User
   {
-    return $this->player;
+      return $this->player;
   }
 
-  public function setPlayer(string $player): self
+  public function setPlayer(?User $player): self
   {
-    $this->player = $player;
+      $this->player = $player;
 
-    return $this;
+      return $this;
   }
 
   public function getConcept(): ?string
@@ -209,18 +209,6 @@ class Character
   public function setConcept(string $concept): self
   {
     $this->concept = $concept;
-
-    return $this;
-  }
-
-  public function getChronicle(): ?string
-  {
-    return $this->chronicle;
-  }
-
-  public function setChronicle(?string $chronicle): self
-  {
-    $this->chronicle = $chronicle;
 
     return $this;
   }
@@ -528,5 +516,17 @@ class Character
     }
 
     return $attributeDice + $skillDice + $bonus;
+  }
+
+  public function getChronicle(): ?Chronicle
+  {
+      return $this->chronicle;
+  }
+
+  public function setChronicle(?Chronicle $chronicle): self
+  {
+      $this->chronicle = $chronicle;
+
+      return $this;
   }
 }

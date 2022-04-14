@@ -1,6 +1,45 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-{# <div class="block">
-</div> #}
+<div class="container">
+  <h1 class="text-center">Welcome</h1>
+  <div class="block row">
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Characters</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Notes</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Options</a></div>
+  </div>
+  <h1 class="text-center">My Chronicles</h1>
+  {% for chronicle in app.user.chronicles %}
+    {% set character = chronicle.character(app.user) %}
+    <div class="block row pt-2 block-{{ chronicle.type }}">
+      <h2 class="text-center">{{ chronicle.name }}</h2>
+      {% if character is not null %}
+        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">{{ character.name }}</a></div>
+      {% else %}
+        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new')}}">Create</a></div>
+      {% endif %}
+      
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Group</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Infos</a></div>
+    </div>
+  {% endfor %}
+  <h1 class="text-center">My Stories</h1>
+  {% for chronicle in app.user.stories %}
+    <div class="block row pt-2 block-{{ chronicle.type }}">
+      <h2 class="text-center">{{ chronicle.name }}</h2>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">NPC</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Groups</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Party</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Homebrew</a></div>
+    </div>
+  {% endfor %}
+  <h1 class="text-center">Wiki</h1>
+  <div class="block row">
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Attributes</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Skills</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Advantages</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Rules</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Merits</a></div>
+  </div>
+</div>
 {% endblock %}

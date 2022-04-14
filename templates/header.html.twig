@@ -1,24 +1,46 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('index') }}">Billie's Archive <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarMenuContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('character_index') }}">Wiki</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('character_index') }}">{{ "characters"|trans }}</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropstart">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Stories
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">fr</a></li>
+            <li><a class="dropdown-item" href="#">en</a></li>
           </ul>
+        </li>
+        <li class="nav-item dropstart">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Chronicles
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">fr</a></li>
+            <li><a class="dropdown-item" href="#">en</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropstart">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ app.user.locale }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">fr</a></li>
+            <li><a class="dropdown-item" href="#">en</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('logout') }}">{{ "logout"|trans }}</a>
         </li>
       </ul>
     </div>

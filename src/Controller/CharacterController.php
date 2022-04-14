@@ -47,7 +47,7 @@ class CharacterController extends AbstractController
   public function index(CharacterRepository $characterRepository): Response
   {
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findAll(),
+      'characters' => $characterRepository->findBy(['player' => $this->getUser()->getId()]),
     ]);
   }
 
@@ -97,6 +97,11 @@ class CharacterController extends AbstractController
    */
   public function show(Character $character): Response
   {
+    if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
+      $this->addFlash('notice', 'You are not allowed to see this character');
+      return $this->redirectToRoute('character_index');
+    }
+
     return $this->render('character/show.html.twig', [
       'character' => $character,
       'type' => $character->getType(),

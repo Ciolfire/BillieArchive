@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 10, 2022 at 11:24 AM
+-- Generation Time: Apr 14, 2022 at 06:14 PM
 -- Server version: 8.0.23
 -- PHP Version: 8.0.16
 
@@ -61,9 +61,7 @@ CREATE TABLE `characters` (
   `id` int NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `age` int UNSIGNED DEFAULT NULL,
-  `player` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `concept` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `chronicle` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `faction` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `group_name` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `willpower` smallint NOT NULL,
@@ -77,18 +75,20 @@ CREATE TABLE `characters` (
   `xp_total` smallint NOT NULL,
   `xp_used` smallint NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attributes_id` int DEFAULT NULL
+  `attributes_id` int DEFAULT NULL,
+  `player_id` int DEFAULT NULL,
+  `chronicle_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `characters`
 --
 
-INSERT INTO `characters` (`id`, `name`, `age`, `player`, `concept`, `chronicle`, `faction`, `group_name`, `willpower`, `current_willpower`, `virtue_id`, `vice_id`, `moral`, `skills_id`, `wounds`, `size`, `xp_total`, `xp_used`, `type`, `attributes_id`) VALUES
-(1, 'Anastasia \"Billie\" Sanders', 19, 'Ciol', 'Hacker ganger', 'NOLA by Night', '-', 'NB', 7, 7, 3, 4, 7, 1, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 296, 296, 'vampire', 1),
-(2, 'Test', 10, 'Ciol', NULL, NULL, NULL, NULL, 9, 8, 1, 1, 7, 2, '{\"A\": 1, \"B\": 1, \"L\": 2}', 5, 500, 380, 'vampire', 2),
-(3, 'Test2', 1, 'Ciol', NULL, NULL, NULL, NULL, 4, 4, NULL, NULL, 7, 3, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 0, 304, 'vampire', 3),
-(4, 'Anastasia \"Billie\" Sanders', 19, 'Ciol', 'Hacker ganger', 'NOLA by Night', '-', 'NB', 2, 2, 3, 4, 7, 4, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 0, 0, 'vampire', 4);
+INSERT INTO `characters` (`id`, `name`, `age`, `concept`, `faction`, `group_name`, `willpower`, `current_willpower`, `virtue_id`, `vice_id`, `moral`, `skills_id`, `wounds`, `size`, `xp_total`, `xp_used`, `type`, `attributes_id`, `player_id`, `chronicle_id`) VALUES
+(1, 'Anastasia \"Billie\" Sanders', 19, 'Hacker ganger', '-', 'NB', 7, 7, 3, 4, 7, 1, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 296, 296, 'vampire', 1, 1, 1),
+(2, 'Test', 10, NULL, NULL, NULL, 9, 8, 1, 1, 7, 2, '{\"A\": 1, \"B\": 1, \"L\": 2}', 5, 500, 380, 'vampire', 2, 1, NULL),
+(3, 'Test2', 1, NULL, NULL, NULL, 4, 4, NULL, NULL, 7, 3, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 0, 304, 'vampire', 3, 1, NULL),
+(4, 'Anastasia \"Billie\" Sanders', 19, 'Hacker ganger', '-', 'NB', 2, 2, 3, 4, 7, 4, '{\"A\": 0, \"B\": 0, \"L\": 0}', 5, 0, 0, 'vampire', 4, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -233,6 +233,29 @@ INSERT INTO `character_merit` (`id`, `merit_id`, `character_id`, `choice`, `deta
 (16, 34, 4, 'Hackers', '[]', 1),
 (17, 38, 4, NULL, '[]', 1),
 (18, 41, 4, NULL, '[]', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chronicle`
+--
+
+CREATE TABLE `chronicle` (
+  `id` int NOT NULL,
+  `storyteller_id` int DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `chronicle`
+--
+
+INSERT INTO `chronicle` (`id`, `storyteller_id`, `name`, `type`) VALUES
+(1, NULL, 'NOLA by Night', 'vampire'),
+(3, 1, 'London Mysteries', 'mage'),
+(4, NULL, 'Bufffalo\'s Dung', 'vampire'),
+(5, NULL, 'of Wolves and Men', 'werewolf');
 
 -- --------------------------------------------------------
 
@@ -413,43 +436,10 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20220130220628', '2022-01-30 22:06:48', 181),
-('DoctrineMigrations\\Version20220207174915', '2022-02-07 17:49:21', 520),
-('DoctrineMigrations\\Version20220207175102', '2022-02-07 17:51:09', 206),
-('DoctrineMigrations\\Version20220207220556', '2022-02-07 22:09:01', 407),
-('DoctrineMigrations\\Version20220207230708', '2022-02-07 23:07:13', 515),
-('DoctrineMigrations\\Version20220226134944', '2022-02-26 13:49:56', 229),
-('DoctrineMigrations\\Version20220226173031', '2022-02-26 17:30:37', 425),
-('DoctrineMigrations\\Version20220227001004', '2022-02-27 00:10:08', 360),
-('DoctrineMigrations\\Version20220227212100', '2022-02-27 21:21:07', 394),
-('DoctrineMigrations\\Version20220227231521', '2022-02-27 23:15:49', 396),
-('DoctrineMigrations\\Version20220228013627', '2022-02-28 01:36:33', 553),
-('DoctrineMigrations\\Version20220228024922', '2022-02-28 02:49:28', 290),
-('DoctrineMigrations\\Version20220301002411', '2022-03-01 00:24:18', 794),
-('DoctrineMigrations\\Version20220301015052', '2022-03-01 01:51:37', 400),
-('DoctrineMigrations\\Version20220302234656', '2022-03-02 23:47:06', 1297),
-('DoctrineMigrations\\Version20220303002358', '2022-03-03 00:24:04', 567),
-('DoctrineMigrations\\Version20220303153539', '2022-03-03 15:35:46', 1205),
-('DoctrineMigrations\\Version20220303155110', '2022-03-03 15:51:15', 315),
-('DoctrineMigrations\\Version20220304004835', '2022-03-04 00:52:29', 200),
-('DoctrineMigrations\\Version20220307023959', '2022-03-07 02:40:29', 1217),
-('DoctrineMigrations\\Version20220307024134', '2022-03-07 02:42:06', 210),
-('DoctrineMigrations\\Version20220322220950', '2022-03-22 22:16:58', 527),
-('DoctrineMigrations\\Version20220322222543', '2022-03-22 22:26:02', 200),
-('DoctrineMigrations\\Version20220322232125', '2022-03-22 23:21:49', 1023),
-('DoctrineMigrations\\Version20220323223445', '2022-03-23 22:35:06', 1283),
-('DoctrineMigrations\\Version20220323223906', '2022-03-23 22:39:23', 355),
-('DoctrineMigrations\\Version20220325164220', '2022-03-25 16:43:07', 1357),
-('DoctrineMigrations\\Version20220326230917', '2022-03-26 23:10:39', 890),
-('DoctrineMigrations\\Version20220326231217', '2022-03-26 23:12:36', 378),
-('DoctrineMigrations\\Version20220327005317', '2022-03-27 00:53:36', 363),
-('DoctrineMigrations\\Version20220327014631', '2022-03-27 01:46:46', 451),
-('DoctrineMigrations\\Version20220330163707', '2022-03-30 16:37:32', 914),
-('DoctrineMigrations\\Version20220330224403', '2022-03-30 22:44:10', 880),
-('DoctrineMigrations\\Version20220330225426', '2022-03-30 22:54:35', 245),
-('DoctrineMigrations\\Version20220330234649', '2022-03-30 23:46:55', 345),
-('DoctrineMigrations\\Version20220401133931', '2022-04-01 13:40:02', 851),
-('DoctrineMigrations\\Version20220406123645', '2022-04-06 12:36:59', 1975);
+('DoctrineMigrations\\Version20220413165605', '2022-04-13 16:59:08', 587),
+('DoctrineMigrations\\Version20220413171034', '2022-04-13 17:10:41', 206),
+('DoctrineMigrations\\Version20220413175934', '2022-04-13 18:00:00', 1044),
+('DoctrineMigrations\\Version20220413231051', '2022-04-13 23:10:58', 1327);
 
 -- --------------------------------------------------------
 
@@ -752,6 +742,49 @@ INSERT INTO `skill` (`id`, `name`, `category`, `fluff`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `username` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` json NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `locale` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_verified` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `locale`, `is_verified`) VALUES
+(1, 'Ciol', '[]', '$2y$13$pN8y7BfjvnXnLH/XEZ6d1uNJoSu6sg8Z4j8IeyWrp3B0z2dPsb.hG', 'ciolfire@gmail.com', 'en', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_chronicle`
+--
+
+CREATE TABLE `user_chronicle` (
+  `user_id` int NOT NULL,
+  `chronicle_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_chronicle`
+--
+
+INSERT INTO `user_chronicle` (`user_id`, `chronicle_id`) VALUES
+(1, 1),
+(1, 4),
+(1, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vampire`
 --
 
@@ -769,7 +802,7 @@ CREATE TABLE `vampire` (
 --
 
 INSERT INTO `vampire` (`id`, `clan_id`, `sire`, `apparant_age`, `potency`, `vitae`) VALUES
-(1, 1, 'Lucas Gate', 19, 4, 10),
+(1, 1, 'Lucas Gate', 19, 4, 4),
 (2, 3, 'SireTestamuch', 80, 4, 10),
 (3, 3, 'SireTestamuch', 20, 8, 1),
 (4, 1, 'Lucas Gate', 19, 1, 1);
@@ -881,7 +914,9 @@ ALTER TABLE `characters`
   ADD UNIQUE KEY `UNIQ_3A29410E7FF61858` (`skills_id`),
   ADD UNIQUE KEY `UNIQ_3A29410EBAAF4009` (`attributes_id`),
   ADD KEY `IDX_3A29410EE59AEF18` (`virtue_id`),
-  ADD KEY `IDX_3A29410E76457273` (`vice_id`);
+  ADD KEY `IDX_3A29410E76457273` (`vice_id`),
+  ADD KEY `IDX_3A29410E237D532E` (`chronicle_id`),
+  ADD KEY `IDX_3A29410E99E6F5DF` (`player_id`);
 
 --
 -- Indexes for table `characters_attributes`
@@ -910,6 +945,13 @@ ALTER TABLE `character_merit`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_E1997D4758D79B5E` (`merit_id`),
   ADD KEY `IDX_E1997D471136BE75` (`character_id`);
+
+--
+-- Indexes for table `chronicle`
+--
+ALTER TABLE `chronicle`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_DC91DBECC4AC16EC` (`storyteller_id`);
 
 --
 -- Indexes for table `clan`
@@ -989,6 +1031,22 @@ ALTER TABLE `skill`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
+
+--
+-- Indexes for table `user_chronicle`
+--
+ALTER TABLE `user_chronicle`
+  ADD PRIMARY KEY (`user_id`,`chronicle_id`),
+  ADD KEY `IDX_DC715608A76ED395` (`user_id`),
+  ADD KEY `IDX_DC715608237D532E` (`chronicle_id`);
+
+--
 -- Indexes for table `vampire`
 --
 ALTER TABLE `vampire`
@@ -1056,6 +1114,12 @@ ALTER TABLE `character_merit`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `chronicle`
+--
+ALTER TABLE `chronicle`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `clan`
 --
 ALTER TABLE `clan`
@@ -1098,6 +1162,12 @@ ALTER TABLE `skill`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `vampire_discipline`
 --
 ALTER TABLE `vampire_discipline`
@@ -1123,8 +1193,10 @@ ALTER TABLE `virtue`
 -- Constraints for table `characters`
 --
 ALTER TABLE `characters`
+  ADD CONSTRAINT `FK_3A29410E237D532E` FOREIGN KEY (`chronicle_id`) REFERENCES `chronicle` (`id`),
   ADD CONSTRAINT `FK_3A29410E76457273` FOREIGN KEY (`vice_id`) REFERENCES `vice` (`id`),
   ADD CONSTRAINT `FK_3A29410E7FF61858` FOREIGN KEY (`skills_id`) REFERENCES `characters_skills` (`id`),
+  ADD CONSTRAINT `FK_3A29410E99E6F5DF` FOREIGN KEY (`player_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_3A29410EBAAF4009` FOREIGN KEY (`attributes_id`) REFERENCES `characters_attributes` (`id`),
   ADD CONSTRAINT `FK_3A29410EE59AEF18` FOREIGN KEY (`virtue_id`) REFERENCES `virtue` (`id`);
 
@@ -1141,6 +1213,12 @@ ALTER TABLE `characters_specialty`
 ALTER TABLE `character_merit`
   ADD CONSTRAINT `FK_E1997D471136BE75` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`),
   ADD CONSTRAINT `FK_E1997D4758D79B5E` FOREIGN KEY (`merit_id`) REFERENCES `merits` (`id`);
+
+--
+-- Constraints for table `chronicle`
+--
+ALTER TABLE `chronicle`
+  ADD CONSTRAINT `FK_DC91DBECC4AC16EC` FOREIGN KEY (`storyteller_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `clan_attribute`
@@ -1169,6 +1247,13 @@ ALTER TABLE `discipline_power`
 --
 ALTER TABLE `human`
   ADD CONSTRAINT `FK_A562D5F5BF396750` FOREIGN KEY (`id`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_chronicle`
+--
+ALTER TABLE `user_chronicle`
+  ADD CONSTRAINT `FK_DC715608237D532E` FOREIGN KEY (`chronicle_id`) REFERENCES `chronicle` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_DC715608A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `vampire`

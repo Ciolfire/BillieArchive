@@ -10,14 +10,14 @@
   <h1 class="text-center">{{ type }}s</h1>
 {% endif %}
 
-<div class="block container">
+<div class="container block">
   <div class="row">
     <div class="col"></div>
     <div class="col">Name</div>
     {% if type == "human" %}<div class="col">Race</div>{% endif %}
-    <div class="col">Player</div>
-    <div class="col">Concept</div>
-    <div class="col">Chronicle</div>
+    {# <div class="col">Player</div> #}
+    {# <div class="col">Concept</div> #}
+    {# <div class="col">Chronicle</div> #}
   </div>
   <hr>
   {% for character in characters %}
@@ -29,9 +29,9 @@
       </div>
       <div class="col">{{ character.name }}</div>
       {% if type == "human" %}<div class="col">{{ character.type }}</div>{% endif %}
-      <div class="col">{{ character.player }}</div>
-      <div class="col">{{ character.concept }}</div>
-      <div class="col">{{ character.chronicle }}</div>
+      {# <div class="col">{{ character.player }}</div> #}
+      {# <div class="col">{{ character.concept }}</div> #}
+      {# <div class="col">{{ character.chronicle }}</div> #}
     </div>
     <hr>
   {% else %}

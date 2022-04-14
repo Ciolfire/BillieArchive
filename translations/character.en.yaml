@@ -131,6 +131,7 @@ vampire:
     vampire: Only the pure Vitae from a kindred can nourish the Vampire
   hungry: The Vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
   starved: The Vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
+  vitae: Vitae
 
 embrace:
   save: Start your Requiem

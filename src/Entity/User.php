@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -51,6 +53,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="player")
+     */
+    private $characters;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Chronicle::class, inversedBy="players")
+     */
+    private $chronicles;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Chronicle::class, mappedBy="storyteller")
+     */
+    private $stories;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+        $this->chronicles = new ArrayCollection();
+        $this->stories = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->username;
+    }
 
     public function getId(): ?int
     {
@@ -113,7 +142,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_PLAYER';
 
         return array_unique($roles);
     }
@@ -168,6 +197,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getPlayer() === $this) {
+                $character->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chronicle[]
+     */
+    public function getChronicles(): Collection
+    {
+        return $this->chronicles;
+    }
+
+    public function addChronicle(Chronicle $chronicle): self
+    {
+        if (!$this->chronicles->contains($chronicle)) {
+            $this->chronicles[] = $chronicle;
+        }
+
+        return $this;
+    }
+
+    public function removeChronicle(Chronicle $chronicle): self
+    {
+        $this->chronicles->removeElement($chronicle);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chronicle[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Chronicle $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setStoryteller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStory(Chronicle $story): self
+    {
+        if ($this->stories->removeElement($story)) {
+            // set the owning side to null (unless already changed)
+            if ($story->getStoryteller() === $this) {
+                $story->setStoryteller(null);
+            }
+        }
 
         return $this;
     }

@@ -21,7 +21,7 @@
     </div>
   </div>
 </div>
-<h1 class="text-center text">{{ character.name }}</h1>
+<h1 class="text-center text">{{ character.name }} {% if app.user != character.player %}character.player{% endif %}</h1>
 <div class="row g-1">
   <div class="col-12 col-sm">
     <div class="row text-center">

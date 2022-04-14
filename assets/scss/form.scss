@@ -40,3 +40,8 @@ input, textarea {
   // color: $mainColor;
   // border: $mainColor;
 }
+
+.form-control:disabled, .form-control[readonly] {
+	background-color: #000000d6;
+	opacity: 1;
+}

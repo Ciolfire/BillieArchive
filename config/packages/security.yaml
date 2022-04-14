@@ -14,6 +14,7 @@ security:
                 class: App\Entity\User
                 property: username
     role_hierarchy:
+        ROLE_GM: ROLE_ST, ROLE_PLAYER
         ROLE_ST: ROLE_PLAYER
     firewalls:
         dev:
@@ -41,7 +42,7 @@ security:
     access_control:
         - { path: "^(/[a-z]{2})?/login", roles: PUBLIC_ACCESS }
         - { path: "^(/[a-z]{2})?/register", roles: PUBLIC_ACCESS }
-        - { path: "^(/[a-z]{2})?/", roles: ROLE_USER }
+        - { path: "^(/[a-z]{2})?/", roles: ROLE_PLAYER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

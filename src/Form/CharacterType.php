@@ -20,7 +20,6 @@ class CharacterType extends AbstractType
     $builder
       ->add('name')
       ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1]])
-      ->add('player')
       ->add('virtue')
       ->add('vice')
       ->add('concept')
