@@ -18,7 +18,9 @@
         {{ include('character/edit/merits.html.twig') }}
       </div>
       <div id="{{ character.type }}" data-tabs-target="page">
-        {{ include(character.type ~ '/edit/special.html.twig') }}
+        {% if character.type != 'human' %}
+          {{ include(character.type ~ '/edit/special.html.twig') }}
+        {% endif %}
       </div>
     </div>
   </div>
