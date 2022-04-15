@@ -30,7 +30,7 @@
                 <td>{{ merit.description }}</td>
                 <td>{{ merit.min }}</td>
                 <td>{{ merit.max }}</td>
-                <td>{{ merit.isCreationOnly ? 'Yes' : 'No' }}</td>
+                <td>{{ merit.isCreationOnly ? 'O' : '-' }}</td>
                 <td>{{ merit.prerequisites ? merit.prerequisites|json_encode : '' }}</td>
                 <td>
                     <a href="{{ path('merit_show', {'id': merit.id}) }}">show</a>

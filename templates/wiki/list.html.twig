@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="text-center">{{ elementName }}</h1>
+    <div class="row">
+      <div class="col-auto">
+        <h2>TOC</h2>
+        <ul class="toc block pe-3 py-3">
+          {% for element in elements %}
+            <li>
+              <a href="#{{ element.name }}">{{ element.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      {% for element in elements %}
+        <div id="{{ element.name }}" class="col-12 col-lg-4 block block-wiki">
+          <h2 class="text-center">{{ element.name }}</h2>
+          <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
+          <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}New Story{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-4 block text-center">
+        <h1>New Story</h1>
+        {{ form(form) }}
+        <div class="col text-end mb-2">
+          <a href="{{path('index')}}">Back</a>
+        </div>
+      </Div>
+    </div>
+  </div>
+</div>
+{% endblock %}

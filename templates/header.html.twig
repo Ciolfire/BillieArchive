@@ -12,31 +12,37 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ path('character_index') }}">{{ "characters"|trans }}</a>
         </li>
+        {% if app.user.stories is not empty %}
         <li class="nav-item dropstart">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Stories
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">fr</a></li>
-            <li><a class="dropdown-item" href="#">en</a></li>
+            {% for story in app.user.stories %}
+              <li><a class="dropdown-item" href="#">{{ story.name }}</a></li>
+            {% endfor %}
           </ul>
         </li>
+        {% endif %}
+        {% if app.user.chronicles is not empty %}
         <li class="nav-item dropstart">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Chronicles
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">fr</a></li>
-            <li><a class="dropdown-item" href="#">en</a></li>
+            {% for chronicle in app.user.chronicles %}
+              <li><a class="dropdown-item" href="#">{{ chronicle.name }}</a></li>
+            {% endfor %}
           </ul>
         </li>
+        {% endif %}
         <li class="nav-item dropstart">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ app.user.locale }}
+            {{ app.request.locale }}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">fr</a></li>
-            <li><a class="dropdown-item" href="#">en</a></li>
+            <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'fr'}) )}}">fr</a></li>
+            <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'en'}) )}}">en</a></li>
           </ul>
         </li>
         <li class="nav-item">

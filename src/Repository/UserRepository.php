@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\DBAL\Types\Types;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -38,18 +39,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function getAvailablePlayersForChronicle(User $storyteller = null, $players)
     {
-        // foreach ($playue as $key => $value) {
-        //     # code...
-        // }
+        $playersId = "0";
+        foreach ($players as $player) {
+            /** @var User $player */
+            $playersId .= ", ".$player->getId();
+        }
 
         $qb = $this->createQueryBuilder('u');
-        $qb->where('u.id != :storyteller')
-        ->orWhere('u.id NOT IN (:players)')
-        ->setParameter('storyteller', $storyteller)
-        ->setParameter('players', $players);
+        $qb->Where($qb->expr()->notIn('u.id', $playersId))
+        ->andWhere('u.id != :storyteller')
+        ->setParameter('storyteller', $storyteller);
 
-        return $qb->getQuery()
-        ->getResult();
+        return $qb->getQuery()->getResult();
     }
 
     // /**

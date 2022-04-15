@@ -2,28 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Attribute;
-use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\User;
-use App\Entity\Human;
-use App\Entity\Vampire;
-use App\Entity\Clan;
-use App\Entity\Discipline;
-use App\Form\CharacterType;
-use App\Form\EmbraceType;
-use App\Repository\CharacterRepository;
+use App\Form\ChronicleType;
+use App\Repository\UserRepository;
 use App\Service\CharacterService;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -41,6 +30,31 @@ class ChronicleController extends AbstractController
   }
 
   /**
+   * @Route("/new", name="chronicle_new")
+   */
+  public function new(Request $request) : Response
+  {
+    $chronicle = new Chronicle();
+    $form = $this->createForm(ChronicleType::class, $chronicle);
+    
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $chronicle->setStoryteller($this->getUser());
+      $this->doctrine->getManager()->persist($chronicle);
+      $this->doctrine->getManager()->flush();
+      $this->addFlash('notice', "{$chronicle->getName()} created");
+      return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+    }
+
+    return $this->renderForm('chronicle/new.html.twig', [
+      'chronicle' => $chronicle,
+      'form' => $form,
+    ]);
+  }
+
+
+  /**
    * @Route("/party/{id}", name="party_index", methods={"GET"})
    */
   public function party(Chronicle $chronicle)
@@ -56,7 +70,9 @@ class ChronicleController extends AbstractController
    */
   public function addPlayer(Request $request, Chronicle $chronicle) : Response
   {
-    $availablePlayers = $this->doctrine->getRepository(User::class)->getAvailablePlayersForChronicle($chronicle->getStoryteller(), $chronicle->getPlayers());
+    /** @var UserRepository */
+    $userRepository = $this->doctrine->getRepository(User::class);
+    $availablePlayers = $userRepository->getAvailablePlayersForChronicle($chronicle->getStoryteller(), $chronicle->getPlayers());
     if ($availablePlayers) {
       $form = $this->createFormBuilder()
         ->add('player', ChoiceType::class, [

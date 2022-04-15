@@ -3,9 +3,10 @@
 {% block title %}Party - {{ chronicle.name }}{% endblock %}
 
 {% block body %}
+<h1 class="text-center">Party - {{ chronicle.name }}</h1>
 <div class="container">
-  <h1 class="text-center">Players</h1>
   <div class="row block">
+    <h2 class="text-center">Players</h2>
     {% for player in chronicle.players %}
       {% set character = chronicle.character(player) %}
       {% if character %}

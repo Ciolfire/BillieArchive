@@ -11,19 +11,27 @@
     <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Options</a></div>
   </div>
   <h1 class="text-center">My Chronicles</h1>
-  {% for chronicle in app.user.chronicles %}
-    {% set character = chronicle.character(app.user) %}
-    <div class="block row pt-2 block-{{ chronicle.type }}">
-      <h2 class="text-center">{{ chronicle.name }}</h2>
-      {% if character is not null %}
-        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">{{ character.name }}</a></div>
-      {% else %}
-        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new')}}">Create</a></div>
-      {% endif %}
-      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">Party</a></div>
-      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Infos</a></div>
+  {% if app.user.chronicles is not empty %}
+    {% for chronicle in app.user.chronicles %}
+      {% set character = chronicle.character(app.user) %}
+      <div class="block row pt-2 block-{{ chronicle.type }}">
+        <h2 class="text-center">{{ chronicle.name }}</h2>
+        {% if character is not null %}
+          <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">{{ character.name }}</a></div>
+        {% else %}
+          <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new')}}">Create</a></div>
+        {% endif %}
+        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">Party</a></div>
+        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Infos</a></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h2 class="text-center block p-3">You haven't joined any Chronicle yet ...</h2>
+      </div>
     </div>
-  {% endfor %}
+  {% endif %}
   <h1 class="text-center">My Stories</h1>
   {% for chronicle in app.user.stories %}
     <div class="block row pt-2 block-{{ chronicle.type }}">
@@ -38,12 +46,15 @@
       {% endfor %}
     </div>
   {% endfor %}
+  <div class="block row pt-2">
+    <div class="col-12"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_new')}}">New Story</a></div>
+  </div>
   <h1 class="text-center">Wiki</h1>
   <div class="block row">
-    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Attributes</a></div>
-    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Skills</a></div>
-    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Advantages</a></div>
-    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Rules</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('attribute_index')}}">Attributes</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('skill_index')}}">Skills</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="#">Advantages</a></div>
+    <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="#">Rules</a></div>
     <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Merits</a></div>
   </div>
 </div>

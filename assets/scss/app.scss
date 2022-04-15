@@ -7,6 +7,10 @@
   // height: 50px;
 //}
 
+html {
+  scroll-padding-top: 60px;
+}
+
 body {
   background-color: $pageColor;
   background-image: url("../#{$background}");
@@ -58,6 +62,11 @@ h5 {
   &-solid {
     background-color: $solidBlockColor;
   }
+}
+
+.block-wiki {
+  font-family: 'goudy';
+  font-size: 1.2em;
 }
 
 .block-vampire {
@@ -182,7 +191,6 @@ h5 {
 }
 
 .fluff, blockquote {
-  font-size: small;
   font-style: italic;
   background-color: #000000a1;
   padding: 0.5rem;
