@@ -34,7 +34,8 @@ class CharacterController extends AbstractController
   private $vService;
   private $create;
 
-  public function __construct(ManagerRegistry $doctrine, CreationService $create, CharacterService $service, VampireService $vService) {
+  public function __construct(ManagerRegistry $doctrine, CreationService $create, CharacterService $service, VampireService $vService)
+  {
     $this->doctrine = $doctrine;
     $this->service = $service;
     $this->vService = $vService;
@@ -54,7 +55,7 @@ class CharacterController extends AbstractController
   /**
    * @Route("/v/", name="vampire_index", methods={"GET"})
    */
-  public function vampires(CharacterRepository $characterRepository): Response
+  public function vampires(): Response
   {
     return $this->render('character/index.html.twig', [
       'characters' => $this->doctrine->getRepository(Vampire::class)->findAll(),
@@ -68,6 +69,7 @@ class CharacterController extends AbstractController
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
     $character = new Human();
+    $character->setPlayer($this->getUser());
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);
@@ -77,7 +79,8 @@ class CharacterController extends AbstractController
         $this->create->addMerits($character, $form->getExtraData()['merits']);
       }
       $this->create->getSpecialties($character, $form);
-      $this->create->getWillpower($character);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
       
       $entityManager->persist($character);
       $entityManager->flush();
@@ -194,7 +197,7 @@ class CharacterController extends AbstractController
    * @Route("/{character}/wounds/update", name="character_wounds_update", methods={"POST"})
    * @param Character $character
    */
-  public function updateWounds(Request $request, Character $character)
+  public function updateWounds(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -213,7 +216,7 @@ class CharacterController extends AbstractController
    * @Route("/{character}/trait/update", name="character_trait_update", methods={"POST"})
    * @param Character $character
    */
-  public function updateTrait(Request $request, Character $character)
+  public function updateTrait(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -228,7 +231,7 @@ class CharacterController extends AbstractController
    * @Route("/{character}/experience/update", name="character_experience_update", methods={"POST"})
    * @param Character $character
    */
-  public function updateExperience(Request $request, Character $character)
+  public function updateExperience(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -243,7 +246,7 @@ class CharacterController extends AbstractController
    * @Route("/{character}/avatar/update", name="character_avatar_update", methods={"POST"})
    * @param Character $character
    */
-  public function updateAvatar(Request $request, Character $character, LoggerInterface $logger)
+  public function updateAvatar(Request $request, Character $character, LoggerInterface $logger): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
       /** @var UploadedFile $avatarFile */

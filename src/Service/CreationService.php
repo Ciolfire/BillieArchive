@@ -89,10 +89,4 @@ class CreationService
       $character->addSpecialty($specialty);
     }
   }
-
-
-  public function getWillpower(Character $character): void
-  {
-    $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
-  }
 }

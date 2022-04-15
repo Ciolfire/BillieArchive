@@ -1,6 +1,9 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
+<div class="d-none">
+  {{ form_row(form.player) }}
+</div>
 <div class="row p-5">
   <div class="col-12 col-sm">
     <div class="row">
@@ -14,7 +17,7 @@
         <div class="mb-3 row">
           <label class="col-form-label col-sm-auto">Player</label>
           <div class="col-sm">
-            <input class="form-control" value="{{ app.user }}" readonly>
+            <input class="form-control" value="{{ character.player|default(app.user) }}" readonly>
           </div>
         </div>
       </div>

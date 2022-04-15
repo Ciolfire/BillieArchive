@@ -36,6 +36,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function getAvailablePlayersForChronicle(User $storyteller = null, $players)
+    {
+        // foreach ($playue as $key => $value) {
+        //     # code...
+        // }
+
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.id != :storyteller')
+        ->orWhere('u.id NOT IN (:players)')
+        ->setParameter('storyteller', $storyteller)
+        ->setParameter('players', $players);
+
+        return $qb->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

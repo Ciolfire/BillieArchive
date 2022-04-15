@@ -1,8 +1,10 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Dashboard{% endblock %}
+
 {% block body %}
 <div class="container">
-  <h1 class="text-center">Welcome</h1>
+  <h1 class="text-center">Dashboard</h1>
   <div class="block row">
     <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Characters</a></div>
     <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">Notes</a></div>
@@ -18,8 +20,7 @@
       {% else %}
         <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new')}}">Create</a></div>
       {% endif %}
-      
-      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Group</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">Party</a></div>
       <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Infos</a></div>
     </div>
   {% endfor %}
@@ -29,8 +30,12 @@
       <h2 class="text-center">{{ chronicle.name }}</h2>
       <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">NPC</a></div>
       <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Groups</a></div>
-      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Party</a></div>
+      <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">Party</a></div>
       <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">Homebrew</a></div>
+      <h3 class="text-center">Party</h3>
+      {% for character in chronicle.characters %}
+        <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">{{ character.name }}</a></div>
+      {% endfor %}
     </div>
   {% endfor %}
   <h1 class="text-center">Wiki</h1>

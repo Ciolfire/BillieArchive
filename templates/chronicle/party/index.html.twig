@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Party - {{ chronicle.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 class="text-center">Players</h1>
+  <div class="row block">
+    {% for player in chronicle.players %}
+      {% set character = chronicle.character(player) %}
+      {% if character %}
+        <div class="col-4">
+          <a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">
+            <div class="character-frame character-frame-list position-relative text-center mb-2">
+              <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+            </div>
+            {{ player.username }} - {{ character.name }}
+          </a>
+        </div>
+      {% else %}
+        <div class="col-4">
+          <a class="btn btn-primary w-100 m-2 disabled" href="#">
+            <div class="character-frame character-frame-list position-relative text-center mb-2">
+              <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
+            </div>
+            {{ player.username }} - No Character
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+      <div class="col-4">
+        <a class="btn btn-primary w-100 m-2" href="{{path('party_add_player', {'id': chronicle.id })}}">
+          <div class="character-frame character-frame-list position-relative text-center mb-2">
+            <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
+          </div>
+          <i class="fa-solid fa-user-plus"></i> Add a Player
+        </a>
+      </div>
+  </div>
+</div>
+{% endblock %}

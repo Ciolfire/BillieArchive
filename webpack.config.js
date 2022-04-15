@@ -22,6 +22,8 @@ Encore
      */
     .addEntry('vampire', './assets/js/vampire.js')
     .addEntry('human', './assets/js/human.js')
+    .addEntry('mage', './assets/js/human.js')
+    .addEntry('werewolf', './assets/js/human.js')
     // .addEntry('character_new', './assets/js/character/new.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
