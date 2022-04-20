@@ -31,7 +31,7 @@
         {% block expanded %}{% endblock %}
       {% endif %}
       <div class="merit-text-{{ merit.id }} card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
-        {{ merit.effect|markdown_to_html }}
+        {{ merit.effect|default("")|markdown_to_html }}
         <p class="text-end">{{ merit.book }}</p>
       </div>
     </div>

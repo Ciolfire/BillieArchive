@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\Chronicle;
 use App\Entity\Human;
 use App\Entity\Vampire;
 use App\Entity\Clan;
@@ -47,8 +49,10 @@ class CharacterController extends AbstractController
    */
   public function index(CharacterRepository $characterRepository): Response
   {
+    /** @var User $user */
+    $user = $this->getUser();
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy(['player' => $this->getUser()->getId()]),
+      'characters' => $characterRepository->findBy(['player' => $user->getId()]),
     ]);
   }
 
@@ -64,11 +68,12 @@ class CharacterController extends AbstractController
   }
 
   /**
-   * @Route("/new", name="character_new", methods={"GET", "POST"})
+   * @Route("/new/{chronicle}", name="character_new", methods={"GET", "POST"})
    */
-  public function new(Request $request, EntityManagerInterface $entityManager): Response
+  public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle=null): Response
   {
     $character = new Human();
+    $character->setChronicle($chronicle);
     $character->setPlayer($this->getUser());
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);

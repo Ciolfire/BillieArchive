@@ -16,14 +16,14 @@
     </ul>
     <div id="general" data-tabs-target="page">
       <div class="row">
-        <div class="col-12 col-lg">
+        <div class="col-12 col-lg-6 col-xl-4">
           {{ include('character/show/health.html.twig') }}
         </div>
-        <div class="col-12 col-lg">
+        <div class="col-12 col-lg-6 col-xl-4">
           {{ include('character/show/willpower.html.twig') }}
         </div>
         {% if character.type != "human" %}
-          <div class="col-12 col-lg">
+          <div class="col-12 col-lg-12 col-xl-4">
             {{ include(character.type ~ '/show/trait.html.twig') }}
           </div>
         {% endif %}

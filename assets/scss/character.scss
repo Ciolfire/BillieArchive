@@ -73,13 +73,22 @@ $avatar-size: 100px * (1 + .05 * 2);
 .dot {
   background-color: transparent;
   border-color: black;
-  margin-left: 0px !important;
-  margin-right: 0px !important;
+  margin-left: 1px !important;
+  margin-right: 1px !important;
   border-radius: 50% !important;
-  padding: 6px 5px;
+  padding: 8px 7px;
   border-width: 2px;
   &-disabled {
     background-color: rgba(225, 195, 188, 0.26);
+  }
+  &-selectable {
+    background-color: rgba(255, 255, 255, 0.548);
+  }
+  &::first-child {
+    margin-left: 0px !important;
+  }
+  &::last-child {
+    margin-right: 0px !important;
   }
 }
 
@@ -151,7 +160,7 @@ $avatar-size: 100px * (1 + .05 * 2);
 #menu {
   z-index: 10;
   position: fixed;
-  top: 50px;
+  top: 55px;
   left: 0;
   padding: 2px 10px;
 }

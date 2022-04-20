@@ -21,8 +21,15 @@ class CharacterType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    /** @var User */
-    $player = $options['data']->getPlayer();
+    /** @var Character */
+    $character = $options['data'];
+    $player = $character->getPlayer();
+    $chronicle = $character->getChronicle();
+    if ($chronicle) {
+      $chronicles = [$chronicle];
+    } else {
+      $chronicles = array_merge($player->getChronicles()->toArray(), $player->getStories()->toArray());
+    }
     $builder
       ->add('player')
       ->add('name')
@@ -32,7 +39,7 @@ class CharacterType extends AbstractType
       ->add('concept')
       ->add('chronicle', EntityType::class, [
         'class' => Chronicle::class,
-        'choices' => array_merge($player->getChronicles()->toArray(), $player->getStories()->toArray()),
+        'choices' => $chronicles,
       ])
       ->add('faction')
       ->add('groupName')

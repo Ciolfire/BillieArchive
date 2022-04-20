@@ -12,12 +12,12 @@ physical: Physique
 social: Social
 
 attribute:
-  0: 0 - Absolute vacancy
-  1: 1 - Poor. Unexercised, unpracticed or inept.
-  2: 2 - Average. The result of occasional effort or application.
-  3: 3 - Good. Regular practice or effort, or naturally talented.
-  4: 4 - Exceptional. Frequently applied, tested and honed, or naturally gifted.
-  5: 5 - Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.
+  0: 0 - Absence totale
+  1: 1 - Pauvre. Unexercised, unpracticed or inept.
+  2: 2 - Moyen. The result of occasional effort or application.
+  3: 3 - Bon. Regular practice or effort, or naturally talented.
+  4: 4 - Exceptionnel. Frequently applied, tested and honed, or naturally gifted.
+  5: 5 - Incroyable. The peak of normal human capability. Continuously exercised or naturally blessed.
   
   intelligence: Intelligence
   wits: Astuce
@@ -29,8 +29,12 @@ attribute:
   manipulation: Manipulation
   composure: Calme
 
+avatar:
+  change: Changer l'avatar du personnage
+  save: Sauvegarder l'avatar
+
 tab:
-  background: Background
+  background: Histoire
   general: General
   merits: Atouts
   notes: Notes
@@ -43,21 +47,21 @@ dot:
 
 willpower:
   name: Willpower
-  0: 0 - Exhausted
-  1: 1 - Spineless
-  2: 2 - Weak
-  3: 3 - Timid
+  0: 0 - Épuisé
+  1: 1 - Mou
+  2: 2 - Faible
+  3: 3 - Timide
   4: 4 - Certain
   5: 5 - Confident
-  6: 6 - Resolute
-  7: 7 - Driven
-  8: 8 - Determined
-  9: 9 - Iron-willed
+  6: 6 - Résolu
+  7: 7 - Passionné
+  8: 8 - Determiné
+  9: 9 - Volonté de fer
   10: 10 - Implacable
 
-health: Health
+health: Santé
 wound:
-  penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
+  penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
 
 merit:
   creation: 7 points à dépenser
@@ -67,10 +71,10 @@ merit:
 
 skill:
   name: Compétence
-  0: 0 - Unskilled
-  1: 1 - Novice. Basic knowledge and/or techniques.
-  2: 2 - Practitioner. Solid working knowledge and/or techniques.
-  3: 3 - Professional. Broad, detailed knowledge and/or techniques.
+  0: 0 - Incompétent
+  1: 1 - Novice. Connaissances et/ou techniques basiques.
+  2: 2 - Amateur. Connaissance et/ou techniques professionnelles.
+  3: 3 - Professionel. Connaissance et/ou techniques variées et détaillées.
   4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
   5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
   title: Compétences
@@ -115,12 +119,16 @@ xp:
 power: "{0}Aucun pouvoir|{1}Pouvoir|]1,Inf[Pouvoirs"
 
 vampire:
-  age: Age of Death
+  age: Age de la Mort
   sire: Sire
   potency:
-    name: Blood Potency
-  hungry: The vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
-  starved: The vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
+    name: Puissance du Sang
+  feeding:
+    animal: Le Vampire peut tout aussi bien se nourrir sur des animaux, des Humains et des Vampires
+    human: Le vampire doit se nourrir d'Humains ou de Vampires
+    vampire: Seule la Vitae pure issue d'un Vampire permet à ce Vampire de se sustancer.
+  hungry: Le Vampire a 4 Vitae ou moins, il a faim et souffre d'un -1 pour résister à la Frénésie
+  starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
   vitae: Vitae
 
 embrace:

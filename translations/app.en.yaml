@@ -1,0 +1,29 @@
+advantages: Advantages
+attributes: Attributes
+characters:
+  groups: Groups
+  name: Characters
+  non.player: NPC
+chronicles:
+  title: My Chronicles
+  name: Chronicles
+  none: You haven't joined any Chronicle yet ...
+create: Create
+dashboard: Dashboard
+homebrew: Homebrew
+infos: Infos
+logout: Logout
+merits: Merits
+notes: Notes
+options: Options
+party:
+  name: Party
+  manage: Manage Party
+personal: Personal
+rules: Rules
+skills: Skills
+stories:
+  new: New story
+  name: Stories
+  title: My Stories
+wiki: Wiki

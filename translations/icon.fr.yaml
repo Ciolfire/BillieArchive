@@ -1,0 +1,49 @@
+add: Ajouter
+all: Tous
+creation: Création uniquement
+hide: Cacher
+mental: Mental
+physical: Physique
+social: Social
+style: Style de combat
+power: Pouvoir
+finesse: Finesse
+resistance: Résistance
+
+academics: Érudition
+computer: Informatique
+crafts: Artisanats
+investigation: Investigation
+medecine: Médecine
+occult: Occulte
+politics: Politique
+science: Science
+athletics: Sports
+brawl: Bagarre
+drive: Conduite
+firearms: Armes à feu
+larceny: Larcin
+stealth: Discrétion
+survival: Survie
+weaponry: Armes blanches
+animalKen: Animaux
+empathy: Empathie
+expression: Expression
+intimidation: Intimidation
+persuasion: Persuasion
+socialize: Entregent
+streetwise: Expérience de la rue
+subterfuge: Subterfuge
+
+specialties: Montrer les spécialités de la compétence
+add-specialty: Ajouté une spécialité pour cette compétence
+
+size: Taille
+speed: Vitesse
+initiative: Initiative
+defense: Défense
+armor: Armure
+xp: Points Experience
+
+potency: Puissance du Sang
+vitae: Vitae

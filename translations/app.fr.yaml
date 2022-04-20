@@ -1,0 +1,29 @@
+advantages: Avantages
+attributes: Attributs
+characters:
+  groups: Groupes
+  name: Personnages
+  non.player: PNJ
+chronicles:
+  title: Mes Chroniques
+  name: Chroniques
+  none: Vous n'avez pas encore rejoint de chronique ...
+create: Créer
+dashboard: Tableau de bord
+homebrew: Règles maison
+infos: Infos
+logout: Déconnexion
+merits: Atouts
+notes: Notes
+options: Options
+party:
+  name: Équipe
+  manage: Gérer l'Équipe
+personal: Personnel
+rules: Règles
+skills: Compétences
+stories:
+  new: Nouvelle histoire
+  name: Histoires
+  title: Mes Histoires
+wiki: Encyclopédie

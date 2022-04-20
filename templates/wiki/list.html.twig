@@ -4,7 +4,7 @@
 
 {% block body %}
   <div class="container">
-    <h1 class="text-center">{{ elementName }}</h1>
+    <h1>{{ elementName }}</h1>
     <div class="row">
       <div class="col-auto">
         <h2>TOC</h2>
@@ -20,7 +20,7 @@
     <div class="row">
       {% for element in elements %}
         <div id="{{ element.name }}" class="col-12 col-lg-4 block block-wiki">
-          <h2 class="text-center">{{ element.name }}</h2>
+          <h3>{{ element.name }}</h3>
           <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
           <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
         </div>

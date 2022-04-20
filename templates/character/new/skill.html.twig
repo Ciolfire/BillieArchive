@@ -12,7 +12,7 @@
 
 {% block dot %}
   <input type="checkbox" class="btn-check {{ 'dots-' ~ skill }}" id="{{ skill ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ skill ~ '-' ~ value }}" 
+  <label class="btn dot {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ skill ~ '-' ~ value }}" 
     data-action="click->dot#activate click->character--creation#skillUpdate"
     data-dot-value-param="{{ value }}">
   </label>

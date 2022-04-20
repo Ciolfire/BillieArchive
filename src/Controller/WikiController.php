@@ -16,6 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class WikiController extends AbstractController
 {
   /**
+   * @Route("/", name="wiki_index", methods={"GET"})
+   */
+  public function index(): Response
+  {
+    return $this->render('wiki/index.html.twig', [
+      'type' => 'human',
+    ]);
+  }
+
+  /**
    * @Route("/attribute", name="attribute_index", methods={"GET"})
    */
   public function attributes(AttributeRepository $attributeRepository): Response

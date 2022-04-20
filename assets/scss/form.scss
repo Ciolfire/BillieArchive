@@ -11,7 +11,7 @@ input[type=number] {
 
 .form-control {
   color: $mainColor;
-  background-color: $inputBackColor;
+  background-color: rgba(255, 255, 255, 0.548);
   &:focus {
     color: $mainColor;
     background-color: $inputActiveBColor;

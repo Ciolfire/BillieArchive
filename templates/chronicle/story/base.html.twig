@@ -1,0 +1,17 @@
+{% trans_default_domain 'app' %}
+
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">{{ "party.manage"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "characters.non.player"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "characters.groups"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "homebrew"|trans }}</a></div>
+<h4>{{ "party.name"|trans }}</h4>
+{% for character in chronicle.characters %}
+  <div class="col-6 col-lg-3">
+    <a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">
+      <div class="character-frame character-frame-list position-relative text-center mb-2">
+        <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+      </div>
+      {{ character.name }}
+    </a>
+  </div>
+{% endfor %}

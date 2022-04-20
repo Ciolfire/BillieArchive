@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 m-4">
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 m-4">
   {% for chMerit in character.merits %}
     {% include "character/show/merit.html.twig" with {'merit': chMerit.merit} %}
   {% endfor %}

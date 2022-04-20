@@ -80,7 +80,7 @@ class ChronicleController extends AbstractController
           'choice_label' => 'username',
         'choice_value' => 'id',
         ])
-      ->add('Add', SubmitType::class)
+      ->add('submit', SubmitType::class)
       ->getForm();
       $form->handleRequest($request);
 
@@ -97,8 +97,47 @@ class ChronicleController extends AbstractController
       return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
     }
 
-    return $this->renderForm('chronicle/party/addPlayer.html.twig', [
+    return $this->renderForm('chronicle/party/playerChange.html.twig', [
       'chronicle' => $chronicle,
+      'action' => 'add',
+      'type' => $chronicle->getType(),
+      'form' => $form,
+    ]);
+  }
+
+  /**
+   * @Route("/party/remove/{id}", name="party_remove_player")
+   */
+  public function removePlayer(Request $request, Chronicle $chronicle) : Response
+  {
+    $availablePlayers = $chronicle->getPlayers();
+    if ($availablePlayers) {
+      $form = $this->createFormBuilder()
+        ->add('player', ChoiceType::class, [
+          'choices' => $availablePlayers,
+          'choice_label' => 'username',
+        'choice_value' => 'id',
+        ])
+      ->add('submit', SubmitType::class)
+      ->getForm();
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+        /** @var User */
+        $player = $form->getData()['player'];
+        $chronicle->removePlayer($player);
+        $this->doctrine->getManager()->flush();
+        $this->addFlash('notice', "{$player->getUserIdentifier()} removed from the campaign");
+        return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+      }
+    } else {
+      $this->addFlash('notice', 'No player available');
+      return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+    }
+
+    return $this->renderForm('chronicle/party/playerChange.html.twig', [
+      'chronicle' => $chronicle,
+      'action' => 'remove',
       'type' => $chronicle->getType(),
       'form' => $form,
     ]);

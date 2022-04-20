@@ -8,7 +8,7 @@
 
 {% block dot %}
   <input type="checkbox" class="btn-check" id="{{ attribute ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute ~ '-' ~ value }}" 
+  <label class="btn dot {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ attribute ~ '-' ~ value }}" 
     data-action="click->dot#activate click->character--creation#attributeUpdate"
     data-dot-value-param="{{ value }}">
   </label>

@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %}New Player - {{ chronicle.name }}{% endblock %}
+{% block title %}{{ action|trans }} - {{ chronicle.name }}{% endblock %}
 
 {% block body %}
 <div class="d-flex align-items-center vh-100">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-4 block text-center">
-        <h1>New Player</h1>
+        <h1>{{ action|trans }}</h1>
         {{ form(form) }}
         <div class="col text-end mb-2">
           <a href="{{path('party_index', {'id': chronicle.id })}}">Back</a>

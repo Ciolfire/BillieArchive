@@ -1,0 +1,10 @@
+{% trans_default_domain 'app' %}
+
+{% set character = chronicle.character(app.user) %}
+{% if character is not null %}
+  <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">{{ character.name }}</a></div>
+{% else %}
+  <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new', {'chronicle': chronicle.id })}}">{{ "create"|trans }}</a></div>
+{% endif %}
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('party_index', {'id': chronicle.id })}}">{{ "party.name"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "infos"|trans }}</a></div>
