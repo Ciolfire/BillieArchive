@@ -25,30 +25,43 @@ body {
   font-family: $mainFont;
 }
 
+h1, h2, h3, h4, h5 {
+  color: $titleColor;
+  text-align: center;
+  text-shadow:
+    2px 0 0 $titleShadow,
+    -2px 0 0 $titleShadow,
+    0 2px 0 $titleShadow,
+    0 -2px 0 $titleShadow,
+    1px 1px $titleShadow,
+    -1px -1px 0 $titleShadow,
+    1px -1px 0 $titleShadow,
+    -1px 1px 0 $titleShadow;
+}
+
 h1 {
   color: $titleColor;
-  text-shadow: 2px 2px #00000063;
+  font-family: $h1Font;
 }
 
 h2 {
   font-size: 1.3rem;
   font-family: $h2Font;
-  color: $titleColor;
-  text-shadow: 2px 2px #00000063;
 }
 
 h3 {
-  font-size: 1.1rem;
+  // font-size: 1.2rem;
   font-family: $h3Font;
-  color: $titleColor;
-  text-shadow: 2px 2px #00000063;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-family: $h4Font;
 }
 
 h5 {
   font-size: 1rem;
-  font-family: $h2Font;
-  color: $titleColor;
-  text-shadow: 1px 2px 1px #00000063;
+  font-family: $h5Font;
 }
 
 .d-hide {
