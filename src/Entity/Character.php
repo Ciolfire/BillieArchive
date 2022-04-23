@@ -126,6 +126,11 @@ class Character
    */
   private $chronicle;
 
+  /**
+   * @ORM\Column(type="boolean")
+   */
+  private $isNpc;
+
   public function __construct()
   {
     if (!$this->attributes) {
@@ -526,6 +531,18 @@ class Character
   public function setChronicle(?Chronicle $chronicle): self
   {
       $this->chronicle = $chronicle;
+
+      return $this;
+  }
+
+  public function isNpc(): ?bool
+  {
+      return $this->isNpc;
+  }
+
+  public function setIsNpc(bool $isNpc): self
+  {
+      $this->isNpc = $isNpc;
 
       return $this;
   }

@@ -1,17 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% trans_default_domain 'wiki' %}
+
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
   <div class="container">
-    <h1>{{ elementName }}</h1>
+    <h1>{{ entity|trans }}</h1>
     <div class="row">
-      <div class="col-auto">
-        <h2>TOC</h2>
-        <ul class="toc block pe-3 py-3">
+      <div class="col-auto block">
+        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
+        <ul id="collapseToc" class="toc collapse show pe-3 py-3">
           {% for element in elements %}
             <li>
-              <a href="#{{ element.name }}">{{ element.name }}</a>
+              <a href="#{{ element.name }}">{{ (entity ~ "." ~ element.name)|trans([], category) }}</a>
             </li>
           {% endfor %}
         </ul>
@@ -20,7 +22,7 @@
     <div class="row">
       {% for element in elements %}
         <div id="{{ element.name }}" class="col-12 col-lg-4 block block-wiki">
-          <h3>{{ element.name }}</h3>
+          <h3>{{ (entity ~ "." ~ element.name)|trans([], category) }}</h3>
           <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
           <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
         </div>

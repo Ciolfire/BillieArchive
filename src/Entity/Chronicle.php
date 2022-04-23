@@ -154,6 +154,19 @@ class Chronicle
     return null;
   }
 
+  public function getNpc(): array
+  {
+    $npc = [];
+    foreach ($this->characters as $character) {
+      /** @var Character $character */
+      if ($character->isNpc() == true) {
+        $npc[] = $character;
+      }
+    }
+
+    return $npc;
+  }
+
   public function getType(): ?string
   {
       return $this->type;

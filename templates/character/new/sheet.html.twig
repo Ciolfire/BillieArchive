@@ -1,5 +1,9 @@
+{% trans_default_domain 'character' %}
+
 {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
+  <h1>Create new Character</h1>
   <div class="container block py-3 g-0">
+    <a href="{{ path('character_index') }}">back to list</a>
     {{ include('character/sheet/header.html.twig') }}
     {{ include('character/new/attributes.html.twig') }}
     {{ include('character/new/skills.html.twig') }}

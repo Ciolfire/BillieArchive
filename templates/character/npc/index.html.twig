@@ -2,21 +2,16 @@
 
 {% trans_default_domain 'character' %}
 
-{% block title %}{{ "characters"|trans }}{% endblock %}
+{% block title %}{{ "npc"|trans }}{% endblock %}
 
 {% block body %}
-{% if type == "human" %}
-  <h1>{{ "characters"|trans }}</h1>
-{% else %}
-  <h1>{{ type }}s</h1>
-{% endif %}
-
+<h1>{{ "npc"|trans }}</h1>
 <div class="container">
   <div class="col-4 offset-4">
-    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('character_new') }}">Create new</a>
+    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('chronicle_npc_add', {'id': chronicle.id}) }}">Create new</a>
   </div>
   <div class="row pt-3">
-    {% for character in characters %}
+    {% for character in chronicle.npc %}
       {% include "character/card.html.twig" %}
     {% endfor %}
   </div>

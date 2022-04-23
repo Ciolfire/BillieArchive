@@ -52,33 +52,44 @@ class CharacterController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy(['player' => $user->getId()]),
+      'characters' => $characterRepository->findBy([
+        'player' => $user->getId(),
+        'isNpc' => false
+      ]),
+      'npc' => $characterRepository->findBy([
+        'player' => $user->getId(),
+        'isNpc' => true
+      ]),
     ]);
   }
 
   /**
-   * @Route("/v/", name="vampire_index", methods={"GET"})
+   * @Route("/npc", name="character_npc_index", methods={"GET"})
    */
-  public function vampires(): Response
+  public function indexNpc(CharacterRepository $characterRepository): Response
   {
+    /** @var User $user */
+    $user = $this->getUser();
     return $this->render('character/index.html.twig', [
-      'characters' => $this->doctrine->getRepository(Vampire::class)->findAll(),
-      'type' => 'vampire',
+      'characters' => $characterRepository->findBy([
+        'player' => $user->getId(),
+        'isNpc' => true
+      ]),
     ]);
   }
 
   /**
-   * @Route("/new/{chronicle}", name="character_new", methods={"GET", "POST"})
+   * @Route("/new/{chronicle}/{isNpc}", name="character_new", methods={"GET", "POST"})
    */
-  public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle=null): Response
+  public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle = null, bool $isNpc = false): Response
   {
     $character = new Human();
     $character->setChronicle($chronicle);
+    $character->setIsNpc($isNpc);
     $character->setPlayer($this->getUser());
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
         $this->create->addMerits($character, $form->getExtraData()['merits']);

@@ -32,7 +32,8 @@ class WikiController extends AbstractController
   {
     return $this->render('wiki/list.html.twig', [
       'elements' => $attributeRepository->findAll(),
-      'elementName' => 'attribute',
+      'entity' => 'attribute',
+      'category' => 'character',
       'type' => 'human',
     ]);
   }
@@ -44,7 +45,8 @@ class WikiController extends AbstractController
   {
     return $this->render('wiki/list.html.twig', [
       'elements' => $skillRepository->findAll(),
-      'elementName' => 'skill',
+      'entity' => 'skill',
+      'category' => 'character',
       'type' => 'human',
     ]);
   }

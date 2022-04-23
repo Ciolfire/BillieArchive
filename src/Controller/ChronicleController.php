@@ -44,7 +44,7 @@ class ChronicleController extends AbstractController
       $this->doctrine->getManager()->persist($chronicle);
       $this->doctrine->getManager()->flush();
       $this->addFlash('notice', "{$chronicle->getName()} created");
-      return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+      return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
     return $this->renderForm('chronicle/new.html.twig', [
@@ -55,7 +55,7 @@ class ChronicleController extends AbstractController
 
 
   /**
-   * @Route("/party/{id}", name="party_index", methods={"GET"})
+   * @Route("/{id}/party", name="chronicle_party_index", methods={"GET"})
    */
   public function party(Chronicle $chronicle)
   {
@@ -66,7 +66,31 @@ class ChronicleController extends AbstractController
   }
 
   /**
-   * @Route("/party/add/{id}", name="party_add_player")
+   * @Route("/{id}/npc", name="chronicle_npc_index", methods={"GET"})
+   */
+  public function npc(Chronicle $chronicle)
+  {
+    return $this->render('character/npc/index.html.twig', [
+      'chronicle' => $chronicle,
+      'type' => $chronicle->getType(),
+    ]);
+  }
+
+  /**
+   * @Route("/{id}/npc/add", name="chronicle_npc_add", methods={"GET"})
+   */
+  public function addNpc(Chronicle $chronicle)
+  {
+    return $this->redirectToRoute('character_new', ['chronicle' => $chronicle->getId(), 'isNpc' => true]);
+
+    // return $this->render('character/npc/index.html.twig', [
+    //   'chronicle' => $chronicle,
+    //   'type' => $chronicle->getType(),
+    // ]);
+  }
+
+  /**
+   * @Route("/{id}/party/add", name="chronicle_add_player")
    */
   public function addPlayer(Request $request, Chronicle $chronicle) : Response
   {
@@ -90,11 +114,11 @@ class ChronicleController extends AbstractController
         $chronicle->addPlayer($player);
         $this->doctrine->getManager()->flush();
         $this->addFlash('notice', "{$player->getUserIdentifier()} added to the campaign");
-        return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+        return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
       }
     } else {
       $this->addFlash('notice', 'No player available');
-      return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+      return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
     return $this->renderForm('chronicle/party/playerChange.html.twig', [
@@ -106,7 +130,7 @@ class ChronicleController extends AbstractController
   }
 
   /**
-   * @Route("/party/remove/{id}", name="party_remove_player")
+   * @Route("/{id}/party/remove", name="chronicle_remove_player")
    */
   public function removePlayer(Request $request, Chronicle $chronicle) : Response
   {
