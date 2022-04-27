@@ -10,7 +10,10 @@
     </div>
     {% include("character/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
-      <a href="{{ app.request.headers.get('referer') }}" class="btn btn-sm btn-menu btn-primary w-100">{{ "back"|trans }}</a>
+      <a href="{{ path('character_index') }}" class="btn btn-sm btn-menu btn-primary w-100">
+        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+        {{ "back"|trans }}
+      </a>
     </div>
   </div>
 </div>

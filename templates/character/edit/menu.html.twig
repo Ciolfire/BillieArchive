@@ -3,13 +3,19 @@
 <div id="menu" class="container">
   <div class="row text-center text">
     <div class="col-3 px-1">
-      <button class="btn btn-sm btn-menu btn-primary w-100" type="button" data-action="click->character--edit#clean">{{ button_label|default('Save') }}</button>
+      <button class="btn btn-sm btn-menu btn-primary w-100" type="button" data-action="click->character--edit#clean">
+        {% include "icon.html.twig" with {'icon': 'save', 'hasTips': 0} only %}
+        {{ button_label|default('Save') }}
+      </button>
     </div>
     <div class="col-6">
       <input value="0" type="hidden" name="character[xp][spend]" data-character--edit-target="spend">
       <div class="w-100 block">
         <div class="d-flex flex-row justify-content-center btn btn-menu btn-primary btn-sm w-100" data-bs-toggle="collapse" role="button" data-bs-target=".usingInfo">
-          <span>details&nbsp;</span>
+          <span>
+            {% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %}
+            details&nbsp;
+          </span>
           <div class="py-0 d-flex flex-column justify-content-center">
             <span class="usingInfo show">
               <i class="fas fa-caret-down"></i>
@@ -24,7 +30,10 @@
       </div>
     </div>
     <div class="col-3">
-      <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ app.request.headers.get('referer') }}">{{ "back"|trans }}</a>
+      <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ app.request.headers.get('referer') }}">
+        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+        {{ "back"|trans }}
+      </a>
     </div>
   </div>
 </div>
