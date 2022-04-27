@@ -6,7 +6,7 @@
   <div class="w-100 user-select-none"><h6><span class="title-block">{% trans %}merit.improve{% endtrans %}</span></h6></div>
   {% for chMerit in character.merits %}
     {% if chMerit.level < chMerit.merit.max %}
-      {% include "character/edit/merit.html.twig" with {'merit': chMerit.merit} %}
+      {% include "character/edit/merit.html.twig" with {'merit': chMerit.merit, 'isImproving': true} %}
     {% endif %}
   {% endfor %}
   <div class="w-100"></div>

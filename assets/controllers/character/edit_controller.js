@@ -41,6 +41,11 @@ export default class extends Controller {
   }
 
   pay(event) {
+    let name = event.target.parentElement.parentElement.firstElementChild.name;
+    let id = null;
+    if (name.indexOf('-') > -1) {
+      event.params.name += ' (' + name.split('-').pop().split(']')[0] + ')';
+    }
     this.payDot(event.params.name, event.params.min, event.params.value, event.params.type);
 
     let changed = event.target.getAttribute("for").split('-')[0];

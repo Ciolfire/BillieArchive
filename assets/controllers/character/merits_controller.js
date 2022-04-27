@@ -9,22 +9,27 @@ export default class extends Controller {
 
   connect() {
     this.checkPrerequisite({ detail: {type: 'race', target: null } });
+
+    this.meritTargets.forEach(merit => {
+      let card = merit.closest(".block");
+      if (-1 == merit.name.indexOf('meritsUp') && false == card.dataset.unique) {
+        if (card.getElementsByClassName("merit-value")[0].value > 0) {
+          let merits = document.getElementsByName(card.attributes.name.value);
+          if (this.checkNeedGeneration(card, merits)) {
+            this.meritGeneration(card, merits.length);
+          }
+        }
+      }
+    });
   }
 
   add(event) {
     let card = event.target.closest(".block");
-    let merits = document.getElementsByName(card.attributes.name.value);
-
+    
     if (false == card.dataset.unique) {
-      
+      let merits = document.getElementsByName(card.attributes.name.value);
       if (card.getElementsByClassName("merit-value")[0].value > 0) {
-        let needNew = true;
-        merits.forEach(merit => {
-          if (merit.getElementsByClassName("merit-value")[0].value == 0) {
-              needNew = false;
-            }
-        });
-        if (needNew) {
+        if (this.checkNeedGeneration(card, merits)) {
           this.meritGeneration(card, merits.length);
         }
       } else if (merits.length > 1) {
@@ -32,6 +37,16 @@ export default class extends Controller {
       }
     }
     this.checkPrerequisite({ detail: { type: 'merit', target: event.target.getAttribute("for").split('-')[0] } })
+  }
+
+  checkNeedGeneration(card, merits) {
+      merits.forEach(merit => {
+        if (merit.getElementsByClassName("merit-value")[0].value == 0) {
+            return false;
+          }
+      });
+      
+      return true;
   }
 
   meritGeneration(card, length) {
