@@ -22,6 +22,8 @@ framework:
                 base_path: '/images/characters/'
             images:
                 base_path: '/images/'
+            icons:
+                base_path: '/icons/'
 when@test:
     framework:
         test: true

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,9 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ClanRepository::class)
+ * 
+ * @ORM\AssociationOverrides({
+ *  @ORM\AssociationOverride(name="book", inversedBy="clans")
+ * })
  */
 class Clan
 {
+  use Sourcable;
+
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
@@ -49,10 +56,21 @@ class Clan
    */
   private $keywords;
 
+  /**
+   * @ORM\ManyToOne(targetEntity=Clan::class, inversedBy="bloodlines")
+   */
+  private $parentClan;
+
+  /**
+   * @ORM\OneToMany(targetEntity=Clan::class, mappedBy="parentClan")
+   */
+  private $bloodlines;
+
   public function __construct()
   {
     $this->attributes = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
+    $this->bloodlines = new ArrayCollection();
   }
 
   public function __toString()
@@ -169,5 +187,56 @@ class Clan
     }
 
     return false;
+  }
+
+  public function isBloodline(): ?bool
+  {
+    if ($this->parentClan == null) {
+      
+      return true;
+    }
+    return false;
+  }
+
+  public function getParentClan(): ?self
+  {
+      return $this->parentClan;
+  }
+
+  public function setParentClan(?self $parentClan): self
+  {
+      $this->parentClan = $parentClan;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection|self[]
+   */
+  public function getBloodlines(): Collection
+  {
+      return $this->bloodlines;
+  }
+
+  public function addBloodline(self $bloodline): self
+  {
+      if (!$this->bloodlines->contains($bloodline)) {
+          $this->bloodlines[] = $bloodline;
+          $bloodline->setParentClan($this);
+      }
+
+      return $this;
+  }
+
+  public function removeBloodline(self $bloodline): self
+  {
+      if ($this->bloodlines->removeElement($bloodline)) {
+          // set the owning side to null (unless already changed)
+          if ($bloodline->getParentClan() === $this) {
+              $bloodline->setParentClan(null);
+          }
+      }
+
+      return $this;
   }
 }

@@ -132,9 +132,19 @@ vampire:
   vitae: Vitae
 
 embrace:
+  name: Etreinte
   save: Débuter votre Requiem
   discipline:
     creation:
       info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
       favored: Actuellement
       all: Total
+
+awaken:
+  name: Eveil
+
+change:
+  name: Premier Changement
+
+edit: Modifier
+back: Retour

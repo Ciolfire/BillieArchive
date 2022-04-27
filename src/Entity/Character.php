@@ -131,6 +131,16 @@ class Character
    */
   private $isNpc;
 
+  /**
+   * @ORM\Column(type="string", length=50, nullable=true)
+   */
+  private $virtueDetail;
+
+  /**
+   * @ORM\Column(type="string", length=50, nullable=true)
+   */
+  private $viceDetail;
+
   public function __construct()
   {
     if (!$this->attributes) {
@@ -543,6 +553,30 @@ class Character
   public function setIsNpc(bool $isNpc): self
   {
       $this->isNpc = $isNpc;
+
+      return $this;
+  }
+
+  public function getVirtueDetail(): ?string
+  {
+      return $this->virtueDetail;
+  }
+
+  public function setVirtueDetail(string $virtueDetail): self
+  {
+      $this->virtueDetail = $virtueDetail;
+
+      return $this;
+  }
+
+  public function getViceDetail(): ?string
+  {
+      return $this->viceDetail;
+  }
+
+  public function setViceDetail(string $viceDetail): self
+  {
+      $this->viceDetail = $viceDetail;
 
       return $this;
   }

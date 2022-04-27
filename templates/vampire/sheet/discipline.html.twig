@@ -20,7 +20,6 @@
     </div>
   </div>
 </div>
-<div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
 <div class="row ok">
   {% block rulesBtn %}
     {% if discipline.rules %}
@@ -47,6 +46,7 @@
   {% block rules %}
     {% if discipline.rules %}
       <div class="col-12 discipline-rules-{{ discipline.id }} collapse">
+        <div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
         {{ discipline.rules|markdown_to_html }}
       </div>
     {% endif %}
@@ -72,7 +72,7 @@
                 {% endif %}
               </div>
             </h5>
-            <div class="discipline-power-{{ power.id }} collapse">{{ power.details|markdown_to_html }}</div>
+            <div class="discipline-power-{{ power.id }} collapse pb-2">{{ power.details|markdown_to_html }}</div>
           </div>
         </div>
       {% endif %}

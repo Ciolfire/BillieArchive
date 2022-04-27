@@ -32,7 +32,11 @@
       {% endif %}
       <div class="merit-text-{{ merit.id }} card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
-        <p class="text-end">{{ merit.book }}</p>
+        <p class="text-end">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ merit.book.name }}">
+            {{ merit.book.short }} {{ merit.page }}
+          </span>
+        </p>
       </div>
     </div>
     <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-text-{{ merit.id }}" type="button">

@@ -23,33 +23,34 @@
 </div>
 <h1 class="text-center text">{{ character.name }} {% if app.user != character.player %}{{ character.player }}{% endif %}</h1>
 <div class="row g-1">
-  <div class="col-12 col-sm">
+  <div class="order-2 order-md-1 col-6 col-md text-center">
+    <div class="row">
+      <div class="col-12">
+        {% trans %}Age{% endtrans %}: {{ character.age }}
+      </div>
+      <div class="col-12">
+        {% trans %}Virtue{% endtrans %}: {{ character.virtue }} ({{ character.virtueDetail }})
+      </div>
+      <div class="col-12">
+        {% trans %}Vice{% endtrans %}: {{ character.vice }} ({{ character.viceDetail }})
+      </div>
+    </div>
+  </div>
+  <div class="order-1 order-md-2 col-12 col-md">
     <div class="row text-center">
-      <div class="col-12 d-flex justify-content-center my-2"  data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
+      <div class="col-12 d-flex my-2" data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
         <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative">
           <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
         </div>
       </div>
-      <div class="col-12">
-        {% trans %}Age{% endtrans %}: {{ character.age }}
-      </div>
+      {% include (type ~ "/sheet/details.html.twig") %}
     </div>
   </div>
-  <div class="col-6 col-sm">
+  <div class="order-3 order-md-3 col-6 col-md text-center">
     <div class="row">
       <div class="col-12">
         {% trans %}Concept{% endtrans %}: {{ character.concept }}
       </div>
-      <div class="col-12">
-        {% trans %}Virtue{% endtrans %}: {{ character.virtue }}
-      </div>
-      <div class="col-12">
-        {% trans %}Vice{% endtrans %}: {{ character.vice }}
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm">
-    <div class="row">
       <div class="col-12">
         {% trans %}Chronicle{% endtrans %}: {{ character.chronicle }}
       </div>

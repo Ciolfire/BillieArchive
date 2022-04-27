@@ -121,7 +121,10 @@ xp:
 power: "{0}No Power|{1}Power|]1,Inf[Powers"
 
 vampire:
-  age: Age of Death
+  age: Age at Death
+  bloodline:
+    name: Bloodline
+    join: Join a Bloodline
   sire: Sire
   potency:
     name: Blood Potency
@@ -134,9 +137,19 @@ vampire:
   vitae: Vitae
 
 embrace:
+  name: Embrace
   save: Start your Requiem
   discipline:
     creation:
       info: "Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
       favored: Currently
       all: Total
+
+awaken:
+  name: Awaken
+
+change:
+  name: First Change
+
+edit: Edit
+back: Back

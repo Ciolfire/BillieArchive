@@ -26,7 +26,7 @@
       <h2>{{ "chronicles.title"|trans }}</h2>
       {% if app.user.chronicles is not empty %}
         {% for chronicle in app.user.chronicles %}
-          <div class="row block block-{{ chronicle.type }} mx-1">
+          <div class="row block {{ chronicle.type }} mx-1">
             <h3>{{ chronicle.name }}</h3>
             {% include "chronicle/base.html.twig" %}
           </div>
@@ -42,7 +42,7 @@
     <div class="col-12 col-lg-6">
       <h2>{{ "stories.title"|trans }}</h2>
       {% for chronicle in app.user.stories %}
-        <div class="row block block-{{ chronicle.type }} mx-1">
+        <div class="row block {{ chronicle.type }} mx-1">
           <h3>{{ chronicle.name }}</h3>
           <div class="row">
             {% include "chronicle/story/base.html.twig" %}

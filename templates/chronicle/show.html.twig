@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Chronicle{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <h1>{{ chronicle.name }}</h1>
+    {% if app.user == chronicle.storyteller %}
+      {% include "chronicle/story/base.html.twig" %}
+    {% else %}
+      {% include "chronicle/base.html.twig" %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

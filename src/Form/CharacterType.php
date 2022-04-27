@@ -33,9 +33,11 @@ class CharacterType extends AbstractType
     $builder
       ->add('player')
       ->add('name')
-      ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1]])
+      ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1], 'required' => false])
       ->add('virtue')
+      ->add('virtueDetail', null, ['required' => false])
       ->add('vice')
+      ->add('viceDetail', null, ['required' => false])
       ->add('concept')
       ->add('chronicle', EntityType::class, [
         'class' => Chronicle::class,

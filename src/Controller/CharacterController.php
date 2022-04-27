@@ -79,7 +79,7 @@ class CharacterController extends AbstractController
   }
 
   /**
-   * @Route("/new/{chronicle}/{isNpc}", name="character_new", methods={"GET", "POST"})
+   * @Route("/new/{isNpc}/{chronicle}/", name="character_new", methods={"GET", "POST"}, defaults={"isNpc": 0, "chronicle": 0})
    */
   public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle = null, bool $isNpc = false): Response
   {
@@ -101,7 +101,7 @@ class CharacterController extends AbstractController
       $entityManager->persist($character);
       $entityManager->flush();
 
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('character/new.html.twig', [

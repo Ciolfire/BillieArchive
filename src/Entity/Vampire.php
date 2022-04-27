@@ -28,7 +28,7 @@ class Vampire extends Character
   /**
    * @ORM\Column(type="smallint")
    */
-  private $apparantAge;
+  private $apparentAge;
 
   /**
    * @ORM\ManyToOne(targetEntity=Clan::class)
@@ -86,14 +86,14 @@ class Vampire extends Character
     return $this;
   }
 
-  public function getApparantAge(): ?int
+  public function getApparentAge(): ?int
   {
-    return $this->apparantAge;
+    return $this->apparentAge;
   }
 
-  public function setApparantAge(int $apparantAge): self
+  public function setApparentAge(int $apparentAge): self
   {
-    $this->apparantAge = $apparantAge;
+    $this->apparentAge = $apparentAge;
 
     return $this;
   }

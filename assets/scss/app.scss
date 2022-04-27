@@ -82,41 +82,59 @@ h5 {
   font-size: 1.2em;
 }
 
-.block-vampire {
+.vampire {
+  &-btn.btn, .btn.btn-primary {
+    color: #7d0000;
+    background-color: #00000075;
+    border: 1px solid #7d0000;
+    &:hover {
+      color: #000000c2;
+      background-color: #7d0000;
+    }
+  }
   h2, h3, h4, h5 {
     color: #7d0000;
   }
-  .btn.btn-primary {
-    color: #7d0000;
-    background-color: #0000003d;
-    border: 1px solid #7d0000;
-  }
+  color: #7d0000;
+  border: 1px solid #7d0000;
   box-shadow: #7d0000 0px 0px 7px 3px;
   background-color: #151515b5;
 }
 
-.block-mage {
-  h2, h3, h4, h5 {
-    color: #07cac7;
-  }
-  .btn.btn-primary {
+.mage {
+  &-btn.btn, .btn.btn-primary {
     color: #008886;
     background-color: #131313cf;
     border: 1px solid #008886;
+    &:hover {
+      color: #131313cf;
+      background-color: #008886;
+    }
   }
+  h2, h3, h4, h5 {
+    color: #07cac7;
+  }
+  color: #07cac7;
+  border: 1px solid #008886;
   box-shadow: #4cafaa 0px 0px 7px 3px;
   background-color: #96ba949a;
 }
 
-.block-werewolf {
-  h2, h3, h4, h5 {
-    color: #864211;
-  }
-  .btn.btn-primary {
+.werewolf {
+  &-btn.btn, .btn.btn-primary {
     color: #864211;
     background-color: #131313cf;
     border: 1px solid #864211;
+    &:hover {
+      color: #131313cf;
+      background-color: #864211;
+    }
   }
+  h2, h3, h4, h5 {
+    color: #864211;
+  }
+  color: #864211;
+  border: 1px solid #864211;
   box-shadow: #864211 0px 0px 7px 3px;
   background-color: #402818a6;
 }

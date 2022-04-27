@@ -53,6 +53,16 @@ class ChronicleController extends AbstractController
     ]);
   }
 
+  /**
+   * @Route("/{id}/", name="chronicle_show", methods={"GET"})
+   */
+  public function show(Chronicle $chronicle)
+  {
+    return $this->render('chronicle/show.html.twig', [
+      'chronicle' => $chronicle,
+      'type' => $chronicle->getType(),
+    ]);
+  }
 
   /**
    * @Route("/{id}/party", name="chronicle_party_index", methods={"GET"})
@@ -152,11 +162,11 @@ class ChronicleController extends AbstractController
         $chronicle->removePlayer($player);
         $this->doctrine->getManager()->flush();
         $this->addFlash('notice', "{$player->getUserIdentifier()} removed from the campaign");
-        return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+        return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
       }
     } else {
       $this->addFlash('notice', 'No player available');
-      return $this->redirectToRoute('party_index', ['id' => $chronicle->getId()]);
+      return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
     return $this->renderForm('chronicle/party/playerChange.html.twig', [

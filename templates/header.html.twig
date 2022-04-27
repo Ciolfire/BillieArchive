@@ -21,7 +21,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             {% for story in app.user.stories %}
-              <li><a class="dropdown-item" href="#">{{ story.name }}</a></li>
+              <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': story.id })}}">{{ story.name }}</a></li>
             {% endfor %}
           </ul>
         </li>
@@ -33,7 +33,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             {% for chronicle in app.user.chronicles %}
-              <li><a class="dropdown-item" href="#">{{ chronicle.name }}</a></li>
+              <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': chronicle.id })}}">{{ chronicle.name }}</a></li>
             {% endfor %}
           </ul>
         </li>

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Homebrewable;
+use App\Entity\Traits\Sourcable;
 use App\Repository\DisciplineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,9 +12,16 @@ use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @ORM\Entity(repositoryClass=DisciplineRepository::class)
+ * 
+ * @ORM\AssociationOverrides({
+ *  @ORM\AssociationOverride(name="book", inversedBy="disciplines")
+ * })
  */
 class Discipline
 {
+  use Homebrewable;
+  use Sourcable;
+
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
