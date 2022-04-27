@@ -801,7 +801,7 @@ CREATE TABLE `vampire` (
 -- Dumping data for table `vampire`
 --
 
-INSERT INTO `vampire` (`id`, `clan_id`, `sire`, `apparant_age`, `potency`, `vitae`) VALUES
+INSERT INTO `vampire` (`id`, `clan_id`, `sire`, `apparent_age`, `potency`, `vitae`) VALUES
 (1, 1, 'Lucas Gate', 19, 4, 4),
 (2, 3, 'SireTestamuch', 80, 4, 10),
 (3, 3, 'SireTestamuch', 20, 8, 1),

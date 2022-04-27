@@ -45,7 +45,7 @@ class VampireService
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->executeStatement();
     // ...But the Vampire rise for eternity
-    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `sire`, `apparant_age`, `potency`, `vitae`) VALUES (:id, :clan, :sire, :age, 1, 1)");
+    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `sire`, `apparent_age`, `potency`, `vitae`) VALUES (:id, :clan, :sire, :age, 1, 1)");
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->bindValue('clan', $data['clan']->getId());
     $nativeQuery->bindValue('sire', $data['sire']);
