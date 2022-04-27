@@ -36,7 +36,10 @@ streetwise: Streetwise
 subterfuge: Subterfuge
 
 specialties: Show skill specialties
-add-specialty: Add a specialty for this skill
+specialty:
+  add: Add a specialty for this skill
+  remove: Cancel the addition
+
 
 size: Size
 speed: Speed

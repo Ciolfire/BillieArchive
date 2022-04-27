@@ -2,8 +2,12 @@ Name: Nom
 Age: Age
 Player: Joueur
 Concept: Concept
-Virtue: Vertu
-Vice: Vice
+virtue:
+  name: Vertu
+  detail: Autre Nom
+vice:
+  name: Vice
+  detail: Autre Nom
 Chronicle: Chronique
 Faction: Faction
 Group name: Nom du groupe
@@ -108,6 +112,7 @@ skill:
   streetwise: Expérience de la rue
   subterfuge: Subterfuge
 specialty:
+  name: Specialité
   title: Specialisations
   creation: Choisissez trois spécialités de votre choix.
 

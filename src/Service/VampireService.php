@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Character;
+use App\Entity\Chronicle;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
@@ -25,7 +26,8 @@ class VampireService
   {
     $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
       foreach ($disciplines as $key => $discipline) {
-        if ($vampire->hasDiscipline($discipline->getId())) {
+        /** @var Discipline $discipline */
+        if ($vampire->hasDiscipline($discipline->getId()) || $discipline->getHomebrewFor() != $vampire->getChronicle()) {
           unset($disciplines[$key]);
         }
       }

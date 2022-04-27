@@ -47,7 +47,7 @@ class Vampire extends Character
   private $vitae = 1;
 
   /**
-   * @ORM\OneToMany(targetEntity=VampireDiscipline::class, mappedBy="character", orphanRemoval=true)
+   * @ORM\OneToMany(targetEntity=VampireDiscipline::class, mappedBy="character", orphanRemoval=true, fetch="EAGER"))
    */
   private $disciplines;
 

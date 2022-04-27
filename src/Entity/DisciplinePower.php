@@ -30,12 +30,12 @@ class DisciplinePower
   private $discipline;
 
   /**
-   * @ORM\ManyToOne(targetEntity=Attribute::class)
+   * @ORM\ManyToOne(targetEntity=Attribute::class, fetch="EAGER"))
    */
   private $attribute;
 
   /**
-   * @ORM\ManyToOne(targetEntity=Skill::class)
+   * @ORM\ManyToOne(targetEntity=Skill::class, fetch="EAGER"))
    */
   private $skill;
 

@@ -7,7 +7,7 @@
 {% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="skill" data-name="{{ ("skill." ~ skill)|trans }}"{% endblock %}
 
 {% block specialty %}
-  <span role="button" data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" data-character--edit-trans-param="{{ ("skill." ~ skill)|trans }}">{% include "icon.html.twig" with {'icon': 'add-specialty' } only %}</span>
+  <span role="button" data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" data-character--edit-trans-param="{{ ("skill." ~ skill)|trans }}">{% include "icon.html.twig" with {'icon': 'specialty.add' } only %}</span>
 {% endblock %}
 
 {% block input %}

@@ -50,7 +50,7 @@ class Discipline
   private $rules;
 
   /**
-   * @ORM\OneToMany(targetEntity=DisciplinePower::class, mappedBy="discipline", orphanRemoval=true)
+   * @ORM\OneToMany(targetEntity=DisciplinePower::class, mappedBy="discipline", orphanRemoval=true, fetch="EAGER"))
    */
   private $powers;
 

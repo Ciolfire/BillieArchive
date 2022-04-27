@@ -36,7 +36,9 @@ streetwise: Expérience de la rue
 subterfuge: Subterfuge
 
 specialties: Montrer les spécialités de la compétence
-add-specialty: Ajouté une spécialité pour cette compétence
+specialty:
+  add: Ajouter une spécialité pour cette compétence
+  remove: Annuler l'ajout
 
 size: Taille
 speed: Vitesse

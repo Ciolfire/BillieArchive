@@ -30,6 +30,21 @@ class Character
   protected $name;
 
   /**
+   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"}, fetch="EAGER")
+   */
+  protected $attributes;
+
+  /**
+   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"}, fetch="EAGER")
+   */
+  protected $skills;
+
+  /**
+   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"}, fetch="EAGER")
+   */
+  protected $specialties;
+
+  /**
    * @ORM\Column(type="integer", nullable=true, options={"unsigned":true})
    */
   protected $age;
@@ -50,11 +65,6 @@ class Character
   protected $groupName;
 
   /**
-   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
-   */
-  protected $specialties;
-
-  /**
    * @ORM\Column(type="smallint")
    */
   protected $willpower = 0;
@@ -73,16 +83,6 @@ class Character
    * @ORM\Column(type="smallint")
    */
   protected $moral = 7;
-
-  /**
-   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"})
-   */
-  protected $attributes;
-
-  /**
-   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"})
-   */
-  protected $skills;
 
   /**
    * @ORM\Column(type="json", nullable=true)
@@ -502,6 +502,11 @@ class Character
   public function getXpUsed(): ?int
   {
       return $this->xpUsed;
+  }
+
+  public function getXpAvailable(): ?int
+  {
+      return $this->xpTotal - $this->xpUsed;
   }
 
   public function setXpUsed(int $xpUsed): self

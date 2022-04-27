@@ -34,10 +34,10 @@ class CharacterType extends AbstractType
       ->add('player')
       ->add('name')
       ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1], 'required' => false])
-      ->add('virtue')
-      ->add('virtueDetail', null, ['required' => false])
-      ->add('vice')
-      ->add('viceDetail', null, ['required' => false])
+      ->add('virtue', null, ['label' => 'virtue.name'])
+      ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail'])
+      ->add('vice', null, ['label' => 'vice.name'])
+      ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail'])
       ->add('concept')
       ->add('chronicle', EntityType::class, [
         'class' => Chronicle::class,

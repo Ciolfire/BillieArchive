@@ -3,30 +3,34 @@
 {% set trait = "potency" %}
 {% set max = 10 %}
 {% set current = character.potency %}
-<div class="block user-select-none">
-  <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : trait, 'hasTips': 0 } only %}{{ 'vampire.potency.name'|trans }}</h3>
-  <div class="col-12 text-center">
-    <div class="pb-2">
-      <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
-        {% block input %}{% endblock %}
-          {% for index in 1..max %}
-            {% if index <= current %}
-              {% set value = 1 %}
-            {% else %}
-              {% set value = 0 %}
-            {% endif %}
-            <div class="d-inline-block text-center">
-              <div>
-                <span role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ index }}">
-                  {% block dot %}{% endblock %}
-                </span>
+
+<div class="col-12 col-md-6">
+  {% block vitae %}{% endblock %}
+</div>
+<div class="col">
+  <div class="block user-select-none h-100">
+    <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : trait, 'hasTips': 0 } only %}{{ 'vampire.potency.name'|trans }}</h3>
+    <div class="col-12 text-center">
+      <div class="pb-2">
+        <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
+          {% block input %}{% endblock %}
+            {% for index in 1..max %}
+              {% if index <= current %}
+                {% set value = 1 %}
+              {% else %}
+                {% set value = 0 %}
+              {% endif %}
+              <div class="d-inline-block text-center">
+                <div>
+                  <span role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ index }}">
+                    {% block dot %}{% endblock %}
+                  </span>
+                </div>
               </div>
-            </div>
-          {% endfor %}
+            {% endfor %}
+        </div>
+        {% block feeding %}{% endblock %}
       </div>
-      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0 } only %}{{ 'vampire.vitae'|trans }}</h3>
-      {% block vitae %}{% endblock %}
-      {% block feeding %}{% endblock %}
     </div>
   </div>
 </div>

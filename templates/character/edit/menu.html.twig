@@ -26,11 +26,11 @@
           </div>
         </div>
         <div class="collapse usingInfo" data-character--edit-target="usingInfo">{{ 'xp.details.none'|trans }}</div>
-        {{ character.xpUsed }} + <span data-character--edit-target="using">0</span>/{{ character.xpTotal }}
+        {{ character.xpUsed }} + <span data-character--edit-target="using">0</span>/{{ character.xpAvailable }}
       </div>
     </div>
     <div class="col-3">
-      <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ app.request.headers.get('referer') }}">
+      <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_show', {'id': character.id}) }}">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
         {{ "back"|trans }}
       </a>
