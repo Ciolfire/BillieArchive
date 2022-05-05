@@ -1,25 +1,31 @@
 {% trans_default_domain 'character' %}
 
-{% trans_default_domain 'character' %}
+{% extends 'base.html.twig' %}
 
-<div class="container block py-3 mt-5">
-  <h2>{{ character.name }}</h2>
-  {{ form_start(form, {'attr': {'data-controller': 'character--embrace'}}) }}
-  {{form_row(form.age)}}
-  {{form_row(form.sire)}}
-  {{form_row(form.clan)}}
-  {% for clan in clans %}
-    <div class="block {{ clan.name }} d-none" data-character--embrace-target="clanDescription">
-      <div class="p-3">{{ clan.short|markdown_to_html }}</div>
-      <div class="p-3 d-none">{{ clan.description|markdown_to_html }}</div>
+{% block title %}Embrace{% endblock %}
+
+{% block body %}
+  <h1>You have been embraced...</h1>
+  <div class="container block py-3 mt-5">
+    <h2>{{ character.name }}</h2>
+    {{ form_start(form, {'attr': {'data-controller': 'character--embrace'}}) }}
+    {{form_row(form.age)}}
+    {{form_row(form.sire)}}
+    {{form_row(form.clan)}}
+    {% for clan in clans %}
+      <div class="block {{ clan.name }} d-none" data-character--embrace-target="clanDescription">
+        <div class="p-3">{{ clan.short|markdown_to_html }}</div>
+        <div class="p-3 d-none">{{ clan.description|markdown_to_html }}</div>
+      </div>
+    {% endfor %}
+    {{form_row(form.attribute)}}
+    {% include "vampire/embrace/disciplines.html.twig" %}
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit" data-action="click->character--embrace#clean">{{ "embrace.save"|trans }}</button>
+      </div>
     </div>
-  {% endfor %}
-  {{form_row(form.attribute)}}
-  {% include "vampire/embrace/disciplines.html.twig" %}
-  <div class="row">
-    <div class="col">
-      <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit" data-action="click->character--embrace#clean">{{ "embrace.save"|trans }}</button>
-    </div>
+    {{ form_end(form) }}
   </div>
-  {{ form_end(form) }}
-</div>
+  <a href="{{ path('character_show', {'id': character.id }) }}">back to character</a>
+{% endblock %}

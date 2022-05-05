@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Translation\MeritTranslation;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * @ORM\Table(name="merits")
@@ -226,7 +227,8 @@ class Merit implements Translatable
 
   public function setEffect(string $effect): self
   {
-    $this->effect = $effect;
+    $converter = new HtmlConverter();
+    $this->effect = $converter->convert($effect);
 
     return $this;
   }

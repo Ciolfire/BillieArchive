@@ -5,9 +5,15 @@
 {% block body %}
     <h1>Edit Merit</h1>
 
+<div class="container py-3 mt-5 g-0">
+<div class="row block">
+<div class="col p-3">
     {{ include('merit/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('merit_index') }}">back to list</a>
 
     {{ include('merit/_delete_form.html.twig') }}
+</div>
+</div>
+</div>
 {% endblock %}

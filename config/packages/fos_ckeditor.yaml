@@ -1,0 +1,26 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+fos_ck_editor:
+    base_path: "build/ckeditor"
+    js_path:   "build/ckeditor/ckeditor.js"
+    configs:
+        default:
+            toolbar: "default_toolbar"
+            # extraPlugins: "markdown"
+            language: '%default_locale%'
+    toolbars:
+        configs:
+            default_toolbar: ["@links", "@format", "@paragraph", "@editing", "@tools", "About"]
+        items:
+            format: ["Bold", "Italic",  "RemoveFormat"]
+            editing: ["Find", "Replace", "-", "SelectAll", "-", "Scayt"]
+            paragraph: ["NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "Blockquote"]
+            tools: ["Maximize"] #"Markdown"
+            links: ["Link", "Unlink"]
+    plugins:
+        # markdown:
+        #     path: "/build/ckeditor/plugins/markdown/"
+        #     filename: "plugin.js"

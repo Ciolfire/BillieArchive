@@ -184,7 +184,7 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
-    /**
+  /**
    * @Route("/{id}/embrace", name="character_embrace", methods={"GET", "POST"})
    */
   public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
@@ -199,7 +199,7 @@ class CharacterController extends AbstractController
       $this->vService->embrace($character, $form);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
-    return $this->renderForm('character/embrace.html.twig', [
+    return $this->renderForm('vampire/embrace/sheet.html.twig', [
       'character' => $character,
       'clans' => $clans,
       'disciplines' => $disciplines,

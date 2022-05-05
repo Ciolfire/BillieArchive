@@ -15,7 +15,7 @@ export default class extends Controller {
       if (-1 == merit.name.indexOf('meritsUp') && false == card.dataset.unique) {
         if (card.getElementsByClassName("merit-value")[0].value > 0) {
           let merits = document.getElementsByName(card.attributes.name.value);
-          if (this.checkNeedGeneration(card, merits)) {
+          if (this.checkNeedGeneration(merits)) {
             this.meritGeneration(card, merits.length);
           }
         }
@@ -29,24 +29,27 @@ export default class extends Controller {
     if (false == card.dataset.unique) {
       let merits = document.getElementsByName(card.attributes.name.value);
       if (card.getElementsByClassName("merit-value")[0].value > 0) {
-        if (this.checkNeedGeneration(card, merits)) {
+        if (true === this.checkNeedGeneration(merits)) {
           this.meritGeneration(card, merits.length);
         }
       } else if (merits.length > 1) {
+        // Should remove from the spendXp, probably with a dispatch event
         card.parentNode.remove();
       }
     }
     this.checkPrerequisite({ detail: { type: 'merit', target: event.target.getAttribute("for").split('-')[0] } })
   }
 
-  checkNeedGeneration(card, merits) {
+  checkNeedGeneration(merits) {
+    var needNew = true;
       merits.forEach(merit => {
         if (merit.getElementsByClassName("merit-value")[0].value == 0) {
-            return false;
-          }
+          needNew = false;
+          return;
+        }
       });
       
-      return true;
+      return needNew;
   }
 
   meritGeneration(card, length) {
