@@ -94,6 +94,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "gedmo/doctrine-extensions": {
         "version": "v3.5.0"
     },
@@ -105,6 +117,9 @@
     },
     "league/config": {
         "version": "v1.1.1"
+    },
+    "league/html-to-markdown": {
+        "version": "5.1.0"
     },
     "monolog/monolog": {
         "version": "2.3.5"
