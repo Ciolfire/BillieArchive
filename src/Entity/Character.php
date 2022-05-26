@@ -252,7 +252,7 @@ class Character
     return $this;
   }
 
-  public function addAttribute($attribute, int $value)
+  public function addAttribute(string $attribute, int $value)
   {
     if ($attribute == 'composure' || $attribute == 'calme') {
       $this->willpower++;
@@ -525,8 +525,8 @@ class Character
 
   public function dicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
   {
-    $attributeDice = $this->attributes->get($attribute->getName());
-    $skillDice = $this->skills->get($skill->getName());
+    $attributeDice = $this->attributes->get($attribute->getIdentifier());
+    $skillDice = $this->skills->get($skill->getIdentifier());
     if ($skillDice == 0) {
       if ($skill->getCategory() == "mental") {
         $skillDice = -3;

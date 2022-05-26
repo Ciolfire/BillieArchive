@@ -18,7 +18,7 @@
         <div class="p-3 d-none">{{ clan.description|markdown_to_html }}</div>
       </div>
     {% endfor %}
-    {{form_row(form.attribute)}}
+    {{ form_row(form.attribute) }}
     {% include "vampire/embrace/disciplines.html.twig" %}
     <div class="row">
       <div class="col">

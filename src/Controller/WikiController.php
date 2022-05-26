@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Attribute;
+use App\Entity\Clan;
+use App\Entity\Skill;
+use App\Form\AttributeType;
+use App\Form\ClanType;
+use App\Form\SkillType;
 use App\Repository\AttributeRepository;
+use App\Repository\ClanRepository;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,11 +37,52 @@ class WikiController extends AbstractController
    */
   public function attributes(AttributeRepository $attributeRepository): Response
   {
+    
     return $this->render('wiki/list.html.twig', [
       'elements' => $attributeRepository->findAll(),
       'entity' => 'attribute',
       'category' => 'character',
       'type' => 'human',
+    ]);
+  }
+
+  /**
+   * @Route("/attribute/{id}/edit", name="attribute_edit", methods={"GET", "POST"})
+   */
+  public function attributeEdit(Request $request, Attribute $attribute, EntityManagerInterface $entityManager): Response
+  {
+    $form = $this->createForm(AttributeType::class, $attribute);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->flush();
+
+      return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'attribute',
+      'form' => $form,
+    ]);
+  }
+
+  /**
+   * @Route("/skill/{id}/edit", name="skill_edit", methods={"GET", "POST"})
+   */
+  public function skillEdit(Request $request, Skill $skill, EntityManagerInterface $entityManager): Response
+  {
+    $form = $this->createForm(SkillType::class, $skill);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->flush();
+
+      return $this->redirectToRoute('skill_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'attribute',
+      'form' => $form,
     ]);
   }
 
@@ -48,6 +96,39 @@ class WikiController extends AbstractController
       'entity' => 'skill',
       'category' => 'character',
       'type' => 'human',
+    ]);
+  }
+
+  /**
+   * @Route("/clan", name="clan_index", methods={"GET"})
+   */
+  public function clans(ClanRepository $clanRepository): Response
+  {
+    return $this->render('wiki/list.html.twig', [
+      'elements' => $clanRepository->findAll(),
+      'entity' => 'clan',
+      'category' => 'character',
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/clan/{id}/edit", name="clan_edit", methods={"GET", "POST"})
+   */
+  public function clanEdit(Request $request, Clan $clan, EntityManagerInterface $entityManager): Response
+  {
+    $form = $this->createForm(ClanType::class, $clan);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->flush();
+
+      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'attribute',
+      'form' => $form,
     ]);
   }
 }

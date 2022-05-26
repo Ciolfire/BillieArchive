@@ -47,6 +47,16 @@ class VampireController extends AbstractController
   }
 
   /**
+   * @Route("/bloodline/new/", name="vampire_bloodline_new", methods={"GET"})
+   */
+  public function bloodlineNew(): Response
+  {
+    return $this->render('vampire/bloodline/new.html.twig', [
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
    * @Route("/bloodline/join/{id}", name="vampire_bloodline_join", methods={"GET"})
    */
   public function bloodlineJoin(Vampire $vampire): Response
@@ -63,7 +73,7 @@ class VampireController extends AbstractController
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,
-      'type' => $vampire->getType(),
+      'type' => 'vampire',
     ]);
   }
 }

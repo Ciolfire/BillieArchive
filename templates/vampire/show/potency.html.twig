@@ -33,7 +33,7 @@
 <div class="block user-select-none h-100">
   <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0 } only %}{{ 'vampire.vitae'|trans }}</h3>
   {% set vitae = character.vitae %}
-  <div class="d-flex flex-column align-items-center">
+  <div class="d-flex flex-column align-items-start">
     <div class="text-start ps-3">
     {% for index in 1..10 %}
       <span class="d-inline-block malus-box text-center text-sub">

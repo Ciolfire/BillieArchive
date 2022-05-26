@@ -21,4 +21,12 @@ trait Homebrewable {
 
     return $this;
   }
+
+  public function isAvailable(?Chronicle $chronicle): bool {
+    if ($this->homebrewFor === null || $chronicle === $this->homebrewFor ) {
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -27,7 +27,7 @@ class VampireService
     $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
       foreach ($disciplines as $key => $discipline) {
         /** @var Discipline $discipline */
-        if ($vampire->hasDiscipline($discipline->getId()) || $discipline->getHomebrewFor() != $vampire->getChronicle()) {
+        if ($vampire->hasDiscipline($discipline->getId()) || !$discipline->isAvailable($vampire->getChronicle())) {
           unset($disciplines[$key]);
         }
       }
@@ -55,8 +55,9 @@ class VampireService
     $nativeQuery->executeStatement();
     // We force the change to the manager, to avoid fetching from memory (?)
     $this->doctrine->resetManager();
+    /** @var Vampire $vampire */
     $vampire = $this->doctrine->getRepository(Vampire::class)->find($character->getId());
-    $vampire->addAttribute($data['attribute']->getName(), 1);
+    $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
     $this->addDiscipline($vampire, $form->getExtraData()['disciplines']);
     $this->doctrine->getManager()->persist($vampire);
     $this->doctrine->getManager()->flush();

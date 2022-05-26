@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\AttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+use App\Entity\Translation\AttributeTranslation;
 
 /**
  * @ORM\Entity(repositoryClass=AttributeRepository::class)
+ * @Gedmo\TranslationEntity(class="App\Entity\Translation\AttributeTranslation")
  */
-class Attribute
+class Attribute implements Translatable
 {
   /**
    * @ORM\Id
@@ -20,7 +24,7 @@ class Attribute
   /**
    * @ORM\Column(type="string", length=20)
    */
-  private $name;
+  private $identifier;
 
   /**
    * @ORM\Column(type="string", length=20)
@@ -33,12 +37,27 @@ class Attribute
   private $type;
 
   /**
-   * @ORM\Column(type="text")
+   * @Gedmo\Locale
+   * Used locale to override Translation listener`s locale
+   * this is not a mapped field of entity metadata, just a simple property
+   */
+  private $locale;
+
+  /**
+   * @ORM\Column(type="string", length=20)
+   * @Gedmo\Translatable
+   */
+  private $name;
+
+  /**
+   * @ORM\Column(type="text"))
+   * @Gedmo\Translatable
    */
   private $description;
 
   /**
    * @ORM\Column(type="text")
+   * @Gedmo\Translatable
    */
   private $fluff;
 
@@ -50,6 +69,18 @@ class Attribute
   public function getId(): ?int
   {
     return $this->id;
+  }
+
+  public function getIdentifier(): ?string
+  {
+    return $this->identifier;
+  }
+
+  public function setIdentifier(string $identifier): self
+  {
+    $this->identifier = $identifier;
+
+    return $this;
   }
 
   public function getName(): ?string

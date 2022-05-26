@@ -30,9 +30,9 @@ class EmbraceType extends AbstractType
         $attributes = "";
         foreach ($clan->getAttributes()->toArray() as $attribute) {
           if ($attributes != "") {
-            $attributes = "{$attributes} {$attribute->getName()}";
+            $attributes = "{$attributes} {$attribute->getIdentifier()}";
           } else {
-            $attributes = "{$attribute->getName()}";
+            $attributes = "{$attribute->getIdentifier()}";
           }
         }
         $disciplines = "";
@@ -59,10 +59,12 @@ class EmbraceType extends AbstractType
       'choices' => $options['attributes'],
       'choice_label' => 'name',
       'choice_attr' => function(Attribute $attribute) {
-        return ['class' => "d-none {$attribute->getName()}", 'data-character--embrace-target' => 'clanAttribute'];
+        return [
+          'class' => "d-none {$attribute->getName()}", 
+          'data-character--embrace-target' => 'clanAttribute',
+        ];
       }
-    ])
-    ;
+    ]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

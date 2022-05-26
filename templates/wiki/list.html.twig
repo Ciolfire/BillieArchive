@@ -13,7 +13,7 @@
         <ul id="collapseToc" class="toc collapse show pe-3 py-3">
           {% for element in elements %}
             <li>
-              <a href="#{{ element.name }}">{{ (entity ~ "." ~ element.name)|trans([], category) }}</a>
+              <a href="#{{ element.name }}">{{ element.name }}</a>
             </li>
           {% endfor %}
         </ul>
@@ -22,9 +22,12 @@
     <div class="row">
       {% for element in elements %}
         <div id="{{ element.name }}" class="col-12 col-lg-4 block block-wiki">
-          <h3>{{ (entity ~ "." ~ element.name)|trans([], category) }}</h3>
+          <h3>{{ element.name }}</h3>
           <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
           <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+          {% if is_granted('ROLE_GM') %}
+            <a href="{{ path(entity ~ '_edit', {'id': element.id}) }}">{{ 'edit'|trans }}</a>
+          {% endif %}
         </div>
       {% endfor %}
     </div>

@@ -1,0 +1,16 @@
+{% trans_default_domain 'character' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "vampire.bloodline.new"|trans }}{% endblock %}
+
+{% block body %}
+  <h1>{{ "vampire.bloodline.new"|trans }}</h1>
+  <div class="container block py-3 mt-5">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit" data-action="click->character--embrace#clean">{{ "vampire.bloodline.new"|trans }}</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

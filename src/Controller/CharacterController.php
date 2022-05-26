@@ -189,7 +189,7 @@ class CharacterController extends AbstractController
    */
   public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
-    $clans = $this->doctrine->getRepository(Clan::class)->findAll();
+    $clans = $this->doctrine->getRepository(Clan::class)->findBy(['parentClan' => null]);
     $attributes = $this->doctrine->getRepository(Attribute::class)->findAll();
     $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
     $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
