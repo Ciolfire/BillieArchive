@@ -127,8 +127,32 @@ class WikiController extends AbstractController
     }
 
     return $this->renderForm('wiki/edit.html.twig', [
-      'entity' => 'attribute',
+      'entity' => 'clan',
       'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/clan/new", name="clan_new", methods={"GET", "POST"})
+   */
+  public function clanNew(Request $request, EntityManagerInterface $entityManager): Response
+  {
+    $clan = new Clan();
+
+    $form = $this->createForm(ClanType::class, $clan);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->persist($clan);
+      $entityManager->flush();
+      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'clan',
+      'form' => $form,
+      'type' => 'vampire',
     ]);
   }
 }

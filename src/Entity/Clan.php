@@ -34,7 +34,7 @@ class Clan
   /**
    * @ORM\Column(type="text")
    */
-  private $description;
+  private $description = "";
 
   /**
    * @ORM\ManyToMany(targetEntity=Attribute::class)
@@ -49,7 +49,7 @@ class Clan
   /**
    * @ORM\Column(type="text")
    */
-  private $short;
+  private $short = "";
 
   /**
    * @ORM\Column(type="string", length=100)

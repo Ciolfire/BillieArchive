@@ -10,6 +10,7 @@ use App\Repository\CharacterRepository;
 use App\Service\VampireService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,15 +58,23 @@ class VampireController extends AbstractController
   }
 
   /**
-   * @Route("/bloodline/join/{id}", name="vampire_bloodline_join", methods={"GET"})
+   * @Route("{id}/bloodline/join", name="vampire_bloodline_join", methods={"GET", "POST"})
    */
-  public function bloodlineJoin(Vampire $vampire): Response
+  public function bloodlineJoin(Request $request, Vampire $vampire): Response
   {
     /** @var User $user */
     $user = $this->getUser();
     if ($vampire->getPlayer() != $this->getUser() && ($vampire->getChronicle() && $vampire->getChronicle()->getStoryteller() != $this->getUser())) {
       $this->addFlash('notice', 'You are not allowed to see this character');
       return $this->redirectToRoute('character_index');
+    }
+
+    // Form submited
+    if ($request->request->get('bloodline')) {
+      $vampire->setClan($this->doctrine->getRepository(Clan::class)->find($request->request->get('bloodline')));
+      $this->doctrine->getManager()->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
 
     $bloodlines = $this->doctrine->getRepository(Clan::class)->findBy(['parentClan' => $vampire->getClan()]);
