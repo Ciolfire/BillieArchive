@@ -6,7 +6,7 @@ use App\Repository\SkillRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use App\Entity\Translation\AttributeTranslation;
+use App\Entity\Translation\SkillTranslation;
 
 /**
  * @ORM\Entity(repositoryClass=SkillRepository::class)
