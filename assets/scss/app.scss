@@ -231,6 +231,18 @@ h5 {
   }
 }
 
+.rule {
+  font-family: $textFont;
+  font-size: 1.2rem;
+  background-color: rgba(208, 208, 208, 0.66);
+  color: black;
+  padding: 0.5rem;
+  border-radius: 0.5em;
+  p {
+    margin-bottom: 0;
+  }
+}
+
 
 .flash-notice {
   text-align: center;

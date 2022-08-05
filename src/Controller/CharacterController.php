@@ -18,13 +18,16 @@ use App\Service\CreationService;
 use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Extra\Markdown\LeagueMarkdown;
 
 /**
  * @Route("/{_locale<%supported_locales%>?%default_locale%}/character")
@@ -208,6 +211,63 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  /**
+   * @Route("/{id}/background", name="character_background", methods={"GET", "POST"})
+   */
+  public function background(Request $request, Character $character): Response
+  {
+    $converter = new LeagueMarkdown();
+    $background = $character->getBackground();
+    $form = $this->createFormBuilder()
+      ->add('background', CKEditorType::class , ['data' => $converter->convert($background), 'label' => 'background.label', 'translation_domain' => 'character'])
+      ->add('save', SubmitType::class, ['label' => 'background.label', 'translation_domain' => 'character'])
+      ->getForm();
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $background = $form->get('background')->getData();
+      if ($background == null) {
+        $background = "";
+      }
+      $character->setBackground($background);
+      $this->doctrine->getManager()->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'background'], Response::HTTP_SEE_OTHER);
+    }
+    return $this->renderForm('character/edit/background.html.twig', [
+      'character' => $character,
+      'form' => $form,
+    ]);
+  }
+
+  /**
+   * @Route("/{id}/notes", name="character_notes", methods={"GET", "POST"})
+   */
+  public function notes(Request $request, Character $character): Response
+  {
+    $converter = new LeagueMarkdown();
+    $notes = $character->getNotes();
+    $form = $this->createFormBuilder()
+      ->add('notes', CKEditorType::class , ['data' => $converter->convert($notes), 'label' => 'notes.label', 'translation_domain' => 'character'])
+      ->add('save', SubmitType::class, ['label' => 'notes.save', 'translation_domain' => 'character'])
+      ->getForm();
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $notes = $form->get('notes')->getData();
+      if ($notes == null) {
+        $notes = "";
+      }
+      $character->setNotes($notes);
+      $this->doctrine->getManager()->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(),  '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
+    }
+    return $this->renderForm('character/edit/notes.html.twig', [
+      'character' => $character,
+      'form' => $form,
+    ]);
+  }
 
   /**
    * @Route("/{character}/wounds/update", name="character_wounds_update", methods={"POST"})

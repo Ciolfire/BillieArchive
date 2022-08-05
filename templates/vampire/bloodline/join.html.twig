@@ -5,9 +5,9 @@
 {% block title %}{{ "vampire.bloodline.join"|trans }}{% endblock %}
 
 {% block body %}
-  <h1>Your blood thicken...</h1>
+  <h1>{{ vampire.name }}</h1>
   <div class="container block py-3 mt-5">
-    <h2>{{ vampire.name }}</h2>
+    <h2>Your blood thicken...</h2>
     <form method="post">
       {% for bloodline in bloodlines %}
         <input id="{{ bloodline.id }}" name="bloodline" type="radio" class="btn-check" value="{{ bloodline.id }}">

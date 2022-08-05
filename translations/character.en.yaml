@@ -15,6 +15,9 @@ mental: Mental
 physical: Physical
 social: Social
 
+age.normal: "Age: %age% years old"
+age.less: "Age: %age% (Embraced at %looks%)"
+
 attribute:
   0: 0 - Absolute vacancy
   1: 1 - Poor. Unexercised, unpracticed or inept.
@@ -36,6 +39,9 @@ attribute:
 avatar:
   change: Change character avatar
   save: Save new avatar
+
+characters: Characters
+npc: NPC
 
 tab:
   background: Background
@@ -154,6 +160,19 @@ awaken:
 
 change:
   name: First Change
+
+
+background:
+  edit: Edit background
+  label: Background
+  none: No background
+  save: Save background
+notes:
+  edit: Edit notes
+  label: Notes
+  none: No notes
+  save: Save notes
+
 
 edit: Edit
 back: Back

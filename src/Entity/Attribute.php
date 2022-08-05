@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use App\Entity\Translation\AttributeTranslation;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * @ORM\Entity(repositoryClass=AttributeRepository::class)
@@ -126,7 +127,8 @@ class Attribute implements Translatable
 
   public function setDescription(string $description): self
   {
-    $this->description = $description;
+    $converter = new HtmlConverter();
+    $this->description = $converter->convert($description);
 
     return $this;
   }
@@ -138,7 +140,8 @@ class Attribute implements Translatable
 
   public function setFluff(string $fluff): self
   {
-    $this->fluff = $fluff;
+    $converter = new HtmlConverter();
+    $this->fluff = $converter->convert($fluff);
 
     return $this;
   }

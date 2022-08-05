@@ -63,7 +63,7 @@ class Merit implements Translatable
   /**
    * @ORM\Column(type="smallint")
    */
-  private $min;
+  private $min = 1;
 
   /**
    * @ORM\Column(type="smallint")
@@ -89,7 +89,7 @@ class Merit implements Translatable
    * @Gedmo\Translatable
    * @ORM\Column(type="text")
    */
-  private $effect;
+  private $effect = "";
 
   /**
    * @Gedmo\Translatable

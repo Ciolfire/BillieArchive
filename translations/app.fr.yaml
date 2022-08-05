@@ -4,6 +4,7 @@ characters:
   groups: Groupes
   name: Personnages
   non.player: PNJ
+clans: Clans
 chronicles:
   title: Mes Chroniques
   name: Chroniques

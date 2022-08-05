@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Clan
 {
   use Sourcable;
+  use Homebrewable;
 
   /**
    * @ORM\Id

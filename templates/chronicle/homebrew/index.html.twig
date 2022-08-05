@@ -1,0 +1,24 @@
+{% trans_default_domain 'app' %}
+
+{% extends "base.html.twig" %}
+
+{% block title %}Chronicle{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <h1>{{ "homebrew"|trans }} for {{ chronicle.name }}</h1>
+    <div class="block row mt-5">
+      <h2>{{ "universal"|trans }}</h2>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "merits"|trans }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "rules"|trans }}</a></div>
+    </div>
+    <div class="block vampire row">
+      <h2>{{ "vampire"|trans }}</h2>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "clans"|trans }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "disciplines"|trans }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "devotions"|trans }}</a></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

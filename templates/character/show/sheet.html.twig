@@ -10,9 +10,11 @@
       {% if character.type != "human" %}
         {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
       {% endif %}
-      {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %}
+      {# {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
       {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
-      {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
+      {% if app.user == character.player %}
+        {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
+      {% endif %}
     </ul>
     <div id="general" data-tabs-target="page">
       <div class="row pb-3">
@@ -41,11 +43,29 @@
       </div>
     {% endif %}
     <div id="background" data-tabs-target="page">
-      <div class="col-12 d-flex justify-content-center my-2">
-        <div>
-          <img class="p-1 w-100" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-        </div>
+      <div class="col-12 my-2 text-center">
+        <img src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+          <div class="block mt-1">
+            {% if character.background != "" %}
+              {{ character.background|markdown_to_html }}
+            {% else %}
+              <p>{{ "background.none"|trans }}</p>
+            {% endif %}
+            <a href="{{ path('character_background', {'id': character.id}) }}">{{ "background.edit"|trans }}</a>
+          </div>
       </div>
     </div>
+    {% if app.user == character.player %}
+      <div id="notes" data-tabs-target="page">
+        <div class="col-12 my-2 text-center">
+          {% if character.notes != "" %}
+            {{ character.notes|markdown_to_html }}
+          {% else %}
+            <p>{{ "notes.none"|trans }}</p>
+          {% endif %}
+          <a href="{{ path('character_notes', {'id': character.id}) }}">{{ "notes.edit"|trans }}</a>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>

@@ -22,7 +22,7 @@ class MeritController extends AbstractController
   public function index(MeritRepository $meritRepository): Response
   {
     return $this->render('merit/index.html.twig', [
-      'merits' => $meritRepository->findAll(),
+      'merits' => $meritRepository->findBy([], ['name' => 'ASC']),
     ]);
   }
 

@@ -65,6 +65,17 @@ class ChronicleController extends AbstractController
   }
 
   /**
+   * @Route("/{id}/homebrew", name="homebrew_index", methods={"GET"})
+   */
+  public function homebrew(Chronicle $chronicle)
+  {
+    return $this->render('chronicle/homebrew/index.html.twig', [
+      'chronicle' => $chronicle,
+      'type' => $chronicle->getType(),
+    ]);
+  }
+
+  /**
    * @Route("/{id}/party", name="chronicle_party_index", methods={"GET"})
    */
   public function party(Chronicle $chronicle)

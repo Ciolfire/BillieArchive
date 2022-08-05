@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
@@ -16,7 +18,7 @@ class Character
 {
   // Probably not needed
   //  * @ORM\DiscriminatorMap({"human" = "Human", "vampire" = "Vampire", "mage" = "Mage", "werewolf" = "Werewolf"})
-  
+
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
@@ -30,17 +32,17 @@ class Character
   protected $name;
 
   /**
-   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"}, fetch="EAGER")
+   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"}, fetch="LAZY")
    */
   protected $attributes;
 
   /**
-   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"}, fetch="EAGER")
+   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"}, fetch="LAZY")
    */
   protected $skills;
 
   /**
-   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"}, fetch="EAGER")
+   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"}, fetch="LAZY")
    */
   protected $specialties;
 
@@ -141,6 +143,16 @@ class Character
    */
   private $viceDetail;
 
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $background;
+
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $notes;
+
   public function __construct()
   {
     if (!$this->attributes) {
@@ -206,14 +218,14 @@ class Character
 
   public function getPlayer(): ?User
   {
-      return $this->player;
+    return $this->player;
   }
 
   public function setPlayer(?User $player): self
   {
-      $this->player = $player;
+    $this->player = $player;
 
-      return $this;
+    return $this;
   }
 
   public function getConcept(): ?string
@@ -273,7 +285,7 @@ class Character
 
   /**
    * @return array|Specialty[]
-  */
+   */
   public function getSkillSpecialties($filter): array
   {
     $result = [];
@@ -449,29 +461,29 @@ class Character
    */
   public function getMerits(): Collection
   {
-      return $this->merits;
+    return $this->merits;
   }
 
   public function addMerit(CharacterMerit $merit): self
   {
-      if (!$this->merits->contains($merit)) {
-          $this->merits[] = $merit;
-          $merit->setCharacter($this);
-      }
+    if (!$this->merits->contains($merit)) {
+      $this->merits[] = $merit;
+      $merit->setCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeMerit(CharacterMerit $merit): self
   {
-      if ($this->merits->removeElement($merit)) {
-          // set the owning side to null (unless already changed)
-          if ($merit->getCharacter() === $this) {
-              $merit->setCharacter(null);
-          }
+    if ($this->merits->removeElement($merit)) {
+      // set the owning side to null (unless already changed)
+      if ($merit->getCharacter() === $this) {
+        $merit->setCharacter(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   public function hasMerit(int $id): bool
@@ -489,38 +501,38 @@ class Character
 
   public function getXpTotal(): ?int
   {
-      return $this->xpTotal;
+    return $this->xpTotal;
   }
 
   public function setXpTotal(int $xpTotal): self
   {
-      $this->xpTotal = $xpTotal;
+    $this->xpTotal = $xpTotal;
 
-      return $this;
+    return $this;
   }
 
   public function getXpUsed(): ?int
   {
-      return $this->xpUsed;
+    return $this->xpUsed;
   }
 
   public function getXpAvailable(): ?int
   {
-      return $this->xpTotal - $this->xpUsed;
+    return $this->xpTotal - $this->xpUsed;
   }
 
   public function setXpUsed(int $xpUsed): self
   {
-      $this->xpUsed = $xpUsed;
+    $this->xpUsed = $xpUsed;
 
-      return $this;
+    return $this;
   }
 
   public function spendXp(int $spent): self
   {
-      $this->xpUsed += $spent;
+    $this->xpUsed += $spent;
 
-      return $this;
+    return $this;
   }
 
   public function dicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
@@ -540,49 +552,75 @@ class Character
 
   public function getChronicle(): ?Chronicle
   {
-      return $this->chronicle;
+    return $this->chronicle;
   }
 
   public function setChronicle(?Chronicle $chronicle): self
   {
-      $this->chronicle = $chronicle;
+    $this->chronicle = $chronicle;
 
-      return $this;
+    return $this;
   }
 
   public function isNpc(): ?bool
   {
-      return $this->isNpc;
+    return $this->isNpc;
   }
 
   public function setIsNpc(bool $isNpc): self
   {
-      $this->isNpc = $isNpc;
+    $this->isNpc = $isNpc;
 
-      return $this;
+    return $this;
   }
 
   public function getVirtueDetail(): ?string
   {
-      return $this->virtueDetail;
+    return $this->virtueDetail;
   }
 
   public function setVirtueDetail(string $virtueDetail): self
   {
-      $this->virtueDetail = $virtueDetail;
+    $this->virtueDetail = $virtueDetail;
 
-      return $this;
+    return $this;
   }
 
   public function getViceDetail(): ?string
   {
-      return $this->viceDetail;
+    return $this->viceDetail;
   }
 
   public function setViceDetail(string $viceDetail): self
   {
-      $this->viceDetail = $viceDetail;
+    $this->viceDetail = $viceDetail;
 
-      return $this;
+    return $this;
+  }
+
+  public function getBackground(): ?string
+  {
+    return $this->background;
+  }
+
+  public function setBackground(string $background): self
+  {
+    $converter = new HtmlConverter();
+    $this->background = $converter->convert($background);
+
+    return $this;
+  }
+
+  public function getNotes(): ?string
+  {
+    return $this->notes;
+  }
+
+  public function setNotes(string $notes): self
+  {
+    $converter = new HtmlConverter();
+    $this->notes = $converter->convert($notes);
+
+    return $this;
   }
 }

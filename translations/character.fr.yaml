@@ -15,6 +15,10 @@ mental: Mental
 physical: Physique
 social: Social
 
+
+age.normal: "Age: %age% ans"
+age.less: "Age: %age% (Etreinte à %looks% ans)"
+
 attribute:
   0: 0 - Absence totale
   1: 1 - Pauvre. Unexercised, unpracticed or inept.
@@ -36,6 +40,9 @@ attribute:
 avatar:
   change: Changer l'avatar du personnage
   save: Sauvegarder l'avatar
+
+charactes: Personnages
+npc: PNJ
 
 tab:
   background: Histoire
@@ -150,6 +157,9 @@ awaken:
 
 change:
   name: Premier Changement
+
+background.edit: Modifier le background
+notes.edit: Modifier les Notes
 
 edit: Modifier
 back: Retour
