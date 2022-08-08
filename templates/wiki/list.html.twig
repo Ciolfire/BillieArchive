@@ -25,7 +25,7 @@
           <h3>{{ element.name }}</h3>
           <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
           <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
-          {% if is_granted('ROLE_GM') %}
+          {% if is_granted('ROLE_ST') %}
             <a href="{{ path(entity ~ '_edit', {'id': element.id}) }}">{{ 'edit'|trans }}</a>
           {% endif %}
         </div>

@@ -51,6 +51,8 @@ class WikiController extends AbstractController
    */
   public function attributeEdit(Request $request, Attribute $attribute, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $form = $this->createForm(AttributeType::class, $attribute);
     $form->handleRequest($request);
 
@@ -71,6 +73,8 @@ class WikiController extends AbstractController
    */
   public function skillEdit(Request $request, Skill $skill, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $form = $this->createForm(SkillType::class, $skill);
     $form->handleRequest($request);
 
@@ -117,6 +121,8 @@ class WikiController extends AbstractController
    */
   public function clanEdit(Request $request, Clan $clan, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $form = $this->createForm(ClanType::class, $clan);
     $form->handleRequest($request);
 
@@ -138,6 +144,8 @@ class WikiController extends AbstractController
    */
   public function clanNew(Request $request, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $clan = new Clan();
 
     $form = $this->createForm(ClanType::class, $clan);

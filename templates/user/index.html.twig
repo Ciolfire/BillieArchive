@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block body %}
+  <div class="container block py-3 mt-5">
+    <div class="row">
+      {% for user in users %}
+        <div calss="col">
+          {{ user }}
+          {{ user.role }}
+          {% if user.role != "ROLE_GM" %}
+            <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_GM'})}}">Switch to GM</a>
+          {% endif %}
+          {% if user.role != "ROLE_ST" %}
+            <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_ST'})}}">Switch to ST</a>
+          {% endif %}
+          {% if user.role != "ROLE_PLAYER" %}
+            <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_PLAYER'})}}">Switch to player</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
