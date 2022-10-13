@@ -146,12 +146,12 @@ class Character
   /**
    * @ORM\Column(type="text")
    */
-  private $background;
+  private $background = "";
 
   /**
    * @ORM\Column(type="text")
    */
-  private $notes;
+  private $notes = "";
 
   public function __construct()
   {

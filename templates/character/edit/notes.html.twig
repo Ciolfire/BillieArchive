@@ -3,5 +3,14 @@
 {% trans_default_domain 'character' %}
 
 {% block body %}
-  {{ form(form) }}
+{{ include('back.html.twig', {'link': 'xx'}) }}
+<div class="row">
+  <h2 class="text-center mt-3">{{ 'notes.label'|trans }}</h2>
+  <div class="col mx-5">
+    {{ form_start(form) }}
+    {{ form_widget(form.notes) }}
+    <div class="text-center">{{ form_widget(form.save, {'attr': {'class': 'btn-primary w-100'}}) }}</div>
+    {{ form_end(form) }}
+  </div>
+</div>
 {% endblock %}

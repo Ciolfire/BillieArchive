@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 class CharacterType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -25,6 +27,7 @@ class CharacterType extends AbstractType
     $character = $options['data'];
     $player = $character->getPlayer();
     $chronicle = $character->getChronicle();
+
     if ($chronicle) {
       $chronicles = [$chronicle];
     } else {
@@ -42,6 +45,7 @@ class CharacterType extends AbstractType
       ->add('chronicle', EntityType::class, [
         'class' => Chronicle::class,
         'choices' => $chronicles,
+        'required' => false,
       ])
       ->add('faction')
       ->add('groupName')
@@ -51,7 +55,8 @@ class CharacterType extends AbstractType
       if (!$options['is_edit']) {
         $builder->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
         ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false]);
+        ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false])
+        ->add('background', CKEditorType::class , ['label' => false, 'empty_data' => ""]);
       }
   }
 

@@ -1,5 +1,6 @@
 advantages: Advantages
 attributes: Attributes
+back: Back
 clans: Clans
 characters:
   groups: Groups
@@ -22,6 +23,7 @@ party:
   manage: Manage Party
 personal: Personal
 rules: Rules
+save: Save
 skills: Skills
 stories:
   new: New story

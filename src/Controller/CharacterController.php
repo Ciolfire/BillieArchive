@@ -220,7 +220,7 @@ class CharacterController extends AbstractController
     $background = $character->getBackground();
     $form = $this->createFormBuilder()
       ->add('background', CKEditorType::class , ['data' => $converter->convert($background), 'label' => 'background.label', 'translation_domain' => 'character'])
-      ->add('save', SubmitType::class, ['label' => 'background.label', 'translation_domain' => 'character'])
+      ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => 'app'])
       ->getForm();
     $form->handleRequest($request);
     
@@ -249,7 +249,7 @@ class CharacterController extends AbstractController
     $notes = $character->getNotes();
     $form = $this->createFormBuilder()
       ->add('notes', CKEditorType::class , ['data' => $converter->convert($notes), 'label' => 'notes.label', 'translation_domain' => 'character'])
-      ->add('save', SubmitType::class, ['label' => 'notes.save', 'translation_domain' => 'character'])
+      ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => 'app'])
       ->getForm();
     $form->handleRequest($request);
     

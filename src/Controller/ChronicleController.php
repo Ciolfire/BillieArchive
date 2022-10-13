@@ -151,7 +151,7 @@ class ChronicleController extends AbstractController
   }
 
   /**
-   * @Route("/{id}/party/remove", name="chronicle_remove_player")
+   * @Route("/{id}/party/remove/player", name="chronicle_remove_player")
    */
   public function removePlayer(Request $request, Chronicle $chronicle) : Response
   {

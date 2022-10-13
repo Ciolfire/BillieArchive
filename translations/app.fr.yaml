@@ -1,5 +1,6 @@
 advantages: Avantages
 attributes: Attributs
+back: Retour
 characters:
   groups: Groupes
   name: Personnages
@@ -22,6 +23,7 @@ party:
   manage: Gérer l'Équipe
 personal: Personnel
 rules: Règles
+save: Sauvegarder
 skills: Compétences
 stories:
   new: Nouvelle histoire

@@ -166,12 +166,10 @@ background:
   edit: Edit background
   label: Background
   none: No background
-  save: Save background
 notes:
   edit: Edit notes
   label: Notes
   none: No notes
-  save: Save notes
 
 
 edit: Edit

@@ -158,8 +158,14 @@ awaken:
 change:
   name: Premier Changement
 
-background.edit: Modifier le background
-notes.edit: Modifier les Notes
+background:
+  edit: Modifier l'historique
+  label: Historique
+  none: Pas d'historique
+notes:
+  edit: Modifier les Notes
+  label: Notes
+  none: Aucune note
 
 edit: Modifier
 back: Retour

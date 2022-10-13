@@ -33,10 +33,10 @@
         {% endif %}
       </div>
       <div class="col-12">
-        {% trans %}virtue.name{% endtrans %}: {{ character.virtue }} ({{ character.virtueDetail }})
+        {% trans %}virtue.name{% endtrans %}: {{ character.virtue }}  {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
       </div>
       <div class="col-12">
-        {% trans %}vice.name{% endtrans %}: {{ character.vice }} ({{ character.viceDetail }})
+        {% trans %}vice.name{% endtrans %}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
       </div>
     </div>
   </div>
