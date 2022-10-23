@@ -5,9 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Vampire;
 use App\Entity\Clan;
+use App\Entity\Discipline;
+use App\Entity\DisciplinePower;
+use App\Form\DisciplinePowerType;
+use App\Form\DisciplineType;
 use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\VampireService;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +53,118 @@ class VampireController extends AbstractController
   }
 
   /**
-   * @Route("/bloodline/new/", name="vampire_bloodline_new", methods={"GET"})
+   * @Route("/discipline/new", name="vampire_discipline_new", methods={"GET", "POST"})
+   */
+  public function disciplineNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $discipline = new Discipline();
+    $form = $this->createForm(DisciplineType::class, $discipline);
+    
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      // $discipline = $form->getData();
+      return $this->redirectToRoute('discipline', ['id' => $discipline->getId()]);
+    }
+
+    return $this->renderForm('vampire/discipline/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/discipline/{id}", name="discipline_show", methods={"GET"})
+   */
+  public function disciplineShow(Discipline $discipline, EntityManagerInterface $entityManager): Response
+  {
+    return $this->renderForm('vampire/discipline/show.html.twig', [
+      'discipline' => $discipline,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/discipline/{id}/edit", name="discipline_edit", methods={"GET", "POST"})
+   */
+  public function disciplineEdit(Request $request, Discipline $discipline, EntityManagerInterface $entityManager): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
+    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->flush();
+
+      return $this->redirectToRoute('discipline_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('vampire/discipline/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/discipline/{id}/power/add", name="discipline_power_add", methods={"GET", "POST"})
+   */
+  public function disciplinePowerAdd(Request $request, Discipline $discipline, EntityManagerInterface $entityManager): Response
+  {
+    $power = new DisciplinePower($discipline, $discipline->getMaxLevel() + 1);
+    $form = $this->createForm(DisciplinePowerType::class, $power);
+
+    $form->handleRequest($request);
+
+    return $this->renderForm('vampire/discipline/power.add.html.twig', [
+      'power' => $power,
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/discipline/power/{id}/edit", name="discipline_power_edit", methods={"GET", "POST"})
+   */
+  public function disciplinePowerEdit(Request $request, DisciplinePower $power, EntityManagerInterface $entityManager): Response
+  {
+    $form = $this->createForm(DisciplinePowerType::class, $power);
+
+    $form->handleRequest($request);
+
+    return $this->renderForm('vampire/discipline/power.edit.html.twig', [
+      'power' => $power,
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/clan/{id}/edit", name="clan_edit", methods={"GET", "POST"})
+   */
+  public function clanEdit(Request $request, Clan $clan, EntityManagerInterface $entityManager): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
+    $form = $this->createForm(ClanType::class, $clan);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager->flush();
+
+      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'clan',
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  /**
+   * @Route("/bloodline/new", name="vampire_bloodline_new", methods={"GET"})
    */
   public function bloodlineNew(): Response
   {

@@ -1,0 +1,17 @@
+{% trans_default_domain 'vampire' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+  <h1>{% block header %}{% endblock %}</h1>
+  <div class="container block py-3 mt-5">
+    <div class="row">
+      <div class="col">
+        {% block form %}{{ form(form) }}{% endblock %}
+        {% block actions %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

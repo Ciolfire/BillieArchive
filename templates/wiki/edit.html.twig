@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit {{ entity }}{% endblock %}
+{% block title %}Edit
+  {{ entity }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit {{ entity }}</h1>
+  <h1>{{ "Edit"|trans }} {{ entity }}</h1>
 
-<div class="container py-3 mt-5 g-0">
-<div class="row block">
-<div class="col p-3">
-    {{ include('wiki/_form.html.twig', {'button_label': 'Update'}) }}
+  <div class="container py-3 mt-5 g-0">
+    <div class="row block">
+      <div class="col p-3">
+        {{ include('wiki/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path(entity ~ '_index') }}">back to list</a>
-</div>
-</div>
-</div>
+        <a href="{{ path(entity ~ '_index') }}">back to list</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}

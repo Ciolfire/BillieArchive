@@ -49,6 +49,12 @@ class DisciplinePower
    */
   private $level;
 
+  public function __construct($discipline, $level)
+  {
+    $this->discipline = $discipline;
+    $this->level = $level;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

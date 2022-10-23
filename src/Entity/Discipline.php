@@ -161,4 +161,9 @@ class Discipline
 
     return $this;
   }
+
+  public function getMaxLevel(): int
+  {
+    return count($this->powers);
+  }
 }
