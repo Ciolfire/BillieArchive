@@ -20,6 +20,7 @@ age.normal: "Age: %age% ans"
 age.less: "Age: %age% (Etreinte à %looks% ans)"
 
 attribute:
+  label: Attribut
   0: 0 - Absence totale
   1: 1 - Pauvre. Unexercised, unpracticed or inept.
   2: 2 - Moyen. The result of occasional effort or application.
@@ -81,7 +82,7 @@ merit:
   title: Atouts
 
 skill:
-  name: Compétence
+  label: Compétence
   0: 0 - Incompétent
   1: 1 - Novice. Connaissances et/ou techniques basiques.
   2: 2 - Amateur. Connaissance et/ou techniques professionnelles.
@@ -166,6 +167,3 @@ notes:
   edit: Modifier les Notes
   label: Notes
   none: Aucune note
-
-edit: Modifier
-back: Retour

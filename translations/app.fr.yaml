@@ -1,3 +1,4 @@
+actions: Actions
 advantages: Avantages
 attributes: Attributs
 back: Retour
@@ -12,10 +13,13 @@ chronicles:
   none: Vous n'avez pas encore rejoint de chronique ...
 create: Créer
 dashboard: Tableau de bord
+edit: Modifier
 homebrew: Règles maison
 infos: Infos
+level: Niveau
 logout: Déconnexion
 merits: Atouts
+name: Nom
 notes: Notes
 options: Options
 party:
@@ -24,7 +28,9 @@ party:
 personal: Personnel
 rules: Règles
 save: Sauvegarder
+short: Effet
 skills: Compétences
+source: "%book% page %page%"
 stories:
   new: Nouvelle histoire
   name: Histoires

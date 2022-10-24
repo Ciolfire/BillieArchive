@@ -1,21 +1,25 @@
+actions: Actions
 advantages: Advantages
 attributes: Attributes
 back: Back
-clans: Clans
 characters:
   groups: Groups
   name: Characters
   non.player: NPC
+clans: Clans
 chronicles:
   title: My Chronicles
   name: Chronicles
   none: You haven't joined any Chronicle yet ...
 create: Create
 dashboard: Dashboard
+edit: Edit
 homebrew: Homebrew
 infos: Infos
+level: Level
 logout: Logout
 merits: Merits
+name: Name
 notes: Notes
 options: Options
 party:
@@ -24,7 +28,9 @@ party:
 personal: Personal
 rules: Rules
 save: Save
+short: Effect
 skills: Skills
+source: "%book% page %page%"
 stories:
   new: New story
   name: Stories

@@ -1,3 +1,6 @@
+view: View
+edit: Edit
+
 add: Add
 all: All
 creation: Character creation only.

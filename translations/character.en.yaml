@@ -19,6 +19,7 @@ age.normal: "Age: %age% years old"
 age.less: "Age: %age% (Embraced at %looks%)"
 
 attribute:
+  label: Attribute
   0: 0 - Absolute vacancy
   1: 1 - Poor. Unexercised, unpracticed or inept.
   2: 2 - Average. The result of occasional effort or application.
@@ -80,7 +81,7 @@ merit:
   title: Merits
 
 skill:
-  name: Skill
+  label: Skill
   0: 0 - Unskilled
   1: 1 - Novice. Basic knowledge and/or techniques.
   2: 2 - Practitioner. Solid working knowledge and/or techniques.
@@ -170,7 +171,3 @@ notes:
   edit: Edit notes
   label: Notes
   none: No notes
-
-
-edit: Edit
-back: Back

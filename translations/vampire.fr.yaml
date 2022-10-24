@@ -1,0 +1,8 @@
+discipline:
+  label: Nom
+  level:
+    single: • à •••••
+  new: Nouvelle discipline
+  power:
+    add: Ajouter un pouvoir
+  title: Disciplines
