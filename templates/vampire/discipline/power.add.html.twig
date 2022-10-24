@@ -2,8 +2,8 @@
 
 {% extends 'vampire/discipline/template.html.twig' %}
 
-{% block title %}{{ "vampire.discipline.power.add"|trans }}{% endblock %}
-{% block header %}{{ "vampire.discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
+{% block title %}{{ "discipline.power.add"|trans }}{% endblock %}
+{% block header %}{{ "discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 
 {% block actions %}
   <a href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'back'|trans }}</a>

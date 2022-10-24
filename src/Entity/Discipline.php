@@ -40,6 +40,11 @@ class Discipline
   private $description;
 
   /**
+   * @ORM\Column(type="text")
+   */
+  private $short = "";
+
+  /**
    * @ORM\Column(type="boolean")
    */
   private $isRestricted = 1;
@@ -104,6 +109,18 @@ class Discipline
   public function setDescription(string $description): self
   {
     $this->description = $description;
+
+    return $this;
+  }
+
+  public function getShort(): ?string
+  {
+    return $this->short;
+  }
+
+  public function setShort(string $short): self
+  {
+    $this->short = $short;
 
     return $this;
   }

@@ -42,6 +42,11 @@ class DisciplinePower
   /**
    * @ORM\Column(type="text")
    */
+  private $short = "";
+
+  /**
+   * @ORM\Column(type="text")
+   */
   private $details;
 
   /**
@@ -114,6 +119,18 @@ class DisciplinePower
   public function setSkill(?Skill $skill): self
   {
     $this->skill = $skill;
+
+    return $this;
+  }
+
+  public function getShort(): ?string
+  {
+    return $this->short;
+  }
+
+  public function setShort(string $short): self
+  {
+    $this->short = $short;
 
     return $this;
   }

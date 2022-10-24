@@ -5,14 +5,14 @@
     <div class="col-2">
       <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
         {% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
-        {{ "edit"|trans }}
+        {{ "edit"|trans({}, "app") }}
       </a>
     </div>
     {% include("character/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
       <a href="{{ path('character_index') }}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
-        {{ "back"|trans }}
+        {{ "back"|trans({}, "app") }}
       </a>
     </div>
   </div>

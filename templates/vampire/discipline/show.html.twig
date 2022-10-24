@@ -1,4 +1,4 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
 {% extends 'base.html.twig' %}
 
@@ -12,18 +12,18 @@
         <p class="fluff">{{ discipline.description }}</p>
         <p>{{ discipline.rules|markdown_to_html }}</p>
         {% if discipline.book is not null %}
-          <p>{{ discipline.book }} - p{{ discipline.page }}</p>
+          <p>{{ "source"|trans({"%book%": discipline.book, "%page%": discipline.page}, "app") }}</p>
         {% endif %}
         <div>
-          <h2 class="pb-2">{{ 'power'|trans({'%count%': discipline.powers|length}) }}</h2>
+          <h2 class="pb-2">{{ 'power'|trans({'%count%': discipline.powers|length}, "character") }}</h2>
           <div class="block p-2">
             {% for power in discipline.powers %}
-                <h3>{{ power.levelDots }} {{ power.name }}{% if is_granted('ROLE_ST') %} <a class="text-sub" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{{ 'edit'|trans }}</a>{% endif %}</h3>
+                <h3>{{ power.levelDots }} {{ power.name }}{% if is_granted('ROLE_ST') %} <a class="text-sub ms-5" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{{ 'edit'|trans({}, "app") }}</a>{% endif %}</h3>
                 <p>{{ power.details|markdown_to_html }}</p>
             {% endfor %}
           </div>
           {% if is_granted('ROLE_ST') %}
-            <a href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'power.add'|trans }}</a>
+            <a class="btn btn-primary w-100" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'discipline.power.add'|trans }}</a>
           {% endif %}
         </div>
       </div>

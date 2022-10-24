@@ -8,18 +8,26 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Twig\Extra\Markdown\LeagueMarkdown;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 class DisciplinePowerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var DisciplinePower */
+        $power = $options['data'];
+        $converter = new LeagueMarkdown();
+
         $builder
-            ->add('name')
-            ->add('details')
-            ->add('level')
-            ->add('discipline')
-            ->add('attribute')
-            ->add('skill')
-            ->add('save', SubmitType::class)
+            ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
+            ->add('short', null, ['label' => 'short', 'translation_domain' => "app"])
+            ->add('details', CKEditorType::class , ['data' => $converter->convert($power->getDetails()), 'label' => false, 'empty_data' => ""])
+            ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
+            ->add('discipline', null, ['label' => 'discipline.label'])
+            ->add('attribute', null, ['label' => 'attribute.label', 'translation_domain' => "character"])
+            ->add('skill', null, ['label' => 'skill.label', 'translation_domain' => "character"])
+            ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => "app"])
         ;
     }
 
@@ -27,6 +35,7 @@ class DisciplinePowerType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DisciplinePower::class,
+            'translation_domain' => "vampire",
         ]);
     }
 }

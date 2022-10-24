@@ -1,0 +1,14 @@
+{% trans_default_domain 'vampire' %}
+
+<thead class="collapse discipline-{{ discipline.id }}">
+  <tr>
+    <th scope="col">{{ ("level")|trans({}, 'app') }}</th>
+    <th scope="col" colspan="2">{{ ("short")|trans({}, 'app') }}</th>
+  </tr>
+</thead>
+<tbody class="collapse discipline-{{ discipline.id }}">
+  <tr class="table-secondary">
+    <td>{{ "discipline.level.single"|trans }}</td>
+    <td colspan="2">{{ discipline.power.short }}</td>
+  </tr>
+</tbody>

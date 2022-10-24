@@ -16,6 +16,7 @@ class DisciplineType extends AbstractType
             ->add('name')
             ->add('homebrewFor')
             ->add('description')
+            ->add('short')
             ->add('rules')
             ->add('isRestricted')
             ->add('book')

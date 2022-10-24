@@ -1,0 +1,16 @@
+<thead class="collapse discipline-{{ discipline.id }}">
+  <tr>
+    <th scope="col">{{ ("level")|trans({}, 'app') }}</th>
+    <th scope="col">{{ ("name")|trans({}, 'app') }}</th>
+    <th scope="col">{{ ("short")|trans({}, 'app') }}</th>
+  </tr>
+</thead>
+<tbody class="collapse discipline-{{ discipline.id }}">
+  {% for power in discipline.powers %}
+    <tr class="table-secondary">
+      <td>{{ power.getLevelDots }}</td>
+      <td>{{ power.name }}</td>
+      <td>{{ power.short }}</td>
+    </tr>
+  {% endfor %}
+</tbody>

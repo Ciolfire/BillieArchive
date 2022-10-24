@@ -11,6 +11,7 @@ use App\Form\DisciplinePowerType;
 use App\Form\DisciplineType;
 use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
+use App\Service\DataService;
 use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,12 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VampireController extends AbstractController
 {
-  private $doctrine;
+  private $dataService;
   private $service;
 
-  public function __construct(ManagerRegistry $doctrine, VampireService $service)
+  public function __construct(DataService $dataService, VampireService $service)
   {
-    $this->doctrine = $doctrine;
+    $this->dataService = $dataService;
     $this->service = $service;
   }
 
@@ -64,8 +65,9 @@ class VampireController extends AbstractController
     
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-      // $discipline = $form->getData();
-      return $this->redirectToRoute('discipline', ['id' => $discipline->getId()]);
+      $this->dataService->save($discipline);
+
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->renderForm('vampire/discipline/new.html.twig', [
@@ -77,7 +79,7 @@ class VampireController extends AbstractController
   /**
    * @Route("/discipline/{id}", name="discipline_show", methods={"GET"})
    */
-  public function disciplineShow(Discipline $discipline, EntityManagerInterface $entityManager): Response
+  public function disciplineShow(Discipline $discipline): Response
   {
     return $this->renderForm('vampire/discipline/show.html.twig', [
       'discipline' => $discipline,
@@ -88,7 +90,7 @@ class VampireController extends AbstractController
   /**
    * @Route("/discipline/{id}/edit", name="discipline_edit", methods={"GET", "POST"})
    */
-  public function disciplineEdit(Request $request, Discipline $discipline, EntityManagerInterface $entityManager): Response
+  public function disciplineEdit(Request $request, Discipline $discipline): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
@@ -96,7 +98,7 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('discipline_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -112,6 +114,8 @@ class VampireController extends AbstractController
    */
   public function disciplinePowerAdd(Request $request, Discipline $discipline, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $power = new DisciplinePower($discipline, $discipline->getMaxLevel() + 1);
     $form = $this->createForm(DisciplinePowerType::class, $power);
 
@@ -129,6 +133,8 @@ class VampireController extends AbstractController
    */
   public function disciplinePowerEdit(Request $request, DisciplinePower $power, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
     $form = $this->createForm(DisciplinePowerType::class, $power);
 
     $form->handleRequest($request);
@@ -143,7 +149,7 @@ class VampireController extends AbstractController
   /**
    * @Route("/clan/{id}/edit", name="clan_edit", methods={"GET", "POST"})
    */
-  public function clanEdit(Request $request, Clan $clan, EntityManagerInterface $entityManager): Response
+  public function clanEdit(Request $request, Clan $clan): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
@@ -151,7 +157,7 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -187,14 +193,14 @@ class VampireController extends AbstractController
 
     // Form submited
     if ($request->request->get('bloodline')) {
-      $vampire->setClan($this->doctrine->getRepository(Clan::class)->find($request->request->get('bloodline')));
-      $this->doctrine->getManager()->flush();
+      $vampire->setClan($this->dataService->find(Clan::class, $request->request->get('bloodline')));
+      $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $bloodlines = $this->doctrine->getRepository(Clan::class)->findBy(['parentClan' => $vampire->getClan()]);
-    // dd($bloodlines);
+    $bloodlines = $this->dataService->findBy(Clan::class, ['parentClan' => $vampire->getClan()]);
+    
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,

@@ -12,9 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
 class CreationService
 {
   private $doctrine;
-  private $create;
 
-  public function __construct(ManagerRegistry $doctrine) {
+  public function __construct(ManagerRegistry $doctrine)
+  {
     $this->doctrine = $doctrine;
   }
 

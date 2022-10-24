@@ -1,47 +1,50 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'wiki' %}
+{% trans_default_domain 'vampire' %}
 
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
   <div class="container">
     <h1>{{ (entity ~ ".title")|trans }}</h1>
-    <div class="row">
-      <div class="col-auto block">
-        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
-        <ul id="collapseToc" class="toc collapse show pe-3 py-3">
-          {% for element in elements %}
-            <li>
-              <a href="{{ path(entity ~ '_edit', {'id': element.id}) }}">{{ element.name }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col flex-grow block ms-5">
-        <p>{{ (entity ~ ".description")|trans }}</p>
-      </div>
+    <div class="row mt-5 mb-2">
+      {% if is_granted('ROLE_ST') %}
+        <a class="btn btn-primary w-100" href="{{ path('vampire_discipline_new') }}">{{ 'discipline.new'|trans }}</a>
+      {% endif %}
     </div>
     <div class="row block p-2">
-      <table class="table table-dark">
+      <table class="table table-dark table-hover">
         <thead>
           <tr>
-            <th scope="col">{{ ("name")|trans }}</th>
-            <th scope="col">{{ ("actions")|trans }}</th>
+            <th scope="col">{{ ("name")|trans({}, "app") }}</th>
+            <th scope="col">{{ ("short")|trans({}, "app") }}</th>
+            <th scope="col">{{ ("actions")|trans({}, "app") }}</th>
           </tr>
         </thead>
         <tbody>
-          {% for element in elements %}
-            <tr>
-              <th scope="row">{{ element.name }}</th>
+          {% for discipline in elements %}
+            <tr data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}" onclick=".discipline-{{ discipline.id }}">
+              <th scope="row">
+                <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+              </th>
+              <td>
+                {{ discipline.short }}
+              </td>
               <td>
                 {% if is_granted('ROLE_ST') %}
-                  <a href="{{ path(entity ~ '_edit', {'id': element.id}) }}">{{ 'edit'|trans }}</a>
+                  <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'view' } only %}</a>
+                  <a href="{{ path(entity ~ '_edit', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit' } only %}</a>
                 {% endif %}
               </td>
             </tr>
+            {% if discipline.maxLevel > 1 %}
+              {% include "vampire/discipline/table.multi.html.twig" %}
+            {% else %}
+              {% include "vampire/discipline/table.single.html.twig" %}
+            {% endif %}
           {% endfor %}
         </tbody>
+      </table>
     </div>
   </div>
 {% endblock %}

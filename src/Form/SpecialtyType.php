@@ -19,14 +19,13 @@ class SpecialtyType extends AbstractType
           'data-action' => 'character--creation#specialtyUpdate'
         ]
       ])
-      ->add('skill', null, ["label" => 'skill.name', "choice_translation_domain" => 'character']);
+      ->add('skill', null, ["label" => 'skill.label']);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Specialty::class,
-      'translation_domain' => 'character',
     ]);
   }
 }
