@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'wiki' %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1>{{ (entity ~ ".title")|trans }}</h1>
+    <div class="row">
+      <div class="col-auto block">
+        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
+        <ul id="collapseToc" class="toc collapse show pe-3 py-3">
+          <p>Clans</p>
+          {% for clan in clans %}
+            <li>
+              <a href="#{{ clan.name }}">{{ clan.name }}</a>
+            </li>
+          {% endfor %}
+          <p>Bloodlines</p>
+          {% for bloodline in bloodlines %}
+            <li>
+              <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col flex-grow block ms-5">
+        <p>{{ description|markdown_to_html }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <h2>Clans</h2>
+      {% for clan in clans %}
+        <div id="{{ clan.name }}" class="col-12 block block-wiki">
+          <h3>{{ clan.name }}</h3>
+          <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
+          <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+          {% if is_granted('ROLE_ST') %}
+            <a href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{{ 'edit'|trans }}</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <h2>Bloodlines</h2>
+      {% for bloodline in bloodlines %}
+        <div id="{{ bloodline.name }}" class="col-12 block block-wiki">
+          <h3>{{ bloodline.name }}</h3>
+          <div class="fluff">{{ bloodline.fluff|default("")|markdown_to_html }}</div>
+          <p class="text">{{ bloodline.description|default("")|markdown_to_html }}</p>
+          {% if is_granted('ROLE_ST') %}
+            <a href="{{ path(entity ~ '_edit', {'id': bloodline.id}) }}">{{ 'edit'|trans }}</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

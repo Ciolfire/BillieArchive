@@ -19,9 +19,18 @@ class DataService
   /**
    * Save an entity, will add security checks there
    */
-  public function save(mixed $entity)
+  public function save($entity)
   {
     $this->manager->persist($entity);
+    $this->flush();
+  }
+
+  /**
+   * Remove an entity, will add security checks there
+   */
+  public function remove($entity)
+  {
+    $this->manager->remove($entity);
     $this->flush();
   }
 
@@ -30,7 +39,7 @@ class DataService
     $this->manager->flush();
   }
 
-  public function find(string $class, mixed $element)
+  public function find(string $class, $element)
   {
 
     return $this->doctrine->getRepository($class)->find($element);
@@ -40,5 +49,17 @@ class DataService
   {
 
     return $this->doctrine->getRepository($class)->findBy($criteria);
+  }
+
+  public function findOneBy(string $class, array $criteria)
+  {
+
+    return $this->doctrine->getRepository($class)->findOneBy($criteria);
+  }
+
+  public function findAll($class)
+  {
+
+    return  $this->doctrine->getRepository($class)->findAll();
   }
 }

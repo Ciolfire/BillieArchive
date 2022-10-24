@@ -15,9 +15,9 @@ use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
+use App\Service\DataService;
 use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,27 +29,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
-/**
- * @Route("/{_locale<%supported_locales%>?%default_locale%}/character")
- */
+
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
 {
-  private $doctrine;
+  private $dataService;
   private $service;
   private $vService;
   private $create;
 
-  public function __construct(ManagerRegistry $doctrine, CreationService $create, CharacterService $service, VampireService $vService)
+  public function __construct(DataService $dataService, CreationService $create, CharacterService $service, VampireService $vService)
   {
-    $this->doctrine = $doctrine;
+    $this->dataService = $dataService;
     $this->service = $service;
     $this->vService = $vService;
     $this->create = $create;
   }
 
-  /**
-   * @Route("/", name="character_index", methods={"GET"})
-   */
+  #[Route('/', name: 'character_index', methods: ['GET'])]
   public function index(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -66,9 +63,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/npc", name="character_npc_index", methods={"GET"})
-   */
+  #[Route('/npc', name: 'character_npc_index', methods: ['GET'])]
   public function indexNpc(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -81,9 +76,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/new/{isNpc}/{chronicle}/", name="character_new", methods={"GET", "POST"}, defaults={"isNpc": 0, "chronicle": 0})
-   */
+  #[Route('/new/{isNpc}/{chronicle}/', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
   public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle = null, bool $isNpc = false): Response
   {
     $character = new Human();
@@ -101,8 +94,7 @@ class CharacterController extends AbstractController
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
       
-      $entityManager->persist($character);
-      $entityManager->flush();
+      $this->dataService->save($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
@@ -114,9 +106,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}", name="character_show", methods={"GET"})
-   */
+  #[Route('/{id}', name: 'character_show', methods: ['GET'])]
   public function show(Character $character): Response
   {
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
@@ -130,9 +120,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/edit", name="character_edit", methods={"GET", "POST"})
-   */
+  #[Route('/{id}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
   public function edit(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
 
@@ -160,7 +148,7 @@ class CharacterController extends AbstractController
       if (isset($extraData['xp'])) {
         $character->spendXp($extraData['xp']['spend']);
       }
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
@@ -174,22 +162,17 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}", name="character_delete", methods={"POST"})
-   */
+  #[Route('/{id}/delete', name: 'character_delete', methods: ['POST'])]
   public function delete(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
-      $entityManager->remove($character);
-      $entityManager->flush();
+      $this->dataService->remove($character);
     }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  /**
-   * @Route("/{id}/embrace", name="character_embrace", methods={"GET", "POST"})
-   */
+  #[Route('/{id}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
   public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
     $clans = $this->doctrine->getRepository(Clan::class)->findBy(['parentClan' => null]);
@@ -211,9 +194,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/background", name="character_background", methods={"GET", "POST"})
-   */
+  #[Route('/{id}/background', name: 'character_background', methods: ['GET', 'POST'])]
   public function background(Request $request, Character $character): Response
   {
     $converter = new LeagueMarkdown();
@@ -240,9 +221,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/notes", name="character_notes", methods={"GET", "POST"})
-   */
+  #[Route('/{id}/notes', name: 'character_notes', methods: ['GET', 'POST'])]
   public function notes(Request $request, Character $character): Response
   {
     $converter = new LeagueMarkdown();
@@ -269,10 +248,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{character}/wounds/update", name="character_wounds_update", methods={"POST"})
-   * @param Character $character
-   */
+  #[Route('/{id}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
   public function updateWounds(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -288,10 +264,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  /**
-   * @Route("/{character}/trait/update", name="character_trait_update", methods={"POST"})
-   * @param Character $character
-   */
+  #[Route('/{id}/trait/update', name: 'character_trait_update', methods: ['POST'])]
   public function updateTrait(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -303,10 +276,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  /**
-   * @Route("/{character}/experience/update", name="character_experience_update", methods={"POST"})
-   * @param Character $character
-   */
+  #[Route('/{id}/experience/update', name: 'character_experience_update', methods: ['POST'])]
   public function updateExperience(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -318,10 +288,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  /**
-   * @Route("/{character}/avatar/update", name="character_avatar_update", methods={"POST"})
-   * @param Character $character
-   */
+  #[Route('/{id}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
   public function updateAvatar(Request $request, Character $character, LoggerInterface $logger): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
