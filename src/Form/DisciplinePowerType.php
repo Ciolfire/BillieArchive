@@ -17,12 +17,15 @@ class DisciplinePowerType extends AbstractType
     {
         /** @var DisciplinePower */
         $power = $options['data'];
+        $details = $power->getDetails();
+        if (is_null($details)) {
+            $details = "";
+        }
         $converter = new LeagueMarkdown();
-
         $builder
             ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
             ->add('short', null, ['label' => 'short', 'translation_domain' => "app"])
-            ->add('details', CKEditorType::class , ['data' => $converter->convert($power->getDetails()), 'label' => false, 'empty_data' => ""])
+            ->add('details', CKEditorType::class , ['data' => $converter->convert($details), 'label' => false])
             ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
             ->add('discipline', null, ['label' => 'discipline.label'])
             ->add('attribute', null, ['label' => 'attribute.label', 'translation_domain' => "character"])

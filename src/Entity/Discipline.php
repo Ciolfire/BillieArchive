@@ -52,7 +52,7 @@ class Discipline
   /**
    * @ORM\Column(type="text", nullable=true)
    */
-  private $rules;
+  private $rules = "";
 
   /**
    * @ORM\OneToMany(targetEntity=DisciplinePower::class, mappedBy="discipline", orphanRemoval=true, fetch="EAGER"))
