@@ -68,6 +68,11 @@ class Clan
    */
   private $bloodlines;
 
+  /**
+   * @ORM\Column(type="string", length=255, nullable=true)
+   */
+  private $emblem;
+
   public function __construct()
   {
     $this->attributes = new ArrayCollection();
@@ -238,6 +243,18 @@ class Clan
               $bloodline->setParentClan(null);
           }
       }
+
+      return $this;
+  }
+
+  public function getEmblem(): ?string
+  {
+      return $this->emblem;
+  }
+
+  public function setEmblem(?string $emblem): self
+  {
+      $this->emblem = $emblem;
 
       return $this;
   }
