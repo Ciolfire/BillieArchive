@@ -6,6 +6,7 @@ $solidBlockColor: #6a6a6a;
 $tabColor: #6a6a6a4f;
 $borderColor: #7d0000;
 $mainColor: #7d0000;
+$mainBrightColor: #ca0000;
 $mainDarkColor: #4d0000;
 $main50pColor: #7d000088;
 $inputBackColor: #0000004f;
@@ -21,6 +22,8 @@ $titleShadow: rgb(43, 0, 0);
 $btnColor: $mainColor;
 $labelColor: $mainColor;
 $subtextColor: #a1a5b9a1;
+$linkColor: $mainBrightColor;
+$linkHoverColor: $wrongColor;
 // Font
 $mainFont: "mrsEaves-bold";
 $h1Font: "Cezanne";
@@ -56,4 +59,15 @@ $inputFont: "goudy";
 
 .collapse-block {
   background-color: rgba(143, 143, 143, 0.29);
+}
+
+body {
+  a {
+  color: $linkColor;
+  text-decoration: none;
+
+    &:hover {
+      color: $linkHoverColor;
+    }
+  }
 }
