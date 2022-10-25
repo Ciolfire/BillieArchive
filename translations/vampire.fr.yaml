@@ -1,8 +1,13 @@
+clan:
+  label: Clan
+clans:
+  label: Clans
 discipline:
-  label: Nom
+  label: Discipline
   level:
     single: • à •••••
   new: Nouvelle discipline
   power:
     add: Ajouter un pouvoir
-  title: Disciplines
+disciplines:
+  label: Disciplines

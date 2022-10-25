@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'wiki' %}
+{% trans_default_domain 'vampire' %}
 
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
   <div class="container">
-    <h1>{{ (entity ~ ".title")|trans }}</h1>
+    <h1>{{ "clans.label"|trans }}</h1>
     <div class="row">
       <div class="col-auto block">
-        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
+        <h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
         <ul id="collapseToc" class="toc collapse show pe-3 py-3">
           <p>Clans</p>
           {% for clan in clans %}
@@ -33,13 +33,21 @@
       <h2>Clans</h2>
       {% for clan in clans %}
         <div id="{{ clan.name }}" class="col-12 block block-wiki">
-          <h3>{{ clan.name }}</h3>
-          <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
-          <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
-          {% if is_granted('ROLE_ST') %}
-            <a href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{{ 'edit'|trans }}</a>
-          {% endif %}
+          <div type="button" data-bs-toggle="collapse" data-bs-target="#clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+            <h3>{{ clan.name }}</h3>
+            {% if clan.emblem is not null %}
+              <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
+            {% endif %}
+            <div id="clan-{{ clan.id }}" class="collapse show fluff text-center mb-2">{{ clan.keywords }}</div>
+            <div id="clan-{{ clan.id }}" class="collapse">
+              <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
+              <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+            </div>
+          </div>
         </div>
+        {% if is_granted('ROLE_ST') %}
+          <a href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{{ 'edit'|trans({}, 'app') }}</a>
+        {% endif %}
       {% endfor %}
     </div>
     <div class="row">
@@ -50,7 +58,7 @@
           <div class="fluff">{{ bloodline.fluff|default("")|markdown_to_html }}</div>
           <p class="text">{{ bloodline.description|default("")|markdown_to_html }}</p>
           {% if is_granted('ROLE_ST') %}
-            <a href="{{ path(entity ~ '_edit', {'id': bloodline.id}) }}">{{ 'edit'|trans }}</a>
+            <a href="{{ path(entity ~ '_edit', {'id': bloodline.id}) }}">{{ 'edit'|trans({}, 'app') }}</a>
           {% endif %}
         </div>
       {% endfor %}

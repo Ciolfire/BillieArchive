@@ -25,7 +25,7 @@ class DisciplinePowerType extends AbstractType
         $builder
             ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
             ->add('short', null, ['label' => 'short', 'translation_domain' => "app"])
-            ->add('details', CKEditorType::class , ['data' => $converter->convert($details), 'label' => false])
+            ->add('details', CKEditorType::class , ['empty_data' => '', 'data' => $converter->convert($details), 'label' => false])
             ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
             ->add('discipline', null, ['label' => 'discipline.label'])
             ->add('attribute', null, ['label' => 'attribute.label', 'translation_domain' => "character"])

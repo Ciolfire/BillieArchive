@@ -17,6 +17,7 @@ use App\Service\DataService;
 use App\Service\VampireService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -131,6 +132,7 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $clan->setEmblem($this->dataService->upload($form->get('emblem')->getData(), $this->getParameter('clans_emblems_directory')));
       $this->dataService->flush();
 
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
