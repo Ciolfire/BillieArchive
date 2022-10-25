@@ -68,11 +68,13 @@ class DataService
     return  $this->doctrine->getRepository($class)->findAll();
   }
 
-  public function upload(UploadedFile $file, string $target)
+  public function upload(UploadedFile $file, string $target, string $fileName=null)
   {
-    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-    $safeFilename = $this->slugger->slug($originalFilename);
-    $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+    if (is_null($fileName)) {
+      $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+      $safeFilename = $this->slugger->slug($originalFilename);
+      $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+    }
 
     try {
       $file->move($target, $fileName);
