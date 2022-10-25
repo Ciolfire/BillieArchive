@@ -44,7 +44,7 @@
     {% endif %}
     <div id="background" data-tabs-target="page">
       <div class="col-12 my-2 text-center">
-        <img class="col-12 col-lg-6" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+        <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
           <div class="block mt-1">
             {% if character.background != "" %}
               {{ character.background|markdown_to_html }}

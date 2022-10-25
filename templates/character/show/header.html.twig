@@ -44,7 +44,7 @@
     <div class="row text-center">
       <div class="col-12 d-flex my-2" data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
         <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative">
-          <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+          <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.id , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
         </div>
       </div>
       {% include (type ~ "/sheet/details.html.twig") %}

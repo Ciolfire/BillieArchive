@@ -13,7 +13,7 @@
         <div class="col-4">
           <a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">
             <div class="character-frame character-frame-list position-relative text-center mb-2">
-              <img class="p-1" src="{{ asset(character.id ~ '.jpg', 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+              <img class="p-1" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
             </div>
             {{ player.username }} - {{ character.name }}
           </a>
