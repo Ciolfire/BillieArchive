@@ -3,8 +3,7 @@
               <a class="float-end" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
             {% endif %}
             <div type="button" data-bs-toggle="collapse" data-bs-target="#clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-              <h3>{{ clan.name }}</h3>
-              {% if clan.parentClan is not null %}{{ clan.parentClan.name }}{% endif %}
+              <h3>{{ clan.name }} {% if clan.parentClan is not null %}({{ clan.parentClan.name }}){% endif %}</h3>
               {% if clan.emblem is not null %}
                 <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
               {% endif %}
