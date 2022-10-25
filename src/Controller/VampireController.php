@@ -93,7 +93,7 @@ class VampireController extends AbstractController
     return $this->render('vampire/clan/index.html.twig', [
       'clans' => $this->dataService->findBy(Clan::class, ['parentClan' => null]),
       'bloodlines' => $this->dataService->findBy(Clan::class, ['parentClan' => !null]),
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan'])->getValue(),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
       'category' => 'character',
       'type' => 'vampire',
