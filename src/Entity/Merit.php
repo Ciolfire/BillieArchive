@@ -32,6 +32,7 @@ class Merit implements Translatable
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
@@ -45,41 +46,49 @@ class Merit implements Translatable
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="string", length=40)
+   * @var string|null
    */
   private $name;
 
   /**
    * @ORM\Column(type="string", length=20)
+   * @var string|null
    */
   private $category;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isFighting;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isExpanded;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $min = 1;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $max;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isUnique;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isCreationOnly;
 
@@ -91,17 +100,20 @@ class Merit implements Translatable
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $effect = "";
 
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $description;
 
   /**
    * @ORM\Column(type="string", length=20)
+   * @var string|null
    */
   private $type;
 

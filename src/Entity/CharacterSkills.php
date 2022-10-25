@@ -15,131 +15,157 @@ class CharacterSkills
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $academics = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $computer = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $crafts = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $investigation = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $medecine = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $occult = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $politics = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $science = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $athletics = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $brawl = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $drive = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $firearms = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $larceny = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $stealth = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $survival = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $weaponry = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $animalKen = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $empathy = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $expression = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $intimidation = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $persuasion = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $socialize = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $streetwise = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $subterfuge = 0;
 
   /**
    * @ORM\OneToOne(targetEntity=Character::class, mappedBy="skills")
+   * @var \App\Entity\Character|null
    */
   private $character;
 

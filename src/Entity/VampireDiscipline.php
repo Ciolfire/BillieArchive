@@ -14,23 +14,27 @@ class VampireDiscipline
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\ManyToOne(targetEntity=Discipline::class)
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Discipline|null
    */
   private $discipline;
 
   /**
    * @ORM\ManyToOne(targetEntity=Vampire::class, inversedBy="disciplines",cascade={"persist"})
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Vampire|null
    */
   private $character;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $level = 1;
 

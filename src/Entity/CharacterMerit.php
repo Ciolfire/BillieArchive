@@ -14,17 +14,20 @@ class CharacterMerit
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\ManyToOne(targetEntity=Merit::class)
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Merit|null
    */
   private $merit;
 
   /**
    * @ORM\Column(type="string", length=255, nullable=true)
+   * @var string|null
    */
   private $choice;
 
@@ -35,12 +38,14 @@ class CharacterMerit
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $level;
 
   /**
    * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits", cascade={"persist"})
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Character|null
    */
   private $character;
 

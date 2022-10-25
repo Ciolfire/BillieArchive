@@ -26,21 +26,25 @@ class Discipline
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="string", length=50)
+   * @var string|null
    */
   private $name;
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $description;
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $short = "";
 
@@ -51,11 +55,13 @@ class Discipline
 
   /**
    * @ORM\Column(type="text", nullable=true)
+   * @var string|null
    */
   private $rules = "";
 
   /**
    * @ORM\OneToMany(targetEntity=DisciplinePower::class, mappedBy="discipline", orphanRemoval=true, fetch="EAGER"))
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\DisciplinePower>
    */
   private $powers;
 

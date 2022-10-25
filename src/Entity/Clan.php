@@ -34,55 +34,65 @@ class Clan
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="string", length=20)
+   * @var string|null
    */
   private $name;
 
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $description = "";
 
   /**
    * @ORM\ManyToMany(targetEntity=Attribute::class)
+   * @var \Doctrine\Common\Collections\Collection<\Attribute>
    */
   private $attributes;
 
   /**
    * @ORM\ManyToMany(targetEntity=Discipline::class)
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Discipline>
    */
   private $disciplines;
 
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $short = "";
 
   /**
    * @Gedmo\Translatable
    * @ORM\Column(type="string", length=100)
+   * @var string|null
    */
   private $keywords;
 
   /**
    * @ORM\ManyToOne(targetEntity=Clan::class, inversedBy="bloodlines")
+   * @var \App\Entity\Clan|null
    */
   private $parentClan;
 
   /**
    * @ORM\OneToMany(targetEntity=Clan::class, mappedBy="parentClan")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Clan>
    */
   private $bloodlines;
 
   /**
    * @ORM\Column(type="string", length=255, nullable=true)
+   * @var string|null
    */
   private $emblem;
 

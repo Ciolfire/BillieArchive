@@ -18,34 +18,40 @@ class Skill implements Translatable
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="string", length=20)
+   * @var string|null
    */
   private $identifier;
 
   /**
    * @ORM\Column(type="string", length=20)
    * @Gedmo\Translatable
+   * @var string|null
    */
   private $name;
 
   /**
    * @ORM\Column(type="string", length=20)
+   * @var string|null
    */
   private $category;
 
   /**
    * @ORM\Column(type="text", nullable=true)
    * @Gedmo\Translatable
+   * @var string|null
    */
   private $description;
 
   /**
    * @ORM\Column(type="text", nullable=true)
    * @Gedmo\Translatable
+   * @var string|null
    */
   private $fluff;
 

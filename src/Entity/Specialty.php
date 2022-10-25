@@ -15,23 +15,27 @@ class Specialty
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @var int|null
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @var string|null
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="specialties", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @var \App\Entity\Character|null
      */
     private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Skill::class)
      * @ORM\JoinColumn(nullable=false)
+     * @var \App\Entity\Skill|null
      */
     private $skill;
 

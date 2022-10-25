@@ -15,56 +15,67 @@ class CharacterAttributes
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $intelligence = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $wits = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $resolve = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $strength = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $dexterity = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $stamina = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $presence = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $manipulation = 1;
 
   /**
    * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
+   * @var int|null
    */
   protected $composure = 1;
 
   /**
    * @ORM\OneToOne(targetEntity=Character::class, mappedBy="attributes")
+   * @var \App\Entity\Character|null
    */
   protected $character;
 

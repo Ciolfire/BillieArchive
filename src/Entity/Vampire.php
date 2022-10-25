@@ -17,37 +17,44 @@ class Vampire extends Character
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   protected $id;
 
   /**
    * @ORM\Column(type="string", length=50)
+   * @var string|null
    */
   private $sire;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $apparentAge;
 
   /**
    * @ORM\ManyToOne(targetEntity=Clan::class)
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Clan|null
    */
   private $clan;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $potency = 1;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   private $vitae = 1;
 
   /**
    * @ORM\OneToMany(targetEntity=VampireDiscipline::class, mappedBy="character", orphanRemoval=true, fetch="EAGER"))
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\VampireDiscipline>
    */
   private $disciplines;
 

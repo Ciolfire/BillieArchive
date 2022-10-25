@@ -14,16 +14,19 @@ class Description
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @var int|null
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @var string|null
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @var string|null
      */
     private $value;
 

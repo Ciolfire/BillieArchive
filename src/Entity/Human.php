@@ -14,6 +14,7 @@ class Human extends Character
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   protected $id;
 

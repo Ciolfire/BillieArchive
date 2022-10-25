@@ -18,71 +18,83 @@ class Character
 {
   // Probably not needed
   //  * @ORM\DiscriminatorMap({"human" = "Human", "vampire" = "Vampire", "mage" = "Mage", "werewolf" = "Werewolf"})
-
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   protected $id;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
+   * @var string|null
    */
   protected $name;
 
   /**
-   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"}, fetch="LAZY")
+   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"})
+   * @var \App\Entity\CharacterAttributes|null
    */
   protected $attributes;
 
   /**
-   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"}, fetch="LAZY")
+   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"})
+   * @var \App\Entity\CharacterSkills|null
    */
   protected $skills;
 
   /**
-   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"}, fetch="LAZY")
+   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Specialty>
    */
   protected $specialties;
 
   /**
    * @ORM\Column(type="integer", nullable=true, options={"unsigned":true})
+   * @var int|null
    */
   protected $age;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
+   * @var string|null
    */
   protected $concept;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
+   * @var string|null
    */
   protected $faction;
 
   /**
    * @ORM\Column(type="string", length=25, nullable=true)
+   * @var string|null
    */
   protected $groupName;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $willpower = 0;
 
   /**
    * @ORM\ManyToOne(targetEntity=Virtue::class)
+   * @var \App\Entity\Virtue|null
    */
   protected $virtue;
 
   /**
    * @ORM\ManyToOne(targetEntity=Vice::class)
+   * @var \App\Entity\Vice|null
    */
   protected $vice;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $moral = 7;
 
@@ -93,26 +105,31 @@ class Character
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $size = 5;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $currentWillpower = 0;
 
   /**
    * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\CharacterMerit>
    */
   protected $merits;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $xpTotal = 0;
 
   /**
    * @ORM\Column(type="smallint")
+   * @var int|null
    */
   protected $xpUsed = 0;
 
@@ -120,36 +137,43 @@ class Character
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="characters")
+   * @var \App\Entity\User|null
    */
   private $player;
 
   /**
    * @ORM\ManyToOne(targetEntity=Chronicle::class, inversedBy="characters")
+   * @var \App\Entity\Chronicle|null
    */
   private $chronicle;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isNpc;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
+   * @var string|null
    */
   private $virtueDetail;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
+   * @var string|null
    */
   private $viceDetail;
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $background = "";
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $notes = "";
 

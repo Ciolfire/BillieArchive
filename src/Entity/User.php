@@ -20,21 +20,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="string", length=180, unique=true)
+   * @var string|null
    */
   private $username;
 
   /**
    * @ORM\Column(type="string", length=180, unique=true)
+   * @var string|null
    */
   private $email;
 
   /**
    * @ORM\Column(type="string", length=10)
+   * @var string|null
    */
   private $locale = "en";
 
@@ -44,28 +48,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   private $roles = [];
 
   /**
-   * @var string The hashed password
+   * @var string|null The hashed password
    * @ORM\Column(type="string")
    */
   private $password;
 
   /**
    * @ORM\Column(type="boolean")
+   * @var bool|null
    */
   private $isVerified = false;
 
   /**
    * @ORM\OneToMany(targetEntity=Character::class, mappedBy="player")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Character>
    */
   private $characters;
 
   /**
    * @ORM\ManyToMany(targetEntity=Chronicle::class, inversedBy="players")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Chronicle>
    */
   private $chronicles;
 
   /**
    * @ORM\OneToMany(targetEntity=Chronicle::class, mappedBy="storyteller")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Chronicle>
    */
   private $stories;
 

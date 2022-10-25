@@ -8,11 +8,13 @@ use App\Entity\Book;
 trait Sourcable {
   /**
    * @ORM\ManyToOne(targetEntity=Book::class)
+   * @var \App\Entity\Book|null
    */
   protected $book;
 
   /**
    * @ORM\Column(type="smallint", nullable=true)
+   * @var int|null
    */
   protected $page;
 

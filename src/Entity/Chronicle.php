@@ -16,31 +16,37 @@ class Chronicle
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @var string|null
    */
   private $name;
 
   /**
    * @ORM\OneToMany(targetEntity=Character::class, mappedBy="chronicle")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Character>
    */
   private $characters;
 
   /**
    * @ORM\ManyToMany(targetEntity=User::class, mappedBy="chronicles")
+   * @var \Doctrine\Common\Collections\Collection<\App\Entity\User>
    */
   private $players;
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stories")
+   * @var \App\Entity\User|null
    */
   private $storyteller;
 
   /**
    * @ORM\Column(type="string", length=50)
+   * @var string|null
    */
   private $type;
 

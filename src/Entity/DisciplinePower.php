@@ -15,42 +15,50 @@ class DisciplinePower
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @var int|null
    */
   private $id;
 
   /**
    * @ORM\Column(type="string", length=50, nullable=true)
+   * @var string|null
    */
   private $name;
 
   /**
    * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="powers")
    * @ORM\JoinColumn(nullable=false)
+   * @var \App\Entity\Discipline|null
    */
   private $discipline;
 
   /**
    * @ORM\ManyToOne(targetEntity=Attribute::class, fetch="EAGER"))
+   * @var \App\Entity\Attribute|null
    */
   private $attribute;
 
   /**
    * @ORM\ManyToOne(targetEntity=Skill::class, fetch="EAGER"))
+   * @var \App\Entity\Skill|null
    */
   private $skill;
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $short = "";
 
   /**
    * @ORM\Column(type="text")
+   * @var string|null
    */
   private $details;
 
   /**
    * @ORM\Column(type="smallint", nullable=true)
+   * @var int|null
    */
   private $level;
 
