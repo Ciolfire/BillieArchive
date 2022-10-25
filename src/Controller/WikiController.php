@@ -3,25 +3,30 @@
 namespace App\Controller;
 
 use App\Entity\Attribute;
+use App\Entity\Book;
 use App\Entity\Skill;
 use App\Form\AttributeType;
 use App\Form\SkillType;
 use App\Repository\AttributeRepository;
 use App\Repository\SkillRepository;
+use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/{_locale<%supported_locales%>?%default_locale%}/wiki")
- */
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/wiki')]
 class WikiController extends AbstractController
 {
-  /**
-   * @Route("/", name="wiki_index", methods={"GET"})
-   */
+  private $dataService;
+
+  public function __construct(DataService $dataService)
+  {
+    $this->dataService = $dataService;
+  }
+
+  #[Route('/', name: 'wiki_index', methods: ['GET'])]
   public function index(): Response
   {
     return $this->render('wiki/index.html.twig', [
@@ -29,24 +34,52 @@ class WikiController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/attribute", name="attribute_index", methods={"GET"})
-   */
-  public function attributes(AttributeRepository $attributeRepository): Response
+  #[Route('/books/{setting}', name: 'book_index', methods: ['GET'])]
+  public function books($setting="human"): Response
   {
     
     return $this->render('wiki/list.html.twig', [
-      'elements' => $attributeRepository->findAll(),
+      'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting]),
+      'entity' => 'book',
+      'category' => 'character',
+      'type' => $setting,
+    ]);
+  }
+
+  #[Route('/book/{id}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
+  public function bookEdit(Request $request, Book $attribute): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
+    // $form = $this->createForm(AttributeType::class, $attribute);
+    // $form->handleRequest($request);
+
+    // if ($form->isSubmitted() && $form->isValid()) {
+      // $entityManager->flush();
+
+      // return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
+    // }
+
+    return $this->renderForm('wiki/edit.html.twig', [
+      'entity' => 'attribute',
+      // 'form' => $form,
+    ]);
+  }
+
+  #[Route('/attributes', name: 'attribute_index', methods: ['GET'])]
+  public function attributes(): Response
+  {
+    
+    return $this->render('wiki/list.html.twig', [
+      'elements' => $this->dataService->findAll(Attribute::class),
       'entity' => 'attribute',
       'category' => 'character',
       'type' => 'human',
     ]);
   }
 
-  /**
-   * @Route("/attribute/{id}/edit", name="attribute_edit", methods={"GET", "POST"})
-   */
-  public function attributeEdit(Request $request, Attribute $attribute, EntityManagerInterface $entityManager): Response
+  #[Route('/attribute/{id}/edit', name: 'attribute_edit', methods: ['GET', 'POST'])]
+  public function attributeEdit(Request $request, Attribute $attribute): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
@@ -54,7 +87,7 @@ class WikiController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -65,10 +98,19 @@ class WikiController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/skill/{id}/edit", name="skill_edit", methods={"GET", "POST"})
-   */
-  public function skillEdit(Request $request, Skill $skill, EntityManagerInterface $entityManager): Response
+  #[Route('/skills', name: 'skill_index', methods: ['GET'])]
+  public function skills(): Response
+  {
+    return $this->render('wiki/list.html.twig', [
+      'elements' => $this->dataService->findAll(Skill::class),
+      'entity' => 'skill',
+      'category' => 'character',
+      'type' => 'human',
+    ]);
+  }
+
+  #[Route('/skill/{id}/edit', name: 'skill_edit', methods: ['GET', 'POST'])]
+  public function skillEdit(Request $request, Skill $skill): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
@@ -76,7 +118,7 @@ class WikiController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('skill_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -84,19 +126,6 @@ class WikiController extends AbstractController
     return $this->renderForm('wiki/edit.html.twig', [
       'entity' => 'attribute',
       'form' => $form,
-    ]);
-  }
-
-  /**
-   * @Route("/skill", name="skill_index", methods={"GET"})
-   */
-  public function skills(SkillRepository $skillRepository): Response
-  {
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $skillRepository->findAll(),
-      'entity' => 'skill',
-      'category' => 'character',
-      'type' => 'human',
     ]);
   }
 }

@@ -292,9 +292,12 @@ class CharacterController extends AbstractController
   public function updateAvatar(Request $request, Character $character, LoggerInterface $logger): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
-        $file = $this->dataService->upload($request->files->get('avatar')['upload'], $this->getParameter('characters_directory'), $character->getId());
-        
-        return new JsonResponse($file);
+      $avatar = $request->files->get('avatar')['upload'];
+      if (!is_null($avatar)) {
+        $file = $this->dataService->upload($avatar, $this->getParameter('characters_directory'), $character->getId());
+      }
+
+      return new JsonResponse($file);
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }

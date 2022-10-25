@@ -36,6 +36,8 @@ attribute:
   presence: Presence
   manipulation: Manipulation
   composure: Composure
+attributes:
+  label: Attributes
 
 avatar:
   change: Change character avatar
@@ -88,7 +90,6 @@ skill:
   3: 3 - Professional. Broad, detailed knowledge and/or techniques.
   4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
   5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
-  title: Skills
   unskilled:
     mental: "-3 unskilled"
     physical: "-1 unskilled"
@@ -118,6 +119,8 @@ skill:
   socialize: Socialize
   streetwise: Streetwise
   subterfuge: Subterfuge
+skills:
+  label: Skills
 specialty:
   name: Specialty
   title: Specialties

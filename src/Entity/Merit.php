@@ -5,10 +5,13 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\MeritRepository;
+use App\Entity\Translation\MeritTranslation;
+
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
+
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Translation\MeritTranslation;
+
 use League\HTMLToMarkdown\HtmlConverter;
 
 /**

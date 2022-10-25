@@ -2,6 +2,8 @@ actions: Actions
 advantages: Advantages
 attributes: Attributes
 back: Back
+book: Book
+books: Books
 characters:
   groups: Groups
   name: Characters

@@ -37,6 +37,8 @@ attribute:
   presence: Présence
   manipulation: Manipulation
   composure: Calme
+attributes:
+  label: Attributs
 
 avatar:
   change: Changer l'avatar du personnage
@@ -89,7 +91,6 @@ skill:
   3: 3 - Professionel. Connaissance et/ou techniques variées et détaillées.
   4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
   5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
-  title: Compétences
   unskilled:
     mental: "-3 si incompétent"
     physical: "-1 si incompétent"
@@ -119,6 +120,8 @@ skill:
   socialize: Entregent
   streetwise: Expérience de la rue
   subterfuge: Subterfuge
+skills:
+  label: Compétences
 specialty:
   name: Specialité
   title: Specialisations

@@ -6,6 +6,7 @@
 
 {% block body %}
   <div class="container block py-3 mt-5">
+    <a class="float-end" href="{{ path('discipline_edit', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     <h1 class="py-4">{{ discipline.name }}</h1>
     <div class="row">
       <div class="col">
@@ -18,7 +19,8 @@
           <h2 class="pb-2">{{ 'power'|trans({'%count%': discipline.powers|length}, "character") }}</h2>
           <div class="block p-2">
             {% for power in discipline.powers %}
-                <h3>{{ power.levelDots }} {{ power.name }}{% if is_granted('ROLE_ST') %} <a class="text-sub ms-5" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{{ 'edit'|trans({}, "app") }}</a>{% endif %}</h3>
+                <a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+                <h3>{{ power.levelDots }} {{ power.name }}{% if is_granted('ROLE_ST') %}{% endif %}</h3>
                 <p>{{ power.details|markdown_to_html }}</p>
             {% endfor %}
           </div>

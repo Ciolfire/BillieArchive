@@ -111,6 +111,10 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $emblem = $form->get('emblem')->getData();
+      if (!is_null($emblem)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      }
       $this->dataService->save($clan);
 
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
@@ -132,7 +136,10 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $clan->setEmblem($this->dataService->upload($form->get('emblem')->getData(), $this->getParameter('clans_emblems_directory')));
+      $emblem = $form->get('emblem')->getData();
+      if (!is_null($emblem)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      }
       $this->dataService->flush();
 
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);

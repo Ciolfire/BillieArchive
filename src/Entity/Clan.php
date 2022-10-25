@@ -5,13 +5,22 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
+use App\Entity\Translation\ClanTranslation;
+
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
+ * @ORM\Table(name="clan")
  * @ORM\Entity(repositoryClass=ClanRepository::class)
- * 
+ * @Gedmo\TranslationEntity(class="App\Entity\Translation\ClanTranslation")
+ *
  * @ORM\AssociationOverrides({
  *  @ORM\AssociationOverride(name="book", inversedBy="clans")
  * })
@@ -29,11 +38,13 @@ class Clan
   private $id;
 
   /**
+   * @Gedmo\Translatable
    * @ORM\Column(type="string", length=20)
    */
   private $name;
 
   /**
+   * @Gedmo\Translatable
    * @ORM\Column(type="text")
    */
   private $description = "";
@@ -49,11 +60,13 @@ class Clan
   private $disciplines;
 
   /**
+   * @Gedmo\Translatable
    * @ORM\Column(type="text")
    */
   private $short = "";
 
   /**
+   * @Gedmo\Translatable
    * @ORM\Column(type="string", length=100)
    */
   private $keywords;
@@ -109,7 +122,8 @@ class Clan
 
   public function setDescription(string $description): self
   {
-    $this->description = $description;
+    $converter = new HtmlConverter();
+    $this->description = $converter->convert($description);
 
     return $this;
   }
