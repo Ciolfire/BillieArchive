@@ -4,16 +4,21 @@ namespace App\Service;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DataService
 {
   private $doctrine;
   private $manager;
+  private $slugger;
 
-  public function __construct(ManagerRegistry $doctrine)
+  public function __construct(ManagerRegistry $doctrine, SluggerInterface $slugger)
   {
     $this->doctrine = $doctrine;
     $this->manager = $doctrine->getManager();
+    $this->slugger = $slugger;
   }
 
   /**
@@ -61,5 +66,20 @@ class DataService
   {
 
     return  $this->doctrine->getRepository($class)->findAll();
+  }
+
+  public function upload(UploadedFile $file, string $target)
+  {
+    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+    $safeFilename = $this->slugger->slug($originalFilename);
+    $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+    try {
+      $file->move($target, $fileName);
+    } catch (FileException $e) {
+      // ... handle exception if something happens during file upload
+    }
+
+    return $fileName;
   }
 }
