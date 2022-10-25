@@ -20,6 +20,10 @@ framework:
         packages:
             characters:
                 base_path: '/images/characters/'
+            clans:
+                base_path: '/images/clans/'
+            clans_emblems:
+                base_path: '/images/clans/emblems'
             images:
                 base_path: '/images/'
             icons:

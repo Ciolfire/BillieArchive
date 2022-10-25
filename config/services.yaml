@@ -9,6 +9,7 @@ parameters:
   default_locale: 'en'
   upload_directory: '%kernel.project_dir%/public/uploads/'
   characters_directory: '%kernel.project_dir%/public/images/characters'
+  clans_emblems_directory: '%kernel.project_dir%/public/images/clans/emblems'
 
 services:
   # default configuration for services in *this* file
