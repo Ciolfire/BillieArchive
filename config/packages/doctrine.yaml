@@ -11,18 +11,19 @@ doctrine:
         auto_mapping: true
         mappings:
             App:
+                type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
             gedmo_translatable:
-                type: annotation
+                type: attribute
                 prefix: Gedmo\Translatable\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translatable/Entity"
                 alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
                 is_bundle: false
             gedmo_translator:
-                type: annotation
+                type: attribute
                 prefix: Gedmo\Translator\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translator/Entity"
                 alias: GedmoTranslator # (optional) it will default to the name set for the mapping

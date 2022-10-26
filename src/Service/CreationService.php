@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\Character;
 use App\Entity\CharacterMerit;
-use App\Entity\Specialty;
+use App\Entity\CharacterSpecialty;
 use App\Entity\Skill;
 use App\Entity\Merit;
 use Doctrine\Persistence\ManagerRegistry;
@@ -68,7 +68,7 @@ class CreationService
 
         foreach ($skillSpec as $id => $name) {
           $skill = $this->doctrine->getRepository(Skill::class)->findOneBy(['name' => $skill]);
-          $specialty = new Specialty($character, $skill, $name);
+          $specialty = new CharacterSpecialty($character, $skill, $name);
           
           $specialty->setCharacter($character);
           $character->addSpecialty($specialty);
@@ -84,7 +84,7 @@ class CreationService
 
     foreach ($specialties as $specialty) {
       $specialty = $specialty->getData();
-      /** @var Specialty $specialty */
+      /** @var CharacterSpecialty $specialty */
       $specialty->setCharacter($character);
       $character->addSpecialty($specialty);
     }

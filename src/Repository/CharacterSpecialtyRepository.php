@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Specialty;
+use App\Entity\CharacterSpecialty;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Specialty|null find($id, $lockMode = null, $lockVersion = null)
- * @method Specialty|null findOneBy(array $criteria, array $orderBy = null)
- * @method Specialty[]    findAll()
- * @method Specialty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CharacterSpecialty|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CharacterSpecialty|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CharacterSpecialty[]    findAll()
+ * @method CharacterSpecialty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SpecialtyRepository extends ServiceEntityRepository
+class CharacterSpecialtyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Specialty::class);
+        parent::__construct($registry, CharacterSpecialty::class);
     }
 
     // /**
-    //  * @return Specialty[] Returns an array of Specialty objects
+    //  * @return CharacterSpecialty[] Returns an array of CharacterSpecialty objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SpecialtyRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Specialty
+    public function findOneBySomeField($value): ?CharacterSpecialty
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

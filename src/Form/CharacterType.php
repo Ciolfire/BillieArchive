@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 
-use App\Form\SpecialtyType;
+use App\Form\CharacterSpecialtyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -34,9 +34,9 @@ class CharacterType extends AbstractType
       ->add('name')
       ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1], 'required' => false])
       ->add('virtue', null, ['label' => 'virtue.name'])
-      ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail'])
+      ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
       ->add('vice', null, ['label' => 'vice.name'])
-      ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail'])
+      ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
       ->add('chronicle', EntityType::class, [
         'class' => Chronicle::class,
@@ -49,9 +49,9 @@ class CharacterType extends AbstractType
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
       if (!$options['is_edit']) {
-        $builder->add('specialty1', SpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('specialty2', SpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('specialty3', SpecialtyType::class, ['mapped' => false, 'label' => false])
+        $builder->add('specialty1', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
+        ->add('specialty2', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
+        ->add('specialty3', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
         ->add('background', CKEditorType::class , ['label' => false, 'empty_data' => ""]);
       }
   }
