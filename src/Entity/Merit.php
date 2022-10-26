@@ -6,115 +6,70 @@ use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\MeritRepository;
 use App\Entity\Translation\MeritTranslation;
-
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
-
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
-/**
- * @ORM\Table(name="merits")
- * @ORM\Entity(repositoryClass=MeritRepository::class)
- * @Gedmo\TranslationEntity(class="App\Entity\Translation\MeritTranslation")
- * 
- * @ORM\AssociationOverrides({
- *  @ORM\AssociationOverride(name="book", inversedBy="merits")
- * })
- */
-class Merit implements Translatable
+
+#[ORM\Table(name: "merits")]
+#[ORM\Entity(repositoryClass: MeritRepository::class)]
+// #[ORM\AssociationOverrides([
+//   new ORM\AssociationOverride(
+//     name: "book",
+//     inversedBy: "merits"
+//   )
+// ])]
+#[Gedmo\TranslationEntity(class: MeritTranslation::class)]
+class Merit
 {
   use Homebrewable;
   use Sourcable;
 
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @Gedmo\Locale
-   * Used locale to override Translation listener`s locale
-   * this is not a mapped field of entity metadata, just a simple property
-   */
+  #[Gedmo\Locale]
   private $locale;
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="string", length=40)
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "string", length: 40)]
   private $name;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $category;
 
-  /**
-   * @ORM\Column(type="boolean")
-   * @var bool|null
-   */
+  #[ORM\Column(type: "boolean")]
   private $isFighting;
 
-  /**
-   * @ORM\Column(type="boolean")
-   * @var bool|null
-   */
+  #[ORM\Column(type: "boolean")]
   private $isExpanded;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $min = 1;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $max;
 
-  /**
-   * @ORM\Column(type="boolean")
-   * @var bool|null
-   */
+  #[ORM\Column(type: "boolean")]
   private $isUnique;
 
-  /**
-   * @ORM\Column(type="boolean")
-   * @var bool|null
-   */
+  #[ORM\Column(type: "boolean")]
   private $isCreationOnly;
 
-  /**
-   * @ORM\Column(type="json", nullable=true)
-   */
+  #[ORM\Column(type: "json", nullable: true)]
   private $prerequisites = [];
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $effect = "";
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $description;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $type;
 
   public function getId(): ?int

@@ -5,29 +5,19 @@ namespace App\Entity;
 use App\Repository\ViceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ViceRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: ViceRepository::class)]
 class Vice
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int|null
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=8)
-     * @var string|null
-     */
+    #[ORM\Column(type: "string", length: 8)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     * @var string|null
-     */
+    #[ORM\Column(type: "string")]
     private $details;
 
     public function getId(): ?int

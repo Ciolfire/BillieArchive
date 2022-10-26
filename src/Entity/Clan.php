@@ -5,95 +5,61 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
-use App\Entity\Translation\ClanTranslation;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
-
 use League\HTMLToMarkdown\HtmlConverter;
 
-/**
- * @ORM\Table(name="clan")
- * @ORM\Entity(repositoryClass=ClanRepository::class)
- * @Gedmo\TranslationEntity(class="App\Entity\Translation\ClanTranslation")
- *
- * @ORM\AssociationOverrides({
- *  @ORM\AssociationOverride(name="book", inversedBy="clans")
- * })
- */
+
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
+#[ORM\Table(name: "clan")]
+#[ORM\Entity(repositoryClass: ClanRepository::class)]
+// #[ORM\AssociationOverrides([
+//   new ORM\AssociationOverride(
+//     name: "book",
+//     inversedBy: "clans"
+//   ),
+// ])]
 class Clan
 {
   use Sourcable;
   use Homebrewable;
 
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "string", length: 20, nullable: true)]
   private $name;
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $description = "";
 
-  /**
-   * @ORM\ManyToMany(targetEntity=Attribute::class)
-   * @var \Doctrine\Common\Collections\Collection<\Attribute>
-   */
+  #[ORM\ManyToMany(targetEntity: Attribute::class)]
   private $attributes;
 
-  /**
-   * @ORM\ManyToMany(targetEntity=Discipline::class)
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Discipline>
-   */
+  #[ORM\ManyToMany(targetEntity: Discipline::class)]
   private $disciplines;
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $short = "";
 
-  /**
-   * @Gedmo\Translatable
-   * @ORM\Column(type="string", length=100)
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "string", length: 100)]
   private $keywords;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Clan::class, inversedBy="bloodlines")
-   * @var \App\Entity\Clan|null
-   */
+  #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
   private $parentClan;
 
-  /**
-   * @ORM\OneToMany(targetEntity=Clan::class, mappedBy="parentClan")
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Clan>
-   */
+  #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
   private $bloodlines;
 
-  /**
-   * @ORM\Column(type="string", length=255, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 255, nullable: true)]
   private $emblem;
 
   public function __construct()
@@ -241,9 +207,6 @@ class Clan
       return $this;
   }
 
-  /**
-   * @return Collection|self[]
-   */
   public function getBloodlines(): Collection
   {
       return $this->bloodlines;

@@ -6,60 +6,41 @@ use App\Entity\Vampire;
 use App\Repository\DisciplinePowerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=DisciplinePowerRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
 class DisciplinePower
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="string", length=50, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
   private $name;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="powers")
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Discipline|null
-   */
+
+  #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: "powers")]
+  #[ORM\JoinColumn(nullable: false)]
   private $discipline;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Attribute::class, fetch="EAGER"))
-   * @var \App\Entity\Attribute|null
-   */
+
+  #[ORM\ManyToOne(targetEntity: Attribute::class, fetch: "EAGER")]
   private $attribute;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Skill::class, fetch="EAGER"))
-   * @var \App\Entity\Skill|null
-   */
+
+  #[ORM\ManyToOne(targetEntity: Skill::class, fetch: "EAGER")]
   private $skill;
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+
+  #[ORM\Column(type: "text")]
   private $short = "";
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+
+  #[ORM\Column(type: "text")]
   private $details;
 
-  /**
-   * @ORM\Column(type="smallint", nullable=true)
-   * @var int|null
-   */
+
+  #[ORM\Column(type: "smallint", nullable: true)]
   private $level;
 
   public function __construct($discipline, $level)
@@ -169,7 +150,6 @@ class DisciplinePower
 
   public function dicePool(Vampire $character)
   {
-    // dd($character->getDisciplines(), $this);
     $discipline = $character->getDisciplines()->filter(function($element) {
       if ($element->getDiscipline() == $this->discipline) {
         return $element;

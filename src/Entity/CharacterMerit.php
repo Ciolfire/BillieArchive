@@ -5,48 +5,30 @@ namespace App\Entity;
 use App\Repository\CharacterMeritRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CharacterMeritRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: CharacterMeritRepository::class)]
 class CharacterMerit
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Merit::class)
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Merit|null
-   */
+  #[ORM\ManyToOne(targetEntity: Merit::class)]
+  #[ORM\JoinColumn(nullable: false)]
   private $merit;
 
-  /**
-   * @ORM\Column(type="string", length=255, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 255, nullable: true)]
   private $choice;
 
-  /**
-   * @ORM\Column(type="json", nullable=true)
-   */
+  #[ORM\Column(type: "json", nullable: true)]
   private $details = [];
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $level;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="merits", cascade={"persist"})
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Character|null
-   */
+  #[ORM\ManyToOne(targetEntity: Character::class, inversedBy: "merits", cascade: ["persist"])]
+  #[ORM\JoinColumn(nullable: false)]
   private $character;
 
   public function getId(): ?int

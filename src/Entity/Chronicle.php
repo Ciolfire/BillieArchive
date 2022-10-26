@@ -7,47 +7,28 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ChronicleRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: ChronicleRepository::class)]
 class Chronicle
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="string", length=255)
-   * @var string|null
-   */
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
   private $name;
 
-  /**
-   * @ORM\OneToMany(targetEntity=Character::class, mappedBy="chronicle")
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Character>
-   */
+  #[ORM\OneToMany(targetEntity:Character::class, mappedBy: "chronicle")]
   private $characters;
 
-  /**
-   * @ORM\ManyToMany(targetEntity=User::class, mappedBy="chronicles")
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\User>
-   */
+  #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "chronicles")]
   private $players;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stories")
-   * @var \App\Entity\User|null
-   */
+  #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "stories")]
   private $storyteller;
 
-  /**
-   * @ORM\Column(type="string", length=50)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 50)]
   private $type;
 
   public function __construct()
@@ -78,9 +59,6 @@ class Chronicle
     return $this;
   }
 
-  /**
-   * @return Collection|Character[]
-   */
   public function getCharacters(): Collection
   {
     return $this->characters;
@@ -108,9 +86,6 @@ class Chronicle
     return $this;
   }
 
-  /**
-   * @return Collection|User[]
-   */
   public function getPlayers(): Collection
   {
     return $this->players;

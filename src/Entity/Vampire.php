@@ -8,54 +8,32 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @ORM\Entity(repositoryClass=VampireRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string", length=50)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 50)]
   private $sire;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $apparentAge;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Clan::class)
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Clan|null
-   */
+  #[ORM\ManyToOne(targetEntity: Clan::class)]
+  #[ORM\JoinColumn(nullable: false)]
   private $clan;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $potency = 1;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $vitae = 1;
 
-  /**
-   * @ORM\OneToMany(targetEntity=VampireDiscipline::class, mappedBy="character", orphanRemoval=true, fetch="EAGER"))
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\VampireDiscipline>
-   */
+  #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true, fetch: "EAGER")]
   private $disciplines;
 
   protected $limit = 5;
@@ -157,9 +135,6 @@ class Vampire extends Character
     return $this;
   }
 
-  /**
-   * @return Collection|VampireDiscipline[]
-   */
   public function getDisciplines(): Collection
   {
     return $this->disciplines;

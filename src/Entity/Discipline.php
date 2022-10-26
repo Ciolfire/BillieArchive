@@ -8,61 +8,41 @@ use App\Repository\DisciplineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Length;
 
-/**
- * @ORM\Entity(repositoryClass=DisciplineRepository::class)
- * 
- * @ORM\AssociationOverrides({
- *  @ORM\AssociationOverride(name="book", inversedBy="disciplines")
- * })
- */
+
+// #[ORM\AssociationOverrides([
+//   new ORM\AssociationOverride(
+//     name: "book",
+//     inversedBy: "disciplines"
+//   ),
+// ])]
+#[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 class Discipline
 {
   use Homebrewable;
   use Sourcable;
 
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="string", length=50)
-   * @var string|null
-   */
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
   private $name;
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  #[ORM\Column(type: "text")]
   private $description;
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
-  private $short = "";
+  #[ORM\Column(type: "text")]
+  private $short =  "";
 
-  /**
-   * @ORM\Column(type="boolean")
-   */
-  private $isRestricted = 1;
+  #[ORM\Column(type: "boolean")]
+  private $isRestricted =  1;
 
-  /**
-   * @ORM\Column(type="text", nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "text", nullable: true)]
   private $rules = "";
 
-  /**
-   * @ORM\OneToMany(targetEntity=DisciplinePower::class, mappedBy="discipline", orphanRemoval=true, fetch="EAGER"))
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\DisciplinePower>
-   */
+  #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
   private $powers;
 
   public function __construct()

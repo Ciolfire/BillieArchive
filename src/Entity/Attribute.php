@@ -5,68 +5,40 @@ namespace App\Entity;
 use App\Repository\AttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
-use App\Entity\Translation\AttributeTranslation;
 use League\HTMLToMarkdown\HtmlConverter;
 
-/**
- * @ORM\Entity(repositoryClass=AttributeRepository::class)
- * @Gedmo\TranslationEntity(class="App\Entity\Translation\AttributeTranslation")
- */
-class Attribute implements Translatable
+
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\AttributeTranslation")]
+#[ORM\Entity(repositoryClass: AttributeRepository::class)]
+class Attribute
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $identifier;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $category;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $type;
 
-  /**
-   * @Gedmo\Locale
-   * Used locale to override Translation listener`s locale
-   * this is not a mapped field of entity metadata, just a simple property
-   */
+  #[Gedmo\Locale]
   private $locale;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "string", length: 20)]
   private $name;
 
-  /**
-   * @ORM\Column(type="text"))
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $description;
 
-  /**
-   * @ORM\Column(type="text")
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
   private $fluff;
 
   public function __toString()

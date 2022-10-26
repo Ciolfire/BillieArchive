@@ -8,173 +8,102 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use League\HTMLToMarkdown\HtmlConverter;
 
-/**
- * @ORM\Entity(repositoryClass=CharacterRepository::class)
- * @ORM\Table(name="characters")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- */
+
+#[ORM\Entity(repositoryClass: CharacterRepository::class)]
+#[ORM\Table(name: "characters")]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+// Probably not needed
+#[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
 class Character
 {
-  // Probably not needed
-  //  * @ORM\DiscriminatorMap({"human" = "Human", "vampire" = "Vampire", "mage" = "Mage", "werewolf" = "Werewolf"})
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string", length=50, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 50, nullable: true)]
   protected $name;
 
-  /**
-   * @ORM\OneToOne(targetEntity=CharacterAttributes::class, inversedBy="character", cascade={"persist", "remove"})
-   * @var \App\Entity\CharacterAttributes|null
-   */
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"])]
   protected $attributes;
 
-  /**
-   * @ORM\OneToOne(targetEntity=CharacterSkills::class, inversedBy="character", cascade={"persist", "remove"})
-   * @var \App\Entity\CharacterSkills|null
-   */
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"])]
   protected $skills;
 
-  /**
-   * @ORM\OneToMany(targetEntity=Specialty::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\Specialty>
-   */
+  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected $specialties;
 
-  /**
-   * @ORM\Column(type="integer", nullable=true, options={"unsigned":true})
-   * @var int|null
-   */
+  #[ORM\Column(type: "integer", nullable: true, options: ["unsigned" => true])]
   protected $age;
 
-  /**
-   * @ORM\Column(type="string", length=50, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 50, nullable: true)]
   protected $concept;
 
-  /**
-   * @ORM\Column(type="string", length=25, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 25, nullable: true)]
   protected $faction;
 
-  /**
-   * @ORM\Column(type="string", length=25, nullable=true)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 25, nullable: true)]
   protected $groupName;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   protected $willpower = 0;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Virtue::class)
-   * @var \App\Entity\Virtue|null
-   */
+  #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected $virtue;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Vice::class)
-   * @var \App\Entity\Vice|null
-   */
+  #[ORM\ManyToOne(targetEntity: Vice::class)]
   protected $vice;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   protected $moral = 7;
 
-  /**
-   * @ORM\Column(type="json", nullable=true)
-   */
+  #[ORM\Column(type: "json", nullable: true)]
   protected $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   protected $size = 5;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   protected $currentWillpower = 0;
 
-  /**
-   * @ORM\OneToMany(targetEntity=CharacterMerit::class, mappedBy="character", orphanRemoval=true, cascade={"persist"})
-   * @var \Doctrine\Common\Collections\Collection<\App\Entity\CharacterMerit>
-   */
+  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected $merits;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  
+  #[ORM\Column(type: "smallint")]
   protected $xpTotal = 0;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  
+  #[ORM\Column(type: "smallint")]
   protected $xpUsed = 0;
 
   protected $limit = 5;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=User::class, inversedBy="characters")
-   * @var \App\Entity\User|null
-   */
+  #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
   private $player;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Chronicle::class, inversedBy="characters")
-   * @var \App\Entity\Chronicle|null
-   */
+  #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
   private $chronicle;
 
-  /**
-   * @ORM\Column(type="boolean")
-   * @var bool|null
-   */
+  
+  #[ORM\Column(type: "boolean")]
   private $isNpc;
 
-  /**
-   * @ORM\Column(type="string", length=50, nullable=true)
-   * @var string|null
-   */
+  
+  #[ORM\Column(type: "string", length: 50, nullable: true)]
   private $virtueDetail;
 
-  /**
-   * @ORM\Column(type="string", length=50, nullable=true)
-   * @var string|null
-   */
+  
+  #[ORM\Column(type: "string", length: 50, nullable: true)]
   private $viceDetail;
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  
+  #[ORM\Column(type: "text")]
   private $background = "";
 
-  /**
-   * @ORM\Column(type="text")
-   * @var string|null
-   */
+  
+  #[ORM\Column(type: "text")]
   private $notes = "";
 
   public function __construct()
@@ -299,23 +228,17 @@ class Character
     return $this;
   }
 
-  /**
-   * @return Collection|Specialty[]
-   */
   public function getSpecialties(): Collection
   {
     return $this->specialties;
   }
 
-  /**
-   * @return array|Specialty[]
-   */
   public function getSkillSpecialties($filter): array
   {
     $result = [];
     foreach ($this->specialties as $specialty) {
-      /** @var Specialty $specialty */
-      if ($filter == $specialty->getSkill()->getName()) {
+      /** @var CharacterSpecialty $specialty */
+      if ($filter == $specialty->getSkill()->getIdentifier()) {
         $result[] = $specialty;
       }
     }
@@ -323,7 +246,7 @@ class Character
     return $result;
   }
 
-  public function addSpecialty(Specialty $specialty): self
+  public function addSpecialty(CharacterSpecialty $specialty): self
   {
     if (!$this->specialties->contains($specialty)) {
       $this->specialties[] = $specialty;
@@ -332,7 +255,7 @@ class Character
     return $this;
   }
 
-  public function removeSpecialty(Specialty $specialty): self
+  public function removeSpecialty(CharacterSpecialty $specialty): self
   {
     if ($this->specialties->removeElement($specialty)) {
     }

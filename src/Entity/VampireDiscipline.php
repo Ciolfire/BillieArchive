@@ -5,37 +5,24 @@ namespace App\Entity;
 use App\Repository\VampireDisciplineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=VampireDisciplineRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: VampireDisciplineRepository::class)]
 class VampireDiscipline
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Discipline::class)
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Discipline|null
-   */
+  #[ORM\ManyToOne(targetEntity: Discipline::class)]
+  #[ORM\JoinColumn(nullable: false)]
   private $discipline;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Vampire::class, inversedBy="disciplines",cascade={"persist"})
-   * @ORM\JoinColumn(nullable=false)
-   * @var \App\Entity\Vampire|null
-   */
+  #[ORM\ManyToOne(targetEntity: Vampire::class, inversedBy: "disciplines",cascade: ["persist"])]
+  #[ORM\JoinColumn(nullable: false)]
   private $character;
 
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint")]
   private $level = 1;
 
   public function __construct(Vampire $character, Discipline $discipline, int $level)

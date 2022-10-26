@@ -6,16 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Book;
 
 trait Sourcable {
-  /**
-   * @ORM\ManyToOne(targetEntity=Book::class)
-   * @var \App\Entity\Book|null
-   */
+  #[ORM\ManyToOne(targetEntity: Book::class)]
   protected $book;
 
-  /**
-   * @ORM\Column(type="smallint", nullable=true)
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", nullable: true)]
   protected $page;
 
   public function getBook(): ?Book

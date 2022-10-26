@@ -5,54 +5,33 @@ namespace App\Entity;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
-use App\Entity\Translation\SkillTranslation;
 
-/**
- * @ORM\Entity(repositoryClass=SkillRepository::class)
- * @Gedmo\TranslationEntity(class="App\Entity\Translation\SkillTranslation")
- */
-class Skill implements Translatable
+
+#[ORM\Entity(repositoryClass: SkillRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\SkillTranslation")]
+class Skill
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $identifier;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "string", length: 20)]
   private $name;
 
-  /**
-   * @ORM\Column(type="string", length=20)
-   * @var string|null
-   */
+  #[ORM\Column(type: "string", length: 20)]
   private $category;
 
-  /**
-   * @ORM\Column(type="text", nullable=true)
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text", nullable: true)]
   private $description;
 
-  /**
-   * @ORM\Column(type="text", nullable=true)
-   * @Gedmo\Translatable
-   * @var string|null
-   */
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text", nullable: true)]
   private $fluff;
 
   public function __toString()

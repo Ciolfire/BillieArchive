@@ -3,11 +3,10 @@
 namespace App\Entity\Traits;
 
 use App\Entity\Chronicle;
+use Doctrine\ORM\Mapping as ORM;
 
 trait Homebrewable {
-  /**
-   * @ORM\ManyToOne(targetEntity=Chronicle::class)
-   */
+  #[ORM\ManyToOne(targetEntity: Chronicle::class)]
   private $homebrewFor;
 
   public function getHomebrewFor(): ?Chronicle

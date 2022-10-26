@@ -5,29 +5,19 @@ namespace App\Entity;
 use App\Repository\VirtueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=VirtueRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: VirtueRepository::class)]
 class Virtue
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int|null
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=10)
-     * @var string|null
-     */
+    #[ORM\Column(type: "string", length: 10)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     * @var string|null
-     */
+    #[ORM\Column(type: "string")]
     private $details;
 
     public function getId(): ?int

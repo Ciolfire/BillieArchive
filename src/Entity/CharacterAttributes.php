@@ -5,78 +5,44 @@ namespace App\Entity;
 use App\Repository\CharacterAttributesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CharacterAttributesRepository::class)
- * @ORM\Table(name="characters_attributes")
- */
+
+#[ORM\Entity(repositoryClass: CharacterAttributesRepository::class)]
+#[ORM\Table(name: "characters_attributes")]
 class CharacterAttributes
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @var int|null
-   */
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $intelligence = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $wits = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $resolve = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $strength = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $dexterity = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $stamina = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $presence = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $manipulation = 1;
 
-  /**
-   * @ORM\Column(type="smallint", options={"unsigned":true, "default":1})
-   * @var int|null
-   */
+  #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected $composure = 1;
 
-  /**
-   * @ORM\OneToOne(targetEntity=Character::class, mappedBy="attributes")
-   * @var \App\Entity\Character|null
-   */
+  #[ORM\OneToOne(targetEntity: Character::class, mappedBy: "attributes")]
   protected $character;
 
   public function __construct()
