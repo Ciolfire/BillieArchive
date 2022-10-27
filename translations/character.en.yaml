@@ -77,6 +77,7 @@ wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
 
 merit:
+  count: "{0}No Merit|{1}1 Merit|]1,Inf[%count% Merits"
   creation: Spend 7 dots
   improve: Improve an owned Merit
   new: Buy a new Merit

@@ -78,6 +78,7 @@ wound:
   penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
 
 merit:
+  count: "{0}Aucun Atout|{1}1 Atout|]1,Inf[%count% Atouts"
   creation: 7 points à dépenser
   improve: Améliorer un Atout existant
   new: Acheter un nouvel Atout

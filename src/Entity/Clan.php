@@ -179,7 +179,7 @@ class Clan
   public function isFavored(Discipline $discipline): bool
   {
     if ($this->disciplines->contains($discipline)) {
-    
+
       return true;
     }
 
@@ -189,7 +189,7 @@ class Clan
   public function isBloodline(): ?bool
   {
     if ($this->parentClan == null) {
-      
+
       return true;
     }
     return false;
@@ -197,52 +197,52 @@ class Clan
 
   public function getParentClan(): ?self
   {
-      return $this->parentClan;
+    return $this->parentClan;
   }
 
   public function setParentClan(?self $parentClan): self
   {
-      $this->parentClan = $parentClan;
+    $this->parentClan = $parentClan;
 
-      return $this;
+    return $this;
   }
 
   public function getBloodlines(): Collection
   {
-      return $this->bloodlines;
+    return $this->bloodlines;
   }
 
   public function addBloodline(self $bloodline): self
   {
-      if (!$this->bloodlines->contains($bloodline)) {
-          $this->bloodlines[] = $bloodline;
-          $bloodline->setParentClan($this);
-      }
+    if (!$this->bloodlines->contains($bloodline)) {
+      $this->bloodlines[] = $bloodline;
+      $bloodline->setParentClan($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeBloodline(self $bloodline): self
   {
-      if ($this->bloodlines->removeElement($bloodline)) {
-          // set the owning side to null (unless already changed)
-          if ($bloodline->getParentClan() === $this) {
-              $bloodline->setParentClan(null);
-          }
+    if ($this->bloodlines->removeElement($bloodline)) {
+      // set the owning side to null (unless already changed)
+      if ($bloodline->getParentClan() === $this) {
+        $bloodline->setParentClan(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   public function getEmblem(): ?string
   {
-      return $this->emblem;
+    return $this->emblem;
   }
 
   public function setEmblem(?string $emblem): self
   {
-      $this->emblem = $emblem;
+    $this->emblem = $emblem;
 
-      return $this;
+    return $this;
   }
 }

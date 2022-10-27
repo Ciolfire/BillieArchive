@@ -35,6 +35,9 @@ class Book
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
   private $setting;
 
+  #[ORM\Column(type: "string", length: 255, nullable: true)]
+  private $cover;
+
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
   private $merits;
 
@@ -133,6 +136,17 @@ class Book
     return $this;
   }
 
+  public function getCover(): ?string
+  {
+      return $this->cover;
+  }
+
+  public function setCover(?string $cover): self
+  {
+      $this->cover = $cover;
+
+      return $this;
+  }
 
   public function getMerits(): Collection
   {

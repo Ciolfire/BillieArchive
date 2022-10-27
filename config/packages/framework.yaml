@@ -18,14 +18,16 @@ framework:
         log: true
     assets:
         packages:
+            images:
+                base_path: '/images/'
+            books:
+                base_path: '/images/books/'
             characters:
                 base_path: '/images/characters/'
             clans:
                 base_path: '/images/clans/'
             clans_emblems:
-                base_path: '/images/clans/emblems'
-            images:
-                base_path: '/images/'
+                base_path: '/images/clans/emblems/'
             icons:
                 base_path: '/icons/'
 when@test:
