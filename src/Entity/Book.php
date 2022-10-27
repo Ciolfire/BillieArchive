@@ -47,8 +47,9 @@ class Book
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
   private $disciplines;
 
-  public function __construct()
+  public function __construct($setting="human")
   {
+    $this->setting = $setting;
     $this->clans = new \Doctrine\Common\Collections\ArrayCollection();
     $this->disciplines = new \Doctrine\Common\Collections\ArrayCollection();
     $this->merits = new ArrayCollection();
@@ -169,6 +170,88 @@ class Book
       // set the owning side to null (unless already changed)
       if ($merit->getBook() === $this) {
         $merit->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getClans(): Collection
+  {
+    return $this->clans;
+  }
+
+  public function getParentClans(): array
+  {
+    $clans = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if (is_null($clan->getParentClan())) {
+
+        $clans[] = $clan;
+      }
+    }
+    return $clans;
+  }
+
+  public function getBloodlines(): array
+  {
+    $bloodlines = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if (!is_null($clan->getParentClan())) {
+
+        $bloodlines[] = $clan;
+      }
+    }
+    return $bloodlines;
+  }
+
+  public function addClan(Clan $clan): self
+  {
+    if (!$this->clans->contains($clan)) {
+      $this->clans[] = $clan;
+      $clan->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeClan(Clan $clan): self
+  {
+    if ($this->clans->removeElement($clan)) {
+      // set the owning side to null (unless already changed)
+      if ($clan->getBook() === $this) {
+        $clan->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getDisciplines(): Collection
+  {
+    return $this->disciplines;
+  }
+
+  public function addDiscipline(Discipline $discipline): self
+  {
+    if (!$this->disciplines->contains($discipline)) {
+      $this->disciplines[] = $discipline;
+      $discipline->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeDiscipline(Discipline $discipline): self
+  {
+    if ($this->disciplines->removeElement($discipline)) {
+      // set the owning side to null (unless already changed)
+      if ($discipline->getBook() === $this) {
+        $discipline->setBook(null);
       }
     }
 

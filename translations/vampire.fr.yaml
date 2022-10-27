@@ -1,9 +1,16 @@
 clan:
   label: Clan
+  count: "{0}Aucun Clan|{1}1 Clan|]1,Inf[%count% Clans"
+  bloodline:
+    label: Lignée
+    count: "{0}Aucune Lignée|{1}1 Lignée|]1,Inf[%count% Lignées"
+  bloodlines:
+    label: Lignées
 clans:
   label: Clans
 discipline:
   label: Discipline
+  count: "{0}Aucune Discipline|{1}1 Discipline|]1,Inf[%count% Disciplines"
   level:
     single: • à •••••
   new: Nouvelle discipline

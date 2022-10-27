@@ -3,15 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Attribute;
-use App\Entity\Book;
 use App\Entity\Skill;
 use App\Form\AttributeType;
-use App\Form\BookType;
 use App\Form\SkillType;
-use App\Repository\AttributeRepository;
-use App\Repository\SkillRepository;
 use App\Service\DataService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,42 +27,6 @@ class WikiController extends AbstractController
   {
     return $this->render('wiki/index.html.twig', [
       'type' => 'human',
-    ]);
-  }
-
-  #[Route('/books/{setting}', name: 'book_index', methods: ['GET'])]
-  public function books($setting="human"): Response
-  {
-    
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting]),
-      'entity' => 'book',
-      'category' => 'character',
-      'type' => $setting,
-    ]);
-  }
-
-  #[Route('/book/{id}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
-  public function bookEdit(Request $request, Book $book): Response
-  {
-    $this->denyAccessUnlessGranted('ROLE_ST');
-    
-    $form = $this->createForm(BookType::class, $book);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $cover = $form->get('cover')->getData();
-      if (!is_null($cover)) {
-        $book->setCover($this->dataService->upload($cover, $this->getParameter('books_cover_directory')));
-      }
-      $this->dataService->flush();
-
-      return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->renderForm('wiki/edit.html.twig', [
-      'entity' => 'book',
-      'form' => $form,
     ]);
   }
 

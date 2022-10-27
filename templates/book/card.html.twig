@@ -1,5 +1,5 @@
 
-<div id="{{ book.name }}" class="col-12 col-lg-3 block block-wiki">
+<div id="{{ book.name }}" class="col-12 col-md-6 col-lg-4 col-xl-3 block block-wiki">
   {% if is_granted('ROLE_ST') %}
     <a class="float-end" href="{{ path(entity ~ '_edit', {'id': book.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
   {% endif %}
@@ -8,6 +8,6 @@
     <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
   {% endif %}
   <p class="text-center">{{ "merit.count"|trans({'%count%': book.merits|length}, 'character') }}</p>
-  {% include "book/card/"~ book.setting ~".html.twig" %}
+  {% include "book/details/"~ book.setting ~".html.twig" %}
   <h4>{{ book.releasedAt|date('M Y') }}</h4>
 </div>

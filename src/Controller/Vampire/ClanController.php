@@ -26,40 +26,6 @@ class ClanController extends AbstractController
     $this->dataService = $dataService;
     $this->service = $service;
   }
-  #[Route('/bloodline/new', name: 'vampire_bloodline_new', methods: ['GET'])]
-  public function bloodlineNew(): Response
-  {
-    return $this->render('vampire/bloodline/new.html.twig', [
-      'type' => 'vampire',
-    ]);
-  }
-
-  #[Route('{id}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
-  public function bloodlineJoin(Request $request, Vampire $vampire): Response
-  {
-    /** @var User $user */
-    $user = $this->getUser();
-    if ($vampire->getPlayer() != $this->getUser() && ($vampire->getChronicle() && $vampire->getChronicle()->getStoryteller() != $this->getUser())) {
-      $this->addFlash('notice', 'You are not allowed to see this character');
-      return $this->redirectToRoute('character_index');
-    }
-
-    // Form submited
-    if ($request->request->get('bloodline')) {
-      $vampire->setClan($this->dataService->find(Clan::class, $request->request->get('bloodline')));
-      $this->dataService->flush();
-
-      return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
-    }
-
-    $bloodlines = $this->dataService->findBy(Clan::class, ['parentClan' => $vampire->getClan()]);
-
-    return $this->render('vampire/bloodline/join.html.twig', [
-      'vampire' => $vampire,
-      'bloodlines' => $bloodlines,
-      'type' => 'vampire',
-    ]);
-  }
 
   #[Route('/clans', name: 'clan_index', methods: ['GET'])]
   public function clans(): Response
@@ -122,6 +88,41 @@ class ClanController extends AbstractController
     return $this->renderForm('wiki/edit.html.twig', [
       'entity' => 'clan',
       'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/bloodline/new', name: 'vampire_bloodline_new', methods: ['GET'])]
+  public function bloodlineNew(): Response
+  {
+    return $this->render('vampire/bloodline/new.html.twig', [
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('{id}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
+  public function bloodlineJoin(Request $request, Vampire $vampire): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    if ($vampire->getPlayer() != $this->getUser() && ($vampire->getChronicle() && $vampire->getChronicle()->getStoryteller() != $this->getUser())) {
+      $this->addFlash('notice', 'You are not allowed to see this character');
+      return $this->redirectToRoute('character_index');
+    }
+
+    // Form submited
+    if ($request->request->get('bloodline')) {
+      $vampire->setClan($this->dataService->find(Clan::class, $request->request->get('bloodline')));
+      $this->dataService->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    $bloodlines = $this->dataService->findBy(Clan::class, ['parentClan' => $vampire->getClan()]);
+
+    return $this->render('vampire/bloodline/join.html.twig', [
+      'vampire' => $vampire,
+      'bloodlines' => $bloodlines,
       'type' => 'vampire',
     ]);
   }
