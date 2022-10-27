@@ -191,9 +191,7 @@ class CharacterAttributes
   public function setWillpower(int $difference): self
   {
     $this->character->setWillpower($this->character->getWillpower() + $difference);
-    if ($difference > 0) {
-      $this->character->setCurrentWillpower($this->character->getCurrentWillpower() + $difference);
-    }
+
     return $this;
   }
 }

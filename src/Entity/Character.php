@@ -219,10 +219,6 @@ class Character
 
   public function addAttribute(string $attribute, int $value)
   {
-    if ($attribute == 'composure' || $attribute == 'calme') {
-      $this->willpower++;
-      $this->currentWillpower++;
-    }
     $this->attributes->set($attribute, $this->attributes->get($attribute) + $value);
 
     return $this;
@@ -270,11 +266,15 @@ class Character
 
   public function setWillpower(int $willpower): self
   {
-    if ($willpower > $this->willpower) {
-      $this->currentWillpower += $willpower - $this->willpower;
-    }
+    $change = $willpower - $this->willpower;
     $this->willpower = $willpower;
-
+    // Max value of current Will
+    if ($change < 0) {
+      $this->currentWillpower = min($willpower, $this->currentWillpower);
+    } else {
+      $this->currentWillpower = min($willpower, $this->currentWillpower + $change);
+    }
+    
     return $this;
   }
 
