@@ -172,28 +172,6 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('/{id}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
-  public function embrace(Request $request, Character $character, EntityManagerInterface $entityManager): Response
-  {
-    $clans = $this->doctrine->getRepository(Clan::class)->findBy(['parentClan' => null]);
-    $attributes = $this->doctrine->getRepository(Attribute::class)->findAll();
-    $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
-    $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
-    $form->handleRequest($request);
-    
-    if ($form->isSubmitted() && $form->isValid()) {
-      $this->vService->embrace($character, $form);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-    return $this->renderForm('vampire/embrace/sheet.html.twig', [
-      'character' => $character,
-      'clans' => $clans,
-      'disciplines' => $disciplines,
-      'form' => $form,
-      'type' => "vampire",
-    ]);
-  }
-
   #[Route('/{id}/background', name: 'character_background', methods: ['GET', 'POST'])]
   public function background(Request $request, Character $character): Response
   {

@@ -6,6 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Book;
 use App\Entity\Skill;
 use App\Form\AttributeType;
+use App\Form\BookType;
 use App\Form\SkillType;
 use App\Repository\AttributeRepository;
 use App\Repository\SkillRepository;
@@ -47,22 +48,26 @@ class WikiController extends AbstractController
   }
 
   #[Route('/book/{id}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
-  public function bookEdit(Request $request, Book $attribute): Response
+  public function bookEdit(Request $request, Book $book): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
-    // $form = $this->createForm(AttributeType::class, $attribute);
-    // $form->handleRequest($request);
+    $form = $this->createForm(BookType::class, $book);
+    $form->handleRequest($request);
 
-    // if ($form->isSubmitted() && $form->isValid()) {
-      // $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+      $cover = $form->get('cover')->getData();
+      if (!is_null($cover)) {
+        $book->setCover($this->dataService->upload($cover, $this->getParameter('books_cover_directory')));
+      }
+      $this->dataService->flush();
 
-      // return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
-    // }
+      return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
+    }
 
     return $this->renderForm('wiki/edit.html.twig', [
-      'entity' => 'attribute',
-      // 'form' => $form,
+      'entity' => 'book',
+      'form' => $form,
     ]);
   }
 
