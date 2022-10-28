@@ -126,9 +126,10 @@ skill:
 skills:
   label: Compétences
 specialty:
-  name: Specialité
-  title: Specialisations
+  label: Specialité
   creation: Choisissez trois spécialités de votre choix.
+specialties:
+  label: Specialisations
 
 xp:
   add: Choisissez le nombre de points d'experience à attribuer au personnage.
