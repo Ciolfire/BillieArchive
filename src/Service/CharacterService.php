@@ -74,15 +74,18 @@ class CharacterService
 
   public function updateLogs(Character $character, $logs, $isFree) {
     $logs = json_decode($logs);
-    foreach ($logs as $value) {
-      $value->timestamp = time();
-      if ($isFree) {
+    if ($isFree) {
+      foreach ($logs as $value) {
         $value->info->cost = 0;
       }
     }
     $logs = json_decode(json_encode($logs), true);
+    $time = time();
+    $logs = ["{$time}" => $logs];
     $oldlogs = $character->getExperienceLogs();
-    $logs = array_merge($oldlogs, $logs);
+    if (!empty($oldlogs)) {
+      $logs = $oldlogs + $logs;
+    }
     $character->setExperienceLogs($logs);
   }
 

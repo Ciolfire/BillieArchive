@@ -147,9 +147,9 @@ class CharacterController extends AbstractController
       }
       if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
         $character->spendXp($extraData['xp']['spend']);
-        $isFree = true;
-      } else {
         $isFree = false;
+      } else {
+        $isFree = true;
       }
       $this->service->updateLogs($character, $extraData['xpLogs'], $isFree);
       $this->dataService->flush();
