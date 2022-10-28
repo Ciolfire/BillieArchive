@@ -5,6 +5,8 @@ add: Add
 all: All
 creation: Character creation only.
 hide: Hide
+logs: Logs
+
 mental: Mental
 physical: Physical
 social: Social

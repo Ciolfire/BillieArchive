@@ -74,19 +74,24 @@ class CharacterService
 
   public function updateLogs(Character $character, $logs, $isFree) {
     $logs = json_decode($logs);
-    if ($isFree) {
-      foreach ($logs as $value) {
-        $value->info->cost = 0;
+    foreach ($logs as $key => $entry) {
+      if (is_null($entry)) {
+        unset($logs->$key);
+      } else if ($isFree) {
+        $entry->info->cost = 0;
       }
     }
     $logs = json_decode(json_encode($logs), true);
-    $time = time();
-    $logs = ["{$time}" => $logs];
-    $oldlogs = $character->getExperienceLogs();
-    if (!empty($oldlogs)) {
-      $logs = $oldlogs + $logs;
+    // We only handle it if something has changed
+    if (!empty($logs)) {
+      $time = time();
+      $logs = ["{$time}" => $logs];
+      $oldlogs = $character->getExperienceLogs();
+      if (!empty($oldlogs)) {
+        $logs = $logs + $oldlogs;
+      }
+      $character->setExperienceLogs($logs);
     }
-    $character->setExperienceLogs($logs);
   }
 
   public function updateTrait(Character $character, $data)

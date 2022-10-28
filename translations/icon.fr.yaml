@@ -5,6 +5,8 @@ add: Ajouter
 all: Tous
 creation: Création uniquement
 hide: Cacher
+logs: Historique
+
 mental: Mental
 physical: Physique
 social: Social

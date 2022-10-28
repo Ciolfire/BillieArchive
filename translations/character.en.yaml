@@ -129,8 +129,9 @@ specialty:
 
 xp:
   add: Input how many points to award the character
-  free: Free ?
   details.none: Nothing to change
+  free: Free
+  log: History of spent points
   save: Confirm
 
 

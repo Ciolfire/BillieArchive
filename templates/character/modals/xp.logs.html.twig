@@ -1,0 +1,27 @@
+{% trans_default_domain 'character' %}
+
+<div class="modal fade" id="xpLogsModal" tabindex="-1" aria-labelledby="xpLogsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h5 class="modal-title text-sub" id="xpLogsModalLabel">{{'xp.log'|trans }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% for timestamp, entry in logs %}
+          <p>
+            <span class="ok">{{ timestamp|date()|format_datetime(pattern="d MMM y, hh:mm", locale=app.request.locale) }}</span>
+            <br>
+            {% for key, logs in entry %}
+              <span class="ko">{{ (logs.type~".label")|trans}}</span> ― {{ key }} ― {{ logs.info.min }} ➔ {{ logs.info.value }} ({% if logs.info.cost > 0 %}{{ logs.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <br>
+            {% endfor %}
+          </p>
+          <hr>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

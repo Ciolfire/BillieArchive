@@ -130,8 +130,9 @@ specialty:
 
 xp:
   add: Choisissez le nombre de points d'experience à attribuer au personnage.
-  free: Gratuit ?
   details.none: Aucun changement
+  free: Gratuit
+  log: Historique des dépenses
   save: Valider
 
 power: "{0}Aucun pouvoir|{1}Pouvoir|]1,Inf[Pouvoirs"
