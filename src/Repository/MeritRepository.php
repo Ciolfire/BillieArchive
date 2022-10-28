@@ -14,15 +14,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MeritRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Merit::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Merit::class);
+  }
 
-    // /**
-    //  * @return Merit[] Returns an array of Merit objects
-    //  */
-    /*
+  public function findAll()
+  {
+    return $this->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
+  }
+
+
+  // /**
+  //  * @return Merit[] Returns an array of Merit objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
@@ -36,7 +42,7 @@ class MeritRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Merit
     {
         return $this->createQueryBuilder('m')

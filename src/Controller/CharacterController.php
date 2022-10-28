@@ -121,7 +121,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, Character $character, EntityManagerInterface $entityManager): Response
+  public function edit(Request $request, Character $character): Response
   {
 
     $merits = $this->service->filterMerits($character, false);
