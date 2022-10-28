@@ -106,6 +106,9 @@ class Character
   #[ORM\Column(type: "text")]
   private $notes = "";
 
+  #[ORM\Column]
+  private array $experienceLogs = [];
+
   public function __construct()
   {
     if (!$this->attributes) {
@@ -569,5 +572,17 @@ class Character
     $this->notes = $converter->convert($notes);
 
     return $this;
+  }
+
+  public function getExperienceLogs(): array
+  {
+      return $this->experienceLogs;
+  }
+
+  public function setExperienceLogs(array $experienceLogs): self
+  {
+      $this->experienceLogs = $experienceLogs;
+
+      return $this;
   }
 }

@@ -3,11 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Character;
-use App\Entity\Discipline;
 use App\Entity\Merit;
 use Doctrine\ORM\EntityManagerInterface;
-
-use function PHPUnit\Framework\isNull;
 
 class CharacterService
 {
@@ -73,6 +70,20 @@ class CharacterService
     }
     $character->setWounds($wounds);
     $this->doctrine->flush();
+  }
+
+  public function updateLogs(Character $character, $logs, $isFree) {
+    $logs = json_decode($logs);
+    foreach ($logs as $value) {
+      $value->timestamp = time();
+      if ($isFree) {
+        $value->info->cost = 0;
+      }
+    }
+    $logs = json_decode(json_encode($logs), true);
+    $oldlogs = $character->getExperienceLogs();
+    $logs = array_merge($oldlogs, $logs);
+    $character->setExperienceLogs($logs);
   }
 
   public function updateTrait(Character $character, $data)

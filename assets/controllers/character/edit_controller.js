@@ -8,6 +8,7 @@ export default class extends Controller {
     "usingInfo",
     "specialtyInput",
     "spend",
+    "xpLogs",
   ];
   static values = {
     total: Number,
@@ -153,6 +154,7 @@ export default class extends Controller {
   clean(event) {
     this.removeElements('merit');
     this.removeElements('discipline');
+    this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     document.forms['character'].submit();
   }
 }

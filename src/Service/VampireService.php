@@ -3,13 +3,10 @@
 namespace App\Service;
 
 use App\Entity\Character;
-use App\Entity\Chronicle;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
-use App\Entity\Merit;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 
@@ -75,8 +72,6 @@ class VampireService
     if (isset($data['potency']) && $data['potency'] > $vampire->getPotency()) {
       $vampire->setPotency($data['potency']);
     }
-
-    $this->doctrine->getManager()->flush();
   }
 
   public function addDiscipline(Vampire $vampire, array $disciplines)

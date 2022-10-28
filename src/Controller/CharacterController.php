@@ -147,7 +147,11 @@ class CharacterController extends AbstractController
       }
       if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
         $character->spendXp($extraData['xp']['spend']);
+        $isFree = true;
+      } else {
+        $isFree = false;
       }
+      $this->service->updateLogs($character, $extraData['xpLogs'], $isFree);
       $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);

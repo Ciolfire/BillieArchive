@@ -12,7 +12,7 @@
 
 {% block dot %}
 <input type="checkbox" {% if chDiscipline is defined and value <= chDiscipline.level %}checked{% endif %} class="btn-check" id="{{ discipline.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-<label class="btn dot {% if chDiscipline is defined and value <= chDiscipline.level %} dot-locked{% endif %}" for="{{ discipline.id ~ '-' ~ value }}"
+<label class="btn dot {% if chDiscipline is defined and value <= chDiscipline.level %} dot-locked{% else %}dot-selectable{% endif %}" for="{{ discipline.id ~ '-' ~ value }}"
   data-action="click->dot#activate click->character--edit#pay"
   data-dot-value-param="{{ value }}"
   data-character--edit-value-param="{{ value }}"
