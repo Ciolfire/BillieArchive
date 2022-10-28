@@ -2,11 +2,17 @@
 
 <div id="menu" class="container">
   <div class="row text-center text">
-    <div class="col-3 px-1">
+    <div class="col-3 ps-1 pe-0">
       <button class="btn btn-sm btn-menu btn-primary w-100" type="button" data-action="click->character--edit#clean">
         {% include "icon.html.twig" with {'icon': 'save', 'hasTips': 0} only %}
-        {{ button_label|default('Save') }}
+        {{ "save"|trans({}, 'app' ) }}
       </button>
+    </div>
+    <div class="col-1 px-0">
+      <div class="btn btn-sm btn-menu w-100 form-control" readonly>
+        <input id="is_free" type="checkbox" name="character[isFree]">
+        <label class="text-sub" for="is_free">{{ "xp.free"|trans }}</label>
+      </div>
     </div>
     <div class="col-6">
       <input value="0" type="hidden" name="character[xp][spend]" data-character--edit-target="spend">
@@ -29,7 +35,7 @@
         {{ character.xpUsed }} + <span data-character--edit-target="using">0</span>/{{ character.xpAvailable }}
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-2">
       <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_show', {'id': character.id}) }}">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
         {{ "back"|trans }}

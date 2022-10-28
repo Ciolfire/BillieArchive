@@ -145,7 +145,7 @@ class CharacterController extends AbstractController
       if ($character->getType() == "vampire") {
         $this->vService->handleEdit($character, $extraData);
       }
-      if (isset($extraData['xp'])) {
+      if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
         $character->spendXp($extraData['xp']['spend']);
       }
       $this->dataService->flush();

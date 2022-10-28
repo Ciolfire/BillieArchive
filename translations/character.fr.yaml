@@ -130,6 +130,7 @@ specialty:
 
 xp:
   add: Choisissez le nombre de points d'experience à attribuer au personnage.
+  free: Gratuit ?
   details.none: Aucun changement
   save: Valider
 
