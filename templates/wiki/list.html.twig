@@ -22,7 +22,9 @@
         <p>{{ entity ~ ".description" }}</p>
       </div>
     </div>
-    <a class="btn btn-primary w-100 my-2" href="{{ path(entity ~ '_new', {'setting': type }) }}">{{ "new"|trans }}</a>
+    {% if isFixed|default(false) != true %}
+      <a class="btn btn-primary w-100 my-2" href="{{ path(entity ~ '_new', {'setting': type }) }}">{{ "new"|trans }}</a>
+    {% endif %}
     <div class="row">
       {% for element in elements %}
         {% include entity ~ "/card.html.twig" with { (entity): element} %}

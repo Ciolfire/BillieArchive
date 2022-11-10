@@ -39,6 +39,7 @@ class WikiController extends AbstractController
       'entity' => 'attribute',
       'category' => 'character',
       'type' => 'human',
+      'isFixed' => true
     ]);
   }
 
@@ -70,6 +71,7 @@ class WikiController extends AbstractController
       'entity' => 'skill',
       'category' => 'character',
       'type' => 'human',
+      'isFixed' => true
     ]);
   }
 
