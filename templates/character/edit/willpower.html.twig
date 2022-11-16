@@ -7,7 +7,7 @@
 {% block data %}data-name="{{ 'willpower.name'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ max }}" data-dot-min-value="{{ max }}"{% endblock %}
 
 {% block input %}
-  <input class="{{ trait }}-value" value="{{ max }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
+  <input class="{{ trait }}-value" value="{{ max }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot" data-value="{{ max }}">
 {% endblock %}
 
 {% block dot %}

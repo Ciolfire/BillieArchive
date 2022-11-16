@@ -101,11 +101,8 @@ class CharacterAttributes
 
   public function setResolve(int $resolve): self
   {
-    if ($resolve != $this->resolve) {
-      $difference = $resolve - $this->resolve;
-      $this->setWillpower($difference);
-    }
-
+    $difference = $resolve - $this->resolve;
+    $this->changeWillpower($difference);
     $this->resolve = $resolve;
 
     return $this;
@@ -179,16 +176,14 @@ class CharacterAttributes
 
   public function setComposure(int $composure): self
   {
-    if ($composure != $this->composure) {
-      $difference = $composure - $this->composure;
-      $this->setWillpower($difference);
-    }
+    $difference = $composure - $this->composure;
+    $this->changeWillpower($difference);
     $this->composure = $composure;
 
     return $this;
   }
 
-  public function setWillpower(int $difference): self
+  public function changeWillpower(int $difference): self
   {
     $this->character->setWillpower($this->character->getWillpower() + $difference);
 

@@ -1,7 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
-export default class extends Controller {
+export default class extends Controller
+{
   static targets = [
     "dot",
     "using",
@@ -29,7 +30,8 @@ export default class extends Controller {
     spendInfo: []
   }
 
-  connect() {
+  connect()
+  {
     this.emptyInfoValue = this.usingInfoTarget.innerText;
     this.dotTargets.forEach(target => {
       let data = target.parentElement.dataset;
@@ -49,7 +51,8 @@ export default class extends Controller {
     this.dispatch("change", { detail: { type: 'attribute', target: null } });
   }
 
-  pay(event) {
+  pay(event)
+  {
     let key = event.params.id;
 
     if (event.params.type == "merit") {
@@ -61,7 +64,8 @@ export default class extends Controller {
     this.dispatch("change", { detail: { type: event.params.type, target: changed } });
   }
 
-  payDot(key, name, min, value, type) {
+  payDot(key, name, min, value, type)
+  {
     let cost = this.calculateCost(this.costsValue[type], +min, value, type);
 
     if ((this.spendInfoValue[key] != null && this.spendInfoValue[key]['info']['cost'] == cost) || value <= min) {
@@ -82,7 +86,8 @@ export default class extends Controller {
     this.updateSpend();
   }
   
-  calculateCost(cost, min, value, type) {
+  calculateCost(cost, min, value, type)
+  {
     let total = 0;
     
     if (type != 'willpower') {
@@ -96,7 +101,8 @@ export default class extends Controller {
     return total;
   }
 
-  updateSpend() {
+  updateSpend()
+  {
     let total = 0;
     let text = "";
 
@@ -124,7 +130,8 @@ export default class extends Controller {
     this.usingInfoTarget.innerHTML = text;
   }
 
-  newSpecialty(event) {
+  newSpecialty(event)
+  {
     let newSpecialty = this.specialtyInputTarget.cloneNode(true);
     let rand = Math.random().toString(36).substring(2, 6);
 
@@ -144,7 +151,8 @@ export default class extends Controller {
     console.debug(this.spendInfoValue);
   }
 
-  removeSpecialty(event) {
+  removeSpecialty(event)
+  {
     let element = event.target.closest('.new-specialty');
 
     this.spendInfoValue[element.id] = null;
@@ -152,7 +160,8 @@ export default class extends Controller {
     this.updateSpend();
   }
 
-  removeElements(type) {
+  removeElements(type)
+  {
     let elements = document.getElementsByClassName(`${type}-value`);
     for (const element of elements) {
       if (element.value == 0) {
@@ -166,7 +175,17 @@ export default class extends Controller {
     }
   }
 
-  clean() {
+  setWillpower()
+  {
+    let willpower = document.getElementsByClassName("willpower-value")[0];
+
+    if (typeof willpower != "undefined") {
+      willpower.value = willpower.value - willpower.dataset.value;
+    }
+  }
+
+  clean()
+  {
     for (const id in this.spendInfoValue) {
       let entry = this.spendInfoValue[id];
       
@@ -193,6 +212,7 @@ export default class extends Controller {
     }
     this.removeElements('merit');
     this.removeElements('discipline');
+    this.setWillpower();
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     document.forms['character'].submit();
   }

@@ -117,9 +117,9 @@ class CharacterService
     $this->doctrine->flush();
   }
 
-  public function updateWillpower(Character $character, int $willpower)
+  public function updateWillpower(Character $character, int $modifier)
   {
-    $character->setWillpower($willpower);
+    $character->setWillpower($character->getWillpower() + $modifier);
   }
 
   public function updateExperience(Character $character, $data)
