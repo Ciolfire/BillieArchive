@@ -5,7 +5,7 @@
 {% block data %}data-name="{{ merit.name }}" data-type="merit" data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
 
 {% block input %}
-  <input class="merit-value" id="merit-{{ merit.id }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" data-id="{{ merit.id }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--merits-target="merit" data-character--edit-target="dot">
+  <input class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" data-id="{{ chMerit.id|default(merit.id) }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--merits-target="merit" data-character--edit-target="dot">
 {% endblock %}
 
 {% block dot %}
@@ -14,7 +14,7 @@
     data-action="click->dot#activate click->character--edit#pay {% if isImproving is not defined %}click->character--merits#add{% endif %}"
     data-dot-value-param="{{ value }}"
     data-character--edit-type-param="merit"
-    data-character--edit-id-param="{{ merit.id }}"
+    data-character--edit-id-param="{{ chMerit.id|default(merit.id) }}"
     data-character--edit-name-param="{{ merit.name }}"
     data-character--edit-value-param="{{ value }}"
     data-character--edit-min-param="{{ chMerit.level|default(0) }}"

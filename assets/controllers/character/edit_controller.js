@@ -175,12 +175,19 @@ export default class extends Controller {
           entry.info.name = document.getElementById(id).getElementsByTagName("input")[0].value;
         } else if (entry.type == "merit") {
           entry.info.id = entry.info.id.replace('merit-','');
-          let details = document.getElementsByName(`character[merits][${entry.info.id}][details]`)[0];
+          let details = undefined;
+          if (entry.info.min === 0) {
+            details = document.getElementsByName(`character[merits][${entry.info.id}][details]`)[0];
+          } else {
+            details = document.getElementsByName(`character[meritsUp][${+entry.info.id}][details]`)[0];
+          }
           if (typeof details !== "undefined") {
+            // details found for this merit
             entry.info.details = details.value;
           }
         }
       } else {
+        // Entry not cleaned properly, we remove it
         delete this.spendInfoValue[id];
       }
     }
