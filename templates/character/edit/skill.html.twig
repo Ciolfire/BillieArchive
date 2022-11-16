@@ -4,7 +4,7 @@
 
 {% block controller %}data-controller="dot"{% endblock %}
 
-{% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-type="skill" data-name="{{ ("skill." ~ skill)|trans }}"{% endblock %}
+{% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"  data-id="{{ "skill." ~ skill }}" data-type="skill" data-name="{{ ("skill." ~ skill)|trans }}"{% endblock %}
 
 {% block specialty %}
   <span role="button" data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" data-character--edit-trans-param="{{ ("skill." ~ skill)|trans }}">{% include "icon.html.twig" with {'icon': 'specialty.add' } only %}</span>
@@ -19,10 +19,12 @@
   <label class="btn dot{% if value <= min %} dot-locked{% else %} dot-selectable{% endif %}" for="{{ skill ~ '-' ~ value }}"
     data-action="click->dot#activate click->character--edit#pay"
     data-dot-value-param="{{ value }}"
+    data-character--edit-type-param="skill"
+    data-character--edit-id-param="{{ "skill." ~ skill }}"
+    data-character--edit-name-param="{{ ("skill." ~ skill)|trans }}"
     data-character--edit-value-param="{{ value }}"
     data-character--edit-min-param="{{ min }}"
-    data-character--edit-name-param="{{ ("skill." ~ skill)|trans }}"
-    data-character--edit-type-param="skill">
+  >
   </label>
 {% endblock %}
 

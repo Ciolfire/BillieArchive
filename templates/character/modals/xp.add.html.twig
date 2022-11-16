@@ -4,7 +4,7 @@
   <div class="modal-dialog">
     <div class="modal-content block-solid">
       <div class="modal-header">
-        <h5 class="modal-title text-sub" id="xpAddModalLabel">{{'xp.add'|trans }}</h5>
+        <h5 class="modal-title text-sub" id="xpAddModalLabel">{{'xp.add'|trans([], 'logs-xp') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -12,7 +12,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->character--experience#update" data-character--experience-method-param="add">
-          {{ 'xp.save'|trans }}
+          {{ 'xp.save'|trans([], 'logs-xp') }}
         </button>
       </div>
     </div>

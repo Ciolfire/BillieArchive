@@ -33,7 +33,6 @@ export default class extends Controller {
           this.meritGeneration(card, merits.length);
         }
       } else if (merits.length > 1) {
-        // Should remove from the spendXp, probably with a dispatch event
         card.parentNode.remove();
       }
     }
@@ -55,19 +54,27 @@ export default class extends Controller {
   meritGeneration(card, length) {
     
     let newCard = card.parentNode.cloneNode(true);
+    let header = newCard.getElementsByClassName('col')[0]
+    let footer = newCard.getElementsByClassName("card-footer")[1];
+    
     let valueInput = newCard.getElementsByClassName("merit-value")[0];
     let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
-    let id = valueInput.dataset.id;
-    let newId = `${id}-${length}`;
+    let rand = valueInput.dataset.id + "-" +  Math.random().toString(36).substring(2, 6);
+    
     // Update all classes
-    let collapsableElements = newCard.getElementsByClassName(`merit-text-${id}`);
+    let collapsableElements = newCard.getElementsByClassName(`${valueInput.id}-text`);
+    // // When the class name is removed, it is removed from the collapsableElements collection... Magic of js I guess.
     while (collapsableElements.length > 0) {
       let element = collapsableElements[0];
-      element.classList.remove(`merit-text-${id}`);
-      element.classList.add(`merit-text-${newId}`);
+      element.classList.remove(`${valueInput.id}-text`);
+      element.classList.add(`merit-${rand}-text`);
+      element.dataset.bsTarget = `.merit-${rand}-text`;
     }
-    valueInput.name = `character[merits][${newId}][level]`;
-    detailsInput.name = `character[merits][${newId}][details]`;
+    header.dataset.bsTarget = `.merit-${rand}-text`;
+    footer.dataset.bsTarget = `.merit-${rand}-text`;
+    valueInput.id = `merit-${rand}`;
+    valueInput.name = `character[merits][${rand}][level]`;
+    detailsInput.name = `character[merits][${rand}][details]`;
     // reset the values for the new form
     valueInput.value = 0;
     detailsInput.value = "";
@@ -80,7 +87,7 @@ export default class extends Controller {
       switch (type) {
         case 'merit':
           if ((target != null && data.name == target) || data.type == type) {
-            if (document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
+            if (typeof document.getElementsByName(`character[merits][${data.name}][level]`)[0] === 'undefined' || document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {
               this.switch(prerequisite, "ko", "ok");

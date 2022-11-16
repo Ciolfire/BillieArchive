@@ -34,7 +34,15 @@ export default class extends Controller {
     this.dotTargets.forEach(target => {
       let data = target.parentElement.dataset;
       if (target.value > target.parentElement.dataset.dotBaseValue) {
-        this.payDot(data.name, data.dotMinValue, target.value, data.type);
+        console.debug(target);
+        console.debug(target.parentElement);
+        console.debug(data);
+        let key = data.id;
+
+        if (data.type == "merit") {
+          key = target.id;
+        }
+        this.payDot(key, data.name, data.dotMinValue, target.value, data.type);
       }
     });
     this.dispatch("change", { detail: { type: 'skill', target: null } });
@@ -42,25 +50,28 @@ export default class extends Controller {
   }
 
   pay(event) {
-    let name = event.target.parentElement.parentElement.firstElementChild.name;
-    let id = null;
-    if (name.indexOf('-') > -1) {
-      event.params.name += ' (' + name.split('-').pop().split(']')[0] + ')';
+    let key = event.params.id;
+
+    if (event.params.type == "merit") {
+      key = event.target.parentElement.parentElement.firstElementChild.id;
     }
-    this.payDot(event.params.name, event.params.min, event.params.value, event.params.type);
+    this.payDot(key, event.params.name, event.params.min, event.params.value, event.params.type);
 
     let changed = event.target.getAttribute("for").split('-')[0];
     this.dispatch("change", { detail: { type: event.params.type, target: changed } });
   }
 
-  payDot(name, min, value, type) {
+  payDot(id, name, min, value, type) {
     let cost = this.calculateCost(this.costsValue[type], +min, value, type);
-    if ((this.spendInfoValue[name] != null && this.spendInfoValue[name]['info']['cost'] == cost) || value <= min) {
-      this.spendInfoValue[name] = null;
+
+    if ((this.spendInfoValue[id] != null && this.spendInfoValue[id]['info']['cost'] == cost) || value <= min) {
+      this.spendInfoValue[id] = null;
     } else {
-      this.spendInfoValue[name] = {
+      this.spendInfoValue[id] = {
         type: type,
         info: {
+          name: name,
+          id: id,
           cost: cost,
           value: value,
           min: min
@@ -93,7 +104,7 @@ export default class extends Controller {
       if (current != null && current.type != "specialty") {
         let info = current.info;
         total += info.cost;
-        text += `${key} ${info['min']}➔${info['value']} (${info['cost']})</br>`;
+        text += `${info['name']} ${info['min']}➔${info['value']} (${info['cost']})</br>`;
       } else if (current != null && current.type == "specialty") {
         let info = current.info;
         total += info.cost;
@@ -114,24 +125,27 @@ export default class extends Controller {
 
   newSpecialty(event) {
     let newSpecialty = this.specialtyInputTarget.cloneNode(true);
-    let r = Math.random().toString(36).substring(2, 6);
-    this.spendInfoValue[r] = {
+    let rand = Math.random().toString(36).substring(2, 6);
+
+    this.spendInfoValue[rand] = {
       type: 'specialty',
       info: {
+        id: event.params.skill,
         name: newSpecialty.dataset.trans,
         skill: event.params.trans,
         cost: this.costsValue['specialty']
       }
     };
-    newSpecialty.id = r;
-    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `character[specialties][${event.params.skill}][${r}]`);
+    newSpecialty.id = rand;
+    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `character[specialties][${event.params.skill}][${rand}]`);
     event.target.closest('.row').after(newSpecialty);
     this.updateSpend();
+    console.debug(this.spendInfoValue);
   }
 
   removeSpecialty(event) {
-
     let element = event.target.closest('.new-specialty');
+
     this.spendInfoValue[element.id] = null;
     element.parentNode.removeChild(element);
     this.updateSpend();
@@ -151,7 +165,21 @@ export default class extends Controller {
     }
   }
 
-  clean(event) {
+  clean() {
+    
+    for (const id in this.spendInfoValue) {
+      let entry = this.spendInfoValue[id];
+      
+      if (entry.type == "specialty") {
+        entry.info.name = document.getElementById(id).getElementsByTagName("input")[0].value;
+      } else if (entry.type == "merit") {
+        entry.info.id = entry.info.id.replace('merit-','');
+        let details = document.getElementsByName(`character[merits][${entry.info.id}][details]`)[0];
+        if (typeof details !== "undefined") {
+          entry.info.details = details.value;
+        }
+      }
+    }
     this.removeElements('merit');
     this.removeElements('discipline');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));

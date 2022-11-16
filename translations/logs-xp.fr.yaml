@@ -1,0 +1,29 @@
+attribute:
+  label: Attribut augmenté
+
+discipline:
+  label: "{0}Nouvelle Discipline|[1,Inf]Discipline améliorée"
+favoredDiscipline:
+  label: "{0}Nouvelle Discipline de Clan/lignée|[1,Inf]Discipline de Clan/lignée améliorée"
+
+merit:
+  label: "{0}Nouvel Atout|[1,Inf]Atout amélioré"
+
+potency:
+  label: Puissance du Sang augmentée
+
+skill:
+  label: "{0}Nouvelle Compétence|[1,Inf]Compétence améliorée"
+specialty:
+  label: Nouvelle Specialité
+
+
+willpower:
+  label: Regain de Volonté
+
+xp:
+  add: Choisissez le nombre de points d'experience à attribuer au personnage.
+  details.none: Aucun changement
+  free: Gratuit
+  log: Dépenses d'expérience
+  save: Valider

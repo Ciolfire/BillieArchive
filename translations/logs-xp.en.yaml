@@ -1,0 +1,29 @@
+attribute:
+  label: Attribut increased
+
+discipline:
+  label: "{0}New Discipline|[1,Inf]Discipline improved"
+favoredDiscipline:
+  label: "{0}New Clan/Bloodline Discipline|[1,Inf]Clan/Bloodline Discipline improved"
+
+merit:
+  label: "{0}New Merit|[1,Inf]Merit improved"
+
+potency:
+  label: Blood Potency increased
+
+skill:
+  label: "{0}New Skill|[1,Inf]Skill improved"
+specialty:
+  label: New Specialty
+
+
+willpower:
+  label: Willpower regained
+
+xp:
+  add: Choose how many point of experience to add
+  details.none: No change
+  free: Free
+  log: Experience Expenditure
+  save: Confirm

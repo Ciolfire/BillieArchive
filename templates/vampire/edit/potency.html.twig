@@ -26,7 +26,7 @@
 
 {% block controller %}data-controller="dot" role="group"{% endblock %}
 
-{% block data %}data-name="{{ 'vampire.potency.name'|trans }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
+{% block data %}data-name="{{ 'vampire.potency.name'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
 
 {% block input %}
   <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
@@ -37,9 +37,11 @@
 <label class="btn dot{% if value == 1 %} dot-locked{% else %} dot-selectable{% endif %}" for="{{ trait ~ '-' ~ index }}"
   data-action="click->dot#activate click->character--edit#pay"
   data-dot-value-param="{{ index }}"
+  data-character--edit-type-param="{{ trait }}"
+  data-character--edit-id-param="potency"
+  data-character--edit-name-param="{{ 'vampire.potency.name'|trans }}"
   data-character--edit-value-param="{{ index }}"
   data-character--edit-min-param="{{ current }}"
-  data-character--edit-name-param="{{ 'vampire.potency.name'|trans }}"
-  data-character--edit-type-param="{{ trait }}">
+>
 </label>
 {% endblock %}

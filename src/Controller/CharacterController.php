@@ -193,7 +193,7 @@ class CharacterController extends AbstractController
         $background = "";
       }
       $character->setBackground($background);
-      $this->doctrine->getManager()->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'background'], Response::HTTP_SEE_OTHER);
     }
@@ -220,7 +220,7 @@ class CharacterController extends AbstractController
         $notes = "";
       }
       $character->setNotes($notes);
-      $this->doctrine->getManager()->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(),  '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
     }

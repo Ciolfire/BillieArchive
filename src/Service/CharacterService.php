@@ -134,6 +134,7 @@ class CharacterService
     }
   }
 
+  /** Remove all non valid merits */
   public function filterMerits(Character $character, $isCreation = true)
   {
     $merits = $this->doctrine->getRepository(Merit::class)->findAll();

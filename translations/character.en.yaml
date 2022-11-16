@@ -49,6 +49,7 @@ npc: NPC
 tab:
   background: Background
   general: General
+  human: Human
   merits: Merits
   notes: Notes
   powers: Powers

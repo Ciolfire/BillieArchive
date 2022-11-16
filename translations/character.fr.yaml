@@ -50,6 +50,7 @@ npc: PNJ
 tab:
   background: Histoire
   general: General
+  human: Humain
   merits: Atouts
   notes: Notes
   powers: Pouvoirs
@@ -131,13 +132,6 @@ specialty:
 specialties:
   label: Specialisations
 
-xp:
-  add: Choisissez le nombre de points d'experience à attribuer au personnage.
-  details.none: Aucun changement
-  free: Gratuit
-  log: Historique des dépenses
-  save: Valider
-
 power: "{0}Aucun pouvoir|{1}Pouvoir|]1,Inf[Pouvoirs"
 
 vampire:
@@ -161,6 +155,11 @@ embrace:
       info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
       favored: Actuellement
       all: Total
+
+discipline:
+  label: Discipline
+favoredDiscipline:
+  label: Discipline de Clan
 
 awaken:
   name: Eveil
