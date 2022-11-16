@@ -61,17 +61,18 @@ export default class extends Controller {
     this.dispatch("change", { detail: { type: event.params.type, target: changed } });
   }
 
-  payDot(id, name, min, value, type) {
+  payDot(key, name, min, value, type) {
     let cost = this.calculateCost(this.costsValue[type], +min, value, type);
 
-    if ((this.spendInfoValue[id] != null && this.spendInfoValue[id]['info']['cost'] == cost) || value <= min) {
-      this.spendInfoValue[id] = null;
+    if ((this.spendInfoValue[key] != null && this.spendInfoValue[key]['info']['cost'] == cost) || value <= min) {
+      this.spendInfoValue[key] = undefined;
+      delete this.spendInfoValue[key];
     } else {
-      this.spendInfoValue[id] = {
+      this.spendInfoValue[key] = {
         type: type,
         info: {
           name: name,
-          id: id,
+          id: key,
           cost: cost,
           value: value,
           min: min
@@ -166,18 +167,21 @@ export default class extends Controller {
   }
 
   clean() {
-    
     for (const id in this.spendInfoValue) {
       let entry = this.spendInfoValue[id];
       
-      if (entry.type == "specialty") {
-        entry.info.name = document.getElementById(id).getElementsByTagName("input")[0].value;
-      } else if (entry.type == "merit") {
-        entry.info.id = entry.info.id.replace('merit-','');
-        let details = document.getElementsByName(`character[merits][${entry.info.id}][details]`)[0];
-        if (typeof details !== "undefined") {
-          entry.info.details = details.value;
+      if (entry != null) {
+        if (entry.type == "specialty") {
+          entry.info.name = document.getElementById(id).getElementsByTagName("input")[0].value;
+        } else if (entry.type == "merit") {
+          entry.info.id = entry.info.id.replace('merit-','');
+          let details = document.getElementsByName(`character[merits][${entry.info.id}][details]`)[0];
+          if (typeof details !== "undefined") {
+            entry.info.details = details.value;
+          }
         }
+      } else {
+        delete this.spendInfoValue[id];
       }
     }
     this.removeElements('merit');
