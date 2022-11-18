@@ -41,20 +41,20 @@
           {% endif %}
         </div>
         <div class="col-12 text">{{ merit.description }}</div>
-      </div>
-      <div id="merit_{{ merit.id }}" class="collapse rule m-3">
-        <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
-        {% if merit.prerequisites != null %}
-          <p>
-            Prerequisites:
-            {% for prerequisite in merit.prerequisites %}
-              {% for item in prerequisite %}
-                {{ item[0] ~ item[1] }}
+        <div id="merit_{{ merit.id }}" class="collapse rule m-3">
+          <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
+          {% if merit.prerequisites != null %}
+            <p>
+              Prerequisites:
+              {% for prerequisite in merit.prerequisites %}
+                {% for item in prerequisite %}
+                  {{ item[0] ~ item[1] }}
+                {% endfor %}
               {% endfor %}
-            {% endfor %}
-          </p>
-        {% endif %}
-        {{ merit.effect|markdown_to_html }}
+            </p>
+          {% endif %}
+          {{ merit.effect|markdown_to_html }}
+        </div>
       </div>
     {% endfor %}
   </div>
