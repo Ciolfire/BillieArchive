@@ -23,6 +23,7 @@ class MeritController extends AbstractController
   {
     return $this->render('merit/index.html.twig', [
       'merits' => $meritRepository->findBy([], ['name' => 'ASC']),
+      'types' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
     ]);
   }
 

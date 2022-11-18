@@ -7,28 +7,42 @@
   <div class="container block py-3">
     <h1>{{ "merit.title"|trans }}</h1>
     <a href="{{ path('merit_new') }}">Create new</a>
+    <div class="row mb-5">
+      <div class="col">
+        {% for type in types %}
+          <a class="btn btn-primary" href=".merit-{{ type }}" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls=".merit-{{ type }}">
+            <div class="position-relative">
+              <span class="position-absolute start-0 merit-{{ type }} show"><i class="fa-solid fa-eye"></i></span>
+              <span class="position-absolute start-0 merit-{{ type }} collapse"><i class="fa-solid fa-eye-slash"></i></span>
+            </div>
+            <span class="hide"><i class="fa-solid fa-eye"></i></span>
+            <span>{{ type }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
     {% for merit in merits %}
-    {# <a href="{{ path('merit_show', {'id': merit.id}) }}"> #}
-      <div class="row" data-bs-toggle="collapse" type="button" data-bs-target="#merit_{{ merit.id }}">
-        <div class="col-3">
-          {% if merit.type == null %}
-            {% include "icon.html.twig" with {'icon': 'universal'} only %}
-          {% endif %}
-          {% include "icon.html.twig" with {'icon': merit.type} only %}
+      {% set type = merit.type|default('universal') %}
+      {# <a href="{{ path('merit_show', {'id': merit.id}) }}"> #}
+      <div class="row merit merit-{{ type }} show" data-bs-toggle="collapse" type="button" data-bs-target="#merit_{{ merit.id }}">
+        <div class="col-12 col-md-3 text-center text-md-start fw-bold">
+          {% include "icon.html.twig" with {'icon': type} only %}
           {{ merit.name }}
+        </div>
+        <div class="col-3 col-md-1">
           {% include "icon.html.twig" with {'icon': merit.category} only %}
           {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
           {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
         </div>
-        <div class="col-1">
+        <div class="col-6 col-md-2">
           {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
           {% if merit.min != merit.max %}
             - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
           {% endif %}
         </div>
-        <div class="col-8 text">{{ merit.description }}</div>
+        <div class="col-12 text">{{ merit.description }}</div>
       </div>
-      <div id="merit_{{ merit.id }}" class="collapse rule">
+      <div id="merit_{{ merit.id }}" class="collapse rule m-3">
         <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
         {% if merit.prerequisites != null %}
           <p>
@@ -42,7 +56,6 @@
         {% endif %}
         {{ merit.effect|markdown_to_html }}
       </div>
-      <hr>
     {% endfor %}
   </div>
 {% endblock %}

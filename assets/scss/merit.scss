@@ -1,0 +1,14 @@
+.merit {
+  margin: -1rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid silver;
+  &.merit-vampire, &.merit-ghoul {
+    color: #7d0000;
+    background-color: #151515b5;
+    // border: 1px solid #7d0000;
+    // box-shadow: #7d0000 0px 0px 7px 3px;
+  }
+  &.merit-human {
+    background-color: rgba(0, 19, 65, 0.41);
+  }
+}
