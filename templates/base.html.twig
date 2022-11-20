@@ -20,7 +20,7 @@
     {{ encore_entry_script_tags(type) }}
     {% endblock %}
   </head>
-  <body>
+  <body {% block bodyData %}{% endblock %}>
     {% if app.user %}
       {% include "header.html.twig" %}
     {% endif %}
@@ -30,6 +30,7 @@
       </div>
     {% endfor %}
     {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
     <div id="rabbit"></div>
   </body>
 </html>

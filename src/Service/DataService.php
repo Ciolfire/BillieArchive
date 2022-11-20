@@ -50,10 +50,10 @@ class DataService
     return $this->doctrine->getRepository($class)->find($element);
   }
 
-  public function findBy(string $class, array $criteria)
+  public function findBy(string $class, array $criteria, array $orderBy=null)
   {
 
-    return $this->doctrine->getRepository($class)->findBy($criteria);
+    return $this->doctrine->getRepository($class)->findBy($criteria, $orderBy);
   }
 
   public function findOneBy(string $class, array $criteria)

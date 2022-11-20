@@ -2,27 +2,54 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Merit;
 use App\Form\MeritType;
-use App\Repository\MeritRepository;
+
+use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/{_locale<%supported_locales%>?%default_locale%}/merit")
- */
+#[Route("{_locale<%supported_locales%>?%default_locale%}/merit")]
 class MeritController extends AbstractController
 {
-  /**
-   * @Route("/", name="merit_index", methods={"GET"})
-   */
-  public function index(MeritRepository $meritRepository): Response
+  private $dataService;
+
+  public function __construct(DataService $dataService)
+  {
+    $this->dataService = $dataService;
+  }
+
+  #[Route("/", name: 'merit_index', methods: ["GET"])]
+  public function index(): Response
   {
     return $this->render('merit/index.html.twig', [
-      'merits' => $meritRepository->findBy([], ['name' => 'ASC']),
+      'merits' => $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']),
+      'types' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
+    ]);
+  }
+
+  #[Route("/{type}/{id}", name: "merit_list", methods: ["GET"], requirements: ["id" => "\d+"])]
+  public function list($type, $id)
+  {
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $type = $item->getSetting();
+        break;
+      
+        default:
+        # code...
+        break;
+    }
+
+    return $this->render('merit/index.html.twig', [
+      'type' => $type,
+      'merits' => $item->getMerits(),
       'types' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
     ]);
   }

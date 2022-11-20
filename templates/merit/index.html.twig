@@ -1,30 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Merit index
+{% set categories = ['mental', 'physical', 'social'] %}
+
+{% block title %}Merit index{% endblock %}
+
+{% block bodyData %}
+  class="mb-5" data-controller="search" data-search-type-value="merit" data-search-filters-value="{}"
 {% endblock %}
 
 {% block body %}
   <div class="container block py-3">
     <h1>{{ "merit.title"|trans }}</h1>
     <a href="{{ path('merit_new') }}">Create new</a>
-    <div class="row mb-5">
-      <div class="col">
-        {% for type in types %}
-          <a class="btn btn-primary" href=".merit-{{ type }}" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls=".merit-{{ type }}">
-            <div class="position-relative">
-              <span class="position-absolute start-0 merit-{{ type }} show"><i class="fa-solid fa-eye"></i></span>
-              <span class="position-absolute start-0 merit-{{ type }} collapse"><i class="fa-solid fa-eye-slash"></i></span>
-            </div>
-            <span class="hide"><i class="fa-solid fa-eye"></i></span>
-            <span>{{ type }}</span>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
     {% for merit in merits %}
       {% set type = merit.type|default('universal') %}
       {# <a href="{{ path('merit_show', {'id': merit.id}) }}"> #}
-      <div class="row merit merit-{{ type }} show" data-bs-toggle="collapse" type="button" data-bs-target="#merit_{{ merit.id }}">
+      <div class="row merit merit-{{ type }} merit-{{ merit.category }}" data-search-target="item" data-type="{{ type }}" data-category="{{ merit.category }}" data-bs-toggle="collapse" type="button" data-bs-target="#merit_{{ merit.id }}">
         <div class="col-12 col-md-3 text-center text-md-start fw-bold">
           {% include "icon.html.twig" with {'icon': type} only %}
           {{ merit.name }}
@@ -58,4 +49,36 @@
       </div>
     {% endfor %}
   </div>
+{% endblock %}
+
+{% block footer %}
+  <footer class="container footer translate-middle">
+    <div class="row mb-0">
+      <div class="col">
+        {# <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" data-search-target="query"> #}
+        {% for type in types %}
+          <a 
+          class="btn btn-primary" 
+          data-action="click->search#switchFilter"
+          data-search-type-param="type"
+          data-search-filter-param="{{ type }}"
+          role="button">
+            <span>{{ type }}{% include "icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}</span>
+          </a>
+        {% endfor %}
+        <div class="vr"></div>
+        {% for category in categories %}
+          <a 
+          class="btn btn-primary" 
+          data-action="click->search#switchFilter"
+          data-search-type-param="category"
+          data-search-filter-param="{{ category }}"
+          role="button">
+            <span>{{ category }}{% include "icon.html.twig" with {'icon' : category, 'hasTips': 0 } only %}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </footer>
 {% endblock %}
