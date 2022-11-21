@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% set categories = ['mental', 'physical', 'social'] %}
-
 {% block title %}Merit index{% endblock %}
 
 {% block bodyData %}
@@ -57,26 +55,17 @@
       <div class="col">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" data-search-target="query" data-action="search#getResults">
-        {% for type in types %}
-          <a 
-          class="btn btn-primary" 
-          data-action="click->search#switchFilter"
-          data-search-type-param="type"
-          data-search-filter-param="{{ type }}"
-          role="button">
-            <span>{{ type }}{% include "icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}</span>
-          </a>
-        {% endfor %}
-        <div class="vr"></div>
-        {% for category in categories %}
-          <a 
-          class="btn btn-primary" 
-          data-action="click->search#switchFilter"
-          data-search-type-param="category"
-          data-search-filter-param="{{ category }}"
-          role="button">
-            <span>{{ category }}{% include "icon.html.twig" with {'icon' : category, 'hasTips': 0 } only %}</span>
-          </a>
+        {% for key, elements in search %}
+          {% for element in elements %}
+            <a 
+            class="btn btn-primary" 
+            data-action="click->search#switchFilter"
+            data-search-type-param="{{ key }}"
+            data-search-filter-param="{{ element }}"
+            role="button">
+              <span>{{ element|trans([], 'icon') }}{% include "icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}</span>
+            </a>
+          {% endfor %}
         {% endfor %}
       </div>
     </div>

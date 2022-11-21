@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Book;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -83,5 +84,17 @@ class DataService
     }
 
     return $fileName;
+  }
+
+  public function getMeritTypes(Book $book)
+  {
+    return $this->doctrine->getConnection()->createQueryBuilder()
+    ->select('type')
+    ->from('merits')
+    ->where('book_id = :id')
+    ->andWhere('type != NULL')
+    ->groupBy('type')
+    ->setParameter('id', $book->getId())
+    ->executeQuery()->fetchFirstColumn();
   }
 }

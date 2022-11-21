@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Entity\Merit;
 use App\Form\MeritType;
+use App\Repository\MeritRepository;
 
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,14 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route("{_locale<%supported_locales%>?%default_locale%}/merit")]
 class MeritController extends AbstractController
 {
+  private $repository;
   private $dataService;
+  private $categories = ['mental', 'physical', 'social'];
 
-  public function __construct(DataService $dataService)
+  public function __construct(DataService $dataService, MeritRepository $meritRepository)
   {
+    $this->repository = $meritRepository;
     $this->dataService = $dataService;
   }
 
@@ -28,17 +33,25 @@ class MeritController extends AbstractController
   {
     return $this->render('merit/index.html.twig', [
       'merits' => $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']),
-      'types' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
+      'search' => [
+        'type' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
+        'category' => $this->categories,
+      ],
     ]);
   }
 
   #[Route("/{type}/{id}", name: "merit_list", methods: ["GET"], requirements: ["id" => "\d+"])]
   public function list($type, $id)
   {
+    $search = ['category' => $this->categories];
     switch ($type) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $types = $this->dataService->getMeritTypes($item);
+        if (count($types) > 1) {
+          $search['type'] = $types;
+        }
         $type = $item->getSetting();
         break;
       
@@ -50,7 +63,7 @@ class MeritController extends AbstractController
     return $this->render('merit/index.html.twig', [
       'type' => $type,
       'merits' => $item->getMerits(),
-      'types' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
+      'search' => $search, // Kinda want to replace for dynamic list
     ]);
   }
 
