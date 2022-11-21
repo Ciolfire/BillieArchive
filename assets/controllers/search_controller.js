@@ -15,7 +15,6 @@ export default class extends Controller
 
   connect()
   {
-    console.log("v1.2");
   }
 
   switchFilter(event)
@@ -65,38 +64,34 @@ export default class extends Controller
   {
     let hasFilter = this.checkFilters();
     let filters = this.filtersValue;
+    const regex =  new RegExp(".*" + this.queryTarget.value + ".*", "i");
     
     this.itemTargets.forEach(item => {
-      console.debug(item);
+      let isValid;
       if (!hasFilter) {
+        isValid = true;
         item.classList.remove("collapse");
       } else {
-        let isValid;
         for (const [key, values] of Object.entries(filters)) {
           if (Object.keys(values).length > 0) {
-            console.debug(Object.keys(values));
             isValid = false;
             for (const value in values) {
               if (filters[key][value] === true && item.dataset[key] === value) {
-                console.debug(key);
-                console.debug(value);
-                console.debug(item.dataset[key]);
                 isValid = true;
                 break;
               }
             }
             if (isValid !== true) {
-              console.debug("not valid");
               isValid = false;
               break;
             }
           }
         }
-        if (isValid) {
-          item.classList.remove("collapse");
-        } else {
-          item.classList.add("collapse");
-        }
+      }
+      if (isValid && regex.test(item.dataset.name)) {
+        item.classList.remove("collapse");
+      } else {
+        item.classList.add("collapse");
       }
     });
   }
