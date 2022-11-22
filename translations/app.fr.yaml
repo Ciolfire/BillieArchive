@@ -4,6 +4,11 @@ attributes: Attributs
 back: Retour
 book: Livre
 books: Livres
+category:
+  label: Categorie
+  mental: Mental
+  physical: Physique
+  social: Social
 characters:
   groups: Groupes
   name: Personnages
@@ -38,4 +43,10 @@ stories:
   new: Nouvelle histoire
   name: Histoires
   title: Mes Histoires
+type:
+  label: Type
+  ghoul: Goule
+  human: Mortel
+  universal: Universel
+  vampire: Vampire
 wiki: Encyclopédie

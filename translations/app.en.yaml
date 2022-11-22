@@ -4,6 +4,11 @@ attributes: Attributes
 back: Back
 book: Book
 books: Books
+category:
+  label: Category
+  mental: Mental
+  physical: Physical
+  social: Social
 characters:
   groups: Groups
   name: Characters
@@ -38,4 +43,10 @@ stories:
   new: New story
   name: Stories
   title: My Stories
+type:
+  label: Type
+  ghoul: Ghoul
+  human: Mortal
+  universal: Universal
+  vampire: Vampire
 wiki: Wiki

@@ -24,6 +24,7 @@ body {
 
 body {
   font-family: $mainFont;
+  margin-bottom: 5rem;
 }
 
 h1, h2, h3, h4, h5 {
@@ -256,11 +257,42 @@ h5 {
   border-radius: 0.3em;
 }
 
+.search {
+  &-icon {
+    color: $mainDarkColor;
+    background: $mainColor;
+    border-radius: 50% 0% 0% 50%;
+    border: 2px solid $mainColor;
+    width: 27px;
+    line-height: 24px;
+    margin-top: 0px;
+    padding: 1px 3px;
+    z-index: 2;
+  }
+  &-field {
+    z-index: 1;
+    margin-left: -1px;
+    border-color: $borderColor;
+    background-color: $inputBackColor;
+    color: $mainColor;
+  }
+}
+
 footer.footer {
   position: fixed;
-  bottom: 0;
   left: 50%;
-  background-color: $mainDarkColor;
-  margin-bottom: -35px;
+  bottom: 0;
+  background-color: $blockColor;
+  border: 1px solid $borderColor;
+  border-bottom-width: 0px;
   padding: 1rem;
+  #expand_btn {
+    margin-top: -10px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      color: $mainColor;
+    }
+  }
 }
