@@ -26,20 +26,9 @@
         <p>{{ entity ~ ".description" }}</p>
       </div>
     </div>
-    {% if isFixed|default(false) != true %}
-      <a class="btn btn-primary w-100 my-2" href="{{ path(entity ~ '_new', {'setting': type }) }}">{{ "new"|trans }}</a>
-    {% endif %}
     <div class="row">
       {% for element in elements %}
         {% include entity ~ "/card.html.twig" with { (entity): element} %}
-        {# <div id="{{ element.name }}" class="col-12 col-lg-4 block block-wiki">
-          <h3>{{ element.name }}</h3>
-          <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
-          <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
-          {% if is_granted('ROLE_ST') %}
-            <a href="{{ path(entity ~ '_edit', {'id': element.id}) }}">{{ 'edit'|trans }}</a>
-          {% endif %}
-        </div> #}
       {% endfor %}
     </div>
   </div>
@@ -53,7 +42,9 @@
       <span class="footer-collapse show"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
       <span class="footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
     </div>
-    <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+    {% if is_granted('ROLE_ST') and isFixed|default(false) != true %}
+      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+    {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search %}

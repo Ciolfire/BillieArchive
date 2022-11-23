@@ -27,7 +27,9 @@
       <span class="footer-collapse show"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
       <span class="footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
     </div>
-    <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+    {% if is_granted('ROLE_ST') %}
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+    {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search %}
