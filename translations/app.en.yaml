@@ -47,16 +47,20 @@ stories:
   title: My Stories
 type:
   label: Type
-  ghoul: Ghoul
-  human: Mortal
-  universal: Universal
-  vampire: Vampire
-  antagonist: Antagonist
   alternate_setting: Alternate Setting
-  bloodlines: Bloodlines
+  antagonist: Antagonist
   core: Core
   equipment: Equipment
+  human: Mortal
   joke: Joke
   location: Location
+  universal: Universal
   translation: Translation
+  
+  vampire: Vampire
+  bloodlines: Bloodlines
+  ghoul: Ghoul
+  clan: Clan
+  covenant: Covenant
+  chronicle: Chronicle
 wiki: Wiki

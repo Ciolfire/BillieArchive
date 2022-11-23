@@ -56,7 +56,19 @@ xp: Experience Points
 potency: Blood Potency
 vitae: Vitae
 
-ghoul: Ghoul
+alternate_setting: Alternate Setting
+antagonist: Antagonist
+core: Core
+equipment: Equipment
 human: Mortal
+joke: Joke
+location: Location
 universal: Universal
+translation: Translation
+
 vampire: Vampire
+bloodlines: Bloodlines
+ghoul: Ghoul
+clan: Clan
+covenant: Covenant
+chronicle: Chronicle

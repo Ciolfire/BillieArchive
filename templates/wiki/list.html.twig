@@ -13,8 +13,8 @@
     <h1>{{ (entity ~ "s")|trans({}, 'app') }}</h1>
     <div class="row">
       <div class="col-auto block">
-        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
-        <ul id="collapseToc" class="toc collapse show pe-3 py-3">
+        <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="false" aria-controls="collapseToc">show</a>]
+        <ul id="collapseToc" class="toc collapse pe-3 py-3">
           {% for element in elements %}
             <li>
               <a href="#{{ element.name }}">{{ element.name }}</a>

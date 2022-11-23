@@ -86,16 +86,23 @@ class DataService
     return $fileName;
   }
 
-  public function getMeritTypes(Book $book)
+  public function getMeritTypes(Book $book = null)
   {
-    return $this->doctrine->getConnection()->createQueryBuilder()
+    $qb = $this->doctrine->getConnection()->createQueryBuilder()
     ->select('type')
     ->from('merits')
-    ->where('book_id = :id')
-    ->andWhere('type IS NOT NULL')
     ->groupBy('type')
-    ->setParameter('id', $book->getId())
-    ->executeQuery()->fetchFirstColumn();
+    ->andWhere("type != ''");
+    if (is_null($book)) {
+      $result = $qb->executeQuery()->fetchFirstColumn();
+    } else {
+      $result = $qb->andWhere('book_id = :id')
+      ->setParameter('id', $book->getId())
+      ->executeQuery()->fetchFirstColumn();
+    }
+    $result[] = "universal";
+    
+    return $result;
   }
 
   public function getBookTypes(string $setting)

@@ -47,16 +47,20 @@ stories:
   title: Mes Histoires
 type:
   label: Type
-  ghoul: Goule
-  human: Mortel
-  universal: Universel
-  vampire: Vampire
-  antagonist: Antagoniste
   alternate_setting: Univers Alternatif
-  bloodlines: Lignées
+  antagonist: Antagoniste
   core: Core
   equipment: Equipement
+  human: Mortel
   joke: Blague
   location: Lieux
+  universal: Universel
   translation: Traduction
+  
+  vampire: Vampire
+  bloodlines: Lignées
+  clan: Clan
+  covenant: Ligue
+  chronicle: Chronique
+  ghoul: Goule
 wiki: Encyclopédie

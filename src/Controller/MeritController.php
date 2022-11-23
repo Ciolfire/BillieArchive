@@ -34,7 +34,7 @@ class MeritController extends AbstractController
     return $this->render('merit/index.html.twig', [
       'merits' => $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']),
       'search' => [
-        'type' => ['universal', 'human', 'vampire', 'ghoul'], // Kinda want to replace for dynamic list
+        'type' => $this->dataService->getMeritTypes(), // Kinda want to replace for dynamic list
         'category' => $this->categories,
       ],
     ]);
