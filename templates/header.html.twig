@@ -18,28 +18,28 @@
           <a class="nav-link" href="{{ path('character_index') }}"><i class="fa-solid fa-users fa-fw fa-xs"></i> {{ "characters.name"|trans }}</a>
         </li>
         {% if app.user.stories is not empty %}
-        <li class="nav-item dropstart">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Stories
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            {% for story in app.user.stories %}
-              <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': story.id })}}">{{ story.name }}</a></li>
-            {% endfor %}
-          </ul>
-        </li>
+          <li class="nav-item dropstart border-end">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Stories
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              {% for story in app.user.stories %}
+                <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': story.id })}}">{{ story.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
         {% endif %}
         {% if app.user.chronicles is not empty %}
-        <li class="nav-item dropstart">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ "chronicles.name"|trans }}
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            {% for chronicle in app.user.chronicles %}
-              <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': chronicle.id })}}">{{ chronicle.name }}</a></li>
-            {% endfor %}
-          </ul>
-        </li>
+          <li class="nav-item dropstart border-end">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ "chronicles.name"|trans }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              {% for chronicle in app.user.chronicles %}
+                <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': chronicle.id })}}">{{ chronicle.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
         {% endif %}
         <li class="nav-item dropstart border-end">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
