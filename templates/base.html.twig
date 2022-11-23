@@ -30,7 +30,15 @@
       </div>
     {% endfor %}
     {% block body %}{% endblock %}
-    {% block footer %}{% endblock %}
+    {% if footer|default(false) == true %}
+      {% block footer %}
+        <footer class="container footer translate-middle-x">
+          <div class="row mb-0">
+            {% block footerContent %}{% endblock %}
+          </div>
+        </footer>
+      {% endblock %}
+    {% endif %}
     <div id="rabbit"></div>
   </body>
 </html>

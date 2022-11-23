@@ -1,6 +1,6 @@
-{% trans_default_domain 'vampire' %}
-
 {% extends 'vampire/discipline/template.html.twig' %}
+
+{% trans_default_domain 'vampire' %}
 
 {% block title %}{{ "discipline.power.add"|trans }}{% endblock %}
 {% block header %}{{ "discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}

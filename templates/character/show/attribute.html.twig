@@ -1,6 +1,6 @@
-{% trans_default_domain 'character' %}
-
 {% extends "character/sheet/attribute.html.twig" %}
+
+{% trans_default_domain 'character' %}
 
 {% block controller %}role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ ('attribute' ~ '.' ~ base)|trans }}"{% endblock %}
 
