@@ -6,6 +6,8 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use League\HTMLToMarkdown\HtmlConverter;
 
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
@@ -28,6 +30,10 @@ class Book
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 10, nullable: true)]
   private $short;
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: "text")]
+  private $description = "";
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
   private $releasedAt;
@@ -109,6 +115,19 @@ class Book
   public function setShort(?string $short): self
   {
     $this->short = $short;
+
+    return $this;
+  }
+
+  public function getDescription(): ?string
+  {
+    return $this->description;
+  }
+
+  public function setDescription(string $description): self
+  {
+    $converter = new HtmlConverter();
+    $this->description = $converter->convert($description);
 
     return $this;
   }

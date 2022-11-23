@@ -1,21 +1,28 @@
 
-<div id="{{ book.name }}" class="col-12 col-md-6 col-lg-4 col-xl-3 block block-wiki">
+<div id="{{ book.name }}" class="col-12 col-lg-6 block block-wiki">
   {% if is_granted('ROLE_ST') %}
     <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
   {% endif %}
   <h3>{{ book.name }}</h3>
-  {% if book.cover is not null %}
-    <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
-  {% endif %}
-  <p class="text-center">
-    {% if book.merits|length > 0 %}
-      <a href="{{ path('merit_list', {'type': 'book', 'id': book.id}) }}">
-        {{ "merit.count"|trans({'%count%': book.merits|length}, 'character') }}
-      </a>
-    {% else %}
-      {{ "merit.count"|trans({'%count%': book.merits|length}, 'character') }}
-    {% endif %}
-  </p>
-  {% include "book/details/"~ book.setting ~".html.twig" %}
-  <h4>{{ book.releasedAt|date('M Y') }}</h4>
+  <div class="row">
+    <div class="col-6 left-panel">
+      {% if book.cover is not null %}
+        <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
+      {% endif %}
+      <p class="text-center">
+        {% if book.merits|length > 0 %}
+          <a href="{{ path('merit_list', {'type': 'book', 'id': book.id}) }}">
+            {{ "merit.count"|trans({'%count%': book.merits|length}, 'character') }}
+          </a>
+        {% else %}
+          {{ "merit.count"|trans({'%count%': book.merits|length}, 'character') }}
+        {% endif %}
+      </p>
+      {% include "book/details/"~ book.setting ~".html.twig" %}
+      <h5>{{ book.releasedAt|date('M Y') }}</h5>
+    </div>
+    <div class="col-6">
+      <div class="small">{{ book.description|markdown_to_html }}</div>
+    </div>
+  </div>
 </div>
