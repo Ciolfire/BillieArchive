@@ -25,6 +25,8 @@ homebrew: Homebrew
 infos: Infos
 level: Level
 logout: Logout
+merit:
+  count: "{0}No Merit|{1}1 Merit|]1,Inf[%count% Merits"
 merits: Merits
 name: Name
 new: New
@@ -49,4 +51,12 @@ type:
   human: Mortal
   universal: Universal
   vampire: Vampire
+  antagonist: Antagonist
+  alternate_setting: Alternate Setting
+  bloodlines: Bloodlines
+  core: Core
+  equipment: Equipment
+  joke: Joke
+  location: Location
+  translation: Translation
 wiki: Wiki

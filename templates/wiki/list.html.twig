@@ -4,6 +4,10 @@
 
 {% block title %}Wiki{% endblock %}
 
+{% block bodyData %}
+  data-controller="search" data-search-type-value="{{ entity }}"
+{% endblock %}
+
 {% block body %}
   <div class="container">
     <h1>{{ (entity ~ "s")|trans({}, 'app') }}</h1>
@@ -38,5 +42,27 @@
         </div> #}
       {% endfor %}
     </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
+    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+      <span class="footer-collapse show"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+      <span class="footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+    </div>
+    <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+  </div>
+  <div class="col-auto py-3 footer-collapse collapse">
+    {% for key, elements in search %}
+      <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
+      {% for element in elements %}
+        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "icon.html.twig" with {'icon' : element, 'hasTips': 1 } only %}
+        </a>
+      {% endfor %}
+    {% endfor %}
   </div>
 {% endblock %}

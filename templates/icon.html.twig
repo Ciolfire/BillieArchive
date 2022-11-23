@@ -164,6 +164,23 @@
   <i class="ok fa-solid fa-droplet"></i>
 {% elseif icon == 'werewolf' %}
   {{ source('icons/wolf-howl.svg') }}
+{# books #}
+{% elseif icon == 'antagonist' %}
+  <i class="fa-regular fa-face-angry"></i>
+{% elseif icon == 'core' %}
+  <i class="fa-solid fa-arrows-to-dot"></i>
+{% elseif icon == 'equipment' %}
+  <i class="fa-solid fa-gun"></i>
+{% elseif icon == 'location' %}
+  <i class="fa-solid fa-map-location-dot"></i>
+{% elseif icon == 'alternate_setting' %}
+  <i class="fa-solid fa-earth-asia"></i>
+{% elseif icon == 'joke' %}
+  <i class="fa-regular fa-face-grin-tears"></i>
+{% elseif icon == 'bloodlines' %}
+  <i class="fa-solid fa-people-group"></i>
+{% elseif icon == 'translation' %}
+  <i class="fa-solid fa-arrow-right-arrow-left"></i>
 {# Not found #}
 {% else %}
   {{ icon }}

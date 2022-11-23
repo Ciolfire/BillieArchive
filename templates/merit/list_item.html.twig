@@ -1,0 +1,46 @@
+{% trans_default_domain 'app' %}
+
+{% set type = merit.type|default('universal') %}
+      <div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" data-bs-target="#merit_{{ merit.id }}" data-bs-toggle="collapse" 
+      data-search-target="item" 
+      data-name="{{ merit.name }}" 
+      data-type="{{ type }}" 
+      data-category="{{ merit.category }}" 
+      data-style="{{ merit.isFighting|default(0) }}"
+      >
+        <div class="col-12 col-md-3 text-center text-md-start fw-bold">
+          {% include "icon.html.twig" with {'icon': type} only %}
+          {{ merit.name }}
+        </div>
+        <div class="col-3 col-md-1">
+          {% include "icon.html.twig" with {'icon': merit.category} only %}
+          {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+          {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+        </div>
+        <div class="col-3 col-md-1">
+          {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
+          {% if merit.min != merit.max %}
+            - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
+          {% endif %}
+        </div>
+        <div class="col-3 col-md-2">
+          {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
+        </div>
+        <div class="col-12 text">{{ merit.description }}</div>
+        <div class="col-12 col-lg-6">
+          <div id="merit_{{ merit.id }}" class="collapse rule">
+            <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
+            {% if merit.prerequisites != null %}
+              <p>
+                Prerequisites:
+                {% for prerequisite in merit.prerequisites %}
+                  {% for item in prerequisite %}
+                    {{ item[0] ~ item[1] }}
+                  {% endfor %}
+                {% endfor %}
+              </p>
+            {% endif %}
+            {{ merit.effect|markdown_to_html }}
+          </div>
+        </div>
+      </div>

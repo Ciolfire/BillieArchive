@@ -23,12 +23,20 @@ class BookController extends AbstractController
   #[Route('/books/{setting}', name: 'book_index', methods: ['GET'])]
   public function books($setting = "human"): Response
   {
+    $search = [];
+    // $search['setting'] = [$setting];
+    $types = $this->dataService->getBookTypes($setting);
+    if (count($types) > 1) {
+      $search['type'] = $types;
+    }
 
     return $this->render('wiki/list.html.twig', [
       'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting]),
       'entity' => 'book',
       'category' => 'character',
       'type' => $setting,
+      'footer' => true,
+      'search' => $search,
     ]);
   }
 

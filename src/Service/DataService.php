@@ -92,9 +92,21 @@ class DataService
     ->select('type')
     ->from('merits')
     ->where('book_id = :id')
-    ->andWhere('type != NULL')
+    ->andWhere('type IS NOT NULL')
     ->groupBy('type')
     ->setParameter('id', $book->getId())
+    ->executeQuery()->fetchFirstColumn();
+  }
+
+  public function getBookTypes(string $setting)
+  {
+    return $this->doctrine->getConnection()->createQueryBuilder()
+    ->select('type')
+    ->from('book')
+    ->where('setting = :setting')
+    ->andWhere('type IS NOT NULL')
+    ->groupBy('type')
+    ->setParameter('setting', $setting)
     ->executeQuery()->fetchFirstColumn();
   }
 }

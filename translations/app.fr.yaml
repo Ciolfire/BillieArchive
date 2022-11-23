@@ -25,6 +25,8 @@ homebrew: Règles maison
 infos: Infos
 level: Niveau
 logout: Déconnexion
+merit:
+  count: "{0}Aucun Atout|{1}1 Atout|]1,Inf[%count% Atouts"
 merits: Atouts
 name: Nom
 new: Nouveau
@@ -49,4 +51,12 @@ type:
   human: Mortel
   universal: Universel
   vampire: Vampire
+  antagonist: Antagoniste
+  alternate_setting: Univers Alternatif
+  bloodlines: Lignées
+  core: Core
+  equipment: Equipement
+  joke: Blague
+  location: Lieux
+  translation: Traduction
 wiki: Encyclopédie
