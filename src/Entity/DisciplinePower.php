@@ -18,30 +18,24 @@ class DisciplinePower
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
   private $name;
 
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
+  private $short;
+
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+  private $details;
+
+  #[ORM\Column(type: "smallint", nullable: true)]
+  private $level;
 
   #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: "powers")]
   #[ORM\JoinColumn(nullable: false)]
   private $discipline;
 
-
   #[ORM\ManyToOne(targetEntity: Attribute::class, fetch: "EAGER")]
   private $attribute;
 
-
   #[ORM\ManyToOne(targetEntity: Skill::class, fetch: "EAGER")]
   private $skill;
-
-
-  #[ORM\Column(type: "text")]
-  private $short = "";
-
-
-  #[ORM\Column(type: "text")]
-  private $details;
-
-
-  #[ORM\Column(type: "smallint", nullable: true)]
-  private $level;
 
   public function __construct($discipline, $level)
   {
@@ -81,37 +75,6 @@ class DisciplinePower
     return $this->discipline;
   }
 
-  public function setDiscipline(?Discipline $discipline): self
-  {
-    $this->discipline = $discipline;
-
-    return $this;
-  }
-
-  public function getAttribute(): ?Attribute
-  {
-    return $this->attribute;
-  }
-
-  public function setAttribute(?Attribute $attribute): self
-  {
-    $this->attribute = $attribute;
-
-    return $this;
-  }
-
-  public function getSkill(): ?Skill
-  {
-    return $this->skill;
-  }
-
-  public function setSkill(?Skill $skill): self
-  {
-    $this->skill = $skill;
-
-    return $this;
-  }
-
   public function getShort(): ?string
   {
     return $this->short;
@@ -144,6 +107,37 @@ class DisciplinePower
   public function setLevel(?int $level): self
   {
     $this->level = $level;
+
+    return $this;
+  }
+
+  public function setDiscipline(?Discipline $discipline): self
+  {
+    $this->discipline = $discipline;
+
+    return $this;
+  }
+
+  public function getAttribute(): ?Attribute
+  {
+    return $this->attribute;
+  }
+
+  public function setAttribute(?Attribute $attribute): self
+  {
+    $this->attribute = $attribute;
+
+    return $this;
+  }
+
+  public function getSkill(): ?Skill
+  {
+    return $this->skill;
+  }
+
+  public function setSkill(?Skill $skill): self
+  {
+    $this->skill = $skill;
 
     return $this;
   }
