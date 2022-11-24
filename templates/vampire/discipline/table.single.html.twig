@@ -9,6 +9,6 @@
 <tbody class="collapse discipline-{{ discipline.id }}">
   <tr class="table-secondary">
     <td>{{ "discipline.level.single"|trans }}</td>
-    <td colspan="2">{{ discipline.power.short }}</td>
+    <td colspan="2">{{ discipline.power.short|default("") }}</td>
   </tr>
 </tbody>

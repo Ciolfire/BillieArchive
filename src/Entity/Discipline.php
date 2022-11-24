@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\DisciplineRepository;
+use App\Entity\Translation\DisciplineTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
+use League\HTMLToMarkdown\HtmlConverter;
 
 // #[ORM\AssociationOverrides([
 //   new ORM\AssociationOverride(
@@ -17,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 //   ),
 // ])]
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
+#[Gedmo\TranslationEntity(class: DisciplineTranslation::class)]
 class Discipline
 {
   use Homebrewable;
@@ -27,19 +30,26 @@ class Discipline
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
+  #[Gedmo\Locale]
+  private $locale;
+
+  #[Gedmo\Translatable]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
   private $name;
 
-  #[ORM\Column(type: "text")]
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $description;
 
-  #[ORM\Column(type: "text")]
-  private $short =  "";
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+  private $short;
 
-  #[ORM\Column(type: "boolean")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isRestricted =  1;
 
-  #[ORM\Column(type: "text", nullable: true)]
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
   private $rules = "";
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
@@ -72,7 +82,7 @@ class Discipline
   {
     if ($this->IsSinglePower()) {
       return $this->powers->first();
-    }
+    } else return null;
   }
 
   public function getName(): ?string
@@ -104,7 +114,7 @@ class Discipline
     return $this->short;
   }
 
-  public function setShort(string $short): self
+  public function setShort(?string $short): self
   {
     $this->short = $short;
 
@@ -130,7 +140,8 @@ class Discipline
 
   public function setRules(?string $rules): self
   {
-    $this->rules = $rules;
+    $converter = new HtmlConverter();
+    $this->rules = $converter->convert($rules);
 
     return $this;
   }

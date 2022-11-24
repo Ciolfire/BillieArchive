@@ -34,42 +34,42 @@ class Merit
   private $locale;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "string", length: 40)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 40)]
   private $name;
 
-  #[ORM\Column(type: "string", length: 20)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
   private $category;
 
-  #[ORM\Column(type: "boolean")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isFighting;
 
-  #[ORM\Column(type: "boolean")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isExpanded;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $min = 1;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $max;
 
-  #[ORM\Column(type: "boolean")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isUnique;
 
-  #[ORM\Column(type: "boolean")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isCreationOnly;
 
-  #[ORM\Column(type: "json", nullable: true)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON, nullable: true)]
   private $prerequisites = [];
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $effect = "";
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $description;
 
-  #[ORM\Column(type: "string", length: 20)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
   private $type;
 
   public function getId(): ?int

@@ -39,7 +39,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id}', name: 'discipline_show', methods: ['GET'])]
+  #[Route('/discipline/{id}', name: 'discipline_show', methods: ['GET'], requirements: ["id" => "\d+"])]
   public function discipline(Discipline $discipline): Response
   {
     return $this->renderForm('vampire/discipline/show.html.twig', [

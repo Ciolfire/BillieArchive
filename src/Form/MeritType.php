@@ -8,8 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
 class MeritType extends AbstractType
@@ -19,8 +19,6 @@ class MeritType extends AbstractType
     /** @var Merit $merit */
     $merit = $options['data'];
     $converter = new LeagueMarkdown();
-    
-    // $converter = new HtmlConverter();
 
     $builder
       ->add('name')

@@ -32,11 +32,11 @@ class Clan
   private $id;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "string", length: 20, nullable: true)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
   private $name;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $description = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
@@ -46,11 +46,11 @@ class Clan
   private $disciplines;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $short = "";
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "string", length: 100)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 100)]
   private $keywords;
 
   #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
@@ -59,7 +59,7 @@ class Clan
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
   private $bloodlines;
 
-  #[ORM\Column(type: "string", length: 255, nullable: true)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
   private $emblem;
 
   public function __construct()

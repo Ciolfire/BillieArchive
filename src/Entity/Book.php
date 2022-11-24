@@ -32,7 +32,7 @@ class Book
   private $short;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $description = "";
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
@@ -41,7 +41,7 @@ class Book
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
   private $setting;
 
-  #[ORM\Column(type: "string", length: 255, nullable: true)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
   private $cover;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]

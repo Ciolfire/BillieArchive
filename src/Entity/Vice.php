@@ -14,10 +14,10 @@ class Vice
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     private $id;
 
-    #[ORM\Column(type: "string", length: 8)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 8)]
     private $name;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
     private $details;
 
     public function getId(): ?int
