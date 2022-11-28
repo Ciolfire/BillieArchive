@@ -15,76 +15,76 @@ class CharacterSkills
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $academics = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $computer = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $crafts = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $investigation = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $medecine = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $occult = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $politics = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $science = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $athletics = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $brawl = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $drive = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $firearms = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $larceny = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $stealth = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $survival = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $weaponry = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $animalKen = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $empathy = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $expression = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $intimidation = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $persuasion = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $socialize = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $streetwise = 0;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $subterfuge = 0;
 
   #[ORM\OneToOne(targetEntity: Character::class, mappedBy: "skills")]

@@ -70,11 +70,11 @@ class Character
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected $merits;
 
-  
+
   #[ORM\Column(type: "smallint")]
   protected $xpTotal = 0;
 
-  
+
   #[ORM\Column(type: "smallint")]
   protected $xpUsed = 0;
 
@@ -86,28 +86,28 @@ class Character
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
   private $chronicle;
 
-  
+
   #[ORM\Column(type: "boolean")]
   private $isNpc;
 
-  
+
   #[ORM\Column(type: "string", length: 50, nullable: true)]
   private $virtueDetail;
 
-  
+
   #[ORM\Column(type: "string", length: 50, nullable: true)]
   private $viceDetail;
 
-  
+
   #[ORM\Column(type: "text")]
   private $background = "";
 
-  
-  #[ORM\Column(type: "text")]
-  private $notes = "";
-
   #[ORM\Column]
   private array $experienceLogs = [];
+
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
+  #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
+  private Collection $notes;
 
   public function __construct()
   {
@@ -116,6 +116,7 @@ class Character
     }
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
+    $this->notes = new ArrayCollection();
   }
 
   public function __toString()
@@ -277,7 +278,7 @@ class Character
     } else {
       $this->currentWillpower = min($willpower, $this->currentWillpower + $change);
     }
-    
+
     return $this;
   }
 
@@ -561,28 +562,45 @@ class Character
     return $this;
   }
 
-  public function getNotes(): ?string
-  {
-    return $this->notes;
-  }
-
-  public function setNotes(string $notes): self
-  {
-    $converter = new HtmlConverter();
-    $this->notes = $converter->convert($notes);
-
-    return $this;
-  }
-
   public function getExperienceLogs(): array
   {
-      return $this->experienceLogs;
+    return $this->experienceLogs;
   }
 
   public function setExperienceLogs(array $experienceLogs): self
   {
-      $this->experienceLogs = $experienceLogs;
+    $this->experienceLogs = $experienceLogs;
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterNote>
+   */
+  public function getNotes(): Collection
+  {
+    return $this->notes;
+  }
+
+  public function addNote(CharacterNote $note): self
+  {
+    if (!$this->notes->contains($note)) {
+      $this->notes->add($note);
+      $note->setCharacter($this);
+    }
+
+    return $this;
+  }
+
+  public function removeNote(CharacterNote $note): self
+  {
+    if ($this->notes->removeElement($note)) {
+      // set the owning side to null (unless already changed)
+      if ($note->getCharacter() === $this) {
+        $note->setCharacter(null);
+      }
+    }
+
+    return $this;
   }
 }

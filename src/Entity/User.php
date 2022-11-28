@@ -47,11 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   #[ORM\OneToMany(targetEntity: Chronicle::class, mappedBy: 'storyteller')]
   private $stories;
 
+  #[ORM\OneToMany(mappedBy: 'author', targetEntity: CharacterNote::class, orphanRemoval: true)]
+  private Collection $characterNotes;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
     $this->chronicles = new ArrayCollection();
     $this->stories = new ArrayCollection();
+    $this->characterNotes = new ArrayCollection();
   }
 
   public function __toString()
@@ -265,5 +269,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterNote>
+   */
+  public function getCharacterNotes(): Collection
+  {
+      return $this->characterNotes;
+  }
+
+  public function addCharacterNote(CharacterNote $characterNote): self
+  {
+      if (!$this->characterNotes->contains($characterNote)) {
+          $this->characterNotes->add($characterNote);
+          $characterNote->setAuthor($this);
+      }
+
+      return $this;
+  }
+
+  public function removeCharacterNote(CharacterNote $characterNote): self
+  {
+      if ($this->characterNotes->removeElement($characterNote)) {
+          // set the owning side to null (unless already changed)
+          if ($characterNote->getAuthor() === $this) {
+              $characterNote->setAuthor(null);
+          }
+      }
+
+      return $this;
   }
 }
