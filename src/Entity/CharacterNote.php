@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Types\TypeNote;
 use App\Repository\CharacterNoteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,6 +32,9 @@ class CharacterNote
 
   #[ORM\Column(length: 50, nullable: true)]
   private ?string $title = null;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  private ?int $type = null;
 
   public function getId(): ?int
   {
@@ -94,6 +98,23 @@ class CharacterNote
   public function setTitle(?string $title): self
   {
       $this->title = $title;
+
+      return $this;
+  }
+
+  public function getType(): ?int
+  {
+      return $this->type;
+  }
+
+  public function getTypeName(): ?string
+  {
+    return TypeNote::typeNames[$this->type];
+  }
+
+  public function setType(int $type): self
+  {
+      $this->type = $type;
 
       return $this;
   }

@@ -205,7 +205,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/note/new', name: 'character_notes_new', methods: ['GET', 'POST'])]
+  #[Route('/{id}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Character $character): Response
   {
     $note = new CharacterNote();
@@ -213,11 +213,11 @@ class CharacterController extends AbstractController
     $note->setCharacter($character);
 
     $latestNote = $character->getNotes()->first();
-    $date = null;
+    $options = [];
     if ($latestNote instanceof CharacterNote) {
-      $date = $latestNote->getAssignedAt()->format('Y-m-d H:i:s');
+      $options['date'] = $latestNote->getAssignedAt()->format('Y-m-d H:i:s');
     }
-    $form = $this->createForm(CharacterNoteType::class, $note, ['date' => $date]);
+    $form = $this->createForm(CharacterNoteType::class, $note, $options);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
@@ -232,30 +232,21 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/note/edit', name: 'character_notes_edit', methods: ['GET', 'POST'])]
-  public function EditNote(Request $request, Character $character): Response
+  #[Route('/{id}/notes/{note}/edit', name: 'character_note_edit', methods: ['GET', 'POST'])]
+  public function EditNote(Request $request, Character $character, CharacterNote $note): Response
   {
-    // $converter = new LeagueMarkdown();
-    // $notes = $character->getNotes();
-    // $form = $this->createFormBuilder()
-    //   ->add('notes', CKEditorType::class , ['data' => $converter->convert($notes), 'label' => 'notes.label', 'translation_domain' => 'character'])
-    //   ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => 'app'])
-    //   ->getForm();
-    // $form->handleRequest($request);
+    $options = [];
+    $form = $this->createForm(CharacterNoteType::class, $note, $options);
+    $form->handleRequest($request);
     
-    // if ($form->isSubmitted() && $form->isValid()) {
-    //   $notes = $form->get('notes')->getData();
-    //   if ($notes == null) {
-    //     $notes = "";
-    //   }
-    //   $character->setNotes($notes);
-    //   $this->dataService->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush($note);
 
-    //   return $this->redirectToRoute('character_show', ['id' => $character->getId(),  '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
-    // }
-    return $this->renderForm('character/edit/notes.html.twig', [
-      // 'character' => $character,
-      // 'form' => $form,
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => "notes"], Response::HTTP_SEE_OTHER);
+    }
+    return $this->renderForm('character/notes/edit.html.twig', [
+      'note' => $note,
+      'form' => $form,
     ]);
   }
 

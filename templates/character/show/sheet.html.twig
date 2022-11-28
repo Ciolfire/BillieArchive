@@ -57,32 +57,7 @@
     </div>
     {% if app.user == character.player %}
       <div id="notes" data-tabs-target="page">
-        <div class="col-12 my-2 text-center">
-          {% if character.notes is not empty %}
-            <a class="btn btn-primary" href="{{ path('character_notes_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
-            {% for note in character.notes %}
-              <a class="btn btn-primary fs-sm" href="#note-{{ note.id }}">
-                {{ note.assignedAt|format_datetime('short', 'none') }} - {{note.title|default('no title') }}
-              </a>
-            {% endfor %}
-            <div class="row mt-5">
-              {% for note in character.notes %}
-                <div class="col-12 col-md-6">
-                  <div id="note-{{ note.id }}" class="block">
-                    <h3 class="pt-2">{{note.title|default('—') }}</h3>
-                    <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
-                    <p>{{ note.content|markdown_to_html }}</p>
-                    {% if note.author != character.player %}
-                      <p class="text-end">{{ note.author }}</p>
-                    {% endif %}
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <p>{{ "notes.none"|trans }}</p>
-          {% endif %}
-        </div>
+        {{ include('character/show/notes.html.twig') }}
       </div>
     {% endif %}
   </div>
