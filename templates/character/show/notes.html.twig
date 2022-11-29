@@ -1,27 +1,54 @@
 <div class="col-12 my-2 text-center">
-  <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
-  {% if character.notes is not empty %}
-    {% for note in character.notes %}
-      <a class="btn btn-primary fs-sm" href="#note-{{ note.id }}">
-        {{ note.assignedAt|format_datetime('short', 'none') }} - {{note.title|default('no title') }}
-      </a>
-    {% endfor %}
-    <div class="row mt-5">
-      {% for note in character.notes %}
-        <div class="col-12 col-md-6">
-          <div id="note-{{ note.id }}" class="note note-{{ note.typeName }}">
-            <a class="float-end" href="{{ path('character_note_edit', {'id': character.id, 'note': note.id}) }}">{% include "icon.html.twig" with {'icon': 'edit'} only %}</a>
-            <h3 class="pt-2">{{note.title|default('—') }}</h3>
-            <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
-            <p>{{ note.content|markdown_to_html }}</p>
-            {% if note.author != character.player %}
-              <p class="text-end">{{ note.author }}</p>
-            {% endif %}
+  <div class="row g-0">
+    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
+  </div>
+  <div class="accordion" id="notesList">
+    {% for note in character.notes|reverse %}
+      {% set cYear = note.assignedAt|date('Y') %}
+      {% set cMonth = note.assignedAt|date('F') %}
+      {% if cYear != year|default(null) %}
+        {% if not loop.first %}
           </div>
+        {% endif %}
+        <div class="row g-0">
+          <h5 class="btn btn-primary mt-0 mb-0" data-bs-toggle="collapse" data-bs-target=".list-{{ cYear }}" aria-expanded="false" aria-controls="list-{{ cYear }}">{{ cYear }}</h5>
+      {% endif %}
+      {% if month is not defined or cMonth != month or cYear != year %}
+        <div class="col-12 list-{{ cYear }} collapse">
+          <p class="mb-0">{{ cMonth }}</p>
         </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p>{{ "notes.none"|trans }}</p>
-  {% endif %}
-</div>
+      {% endif %}
+      <div class="col-auto list-{{ cYear }} collapse" data-bs-parent="#notesList">
+        <a class="btn btn-primary fs-sm" href="#note-{{ note.id }}">
+          {{ note.assignedAt|format_datetime('short', 'none') }}
+          <br>
+          {{ note.title|default('—') }}
+        </a>
+      </div>
+      {% if loop.last %}
+        </div>
+      {% else %}
+        {% set year = note.assignedAt|date('Y') %}
+        {% set month = note.assignedAt|date('F') %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="row mt-5">
+    {% for note in character.notes %}
+      <div class="col-12 col-md-6">
+        <div id="note-{{ note.id }}" class="note note-{{ note.typeName }}">
+          <a class="float-end" href="{{ path('character_note_edit', {'id': character.id, 'note': note.id}) }}">{% include "icon.html.twig" with {'icon': 'edit'} only %}</a>
+          <h3 class="pt-2">{{note.title|default('—') }}</h3>
+          <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
+          <p>{{ note.content|markdown_to_html }}</p>
+          {% if note.author != character.player %}
+            <p class="text-end">{{ note.author }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% if character.notes is not empty %}
+{% else %}
+  <p>{{ "notes.none"|trans }}</p>
+{% endif %}</div>
