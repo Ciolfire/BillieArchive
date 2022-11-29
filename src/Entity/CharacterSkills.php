@@ -28,7 +28,7 @@ class CharacterSkills
   private $investigation = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $medecine = 0;
+  private $medicine = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private $occult = 0;
@@ -164,14 +164,14 @@ class CharacterSkills
     return $this;
   }
 
-  public function getMedecine(): ?int
+  public function getMedicine(): ?int
   {
-    return $this->medecine;
+    return $this->medicine;
   }
 
-  public function setMedecine(int $medecine): self
+  public function setMedicine(int $medicine): self
   {
-    $this->medecine = $medecine;
+    $this->medicine = $medicine;
 
     return $this;
   }

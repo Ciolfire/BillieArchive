@@ -18,27 +18,31 @@
 {% elseif icon == 'view' %}
   <i class="fa-solid fa-eye"></i>
 {% elseif icon == 'edit' %}
-  <i class="fa-solid fa-pencil"></i>
+  {{ source('icons/pencil.svg') }}
 {% elseif icon == 'save' %}
-  <i class="fa-solid fa-floppy-disk"></i>
+  {{ source('icons/save.svg') }}
 {% elseif icon == 'back' %}
-  <i class="fa-solid fa-share" data-fa-transform="flip-h"></i>
+  {{ source('icons/return-arrow.svg') }}
 {% elseif icon == 'add' %}
   <i class="fa-solid fa-plus"></i>
 {% elseif icon == 'details' %}
   <i class="fa-solid fa-list"></i>
 {% elseif icon == 'xp' %}
-  <i class="fa-solid fa-x fa-2xs"></i>
-  <i class="fa-solid fa-p fa-2xs"></i>
+  {# <i class="fa-solid fa-x fa-2xs"></i> #}
+  {# <i class="fa-solid fa-p fa-2xs"></i> #}
+  {{ source('icons/upgrade.svg') }}
 {% elseif icon == 'logs' %}
   <i class="fa-solid fa-clock-rotate-left"></i>
 {% elseif icon == 'power' %}
-  <i class="fa-solid fa-meteor fa-fw"></i>
+  {{ source('icons/flow-tornado.svg') }}
+  {# <i class="fa-solid fa-meteor fa-fw"></i> #}
   {# <i class="fa-solid fa-fire-alt fa-fw"></i> #}
 {% elseif icon == 'finesse' %}
-  <i class="fa-solid fa-feather fa-fw"></i>
+  {{ source('icons/flow-gentle.svg') }}
+  {# <i class="fa-solid fa-feather fa-fw"></i> #}
 {% elseif icon == 'resistance' %}
-  <i class="fa-solid fa-shield fa-fw"></i>
+  {{ source('icons/flow-crossed.svg') }}
+  {# <i class="fa-solid fa-shield fa-fw"></i> #}
 {% elseif icon == 'mental' %}
   <i class="fas fa-brain"></i>
 {% elseif icon == 'physical' %}
@@ -68,10 +72,11 @@
   <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
 {% elseif icon == 'investigation' %}
   <i class="fa-solid fa-magnifying-glass fa-fw"></i>
-{% elseif icon == 'medecine' %}
-  <i class="fa-solid fa-kit-medical fa-fw"></i>
+{% elseif icon == 'medicine' %}
+  {{ source('icons/caduceus.svg') }}
+  {# <i class="fa-solid fa-kit-medical fa-fw"></i> #}
 {% elseif icon == 'occult' %}
-  <i style='padding-right: 3px;font-weight:bold;'>⛧</i>
+  {{ source('icons/pentacle.svg') }}
 {% elseif icon == 'politics' %}
   <i class="fa-solid fa-landmark fa-fw"></i>
 {% elseif icon == 'science' %}
@@ -80,7 +85,7 @@
 {% elseif icon == 'athletics' %}
   <i class="fa-solid fa-person-running fa-fw"></i>
 {% elseif icon == 'brawl' %}
-  <i class="fa-regular fa-hand-back-fist fa-fw"></i>
+  {{ source('icons/punch.svg') }}
 {% elseif icon == 'drive' %}
   <i class="fa-solid fa-car-crash fa-fw"></i>
 {% elseif icon == 'firearms' %}
@@ -92,7 +97,7 @@
 {% elseif icon == 'survival' %}
   <i class="fa-solid fa-compass fa-fw"></i>
 {% elseif icon == 'weaponry' %}
-  <i style='padding-right: 3px;font-weight:bold;font-style:normal;'>🗡</i>
+    {{ source('icons/bowie-knife.svg') }}
   {# <i class="fa-solid fa-hammer fa-fw"></i> #}
   {# <i style='padding-right: 3px;'>🗡</i> #}
 {# social #}
@@ -132,16 +137,17 @@
   </span>
 {# advantages #}
 {% elseif icon == 'speed' %}
-  <i class="fa-solid fa-person-running"></i>
+  {{ source('icons/running-shoe.svg') }}
 {% elseif icon == 'size' %}
-  <i class="fa-solid fa-arrows-up-down"></i>
+  {{ source('icons/body-height.svg') }}
 {% elseif icon == 'initiative' %}
   {# <i class="fa-solid fa-star-shooting"></i> #}
-  <i class="fa-solid fa-angles-right"></i>
+  {# <i class="fa-solid fa-angles-right"></i> #}
+  {{ source('icons/thunderball.svg') }}
 {% elseif icon == 'defense' %}
-  <i class="fa-solid fa-wind"></i>
+  {{ source('icons/dodging.svg') }}
 {% elseif icon == 'armor' %}
-  <i class="fa-solid fa-shield"></i>
+  {{ source('icons/kevlar-vest.svg') }}
 {% elseif icon == 'universal' %}
   <i class="fa-solid fa-universal-access fa-fw"></i>
 {% elseif icon == 'human' %}
@@ -187,6 +193,11 @@
   <i class="fa-solid fa-landmark"></i>
 {% elseif icon == 'translation' %}
   <i class="fa-solid fa-arrow-right-arrow-left"></i>
+{# Templates #}
+{% elseif icon == 'body_thief' %}
+  {{ source('icons/body-swapping.svg') }}
+{% elseif icon == 'purified' %}
+  {{ source('icons/ankh.svg') }}
 {# Not found #}
 {% else %}
   {{ icon }}

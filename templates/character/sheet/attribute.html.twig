@@ -1,7 +1,7 @@
 {% trans_default_domain 'character' %}
 
 <div class="row align-items-center px-2">
-  <div class="col-12 col-lg text-center">
+  <div class="col-12 col-lg text-left">
     {% include "icon.html.twig" with {'icon' : type } only %}
     {{ ("attribute." ~ attribute)|trans }}
   </div>

@@ -1,5 +1,5 @@
 <div class="col-12 my-2 text-center">
-  <div class="row g-0">
+  <div class="row g-0 mb-3">
     <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
   </div>
   <div class="accordion" id="notesList">
@@ -18,8 +18,8 @@
           <p class="mb-0">{{ cMonth }}</p>
         </div>
       {% endif %}
-      <div class="col-auto list-{{ cYear }} collapse" data-bs-parent="#notesList">
-        <a class="btn btn-primary fs-sm" href="#note-{{ note.id }}">
+      <div class="col-6 col-md-4 col-lg-2 list-{{ cYear }} collapse" data-bs-parent="#notesList">
+        <a class="btn btn-primary fs-sm w-100 h-100" href="#note-{{ note.id }}">
           {{ note.assignedAt|format_datetime('short', 'none') }}
           <br>
           {{ note.title|default('—') }}

@@ -63,4 +63,7 @@ type:
   clan: Clan
   covenant: Covenant
   chronicle: Chronicle
+
+  body_thief: Body Thief
+  purified: Purified
 wiki: Wiki

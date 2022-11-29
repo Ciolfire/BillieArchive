@@ -9,12 +9,13 @@
   <div class="col">{% include "icon.html.twig" with {'icon': 'defense'} only %}defense: <span id="defense">{{ character.defense }}</span></div>
   <div class="col">{% include "icon.html.twig" with {'icon': 'armor'} only %}armor: <span id="armor">0</span></div>
   <div class="col fw-bold" data-controller="character--experience" data-character--experience-id-value="{{ character.id }}">
-    <span role="button" data-bs-toggle="modal" data-bs-target="#xpLogsModal">{% include "icon.html.twig" with {'icon': 'logs'} only %}</span>
-    {% include "icon.html.twig" with {'icon': 'xp'} only %}
+    {% include "icon.html.twig" with {'icon': 'xp'} only %}xp:
     <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
     <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
     {% include "character/modals/xp.add.html.twig" %}
     {% include "character/modals/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
+    &nbsp;
+    <span role="button" data-bs-toggle="modal" data-bs-target="#xpLogsModal">{% include "icon.html.twig" with {'icon': 'logs'} only %}</span>
   </div>
   {# <div class="col">{% include "icon.html.twig" with {'icon': 'morality'} only %}morality: <span id="morality">7</span></div> #}
 </div>

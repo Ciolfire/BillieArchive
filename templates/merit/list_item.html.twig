@@ -24,7 +24,11 @@
           {% endif %}
         </div>
         <div class="col-3 col-md-2">
-          {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
+          {% if merit.book is not null %}
+            {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
+            {% elseif merit.homebrewFor is not null %}
+              Chronicle: {{ merit.homebrewFor.name }} {# TEMP #}
+          {% endif %}
         </div>
         <div class="col-12 text">{{ merit.description }}</div>
         <div class="col-12 col-lg-6">

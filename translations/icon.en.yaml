@@ -19,7 +19,7 @@ academics: Academics
 computer: Computer
 crafts: Crafts
 investigation: Investigation
-medecine: Medecine
+medicine: Medicine
 occult: Occult
 politics: Politics
 science: Science
@@ -72,3 +72,6 @@ ghoul: Ghoul
 clan: Clan
 covenant: Covenant
 chronicle: Chronicle
+
+body_thief: Body Thief
+purified: Purified

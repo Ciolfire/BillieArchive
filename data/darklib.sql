@@ -131,7 +131,7 @@ CREATE TABLE `characters_skills` (
   `computer` smallint NOT NULL,
   `crafts` smallint NOT NULL,
   `investigation` smallint NOT NULL,
-  `medecine` smallint NOT NULL,
+  `medicine` smallint NOT NULL,
   `occult` smallint NOT NULL,
   `politics` smallint NOT NULL,
   `science` smallint NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE `characters_skills` (
 -- Dumping data for table `characters_skills`
 --
 
-INSERT INTO `characters_skills` (`id`, `academics`, `computer`, `crafts`, `investigation`, `medecine`, `occult`, `politics`, `science`, `athletics`, `brawl`, `drive`, `firearms`, `larceny`, `stealth`, `survival`, `weaponry`, `animal_ken`, `empathy`, `expression`, `intimidation`, `persuasion`, `socialize`, `streetwise`, `subterfuge`) VALUES
+INSERT INTO `characters_skills` (`id`, `academics`, `computer`, `crafts`, `investigation`, `medicine`, `occult`, `politics`, `science`, `athletics`, `brawl`, `drive`, `firearms`, `larceny`, `stealth`, `survival`, `weaponry`, `animal_ken`, `empathy`, `expression`, `intimidation`, `persuasion`, `socialize`, `streetwise`, `subterfuge`) VALUES
 (1, 2, 4, 2, 3, 1, 2, 0, 0, 2, 1, 1, 1, 2, 3, 0, 3, 0, 1, 2, 1, 3, 0, 3, 2),
 (2, 4, 0, 0, 0, 0, 0, 0, 0, 5, 4, 1, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 3, 0, 0),
 (3, 1, 1, 2, 4, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0),
@@ -718,7 +718,7 @@ INSERT INTO `skill` (`id`, `name`, `category`, `fluff`, `description`) VALUES
 (2, 'computer', 'mental', NULL, NULL),
 (3, 'crafts', 'mental', NULL, NULL),
 (4, 'investigation', 'mental', NULL, NULL),
-(5, 'medecine', 'mental', NULL, NULL),
+(5, 'medicine', 'mental', NULL, NULL),
 (6, 'occult', 'mental', NULL, NULL),
 (7, 'politics', 'mental', NULL, NULL),
 (8, 'science', 'mental', NULL, NULL),

@@ -17,7 +17,7 @@ class CharacterSkillsType extends AbstractType
       ->add('computer', HiddenType::class, ['empty_data' => 0])
       ->add('crafts', HiddenType::class, ['empty_data' => 0])
       ->add('investigation', HiddenType::class, ['empty_data' => 0])
-      ->add('medecine', HiddenType::class, ['empty_data' => 0])
+      ->add('medicine', HiddenType::class, ['empty_data' => 0])
       ->add('occult', HiddenType::class, ['empty_data' => 0])
       ->add('politics', HiddenType::class, ['empty_data' => 0])
       ->add('science', HiddenType::class, ['empty_data' => 0])

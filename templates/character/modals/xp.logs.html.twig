@@ -14,15 +14,15 @@
             <br>
             {% for key, log in entry %}
             {% if log.type == 'specialty' %}
-              <span class="ko">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <span class="strong">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% elseif log.type == 'merit' %}
-              <span class="ko">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <span class="strong">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% elseif log.type == 'skill' or log.type == 'attribute' %}
-              <span class="ko">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.id|trans([], 'character') }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <span class="strong">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.id|trans([], 'character') }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' %}
-              <span class="ko">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.name }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <span class="strong">{{ (log.type~".label")|trans({ '%count%': log.info.min }) }}</span> ― {{ log.info.name }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% else %}
-              <span class="ko">{{ (log.type~".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              <span class="strong">{{ (log.type~".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.min }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% endif %}
               <br>
             {% endfor %}
