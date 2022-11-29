@@ -1,6 +1,6 @@
 .note {
-  margin: 2em;
-  padding: 2em;
+  margin: 0.5em;
+  padding: 0.5em;
   &-default {
     background-color: $blockColor;
     box-shadow: $mainColor 0px 0px 7px 3px;
@@ -12,28 +12,37 @@
   &-handwritting {
     background-color: rgb(247, 247, 120);
     color: black;
-    font-size: xx-large;
-    font-family: 'hopper_edward';
+    font-size: x-large;
+    font-family: 'roustel';
+    box-shadow: 2px 8px 9px black;
     strong {
       color: black;
-      background-color: #5effb4e0;
+      background-color: #00f7ffb6;
     }
-    h3,h5 {
-      color: rgb(0, 0, 0);
-      font-family: 'hopper_edward';
+    h3 {
+      color: black;
+      font-family: 'roustel';
       text-shadow: none;
+      font-size: xx-large;
+    }
+    h5 {
+      color: black;
+      font-family: 'roustel';
+      text-shadow: none;
+      font-size: x-large;
     }
   }
   &-paper {
     background-color: #fcf0e2;
     color: black;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'JMHtypewriter';
+    box-shadow: 2px 8px 9px black;
     strong {
       color:red;
     }
     h3,h5 {
       color: black;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'JMHtypewriter';
       text-shadow: none;
     }
   }
