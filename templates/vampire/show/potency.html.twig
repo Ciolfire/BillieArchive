@@ -7,16 +7,19 @@
     <div class="d-inline-block text-center">
       <div>
         {% if character.potency < 3 %}
-          <div style="width:14px;" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.animal'|trans }}">
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.animal'|trans }}">
             <i class="fa-solid fa-xs fa-paw"></i>
+            <i class="fa-solid fa-person"></i>
+            {% include "icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}
           </div>
         {% elseif character.potency < 7 %}
-          <div style="width:14px;" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.human'|trans }}">
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.human'|trans }}">
             <i class="fa-solid fa-person"></i>
+            {% include "icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}
           </div>
         {% else %}
-          <div style="width:14px;" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.vampire'|trans }}">
-            <i class="fa-solid fa-triangle-exclamation"></i>
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'vampire.feeding.vampire'|trans }}">
+            <span class="ko">{% include "icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}</span>
           </div>
         {% endif %}
       </div>
