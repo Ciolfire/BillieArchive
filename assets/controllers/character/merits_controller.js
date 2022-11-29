@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = [
     "merit",
     "prerequisite",
+    "filter"
   ];
 
   connect() {
@@ -160,6 +161,10 @@ export default class extends Controller {
   filter(event) {
     let category = event.params.category;
 
+    this.filterTargets.forEach(element => {
+      element.classList.remove("active");
+    });
+    event.currentTarget.classList.add("active");
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.category == category || category == "") {
