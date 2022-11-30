@@ -35,6 +35,8 @@
   {{ source('icons/upgrade.svg') }}
 {% elseif icon == 'logs' %}
   <i class="fa-solid fa-clock-rotate-left"></i>
+
+{# Character #}
 {% elseif icon == 'power' %}
   {{ source('icons/flow-tornado.svg') }}
   {# <i class="fa-solid fa-meteor fa-fw"></i> #}
@@ -48,28 +50,36 @@
 {% elseif icon == 'mental' %}
   <i class="fas fa-brain"></i>
 {% elseif icon == 'physical' %}
-  <i class="fas fa-running"></i>
+  {{ source('icons/muscular-torso.svg') }}
+  {# <i class="fas fa-running"></i> #}
 {% elseif icon == 'social' %}
   <i class="fa-solid fa-comments"></i>
 {% elseif icon == 'health' %}
-  <i class="fa-solid fa-heart fa-fw"></i>
+  {% if type == 'vampire' %}
+    {{ source('icons/heart-organ.svg') }}
+  {% else %}
+    {{ source('icons/health-normal.svg') }}    
+  {% endif %}
+  {# <i class="fa-solid fa-heart fa-fw"></i> #}
 {% elseif icon == 'willpower' %}
-  <i class="fa-solid fa-hand-fist fa-fw"></i>
+  {{ source('icons/suspicious.svg') }}
+  {# <i class="fa-solid fa-hand-fist fa-fw"></i> #}
 {# Merits #}
 {% elseif icon == 'merits' %}
   <i class="fa-solid fa-certificate"></i>
 {% elseif icon == 'creation' %}
   <i class="fa-solid fa-key"></i>
 {% elseif icon == 'style' %}
-  <i class="fa-solid fa-hand-fist"></i>
-{% elseif icon == 'all' %}
-  <i class="fa-solid fa-earth-europe"></i>
+  {{ source('icons/high-kick.svg') }}
+  {# <i class="fa-solid fa-hand-fist"></i> #}
 {# Skills #}
 {# mental #}
 {% elseif icon == 'academics' %}
-  <i class="fa-solid fa-book fa-fw"></i>
+  {{ source('icons/book-pile.svg') }}
+  {# <i class="fa-solid fa-book fa-fw"></i> #}
 {% elseif icon == 'computer' %}
-  <i class="fa-solid fa-desktop fa-fw"></i>
+  {{ source('icons/laptop.svg') }}
+  {# <i class="fa-solid fa-desktop fa-fw"></i> #}
 {% elseif icon == 'crafts' %}
   <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
 {% elseif icon == 'investigation' %}
@@ -85,7 +95,8 @@
   <i class="fa-solid fa-flask fa-fw"></i>
 {# physical #}
 {% elseif icon == 'athletics' %}
-  <i class="fa-solid fa-person-running fa-fw"></i>
+  {{ source('icons/jumping-rope.svg') }}
+  {# <i class="fa-solid fa-person-running fa-fw"></i> #}
 {% elseif icon == 'brawl' %}
   {{ source('icons/punch.svg') }}
 {% elseif icon == 'drive' %}
@@ -97,7 +108,8 @@
 {% elseif icon == 'stealth' %}
   <i class="fa-solid fa-user-secret fa-fw"></i>
 {% elseif icon == 'survival' %}
-  <i class="fa-solid fa-compass fa-fw"></i>
+  {{ source('icons/compass.svg') }}
+  {# <i class="fa-solid fa-compass fa-fw"></i> #}
 {% elseif icon == 'weaponry' %}
     {{ source('icons/bowie-knife.svg') }}
   {# <i class="fa-solid fa-hammer fa-fw"></i> #}
@@ -109,7 +121,8 @@
 {% elseif icon == 'empathy' %}
   <i class="fa-solid fa-heart-pulse fa-fw"></i>
 {% elseif icon == 'expression' %}
-  <i class="fa-solid fa-guitar fa-fw"></i>
+  {{ source('icons/public-speaker.svg') }}
+  {# <i class="fa-solid fa-guitar fa-fw"></i> #}
 {% elseif icon == 'intimidation' %}
   <i class="fa-solid fa-face-angry fa-fw"></i>
   {# <i class="fa-solid fa-head-side-cough fa-fw"></i> #}
@@ -154,6 +167,9 @@
   <i class="fa-solid fa-universal-access fa-fw"></i>
 {% elseif icon == 'human' %}
   <i class="fa-solid fa-person fa-fw"></i>
+{# Other #}
+{% elseif icon == 'all' %}
+  <i class="fa-solid fa-earth-europe"></i>
 {# mage #}
 {% elseif icon == 'mage' %}
   {{ source('icons/fire-silhouette.svg') }}
@@ -179,7 +195,8 @@
 {% elseif icon == 'potency' %}
   <i class="fa-solid fa-hand-holding-droplet"></i>
 {% elseif icon == 'vitae' %}
-  <i class="ok fa-solid fa-droplet"></i>
+  {{ source('icons/goo-spurt.svg') }}
+  {# <i class="ok fa-solid fa-droplet"></i> #}
 {% elseif icon == 'werewolf' %}
   {{ source('icons/wolf-howl.svg') }}
 {# books #}
