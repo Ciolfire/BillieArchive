@@ -1,3 +1,5 @@
+{% trans_default_domain 'character' %}
+
 <div class="col-12 my-2 text-center">
   <div class="row g-0 mb-3">
     <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
@@ -48,8 +50,8 @@
       </div>
     {% endfor %}
   </div>
-  <a href="#" class="position-sticky bottom-0 btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
 {% if character.notes is not empty %}
+  <a href="#" class="position-sticky bottom-0 btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
 {% else %}
   <p>{{ "notes.none"|trans }}</p>
 {% endif %}</div>

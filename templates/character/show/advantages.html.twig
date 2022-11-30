@@ -2,18 +2,39 @@
 
 {% block advantages %}
 {# <h2>Advantages</h2> #}
-<div class="row block mx-0 text">
-  <div class="col">{% include "icon.html.twig" with {'icon': 'size'} only %}size: <span id="size">{{ character.size }}</span></div>
-  <div class="col">{% include "icon.html.twig" with {'icon': 'speed'} only %}speed: <span id="speed">{{ character.speed }}</span></div>
-  <div class="col">{% include "icon.html.twig" with {'icon': 'initiative'} only %}initiative: <span id="initiative">{{ character.initiative }}</span></div>
-  <div class="col">{% include "icon.html.twig" with {'icon': 'defense'} only %}defense: <span id="defense">{{ character.defense }}</span></div>
-  <div class="col">{% include "icon.html.twig" with {'icon': 'armor'} only %}armor: <span id="armor">0</span></div>
-  <div class="col fw-bold" data-controller="character--experience" data-character--experience-id-value="{{ character.id }}">
-    {% include "icon.html.twig" with {'icon': 'xp'} only %}xp:
+<div class="row block mx-0 text py-1">
+  <div class="col-4 col-lg-2">
+    <span class="d-none d-md-inline" style="">{{ "advantage.size"|trans }}</span>
+    {% include "icon.html.twig" with {'icon': 'size'} only %}
+    <span id="size">{{ character.size }}</span>
+  </div>
+  <div class="col-4 col-lg-2">
+    <span class="d-none d-md-inline" style="">{{ "advantage.speed.label"|trans }}</span>
+    {% include "icon.html.twig" with {'icon': 'speed'} only %}
+    <span id="speed">{{ "advantage.speed.value"|trans({'speed': character.speed }) }}</span>
+  </div>
+  <div class="col-4 col-lg-2">
+    <span class="d-none d-md-inline" style="">{{ "advantage.initiative"|trans }}</span>
+    {% include "icon.html.twig" with {'icon': 'initiative'} only %}
+    <span id="initiative">{{ character.initiative }}</span>
+  </div>
+  <div class="col-4 col-lg-2">
+    <span class="d-none d-md-inline" style="">{{ "advantage.defense"|trans }}</span>
+    {% include "icon.html.twig" with {'icon': 'defense'} only %}
+    <span id="defense">{{ character.defense }}</span>
+  </div>
+  <div class="col-4 col-lg-2">
+    <span class="d-none d-md-inline" style="">{{ "advantage.armor"|trans }}</span>
+    {% include "icon.html.twig" with {'icon': 'armor'} only %}
+    <span id="armor">0</span>
+  </div>
+  <div class="col-4 col-lg-2 fw-bold" data-controller="character--experience" data-character--experience-id-value="{{ character.id }}">
+    {% include "icon.html.twig" with {'icon': 'xp'} only %}<span class="d-none d-md-inline" style="">{{ "advantage.xp"|trans }}</span>
     <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
     <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
     {% include "character/modals/xp.add.html.twig" %}
     {% include "character/modals/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
+    <span class="d-none d-md-inline" style="">{{ "logs"|trans([], 'logs-xp') }}</span>
     &nbsp;
     <span role="button" data-bs-toggle="modal" data-bs-target="#xpLogsModal">{% include "icon.html.twig" with {'icon': 'logs'} only %}</span>
   </div>

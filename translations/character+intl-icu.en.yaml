@@ -15,8 +15,18 @@ mental: Mental
 physical: Physical
 social: Social
 
-age.normal: "Age: %age% years old"
-age.less: "Age: %age% (Embraced at %looks%)"
+age.normal: "Age: {age} years old"
+age.less: "Age: {age} (Embraced at {looks})"
+
+advantage:
+  armor: Armor
+  defense: Defense
+  initiative: Initiative
+  size: Size
+  speed: 
+    label: Speed
+    value: "{speed}yd/tn"
+  xp: XP
 
 attribute:
   label: Attribute
@@ -61,17 +71,21 @@ dot:
 
 willpower:
   name: Willpower
-  0: 0 - Exhausted
-  1: 1 - Spineless
-  2: 2 - Weak
-  3: 3 - Timid
-  4: 4 - Certain
-  5: 5 - Confident
-  6: 6 - Resolute
-  7: 7 - Driven
-  8: 8 - Determined
-  9: 9 - Iron-willed
-  10: 10 - Implacable
+  value: >-
+    {value, plural,
+      =0 {0 - Exhausted}
+      =1 {1 - Spineless}
+      =2 {2 - Weak}
+      =3 {3 - Timid}
+      =4 {4 - Certain}
+      =5 {5 - Confident}
+      =6 {6 - Resolute}
+      =7 {7 - Driven}
+      =8 {8 - Determined}
+      =9 {9 - Iron-willed}
+      =10 {10 - Implacable}
+      other {# - Surnatural}
+    }
 
 health: Health
 wound:
@@ -79,10 +93,16 @@ wound:
 
 merit:
   label: Merit
-  count: "{0}No Merit|{1}1 Merit|]1,Inf[%count% Merits"
+  count: >-
+    {count, plural,
+      =0 {No Merit}
+      one {1 Merit}
+      other {# Merits}
+    }
   creation: Spend 7 dots
   improve: Improve an owned Merit
   new: Buy a new Merit
+  style: Combat Style
 merits:
   label: Merits
 
@@ -130,21 +150,19 @@ specialty:
   creation: Take three Skill Specialties of your choice.
 specialties:
   label: Specialties
-xp:
-  add: Input how many points to award the character
-  details.none: Nothing to change
-  free: Free
-  log: History of spent points
-  save: Confirm
 
-
-power: "{0}No Power|{1}Power|]1,Inf[Powers"
+power: >-
+  {count, plural,
+    =0 {No Power}
+    one {Power}
+    other {Powers}
+  }
 
 vampire:
   age: Age at Death
   bloodline:
     name: Bloodline
-    join: Join this Bloodline
+    join: Join Bloodline
   sire: Sire
   potency:
     name: Blood Potency

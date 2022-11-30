@@ -42,7 +42,7 @@
     {% endfor %}
     <div class="col-auto py-3 footer-collapse collapse">
       <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
-        <span class="d-none d-md-inline">{{ "style"|trans }}</span>{% include "icon.html.twig" with {'icon' : "style", 'hasTips': 1 } only %}
+        <span class="d-none d-md-inline">{{ "merit.style"|trans([], 'character') }}</span>{% include "icon.html.twig" with {'icon' : "style", 'hasTips': 0 } only %}
       </a>
     </div>
   </div>

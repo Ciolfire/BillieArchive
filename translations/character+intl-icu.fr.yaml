@@ -15,9 +15,18 @@ mental: Mental
 physical: Physique
 social: Social
 
+age.normal: "Age: {age} ans"
+age.less: "Age: {age} (Etreinte à {looks} ans)"
 
-age.normal: "Age: %age% ans"
-age.less: "Age: %age% (Etreinte à %looks% ans)"
+advantage:
+  armor: Armure
+  defense: Defense
+  initiative: Initiative
+  size: Taille
+  speed: 
+    label: Vitesse
+    value: "{speed}m/tr"
+  xp: PX
 
 attribute:
   label: Attribut
@@ -62,17 +71,21 @@ dot:
 
 willpower:
   name: Willpower
-  0: 0 - Épuisé
-  1: 1 - Mou
-  2: 2 - Faible
-  3: 3 - Timide
-  4: 4 - Certain
-  5: 5 - Confident
-  6: 6 - Résolu
-  7: 7 - Passionné
-  8: 8 - Determiné
-  9: 9 - Volonté de fer
-  10: 10 - Implacable
+  value: >-
+    {value, plural,
+      =0 {0 - Épuisé}
+      =1 {1 - Mou}
+      =2 {2 - Faible}
+      =3 {3 - Timide}
+      =4 {4 - Certain}
+      =5 {5 - Confident}
+      =6 {6 - Résolu}
+      =7 {7 - Passionné}
+      =8 {8 - Determiné}
+      =9 {9 - Volonté de fer}
+      =10 {10 - Implacable}
+      other {# - Surnaturelle}
+    }
 
 health: Santé
 wound:
@@ -80,9 +93,16 @@ wound:
 
 merit:
   label: Atout
+  count: >-
+    {count, plural,
+      =0 {Aucun Atout}
+      one {1 Atout}
+      other {# Atouts}
+    }
   creation: 7 points à dépenser
   improve: Améliorer un Atout existant
   new: Acheter un nouvel Atout
+  style: Style de combat
 merits:
   label: Atouts
 
@@ -131,10 +151,18 @@ specialty:
 specialties:
   label: Specialisations
 
-power: "{0}Aucun pouvoir|{1}Pouvoir|]1,Inf[Pouvoirs"
+power: >-
+  {count, plural,
+    =0 {Aucun pouvoir}
+    one {Pouvoir}
+    other {Pouvoirs}
+  }
 
 vampire:
   age: Age de la Mort
+  bloodline:
+    name: Lignée
+    join: Rejoindre Lignée
   sire: Sire
   potency:
     name: Puissance du Sang
@@ -154,11 +182,6 @@ embrace:
       info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
       favored: Actuellement
       all: Total
-
-discipline:
-  label: Discipline
-favoredDiscipline:
-  label: Discipline de Clan
 
 awaken:
   name: Eveil
