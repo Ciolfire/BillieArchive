@@ -18,3 +18,5 @@ discipline:
     add: Ajouter un pouvoir
 disciplines:
   label: Disciplines
+parent:
+  label: Clan Parent

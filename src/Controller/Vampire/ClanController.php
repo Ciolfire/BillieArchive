@@ -37,6 +37,11 @@ class ClanController extends AbstractController
       'entity' => 'clan',
       'category' => 'character',
       'type' => 'vampire',
+      'search' => [
+        'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
+        // 'type' => $this->dataService->getMeritTypes(), // Kinda want to replace for dynamic list
+        // 'category' => $this->categories,
+      ],
     ]);
   }
 
