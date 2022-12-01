@@ -54,7 +54,7 @@ class VampireController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
   public function embrace(Request $request, Character $character): Response
   {
     $clans = $this->dataService->findBy(Clan::class, ['parentClan' => null]);

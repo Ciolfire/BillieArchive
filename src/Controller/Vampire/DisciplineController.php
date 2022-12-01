@@ -39,7 +39,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id}', name: 'discipline_show', methods: ['GET'], requirements: ["id" => "\d+"])]
+  #[Route('/discipline/{id<\d+>}', name: 'discipline_show', methods: ['GET'])]
   public function discipline(Discipline $discipline): Response
   {
     return $this->renderForm('vampire/discipline/show.html.twig', [
@@ -69,7 +69,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id}/edit', name: 'discipline_edit', methods: ['GET', 'POST'])]
+  #[Route('/discipline/{id<\d+>}/edit', name: 'discipline_edit', methods: ['GET', 'POST'])]
   public function disciplineEdit(Request $request, Discipline $discipline): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -89,7 +89,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id}/power/add', name: 'discipline_power_add', methods: ['GET', 'POST'])]
+  #[Route('/discipline/{id<\d+>}/power/add', name: 'discipline_power_add', methods: ['GET', 'POST'])]
   public function disciplinePowerAdd(Request $request, Discipline $discipline): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -111,7 +111,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/power/{id}/edit', name: 'discipline_power_edit', methods: ['GET', 'POST'])]
+  #[Route('/discipline/power/{id<\d+>}/edit', name: 'discipline_power_edit', methods: ['GET', 'POST'])]
   public function disciplinePowerEdit(Request $request, DisciplinePower $power, EntityManagerInterface $entityManager): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

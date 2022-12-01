@@ -43,7 +43,7 @@ class WikiController extends AbstractController
     ]);
   }
 
-  #[Route('/attribute/{id}/edit', name: 'attribute_edit', methods: ['GET', 'POST'])]
+  #[Route('/attribute/{id<\d+>}/edit', name: 'attribute_edit', methods: ['GET', 'POST'])]
   public function attributeEdit(Request $request, Attribute $attribute): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -75,7 +75,7 @@ class WikiController extends AbstractController
     ]);
   }
 
-  #[Route('/skill/{id}/edit', name: 'skill_edit', methods: ['GET', 'POST'])]
+  #[Route('/skill/{id<\d+>}/edit', name: 'skill_edit', methods: ['GET', 'POST'])]
   public function skillEdit(Request $request, Skill $skill): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

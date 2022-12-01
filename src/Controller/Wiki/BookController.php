@@ -67,7 +67,7 @@ class BookController extends AbstractController
     ]);
   }
 
-  #[Route('/book/{id}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
+  #[Route('/book/{id<\d+>}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
   public function bookEdit(Request $request, Book $book): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

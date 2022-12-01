@@ -40,7 +40,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  #[Route("/{type}/{id}", name: "merit_list", methods: ["GET"], requirements: ["id" => "\d+"])]
+  #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
   public function list($type, $id)
   {
     $search = ['category' => $this->categories];
@@ -90,7 +90,7 @@ class MeritController extends AbstractController
   }
 
   /**
-   * @Route("/{id}", name="merit_show", methods={"GET"})
+   * @Route("/{id<\d+>}", name="merit_show", methods={"GET"})
    */
   public function show(Merit $merit): Response
   {
@@ -100,7 +100,7 @@ class MeritController extends AbstractController
   }
 
   /**
-   * @Route("/{id}/edit", name="merit_edit", methods={"GET", "POST"})
+   * @Route("/{id<\d+>}/edit", name="merit_edit", methods={"GET", "POST"})
    */
   public function edit(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
@@ -120,7 +120,7 @@ class MeritController extends AbstractController
   }
 
   /**
-   * @Route("/{id}/translate/{language}", name="merit_translate", methods={"GET", "POST"})
+   * @Route("/{id<\d+>}/translate/{language}", name="merit_translate", methods={"GET", "POST"})
    */
   public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
   {
@@ -142,7 +142,7 @@ class MeritController extends AbstractController
   }
 
   /**
-   * @Route("/{id}", name="merit_delete", methods={"POST"})
+   * @Route("/{id<\d+>}", name="merit_delete", methods={"POST"})
    */
   public function delete(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {

@@ -70,7 +70,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{id}/edit', name: 'clan_edit', methods: ['GET', 'POST'])]
+  #[Route('/clan/{id<\d+>}/edit', name: 'clan_edit', methods: ['GET', 'POST'])]
   public function clanEdit(Request $request, Clan $clan): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -103,7 +103,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('{id}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
+  #[Route('{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
   public function bloodlineJoin(Request $request, Vampire $vampire): Response
   {
     /** @var User $user */
@@ -130,7 +130,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route("/{type}/{id}", name: "clan_list", methods: ["GET"], requirements: ["id" => "\d+"])]
+  #[Route("/clan/{type<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
   public function clanList($type, $id)
   {
     switch ($type) {

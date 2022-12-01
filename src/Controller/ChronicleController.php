@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/{_locale<%supported_locales%>?%default_locale%}/chronicle")
- */
+#[Route("/{_locale<%supported_locales%>?%default_locale%}/chronicle")]
 class ChronicleController extends AbstractController
 {
   private $doctrine;
@@ -29,9 +27,7 @@ class ChronicleController extends AbstractController
     $this->service = $service;
   }
 
-  /**
-   * @Route("/new", name="chronicle_new")
-   */
+  #[Route("/new", name: "chronicle_new")]
   public function new(Request $request) : Response
   {
     $chronicle = new Chronicle();
@@ -53,9 +49,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/", name="chronicle_show", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}/", name: "chronicle_show", methods: ["GET"])]
   public function show(Chronicle $chronicle)
   {
     return $this->render('chronicle/show.html.twig', [
@@ -64,9 +58,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/homebrew", name="homebrew_index", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}/homebrew", name: "homebrew_index", methods: ["GET"])]
   public function homebrew(Chronicle $chronicle)
   {
     return $this->render('chronicle/homebrew/index.html.twig', [
@@ -75,9 +67,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/party", name="chronicle_party_index", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}/party", name: "chronicle_party_index", methods: ["GET"])]
   public function party(Chronicle $chronicle)
   {
     return $this->render('chronicle/party/index.html.twig', [
@@ -86,9 +76,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/npc", name="chronicle_npc_index", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}/npc", name: "chronicle_npc_index", methods: ["GET"])]
   public function npc(Chronicle $chronicle)
   {
     return $this->render('character/npc/index.html.twig', [
@@ -97,22 +85,14 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/npc/add", name="chronicle_npc_add", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}/npc/add", name: "chronicle_npc_add", methods: ["GET"])]
   public function addNpc(Chronicle $chronicle)
   {
-    return $this->redirectToRoute('character_new', ['chronicle' => $chronicle->getId(), 'isNpc' => true]);
 
-    // return $this->render('character/npc/index.html.twig', [
-    //   'chronicle' => $chronicle,
-    //   'type' => $chronicle->getType(),
-    // ]);
+    return $this->redirectToRoute('character_new', ['chronicle' => $chronicle->getId(), 'isNpc' => true]);
   }
 
-  /**
-   * @Route("/{id}/party/add", name="chronicle_add_player")
-   */
+  #[Route("/{id<\d+>}/party/add", name: "chronicle_add_player")]
   public function addPlayer(Request $request, Chronicle $chronicle) : Response
   {
     /** @var UserRepository */
@@ -150,9 +130,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id}/party/remove/player", name="chronicle_remove_player")
-   */
+  #[Route("/{id<\d+>}/party/remove/player", name: "chronicle_remove_player")]
   public function removePlayer(Request $request, Chronicle $chronicle) : Response
   {
     $availablePlayers = $chronicle->getPlayers();

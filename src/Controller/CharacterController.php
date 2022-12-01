@@ -108,7 +108,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}', name: 'character_show', methods: ['GET'])]
+  #[Route('/{id<\d+>}', name: 'character_show', methods: ['GET'])]
   public function show(Character $character): Response
   {
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
@@ -122,7 +122,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
   public function edit(Request $request, Character $character): Response
   {
 
@@ -168,7 +168,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/delete', name: 'character_delete', methods: ['POST'])]
+  #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['POST'])]
   public function delete(Request $request, Character $character, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
@@ -178,7 +178,7 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('/{id}/background', name: 'character_background', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/background', name: 'character_background', methods: ['GET', 'POST'])]
   public function background(Request $request, Character $character): Response
   {
     $converter = new LeagueMarkdown();
@@ -205,7 +205,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Character $character): Response
   {
     $note = new CharacterNote();
@@ -232,7 +232,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/notes/{note}/edit', name: 'character_note_edit', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/notes/{note}/edit', name: 'character_note_edit', methods: ['GET', 'POST'])]
   public function EditNote(Request $request, Character $character, CharacterNote $note): Response
   {
     $options = [];
@@ -250,7 +250,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
+  #[Route('/{id<\d+>}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
   public function updateWounds(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -266,7 +266,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  #[Route('/{id}/trait/update', name: 'character_trait_update', methods: ['POST'])]
+  #[Route('/{id<\d+>}/trait/update', name: 'character_trait_update', methods: ['POST'])]
   public function updateTrait(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -278,7 +278,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  #[Route('/{id}/experience/update', name: 'character_experience_update', methods: ['POST'])]
+  #[Route('/{id<\d+>}/experience/update', name: 'character_experience_update', methods: ['POST'])]
   public function updateExperience(Request $request, Character $character): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {
@@ -290,7 +290,7 @@ class CharacterController extends AbstractController
     }
   }
 
-  #[Route('/{id}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
+  #[Route('/{id<\d+>}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
   public function updateAvatar(Request $request, Character $character, LoggerInterface $logger): JsonResponse
   {
     if ($request->isXmlHttpRequest()) {

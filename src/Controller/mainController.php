@@ -8,23 +8,17 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/{_locale<%supported_locales%>?%default_locale%}")
- */
+#[Route("/{_locale<%supported_locales%>?%default_locale%}")]
 class mainController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route("/", name: "index")]
     public function index()
     {
       return $this->render('index.html.twig', [
       ]);
     }
 
-    /**
-     * @Route("/users", name="users")
-     */
+    #[Route("/users", name: "users")]
     public function users(UserRepository $userRepository)
     {
       $this->denyAccessUnlessGranted('ROLE_GM');
@@ -36,9 +30,7 @@ class mainController extends AbstractController
       ]);
     }
 
-    /**
-     * @Route("/user/switch/{id}/{role}", name="user_switch_role", methods={"GET"})
-     */
+    #[Route("/user/switch/{id<\d+>}/{role}", name: "user_switch_role", methods: ["GET"])]
     public function switchRole(User $user, UserRepository $userRepository, string $role, ManagerRegistry $doctrine)
     {
       $this->denyAccessUnlessGranted('ROLE_GM');
