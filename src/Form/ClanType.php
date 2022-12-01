@@ -41,7 +41,9 @@ class ClanType extends AbstractType
           ])
         ],
       ])
-      ->add('parentClan')
+      ->add('parentClan', null, ['choice_filter' => function (?Clan $clan) {
+        return $clan ? $clan->isBloodline() : false;
+      }])
       ->add('attributes', null, ['expanded' => true])
       ->add('disciplines', null, ['expanded' => true])
       ->add('short')
