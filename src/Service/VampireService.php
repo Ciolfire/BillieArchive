@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Clan;
 use App\Entity\Vampire;
@@ -86,10 +87,16 @@ class VampireService
     }
   }
 
-  public function getBloodlines()
+  public function getBloodlines($item = null)
   {
     /** @var ClanRepository $repo */
     $repo = $this->doctrine->getRepository(Clan::class);
-    return $repo->findAllBloodlines();
+    if ($item instanceof Book) {
+
+      return $repo->findByBook($item);
+    } else {
+
+      return $repo->findAllBloodlines();
+    }
   }
 }

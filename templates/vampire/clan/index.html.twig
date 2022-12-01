@@ -23,12 +23,14 @@
               <a href="#{{ clan.name }}">{{ clan.name }}</a>
             </li>
           {% endfor %}
-          <p>Bloodlines</p>
-          {% for bloodline in bloodlines %}
-            <li>
-              <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
-            </li>
-          {% endfor %}
+          {% if bloodlines is defined %}
+            <p class="mt-2">Bloodlines</p>
+            {% for bloodline in bloodlines %}
+              <li>
+                <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -41,12 +43,14 @@
         {% include "vampire/clan/card.html.twig" with {'clan' : clan} %}
       {% endfor %}
     </div>
-    <div class="row">
-      <h2>Bloodlines</h2>
-      {% for bloodline in bloodlines %}
-        {% include "vampire/clan/card.html.twig" with {'clan' : bloodline} %}
-      {% endfor %}
-    </div>
+    {% if bloodlines is defined %}
+      <div class="row">
+        <h2>Bloodlines</h2>
+        {% for bloodline in bloodlines %}
+          {% include "vampire/clan/card.html.twig" with {'clan' : bloodline} %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
 

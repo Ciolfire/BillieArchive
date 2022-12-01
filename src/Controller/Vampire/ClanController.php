@@ -2,6 +2,7 @@
 
 namespace App\Controller\Vampire;
 
+use App\Entity\Book;
 use App\Entity\User;
 use App\Entity\Vampire;
 use App\Entity\Clan;
@@ -126,6 +127,31 @@ class ClanController extends AbstractController
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,
       'type' => 'vampire',
+    ]);
+  }
+
+  #[Route("/{type}/{id}", name: "clan_list", methods: ["GET"], requirements: ["id" => "\d+"])]
+  public function clanList($type, $id)
+  {
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        break;
+      
+        default:
+        # code...
+        break;
+    }
+
+    return $this->render('vampire/clan/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
+      'entity' => 'clan',
+      'category' => 'character',
+      'type' => 'vampire',
+      'clans' => $this->dataService->findBy(Clan::class, ['parentClan' => null, $type => $item]),
+      'bloodlines' => $this->service->getBloodlines($item),
+      'search' => [],
     ]);
   }
 }

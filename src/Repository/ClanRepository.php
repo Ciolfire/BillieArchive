@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Book;
 use App\Entity\Clan;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,6 +36,17 @@ class ClanRepository extends ServiceEntityRepository
         ;
     }
     */
+
+  public function findByBook(Book $book)
+  {
+    return $this->createQueryBuilder('c')
+      ->andWhere('c.parentClan IS NOT NULL')
+      ->andWhere('c.book = :book')
+      ->orderBy('c.name', 'ASC')
+      ->setParameter('book', $book)
+      ->getQuery()
+      ->getResult();
+  }
 
   public function findAllBloodlines()
   {
