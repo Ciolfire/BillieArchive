@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ClanRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Clan::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Clan::class);
+  }
 
-    // /**
-    //  * @return Clan[] Returns an array of Clan objects
-    //  */
-    /*
+  // /**
+  //  * @return Clan[] Returns an array of Clan objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
@@ -36,7 +36,16 @@ class ClanRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  public function findAllBloodlines()
+  {
+    return $this->createQueryBuilder('c')
+      ->andWhere('c.parentClan IS NOT NULL')
+      ->orderBy('c.name', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+  /*
     public function findOneBySomeField($value): ?Clan
     {
         return $this->createQueryBuilder('c')

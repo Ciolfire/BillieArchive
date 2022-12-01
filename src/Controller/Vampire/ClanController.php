@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire')]
 class ClanController extends AbstractController
 {
@@ -32,15 +31,13 @@ class ClanController extends AbstractController
   {
     return $this->render('vampire/clan/index.html.twig', [
       'clans' => $this->dataService->findBy(Clan::class, ['parentClan' => null]),
-      'bloodlines' => $this->dataService->findBy(Clan::class, ['parentClan' => !null]),
+      'bloodlines' => $this->service->getBloodlines(),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
       'category' => 'character',
       'type' => 'vampire',
       'search' => [
         'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
-        // 'type' => $this->dataService->getMeritTypes(), // Kinda want to replace for dynamic list
-        // 'category' => $this->categories,
       ],
     ]);
   }

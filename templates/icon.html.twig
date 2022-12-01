@@ -58,7 +58,7 @@
   {% if type == 'vampire' %}
     {{ source('icons/heart-organ.svg') }}
   {% else %}
-    {{ source('icons/health-normal.svg') }}    
+    {{ source('icons/health-normal.svg') }}
   {% endif %}
   {# <i class="fa-solid fa-heart fa-fw"></i> #}
 {% elseif icon == 'willpower' %}
@@ -92,10 +92,12 @@
 {% elseif icon == 'politics' %}
   <i class="fa-solid fa-landmark fa-fw"></i>
 {% elseif icon == 'science' %}
-  <i class="fa-solid fa-flask fa-fw"></i>
+  {{ source('icons/materials-science.svg') }}
+  {# <i class="fa-solid fa-flask fa-fw"></i> #}
 {# physical #}
 {% elseif icon == 'athletics' %}
-  {{ source('icons/jumping-rope.svg') }}
+  {{ source('icons/body-balance.svg') }}
+  {# {{ source('icons/jumping-rope.svg') }} #}
   {# <i class="fa-solid fa-person-running fa-fw"></i> #}
 {% elseif icon == 'brawl' %}
   {{ source('icons/punch.svg') }}
@@ -121,11 +123,13 @@
 {% elseif icon == 'empathy' %}
   <i class="fa-solid fa-heart-pulse fa-fw"></i>
 {% elseif icon == 'expression' %}
-  {{ source('icons/public-speaker.svg') }}
-  {# <i class="fa-solid fa-guitar fa-fw"></i> #}
+  {# {{ source('icons/saxophone.svg') }} #}
+  {# {{ source('icons/ballerina-shoes.svg') }} #}
+  {# {{ source('icons/public-speaker.svg') }} #}
+  {{ source('icons/drama-masks.svg') }}
 {% elseif icon == 'intimidation' %}
-  <i class="fa-solid fa-face-angry fa-fw"></i>
-  {# <i class="fa-solid fa-head-side-cough fa-fw"></i> #}
+  {{ source('icons/enrage.svg') }}
+  {# <i class="fa-solid fa-face-angry fa-fw"></i> #}
 {% elseif icon == 'persuasion' %}
   <i class="fa-solid fa-handshake fa-fw"></i>
 {% elseif icon == 'socialize' %}
@@ -133,10 +137,10 @@
 {% elseif icon == 'streetwise' %}
   <i class="fa-solid fa-city fa-fw"></i>
 {% elseif icon == 'subterfuge' %}
-  <i class="fa-solid fa-masks-theater fa-fw"></i>
+  {# <i class="fa-solid fa-masks-theater fa-fw"></i> #}
+  {# {{ source('icons/drama-masks.svg') }} #}
+  {{ source('icons/sand-snake.svg') }}
 {% elseif icon == 'specialties' %}
-  {# <i class="fa-solid fa-2xs fa-certificate fa-fw"></i> #}
-  {# <i class="fa-solid fa-2xs fa-graduation-cap fa-fw"></i> #}
   <i class="fa-solid fa-2xs fa-star fa-fw"></i>
 {% elseif icon == 'specialty.add' %}
   <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">

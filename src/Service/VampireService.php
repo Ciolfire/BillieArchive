@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Character;
+use App\Entity\Clan;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
+use App\Repository\ClanRepository;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
@@ -82,5 +84,12 @@ class VampireService
       $this->doctrine->getManager()->persist($newDiscipline);
       $vampire->addDiscipline($newDiscipline);
     }
+  }
+
+  public function getBloodlines()
+  {
+    /** @var ClanRepository $repo */
+    $repo = $this->doctrine->getRepository(Clan::class);
+    return $repo->findAllBloodlines();
   }
 }
