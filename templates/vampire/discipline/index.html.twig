@@ -6,7 +6,7 @@
 
 {% block body %}
   <div class="container">
-    <h1>{{ (entity ~ ".title")|trans }}</h1>
+    <h1>{{ (entity ~ ".label")|trans }}</h1>
     <div class="row mt-5 mb-2">
       {% if is_granted('ROLE_ST') %}
         <a class="btn btn-primary w-100" href="{{ path('vampire_discipline_new') }}">{{ 'discipline.new'|trans }}</a>
@@ -17,22 +17,22 @@
         <thead>
           <tr>
             <th scope="col">{{ ("name")|trans({}, "app") }}</th>
-            <th scope="col">{{ ("short")|trans({}, "app") }}</th>
+            <th scope="col" colspan="2">{{ ("short")|trans({}, "app") }}</th>
             <th scope="col">{{ ("actions")|trans({}, "app") }}</th>
           </tr>
         </thead>
         <tbody>
           {% for discipline in elements %}
-            <tr data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}" onclick=".discipline-{{ discipline.id }}">
-              <th scope="row">
+            <tr>
+              <th scope="row" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
                 <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
               </th>
-              <td>
+              <td colspan="2" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
                 {{ discipline.short }}
               </td>
-              <td>
+              <td class="border-start">
+                <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'view' } only %}</a>
                 {% if is_granted('ROLE_ST') %}
-                  <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'view' } only %}</a>
                   <a href="{{ path(entity ~ '_edit', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit' } only %}</a>
                 {% endif %}
               </td>
