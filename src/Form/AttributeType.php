@@ -13,16 +13,19 @@ class AttributeType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
+    $converter = new LeagueMarkdown();
     /** @var Attribute $attribute */
     $attribute = $options['data'];
-    $converter = new LeagueMarkdown();
 
     $builder
       // ->add('identifier')
       // ->add('category')
       // ->add('type')
       ->add('name')
-      ->add('description', CKEditorType::class, ['data' => $converter->convert($attribute->getDescription())])
+      ->add('description', CKEditorType::class, [
+        'empty_data' => '', 
+        'data' => $converter->convert($attribute->getDescription())
+      ])
       ->add('fluff', CKEditorType::class, ['data' => $converter->convert($attribute->getFluff())]);
   }
 

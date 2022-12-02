@@ -182,10 +182,17 @@ class CharacterController extends AbstractController
   public function background(Request $request, Character $character): Response
   {
     $converter = new LeagueMarkdown();
-    $background = $character->getBackground();
     $form = $this->createFormBuilder()
-      ->add('background', CKEditorType::class , ['data' => $converter->convert($background), 'label' => 'background.label', 'translation_domain' => 'character'])
-      ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => 'app'])
+      ->add('background', CKEditorType::class , [
+        'empty_data' => '', 
+        'data' => $converter->convert($character->getBackground()), 
+        'label' => 'background.label', 
+        'translation_domain' => 'character'
+      ])
+      ->add('save', SubmitType::class, [
+        'label' => 'save', 
+        'translation_domain' => 'app'
+      ])
       ->getForm();
     $form->handleRequest($request);
     

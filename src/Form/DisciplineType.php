@@ -14,16 +14,20 @@ class DisciplineType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
+    $converter = new LeagueMarkdown();
     /** @var Discipline $discipline */
     $discipline = $options['data'];
-    $converter = new LeagueMarkdown();
+    $rules = $discipline->getRules();
+    if (is_null($rules)) {
+      $rules = "";
+    }
 
     $builder
       ->add('name')
       ->add('homebrewFor')
       ->add('description')
       ->add('short')
-      ->add('rules', CKEditorType::class, ['data' => $converter->convert($discipline->getRules())])
+      ->add('rules', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($rules)])
       ->add('isRestricted')
       ->add('book')
       ->add('page')

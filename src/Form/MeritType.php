@@ -16,9 +16,9 @@ class MeritType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
+    $converter = new LeagueMarkdown();
     /** @var Merit $merit */
     $merit = $options['data'];
-    $converter = new LeagueMarkdown();
 
     $builder
       ->add('name')
@@ -45,7 +45,7 @@ class MeritType extends AbstractType
       //   'entry_options' => [
       //       'attr' => ['class' => 'prerequisite-box'],
       //   ],])
-      ->add('effect', CKEditorType::class, ['data' => $converter->convert($merit->getEffect())])
+      ->add('effect', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
       ->add('book')
       ->add('page');
   }

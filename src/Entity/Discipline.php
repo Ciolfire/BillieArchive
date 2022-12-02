@@ -49,8 +49,8 @@ class Discipline
   private $isRestricted =  1;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-  private $rules = "";
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  private $rules;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
   private $powers;
@@ -81,6 +81,7 @@ class Discipline
   public function getPower(): ?DisciplinePower
   {
     if ($this->IsSinglePower()) {
+
       return $this->powers->first();
     } else return null;
   }
@@ -138,10 +139,15 @@ class Discipline
     return $this->rules;
   }
 
-  public function setRules(?string $rules): self
+  public function setRules(string $rules): self
   {
-    $converter = new HtmlConverter();
-    $this->rules = $converter->convert($rules);
+    if (!is_null($rules)) {
+      $converter = new HtmlConverter();
+      $rules = $converter->convert($rules);
+    } else {
+      $rules = "";
+    }
+    $this->rules = $rules;
 
     return $this;
   }

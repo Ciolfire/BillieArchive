@@ -112,13 +112,18 @@ class DisciplineController extends AbstractController
   }
 
   #[Route('/discipline/power/{id<\d+>}/edit', name: 'discipline_power_edit', methods: ['GET', 'POST'])]
-  public function disciplinePowerEdit(Request $request, DisciplinePower $power, EntityManagerInterface $entityManager): Response
+  public function disciplinePowerEdit(Request $request, DisciplinePower $power): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $form = $this->createForm(DisciplinePowerType::class, $power);
 
     $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($power);
+
+      return $this->redirectToRoute('discipline_show', ['id' => $power->getDiscipline()->getId()]);
+    }
 
     return $this->renderForm('vampire/discipline/power.edit.html.twig', [
       'power' => $power,

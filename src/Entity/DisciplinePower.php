@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Entity\Vampire;
 use App\Repository\DisciplinePowerRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
+use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
 class DisciplinePower
@@ -21,8 +22,9 @@ class DisciplinePower
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
   private $short;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-  private $details;
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  private $details = "";
 
   #[ORM\Column(type: "smallint", nullable: true)]
   private $level;
@@ -94,6 +96,8 @@ class DisciplinePower
 
   public function setDetails(string $details): self
   {
+    $converter = new HtmlConverter();
+    $details = $converter->convert($details);
     $this->details = $details;
 
     return $this;
