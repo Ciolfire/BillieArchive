@@ -33,7 +33,8 @@
               <td class="border-start">
                 <a href="{{ path(entity ~ '_show', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'view' } only %}</a>
                 {% if is_granted('ROLE_ST') %}
-                  <a href="{{ path(entity ~ '_edit', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit' } only %}</a>
+                  <a href="{{ path('discipline_edit', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit' } only %}</a>
+                  <a href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}</a>
                 {% endif %}
               </td>
             </tr>
