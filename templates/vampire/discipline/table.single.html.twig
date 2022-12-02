@@ -7,7 +7,7 @@
     <th scope="col">{{ ("actions")|trans({}, 'app') }}</th>
   </tr>
 </thead>
-<tbody class="collapse discipline-{{ discipline.id }}">
+<tbody class="collapse discipline-{{ discipline.id }}" data-bs-parent="#disciplinesTable">
   <tr class="table-secondary">
     <td>{{ "discipline.level.single"|trans }}</td>
     <td colspan="2">{{ discipline.power.short|default("") }}</td>

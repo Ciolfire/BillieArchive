@@ -12,15 +12,15 @@
         {% if not loop.first %}
           </div>
         {% endif %}
-        <div class="row g-0">
-          <h5 class="btn btn-primary mt-0 mb-0" data-bs-toggle="collapse" data-bs-target=".list-{{ cYear }}" aria-expanded="false" aria-controls="list-{{ cYear }}">{{ cYear }}</h5>
+        <h5 class="btn btn-primary mt-0 mb-0 w-100" data-bs-toggle="collapse" data-bs-target=".list-{{ cYear }}" aria-expanded="false" aria-controls="list-{{ cYear }}">{{ cYear }}</h5>
+        <div class="row g-0 collapse list-{{ cYear }} mb-5" data-bs-parent="#notesList">
       {% endif %}
       {% if month is not defined or cMonth != month or cYear != year %}
-        <div class="col-12 list-{{ cYear }} collapse">
+        <div class="col-12">
           <p class="mb-0">{{ cMonth }}</p>
         </div>
       {% endif %}
-      <div class="col-6 col-md-4 col-lg-2 list-{{ cYear }} collapse" data-bs-parent="#notesList">
+      <div class="col-6 col-md-4 col-lg-2">
         <a class="btn btn-primary fs-sm w-100 h-100" href="#note-{{ note.id }}">
           {{ note.assignedAt|format_datetime('short', 'none') }}
           <br>
