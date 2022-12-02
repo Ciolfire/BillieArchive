@@ -80,7 +80,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
 
-      return $this->redirectToRoute('discipline_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->renderForm('vampire/discipline/new.html.twig', [
