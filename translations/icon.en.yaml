@@ -1,7 +1,8 @@
-view: View
-edit: Edit
-
 add: Add
+back: Back
+edit: Edit
+view: View
+
 all: All
 creation: Character creation only.
 hide: Hide

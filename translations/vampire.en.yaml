@@ -18,5 +18,7 @@ discipline:
     add: Add a power
 disciplines:
   label: Disciplines
+  list:
+    back: Back to the list
 parent:
   label: Parent Clan
