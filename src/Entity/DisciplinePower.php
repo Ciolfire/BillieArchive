@@ -19,7 +19,7 @@ class DisciplinePower
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
   private $name;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
+  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 80, nullable: true)]
   private $short;
 
   #[Gedmo\Translatable]
