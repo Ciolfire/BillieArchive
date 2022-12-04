@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,15 +29,15 @@ class Clan
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private $id;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $name;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $description = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
@@ -46,11 +47,11 @@ class Clan
   private $disciplines;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $short = "";
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 100)]
+  #[ORM\Column(type: Types::STRING, length: 100)]
   private $keywords;
 
   #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
@@ -59,8 +60,17 @@ class Clan
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
   private $bloodlines;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   private $emblem;
+
+  #[ORM\Column(length: 50)]
+  private ?string $nickname = null;
+
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $weakness = "";
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $quote = null;
 
   public function __construct()
   {
@@ -242,6 +252,43 @@ class Clan
   public function setEmblem(?string $emblem): self
   {
     $this->emblem = $emblem;
+
+    return $this;
+  }
+
+  public function getNickname(): ?string
+  {
+    return $this->nickname;
+  }
+
+  public function setNickname(string $nickname): self
+  {
+    $this->nickname = $nickname;
+
+    return $this;
+  }
+
+  public function getWeakness(): ?string
+  {
+    return $this->weakness;
+  }
+
+  public function setWeakness(string $weakness): self
+  {
+    $this->weakness = $weakness;
+
+    return $this;
+  }
+
+  public function getQuote(): ?string
+  {
+    return $this->quote;
+  }
+
+  public function setQuote(?string $quote): self
+  {
+    $converter = new HtmlConverter();
+    $this->quote = $converter->convert($quote);
 
     return $this;
   }

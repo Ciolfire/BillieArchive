@@ -20,12 +20,11 @@ class ClanType extends AbstractType
     /** @var Clan */
     $clan = $options['data'];
     $converter = new LeagueMarkdown();
-    $description = $clan->getDescription();
-    if (is_null($description)) {
-        $description = "";
-    }
 
     $builder
+      ->add('name')
+      ->add('nickname')
+      ->add('quote')
       ->add('name')
       ->add('emblem', FileType::class, [
         'label' => 'file',
@@ -47,7 +46,8 @@ class ClanType extends AbstractType
       ->add('attributes', null, ['expanded' => true])
       ->add('disciplines', null, ['expanded' => true])
       ->add('short')
-      ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($description), 'label' => false])
+      ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($clan->getDescription()), 'label' => false])
+      ->add('weakness', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($clan->getWeakness())])
       ->add('keywords')
       ->add('book')
       ->add('page')
