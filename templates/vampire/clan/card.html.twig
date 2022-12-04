@@ -3,28 +3,36 @@ data-search-target="item"
 data-name="{{ clan.name }}" 
 data-parent="{{ clan.parentClan }}"
 >
-  <div class="block block-wiki">
+  <div class="block block-wiki position-relative">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+      <a class="position-absolute end-0" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
-    <div type="button" data-bs-toggle="collapse" data-bs-target="#clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <h3>{{ clan.name }}
-        {% if clan.parentClan is not null %}({{ clan.parentClan.name }})
+    <div type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+      <blockquote class="text-center mb-2"><h2>{{ clan.name }}
+        {% if clan.parentClan is not null %}
+          ({{ clan.parentClan.name }})
         {% endif %}
-      </h3>
+      </h2>
+      <h5>{{ clan.nickname }}</h5>
+      {{ clan.quote }}</blockquote>
       {% if clan.emblem is not null %}
         <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
       {% endif %}
-      <div id="clan-{{ clan.id }}" class="collapse">
-        <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
-        <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+      <div class="text-center mb-2">
+        {{ clan.keywords }}
+        <br>
+        {% for discipline in clan.disciplines %}
+          <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+        {% endfor %}
       </div>
-      <div id="clan-{{ clan.id }}" class="collapse show fluff text-center mb-2">{{ clan.keywords }}</div>
-    </div>
-    <div id="clan-{{ clan.id }}" class="collapse show text-sub text-center mb-2">
-      {% for discipline in clan.disciplines %}
-        <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
-      {% endfor %}
+      <div class="clan-{{ clan.id }} collapse p-2">
+        <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+        <h5>{{ "clan.weakness"|trans }}</h5>
+        <p class="text">{{ clan.weakness|default("")|markdown_to_html }}</p>
+      </div>
+      <div class="clan-{{ clan.id }} collapse show">
+        <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
+      </div>
     </div>
   </div>
 </div>
