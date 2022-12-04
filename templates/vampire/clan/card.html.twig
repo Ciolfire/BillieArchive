@@ -1,20 +1,19 @@
-<div id="{{ clan.name }}" class="col-12"
-data-search-target="item" 
-data-name="{{ clan.name }}" 
-data-parent="{{ clan.parentClan }}"
->
+{% trans_default_domain 'vampire' %}
+
+<div id="{{ clan.name }}" class="col-12" data-search-target="item" data-name="{{ clan.name }}" data-parent="{{ clan.parentClan }}">
   <div class="block block-wiki position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
     <div type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <blockquote class="text-center mb-2"><h2>{{ clan.name }}
-        {% if clan.parentClan is not null %}
-          ({{ clan.parentClan.name }})
-        {% endif %}
-      </h2>
-      <h5>{{ clan.nickname }}</h5>
-      {{ clan.quote }}</blockquote>
+      <blockquote class="text-center mb-2">
+        <h2>{{ clan.name }}
+          {% if clan.parentClan is not null %}
+            ({{ clan.parentClan.name }})
+          {% endif %}
+        </h2>
+        <h5>{{ clan.nickname }}</h5>
+        {{ clan.quote }}</blockquote>
       {% if clan.emblem is not null %}
         <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
       {% endif %}
@@ -31,7 +30,14 @@ data-parent="{{ clan.parentClan }}"
         <p class="text">{{ clan.weakness|default("")|markdown_to_html }}</p>
       </div>
       <div class="clan-{{ clan.id }} collapse show">
-        <div class="fluff">{{ clan.short|default("")|markdown_to_html }}</div>
+        <div class="fluff">{{ clan.short|default("")|markdown_to_html }}
+          <div class="text-end">
+            {% if clan.homebrewFor is not null %}
+              {{ clan.homebrewFor.name }}
+            {% else %}
+              {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}</div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

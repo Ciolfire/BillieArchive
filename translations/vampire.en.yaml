@@ -6,6 +6,7 @@ clan:
     count: "{0}No Bloodline|{1}1 Bloodline|]1,Inf[%count% Bloodlines"
   bloodlines:
     label: Bloodlines
+  weakness: Weakness
 clans:
   label: Clans
 discipline:
