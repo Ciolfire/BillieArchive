@@ -33,7 +33,7 @@
         <div class="fluff">{{ clan.short|default("")|markdown_to_html }}
           <div class="text-end">
             {% if clan.homebrewFor is not null %}
-              {{ clan.homebrewFor.name }}
+              <a href="{{path('chronicle_show', {'id': clan.homebrewFor.id }) }}">{{ clan.homebrewFor.name }}</a>
             {% else %}
               {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}</div>
           {% endif %}
