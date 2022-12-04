@@ -23,8 +23,8 @@ class ClanType extends AbstractType
 
     $builder
       ->add('name')
-      ->add('nickname')
       ->add('quote')
+      ->add('nickname')
       ->add('name')
       ->add('emblem', FileType::class, [
         'label' => 'file',
