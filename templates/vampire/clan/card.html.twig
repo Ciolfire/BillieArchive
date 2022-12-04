@@ -20,6 +20,12 @@
       <div class="text-center mb-2">
         {{ clan.keywords }}
         <br>
+        {% if clan.parentClan is null %}
+          {% for attribute in clan.attributes %}
+            <span class="strong">{{ attribute.name|capitalize }}</span>
+          {% endfor %}
+          —
+        {% endif %}
         {% for discipline in clan.disciplines %}
           <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
         {% endfor %}
