@@ -40,6 +40,10 @@ h1, h2, h3, h4, h5 {
     -1px -1px 0 $titleShadow,
     1px -1px 0 $titleShadow,
     -1px 1px 0 $titleShadow;
+  svg {
+    stroke: $titleShadow;
+    stroke-width: 1rem;
+  }
 }
 
 h1 {
@@ -242,7 +246,7 @@ h5 {
   padding: 0.5rem;
   border-radius: 0.5em;
   p {
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 }
 
