@@ -7,7 +7,7 @@
     {% endif %}
     <blockquote class="text-center mb-2">
       <h2>{{ clan.name }}
-        {% if clan.isBloodline is not null %}
+        {% if clan.isBloodline is same as(true) %}
           ({{ clan.parentClan.name|default("clan.parent.any"|trans) }})
         {% endif %}
       </h2>
