@@ -162,7 +162,7 @@ vampire:
   age: Age de la Mort
   bloodline:
     name: Lignée
-    join: Rejoindre Lignée
+    join: Rejoindre une Lignée
   sire: Sire
   potency:
     name: Puissance du Sang

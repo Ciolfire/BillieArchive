@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit
-  {{ entity }}
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ action|trans }} {{ (trans|default(entity) ~ ".label")|trans([], type) }}
 {% endblock %}
 
 {% block body %}
-  <h1>{{ "Edit"|trans }} {{ entity }}</h1>
+  <h1>{{ action|trans }} {{ (trans|default(entity) ~ ".label")|trans([], type) }}{% include "icon.html.twig" with {'icon' : entity, 'hasTips': 0 } only %}</h1>
 
   <div class="container py-3 mt-5 g-0">
     <div class="row block">

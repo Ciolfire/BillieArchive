@@ -31,7 +31,7 @@ class ClanController extends AbstractController
   public function clans(): Response
   {
     return $this->render('vampire/clan/index.html.twig', [
-      'clans' => $this->dataService->findBy(Clan::class, ['parentClan' => null]),
+      'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
       'bloodlines' => $this->service->getBloodlines(),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
@@ -43,12 +43,46 @@ class ClanController extends AbstractController
     ]);
   }
 
+  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
+  public function bloodlines(): Response
+  {
+    return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+  }
+
   #[Route('/clan/new', name: 'clan_new', methods: ['GET', 'POST'])]
   public function clanNew(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $clan = new Clan();
+    $form = $this->createForm(ClanType::class, $clan);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $emblem = $form->get('emblem')->getData();
+      if (!is_null($emblem)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      }
+      $this->dataService->save($clan);
+
+      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('wiki/form.html.twig', [
+      'action' => 'new',
+      'entity' => 'clan',
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/bloodline/new', name: 'bloodline_new', methods: ['GET', 'POST'])]
+  public function bloodlineNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $clan = new Clan(true);
 
     $form = $this->createForm(ClanType::class, $clan);
     $form->handleRequest($request);
@@ -63,8 +97,10 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
-      'entity' => 'clan',
+    return $this->renderForm('wiki/form.html.twig', [
+      'action' => 'new',
+      'trans' => 'clan.bloodline',
+      'entity' => 'bloodline',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -88,17 +124,16 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
-      'entity' => 'clan',
-      'form' => $form,
-      'type' => 'vampire',
-    ]);
-  }
+    if ($clan->isBloodline()) {
+      $entity = 'bloodline';
+    } else {
+      $entity = 'clan';
+    }
 
-  #[Route('/bloodline/new', name: 'vampire_bloodline_new', methods: ['GET'])]
-  public function bloodlineNew(): Response
-  {
-    return $this->render('vampire/bloodline/new.html.twig', [
+    return $this->renderForm('wiki/form.html.twig', [
+      'action' => 'edit',
+      'entity' => $entity,
+      'form' => $form,
       'type' => 'vampire',
     ]);
   }
@@ -121,7 +156,7 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $bloodlines = $this->dataService->findBy(Clan::class, ['parentClan' => $vampire->getClan()]);
+    $bloodlines = $this->dataService->findBy(Clan::class, ['isBloodline' => true, 'parentClan' => $vampire->getClan()]);
 
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
@@ -149,8 +184,8 @@ class ClanController extends AbstractController
       'entity' => 'clan',
       'category' => 'character',
       'type' => 'vampire',
-      'clans' => $this->dataService->findBy(Clan::class, ['parentClan' => null, $type => $item]),
-      'bloodlines' => $this->service->getBloodlines($item),
+      'clans' => $item->getClans(),
+      'bloodlines' => $item->getBloodlines(),
       'search' => [],
     ]);
   }

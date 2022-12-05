@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-{% if character.potency > 1 and character.clan.parentClan is null %}
+{% if character.potency > 1 and character.clan.isBloodline is same as(false) %}
   <div class="col-2 col-md-4">
       <a class="vampire-btn btn btn-sm btn-menu btn-primary w-100" href="{{ path('vampire_bloodline_join', {'id': character.id}) }}">
         {% include "icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0} only %}

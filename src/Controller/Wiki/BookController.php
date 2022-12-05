@@ -60,7 +60,7 @@ class BookController extends AbstractController
       return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
+    return $this->renderForm('wiki/form.html.twig', [
       'entity' => 'book',
       'form' => $form,
       'type' => $setting,
@@ -85,7 +85,7 @@ class BookController extends AbstractController
       return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
+    return $this->renderForm('wiki/form.html.twig', [
       'entity' => 'book',
       'form' => $form,
       'type' => $book->getSetting(),

@@ -162,7 +162,7 @@ vampire:
   age: Age at Death
   bloodline:
     name: Bloodline
-    join: Join Bloodline
+    join: Join a Bloodline
   sire: Sire
   potency:
     name: Blood Potency

@@ -13,16 +13,24 @@ characters:
   groups: Groups
   name: Characters
   non.player: NPC
-clans: Clans
+chronicle:
+  label: Chronicle
 chronicles:
   title: My Chronicles
   name: Chronicles
   none: You haven't joined any Chronicle yet ...
 create: Create
 dashboard: Dashboard
+description:
+  label: Description
+  short:
+    label: Short description
 edit: Edit
+emblem: Emblem
 homebrew: Homebrew
 infos: Infos
+keyword: Keyword
+keywords: Keywords
 level: Level
 logout: Logout
 merit:
@@ -30,12 +38,15 @@ merit:
 merits: Merits
 name: Name
 new: New
+nickname: Nickname
 notes: Notes
 options: Options
+page: Page
 party:
   name: Party
   manage: Manage Party
 personal: Personal
+quote: Quote
 rules: Rules
 save: Save
 short: Effect

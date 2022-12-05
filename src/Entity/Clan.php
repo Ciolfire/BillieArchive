@@ -33,7 +33,7 @@ class Clan
   private $id;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: Types::STRING, length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 40)]
   private $name;
 
   #[Gedmo\Translatable]
@@ -72,8 +72,13 @@ class Clan
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $quote = null;
 
-  public function __construct()
+  #[ORM\Column]
+  private ?bool $isBloodline = false;
+
+  public function __construct($isBloodline = false)
   {
+    $this->isBloodline = $isBloodline;
+
     $this->attributes = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
     $this->bloodlines = new ArrayCollection();
@@ -198,11 +203,7 @@ class Clan
 
   public function isBloodline(): ?bool
   {
-    if ($this->parentClan == null) {
-
-      return true;
-    }
-    return false;
+    return $this->isBloodline;
   }
 
   public function getParentClan(): ?self
@@ -291,5 +292,17 @@ class Clan
     $this->quote = $converter->convert($quote);
 
     return $this;
+  }
+
+  public function isIsBloodline(): ?bool
+  {
+      return $this->isBloodline;
+  }
+
+  public function setIsBloodline(bool $isBloodline): self
+  {
+      $this->isBloodline = $isBloodline;
+
+      return $this;
   }
 }

@@ -15,7 +15,7 @@
     </div>
     <div class="block vampire row">
       <h2>{{ "vampire"|trans }}</h2>
-      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "clans"|trans }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "clans"|trans([], "vampire") }}</a></div>
       <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "disciplines"|trans }}</a></div>
       <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "devotions"|trans }}</a></div>
     </div>

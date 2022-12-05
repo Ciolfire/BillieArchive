@@ -99,4 +99,8 @@ class VampireService
       return $repo->findAllBloodlines();
     }
   }
+
+  /** Save and or edit a clan/bloodline */
+  public function handleClan($isNew = true, $isBloodline = false) {
+  }
 }

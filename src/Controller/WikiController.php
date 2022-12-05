@@ -57,7 +57,8 @@ class WikiController extends AbstractController
       return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
+    return $this->renderForm('wiki/form.html.twig', [
+      'action' => 'edit',
       'entity' => 'attribute',
       'form' => $form,
     ]);
@@ -89,7 +90,8 @@ class WikiController extends AbstractController
       return $this->redirectToRoute('skill_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/edit.html.twig', [
+    return $this->renderForm('wiki/form.html.twig', [
+      'action' => 'edit',
       'entity' => 'attribute',
       'form' => $form,
     ]);

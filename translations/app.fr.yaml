@@ -13,29 +13,40 @@ characters:
   groups: Groupes
   name: Personnages
   non.player: PNJ
-clans: Clans
+chronicle:
+  label: Chronique
 chronicles:
   title: Mes Chroniques
   name: Chroniques
   none: Vous n'avez pas encore rejoint de chronique ...
 create: Créer
 dashboard: Tableau de bord
+description:
+  label: Description
+  short:
+    label: Résumé
 edit: Modifier
+emblem: Emblème
 homebrew: Règles maison
 infos: Infos
+keyword: Mot-clef
+keywords: Mots-clefs
 level: Niveau
 logout: Déconnexion
 merit:
   count: "{0}Aucun Atout|{1}1 Atout|]1,Inf[%count% Atouts"
 merits: Atouts
 name: Nom
+nickname: Surnom
 new: Nouveau
 notes: Notes
 options: Options
+page: Page
 party:
   name: Équipe
   manage: Gérer l'Équipe
 personal: Personnel
+quote: Citation
 rules: Règles
 save: Sauvegarder
 short: Effet

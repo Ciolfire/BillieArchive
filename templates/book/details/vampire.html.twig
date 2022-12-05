@@ -1,7 +1,7 @@
 {% trans_default_domain 'vampire' %}
 
-<a {% if book.parentClans|length > 0 or book.bloodlines|length > 0 %} href="{{ path('clan_list', {'type': 'book', 'id': book.id}) }}"{% endif %}>
-  {{ "clan.count"|trans({'%count%': book.parentClans|length}) }}
+<a {% if book.clans|length > 0 or book.bloodlines|length > 0 %} href="{{ path('clan_list', {'type': 'book', 'id': book.id}) }}"{% endif %}>
+  {{ "clan.count"|trans({'%count%': book.clans|length}) }}
   <br>
   {{ "clan.bloodline.count"|trans({'%count%': book.bloodlines|length}) }}
 </a>

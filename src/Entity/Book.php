@@ -195,22 +195,23 @@ class Book
     return $this;
   }
 
-  public function getClans(): Collection
+  public function getClansAndBloodlines(): Collection
   {
     return $this->clans;
   }
 
-  public function getParentClans(): array
+  public function getClans(): array
   {
     $clans = [];
 
     foreach ($this->clans as $clan) {
       /** @var Clan $clan */
-      if (is_null($clan->getParentClan())) {
+      if (!$clan->isBloodline()) {
 
         $clans[] = $clan;
       }
     }
+
     return $clans;
   }
 
@@ -220,11 +221,12 @@ class Book
 
     foreach ($this->clans as $clan) {
       /** @var Clan $clan */
-      if (!is_null($clan->getParentClan())) {
+      if ($clan->isBloodline()) {
 
         $bloodlines[] = $clan;
       }
     }
+
     return $bloodlines;
   }
 

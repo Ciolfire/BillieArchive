@@ -40,7 +40,7 @@ class ClanRepository extends ServiceEntityRepository
   public function findByBook(Book $book)
   {
     return $this->createQueryBuilder('c')
-      ->andWhere('c.parentClan IS NOT NULL')
+      ->andWhere('c.isBloodline = false')
       ->andWhere('c.book = :book')
       ->orderBy('c.name', 'ASC')
       ->setParameter('book', $book)
@@ -51,7 +51,7 @@ class ClanRepository extends ServiceEntityRepository
   public function findAllBloodlines()
   {
     return $this->createQueryBuilder('c')
-      ->andWhere('c.parentClan IS NOT NULL')
+      ->andWhere('c.isBloodline = true')
       ->orderBy('c.name', 'ASC')
       ->getQuery()
       ->getResult();

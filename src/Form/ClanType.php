@@ -22,13 +22,13 @@ class ClanType extends AbstractType
     $converter = new LeagueMarkdown();
 
     $builder
-      ->add('name')
-      ->add('quote')
-      ->add('nickname')
-      ->add('name')
+      ->add('book', null, ['label' => "book"])
+      ->add('page', null, ['label' => "page"])
+      ->add('homebrewFor', null, ['label' => "chronicle.label"])
+      ->add('name', null, ['label' => "name"])
+      ->add('quote', null, ['label' => "quote"])
       ->add('emblem', FileType::class, [
-        'label' => 'file',
-        'translation_domain' => 'app',
+        'label' => 'emblem',
         'mapped' => false,
         'required' => false,
         'constraints' => [
@@ -40,25 +40,44 @@ class ClanType extends AbstractType
           ])
         ],
       ])
-      ->add('parentClan', null, ['choice_filter' => function (?Clan $clan) {
-        return $clan ? $clan->isBloodline() : false;
-      }])
-      ->add('attributes', null, ['expanded' => true])
-      ->add('disciplines', null, ['expanded' => true])
-      ->add('short')
-      ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($clan->getDescription()), 'label' => false])
-      ->add('weakness', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($clan->getWeakness())])
-      ->add('keywords')
-      ->add('book')
-      ->add('page')
-    ;
+      ->add('nickname', null, ['label' => "nickname"])
+      ->add('short', null, ['label' => "description.short.label"])
+      ->add('description', CKEditorType::class, [
+        'empty_data' => '', 
+        'data' => $converter->convert($clan->getDescription()), 
+        'label' => "description.label",
+      ])
+      ->add('weakness', CKEditorType::class, [
+        'label' => 'clan.weakness',
+        'translation_domain' => 'vampire',
+        'empty_data' => '',
+        'data' => $converter->convert($clan->getWeakness())
+      ])
+      ->add('keywords', null, ['label' => 'keywords'])
+      ->add('disciplines', null, [
+        'expanded' => true,
+        'label' => 'disciplines.label',
+        'translation_domain' => 'vampire',
+      ])
+      ;
+    if ($clan->isBloodline()) {
+      $builder->add('parentClan', null, [
+          'label' => 'clan.parent.label',
+          'translation_domain' => 'vampire',
+          'choice_filter' => function (?Clan $clan) {
+            return $clan ? $clan->isBloodline() : false;
+          }
+        ]);
+    } else {
+      $builder->add('attributes', null, ['expanded' => true, 'label' => 'attributes']);
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       "data_class" => Clan::class,
-      "translation_domain" => 'character',
+      "translation_domain" => 'app',
       "allow_extra_fields" => true,
       "is_edit" => false,
     ]);

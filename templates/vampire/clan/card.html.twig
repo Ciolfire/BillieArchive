@@ -5,45 +5,47 @@
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
-    <div type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <blockquote class="text-center mb-2">
-        <h2>{{ clan.name }}
-          {% if clan.parentClan is not null %}
-            ({{ clan.parentClan.name }})
-          {% endif %}
-        </h2>
-        <h5>{{ clan.nickname }}</h5>
-        {{ clan.quote }}</blockquote>
-      {% if clan.emblem is not null %}
-        <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
-      {% endif %}
-      <div class="text-center mb-2">
-        {{ clan.keywords }}
-        <br>
-        {% if clan.parentClan is null %}
-          {% for attribute in clan.attributes %}
-            <span class="strong">{{ attribute.name|capitalize }}</span>
-          {% endfor %}
-          —
+    <blockquote class="text-center mb-2">
+      <h2>{{ clan.name }}
+        {% if clan.isBloodline is not null %}
+          ({{ clan.parentClan.name|default("clan.parent.any"|trans) }})
         {% endif %}
-        {% for discipline in clan.disciplines %}
-          <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+      </h2>
+      <h5>{{ clan.nickname }}</h5>
+      {{ clan.quote }}</blockquote>
+    {% if clan.emblem is not null %}
+      <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
+    {% endif %}
+    <div class="text-center mb-2">
+      {{ clan.keywords }}
+      <br>
+      {% if clan.parentClan is null %}
+        {% for attribute in clan.attributes %}
+          <span class="strong">
+            {# {% include "icon.html.twig" with {'icon': attribute.type, 'hasTips': 0} only %}
+            {% include "icon.html.twig" with {'icon': attribute.category, 'hasTips': 0} only %} #}
+            {{ attribute.name|capitalize }}
+          </span>
         {% endfor %}
-      </div>
-      <div class="clan-{{ clan.id }} collapse p-2">
-        <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
-        <h5>{{ "clan.weakness"|trans }}</h5>
-        <p class="text">{{ clan.weakness|default("")|markdown_to_html }}</p>
-      </div>
-      <div class="clan-{{ clan.id }} collapse show">
-        <div class="fluff">{{ clan.short|default("")|markdown_to_html }}
-          <div class="text-end">
-            {% if clan.homebrewFor is not null %}
-              <a href="{{path('chronicle_show', {'id': clan.homebrewFor.id }) }}">{{ clan.homebrewFor.name }}</a>
-            {% else %}
-              {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}</div>
-          {% endif %}
-        </div>
+        <br>
+      {% endif %}
+      {% for discipline in clan.disciplines %}
+        <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+      {% endfor %}
+    </div>
+    <div class="clan-{{ clan.id }} collapse p-2" type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+      <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+      <h5>{{ "clan.weakness"|trans }}</h5>
+      <blockquote class="text">{{ clan.weakness|default("")|markdown_to_html }}</blockquote>
+    </div>
+    <div class="clan-{{ clan.id }} collapse show" type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+      <div class="fluff">{{ clan.short|default("")|markdown_to_html }}
+        <div class="text-end">
+          {% if clan.homebrewFor is not null %}
+            <a href="{{path('chronicle_show', {'id': clan.homebrewFor.id }) }}">{{ clan.homebrewFor.name }}</a>
+          {% else %}
+            {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}</div>
+        {% endif %}
       </div>
     </div>
   </div>
