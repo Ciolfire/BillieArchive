@@ -6,6 +6,9 @@ clan:
     count: "{0}Aucune Lignée|{1}1 Lignée|]1,Inf[%count% Lignées"
   bloodlines:
     label: Lignées
+  parent:
+    any: Libre
+    label: Clan Parent
   weakness: Faiblesse
 clans:
   label: Clans
@@ -21,5 +24,3 @@ disciplines:
   label: Disciplines
   list:
     back: Retour à la liste
-parent:
-  label: Clan Parent
