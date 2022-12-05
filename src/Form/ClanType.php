@@ -65,7 +65,7 @@ class ClanType extends AbstractType
           'label' => 'clan.parent.label',
           'translation_domain' => 'vampire',
           'choice_filter' => function (?Clan $clan) {
-            return $clan ? $clan->isBloodline() : false;
+            return $clan ? !$clan->isBloodline() : false;
           }
         ]);
     } else {
