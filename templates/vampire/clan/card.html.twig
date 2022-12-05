@@ -12,7 +12,8 @@
         {% endif %}
       </h2>
       <h5>{{ clan.nickname }}</h5>
-      {{ clan.quote }}</blockquote>
+      {{ clan.quote }}
+    </blockquote>
     {% if clan.emblem is not null %}
       <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
     {% endif %}
@@ -24,7 +25,7 @@
           <span class="strong">
             {# {% include "icon.html.twig" with {'icon': attribute.type, 'hasTips': 0} only %}
             {% include "icon.html.twig" with {'icon': attribute.category, 'hasTips': 0} only %} #}
-            {{ attribute.name|capitalize }}
+            {{ attribute.name }}
           </span>
         {% endfor %}
         <br>
@@ -44,8 +45,9 @@
           {% if clan.homebrewFor is not null %}
             <a href="{{path('chronicle_show', {'id': clan.homebrewFor.id }) }}">{{ clan.homebrewFor.name }}</a>
           {% else %}
-            {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}</div>
-        {% endif %}
+            {% include "book.html.twig" with {'book': clan.book, 'page': clan.page } only %}
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

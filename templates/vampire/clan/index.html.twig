@@ -34,16 +34,20 @@
       </div>
     </div>
     <div class="row">
-      <div class="col flex-grow block ms-5">
+      <div class="col flex-grow block">
         <p>{{ description.value|default("")|markdown_to_html }}</p>
       </div>
-      {% for clan in clans %}
-        {% include "vampire/clan/card.html.twig" with {'clan' : clan} %}
-      {% endfor %}
     </div>
+    {% if clans is defined %}
+      <div class="row">
+        {% for clan in clans %}
+          {% include "vampire/clan/card.html.twig" with {'clan' : clan} %}
+        {% endfor %}
+      </div>
+    {% endif %}
     {% if bloodlines is defined %}
       <div class="row">
-        <h1 class="mb-5 border-top pt-3">{{ "clan.bloodlines.label"|trans([], 'vampire') }}</h1>
+        <h1 class="mb-5 pt-3">{{ "clan.bloodlines.label"|trans([], 'vampire') }}</h1>
         {% for bloodline in bloodlines %}
           {% include "vampire/clan/card.html.twig" with {'clan' : bloodline} %}
         {% endfor %}
