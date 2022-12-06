@@ -34,7 +34,10 @@ class CharacterNoteType extends AbstractType
       'label' => false,
     ))
     ->add('title')
-    ->add('content', CKEditorType::class, ['data' => $converter->convert($note->getContent())])
+    ->add('content', CKEditorType::class, [
+      'empty_data' => '', 
+      'data' => $converter->convert($note->getContent())]
+      )
     ->add('type', ChoiceType::class, ['choices' => TypeNote::typeChoices])
     ->add('save', SubmitType::class);
     ;
