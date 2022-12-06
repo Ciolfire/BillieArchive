@@ -3,7 +3,7 @@
 {% set specialties = attribute(character, 'skillSpecialties', [skill]) %}
 
 <div class="row align-items-center px-2" {% block wrapper %}{% endblock %}>
-  <div class="col {% if attribute(attribute(character, "skills"), skill) > 3 %}strong{% endif %}">
+  <div class="col {% if attribute(character, "skills") is not null and attribute(attribute(character, "skills"), skill) > 3 %}strong{% endif %}">
     {% include "icon.html.twig" with {'icon' : skill, 'hasTips': 0 } only %}
     {{ ("skill." ~ skill)|trans }}
     {% block specialty %}{% endblock %}

@@ -22,10 +22,10 @@ class ClanType extends AbstractType
     $converter = new LeagueMarkdown();
 
     $builder
+      ->add('name', null, ['label' => "name"])
       ->add('book', null, ['label' => "book"])
       ->add('page', null, ['label' => "page"])
       ->add('homebrewFor', null, ['label' => "chronicle.label"])
-      ->add('name', null, ['label' => "name"])
       ->add('quote', null, ['label' => "quote"])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
