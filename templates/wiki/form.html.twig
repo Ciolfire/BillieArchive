@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ action|trans }} {{ (trans|default(entity) ~ ".label")|trans([], type) }}
+{% block title %}{{ action|trans }} {{ (trans|default(entity) ~ ".label")|trans([], type|default("app")) }}
 {% endblock %}
 
 {% block body %}
