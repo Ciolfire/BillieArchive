@@ -39,6 +39,8 @@ class CharacterController extends AbstractController
   private $service;
   private $vService;
   private $create;
+  private $attributes;
+  private $skills;
 
   public function __construct(DataService $dataService, CreationService $create, CharacterService $service, VampireService $vService)
   {
@@ -46,6 +48,8 @@ class CharacterController extends AbstractController
     $this->service = $service;
     $this->vService = $vService;
     $this->create = $create;
+    $this->attributes = $this->service->getSortedAttributes();
+    $this->skills = $this->service->getSortedSkills();
   }
 
   #[Route('/', name: 'character_index', methods: ['GET'])]
@@ -104,6 +108,8 @@ class CharacterController extends AbstractController
     return $this->renderForm('character/new.html.twig', [
       'character' => $character,
       'form' => $form,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
       'merits' => $merits,
     ]);
   }
@@ -118,6 +124,8 @@ class CharacterController extends AbstractController
 
     return $this->render('character/show.html.twig', [
       'character' => $character,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
       'type' => $character->getType(),
     ]);
   }
@@ -163,6 +171,8 @@ class CharacterController extends AbstractController
       'character' => $character,
       'type' => $character->getType(),
       'form' => $form,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
       'merits' => $merits,
       $character->getType() => $this->service->getSpecial($character),
     ]);

@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\Merit;
+use App\Entity\Skill;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CharacterService
@@ -132,6 +134,36 @@ class CharacterService
 
       return $new;
     }
+  }
+
+  public function getSortedAttributes() : array
+  {
+    $sortedAttributes = [];
+    $attributes = $this->doctrine->getRepository(Attribute::class)->findAll();
+    foreach ($attributes as $attribute) {
+      /** @var Attribute $attribute */
+      if (!isset($sortedAttributes[$attribute->getCategory()])) {
+        $sortedAttributes[$attribute->getCategory()] = [];
+      }
+      $sortedAttributes[$attribute->getCategory()][$attribute->getType()] = ['id' => $attribute->getIdentifier(), 'name' => $attribute->getName()];
+    }
+
+    return $sortedAttributes;
+  }
+
+  public function getSortedSkills() : array
+  {
+    $sortedSkills = [];
+    $skills = $this->doctrine->getRepository(Skill::class)->findAll();
+    foreach ($skills as $skill) {
+      /** @var Skill $skill */
+      if (!isset($sortedSkills[$skill->getCategory()])) {
+        $sortedSkills[$skill->getCategory()] = [];
+      }
+      $sortedSkills[$skill->getCategory()][$skill->getIdentifier()] = $skill->getName();
+    }
+
+    return $sortedSkills;
   }
 
   /** Remove all non valid merits */

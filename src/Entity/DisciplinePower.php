@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
+use function PHPUnit\Framework\isNull;
+
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
 class DisciplinePower
 {
@@ -52,6 +54,10 @@ class DisciplinePower
 
   public function __toString()
   {
+    if ($this->name === null) {
+
+      return $this->id;
+    }
     return $this->name;
   }
 

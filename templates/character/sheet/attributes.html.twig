@@ -1,23 +1,5 @@
 {% trans_default_domain 'character' %}
 
-{% set attributes = {
-  'mental': {
-    'power': 'intelligence',
-    'finesse': 'wits',
-    'resistance': 'resolve'
-  }, 
-  'physical': {
-    'power': 'strength',
-    'finesse': 'dexterity',
-    'resistance': 'stamina'
-  }, 
-  'social': {
-    'power': 'presence',
-    'finesse': 'manipulation',
-    'resistance': 'composure'
-  }
-} %}
-
 {% block attributes %}
 <h2>Attributes</h2>
 {% block creation %}{% endblock %}

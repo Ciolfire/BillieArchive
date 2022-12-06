@@ -62,7 +62,7 @@
           <div class="discipline-powers-{{ discipline.id }} collapse">
             <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">
               <div class="col">{{ power.levelDots }}</div>
-              <div class="col">{{ power }}</div>
+              <div class="col">{{ power.name }}</div>
               <div class="col text-end">
                 {% if power.attribute and power.skill %}
                   <span class="text">
