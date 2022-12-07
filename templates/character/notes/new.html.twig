@@ -1,18 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}note.new{% endblock %}
+{% block title %}{{ 'note.new'|trans }}{% endblock %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'app' %}
 
 {% block body %}
-{{ include('back.html.twig', {'link': 'xx'}) }}
-<div class="row">
-  <h2 class="text-center mt-3">{{ 'notes.label'|trans }}</h2>
-  <div class="col mx-5">
-    {{ form_start(form) }}
-    {# {{ form_widget(form.notes) }} #}
-    {# <div class="text-center">{{ form_widget(form.save, {'attr': {'class': 'btn-primary w-100'}}) }}</div> #}
-    {{ form_end(form) }}
+<div class="container">
+  <div class="row mb-3 justify-content-end">
+    <div class="col-2">
+      <a href="{{ path('character_show', {'id': character.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
+        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+      </a>
+    </div>
+  </div>
+  <div class="row block">
+    <h1 class="text-center mt-3">
+      {{ 'note.new'|trans }}
+      {% include "icon.html.twig" with {'icon': 'note', 'hasTips': 0} only %}
+    </h1>
+    <div class="col">
+      {{ form(form) }}
+    </div>
   </div>
 </div>
 {% endblock %}

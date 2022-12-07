@@ -33,7 +33,7 @@
     {% endfor %}
   </div>
   <div class="row g-0 mb-3">
-    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'add' } only %}{% include "icon.html.twig" with {'icon': 'notes'} only %}</a>
+    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "icon.html.twig" with {'icon' : 'new' } only %}{% include "icon.html.twig" with {'icon': 'note'} only %}</a>
   </div>
   <div class="row mt-5">
     {% for note in character.notes %}

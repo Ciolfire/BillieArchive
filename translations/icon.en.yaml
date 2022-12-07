@@ -1,12 +1,15 @@
 add: Add
 back: Back
 edit: Edit
+new: New
 view: View
 
 all: All
 creation: Character creation only.
 hide: Hide
 logs: Logs
+note: Note
+notes: Notes
 
 mental: Mental
 physical: Physical

@@ -1,3 +1,11 @@
+action:
+  label: Action
+  add: Ajouter
+  delete: Supprimer
+  edit: Modifier
+  remove: Retirer
+  save: Sauvegarder
+  view: Voir
 actions: Actions
 advantages: Avantages
 attributes: Attributs
@@ -39,6 +47,18 @@ merits: Atouts
 name: Nom
 nickname: Surnom
 new: Nouveau
+note:
+  label: Note
+  content: Contenu
+  date: Date
+  new: Nouvelle Note
+  title: Titre
+  type:
+    label: Apparence
+    default: Par défaut
+    paper: Imprimé
+    terminal: Terminal
+    handwritting: Post-it
 notes: Notes
 options: Options
 page: Page
