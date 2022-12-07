@@ -17,8 +17,11 @@
       </div>
     </div>
     <div class="col-12 col-lg-6">
-      <div class="container">
-        {% include "wiki/base.html.twig" %}
+      <button class="btn btn-primary w-100 mb-3" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
+        <h2><span>{{ "wiki"|trans }}</span></h2>
+      </button>
+      <div class="container collapseWiki collapse mb-3">
+          {% include "wiki/base.html.twig" %}
       </div>
     </div>
     <div class="col-12 col-lg-6">
