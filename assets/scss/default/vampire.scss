@@ -1,0 +1,25 @@
+.vampire {
+  &>.character-card-avatar {
+    border: 1px solid #7d0000;
+  }
+  &.character-frame-list {
+    color: #7d0000;
+  }
+  &.btn, &.btn.btn-primary {
+    color: silver;
+    background-color: rgb(32, 0, 0);
+    border: 1px solid #7d0000;
+    &:hover {
+      color: white;
+      background-color: #7d0000;
+    }
+  }
+  h2, h3, h4, h5 {
+    color: #7d0000;
+  }
+  color: #7d0000;
+  border: 1px solid #7d0000;
+  box-shadow: #7d0000 0px 0px 7px 3px;
+  background-color: #151515b5;
+}
+

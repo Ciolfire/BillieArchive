@@ -1,11 +1,24 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'app' %}
 
 <div class="col-6 col-lg-2 mb-3">
-  <a class="text-center p-2 block {{ character.type }} d-block w-100 h-100 back-img" {% include character.type ~ '/back.html.twig' %} href="{{ path('character_show', {'id': character.id}) }}">
-    {{ character.name }}
-    <div class="character-frame character-frame-list position-relative text-center">
-      <img class="p-1" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+  <a class="text-center p-0 {{ character.type }} btn btn-primary d-block w-100 h-100" href="{{ path('character_show', {'id': character.id}) }}">
+    <div class="character-card-header">
+      <img class="character-icon" src={% include "character/icon.html.twig" %} />
+      <div class="w-100 text-center">{{ ('type.' ~ character.type)|trans }}</div>
     </div>
-    {{ character.chronicle }}
+    <div class="character-card-avatar character-frame position-relative text-center">
+      <img src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
+    </div>
+    <div>
+      <p>{{ character.name }}</p>
+      <p>
+        {% if showPlayer|default(1) %}
+          ({{ character.player }})
+        {% endif %}
+        {% if showChronicle|default(1) %}
+          {{ character.chronicle }}
+        {% endif %}
+      </p>
+    </div>
   </a>
 </div>

@@ -5,8 +5,26 @@
   left: 0;
   right: 0;
 }
-
 .character {
+  &-card {
+    &-header {
+      display: flex;
+      padding: 0;
+      border-bottom: 1px solid $mainDarkColor;
+    }
+    &-avatar {
+      display: flex;
+      padding: 0;
+      border-bottom: 1px solid $mainDarkColor;
+    }
+  }
+  &-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    object-fit: contain;
+    background: silver;
+    border-radius: 15% 0% 0% 0%;
+  }
   &-frame {
     display: flex;
     align-items: center;

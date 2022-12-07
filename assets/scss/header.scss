@@ -1,0 +1,42 @@
+h1, h2, h3, h4, h5 {
+  color: $titleColor;
+  text-align: center;
+  text-shadow:
+    2px 0 0 $titleShadow,
+    -2px 0 0 $titleShadow,
+    0 2px 0 $titleShadow,
+    0 -2px 0 $titleShadow,
+    1px 1px $titleShadow,
+    -1px -1px 0 $titleShadow,
+    1px -1px 0 $titleShadow,
+    -1px 1px 0 $titleShadow;
+  svg {
+    stroke: $titleShadow;
+    stroke-width: 1rem;
+  }
+}
+
+h1 {
+  color: $titleColor;
+  font-family: $h1Font;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-family: $h2Font;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-family: $h3Font;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-family: $h4Font;
+}
+
+h5 {
+  font-size: 1rem;
+  font-family: $h5Font;
+}

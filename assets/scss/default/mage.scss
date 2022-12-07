@@ -1,0 +1,21 @@
+.mage {
+  &.card-header {
+    border-bottom: 1px solid #008886;
+  }
+  &-btn.btn, &-btn.btn-primary {
+    color: #008886;
+    background-color: #131313cf;
+    border: 1px solid #008886;
+    &:hover {
+      color: #131313cf;
+      background-color: #008886;
+    }
+  }
+  h2, h3, h4, h5 {
+    color: #07cac7;
+  }
+  color: #07cac7;
+  border: 1px solid #008886;
+  box-shadow: #4cafaa 0px 0px 7px 3px;
+  background-color: #96ba949a;
+}
