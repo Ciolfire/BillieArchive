@@ -33,7 +33,7 @@
         </div>
       {% endif %}
     {% endfor %}
-      {% if app.user.id == chronicle.storyteller.id %}
+      {% if app.user.id == chronicle.storyteller.id|default(0) %}
         <div class="col-4">
           <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_add_player', {'id': chronicle.id })}}">
             <div class="character-frame character-frame-list position-relative text-center mb-2">
