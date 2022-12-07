@@ -182,11 +182,14 @@ h5 {
   }
 }
 
-.back-picture {
-  background-position:center center;
+.back-img {
+  background-position:center;
   background-size:contain;
   background-repeat:no-repeat;
   background-image: url("../images/rabbit_idle.gif");
+  &-left: {
+    background-position: left;
+  }
 }
 
 .btn-check {
