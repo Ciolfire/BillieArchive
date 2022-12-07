@@ -300,10 +300,10 @@ footer.footer {
   background-color: $footerColor;
   border: 1px solid $borderColor;
   border-bottom-width: 0px;
-  padding: 1rem;
+  padding: 3px;
+  padding-top: 6px;
   #expand_btn {
-    margin-top: -10px;
-    width: 200px;
+    width: 50%;
     text-align: center;
     cursor: pointer;
     &:hover {

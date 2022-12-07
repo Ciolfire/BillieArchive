@@ -67,11 +67,11 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('clan_new') }}">
-          {% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
           {% include "icon.html.twig" with {'icon' : 'clan', 'hasTips': 1 } only %}
         </a>
         <a class="btn btn-primary" href="{{ path('bloodline_new') }}">
-          {% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
           {% include "icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 1 } only %}
         </a>
       </div>
