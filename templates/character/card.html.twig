@@ -6,7 +6,7 @@
       <img class="character-icon" src={% include "character/icon.html.twig" %} />
       <div class="w-100 text-center">{{ ('type.' ~ character.type)|trans }}</div>
     </div>
-    <div class="character-card-avatar character-frame position-relative text-center">
+    <div class="character-card-avatar position-relative text-center">
       <img src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
     </div>
     <div>

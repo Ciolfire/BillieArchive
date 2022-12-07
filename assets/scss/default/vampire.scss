@@ -1,17 +1,18 @@
 .vampire {
   &>.character-card-avatar {
-    border: 1px solid #7d0000;
+    border-top: 1px solid #7d0000;
+    border-bottom: 1px solid #7d0000;
   }
   &.character-frame-list {
     color: #7d0000;
   }
   &.btn, &.btn.btn-primary {
     color: silver;
-    background-color: rgb(32, 0, 0);
+    background-color: rgba(32, 0, 0, 0.8);
     border: 1px solid #7d0000;
     &:hover {
       color: white;
-      background-color: #7d0000;
+      background-color: rgba(125, 0, 0, 0.8);
     }
   }
   h2, h3, h4, h5 {
