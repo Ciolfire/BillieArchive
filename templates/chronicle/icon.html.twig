@@ -1,0 +1,12 @@
+
+{% if chronicle is null %}
+  {{ asset('rabbit_move_slow.gif', 'images') }}
+{% elseif chronicle.type == "vampire" %}
+  {{ asset('SkullVTR.png', 'images') }}
+{% elseif chronicle.type == "human" %}
+  {{ asset('SkullWOD.webp', 'images') }}
+{% elseif chronicle.type == "mage" %}
+  {{ asset('SkullMTAw.webp', 'images') }}
+{% elseif chronicle.type == "werewolf" %}
+  {{ asset('SkullWTF.png', 'images') }}
+{% endif %}

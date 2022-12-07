@@ -6,7 +6,7 @@
   &.character-frame-list {
     color: #7d0000;
   }
-  &.btn, &.btn.btn-primary {
+  &.btn, &.btn.btn-primary, & .btn, & .btn.btn-primary {
     color: silver;
     background-color: rgba(32, 0, 0, 0.8);
     border: 1px solid #7d0000;
