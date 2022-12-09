@@ -10,7 +10,7 @@
 
 {% block body %}
   <div class="container">
-    <h1>{{ (entity ~ "s")|trans({}, 'app') }}</h1>
+    <h1>{% include "icon.html.twig" with {'icon': entity, 'hasTips': 0 } only %} {{ (entity ~ "s")|trans({}, 'app') }}</h1>
     <div class="row">
       <div class="col-auto block">
         <h4 class="d-inline-block text-start">{{ "toc"|trans }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="false" aria-controls="collapseToc">show</a>]

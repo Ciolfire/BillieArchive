@@ -9,8 +9,12 @@
   <i class="fa-solid fa-eye-slash"></i>
 {% elseif icon == 'show' %}
   <i class="fa-solid fa-eye"></i>
-{% elseif icon == 'general' %}
+{% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' %}
   {{ source('icons/skills.svg') }}
+{% elseif icon == 'options' %}
+  {{ source('icons/gears.svg') }}
+{% elseif icon == 'book' %}
+  {{ source('icons/bookmarklet.svg') }}
 {% elseif icon == 'notes' or icon == 'note' %}
   {{ source('icons/notebook.svg') }}
 {% elseif icon == 'relations' %}
@@ -35,8 +39,13 @@
   {{ source('icons/upgrade.svg') }}
 {% elseif icon == 'logs' %}
   <i class="fa-solid fa-clock-rotate-left"></i>
-
+{% elseif icon == 'wiki' %}
+  {{ source('icons/wiki.svg') }}
 {# Character #}
+{% elseif icon == 'characters' %}
+  {{ source('icons/backup.svg') }}
+{% elseif icon == 'party' %}
+  {{ source('icons/three-friends.svg') }}
 {% elseif icon == 'power' %}
   {{ source('icons/flow-tornado.svg') }}
   {# <i class="fa-solid fa-meteor fa-fw"></i> #}
@@ -200,6 +209,8 @@
   <i class="fa-solid fa-hand-holding-droplet"></i>
 {% elseif icon == 'vitae' %}
   {{ source('icons/goo-spurt.svg') }}
+{% elseif icon == 'discipline' %}
+  {{ source('icons/fangs-circle.svg') }}
   {# <i class="ok fa-solid fa-droplet"></i> #}
 {% elseif icon == 'werewolf' %}
   {{ source('icons/wolf-howl.svg') }}

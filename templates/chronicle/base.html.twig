@@ -14,5 +14,5 @@
 {% else %}
   <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new', {'chronicle': chronicle.id })}}">{{ "create"|trans }}</a></div>
 {% endif %}
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{{ "party.name"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "infos"|trans }}</a></div>

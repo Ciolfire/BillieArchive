@@ -12,7 +12,7 @@
 
 {% block body %}
   <div class="container block py-3">
-    <h1>{{ "merits"|trans }}</h1>
+    <h1>{% include "icon.html.twig" with {'icon': "merits", 'hasTips': 0 } only %}{{ "merits"|trans }}</h1>
     {% for merit in merits %}
       {% include "merit/list_item.html.twig" %}
     {% endfor %}

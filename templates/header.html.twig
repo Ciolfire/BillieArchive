@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarMenuContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('wiki_index') }}"><i class="fa-solid fa-book fa-xs"></i> {{ "wiki"|trans }}</a>
+          <a class="nav-link" href="{{ path('wiki_index') }}">{% include "icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 } only %} {{ "wiki"|trans }}</a>
         </li>
         <li class="nav-item border-end">
           <a class="nav-link" href="{{ path('wiki_index') }}" target="_blank"><i class="fa-solid fa-up-right-from-square fa-xs"></i></a>
         </li>
         <li class="nav-item border-end">
-          <a class="nav-link" href="{{ path('character_index') }}"><i class="fa-solid fa-users fa-fw fa-xs"></i> {{ "characters.name"|trans }}</a>
+          <a class="nav-link" href="{{ path('character_index') }}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %} {{ "characters.name"|trans }}</a>
         </li>
         {% if app.user.stories is not empty %}
           <li class="nav-item dropstart border-end">
@@ -24,7 +24,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               {% for story in app.user.stories %}
-                <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': story.id }) }}">{{ story.name }}</a></li>
+                <li><a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {'id': story.id }) }}"><img style="height:1em;" src={% include "chronicle/icon.html.twig" with {'chronicle': story, 'hasTips': 0 } only %}/> {{ story.name }}</a></li>
               {% endfor %}
             </ul>
           </li>
@@ -36,7 +36,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               {% for chronicle in app.user.chronicles %}
-                <li><a class="dropdown-item" href="{{path('chronicle_show', {'id': chronicle.id }) }}">{{ chronicle.name }}</a></li>
+                <li><a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {'id': chronicle.id }) }}"><img style="height:1em;" src={% include "chronicle/icon.html.twig" with {'chronicle': chronicle, 'hasTips': 0 } only %}/> {{ chronicle.name }}</a></li>
               {% endfor %}
             </ul>
           </li>

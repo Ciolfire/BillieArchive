@@ -1,8 +1,19 @@
 .mage {
-  &.card-header {
+  &.block {
+    background-color: rgba(0, 135, 133, 0.36);
+    box-shadow: 0 0 0 0.25rem rgb(0, 135, 133);
+    &-solid {
+      background-color: #6a6a6a;
+    }
+  }
+  &>.character-card-avatar {
+    border-top: 1px solid rgb(0, 135, 133);
     border-bottom: 1px solid rgb(0, 135, 133);
   }
-  &.btn, &.btn.btn-primary {
+  &.character-frame-list {
+    color: rgb(0, 135, 133);
+  }
+  &.btn, &.btn.btn-primary, & .btn, & .btn.btn-primary {
     color: #008886;
     background-color: #131313cf;
     border: 1px solid #008886;

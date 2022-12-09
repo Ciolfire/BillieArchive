@@ -1,10 +1,10 @@
 {% trans_default_domain 'app' %}
 
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{{ "party.manage"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{{ "characters.non.player"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.manage"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.non.player"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "characters.groups"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "homebrew"|trans }}</a></div>
-<h4>{{ "party.name"|trans }}</h4>
+<h4>{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</h4>
 {% for character in chronicle.characters %}
   {% if character.isNpc == false %}
     <div class="col-6 col-lg-3">
