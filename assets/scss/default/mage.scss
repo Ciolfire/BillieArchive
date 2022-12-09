@@ -1,7 +1,7 @@
 .mage {
   &.block {
     background-color: rgba(0, 135, 133, 0.36);
-    box-shadow: 0 0 0 0.25rem rgb(0, 135, 133);
+    box-shadow: rgb(0, 135, 133) 0 0 7px 3px;
     &-solid {
       background-color: #6a6a6a;
     }
