@@ -2,14 +2,17 @@
 
 namespace App\Controller\Vampire;
 
+use App\Entity\Book;
 use App\Entity\Description;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
+
 use App\Form\DisciplinePowerType;
 use App\Form\DisciplineType;
+
 use App\Service\DataService;
 use App\Service\VampireService;
-use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,6 +132,31 @@ class DisciplineController extends AbstractController
       'power' => $power,
       'form' => $form,
       'type' => 'vampire',
+    ]);
+  }
+
+  #[Route("/discipline/{type<\w+>}/{id<\d+>}", name: "discipline_list", methods: ["GET"])]
+  public function clanList($type, $id)
+  {
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        break;
+      
+      default:
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        break;
+    }
+
+    return $this->render('vampire/discipline/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
+      'entity' => 'discipline',
+      'category' => 'character',
+      'type' => 'vampire',
+      'elements' => $item->getDisciplines(),
+      'search' => [],
     ]);
   }
 }

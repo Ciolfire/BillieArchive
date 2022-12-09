@@ -5,4 +5,4 @@
   <br>
   {{ "clan.bloodline.count"|trans({'%count%': book.bloodlines|length}) }}
 </a>
-{# <a {% if book.disciplines|length > 0 %} href="{{ path('discipline_list', {'type': 'book', 'id': book.id}) }}"{% endif %}>{{ "discipline.count"|trans({'%count%': book.disciplines|length}) }}</a> #}
+<a {% if book.disciplines|length > 0 %} href="{{ path('discipline_list', {'type': 'book', 'id': book.id}) }}"{% endif %}>{{ "discipline.count"|trans({'%count%': book.disciplines|length}) }}</a>
