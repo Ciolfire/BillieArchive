@@ -1,14 +1,18 @@
 .werewolf {
   &.card-header {
-    border-bottom: 1px solid #864211;
+    border-bottom: 1px solid rgb(134, 66, 17);
   }
   &.btn, &.btn.btn-primary {
     color: #864211;
     background-color: #131313cf;
     border: 1px solid #864211;
-    &:hover {
+    &:hover, &:active, &:focus {
       color: #131313cf;
       background-color: #864211;
+      box-shadow: 0 0 0 0.25rem rgba(134, 66, 17, 0.5);
+    }
+    &:focus-visible {
+      outline: 2px solid #864211;
     }
   }
   h2, h3, h4, h5 {

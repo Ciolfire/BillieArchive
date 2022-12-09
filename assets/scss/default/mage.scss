@@ -1,14 +1,18 @@
 .mage {
   &.card-header {
-    border-bottom: 1px solid #008886;
+    border-bottom: 1px solid rgb(0, 135, 133);
   }
   &.btn, &.btn.btn-primary {
     color: #008886;
     background-color: #131313cf;
     border: 1px solid #008886;
-    &:hover {
+    &:hover, &:active, &:focus {
       color: #131313cf;
       background-color: #008886;
+      box-shadow: 0 0 0 0.25rem rgba(0, 135, 133, 0.5);
+    }
+    &:focus-visible {
+      outline: 2px solid #07cac7;
     }
   }
   h2, h3, h4, h5 {
