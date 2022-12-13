@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'note.new'|trans }}{% endblock %}
-
 {% trans_default_domain 'app' %}
+
+{% if title is not defined %}
+  {% set title = 'note.new'|trans %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
 <div class="container">
   <div class="row mb-3 justify-content-end">
     <div class="col-2">
-      <a href="{{ path('character_show', {'id': character.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
+      <a href="{{ path('character_show', {'id': note.character.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
       </a>
     </div>
   </div>
   <div class="row block">
     <h1 class="text-center mt-3">
-      {{ 'note.new'|trans }}
+      {{ title }}
       {% include "icon.html.twig" with {'icon': 'note', 'hasTips': 0} only %}
     </h1>
     <div class="col">

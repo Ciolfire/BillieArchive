@@ -14,7 +14,7 @@
       <p>{{ character.name }}</p>
       <p>
         {% if showPlayer|default(0) %}
-          ({{ character.player }})
+          {{ character.player }}
         {% endif %}
         {% if showChronicle|default(1) %}
           {{ character.chronicle }}

@@ -10,14 +10,15 @@
     {% for player in chronicle.players %}
       {% set character = chronicle.character(player) %}
       {% if character %}
-        <div class="col-4">
+        {% include "character/card.html.twig" with {'showPlayer' : true, 'showChronicle' : 0} %}
+        {# <div class="col-4">
           <a class="btn btn-primary w-100 m-2" href="{{path('character_show', {'id': character.id })}}">
             <div class="character-frame character-frame-list position-relative text-center mb-2">
               <img class="p-1" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
             </div>
             {{ player.username }} - {{ character.name }}
           </a>
-        </div>
+        </div> #}
       {% else %}
         <div class="col-4">
           <a {% if app.user.id == player.id %}class="btn btn-primary w-100 m-2" href="{{path('character_new', {'chronicle': chronicle.id })}}"{% else %}class="btn btn-primary w-100 m-2 disabled" href="#"{% endif %}>

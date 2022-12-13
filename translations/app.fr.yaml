@@ -51,7 +51,8 @@ note:
   label: Note
   content: Contenu
   date: Date
-  new: Nouvelle Note
+  edit: Modifier la note
+  new: Créer une note
   title: Titre
   type:
     label: Apparence

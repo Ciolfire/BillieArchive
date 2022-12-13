@@ -3,6 +3,7 @@ back: Back
 edit: Edit
 new: New
 view: View
+show: Show
 
 all: All
 creation: Character creation only.
