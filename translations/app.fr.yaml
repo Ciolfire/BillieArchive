@@ -17,6 +17,8 @@ category:
   mental: Mental
   physical: Physique
   social: Social
+character:
+  label: Personnage
 characters:
   groups: Groupes
   name: Personnages

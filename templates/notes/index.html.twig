@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ chronicle.name }}{% endblock %}
+
+{% block body %}
+<div class="container block py-3 mt-5">
+  <div class="row mb-3 justify-content-end">
+    <div class="col-12 my-2 text-center">
+      <div class="accordion" id="notesList">
+        {% for note in notes|reverse %}
+          {% set cYear = note.assignedAt|date('Y') %}
+          {% set cMonth = note.assignedAt|date('F') %}
+          {% if cYear != year|default(null) %}
+            {% if not loop.first %}
+              </div>
+            {% endif %}
+            <h5 class="btn btn-primary mt-0 mb-0 w-100" data-bs-toggle="collapse" data-bs-target=".list-{{ cYear }}" aria-expanded="false" aria-controls="list-{{ cYear }}">{{ cYear }}</h5>
+            <div class="row g-0 collapse list-{{ cYear }} mb-5" data-bs-parent="#notesList">
+          {% endif %}
+          {% if month is not defined or cMonth != month or cYear != year %}
+            <div class="col-12">
+              <p class="mb-0">{{ cMonth }}</p>
+            </div>
+          {% endif %}
+          <div class="col-6 col-md-4 col-lg-2">
+            <a class="btn btn-primary fs-sm w-100 h-100" href="#note-{{ note.id }}">
+              {{ note.assignedAt|format_datetime('short', 'none') }}
+              <br>
+              {{ note.title|default('—') }}
+            </a>
+          </div>
+          {% if loop.last %}
+            </div>
+          {% else %}
+            {% set year = note.assignedAt|date('Y') %}
+            {% set month = note.assignedAt|date('F') %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="row g-0 mb-3">
+        <a class="btn btn-primary" href="{{ path('chronicle_note_new', {'id': chronicle.id}) }}">{% include "icon.html.twig" with {'icon' : 'new' } only %}{% include "icon.html.twig" with {'icon': 'note'} only %}</a>
+      </div>
+      <div class="row mt-5">
+        {% for note in notes %}
+          <div class="col-12 col-md-6">
+            <div id="note-{{ note.id }}" class="note note-{{ note.typeName|default('default') }}">
+              <a class="float-end" href="{{ path('note_edit', {'id': note.id}) }}">{% include "icon.html.twig" with {'icon': 'edit'} only %}</a>
+              <h3 class="pt-2">{{note.title|default('—') }}</h3>
+              <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
+              <p>{{ note.content|markdown_to_html }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if notes is not empty %}
+        <a href="#" class="position-sticky bottom-0 btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
+      {% else %}
+        <p>{{ "notes.none"|trans }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -50,12 +50,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   #[ORM\OneToMany(mappedBy: 'author', targetEntity: CharacterNote::class, orphanRemoval: true)]
   private Collection $characterNotes;
 
+  #[ORM\OneToMany(mappedBy: 'user', targetEntity: Note::class)]
+  #[ORM\OrderBy(["chronicle" => "DESC", "id" => "DESC"])]
+  private Collection $notes;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
     $this->chronicles = new ArrayCollection();
     $this->stories = new ArrayCollection();
     $this->characterNotes = new ArrayCollection();
+    $this->notes = new ArrayCollection();
   }
 
   public function __toString()
@@ -276,28 +281,70 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    */
   public function getCharacterNotes(): Collection
   {
-      return $this->characterNotes;
+    return $this->characterNotes;
   }
 
   public function addCharacterNote(CharacterNote $characterNote): self
   {
-      if (!$this->characterNotes->contains($characterNote)) {
-          $this->characterNotes->add($characterNote);
-          $characterNote->setAuthor($this);
-      }
+    if (!$this->characterNotes->contains($characterNote)) {
+      $this->characterNotes->add($characterNote);
+      $characterNote->setAuthor($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeCharacterNote(CharacterNote $characterNote): self
   {
-      if ($this->characterNotes->removeElement($characterNote)) {
-          // set the owning side to null (unless already changed)
-          if ($characterNote->getAuthor() === $this) {
-              $characterNote->setAuthor(null);
-          }
+    if ($this->characterNotes->removeElement($characterNote)) {
+      // set the owning side to null (unless already changed)
+      if ($characterNote->getAuthor() === $this) {
+        $characterNote->setAuthor(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, Note>
+   */
+  public function getNotes(): Collection
+  {
+    return $this->notes;
+  }
+
+  public function addNote(Note $note): self
+  {
+    if (!$this->notes->contains($note)) {
+      $this->notes->add($note);
+      $note->setUser($this);
+    }
+
+    return $this;
+  }
+
+  public function removeNote(Note $note): self
+  {
+    if ($this->notes->removeElement($note)) {
+      // set the owning side to null (unless already changed)
+      if ($note->getUser() === $this) {
+        $note->setUser(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getChronicleNotes(Chronicle $chronicle)
+  {
+    $notes = [];
+    foreach ($this->notes as $note) {
+      if ($note->getChronicle() == $chronicle) {
+        $notes[] = $note;
+      }
+    }
+
+    return $notes;
   }
 }

@@ -244,7 +244,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
     }
     return $this->renderForm('character/notes/new.html.twig', [
-      'character' => $character,
+      'note' => $note,
       'form' => $form,
     ]);
   }

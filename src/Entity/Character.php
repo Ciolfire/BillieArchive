@@ -22,7 +22,7 @@ class Character
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   protected $id;
 
-  #[ORM\Column(type: "string", length: 50, nullable: true)]
+  #[ORM\Column(type: "string", length: 50)]
   protected $name;
 
   #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"])]

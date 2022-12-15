@@ -3,16 +3,18 @@
 {% set character = chronicle.character(app.user) %}
 {% if character is not null %}
   <div class="col-12">
-    <div class="w-100 h-100 py-1">
+    <div class="w-50 m-auto h-100 py-1">
       <a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include character.type ~ '/back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
         <div class="character-frame character-frame-list position-relative text-center mb-2">
           <img class="p-1" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-        </div>{{ character.name }}
+        </div>
+        {{ character.name }}
       </a>
     </div>
   </div>
 {% else %}
   <div class="col-12 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_new', {'chronicle': chronicle.id })}}">{{ "create"|trans }}</a></div>
 {% endif %}
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "infos"|trans }}</a></div>

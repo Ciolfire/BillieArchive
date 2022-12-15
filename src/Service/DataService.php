@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Book;
+use App\Entity\Chronicle;
+use App\Entity\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -114,6 +116,20 @@ class DataService
     ->andWhere('type IS NOT NULL')
     ->groupBy('type')
     ->setParameter('setting', $setting)
+    ->executeQuery()->fetchFirstColumn();
+  }
+
+  public function getChronicleNotesCategory(Chronicle $chronicle, User $user)
+  {
+    return $this->doctrine->getConnection()->createQueryBuilder()
+    ->select('category')
+    ->from('note')
+    ->where('chronicle_id = :chronicle')
+    ->andWhere('user_id = :user')
+    ->groupBy('category')
+    ->orderBy('category', 'ASC')
+    ->setParameter('chronicle', $chronicle->getId())
+    ->setParameter('user', $user->getId())
     ->executeQuery()->fetchFirstColumn();
   }
 }
