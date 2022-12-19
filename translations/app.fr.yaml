@@ -51,6 +51,8 @@ nickname: Surnom
 new: Nouveau
 note:
   label: Note
+  category:
+    new: Nouveau dossier
   content: Contenu
   date: Date
   edit: Modifier la note

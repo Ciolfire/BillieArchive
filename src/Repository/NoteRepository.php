@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Note;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,51 +18,74 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class NoteRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Note::class);
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Note::class);
+  }
+
+  public function save(Note $entity, bool $flush = false): void
+  {
+    $this->getEntityManager()->persist($entity);
+
+    if ($flush) {
+      $this->getEntityManager()->flush();
+    }
+  }
+
+  public function remove(Note $entity, bool $flush = false): void
+  {
+    $this->getEntityManager()->remove($entity);
+
+    if ($flush) {
+      $this->getEntityManager()->flush();
+    }
+  }
+
+  //    /**
+  //     * @return Note[] Returns an array of Note objects
+  //     */
+  //    public function findByExampleField($value): array
+  //    {
+  //        return $this->createQueryBuilder('n')
+  //            ->andWhere('n.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->orderBy('n.id', 'ASC')
+  //            ->setMaxResults(10)
+  //            ->getQuery()
+  //            ->getResult()
+  //        ;
+  //    }
+
+  /**
+   * @return Note[] Returns an array of Note objects
+   */
+  public function findByLinkable(User $user, Note $note): array
+  {
+    if (is_null($note->getId())) {
+      $id = 0;
+    } else {
+      $id = $note->getId();
     }
 
-    public function save(Note $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+    return $this->createQueryBuilder('n')
+      ->andWhere('n.chronicle = :chronicle')
+      ->andWhere('n.user = :user')
+      ->andWhere('n.id != :id')
+      ->setParameter('chronicle', $note->getChronicle()->getId(), Types::INTEGER)
+      ->setParameter('user', $user->getId(), Types::INTEGER)
+      ->setParameter('id', $id, Types::INTEGER)
+      ->orderBy('n.category', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Note $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return Note[] Returns an array of Note objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('n.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Note
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+  //    public function findOneBySomeField($value): ?Note
+  //    {
+  //        return $this->createQueryBuilder('n')
+  //            ->andWhere('n.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->getQuery()
+  //            ->getOneOrNullResult()
+  //        ;
+  //    }
 }

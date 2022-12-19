@@ -8,8 +8,10 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
@@ -17,6 +19,7 @@ class NoteType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
+    // dd($options['notes']);
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
@@ -45,6 +48,22 @@ class NoteType extends AbstractType
         'label' => 'character.label',
         'choices' => $chronicle->getCharacters(),
       ])
+      ->add('notes', EntityType::class, [
+        'class' => Note::class,
+        'expanded' => true,
+        'multiple' => true,
+        'choices' => $options['notes'],
+        'choice_label' => 'title',
+        'choice_value' => 'id',
+        'group_by' => function($choice, $key, $value) {
+          return $choice->getCategory();
+        },
+        // 'choice_attr' => function ($choice, $key, $value) {
+        //   return ['selected' => 'selected'];
+        // },
+        'data' => $note->getNotes(),
+        // 'mapped' => false,
+      ])
       ->add('save', SubmitType::class, ['label' => 'action.save']);
     ;
   }
@@ -55,6 +74,7 @@ class NoteType extends AbstractType
       'data_class' => Note::class,
       'translation_domain' => 'app',
       'categories' => [],
+      'notes' => [],
     ]);
   }
 }

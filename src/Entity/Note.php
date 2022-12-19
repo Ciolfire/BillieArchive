@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\NoteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use League\HTMLToMarkdown\HtmlConverter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
+#[UniqueEntity(fields: ['title', 'chronicle', 'user'], errorPath: 'port', message: 'This name is already in use on that chronicle.',)]
 #[ORM\UniqueConstraint(columns: ['title', 'user_id', 'chronicle_id'])]
 class Note
 {
@@ -36,6 +40,21 @@ class Note
 
   #[ORM\ManyToOne(inversedBy: 'notes')]
   private ?NoteCategory $category = null;
+
+  #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'linkToNotes')]
+  private Collection $linkedNotes;
+
+  #[ORM\JoinTable(name: 'note_links')]
+  #[ORM\JoinColumn(name: 'note_source', referencedColumnName: 'id')]
+  #[ORM\InverseJoinColumn(name: 'note_target', referencedColumnName: 'id')]
+  #[ORM\ManyToMany(targetEntity: 'Note', inversedBy: 'linkedNotes')]
+  private Collection $linkToNotes;
+
+  public function __construct()
+  {
+    $this->linkedNotes = new ArrayCollection();
+    $this->linkToNotes = new ArrayCollection();
+  }
 
   public function __toString()
   {
@@ -122,13 +141,42 @@ class Note
 
   public function getCategory(): ?NoteCategory
   {
-      return $this->category;
+    return $this->category;
   }
 
   public function setCategory(?NoteCategory $category): self
   {
-      $this->category = $category;
+    $this->category = $category;
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, self>
+   */
+  public function getNotes(): Collection
+  {
+    return new ArrayCollection(
+      array_merge(
+        $this->linkedNotes->toArray(),
+        $this->linkToNotes->toArray()
+      )
+    );
+  }
+
+  public function addNote(self $linkedNote): self
+  {
+    if (!$this->linkedNotes->contains($linkedNote) && $linkedNote !== $this) {
+      $this->linkToNotes->add($linkedNote);
+    }
+
+    return $this;
+  }
+
+  public function removeNote(self $linkedNote): self
+  {
+    $this->linkToNotes->removeElement($linkedNote);
+
+    return $this;
   }
 }

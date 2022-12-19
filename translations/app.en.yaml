@@ -51,6 +51,8 @@ new: New
 nickname: Nickname
 note:
   label: Note
+  category:
+    new: New folder
   content: Content
   date: Date
   edit: Edit note

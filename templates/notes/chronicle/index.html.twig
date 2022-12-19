@@ -23,14 +23,47 @@
     </div>
   </div>
   {% if current is not null %}
-    <h3>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %}{{ current }}</h3>
-    <div class="row block">
+    <div id="note-list" class="row block p-5">
       <div class="col-12 my-2 text-center">
         {% if notes is empty %}
           <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
         {% else %}
           {% for note in notes %}
-            <a class="btn btn-primary" href="#">{% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %} {{ note.title }}</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ note.id }}">
+              {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
+              {{ note.title }}
+            </button>
+          {% endfor %}
+          {% for note in notes %}
+            <div class="{% if currentNote is not defined or currentNote is not same as(note) %}collapse{% endif %} note" id="note-{{ note.id }}" data-bs-parent="#note-list">
+              <div class="note-content">
+                <div class="note-header">
+                  <h5 class="note-title">{% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %} {{ note.assignedAt|format_datetime('full', 'none') }}</h5>
+                </div>
+                <div class="note-body">
+                  {{ note.content|markdown_to_html }}
+                </div>
+                <div class="note-footer">
+                  {% if note.character %}
+                    <a class="btn btn-primary" href="{{ path('character_show', {'id': note.character.id}) }}">{% include "icon.html.twig" with {'icon' : note.character.type, 'hasTips': 0 } %} {{ note.character.name }}</a>
+                  {% endif %}
+                  {% for linkedNote in note.notes %}
+                    {% if linkedNote.category == note.category %}
+                      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ linkedNote.id }}">
+                        {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
+                        {{ linkedNote.title }}
+                      </button>
+                    {% else %}
+                      <a class="btn btn-primary" href="{{ path('chronicle_note_view', {'id': linkedNote.id}) }}">
+                        {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
+                        {{ linkedNote.title }}
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                  <a class="btn btn-primary" href="{{ path('note_edit', {'id': note.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit', 'hasTips': 0 } %}</a>
+                </div>
+              </div>
+            </div>
           {% endfor %}
         {% endif %}
       </div>

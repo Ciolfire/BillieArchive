@@ -13,7 +13,7 @@ class NoteCategoryType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-      ->add('name')
+      ->add('name', null, ['label' => 'name'])
       ->add('save', SubmitType::class, ['label' => 'action.save']);
     ;
   }

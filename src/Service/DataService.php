@@ -4,8 +4,10 @@ namespace App\Service;
 
 use App\Entity\Book;
 use App\Entity\Chronicle;
+use App\Entity\Note;
 use App\Entity\User;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -131,5 +133,20 @@ class DataService
     ->setParameter('chronicle', $chronicle->getId())
     ->setParameter('user', $user->getId())
     ->executeQuery()->fetchFirstColumn();
+  }
+
+  public function getLinkableNotes(User $user, Note $note)
+  {
+    return $this->doctrine->getConnection()->createQueryBuilder()
+    ->select('id, title')
+    ->from('note')
+    ->where('chronicle_id = :chronicle')
+    ->andWhere('user_id = :user')
+    ->andWhere('id != :note')
+    ->orderBy('category_id', 'ASC')
+    ->setParameter('chronicle', $note->getChronicle()->getId(), Types::INTEGER)
+    ->setParameter('user', $user->getId(), Types::INTEGER)
+    ->setParameter('note', $note->getId(), Types::INTEGER)
+    ->executeQuery()->fetchAllAssociative();
   }
 }
