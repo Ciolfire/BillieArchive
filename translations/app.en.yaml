@@ -52,10 +52,14 @@ nickname: Nickname
 note:
   label: Note
   category:
+    label: Folder
     new: New folder
   content: Content
   date: Date
+  delete:
+    confirm: This action is definitive, the note will be permanently destroyed, confirm ?
   edit: Edit note
+  links: Linked notes
   new: New note
   title: Title
   type:

@@ -52,10 +52,14 @@ new: Nouveau
 note:
   label: Note
   category:
+    label: Dossier
     new: Nouveau dossier
   content: Contenu
   date: Date
+  delete:
+    confirm: Cette action est irreversible, la note sera supprimé définitivement, confirmer ?
   edit: Modifier la note
+  links: Notes liées
   new: Créer une note
   title: Titre
   type:

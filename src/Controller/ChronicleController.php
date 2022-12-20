@@ -196,12 +196,68 @@ class ChronicleController extends AbstractController
       $user->addNote($note);
       $this->dataService->save($note);
 
-      return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId()], Response::HTTP_SEE_OTHER);
+      if ($note->getCategory() instanceof NoteCategory) {
+
+        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $note->getCategory()->getId()], Response::HTTP_SEE_OTHER);
+      } else {
+
+        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+      }
     }
-    return $this->renderForm('notes/new.html.twig', [
+    return $this->renderForm('notes/form.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
+  }
+
+  #[Route('/note/{id<\d+>}/edit', name: 'note_edit', methods: ['GET', 'POST'])]
+  public function editNote(Request $request, Note $note): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    /** @var NoteRepository $repo */
+    $repo = $this->doctrine->getRepository(Note::class);
+    $linkableNotes = $repo->findByLinkable($user, $note);
+    $form = $this->createForm(NoteType::class, $note, [
+      'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $note->getChronicle(), 'user' => $user]),
+      'notes' => [$linkableNotes],
+    ]);
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+      if ($note->getCategory() instanceof NoteCategory) {
+
+        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $note->getCategory()->getId()], Response::HTTP_SEE_OTHER);
+      } else {
+
+        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+      }
+
+    }
+
+    return $this->renderForm('notes/form.html.twig', [
+      'note' => $note,
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/note/{id<\d+>}/delete', name: 'note_delete', methods: ['GET', 'DELETE'])]
+  public function deleteNote(Request $request, Note $note): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    $category = $note->getCategory();
+    /** @var NoteRepository $repo */
+    $this->dataService->remove($note);
+
+    if ($category instanceof NoteCategory) {
+
+      return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
+    } else {
+
+      return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+    }
   }
 
   #[Route('/{id<\d+>}/note/category/new', name: 'chronicle_note_category_new', methods: ['GET', 'POST'])]
@@ -228,30 +284,34 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  #[Route('/note/{id<\d+>}/edit', name: 'note_edit', methods: ['GET', 'POST'])]
-  public function editNote(Request $request, Note $note): Response
+  #[Route('{id<\d+>}/note/category/{category<\d+>}/edit', name: 'chronicle_note_category_edit', methods: ['GET', 'POST'])]
+  public function editNoteCategory(Request $request, Chronicle $chronicle, NoteCategory $category): Response
   {
     /** @var User $user */
     $user = $this->getUser();
-    /** @var NoteRepository $repo */
-    $repo = $this->doctrine->getRepository(Note::class);
-    $linkableNotes = $repo->findByLinkable($user, $note);
-    $form = $this->createForm(NoteType::class, $note, [
-      'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $note->getChronicle(), 'user' => $user]),
-      'notes' => [$linkableNotes],
-    ]);
+    // Set up date based on chronicle date
+    $form = $this->createForm(NoteCategoryType::class, $category);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      // dd($note);
       $this->dataService->flush();
 
-      return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $note->getCategory()->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('notes/new.html.twig', [
-      'note' => $note,
+    return $this->renderForm('notes/category.html.twig', [
+      'category' => $category,
       'form' => $form,
     ]);
+  }
+
+  #[Route('{id<\d+>}/note/category/{category<\d+>}/delete', name: 'chronicle_note_category_delete', methods: ['GET', 'DELETE'])]
+  public function deleteCategory(Request $request, Chronicle $chronicle, NoteCategory $category): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    $this->dataService->remove($category);
+
+    return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId()], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/{id<\d+>}/notes/{category<\d+>?0}', name: 'chronicle_notes', methods: ['GET'])]
@@ -264,6 +324,8 @@ class ChronicleController extends AbstractController
     
     if ($category instanceof NoteCategory) {
       $notes = $this->dataService->findBy(Note::class, ['chronicle' => $chronicle, 'user' => $user, 'category' => $category]);
+    } else {
+      $notes = $this->dataService->findBy(Note::class, ['chronicle' => $chronicle, 'user' => $user, 'category' => null]);
     }
 
     return $this->renderForm('notes/chronicle/index.html.twig', [

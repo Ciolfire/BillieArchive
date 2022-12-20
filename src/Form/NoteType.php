@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Note;
+use App\Form\Type\ExpandedEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,8 +39,9 @@ class NoteType extends AbstractType
         'data' => $converter->convert($note->getContent())]
         )
       ->add('category', ChoiceType::class, [
-        'label' => 'category.label',
+        'label' => 'note.category.label',
         'choices' => $options['categories'],
+        'required' => false,
         'choice_label' => function ($choice) {
           return $choice->getName();
         }
@@ -48,8 +50,9 @@ class NoteType extends AbstractType
         'label' => 'character.label',
         'choices' => $chronicle->getCharacters(),
       ])
-      ->add('notes', EntityType::class, [
+      ->add('notes', ExpandedEntityType::class, [
         'class' => Note::class,
+        'label' => 'note.links',
         'expanded' => true,
         'multiple' => true,
         'choices' => $options['notes'],
@@ -58,9 +61,6 @@ class NoteType extends AbstractType
         'group_by' => function($choice, $key, $value) {
           return $choice->getCategory();
         },
-        // 'choice_attr' => function ($choice, $key, $value) {
-        //   return ['selected' => 'selected'];
-        // },
         'data' => $note->getNotes(),
         // 'mapped' => false,
       ])

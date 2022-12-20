@@ -5,6 +5,7 @@ twig:
   form_themes:
     - "bootstrap_5_horizontal_layout.html.twig"
     - 'forms/radiobutton.html.twig'
+    - 'forms/choicewidgetexpanded.html.twig'
   paths:
     '%kernel.project_dir%/public/images': images
     '%kernel.project_dir%/public/images/clans': clans

@@ -16,13 +16,14 @@
         {% if categories is empty %}
           <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
         {% else %}
+            <a class="btn btn-primary {% if current is null %}active{% endif %}" href={{ path('chronicle_notes', {'id': chronicle.id, 'category': null}) }}>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %}/</a>
           {% for category in categories %}
             <a class="btn btn-primary {% if current == category %}active{% endif %}" href={{ path('chronicle_notes', {'id': chronicle.id, 'category': category.id}) }}>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %} {{ category }}</a>
           {% endfor %}
         {% endif %}
     </div>
   </div>
-  {% if current is not null %}
+  {# {% if current is not null %} #}
     <div id="note-list" class="row block p-5">
       <div class="col-12 my-2 text-center">
         {% if notes is empty %}
@@ -35,54 +36,37 @@
             </button>
           {% endfor %}
           {% for note in notes %}
-            <div class="{% if currentNote is not defined or currentNote is not same as(note) %}collapse{% endif %} note" id="note-{{ note.id }}" data-bs-parent="#note-list">
-              <div class="note-content">
-                <div class="note-header">
-                  <h5 class="note-title">{% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %} {{ note.assignedAt|format_datetime('full', 'none') }}</h5>
-                </div>
-                <div class="note-body">
-                  {{ note.content|markdown_to_html }}
-                </div>
-                <div class="note-footer">
-                  {% if note.character %}
-                    <a class="btn btn-primary" href="{{ path('character_show', {'id': note.character.id}) }}">{% include "icon.html.twig" with {'icon' : note.character.type, 'hasTips': 0 } %} {{ note.character.name }}</a>
-                  {% endif %}
-                  {% for linkedNote in note.notes %}
-                    {% if linkedNote.category == note.category %}
-                      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ linkedNote.id }}">
-                        {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
-                        {{ linkedNote.title }}
-                      </button>
-                    {% else %}
-                      <a class="btn btn-primary" href="{{ path('chronicle_note_view', {'id': linkedNote.id}) }}">
-                        {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
-                        {{ linkedNote.title }}
-                      </a>
-                    {% endif %}
-                  {% endfor %}
-                  <a class="btn btn-primary" href="{{ path('note_edit', {'id': note.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit', 'hasTips': 0 } %}</a>
-                </div>
-              </div>
-            </div>
+            {% include "notes/card.html.twig" %}
           {% endfor %}
         {% endif %}
       </div>
     </div>
-  {% endif %}
+  {# {% endif %} #}
 </div>
 {% endblock %}
 
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
+      <a class="btn btn-primary" href="{{ path('chronicle_note_new', {'id': chronicle.id}) }}">
+        <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+        {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 1 } only %}
+      </a>
       <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('chronicle_note_new', {'id': chronicle.id}) }}">
-          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 1 } only %}
-        </a>
         <a class="btn btn-primary" href="{{ path('chronicle_note_category_new', {'id': chronicle.id}) }}">
           <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
           {% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 1 } only %}
         </a>
+        {% if current is not null and notes is not empty %}
+          <a class="btn btn-primary" href="{{ path('chronicle_note_category_edit', {'id': chronicle.id, 'category': current.id}) }}">
+            <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'edit', 'hasTips': 0 } only %}</span>
+            {% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 1 } only %}
+          </a>
+        {% elseif current is not null and notes is empty %}
+          <a class="btn btn-primary" href="{{ path('chronicle_note_category_delete', {'id': chronicle.id, 'category': current.id}) }}">
+            <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'delete', 'hasTips': 0 } only %}</span>
+            {% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 1 } only %}
+          </a>
+        {% endif %}
       </div>
   </div>
 {% endblock %}

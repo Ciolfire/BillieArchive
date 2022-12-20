@@ -7,6 +7,7 @@ show: Montrer
 
 all: Tous
 creation: Création uniquement
+folder: Dossier
 hide: Cacher
 logs: Historique
 note: Note
