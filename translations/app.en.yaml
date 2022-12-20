@@ -53,6 +53,8 @@ note:
   label: Note
   category:
     label: Folder
+    delete: Delete folder
+    edit: Rename folder
     new: New folder
   content: Content
   date: Date

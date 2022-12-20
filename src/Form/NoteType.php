@@ -44,7 +44,8 @@ class NoteType extends AbstractType
         'required' => false,
         'choice_label' => function ($choice) {
           return $choice->getName();
-        }
+        },
+        'choice_translation_domain' => false,
       ])
       ->add('character', null, [
         'label' => 'character.label',

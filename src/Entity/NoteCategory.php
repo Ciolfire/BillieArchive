@@ -27,7 +27,7 @@ class NoteCategory
   private ?User $user = null;
 
   #[ORM\Column(length: 255)]
-  private ?string $name = null;
+  private ?string $name = "";
 
   public function __construct()
   {

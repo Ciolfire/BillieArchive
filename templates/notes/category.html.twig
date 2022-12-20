@@ -2,8 +2,10 @@
 
 {% trans_default_domain 'app' %}
 
-{% if title is not defined %}
+{% if title is not defined and category.id is null %}
   {% set title = 'note.category.new'|trans %}
+{% elseif title is not defined %}
+  {% set title = 'note.category.edit'|trans %}
 {% endif %}
 
 {% block title %}{{ title }}{% endblock %}
@@ -12,7 +14,7 @@
 <div class="container">
   <div class="row mb-3 justify-content-end">
     <div class="col-2">
-      <a href="{{ path('chronicle_notes', {'id': category.chronicle.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
+      <a href="{{ path('chronicle_notes', {'id': category.chronicle.id, 'category': category.id|default(0)} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
       </a>
     </div>

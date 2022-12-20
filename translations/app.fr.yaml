@@ -53,6 +53,8 @@ note:
   label: Note
   category:
     label: Dossier
+    delete: Supprimer le dossier
+    edit: Renommer le dossier
     new: Nouveau dossier
   content: Contenu
   date: Date

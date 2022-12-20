@@ -284,7 +284,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  #[Route('{id<\d+>}/note/category/{category<\d+>}/edit', name: 'chronicle_note_category_edit', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/note/category/{category<\d+>}/edit', name: 'chronicle_note_category_edit', methods: ['GET', 'POST'])]
   public function editNoteCategory(Request $request, Chronicle $chronicle, NoteCategory $category): Response
   {
     /** @var User $user */
@@ -304,7 +304,7 @@ class ChronicleController extends AbstractController
     ]);
   }
 
-  #[Route('{id<\d+>}/note/category/{category<\d+>}/delete', name: 'chronicle_note_category_delete', methods: ['GET', 'DELETE'])]
+  #[Route('/{id<\d+>}/note/category/{category<\d+>}/delete', name: 'chronicle_note_category_delete', methods: ['GET', 'DELETE'])]
   public function deleteCategory(Request $request, Chronicle $chronicle, NoteCategory $category): Response
   {
     /** @var User $user */
