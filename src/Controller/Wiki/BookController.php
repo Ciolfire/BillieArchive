@@ -35,7 +35,6 @@ class BookController extends AbstractController
       'entity' => 'book',
       'category' => 'character',
       'type' => $setting,
-      'footer' => true,
       'search' => $search,
     ]);
   }

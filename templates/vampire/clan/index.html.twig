@@ -12,11 +12,12 @@
 
 {% block body %}
   <div class="container">
-    <h1>{{ "clans.label"|trans }}{% include "icon.html.twig" with {'icon' : entity, 'hasTips': 0 } only %}</h1>
-    <div class="row">
-      <div class="col-auto block">
-        <h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4> [<a data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">hide</a>]
-        <ul id="collapseToc" class="toc collapse pe-3 py-3">
+    <div class="row block py-3">
+      <h1>{{ "clans.label"|trans }}{% include "icon.html.twig" with {'icon' : entity, 'hasTips': 0 } only %}</h1>
+      <div class="col-auto">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
+        <ul id="collapseToc" class="toc collapse pe-3 block">
           {% for clan in clans %}
             <li>
               <a href="#{{ clan.name }}">{{ clan.name }}</a>
@@ -32,10 +33,8 @@
           {% endif %}
         </ul>
       </div>
-    </div>
-    <div class="row">
-      <div class="col flex-grow block">
-        <p>{{ description.value|default("")|markdown_to_html }}</p>
+      <div id="collapseDescription" class="col-12 flex-grow block collapse">
+        {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
     {% if clans is defined %}
