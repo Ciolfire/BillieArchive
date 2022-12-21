@@ -5,6 +5,7 @@ action:
   edit: Modifier
   remove: Retirer
   save: Sauvegarder
+  search: Search
   view: Voir
 actions: Actions
 advantages: Avantages
@@ -47,8 +48,8 @@ merit:
   count: "{0}Aucun Atout|{1}1 Atout|]1,Inf[%count% Atouts"
 merits: Atouts
 name: Nom
-nickname: Surnom
 new: Nouveau
+nickname: Surnom
 note:
   label: Note
   category:
@@ -65,8 +66,12 @@ note:
   new: Créer une note
   search:
     label: Rechercher des notes
-    found: Regarde ce que j'ai trouvé pour toi !
-    nothing: Ces notes sont surement sur un autre serveur ...
+    result: >-
+      {value, plural,
+        =0 {Ces notes sont surement sur un autre serveur ...}
+        =1 {J'ai trouvé cette note pour toi !}
+        other {J'ai trouvé <strong>#</strong> notes pour toi !}
+      }
     tips: |
       Vous pouvez utiliser les symboles génériques suivants dans vos recherches:
       _ : Permet de remplacer un unique caractère
@@ -100,6 +105,7 @@ type:
   label: Type
   alternate_setting: Univers Alternatif
   antagonist: Antagoniste
+  chronicle: Chronique
   core: Core
   equipment: Equipement
   human: Mortel
@@ -112,7 +118,6 @@ type:
   bloodlines: Lignées
   clan: Clan
   covenant: Ligue
-  chronicle: Chronique
   ghoul: Goule
 
   body_thief: Voleur de Corps

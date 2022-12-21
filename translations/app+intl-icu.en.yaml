@@ -66,13 +66,17 @@ note:
   new: New note
   search:
     label: Search notes
-    found: Look what I found for you !
-    nothing: These notes are probably on another server ...
+    result: >-
+      {value, plural,
+        =0 {These notes are probably on another server ...}
+        =1 {Look at this note I found for you !}
+        other {Look at these <strong>#</strong> notes I found for you !}
+      }
     tips: |
       You can use the following wildcards in your searchs:
       _ : Replace a single character
       % : replace any number of characters
-      \_ ou \% : Allow to search for these specifics characters
+      \_ or \% : Allow to search for these specifics characters
   title: Title
   type:
     label: Appearance
@@ -101,6 +105,7 @@ type:
   label: Type
   alternate_setting: Alternate Setting
   antagonist: Antagonist
+  chronicle: Chronicle
   core: Core
   equipment: Equipment
   human: Mortal
@@ -111,10 +116,9 @@ type:
   
   vampire: Vampire
   bloodlines: Bloodlines
-  ghoul: Ghoul
   clan: Clan
   covenant: Covenant
-  chronicle: Chronicle
+  ghoul: Ghoul
 
   body_thief: Body Thief
   purified: Purified

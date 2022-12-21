@@ -30,12 +30,9 @@
   </div>
   <div id="note-list" class="row block p-5">
     <div class="col-12 my-2 text-center">
-      {% if notes is not null and notes is empty %}
-        {{ "note.search.nothing"|trans }}
-        <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
-      {% elseif notes is not null %}
+      {% if notes is not null %}
         <div class="">
-          {{ "note.search.found"|trans }}
+          <p class="d-inline-block fs-4">{{ "note.search.result"|trans({ 'value': notes|length })|raw }}</p>
           <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
         </div>
         {% for note in notes %}
