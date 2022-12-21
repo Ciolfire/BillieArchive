@@ -63,6 +63,10 @@ note:
   edit: Modifier la note
   links: Notes liées
   new: Créer une note
+  search:
+    label: Rechercher des notes
+    found: Regarde ce que j'ai trouvé pour toi !
+    nothing: Ces notes sont surement sur un autre serveur ...
   title: Titre
   type:
     label: Apparence

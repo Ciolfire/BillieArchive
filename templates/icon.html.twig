@@ -96,7 +96,11 @@
 {% elseif icon == 'crafts' %}
   <i class="fa-solid fa-screwdriver-wrench fa-fw"></i>
 {% elseif icon == 'investigation' %}
-  <i class="fa-solid fa-magnifying-glass fa-fw"></i>
+  {{ source('icons/magnifying-glass.svg') }}
+  {# <i class="fa-solid fa-magnifying-glass fa-fw"></i> #}
+{% elseif icon == 'search' %}
+  {{ source('icons/magnifying-glass.svg') }}
+  {# <i class="fa-solid fa-magnifying-glass fa-fw"></i> #}
 {% elseif icon == 'medicine' %}
   {{ source('icons/caduceus.svg') }}
   {# <i class="fa-solid fa-kit-medical fa-fw"></i> #}

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -74,6 +75,25 @@ class NoteRepository extends ServiceEntityRepository
       ->setParameter('chronicle', $note->getChronicle()->getId(), Types::INTEGER)
       ->setParameter('user', $user->getId(), Types::INTEGER)
       ->setParameter('id', $id, Types::INTEGER)
+      ->orderBy('n.category', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Note[] Returns an array of Note objects
+   */
+  public function findFromSearch(string $search, User $user, ?Chronicle $chronicle): array
+  {
+    $qb = $this->createQueryBuilder('n');
+    return $qb
+      ->Where('n.chronicle = :chronicle')
+      ->andWhere('n.user = :user')
+      ->andWhere($qb->expr()->orX($qb->expr()->like('n.content', ':search'), $qb->expr()->like('n.title', ':search')))
+      // ->andWhere('(n.title LIKE "%:search%" OR n.content LIKE %:search% OR n.category.name LIKE %:search%)')
+      ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
+      ->setParameter('user', $user->getId(), Types::INTEGER)
+      ->setParameter('search', "%".$search."%", Types::STRING)
       ->orderBy('n.category', 'ASC')
       ->getQuery()
       ->getResult();

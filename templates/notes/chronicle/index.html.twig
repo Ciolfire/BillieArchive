@@ -3,45 +3,61 @@
 {% trans_default_domain 'app' %}
 
 {% set footer = true %}
+{% set title = 'notes'|trans %}
 
 {% block bodyData %}
 {% endblock %}
 
-{% block title %}{{ chronicle.name }} - notes{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
 <div class="container py-3 mt-5">
+  <div class="row mb-3 justify-content-end">
+    <div class="col-2">
+      <a href="{{ path('chronicle_show', {'id': chronicle.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
+        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+      </a>
+    </div>
+  </div>
   <div class="row mb-3 justify-content-end block">
+    <h1 class="text-center mt-3">
+      {{ chronicle }}
+    </h1>
+    <h2 class="text-center mt-3">
+      {{ title }}
+      {% include "icon.html.twig" with {'icon': 'folder', 'hasTips': 0} only %}
+    </h2>
+    <div class="col-12 my-2 text-center">
+      <a class="btn btn-primary {% if current is null %}active{% endif %}" href={{ path('chronicle_notes', {'id': chronicle.id, 'category': null}) }}>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %}/</a>
+      <a class="btn btn-primary" href={{ path('chronicle_notes_search', {'id': chronicle.id}) }}>{% include "icon.html.twig" with {'icon' : 'search', 'hasTips': 0 } %} {{ 'action.search'|trans }}</a>
+    </div>
     <div class="col-12 my-2 text-center">
         {% if categories is empty %}
           <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
         {% else %}
-            <a class="btn btn-primary {% if current is null %}active{% endif %}" href={{ path('chronicle_notes', {'id': chronicle.id, 'category': null}) }}>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %}/</a>
           {% for category in categories %}
             <a class="btn btn-primary {% if current == category %}active{% endif %}" href={{ path('chronicle_notes', {'id': chronicle.id, 'category': category.id}) }}>{% include "icon.html.twig" with {'icon' : 'folder', 'hasTips': 0 } %} {{ category }}</a>
           {% endfor %}
         {% endif %}
     </div>
   </div>
-  {# {% if current is not null %} #}
-    <div id="note-list" class="row block p-5">
-      <div class="col-12 my-2 text-center">
-        {% if notes is empty %}
-          <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
-        {% else %}
-          {% for note in notes %}
-            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ note.id }}">
-              {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
-              {{ note.title }}
-            </button>
-          {% endfor %}
-          {% for note in notes %}
-            {% include "notes/card.html.twig" %}
-          {% endfor %}
-        {% endif %}
-      </div>
+  <div id="note-list" class="row block p-5">
+    <div class="col-12 my-2 text-center">
+      {% if notes is empty %}
+        <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">
+      {% else %}
+        {% for note in notes %}
+          <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ note.id }}">
+            {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
+            {{ note.title }}
+          </button>
+        {% endfor %}
+        {% for note in notes %}
+          {% include "notes/card.html.twig" %}
+        {% endfor %}
+      {% endif %}
     </div>
-  {# {% endif %} #}
+  </div>
 </div>
 {% endblock %}
 

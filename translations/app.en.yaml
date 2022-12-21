@@ -5,6 +5,7 @@ action:
   edit: Edit
   remove: Remove
   save: Save
+  search: Search
   view: View
 actions: Actions
 advantages: Advantages
@@ -63,6 +64,10 @@ note:
   edit: Edit note
   links: Linked notes
   new: New note
+  search:
+    label: Search notes
+    found: Look what I found for you !
+    nothing: These notes are probably on another server ...
   title: Title
   type:
     label: Appearance
