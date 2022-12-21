@@ -67,6 +67,11 @@ note:
     label: Rechercher des notes
     found: Regarde ce que j'ai trouvé pour toi !
     nothing: Ces notes sont surement sur un autre serveur ...
+    tips: |
+      Vous pouvez utiliser les symboles génériques suivants dans vos recherches:
+      _ : Permet de remplacer un unique caractère
+      % : Permet de remplacer n'importe quel nombre de caractères
+      \_ ou \% : Permet de rechercher ces caractères précisement
   title: Titre
   type:
     label: Apparence
