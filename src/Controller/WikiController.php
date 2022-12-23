@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Attribute;
+use App\Entity\Description;
 use App\Entity\Skill;
 use App\Form\AttributeType;
 use App\Form\SkillType;
@@ -39,6 +40,7 @@ class WikiController extends AbstractController
       'entity' => 'attribute',
       'category' => 'character',
       'type' => 'human',
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'attribute']),
       'isFixed' => true
     ]);
   }
@@ -72,6 +74,7 @@ class WikiController extends AbstractController
       'entity' => 'skill',
       'category' => 'character',
       'type' => 'human',
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'skill']),
       'isFixed' => true
     ]);
   }

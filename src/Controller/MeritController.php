@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Description;
 use App\Entity\Merit;
 use App\Form\MeritType;
 use App\Repository\MeritRepository;
@@ -57,7 +58,7 @@ class MeritController extends AbstractController
     return $this->render('merit/list.html.twig', [
       'type' => $type,
       'merits' => $merits,
-      'description' => ['value' => 'test'],
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
       'search' => $search, // Kinda want to replace for dynamic list
     ]);
   }

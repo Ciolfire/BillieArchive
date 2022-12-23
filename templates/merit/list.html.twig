@@ -15,7 +15,7 @@
     <div class="row py-3">
       <h1>{% include "icon.html.twig" with {'icon': "merits", 'hasTips': 0 } only %}{{ "merits"|trans }}</h1>
       <div class="col-auto">
-        {% if description is defined and description.value is not empty %}
+        {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
         {% endif %}
       </div>
