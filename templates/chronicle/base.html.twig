@@ -17,4 +17,4 @@
 {% endif %}
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
 <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_index')}}">{{ "infos"|trans }}</a></div>
+<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{{ "infos"|trans }}</a></div>

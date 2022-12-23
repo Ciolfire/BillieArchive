@@ -2,7 +2,10 @@
 
 {% trans_default_domain 'app' %}
 
-{% set footer = true %}
+{% if footer is not defined %}
+  {% set footer = false %}
+{% endif %}
+
 
 {% block title %}Wiki{% endblock %}
 
@@ -55,7 +58,7 @@
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
-    {% for key, elements in search %}
+    {% for key, elements in search|default(null) %}
       <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">

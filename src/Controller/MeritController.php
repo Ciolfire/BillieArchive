@@ -28,41 +28,36 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/", name: 'merit_index', methods: ["GET"])]
-  public function index(): Response
-  {
-    return $this->render('merit/index.html.twig', [
-      'merits' => $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']),
-      'search' => [
-        'type' => $this->dataService->getMeritTypes(), // Kinda want to replace for dynamic list
-        'category' => $this->categories,
-      ],
-    ]);
-  }
-
   #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
-  public function list($type, $id)
+  public function list($type = null, $id = null)
   {
     $search = ['category' => $this->categories];
     switch ($type) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $types = $this->dataService->getMeritTypes($item);
-        if (count($types) > 1) {
-          $search['type'] = $types;
+        if ($item instanceof Book) {
+          $type = $item->getSetting();
+          $merits = $item->getMerits();
+          // We get the type of book for the search filters
+          $types = $this->dataService->getMeritTypes($item);
+          if (count($types) > 1) {
+            $search['type'] = $types;
+          }
         }
-        $type = $item->getSetting();
         break;
       
         default:
-        # code...
+          $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
+          $search['type'] = $this->dataService->getMeritTypes();
+          $type = "human";
         break;
     }
 
-    return $this->render('merit/index.html.twig', [
+    return $this->render('merit/list.html.twig', [
       'type' => $type,
-      'merits' => $item->getMerits(),
+      'merits' => $merits,
+      'description' => ['value' => 'test'],
       'search' => $search, // Kinda want to replace for dynamic list
     ]);
   }
@@ -80,7 +75,7 @@ class MeritController extends AbstractController
       $entityManager->persist($merit);
       $entityManager->flush();
 
-      return $this->redirectToRoute('merit_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('merit/new.html.twig', [
@@ -110,7 +105,7 @@ class MeritController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager->flush();
 
-      return $this->redirectToRoute('merit_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('merit/edit.html.twig', [
@@ -132,7 +127,7 @@ class MeritController extends AbstractController
       $entityManager->persist($merit);
       $entityManager->flush();
 
-      return $this->redirectToRoute('merit_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('merit/edit.html.twig', [
@@ -151,6 +146,6 @@ class MeritController extends AbstractController
       $entityManager->flush();
     }
 
-    return $this->redirectToRoute('merit_index', [], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
   }
 }

@@ -45,7 +45,12 @@ keywords: Keywords
 level: Level
 logout: Logout
 merit:
-  count: "{0}No Merit|{1}1 Merit|]1,Inf[%count% Merits"
+  count: >-
+    {count, plural,
+      =0 {No Merit}
+      =1 {1 Merit}
+      other {# Merits}
+    }
 merits: Merits
 name: Name
 new: New
@@ -96,7 +101,7 @@ rules: Rules
 save: Save
 short: Effect
 skills: Skills
-source: "%book% page %page%"
+source: "{book} page {page}"
 stories:
   new: New story
   name: Stories

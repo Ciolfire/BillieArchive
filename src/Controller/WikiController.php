@@ -94,6 +94,7 @@ class WikiController extends AbstractController
       'action' => 'edit',
       'entity' => 'attribute',
       'form' => $form,
+      'footer' => false,
     ]);
   }
 }

@@ -45,7 +45,12 @@ keywords: Mots-clefs
 level: Niveau
 logout: Déconnexion
 merit:
-  count: "{0}Aucun Atout|{1}1 Atout|]1,Inf[%count% Atouts"
+  count: >-
+    {count, plural,
+      =0 {Aucun Atout}
+      =1 {1 Atout}
+      other {{# Atouts}
+    }
 merits: Atouts
 name: Nom
 new: Nouveau
@@ -96,7 +101,7 @@ rules: Règles
 save: Sauvegarder
 short: Effet
 skills: Compétences
-source: "%book% page %page%"
+source: "{book} page {page}"
 stories:
   new: Nouvelle histoire
   name: Histoires
