@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   private $stories;
 
   #[ORM\OneToMany(mappedBy: 'author', targetEntity: CharacterNote::class, orphanRemoval: true)]
-  private Collection $characterNotes;
+  private Collection $userCharacterNotes;
 
   #[ORM\OneToMany(mappedBy: 'user', targetEntity: Note::class)]
   #[ORM\OrderBy(["chronicle" => "DESC", "id" => "DESC"])]
@@ -279,27 +279,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   /**
    * @return Collection<int, CharacterNote>
    */
-  public function getCharacterNotes(): Collection
+  public function getUserCharacterNotes(): Collection
   {
-    return $this->characterNotes;
+    return $this->userCharacterNotes;
   }
 
-  public function addCharacterNote(CharacterNote $characterNote): self
+  public function addUserCharacterNote(CharacterNote $userCharacterNotes): self
   {
-    if (!$this->characterNotes->contains($characterNote)) {
-      $this->characterNotes->add($characterNote);
-      $characterNote->setAuthor($this);
+    if (!$this->userCharacterNotess->contains($userCharacterNotes)) {
+      $this->userCharacterNotess->add($userCharacterNotes);
+      $userCharacterNotes->setAuthor($this);
     }
 
     return $this;
   }
 
-  public function removeCharacterNote(CharacterNote $characterNote): self
+  public function removeUserCharacterNote(CharacterNote $userCharacterNotes): self
   {
-    if ($this->characterNotes->removeElement($characterNote)) {
+    if ($this->userCharacterNotes->removeElement($userCharacterNotes)) {
       // set the owning side to null (unless already changed)
-      if ($characterNote->getAuthor() === $this) {
-        $characterNote->setAuthor(null);
+      if ($userCharacterNotes->getAuthor() === $this) {
+        $userCharacterNotes->setAuthor(null);
       }
     }
 

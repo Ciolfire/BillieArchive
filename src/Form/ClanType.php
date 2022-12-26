@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Clan;
-
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,10 +23,9 @@ class ClanType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name"])
+      ->add('quote', null, ['label' => "quote"])
       ->add('book', null, ['label' => "book"])
       ->add('page', null, ['label' => "page"])
-      ->add('homebrewFor', null, ['label' => "chronicle.label"])
-      ->add('quote', null, ['label' => "quote"])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
         'mapped' => false,
@@ -37,25 +36,29 @@ class ClanType extends AbstractType
               'image/*',
             ],
             'mimeTypesMessage' => 'image Invalid',
+            ])
+          ],
           ])
-        ],
-      ])
       ->add('nickname', null, ['label' => "nickname"])
-      ->add('short', null, ['label' => "description.short.label"])
-      ->add('description', CKEditorType::class, [
-        'empty_data' => '', 
-        'data' => $converter->convert($clan->getDescription()), 
-        'label' => "description.label",
-      ])
       ->add('weakness', CKEditorType::class, [
         'label' => 'clan.weakness',
         'translation_domain' => 'vampire',
         'empty_data' => '',
         'data' => $converter->convert($clan->getWeakness())
       ])
-      ->add('keywords', null, ['label' => 'keywords'])
+      ->add('short', null, ['label' => "description.short.label"])
+      ->add('description', CKEditorType::class, [
+        'empty_data' => '', 
+        'data' => $converter->convert($clan->getDescription()), 
+        'label' => "description.label",
+      ])
       ->add('disciplines', null, [
         'expanded' => true,
+        'attr' => ['class' => 'form-control'],
+        'label_attr' => ['class' => 'text'],
+        'query_builder' => function (EntityRepository $er) {
+          return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
+        },
         'label' => 'disciplines.label',
         'translation_domain' => 'vampire',
       ])
@@ -71,6 +74,10 @@ class ClanType extends AbstractType
     } else {
       $builder->add('attributes', null, ['expanded' => true, 'label' => 'attributes']);
     }
+    $builder
+      ->add('homebrewFor', null, ['label' => "chronicle.label"])
+      ->add('keywords', null, ['label' => 'keywords'])
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

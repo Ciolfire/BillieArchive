@@ -44,6 +44,7 @@ class Clan
   private $attributes;
 
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private $disciplines;
 
   #[Gedmo\Translatable]

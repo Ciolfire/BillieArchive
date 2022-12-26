@@ -19,14 +19,14 @@ class CharacterNote
   #[ORM\Column(type: Types::TEXT)]
   private ?string $content = "";
 
-  #[ORM\ManyToOne(inversedBy: 'characterNotes')]
+  #[ORM\ManyToOne(inversedBy: 'notes')]
   #[ORM\JoinColumn(nullable: false)]
   private ?Character $character = null;
 
   #[ORM\Column]
   private ?\DateTimeImmutable $assignedAt = null;
 
-  #[ORM\ManyToOne(inversedBy: 'characterNotes')]
+  #[ORM\ManyToOne(inversedBy: 'userCharacterNotes')]
   #[ORM\JoinColumn(nullable: false)]
   private ?User $author = null;
 

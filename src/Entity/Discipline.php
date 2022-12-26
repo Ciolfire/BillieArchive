@@ -8,6 +8,7 @@ use App\Repository\DisciplineRepository;
 use App\Entity\Translation\DisciplineTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -27,29 +28,29 @@ class Discipline
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private $id;
 
   #[Gedmo\Locale]
   private $locale;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
+  #[ORM\Column(type: Types::STRING, length: 50)]
   private $name;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $description;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   private $short;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+  #[ORM\Column(type: Types::BOOLEAN)]
   private $isRestricted =  1;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $rules;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
