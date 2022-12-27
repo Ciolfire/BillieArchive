@@ -1,11 +1,11 @@
 {% trans_default_domain 'vampire' %}
 
 <div id="{{ clan.name }}" class="col-12" data-search-target="item" data-name="{{ clan.name }}" data-parent="{{ clan.parentClan }}">
-  <div class="block block-wiki position-relative">
+  <div class="clan-card position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
-    <blockquote class="text-center mb-2">
+    <blockquote class="text-center mb-2 clan-card-header">
       <h2>{{ clan.name }}
         {% if clan.isBloodline is same as(true) %}
           ({{ clan.parentClan.name|default("clan.parent.any"|trans) }})
@@ -22,25 +22,39 @@
       <br>
       {% if clan.parentClan is null %}
         {% for attribute in clan.attributes %}
+          {% if not loop.first %}
+            |
+          {% endif %}
           <span class="strong">
-            {# {% include "icon.html.twig" with {'icon': attribute.type, 'hasTips': 0} only %}
-            {% include "icon.html.twig" with {'icon': attribute.category, 'hasTips': 0} only %} #}
             {{ attribute.name }}
           </span>
         {% endfor %}
         <br>
       {% endif %}
+        
       {% for discipline in clan.disciplines %}
+        {% if loop.last %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
         <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
       {% endfor %}
     </div>
-    <div class="clan-{{ clan.id }} collapse p-2" type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <p class="text">{{ clan.description|default("")|markdown_to_html }}</p>
+    <div class="clan-{{ clan.id }} clan-card-body collapse p-2" type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+      <div class="text">{{ clan.description|default("")|markdown_to_html }}</div>
       <h5>{{ "clan.weakness"|trans }}</h5>
       <blockquote class="text">{{ clan.weakness|default("")|markdown_to_html }}</blockquote>
     </div>
+    <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+      <span class="fa-layers fa-fw">
+        <i class="fa-solid fa-circle"></i>
+        <span class="ok clan-{{ clan.id }} collapse show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+        <span class="ok clan-{{ clan.id }} collapse"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+      </span>
+    </div>
     <div class="clan-{{ clan.id }} collapse show" type="button" data-bs-toggle="collapse" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <div class="fluff">{{ clan.short|default("")|markdown_to_html }}
+      <div class="fluff clan-card-footer">{{ clan.short|default("")|markdown_to_html }}
         <div class="text-end">
           {% if clan.homebrewFor is not null %}
             <a href="{{path('chronicle_show', {'id': clan.homebrewFor.id }) }}">{{ clan.homebrewFor.name }}</a>
