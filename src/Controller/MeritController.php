@@ -29,40 +29,6 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
-  public function list($type = null, $id = null)
-  {
-    $search = ['category' => $this->categories];
-    switch ($type) {
-      case 'book':
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        if ($item instanceof Book) {
-          $type = $item->getSetting();
-          $merits = $item->getMerits();
-          // We get the type of book for the search filters
-          $types = $this->dataService->getMeritTypes($item);
-          if (count($types) > 1) {
-            $search['type'] = $types;
-          }
-        }
-        break;
-      
-        default:
-          $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
-          $search['type'] = $this->dataService->getMeritTypes();
-          $type = "human";
-        break;
-    }
-
-    return $this->render('merit/list.html.twig', [
-      'type' => $type,
-      'merits' => $merits,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
-      'search' => $search, // Kinda want to replace for dynamic list
-    ]);
-  }
-
   /**
    * @Route("/new", name="merit_new", methods={"GET", "POST"})
    */
@@ -148,5 +114,39 @@ class MeritController extends AbstractController
     }
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
+  public function list($type = null, $id = null)
+  {
+    $search = ['category' => $this->categories];
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        if ($item instanceof Book) {
+          $type = $item->getSetting();
+          $merits = $item->getMerits();
+          // We get the type of book for the search filters
+          $types = $this->dataService->getMeritTypes($item);
+          if (count($types) > 1) {
+            $search['type'] = $types;
+          }
+        }
+        break;
+      
+        default:
+          $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
+          $search['type'] = $this->dataService->getMeritTypes();
+          $type = "human";
+        break;
+    }
+
+    return $this->render('merit/list.html.twig', [
+      'type' => $type,
+      'merits' => $merits,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
+      'search' => $search, // Kinda want to replace for dynamic list
+    ]);
   }
 }
