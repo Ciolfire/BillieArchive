@@ -23,6 +23,8 @@ class ClanType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name"])
+      ->add('nickname', null, ['label' => "nickname"])
+      ->add('short', null, ['label' => "description.short.label"])
       ->add('quote', null, ['label' => "quote"])
       ->add('book', null, ['label' => "book"])
       ->add('page', null, ['label' => "page"])
@@ -39,14 +41,12 @@ class ClanType extends AbstractType
             ])
           ],
           ])
-      ->add('nickname', null, ['label' => "nickname"])
       ->add('weakness', CKEditorType::class, [
         'label' => 'clan.weakness',
         'translation_domain' => 'vampire',
         'empty_data' => '',
         'data' => $converter->convert($clan->getWeakness())
       ])
-      ->add('short', null, ['label' => "description.short.label"])
       ->add('description', CKEditorType::class, [
         'empty_data' => '', 
         'data' => $converter->convert($clan->getDescription()), 
