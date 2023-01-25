@@ -58,18 +58,21 @@
   {% else %}
     {% for power in discipline.powers %}
         {% if power.level <= maxPower %}
+        {% set powerPool = power.detailedDicePool(character) %}
         <div class="col-12">
           <div class="discipline-powers-{{ discipline.id }} collapse">
             <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">
               <div class="col">{{ power.levelDots }}</div>
               <div class="col">{{ power.name }}</div>
               <div class="col text-end">
-                {% if power.attribute and power.skill %}
-                  <span class="text">
-                    {{ power.dicePool(character) }}
-                  </span>
-                  <i class="fa-solid fa-diamond"></i>
-                {% endif %}
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ powerPool.detail }}">
+                  {% if power.attribute and power.skill %}
+                    <span class="text">
+                      {{ powerPool.total }}
+                    </span>
+                    <i class="fa-solid fa-diamond"></i>
+                  {% endif %}
+                </span>
               </div>
             </h5>
             <div class="discipline-power-{{ power.id }} collapse pb-2">{{ power.details|markdown_to_html }}</div>

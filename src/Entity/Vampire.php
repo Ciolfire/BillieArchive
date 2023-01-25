@@ -166,7 +166,7 @@ class Vampire extends Character
   {
     foreach ($this->disciplines as $discipline) {
       /** @var VampireDiscipline $discipline */
-      if ($discipline->getDiscipline()->getId() == $id) {
+      if ($discipline->getDiscipline()->getId() === $id) {
 
         return $discipline;
       }

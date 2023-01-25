@@ -501,6 +501,25 @@ class Character
     return $attributeDice + $skillDice + $bonus;
   }
 
+  public function detailedDicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
+  {
+    $attributeDice = $this->attributes->get($attribute->getIdentifier());
+    $skillDice = $this->skills->get($skill->getIdentifier());
+    if ($skillDice == 0) {
+      if ($skill->getCategory() == "mental") {
+        $skillDice = -3;
+      } else {
+        $skillDice = -1;
+      }
+    }
+
+    return [
+      'attribute' => $attributeDice,
+      'skill' => $skillDice,
+      'bonus' => $bonus
+    ];
+  }
+
   public function getChronicle(): ?Chronicle
   {
     return $this->chronicle;

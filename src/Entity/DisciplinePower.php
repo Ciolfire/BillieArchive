@@ -154,11 +154,7 @@ class DisciplinePower
 
   public function dicePool(Vampire $character)
   {
-    $discipline = $character->getDisciplines()->filter(function($element) {
-      if ($element->getDiscipline() == $this->discipline) {
-        return $element;
-      }
-    })->first();
+    $discipline = $character->getDiscipline($this->discipline->getId());
     if ($discipline) {
       $level = $discipline->getLevel();
     } else {
@@ -166,5 +162,22 @@ class DisciplinePower
     }
     
     return $character->dicePool($this->attribute, $this->skill, $level);
+  }
+
+  public function detailedDicePool(Vampire $character)
+  {
+    $discipline = $character->getDiscipline($this->discipline->getId());
+    if ($discipline) {
+      $level = $discipline->getLevel();
+    } else {
+      $level = 0;
+    }
+
+    $pool = $character->detailedDicePool($this->attribute, $this->skill, $level);
+    
+    return [
+      'total' => array_sum($pool),
+      'detail' => "{$this->attribute} {$pool['attribute']} + {$this->skill} {$pool['skill']} + {$this->discipline} {$pool['bonus']}"
+    ];
   }
 }
