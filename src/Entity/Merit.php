@@ -13,12 +13,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Table(name: "merits")]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
-// #[ORM\AssociationOverrides([
-//   new ORM\AssociationOverride(
-//     name: "book",
-//     inversedBy: "merits"
-//   )
-// ])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book",inversedBy: "merits")])]
 #[Gedmo\TranslationEntity(class: MeritTranslation::class)]
 class Merit
 {

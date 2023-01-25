@@ -16,12 +16,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
 #[ORM\Table(name: "clan")]
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
-// #[ORM\AssociationOverrides([
-//   new ORM\AssociationOverride(
-//     name: "book",
-//     inversedBy: "clans"
-//   ),
-// ])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),])]
 class Clan
 {
   use Sourcable;
