@@ -6,6 +6,9 @@ search: Search
 show: Show
 view: View
 
+dice: Dice
+luckThrow: Luck
+
 all: All
 creation: Character creation only.
 folder: Folder
