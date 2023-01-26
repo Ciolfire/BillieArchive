@@ -19,6 +19,9 @@
       </div>
     </div>
   </div>
+  {% if discipline.singlePower %}
+    <div class="col-12 text-sub text-center"><p>{{ discipline.short }}</p></div>
+  {% endif %}
 </div>
 <div class="row ok">
   {% block rulesBtn %}
@@ -53,7 +56,10 @@
   {% endblock %}
   {% if discipline.singlePower %}
     <div class="col-12">
-      <div class="discipline-powers-{{ discipline.id }} collapse">{{ discipline.power.details|markdown_to_html }}</div>
+      <div class="discipline-powers-{{ discipline.id }} collapse">
+        <div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
+        {{ discipline.power.details|markdown_to_html }}
+      </div>
     </div>
   {% else %}
     {% for power in discipline.powers %}
@@ -81,6 +87,7 @@
             </h5>
             <div class="discipline-power-{{ power.id }} collapse pb-2">{{ power.details|markdown_to_html }}</div>
           </div>
+          <div class="col-12 text-sub text-center"><p>{{ power.short }}</p></div>
         </div>
       {% endif %}
     {% endfor %}
