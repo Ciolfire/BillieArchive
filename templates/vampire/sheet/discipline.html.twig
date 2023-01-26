@@ -65,14 +65,18 @@
               <div class="col">{{ power.levelDots }}</div>
               <div class="col">{{ power.name }}</div>
               <div class="col text-end">
-                <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ powerPool.detail }}">
-                  {% if power.attribute and power.skill %}
+                {% if power.attribute or power.skill %}
+                  <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ powerPool.detail }}">
                     <span class="text">
-                      {{ powerPool.total }}
+                      {% if powerPool.total > 0 %}
+                        {{ powerPool.total }}
+                        {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0} only %}
+                      {% else %}
+                        {% include "icon.html.twig" with {'icon': "luckThrow", 'hasTips': 0} only %}
+                      {% endif %}
                     </span>
-                    <i class="fa-solid fa-diamond"></i>
-                  {% endif %}
-                </span>
+                  </span>
+                {% endif %}
               </div>
             </h5>
             <div class="discipline-power-{{ power.id }} collapse pb-2">{{ power.details|markdown_to_html }}</div>

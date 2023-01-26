@@ -51,6 +51,9 @@ class Discipline
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
   private $powers;
 
+  #[ORM\Column]
+  private ?bool $isThaumaturgy = null;
+
   public function __construct()
   {
     $this->powers = new ArrayCollection();
@@ -181,5 +184,17 @@ class Discipline
   public function getMaxLevel(): int
   {
     return count($this->powers);
+  }
+
+  public function isThaumaturgy(): ?bool
+  {
+      return $this->isThaumaturgy;
+  }
+
+  public function setIsThaumaturgy(bool $isThaumaturgy): self
+  {
+      $this->isThaumaturgy = $isThaumaturgy;
+
+      return $this;
   }
 }

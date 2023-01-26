@@ -4,7 +4,6 @@ namespace App\Entity\Types;
 
 final class TypeNote {
 
-  
   public const DEFAULT = 0;
   public const PAPER = 1;
   public const TERMINAL = 2;

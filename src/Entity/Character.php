@@ -501,22 +501,30 @@ class Character
     return $attributeDice + $skillDice + $bonus;
   }
 
-  public function detailedDicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
+  public function detailedDicePool(?Attribute $attribute, ?Skill $skill, array $modifiers = [])
   {
-    $attributeDice = $this->attributes->get($attribute->getIdentifier());
-    $skillDice = $this->skills->get($skill->getIdentifier());
-    if ($skillDice == 0) {
-      if ($skill->getCategory() == "mental") {
-        $skillDice = -3;
-      } else {
-        $skillDice = -1;
+    if ($attribute) {
+      $attributeDice = $this->attributes->get($attribute->getIdentifier());
+    } else {
+      $attributeDice = null;
+    }
+    if ($skill) {
+      $skillDice = $this->skills->get($skill->getIdentifier());
+      if ($skillDice == 0) {
+        if ($skill->getCategory() == "mental") {
+          $skillDice = -3;
+        } else {
+          $skillDice = -1;
+        }
       }
+    } else {
+      $skillDice = null;
     }
 
     return [
       'attribute' => $attributeDice,
       'skill' => $skillDice,
-      'bonus' => $bonus
+      'modifiers' => $modifiers,
     ];
   }
 

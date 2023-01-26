@@ -154,30 +154,46 @@ class DisciplinePower
 
   public function dicePool(Vampire $character)
   {
-    $discipline = $character->getDiscipline($this->discipline->getId());
-    if ($discipline) {
-      $level = $discipline->getLevel();
+    $characterDiscipline = $character->getDiscipline($this->discipline->getId());
+    if ($characterDiscipline) {
+      $level = $characterDiscipline->getLevel();
     } else {
       $level = 0;
     }
+
+    if ($this->discipline->isThaumaturgy()) {
+      $bonus =  $level - $this->level;
+    } else {
+      $bonus = $level;
+    }
     
-    return $character->dicePool($this->attribute, $this->skill, $level);
+    return $character->dicePool($this->attribute, $this->skill, $bonus);
   }
 
   public function detailedDicePool(Vampire $character)
   {
     $discipline = $character->getDiscipline($this->discipline->getId());
-    if ($discipline) {
-      $level = $discipline->getLevel();
-    } else {
-      $level = 0;
+
+    $modifiers = [
+      'discipline' => $discipline? $discipline->getLevel() : 0,
+    ];
+    if ($this->discipline->isThaumaturgy()) {
+      $modifiers['thaumaturgy'] = -$this->level;
     }
 
-    $pool = $character->detailedDicePool($this->attribute, $this->skill, $level);
+    $pool = $character->detailedDicePool($this->attribute, $this->skill, $modifiers);
     
+    foreach ($pool['modifiers'] as $modifier => $value) {
+      if (!isset($string)) {
+        $string = "{$modifier} {$value}";
+      } else {
+        $string .= "+ {$modifier} {$value}";
+      }
+    }
+
     return [
-      'total' => array_sum($pool),
-      'detail' => "{$this->attribute} {$pool['attribute']} + {$this->skill} {$pool['skill']} + {$this->discipline} {$pool['bonus']}"
+      'total' => array_sum($pool) + array_sum($pool['modifiers']),
+      'detail' => "{$this->attribute} {$pool['attribute']} + {$this->skill} {$pool['skill']} + {$string}"
     ];
   }
 }
