@@ -1,11 +1,10 @@
 {% trans_default_domain 'character' %}
 
 <div class="row align-items-center px-2 user-select-none">
-  <div class="col-1"></div>
-  <div class="col text-center p-2">
+  <div class="col-12 text-center p-2">
     <h2>{{ discipline.name }}</h2>
   </div>
-  <div class="col-auto">
+  <div class="col-12 text-center">
     <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
       {% block input %}{% endblock %}
       <div class="dots">
@@ -21,14 +20,15 @@
   </div>
   <div class="col-12 text-sub text-center"><p>{{ discipline.short }}</p></div>
 </div>
-<div class="row ok">
+
+<div class="row g-0 ok">
   {% block rulesBtn %}
     {% if discipline.rules %}
       <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
         <span class="d-flex flex-column justify-content-center text-center">
           rules
           <span class="discipline-rules-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
-          <span class="collapse-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+          <span class="details-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
         </span>
       </div>
     {% endif %}
@@ -38,56 +38,50 @@
       <span class="d-flex flex-column justify-content-center text-center">
         {{ 'power'|trans({'%count%': discipline.powers|length}) }}
         <span class="discipline-powers-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
-        <span class="collapse-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
+        <span class="details-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
       </span>
     </div>
   {% endblock %}
 </div>
-<div class="row m-0 pt-2 collapse-block">
+
+<div class="row m-0 details-block">
   {% block rules %}
     {% if discipline.rules %}
       <div class="col-12 discipline-rules-{{ discipline.id }} collapse">
-        <div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
         {{ discipline.rules|markdown_to_html }}
       </div>
     {% endif %}
   {% endblock %}
   {% if discipline.singlePower %}
-    <div class="col-12">
-      <div class="discipline-powers-{{ discipline.id }} collapse">
-        <div class="fluff mx-2">{{ discipline.description|markdown_to_html }}</div>
-        {{ discipline.power.details|markdown_to_html }}
-      </div>
+    <div class="col-12 discipline-powers-{{ discipline.id }} collapse">
+      <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
+      {{ discipline.power.details|markdown_to_html }}
     </div>
   {% else %}
-    {% for power in discipline.powers %}
+    <div class="powers-block-{{ discipline.id }} discipline-powers-{{ discipline.id }} collapse">
+      <div class="col-12">
+        <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
+      </div>
+      {% for power in discipline.powers %}
+        <div class="row">
         {% if power.level <= maxPower %}
-        {% set powerPool = power.detailedDicePool(character) %}
-        <div class="col-12">
-          <div class="discipline-powers-{{ discipline.id }} collapse">
-            <h5 class="pb-2 row" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}" type="button">
-              <div class="col">{{ power.levelDots }}</div>
-              <div class="col">{{ power.name }}</div>
-              <div class="col text-end">
+          {% set powerPool = power.detailedDicePool(character) %}
+          <div class="col-12 power-header">
+            <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}">
+              <div class="col-3"><h5>{{ power.levelDots }}</h5></div>
+              <div class="col-6 text-center"><h3>{{ power.name }}</h3></div>
+              <div class="col-3 text-end">
                 {% if power.attribute or power.skill %}
-                  <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ powerPool.detail }}">
-                    <span class="text">
-                      {% if powerPool.total > 0 %}
-                        {{ powerPool.total }}
-                        {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0} only %}
-                      {% else %}
-                        {% include "icon.html.twig" with {'icon': "luckThrow", 'hasTips': 0} only %}
-                      {% endif %}
-                    </span>
-                  </span>
+                  {% include "dicePool.html.twig" with {'pool' : powerPool} %}
                 {% endif %}
               </div>
-            </h5>
-            <div class="discipline-power-{{ power.id }} collapse pb-2">{{ power.details|markdown_to_html }}</div>
+              <div class="col-12 text-sub text-center"><p>{{ power.short }}</p></div>
+            </div>
           </div>
-          <div class="discipline-powers-{{ discipline.id }} collapse col-12 text-sub text-center"><p>{{ power.short }}</p></div>
-        </div>
-      {% endif %}
-    {% endfor %}
+          <div class="discipline-power-{{ power.id }} accordion-collapse collapse py-2" data-bs-parent=".powers-block-{{ discipline.id }}">{{ power.details|markdown_to_html }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
   {% endif %}
 </div>

@@ -1,0 +1,21 @@
+.discipline {
+  &-block {
+    background-color: $lightBlockColor;
+    color: $mainDarkColor;
+    border: 2px solid $mainDarkColor;
+    margin: 0.5em 0;
+    .details-block {
+      background-color: #ffffff2b;
+      .power-header {
+        background-color: #0000002b;
+      }
+      .warning {
+        color: $wrongColor;
+      }
+    }
+    .fluff, blockquote {
+      color: $textBrightColor;
+      background-color: $darkBlockColor;
+    }
+  }
+}

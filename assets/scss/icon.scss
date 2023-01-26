@@ -1,0 +1,20 @@
+.icon {
+  display: inline-block;
+  font-size: large;
+  &-sm {
+    svg {
+      height: 1em;
+      width: 1em;
+    }
+  }
+  &.icon-lg {
+    svg {
+      height: 2em;
+      width: 2em;
+    }
+  }
+  svg {
+    height: 1.4em;
+    width: 1.4em;
+  }
+}

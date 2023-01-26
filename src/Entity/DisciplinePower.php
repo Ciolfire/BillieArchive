@@ -187,7 +187,7 @@ class DisciplinePower
       if (!isset($string)) {
         $string = "{$modifier} {$value}";
       } else {
-        $string .= "+ {$modifier} {$value}";
+        $string .= " + {$modifier} {$value}";
       }
     }
 

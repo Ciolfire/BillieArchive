@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "form";
+@import "icon";
 @import "character";
 @import "rabbit";
 @import "merit";
@@ -88,7 +89,7 @@ footer.footer {
 }
 
 .ko {
-  color: $wrongColor;
+  color: $warningColor;
 }
 
 .btn.btn-primary, .human-btn.btn-primary {

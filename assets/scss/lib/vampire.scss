@@ -3,6 +3,8 @@ $fonts: "../../fonts";
 $pageColor: rgb(37, 37, 37);
 $footerColor: #8e8e8eb5;
 $blockColor: #151515b5;
+$lightBlockColor: #FFFFFF80;
+$darkBlockColor: #000000cc;
 $solidBlockColor: #6a6a6a;
 $tabColor: #6a6a6a4f;
 $borderColor: #7d0000;
@@ -13,20 +15,23 @@ $mainDarkColor: #4d0000;
 $main50pColor: #7d000088;
 $inputBackColor: #0000004f;
 $inputActiveBColor: #000000a1;
-$wrongColor: #ce8904;
+$wrongColor: #000968;
+$warningColor: #5f85f7;
 $accentColor: gold;
 
 $background: "images/back2.jpg";
 
 // Text
 $textColor: #a1a5b9;
-$titleColor: #ca0000;
+$textDarkColor: #000000;
+$textBrightColor: #ff6161;
+$titleColor: $mainBrightColor;
 $titleShadow: rgb(43, 0, 0);
 $btnColor: $mainColor;
 $labelColor: $mainColor;
 $subtextColor: #a1a5b9a1;
 $linkColor: $mainBrightColor;
-$linkHoverColor: $wrongColor;
+$linkHoverColor: #ce8904;
 // Font
 $mainFont: "mrsEaves-bold";
 $h1Font: "Cezanne";
