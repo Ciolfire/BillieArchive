@@ -8,6 +8,7 @@ twig:
     - 'forms/choicewidgetexpanded.html.twig'
   paths:
     '%kernel.project_dir%/public/images': images
+    '%kernel.project_dir%/icons': icons
     '%kernel.project_dir%/public/images/clans': clans
 when@test:
   twig:
