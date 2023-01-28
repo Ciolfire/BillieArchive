@@ -20,11 +20,16 @@ age.less: "Age: {age} (Embraced at {looks})"
 
 advantage:
   armor: Armor
-  defense: Defense
-  initiative: Initiative
+  defense:
+    label: Defense
+    tooltip: "smallest between Dexterity ({dexterity}) & Wits ({wits})"
+  initiative: 
+    label: Initiative
+    tooltip: "Dexterity {dexterity} + Composure {composure} + Bonus {bonus}"
   size: Size
-  speed: 
+  speed:
     label: Speed
+    tooltip: "{base} + Strength {strength} + Dexterity {dexterity} + Bonus {bonus}"
     value: "{speed}yd/tn"
   xp: XP
 

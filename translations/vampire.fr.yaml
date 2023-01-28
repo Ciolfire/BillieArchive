@@ -4,12 +4,13 @@ clan:
   bloodline:
     label: Lignée
     count: "{0}Aucune Lignée|{1}1 Lignée|]1,Inf[%count% Lignées"
+    weakness: Faiblesse de Clan
   bloodlines:
     label: Lignées
   parent:
     any: Libre
     label: Clan Parent
-  weakness: Faiblesse
+  weakness: Faiblesse de Lignée
 clans:
   label: Clans
 discipline:

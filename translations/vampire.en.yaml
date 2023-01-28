@@ -4,12 +4,13 @@ clan:
   bloodline:
     label: Bloodline
     count: "{0}No Bloodline|{1}1 Bloodline|]1,Inf[%count% Bloodlines"
+    weakness: Bloodline Weakness
   bloodlines:
     label: Bloodlines
   parent:
     any: Any
     label: Parent Clan
-  weakness: Weakness
+  weakness: Clan Weakness
 clans:
   label: Clans
 discipline:
