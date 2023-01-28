@@ -67,6 +67,12 @@ class Merit
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
   private $type;
 
+  public function __toString(): string
+  {
+    return $this->name;
+  }
+
+
   public function getId(): ?int
   {
     return $this->id;

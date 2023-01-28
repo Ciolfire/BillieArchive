@@ -2,7 +2,7 @@
 
 <div class="row align-items-center px-2">
   <div class="col-12 col-lg text-left">
-    {% include "icon.html.twig" with {'icon' : type } only %}
+    <span class="d-none d-sm-inline">{% include "icon.html.twig" with {'icon' : type } only %}</span>
     {{ attribute.name }}
   </div>
   <div class="col-auto">

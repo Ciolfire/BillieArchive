@@ -10,6 +10,11 @@
     </div>
     {% include("character/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
+      <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
+        {% include "icon.html.twig" with {'icon': 'logs'} only %}
+      </div>
+    </div>
+    <div class="col-2">
       <a href="{{ path('character_index') }}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
         {# {{ "back"|trans({}, "app") }} #}

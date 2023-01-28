@@ -7,6 +7,7 @@ use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Skill;
 use App\Entity\Merit;
+use App\Entity\References\MeritReferences;
 use Doctrine\Persistence\ManagerRegistry;
 
 class CreationService
@@ -30,16 +31,20 @@ class CreationService
     
     foreach ($merits as $id => $merit) {
       // We take advantage of the fact that a string with non-number char count as the first number ie: 6-df456 is 6
+      /** @var Merit $entityMerit */
       $entityMerit = $this->doctrine->getRepository(Merit::class)->find($id);
       if (!is_null($entityMerit)) {
         $characterMerit = new CharacterMerit;
         $characterMerit->setMerit($entityMerit);
         $characterMerit->setLevel(intval($merit['level']));
         if (isset($merit['details'])) {
-        $characterMerit->setChoice($merit['details']);
-      }
+          $characterMerit->setChoice($merit['details']);
+        }
       }
       $character->addMerit($characterMerit);
+      if ($entityMerit->getId() === MeritReferences::GIANT) {
+        $character->setSize(6);
+      }
       $this->doctrine->getManager()->persist($characterMerit);
     }
   }

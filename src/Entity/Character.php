@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\References\DisciplineReferences;
+use App\Entity\References\MeritReferences;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -374,17 +376,34 @@ class Character
 
   public function getHealth(): ?int
   {
-    return $this->size + $this->attributes->getStamina();
+    $base = $this->size;
+
+    // if ($this->getType() == "vampire") {
+    //   /**@var Vampire $this */
+    //   $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
+    //   if (!is_null($resilience)) {
+    //     $base = $base + $resilience->getLevel();
+    //   }
+    // }
+
+    return $base + $this->attributes->getStamina();
+  }
+
+  public function getWoundMalus(): ?int
+  {
+    $threesold = 3;
+
+    $merit = $this->hasMerit(MeritReferences::IRON_STAMINA);
+    if ($merit) {
+      $threesold -= $merit->getLevel();
+    }
+
+    return $threesold;
   }
 
   public function getCurrentWillpower(): ?int
   {
     return $this->currentWillpower;
-  }
-
-  public function getSpeed(): ?int
-  {
-    return $this->attributes->getStrength() + $this->attributes->getDexterity() + 5;
   }
 
   public function setCurrentWillpower(int $currentWillpower): self
@@ -394,17 +413,93 @@ class Character
     return $this;
   }
 
+  public function getSpeed(): ?int
+  {
+    $bonus = 0;
+
+    $merit = $this->hasMerit(MeritReferences::FLEET_OF_FOOT);
+    if ($merit) {
+      $bonus = $merit->getLevel();
+    }
+
+    return $this->attributes->getStrength() + $this->attributes->getDexterity() + 5 + $bonus;
+  }
+
+  public function getSpeedDetails(): array
+  {
+    $bonus = 0;
+
+    $merit = $this->hasMerit(MeritReferences::FLEET_OF_FOOT);
+    if ($merit) {
+      $bonus = $merit->getLevel();
+    }
+
+    $details = [
+      'base' => 5,
+      'strength' => $this->attributes->getStrength(),
+      'dexterity' => $this->attributes->getDexterity(),
+      'bonus' => $bonus,
+    ];
+
+    return [
+      'total' => array_sum($details),
+      'details' => $details,
+    ];
+  }
+
   public function getInitiative(): int
   {
     $bonus = 0;
 
+    $merit = $this->hasMerit(MeritReferences::FAST_REFLEXES);
+    if ($merit) {
+      $bonus = $merit->getLevel();
+    }
+
     return $this->attributes->getDexterity() + $this->attributes->getComposure() + $bonus;
+  }
+
+  public function getInitiativeDetails(): array
+  {
+    $bonus = 0;
+
+    $merit = $this->hasMerit(MeritReferences::FAST_REFLEXES);
+    if ($merit) {
+      $bonus = $merit->getLevel();
+    }
+
+    $details = [
+      'dexterity' => $this->attributes->getDexterity(),
+      'composure' => $this->attributes->getComposure(),
+      'bonus' => $bonus,
+    ];
+
+    return [
+      'total' => array_sum($details),
+      'details' => $details,
+    ];
   }
 
   public function getDefense(): int
   {
 
     return min($this->attributes->getDexterity(), $this->attributes->getWits());
+  }
+
+  public function getDefenseDetails(): array
+  {
+    $bonus = 0;
+
+    $details = [
+      'dexterity' => $this->attributes->getDexterity(),
+      'wits' => $this->attributes->getWits(),
+      'bonus' => $bonus,
+    ];
+
+    return [
+      'total' => min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus,
+      'details' => $details,
+    ];
   }
 
   /**
@@ -437,17 +532,17 @@ class Character
     return $this;
   }
 
-  public function hasMerit(int $id): bool
+  public function hasMerit(int $id): ?CharacterMerit
   {
     foreach ($this->merits as $merit) {
       /** @var CharacterMerit $merit */
       if ($merit->getMerit()->getId() == $id) {
 
-        return true;
+        return $merit;
       }
     }
 
-    return false;
+    return null;
   }
 
   public function getXpTotal(): ?int

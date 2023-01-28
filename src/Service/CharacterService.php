@@ -173,7 +173,7 @@ class CharacterService
 
     foreach ($merits as $key => $merit) {
       /** @var Merit $merit */
-      if ($merit->getIsUnique() && $character->hasMerit($merit->getId())) {
+      if ($merit->getIsUnique() && !is_null($character->hasMerit($merit->getId()))) {
         // Character already has this merit, we remove it from the list
         unset($merits[$key]);
       } else if (!$isCreation && $merit->getIsCreationOnly()) {
