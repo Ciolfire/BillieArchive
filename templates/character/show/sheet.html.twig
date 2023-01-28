@@ -25,11 +25,9 @@
           {{ include('character/show/willpower.html.twig') }}
         </div>
       </div>
-      <div class="row pb-3">
-        {% if character.type != "human" %}
-          {{ include(character.type ~ '/show/trait.html.twig') }}
-        {% endif %}
-      </div>
+      {% if character.type != "human" %}
+        {{ include(character.type ~ '/show/trait.html.twig') }}
+      {% endif %}
       {{ include('character/show/advantages.html.twig') }}
       {{ include('character/show/attributes.html.twig') }}
       {{ include('character/show/skills.html.twig') }}

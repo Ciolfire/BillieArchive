@@ -1,1 +1,11 @@
-{{ include('vampire/show/potency.html.twig') }}
+<div class="row pb-3">
+  {% include 'vampire/show/vitae.html.twig' %}
+  {% include 'vampire/show/potency.html.twig' %}
+</div>
+<div class="row pb-3 justify-content-center">
+  {% if character.clan.parentClan is not null %}
+    {% include "vampire/show/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
+  {% else %}
+    {% include "vampire/show/weakness.html.twig" with { 'clan': character.clan } %}
+  {% endif %}
+</div>
