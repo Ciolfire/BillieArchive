@@ -21,7 +21,7 @@
     </div>
   </div>
 </div>
-<div class="row g-1 back-img back-img-left" {% include character.type ~ '/back.html.twig' %}>
+<div class="row back-img back-img-left block p-2" {% include character.type ~ '/back.html.twig' %}>
   <h1 class="text-center text">{{ character.name }} {% if app.user != character.player %}({{ character.player }}){% endif %}</h1>
   <div class="order-2 order-md-1 col-6 col-md text-center">
     <div class="row">

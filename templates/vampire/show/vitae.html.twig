@@ -1,34 +1,32 @@
-{% extends "vampire/sheet/vitae.html.twig" %}
-
 {% trans_default_domain 'character' %}
 
-{% block vitae %}
-<div class="block user-select-none h-100">
-  <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0, 'class': 'icon-lg' } only %}{{ 'vampire.vitae'|trans }}</h3>
-  {% set vitae = character.vitae %}
-  <div class="d-flex flex-column align-items-start">
-    <div class="text-start ps-3">
-    {% for index in 1..10 %}
-      <span class="d-inline-block malus-box text-center text-sub">
-        <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'vampire.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'vampire.hungry'|trans }}">-1{% else %}>&nbsp;
-        {% endif %}
-        </div>
-      </span>
-      {% endfor %}
-    </div>
-    <div class="text-start ps-3">
-      {% for index in 1..character.maxVitae %}
-        {% if index <= character.vitae %}
-          {% set value = 1 %}
-        {% else %}
-          {% set value = 0 %}
-        {% endif %}
-        <svg class="trait-box" viewBox="0 0 100 100" role="button" data-controller="trait" data-trait-target="input" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ value }}" data-action="click->trait#switch" class="text-center">
-          <line class="trait-fill d-none on" x1="10" y1="90" x2="90" y2="10"/>
-          <line class="trait-fill d-none on" x1="10" y1="10" x2="90" y2="90"/>
-        </svg>
-      {% endfor %}
+<div class="col-12 col-md-6">
+  <div class="block user-select-none h-100">
+    <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ 'vampire.vitae'|trans }}</h3>
+    {% set vitae = character.vitae %}
+    <div class="d-flex flex-column align-items-start">
+      <div class="text-start ps-3">
+      {% for index in 1..10 %}
+        <span class="d-inline-block malus-box text-center text-sub">
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'vampire.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'vampire.hungry'|trans }}">-1{% else %}>&nbsp;
+          {% endif %}
+          </div>
+        </span>
+        {% endfor %}
+      </div>
+      <div class="text-start ps-3">
+        {% for index in 1..character.maxVitae %}
+          {% if index <= character.vitae %}
+            {% set value = 1 %}
+          {% else %}
+            {% set value = 0 %}
+          {% endif %}
+          <svg class="trait-box" viewBox="0 0 100 100" role="button" data-controller="trait" data-trait-target="input" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ value }}" data-action="click->trait#switch" class="text-center">
+            <line class="trait-fill d-none on" x1="10" y1="90" x2="90" y2="10"/>
+            <line class="trait-fill d-none on" x1="10" y1="10" x2="90" y2="90"/>
+          </svg>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
-{% endblock %}

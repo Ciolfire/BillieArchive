@@ -4,7 +4,7 @@
 {% set initiative = character.initiativeDetails %}
 {% set defense = character.defenseDetails %}
 {% set speed = character.speedDetails %}
-<div class="row block mx-0 text py-1">
+<div class="row py-2">
   <div class="col-4 col-lg-2">
     <span class="d-none d-md-inline">{{ "advantage.size"|trans }}</span>
     {% include "icon.html.twig" with {'icon': 'size'} only %}
@@ -37,6 +37,5 @@
     {% include "character/modals/xp.add.html.twig" %}
     {% include "character/modals/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
   </div>
-  {# <div class="col">{% include "icon.html.twig" with {'icon': 'morality'} only %}morality: <span id="morality">7</span></div> #}
 </div>
 {% endblock %}

@@ -3,8 +3,18 @@
 <span class="icon {{ class|default("")}}" {% if hasTips|default(true) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
   {% if icon == 'hide' %}
     <i class="fa-solid fa-eye-slash"></i>
-  {% elseif icon == 'show' %}
+  {% elseif icon == 'show' or icon == 'view' %}
     <i class="fa-solid fa-eye"></i>
+  {% elseif icon == 'edit' %}
+    {{ source('@icons/' ~ 'fountain-pen.svg') }}
+  {% elseif icon == 'save' %}
+    {{ source('@icons/' ~ 'save.svg') }}
+  {% elseif icon == 'delete' %}
+    {{ source('@icons/' ~ 'trash-can.svg') }}
+  {% elseif icon == 'back' %}
+    {{ source('@icons/' ~ 'return-arrow.svg') }}
+  {% elseif icon == 'add' or icon == 'new' %}
+    <i class="fa-solid fa-plus"></i>
   {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' %}
     {{ source('@icons/' ~ 'skills.svg') }}
   {% elseif icon == 'options' %}
@@ -19,27 +29,12 @@
     <i class="fa-solid fa-users"></i>
   {% elseif icon == 'background' %}
     {{ source('@icons/' ~ 'id-card.svg') }}
-  {% elseif icon == 'view' %}
-    <i class="fa-solid fa-eye"></i>
-  {% elseif icon == 'edit' %}
-    {{ source('@icons/' ~ 'fountain-pen.svg') }}
-  {% elseif icon == 'save' %}
-    {{ source('@icons/' ~ 'save.svg') }}
-  {% elseif icon == 'delete' %}
-    {{ source('@icons/' ~ 'trash-can.svg') }}
-  {% elseif icon == 'back' %}
-    {{ source('@icons/' ~ 'return-arrow.svg') }}
-  {% elseif icon == 'add' or icon == 'new' %}
-    <i class="fa-solid fa-plus"></i>
   {% elseif icon == 'details' %}
     <i class="fa-solid fa-list"></i>
   {% elseif icon == 'xp' %}
-    {# <i class="fa-solid fa-x fa-2xs"></i> #}
-    {# <i class="fa-solid fa-p fa-2xs"></i> #}
     {{ source('@icons/' ~ 'upgrade.svg') }}
   {% elseif icon == 'logs' %}
     {{ source('@icons/' ~ 'backward-time.svg') }}
-    {# <i class="fa-solid fa-clock-rotate-left"></i> #}
   {% elseif icon == 'wiki' %}
     {{ source('@icons/' ~ 'wiki.svg') }}
   {% elseif icon == 'dice' %}
@@ -53,8 +48,6 @@
     {{ source('@icons/' ~ 'three-friends.svg') }}
   {% elseif icon == 'power' %}
     {{ source('@icons/' ~ 'flow-tornado.svg') }}
-    {# <i class="fa-solid fa-meteor fa-fw"></i> #}
-    {# <i class="fa-solid fa-fire-alt fa-fw"></i> #}
   {% elseif icon == 'finesse' %}
     {{ source('@icons/' ~ 'flow-gentle.svg') }}
     {# <i class="fa-solid fa-feather fa-fw"></i> #}
@@ -74,6 +67,8 @@
     {% else %}
       {{ source('@icons/' ~ 'health-normal.svg') }}
     {% endif %}
+  {% elseif icon == 'inventory' %}
+    {{ source('@icons/' ~ 'backpack.svg') }}
   {% elseif icon == 'willpower' %}
     {{ source('@icons/' ~ 'suspicious.svg') }}
   {# Merits #}

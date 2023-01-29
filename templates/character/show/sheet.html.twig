@@ -1,16 +1,17 @@
 {% trans_default_domain 'character' %}
 
-<div class="container block py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
-  {{ include('character/show/header.html.twig') }}
+<div class="container py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
   {{ include('character/show/menu.html.twig') }}
-  <div class="row" data-controller="tabs" data-tabs-initial-value="general">
-    <ul class="nav tabs row g-0 my-2">
+  {{ include('character/show/header.html.twig') }}
+  <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
+    <ul class="nav tabs row g-0 mb-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
       {% if character.type != "human" %}
         {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
       {% endif %}
       {# {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
+      {% include "tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %}
       {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
       {% if app.user == character.player %}
         {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
@@ -28,9 +29,9 @@
       {% if character.type != "human" %}
         {{ include(character.type ~ '/show/trait.html.twig') }}
       {% endif %}
-      {{ include('character/show/advantages.html.twig') }}
       {{ include('character/show/attributes.html.twig') }}
       {{ include('character/show/skills.html.twig') }}
+      {{ include('character/show/advantages.html.twig') }}
     </div>
     <div id="merits" data-tabs-target="page">
       {{ include('character/show/merits.html.twig') }}
@@ -40,6 +41,9 @@
         {{ include(character.type ~ '/show/powers.html.twig') }}
       </div>
     {% endif %}
+    <div id="inventory" data-tabs-target="page">
+      {{ include('character/show/inventory.html.twig') }}
+    </div>
     <div id="background" data-tabs-target="page">
       <div class="col-12 my-2 text-center">
         <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
@@ -59,4 +63,5 @@
       </div>
     {% endif %}
   </div>
+  {{ include('character/show/rolls.html.twig') }}
 </div>
