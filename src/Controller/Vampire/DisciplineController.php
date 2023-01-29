@@ -45,7 +45,7 @@ class DisciplineController extends AbstractController
   #[Route('/discipline/{id<\d+>}', name: 'discipline_show', methods: ['GET'])]
   public function discipline(Discipline $discipline): Response
   {
-    return $this->renderForm('vampire/discipline/show.html.twig', [
+    return $this->render('vampire/discipline/show.html.twig', [
       'discipline' => $discipline,
       'type' => 'vampire',
     ]);
@@ -66,7 +66,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->renderForm('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/discipline/new.html.twig', [
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -86,7 +86,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->renderForm('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/discipline/new.html.twig', [
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -107,7 +107,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->renderForm('vampire/discipline/power.add.html.twig', [
+    return $this->render('vampire/discipline/power.add.html.twig', [
       'power' => $power,
       'form' => $form,
       'type' => 'vampire',
@@ -128,7 +128,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $power->getDiscipline()->getId()]);
     }
 
-    return $this->renderForm('vampire/discipline/power.edit.html.twig', [
+    return $this->render('vampire/discipline/power.edit.html.twig', [
       'power' => $power,
       'form' => $form,
       'type' => 'vampire',

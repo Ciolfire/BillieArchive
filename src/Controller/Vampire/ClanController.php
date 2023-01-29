@@ -69,7 +69,7 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/form.html.twig', [
+    return $this->render('wiki/form.html.twig', [
       'action' => 'new',
       'entity' => 'clan',
       'form' => $form,
@@ -97,11 +97,21 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('wiki/form.html.twig', [
+    return $this->render('wiki/form.html.twig', [
       'action' => 'new',
       'trans' => 'clan.bloodline',
       'entity' => 'bloodline',
       'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/clan/{id<\d+>}/edit', name: 'clan_show', methods: ['GET'])]
+  public function clanShow(Clan $clan): Response
+  {
+    return $this->render('vampire/clan/show.html.twig', [
+      'clan' => $clan,
+      'entity' => 'clan',
       'type' => 'vampire',
     ]);
   }
@@ -130,7 +140,7 @@ class ClanController extends AbstractController
       $entity = 'clan';
     }
 
-    return $this->renderForm('wiki/form.html.twig', [
+    return $this->render('wiki/form.html.twig', [
       'action' => 'edit',
       'entity' => $entity,
       'form' => $form,

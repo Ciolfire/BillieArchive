@@ -1,7 +1,11 @@
 <div class="col-12">
-  {% if character.clan.parentClan %}
-    {{ character.clan.parentClan.name }} ({{ character.clan.name }})
-  {% else %}
-    {{ character.clan.name }}
-  {% endif %}
+  <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+    {% if character.clan.parentClan %}
+      {% include "icon.html.twig" with {'icon': 'bloodline'} %}
+      {{ character.clan.name }} ({{ character.clan.parentClan.name }})</a>
+    {% else %}
+      {% include "icon.html.twig" with {'icon': 'clan'} %}
+      {{ character.clan.name }}
+    {% endif %}
+  </a>
 </div>
