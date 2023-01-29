@@ -34,6 +34,23 @@ class DisciplinePowerType extends AbstractType
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
       ->add('discipline', null, ['label' => 'discipline.label'])
+      ->add('attributes', null, [
+        'label' => 'attributes.label',
+        'expanded' => true,
+        'translation_domain' => "character",
+        'group_by' => function($choice) use ($translator) {
+          return $translator->trans($choice->getCategory(), [], 'character');
+        },
+        ])
+      ->add('skills', null, [
+        'label' => 'skills.label',
+        'expanded' => true,
+        'translation_domain' => "character",
+        'choice_attr' => ['class' =>'text-sub'],
+        'group_by' => function($choice) use ($translator) {
+          return $translator->trans($choice->getCategory(), [], 'character');
+        },
+      ])
       ->add('attribute', null, [
         'label' => 'attribute.label',
         'translation_domain' => "character",

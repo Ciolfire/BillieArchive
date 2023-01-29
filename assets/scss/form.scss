@@ -20,7 +20,7 @@ input[type=number] {
   border: none;
 }
 
-label {
+label, legend {
   font-family: $labelFont;
   color: $labelColor;
 }

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Vampire;
 use App\Repository\DisciplinePowerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -41,10 +43,18 @@ class DisciplinePower
   #[ORM\ManyToOne(targetEntity: Skill::class, fetch: "EAGER")]
   private $skill;
 
+  #[ORM\ManyToMany(targetEntity: Attribute::class)]
+  private Collection $attributes;
+
+  #[ORM\ManyToMany(targetEntity: Skill::class)]
+  private Collection $skills;
+
   public function __construct($discipline, $level)
   {
     $this->discipline = $discipline;
     $this->level = $level;
+    $this->attributes = new ArrayCollection();
+    $this->skills = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -195,5 +205,53 @@ class DisciplinePower
       'total' => array_sum($pool) + array_sum($pool['modifiers']),
       'detail' => "{$this->attribute} {$pool['attribute']} + {$this->skill} {$pool['skill']} + {$string}"
     ];
+  }
+
+  /**
+   * @return Collection<int, Attribute>
+   */
+  public function getAttributes(): Collection
+  {
+      return $this->attributes;
+  }
+
+  public function addAttribute(Attribute $attribute): self
+  {
+      if (!$this->attributes->contains($attribute)) {
+          $this->attributes->add($attribute);
+      }
+
+      return $this;
+  }
+
+  public function removeAttribute(Attribute $attribute): self
+  {
+      $this->attributes->removeElement($attribute);
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Skill>
+   */
+  public function getSkills(): Collection
+  {
+      return $this->skills;
+  }
+
+  public function addSkill(Skill $skill): self
+  {
+      if (!$this->skills->contains($skill)) {
+          $this->skills->add($skill);
+      }
+
+      return $this;
+  }
+
+  public function removeSkill(Skill $skill): self
+  {
+      $this->skills->removeElement($skill);
+
+      return $this;
   }
 }
