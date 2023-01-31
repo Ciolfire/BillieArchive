@@ -51,20 +51,6 @@ class DisciplinePowerType extends AbstractType
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
-      ->add('attribute', null, [
-        'label' => 'attribute.label',
-        'translation_domain' => "character",
-        'group_by' => function($choice) use ($translator) {
-          return $translator->trans($choice->getCategory(), [], 'character');
-        },
-      ])
-      ->add('skill', null, [
-        'label' => 'skill.label',
-        'translation_domain' => "character",
-        'group_by' => function($choice) use ($translator) {
-          return $translator->trans($choice->getCategory(), [], 'character');
-        },
-      ])
       ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => "app"]);
   }
 

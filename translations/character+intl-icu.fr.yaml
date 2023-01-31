@@ -31,7 +31,6 @@ advantage:
     label: Vitesse
     tooltip: "{base} + Force {strength} + Dexterité {dexterity}"
     value: "{speed}m/tr"
-  xp: PX
 
 attribute:
   label: Attribut
@@ -203,3 +202,9 @@ notes:
   edit: Modifier les Notes
   label: Notes
   none: Aucune note
+
+  xp:
+    label: PX
+    free: Gratuit
+    details:
+      none: Aucun changement

@@ -581,46 +581,67 @@ class Character
     return $this;
   }
 
-  public function dicePool(Attribute $attribute, Skill $skill, int $bonus = 0)
+  public function dicePool(Collection $attributes, Collection $skills, int $bonus = 0)
   {
-    $attributeDice = $this->attributes->get($attribute->getIdentifier());
-    $skillDice = $this->skills->get($skill->getIdentifier());
-    if ($skillDice == 0) {
-      if ($skill->getCategory() == "mental") {
-        $skillDice = -3;
-      } else {
-        $skillDice = -1;
-      }
+    $total = 0;
+    foreach ($attributes as $attribute) {
+      $total += $this->attributes->get($attribute->getIdentifier());
     }
-
-    return $attributeDice + $skillDice + $bonus;
-  }
-
-  public function detailedDicePool(?Attribute $attribute, ?Skill $skill, array $modifiers = [])
-  {
-    if ($attribute) {
-      $attributeDice = $this->attributes->get($attribute->getIdentifier());
-    } else {
-      $attributeDice = null;
-    }
-    if ($skill) {
+    foreach ($skills as $skill) {
       $skillDice = $this->skills->get($skill->getIdentifier());
       if ($skillDice == 0) {
         if ($skill->getCategory() == "mental") {
-          $skillDice = -3;
+          $total -= 3;
         } else {
-          $skillDice = -1;
+          $total -= 1;
         }
+      } else {
+        $total += $skillDice;
       }
-    } else {
-      $skillDice = null;
     }
 
-    return [
-      'attribute' => $attributeDice,
-      'skill' => $skillDice,
+    return $total + $bonus;
+  }
+
+  public function detailedDicePool(Collection $attributes, Collection $skills, array $modifiers = [])
+  {
+    $details = [
+      'total' => 0,
+      'string' => '',
       'modifiers' => $modifiers,
     ];
+
+    foreach ($attributes as $attribute) {
+      /** @var Attribute $attribute */
+      $identifier = $attribute->getIdentifier();
+      $value = $this->attributes->get($identifier);
+      
+      $details[$identifier] = $value;
+      $details['total'] += $value;
+      $details['string'] .= " {$attribute->getName()} {$value}";
+    }
+    foreach ($skills as $skill) {
+      /** @var Skill $skill */
+      $identifier = $skill->getIdentifier();
+      $value = $this->skills->get($identifier);
+      if ($value == 0) {
+        if ($skill->getCategory() == "mental") {
+          $value = -3;
+        } else {
+          $value = -1;
+        }
+      }
+      
+      $details[$identifier] = $value;
+      $details['total'] += $value;
+      $details['string'] .= " {$skill->getName()} {$value}";
+    }
+    foreach ($modifiers as $key => $value) {
+      $details['total'] += $value;
+      $details['string'] .= " {$key} {$value}";
+    }
+
+    return $details;
   }
 
   public function getChronicle(): ?Chronicle

@@ -31,7 +31,6 @@ advantage:
     label: Speed
     tooltip: "{base} + Strength {strength} + Dexterity {dexterity} + Bonus {bonus}"
     value: "{speed}yd/tn"
-  xp: XP
 
 attribute:
   label: Attribute
@@ -204,3 +203,9 @@ notes:
   edit: Edit notes
   label: Notes
   none: No notes
+
+xp:
+  label: XP
+  free: Free
+  details:
+    none: No change

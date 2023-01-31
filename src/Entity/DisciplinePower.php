@@ -37,12 +37,6 @@ class DisciplinePower
   #[ORM\JoinColumn(nullable: false)]
   private $discipline;
 
-  #[ORM\ManyToOne(targetEntity: Attribute::class, fetch: "EAGER")]
-  private $attribute;
-
-  #[ORM\ManyToOne(targetEntity: Skill::class, fetch: "EAGER")]
-  private $skill;
-
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
   private Collection $attributes;
 
@@ -138,30 +132,6 @@ class DisciplinePower
     return $this;
   }
 
-  public function getAttribute(): ?Attribute
-  {
-    return $this->attribute;
-  }
-
-  public function setAttribute(?Attribute $attribute): self
-  {
-    $this->attribute = $attribute;
-
-    return $this;
-  }
-
-  public function getSkill(): ?Skill
-  {
-    return $this->skill;
-  }
-
-  public function setSkill(?Skill $skill): self
-  {
-    $this->skill = $skill;
-
-    return $this;
-  }
-
   public function dicePool(Vampire $character)
   {
     $characterDiscipline = $character->getDiscipline($this->discipline->getId());
@@ -177,34 +147,26 @@ class DisciplinePower
       $bonus = $level;
     }
     
-    return $character->dicePool($this->attribute, $this->skill, $bonus);
+    return $character->dicePool($this->attributes, $this->skills, $bonus);
   }
 
   public function detailedDicePool(Vampire $character)
   {
     $discipline = $character->getDiscipline($this->discipline->getId());
-
+    // dd($this->discipline->getId());
+    
     $modifiers = [
-      'discipline' => $discipline? $discipline->getLevel() : 0,
+      $this->discipline->getName() => $discipline? $discipline->getLevel() : 0,
     ];
     if ($this->discipline->isThaumaturgy()) {
       $modifiers['thaumaturgy'] = -$this->level;
     }
 
-    $pool = $character->detailedDicePool($this->attribute, $this->skill, $modifiers);
-    
-    foreach ($pool['modifiers'] as $modifier => $value) {
-      if (!isset($string)) {
-        $string = "{$modifier} {$value}";
-      } else {
-        $string .= " + {$modifier} {$value}";
-      }
+    if ($this->attributes->isEmpty() && $this->skills->isEmpty()) {
+      return null;
     }
-
-    return [
-      'total' => array_sum($pool) + array_sum($pool['modifiers']),
-      'detail' => "{$this->attribute} {$pool['attribute']} + {$this->skill} {$pool['skill']} + {$string}"
-    ];
+    
+    return $character->detailedDicePool($this->attributes, $this->skills, $modifiers);
   }
 
   /**

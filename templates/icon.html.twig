@@ -14,7 +14,9 @@
   {% elseif icon == 'back' %}
     {{ source('@icons/' ~ 'return-arrow.svg') }}
   {% elseif icon == 'add' or icon == 'new' %}
-    <i class="fa-solid fa-plus"></i>
+    <i class="fa-xs fa-solid fa-plus"></i>
+  {% elseif icon == 'free' or icon == 'pass' %}
+    {{ source('@icons/' ~ 'ticket.svg') }}
   {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' %}
     {{ source('@icons/' ~ 'skills.svg') }}
   {% elseif icon == 'options' %}
