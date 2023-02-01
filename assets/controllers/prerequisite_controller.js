@@ -33,7 +33,7 @@ export default class extends Controller {
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        console.log(xhttp.responseText);
+        // console.log(xhttp.responseText);
         target.innerHTML = JSON.parse(xhttp.responseText).choices;
       }
 
@@ -54,7 +54,7 @@ export default class extends Controller {
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        console.log(xhttp.responseText);
+        // console.log(xhttp.responseText);
         target.innerHTML = JSON.parse(xhttp.responseText).choices;
         target.value = id.value;
       }

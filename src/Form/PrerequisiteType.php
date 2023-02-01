@@ -41,7 +41,11 @@ class PrerequisiteType extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
-      ->add('choiceGroup');
+      ->add('choiceGroup', null, [
+        'row_attr' => [
+          'class' => 'border-bottom'
+        ],
+      ]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
