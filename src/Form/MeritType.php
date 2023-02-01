@@ -38,14 +38,13 @@ class MeritType extends AbstractType
       ->add('isFighting')
       ->add('isExpanded')
       ->add('isUnique')
-      // ->add('prerequisites', CollectionType::class, [
-      //   // each entry in the array will be an "email" field
-      //   'entry_type' => CollectionType::class,
-      //   // these options are passed to each "email" type
-      //   'entry_options' => [
-      //       'attr' => ['class' => 'prerequisite-box'],
-      //   ],])
       ->add('effect', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
+      ->add('prereqs', CollectionType::class, [
+        'label' => false,
+        'entry_type' => PrerequisiteType::class,
+        'entry_options' => ['label' => false],
+        'allow_add' => true,
+      ])
       ->add('book')
       ->add('page');
   }

@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     $this->characters = new ArrayCollection();
     $this->chronicles = new ArrayCollection();
     $this->stories = new ArrayCollection();
-    $this->characterNotes = new ArrayCollection();
+    $this->userCharacterNotes = new ArrayCollection();
     $this->notes = new ArrayCollection();
   }
 
@@ -286,8 +286,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
   public function addUserCharacterNote(CharacterNote $userCharacterNotes): self
   {
-    if (!$this->userCharacterNotess->contains($userCharacterNotes)) {
-      $this->userCharacterNotess->add($userCharacterNotes);
+    if (!$this->userCharacterNotes->contains($userCharacterNotes)) {
+      $this->userCharacterNotes->add($userCharacterNotes);
       $userCharacterNotes->setAuthor($this);
     }
 

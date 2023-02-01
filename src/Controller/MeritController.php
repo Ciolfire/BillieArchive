@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Entity\Description;
 use App\Entity\Merit;
+use App\Entity\Prerequisite;
 use App\Form\MeritType;
 use App\Repository\MeritRepository;
 
@@ -35,6 +36,7 @@ class MeritController extends AbstractController
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
     $merit = new Merit();
+
     $form = $this->createForm(MeritType::class, $merit);
     $form->handleRequest($request);
 
@@ -45,7 +47,7 @@ class MeritController extends AbstractController
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('merit/new.html.twig', [
+    return $this->render('merit/new.html.twig', [
       'merit' => $merit,
       'form' => $form,
     ]);
@@ -68,6 +70,7 @@ class MeritController extends AbstractController
   {
     $form = $this->createForm(MeritType::class, $merit);
     $form->handleRequest($request);
+    // dd($merit->getPrereqs());
 
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager->flush();
@@ -75,7 +78,7 @@ class MeritController extends AbstractController
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('merit/edit.html.twig', [
+    return $this->render('merit/edit.html.twig', [
       'merit' => $merit,
       'form' => $form,
     ]);
@@ -97,7 +100,7 @@ class MeritController extends AbstractController
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('merit/edit.html.twig', [
+    return $this->render('merit/edit.html.twig', [
       'merit' => $merit,
       'form' => $form,
     ]);

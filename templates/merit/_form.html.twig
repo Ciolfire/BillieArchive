@@ -1,4 +1,26 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+  {{ form_row(form.name) }}
+  {{ form_row(form.type) }}
+  {{ form_row(form.category) }}
+  {{ form_row(form.description) }}
+  {{ form_row(form.effect) }}
+  {{ form_row(form.min) }}
+  {{ form_row(form.max) }}
+  {{ form_row(form.isCreationOnly) }}
+  {{ form_row(form.isExpanded) }}
+  {{ form_row(form.isUnique) }}
+  {{ form_row(form.isFighting) }}
+  <div {{ stimulus_controller('form-collection') }}
+    data-form-collection-index-value="{{ form.prereqs|length > 0 ? form.prereqs|last.vars.name + 1 : 0 }}"
+    data-form-collection-prototype-value="{{ form_widget(form.prereqs.vars.prototype)|e('html_attr') }}"
+  >
+  <ul {{ stimulus_target('form-collection', 'collectionContainer') }}>
+    {% for prereq in form.prereqs %}
+      {{ form_row(prereq)}}
+    {% endfor %}
+  </ul>
+  <button type="button" class="btn btn-primary btn-sm mb-1" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Add prerequisite</button>
+  {{ form_row(form.book) }}
+  {{ form_row(form.page) }}
+  <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

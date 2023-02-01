@@ -6,6 +6,8 @@ use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\MeritRepository;
 use App\Entity\Translation\MeritTranslation;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -13,7 +15,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Table(name: "merits")]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book",inversedBy: "merits")])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits")])]
 #[Gedmo\TranslationEntity(class: MeritTranslation::class)]
 class Merit
 {
@@ -66,6 +68,15 @@ class Merit
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
   private $type;
+
+  #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
+  private Collection $prereqs;
+
+
+  public function __construct()
+  {
+    $this->prereqs = new ArrayCollection();
+  }
 
   public function __toString(): string
   {
@@ -224,6 +235,30 @@ class Merit
   public function setType(string $type): self
   {
     $this->type = $type;
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, Prerequisite>
+   */
+  public function getprereqs(): Collection
+  {
+    return $this->prereqs;
+  }
+
+  public function addPrereq(Prerequisite $prereq): self
+  {
+    if (!$this->prereqs->contains($prereq)) {
+      $this->prereqs->add($prereq);
+    }
+
+    return $this;
+  }
+
+  public function removePrereq(Prerequisite $prereq): self
+  {
+    $this->prereqs->removeElement($prereq);
 
     return $this;
   }

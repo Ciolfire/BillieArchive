@@ -3,17 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\Human;
-use App\Entity\Vampire;
-use App\Entity\Clan;
-use App\Entity\Discipline;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
-use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
@@ -24,7 +19,6 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -105,7 +99,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('character/new.html.twig', [
+    return $this->render('character/new.html.twig', [
       'character' => $character,
       'form' => $form,
       'attributes' => $this->attributes,
@@ -167,7 +161,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('character/edit.html.twig', [
+    return $this->render('character/edit.html.twig', [
       'character' => $character,
       'type' => $character->getType(),
       'form' => $form,
@@ -216,7 +210,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'background'], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('character/edit/background.html.twig', [
+    return $this->render('character/edit/background.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);
@@ -243,7 +237,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('character/notes/new.html.twig', [
+    return $this->render('character/notes/new.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
@@ -261,7 +255,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => "notes"], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('character/notes/edit.html.twig', [
+    return $this->render('character/notes/edit.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
