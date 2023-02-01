@@ -21,15 +21,11 @@ final class Version20230131022708 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE prerequisite ADD choice_group SMALLINT DEFAULT NULL, DROP is_mandatory');
-        $this->addSql('ALTER TABLE prerequisite ADD CONSTRAINT FK_4594A23858D79B5E FOREIGN KEY (merit_id) REFERENCES merits (id)');
-        $this->addSql('CREATE INDEX IDX_4594A23858D79B5E ON prerequisite (merit_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE prerequisite DROP FOREIGN KEY FK_4594A23858D79B5E');
-        $this->addSql('DROP INDEX IDX_4594A23858D79B5E ON prerequisite');
         $this->addSql('ALTER TABLE prerequisite ADD is_mandatory TINYINT(1) NOT NULL, DROP choice_group');
     }
 }
