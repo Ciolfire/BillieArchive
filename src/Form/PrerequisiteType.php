@@ -17,17 +17,18 @@ class PrerequisiteType extends AbstractType
   {
     $types = new \ReflectionClass(ChoicesPrerequisite::class);
     $builder
-      ->add('type', ChoiceType::class, [
-        'choices' => $types->getConstants(),
-        'choice_label' => function ($choice, $key, $value) {
-          return $key;
-        },
-        'attr' => [
-          'data-prerequisite-target' => 'type',
-          'data-action' => 'change->prerequisite#load',
-        ],
+    ->add('type', ChoiceType::class, [
+      'choices' => $types->getConstants(),
+      'choice_label' => function ($choice, $key, $value) {
+        return $key;
+      },
+      'attr' => [
+        'data-prerequisite-target' => 'type',
+        'data-action' => 'change->prerequisite#load',
+      ],
       ])
-      ->add('entityId', null, [
+      ->add('value')
+      ->add('entityId', HiddenType::class, [
         'attr' => [
           'data-prerequisite-target' => 'id',
         ],
@@ -40,7 +41,6 @@ class PrerequisiteType extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
-      ->add('value')
       ->add('choiceGroup');
   }
 
