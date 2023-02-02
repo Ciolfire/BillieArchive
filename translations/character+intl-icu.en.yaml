@@ -74,6 +74,9 @@ tab:
 dot:
   fifth: Fifth dot cost two
 
+morality:
+  name: Morality
+
 willpower:
   name: Willpower
   value: >-

@@ -8,4 +8,7 @@
   {% else %}
     {% include "vampire/show/weakness.html.twig" with { 'clan': character.clan } %}
   {% endif %}
+  <div class="col-12 col-md-6">
+    {% include "character/show/morality.html.twig" with { 'morality': character.moral } %}
+  </div>
 </div>

@@ -1,8 +1,8 @@
 {% trans_default_domain 'character' %}
 
 <div class="container py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
-  {{ include('character/show/menu.html.twig') }}
-  {{ include('character/show/header.html.twig') }}
+  {% include "character/show/menu.html.twig" %}
+  {% include "character/show/header.html.twig" %}
   <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
     <ul class="nav tabs row g-0 mb-2">
       {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
@@ -20,29 +20,35 @@
     <div id="general" data-tabs-target="page">
       <div class="row pb-3">
         <div class="col-12 col-md-6">
-          {{ include('character/show/health.html.twig') }}
+          {%include "character/show/health.html.twig" %}
         </div>
         <div class="col-12 col-md-6">
-          {{ include('character/show/willpower.html.twig') }}
+          {% include "character/show/willpower.html.twig" %}
         </div>
       </div>
       {% if character.type != "human" %}
-        {{ include(character.type ~ '/show/trait.html.twig') }}
+        {% include character.type ~ "/show/trait.html.twig" %}
+      {% else %}
+        <div class="row pb-3 justify-content-center">
+          <div class="col-12 col-md-6">
+            {% include "character/show/morality.html.twig" with { 'morality': character.moral } %}
+          </div>
+        </div>
       {% endif %}
-      {{ include('character/show/attributes.html.twig') }}
-      {{ include('character/show/skills.html.twig') }}
-      {{ include('character/show/advantages.html.twig') }}
+      {% include "character/show/attributes.html.twig" %}
+      {% include "character/show/skills.html.twig" %}
+      {% include "character/show/advantages.html.twig" %}
     </div>
     <div id="merits" data-tabs-target="page">
-      {{ include('character/show/merits.html.twig') }}
+      {% include "character/show/merits.html.twig" %}
     </div>
     {% if character.type != "human" %}
       <div id="{{ character.type }}" data-tabs-target="page">
-        {{ include(character.type ~ '/show/powers.html.twig') }}
+        {% include character.type ~ "/show/powers.html.twig" %}
       </div>
     {% endif %}
     <div id="inventory" data-tabs-target="page">
-      {{ include('character/show/inventory.html.twig') }}
+      {% include "character/show/inventory.html.twig" %}
     </div>
     <div id="background" data-tabs-target="page">
       <div class="col-12 my-2 text-center">
@@ -59,9 +65,9 @@
     </div>
     {% if app.user == character.player %}
       <div id="notes" data-tabs-target="page">
-        {{ include('character/show/notes.html.twig') }}
+        {% include "character/show/notes.html.twig" %}
       </div>
     {% endif %}
   </div>
-  {{ include('character/show/rolls.html.twig') }}
+  {% include "character/show/rolls.html.twig" %}
 </div>

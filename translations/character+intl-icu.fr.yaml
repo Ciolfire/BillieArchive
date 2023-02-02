@@ -74,6 +74,9 @@ tab:
 dot:
   fifth: Le cinquième point coûte double
 
+morality:
+  name: Moralité
+
 willpower:
   name: Willpower
   value: >-
