@@ -55,9 +55,6 @@ class Merit
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
   private $isCreationOnly;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON, nullable: true)]
-  private $prerequisites = [];
-
   #[Gedmo\Translatable]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
   private $effect = "";
@@ -70,12 +67,13 @@ class Merit
   private $type;
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
-  private Collection $prereqs;
+  #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
+  private Collection $prerequisites;
 
 
   public function __construct()
   {
-    $this->prereqs = new ArrayCollection();
+    $this->prerequisites = new ArrayCollection();
   }
 
   public function __toString(): string
@@ -190,18 +188,6 @@ class Merit
     return $this;
   }
 
-  public function getPrerequisites(): ?array
-  {
-    return $this->prerequisites;
-  }
-
-  public function setPrerequisites(?array $prerequisites): self
-  {
-    $this->prerequisites = $prerequisites;
-
-    return $this;
-  }
-
   public function getEffect(): ?string
   {
     return $this->effect;
@@ -242,23 +228,23 @@ class Merit
   /**
    * @return Collection<int, Prerequisite>
    */
-  public function getprereqs(): Collection
+  public function getprerequisites(): Collection
   {
-    return $this->prereqs;
+    return $this->prerequisites;
   }
 
-  public function addPrereq(Prerequisite $prereq): self
+  public function addPrerequisite(Prerequisite $prerequisite): self
   {
-    if (!$this->prereqs->contains($prereq)) {
-      $this->prereqs->add($prereq);
+    if (!$this->prerequisites->contains($prerequisite)) {
+      $this->prerequisites->add($prerequisite);
     }
 
     return $this;
   }
 
-  public function removePrereq(Prerequisite $prereq): self
+  public function removePrerequisite(Prerequisite $prerequisite): self
   {
-    $this->prereqs->removeElement($prereq);
+    $this->prerequisites->removeElement($prerequisite);
 
     return $this;
   }

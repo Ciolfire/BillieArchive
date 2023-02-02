@@ -174,8 +174,8 @@ footer.footer {
 .rule {
   font-family: $textFont;
   font-size: 1.2rem;
-  background-color: rgba(208, 208, 208, 0.66);
-  color: black;
+  background-color: $darkBlockColor;
+  color: $textBrightColor;
   padding: 0.5rem;
   border-radius: 0.5em;
   p {

@@ -39,7 +39,7 @@ class MeritType extends AbstractType
       ->add('isExpanded')
       ->add('isUnique')
       ->add('effect', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
-      ->add('prereqs', CollectionType::class, [
+      ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
         'entry_options' => ['label' => false],

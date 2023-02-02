@@ -70,7 +70,6 @@ class MeritController extends AbstractController
   {
     $form = $this->createForm(MeritType::class, $merit);
     $form->handleRequest($request);
-    // dd($merit->getPrereqs());
 
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager->flush();
@@ -143,6 +142,14 @@ class MeritController extends AbstractController
           $search['type'] = $this->dataService->getMeritTypes();
           $type = "human";
         break;
+    }
+    foreach ($merits as $merit) {
+      /** @var Merit $merit */
+      foreach ($merit->getprerequisites() as $prerequisite) {
+        /** @var Prerequisite $prerequisite */
+        $entity = $this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]);
+        $prerequisite->setEntity($entity);
+      }
     }
 
     return $this->render('merit/list.html.twig', [

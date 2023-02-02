@@ -38,9 +38,16 @@
               <p>
                 Prerequisites:
                 {% for prerequisite in merit.prerequisites %}
-                  {% for item in prerequisite %}
-                    {{ item[0] ~ item[1] }}
-                  {% endfor %}
+                    {% if loop.first == false %}
+                    ,
+                    {% endif %}
+                    {% if prerequisite.type == 'App\\Entity\\Merit' %}
+                      <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+                        <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+                      </a>
+                    {% else %}
+                      <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+                    {% endif %}
                 {% endfor %}
               </p>
             {% endif %}

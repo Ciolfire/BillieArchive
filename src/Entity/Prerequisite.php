@@ -6,7 +6,9 @@ use App\Repository\PrerequisiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ManagerRegistry;
 
 #[ORM\Entity(repositoryClass: PrerequisiteRepository::class)]
 class Prerequisite
@@ -28,12 +30,14 @@ class Prerequisite
   #[ORM\Column(type: Types::SMALLINT, nullable: true)]
   private ?int $choiceGroup = null;
 
-  #[ORM\ManyToMany(targetEntity: Merit::class, mappedBy: 'Prereqs')]
+  #[ORM\ManyToMany(targetEntity: Merit::class, mappedBy: 'prerequisites')]
   private Collection $merits;
+
+  private $entity = null;
 
   public function __construct()
   {
-      $this->merits = new ArrayCollection();
+    $this->merits = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -94,25 +98,37 @@ class Prerequisite
    */
   public function getMerits(): Collection
   {
-      return $this->merits;
+    return $this->merits;
   }
 
   public function addMerit(Merit $merit): self
   {
-      if (!$this->merits->contains($merit)) {
-          $this->merits->add($merit);
-          $merit->addPrereq($this);
-      }
+    if (!$this->merits->contains($merit)) {
+      $this->merits->add($merit);
+      $merit->addPrereq($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeMerit(Merit $merit): self
   {
-      if ($this->merits->removeElement($merit)) {
-          $merit->removePrereq($this);
-      }
+    if ($this->merits->removeElement($merit)) {
+      $merit->removePrereq($this);
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getEntity()
+  {
+    return $this->entity;
+  }
+
+  public function setEntity($entity)
+  {
+    $this->entity = $entity;
+
+    return $this;
   }
 }
