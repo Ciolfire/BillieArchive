@@ -1,0 +1,7 @@
+{% include "character/show/morality.html.twig" with { 'morality': character.moral } %}
+{% if character.clan.parentClan is not null %}
+  <div class="col-12"></div>
+  {% include "vampire/show/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
+{% else %}
+  {% include "vampire/show/weakness.html.twig" with { 'clan': character.clan } %}
+{% endif %}

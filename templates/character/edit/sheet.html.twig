@@ -12,8 +12,12 @@
         {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
       </ul>
       <div id="general" data-tabs-target="page">
-        {{ include('character/edit/attributes.html.twig') }}
-        {{ include('character/edit/skills.html.twig') }}
+        <div class="row g-0">
+          {{ include('character/edit/attributes.html.twig') }}
+        </div>
+        <div class="row my-2">
+          {{ include('character/edit/skills.html.twig') }}
+        </div>
       </div>
       <div id="merits" data-tabs-target="page">
         {{ include('character/edit/merits.html.twig') }}

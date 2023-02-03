@@ -1,9 +1,8 @@
 {% trans_default_domain 'character' %}
 
 {% block attributes %}
-<h2>Attributes</h2>
-{% block creation %}{% endblock %}
-<div class="row g-0">
+  <h2>Attributes</h2>
+  {% block creation %}{% endblock %}
   {% for category, attributes in attributes %}
     <div class="col-4 d-lg-flex justify-content-center">
       <div class="block attribute-block">
@@ -14,5 +13,4 @@
       </div>
     </div>
   {% endfor %}
-</div>
 {% endblock %}

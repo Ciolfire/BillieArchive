@@ -389,6 +389,22 @@ class Character
     return $base + $this->attributes->getStamina();
   }
 
+  public function getMaxHealth(): ?int
+  {
+    $base = $this->size + $this->getLimit();
+
+
+    if ($this->getType() == "vampire") {
+      /**@var Vampire $this */
+      $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
+      if (!is_null($resilience)) {
+        $base = $base + $resilience->getLevel();
+      }
+    }
+
+    return $base;
+  }
+
   public function getWoundMalus(): ?int
   {
     $threesold = 3;

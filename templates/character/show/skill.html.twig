@@ -10,7 +10,7 @@
 
 {% block specialty %}
   {% if specialties|length > 0 %}
-    {% include "icon.html.twig" with {'icon': 'specialties' } only %}
+    {% include "icon.html.twig" with {'icon': 'specialties', 'class': 'icon-sm strong' } only %}
   {% endif %}
 {% endblock %}
 
@@ -20,9 +20,11 @@
 {% endblock %}
 
 {% block specialties %}
-  <div id="{{ skill ~ "specialties" }}" class="collapse ps-5">
-    {% for specialty in specialties %}
-      <li><span>{{ specialty.name }}</span></li>
-    {% endfor %}
+  <div id="{{ skill ~ "specialties" }}" class="collapse ps-3">
+    <ul class="list-unstyled mb-1">
+      {% for specialty in specialties %}
+          <li>{% include "icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm' } %} {{ specialty.name }}</li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}

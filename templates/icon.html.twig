@@ -148,7 +148,9 @@
     {# {{ source('@icons/' ~ 'drama-masks.svg') }} #}
     {{ source('@icons/' ~ 'sand-snake.svg') }}
   {% elseif icon == 'specialties' %}
-    <i class="fa-solid fa-2xs fa-star fa-fw"></i>
+    {{ source('@icons/' ~ 'round-star.svg') }}
+  {% elseif icon == 'specialty-item' %}
+    {{ source('@icons/' ~ '3d-arrow.svg') }}
   {% elseif icon == 'specialty.add' %}
     <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">
       <i class="fa-solid fa-star fa-stack-2x"></i>
@@ -178,13 +180,13 @@
     <i class="fa-solid fa-universal-access fa-fw"></i>
   {% elseif icon == 'human' %}
     <i class="fa-solid fa-person fa-fw"></i>
-  {# Other #}
+{# Other #}
   {% elseif icon == 'all' %}
     <i class="fa-solid fa-earth-europe"></i>
-  {# mage #}
+{# mage #}
   {% elseif icon == 'mage' %}
     {{ source('@icons/' ~ 'fire-silhouette.svg') }}
-  {# vampire #}
+{# vampire #}
   {% elseif icon == 'vampire' %}
     {{ source('@icons/' ~ 'fangs.svg') }}
     {# <i class="fa-solid fa-droplet"></i> #}
@@ -205,16 +207,19 @@
   {% elseif icon == 'bloodline' %}
     {{ source('@icons/' ~ 'wavy-itinerary.svg') }}
   {% elseif icon == 'potency' %}
-    {{ source('@icons/' ~ 'hand-holding-droplet.svg') }}
-    {# <i class="fa-solid fa-hand-holding-droplet"></i> #}
+    {{ source('@icons/' ~ 'blood-bolt.svg') }}
+    {# {{ source('@icons/' ~ 'hand-holding-droplet.svg') }} #}
   {% elseif icon == 'vitae' %}
     {{ source('@icons/' ~ 'goo-spurt.svg') }}
   {% elseif icon == 'discipline' %}
     {{ source('@icons/' ~ 'fangs-circle.svg') }}
+  {% elseif icon == 'devotion' %}
+    {{ source('@icons/' ~ 'dagger-rose.svg') }}
     {# <i class="ok fa-solid fa-droplet"></i> #}
+{# werewolf #}
   {% elseif icon == 'werewolf' %}
     {{ source('@icons/' ~ 'wolf-howl.svg') }}
-  {# books #}
+{# books #}
   {% elseif icon == 'alternate_setting' %}
     <i class="fa-solid fa-earth-asia"></i>
   {% elseif icon == 'antagonist' %}
@@ -238,12 +243,12 @@
     <i class="fa-solid fa-landmark"></i>
   {% elseif icon == 'translation' %}
     <i class="fa-solid fa-arrow-right-arrow-left"></i>
-  {# Templates #}
+{# Templates #}
   {% elseif icon == 'body_thief' %}
     {{ source('@icons/' ~ 'body-swapping.svg') }}
   {% elseif icon == 'purified' %}
     {{ source('@icons/' ~ 'ankh.svg') }}
-  {# Not found #}
+{# Not found #}
   {% else %}
     {{ icon }}
   {% endif %}

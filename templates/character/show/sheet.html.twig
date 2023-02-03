@@ -26,18 +26,19 @@
           {% include "character/show/willpower.html.twig" %}
         </div>
       </div>
-      {% if character.type != "human" %}
-        {% include character.type ~ "/show/trait.html.twig" %}
-      {% else %}
-        <div class="row pb-3 justify-content-center">
-          <div class="col-12 col-md-6">
-            {% include "character/show/morality.html.twig" with { 'morality': character.moral } %}
-          </div>
-        </div>
-      {% endif %}
-      {% include "character/show/attributes.html.twig" %}
-      {% include "character/show/skills.html.twig" %}
-      {% include "character/show/advantages.html.twig" %}
+      {% include character.type ~ "/show/trait.html.twig" %}
+      <div class="row g-0">
+        {% include "character/show/attributes.html.twig" %}
+      </div>
+      <div class="row my-2">
+        {% include "character/show/skills.html.twig" %}
+      </div>
+      <div class="row justify-content-center">
+        {% include character.type ~ "/show/subtrait.html.twig" %}
+      </div>
+      <div class="row py-2">
+        {% include "character/show/advantages.html.twig" %}
+      </div>
     </div>
     <div id="merits" data-tabs-target="page">
       {% include "character/show/merits.html.twig" %}

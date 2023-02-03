@@ -5,7 +5,7 @@
   <div class="col-12 text-center">
     {% set floor = character.health - character.woundMalus %}
     {% set wounds = character.wounds %}
-    {% for index in 1..12 %}
+    {% for index in 1..character.maxHealth %}
       {% if wounds.A > 0 %}
         {% set wounds = wounds|merge({'A': (wounds.A - 1)}) %}
         {% set value = 3 %}
