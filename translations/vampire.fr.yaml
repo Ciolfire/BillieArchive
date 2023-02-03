@@ -25,3 +25,8 @@ disciplines:
   label: Disciplines
   list:
     back: Retour à la liste
+devotion:
+  label: Dévotion
+  new: Nouvelle devotion
+devotions:
+  label: Dévotions

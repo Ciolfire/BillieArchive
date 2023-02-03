@@ -53,6 +53,9 @@ class Book
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
   private $disciplines;
 
+  #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
+  private $devotions;
+
   public function __construct($setting="human")
   {
     $this->setting = $setting;
@@ -273,6 +276,33 @@ class Book
       // set the owning side to null (unless already changed)
       if ($discipline->getBook() === $this) {
         $discipline->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getDevotions(): Collection
+  {
+    return $this->devotions;
+  }
+
+  public function addDevotion(Devotion $devotion): self
+  {
+    if (!$this->devotions->contains($devotion)) {
+      $this->devotions[] = $devotion;
+      $devotion->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeDevotion(Devotion $devotion): self
+  {
+    if ($this->devotions->removeElement($devotion)) {
+      // set the owning side to null (unless already changed)
+      if ($devotion->getBook() === $this) {
+        $devotion->setBook(null);
       }
     }
 

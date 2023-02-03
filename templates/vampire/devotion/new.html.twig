@@ -1,15 +1,18 @@
+{% extends 'vampire/form.html.twig' %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block title %}{{ "devotion.new"|trans }}{% endblock %}
+{% block header %}{{ "devotion.new"|trans }}{% endblock %}
+
+{% block form %}
+
 {{ form_start(form) }}
   {{ form_row(form.name) }}
-  {{ form_row(form.type) }}
-  {{ form_row(form.category) }}
+  {{ form_row(form.homebrewFor) }}
+  {{ form_row(form.short) }}
+  {{ form_row(form.cost) }}
   {{ form_row(form.description) }}
-  {{ form_row(form.effect) }}
-  {{ form_row(form.min) }}
-  {{ form_row(form.max) }}
-  {{ form_row(form.isCreationOnly) }}
-  {{ form_row(form.isExpanded) }}
-  {{ form_row(form.isUnique) }}
-  {{ form_row(form.isFighting) }}
   <div {{ stimulus_controller('form-collection') }}
     data-form-collection-index-value="{{ form.prerequisites|length > 0 ? form.prerequisites|last.vars.name + 1 : 0 }}"
     data-form-collection-prototype-value="{{ form_widget(form.prerequisites.vars.prototype)|e('html_attr') }}"
@@ -24,3 +27,4 @@
   {{ form_row(form.page) }}
   <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1>{{ (entity ~ "s.label")|trans }}</h1>
+    <div class="row mt-5 mb-2">
+      {% if is_granted('ROLE_ST') %}
+        <a class="btn btn-primary w-100" href="{{ path('vampire_devotion_new') }}">{{ 'devotion.new'|trans }}</a>
+      {% endif %}
+    </div>
+    <div class="row block p-2">
+      {% for devotion in elements %}
+        {{ devotion.name }}
+        {{ devotion.cost }} xp
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

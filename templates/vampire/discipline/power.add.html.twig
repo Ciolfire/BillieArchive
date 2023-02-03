@@ -1,9 +1,11 @@
-{% extends 'vampire/discipline/template.html.twig' %}
+{% extends 'vampire/form.html.twig' %}
 
 {% trans_default_domain 'vampire' %}
 
 {% block title %}{{ "discipline.power.add"|trans }}{% endblock %}
 {% block header %}{{ "discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
+
+{% block form %}{{ form(form) }}{% endblock %}
 
 {% block actions %}
   <a href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'back'|trans }}</a>

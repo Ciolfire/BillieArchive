@@ -33,11 +33,20 @@ class Prerequisite
   #[ORM\ManyToMany(targetEntity: Merit::class, mappedBy: 'prerequisites')]
   private Collection $merits;
 
+  #[ORM\ManyToMany(targetEntity: Devotion::class, mappedBy: 'prerequisites')]
+  private Collection $devotions;
+
   private $entity = null;
 
   public function __construct()
   {
     $this->merits = new ArrayCollection();
+    $this->devotions = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return "id:{$this->entityId}, type:{$this->type}, value:{$this->value}";
   }
 
   public function getId(): ?int
@@ -105,7 +114,7 @@ class Prerequisite
   {
     if (!$this->merits->contains($merit)) {
       $this->merits->add($merit);
-      $merit->addPrereq($this);
+      $merit->addPrerequisite($this);
     }
 
     return $this;
@@ -114,7 +123,7 @@ class Prerequisite
   public function removeMerit(Merit $merit): self
   {
     if ($this->merits->removeElement($merit)) {
-      $merit->removePrereq($this);
+      $merit->removePrerequisite($this);
     }
 
     return $this;
@@ -130,5 +139,32 @@ class Prerequisite
     $this->entity = $entity;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Devotion>
+   */
+  public function getDevotions(): Collection
+  {
+      return $this->devotions;
+  }
+
+  public function addDevotion(Devotion $devotion): self
+  {
+      if (!$this->devotions->contains($devotion)) {
+          $this->devotions->add($devotion);
+          $devotion->addPrerequisite($this);
+      }
+
+      return $this;
+  }
+
+  public function removeDevotion(Devotion $devotion): self
+  {
+      if ($this->devotions->removeElement($devotion)) {
+          $devotion->removePrerequisite($this);
+      }
+
+      return $this;
   }
 }

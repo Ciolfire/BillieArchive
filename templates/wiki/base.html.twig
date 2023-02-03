@@ -14,5 +14,6 @@
   <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /> Vampire: The Requiem <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /></h2>
   <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('clan_index')}}">{% include "icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %}{{ "clans.label"|trans({}, 'vampire')}}</a></div>
   <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('discipline_index')}}">{% include "icon.html.twig" with {'icon': 'discipline', 'hasTips': 0 } only %}{{ "disciplines.label"|trans({}, 'vampire')}}</a></div>
+  <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('devotion_index')}}">{% include "icon.html.twig" with {'icon': 'devotion', 'hasTips': 0 } only %}{{ "devotions.label"|trans({}, 'vampire')}}</a></div>
   <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'vampire'})}}">{% include "icon.html.twig" with {'icon': 'book', 'hasTips': 0 } only %}{{ "books"|trans}}</a></div>
 </div>
