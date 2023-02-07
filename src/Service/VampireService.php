@@ -11,32 +11,34 @@ use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
 use App\Repository\ClanRepository;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 
 class VampireService
 {
-  private $doctrine;
+  private $dataService;
 
-  public function __construct(ManagerRegistry $doctrine)
+  public function __construct(DataService $dataService)
   {
-    $this->doctrine = $doctrine;
+    $this->dataService = $dataService;
   }
 
   public function getSpecial(Vampire $vampire)
   {
-    $disciplines = $this->doctrine->getRepository(Discipline::class)->findAll();
+    $disciplines = $this->dataService->findAll(Discipline::class);
       foreach ($disciplines as $key => $discipline) {
         /** @var Discipline $discipline */
         if ($vampire->hasDiscipline($discipline->getId()) || !$discipline->isAvailable($vampire->getChronicle())) {
           unset($disciplines[$key]);
         }
       }
-    $devotions = $this->doctrine->getRepository(Devotion::class)->findAll();
+    $devotions = $this->dataService->findAll(Devotion::class);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
       if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
-        unset($disciplines[$key]);
+        unset($devotions[$key]);
+      }
+      foreach ($devotion->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
       }
     }
     return [
@@ -47,7 +49,7 @@ class VampireService
 
   public function embrace(Character $character, FormInterface $form)
   {
-    $connection = $this->doctrine->getConnection();
+    $connection = $this->dataService->getConnection();
 
     $data = $form->getData();
 
@@ -64,13 +66,12 @@ class VampireService
     $nativeQuery->bindValue('age', $data['age']);
     $nativeQuery->executeStatement();
     // We force the change to the manager, to avoid fetching from memory (?)
-    $this->doctrine->resetManager();
+    $this->dataService->reset();
     /** @var Vampire $vampire */
-    $vampire = $this->doctrine->getRepository(Vampire::class)->find($character->getId());
+    $vampire = $this->dataService->find(Vampire::class, $character->getId());
     $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
     $this->addDiscipline($vampire, $form->getExtraData()['disciplines']);
-    $this->doctrine->getManager()->persist($vampire);
-    $this->doctrine->getManager()->flush();
+    $this->dataService->save($vampire);
   }
 
   public function handleEdit(Vampire $vampire, array $data)
@@ -90,9 +91,9 @@ class VampireService
   public function addDiscipline(Vampire $vampire, array $disciplines)
   {
     foreach ($disciplines as $id => $level) {
-      $discipline = $this->doctrine->getRepository(Discipline::class)->find($id);
+      $discipline = $this->dataService->find(Discipline::class, $id);
       $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
-      $this->doctrine->getManager()->persist($newDiscipline);
+      $this->dataService->add($newDiscipline);
       $vampire->addDiscipline($newDiscipline);
     }
   }
@@ -100,7 +101,7 @@ class VampireService
   public function getBloodlines($item = null)
   {
     /** @var ClanRepository $repo */
-    $repo = $this->doctrine->getRepository(Clan::class);
+    $repo = $this->dataService->getRepository(Clan::class);
     if ($item instanceof Book) {
 
       return $repo->findByBook($item);

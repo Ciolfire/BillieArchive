@@ -26,6 +26,19 @@ class DataService
     $this->slugger = $slugger;
   }
 
+  public function getConnection()
+  {
+    return $this->doctrine->getConnection();
+  }
+
+  /**
+   * Add an entity, will add security checks there
+   */
+  public function add($entity)
+  {
+    $this->manager->persist($entity);
+  }
+
   /**
    * Save an entity, will add security checks there
    */
@@ -47,6 +60,16 @@ class DataService
   public function flush()
   {
     $this->manager->flush();
+  }
+
+  public function reset()
+  {
+    return $this->doctrine->resetManager();
+  }
+
+  public function getRepository($entity)
+  {
+    return $this->doctrine->getRepository($entity);
   }
 
   public function find(string $class, $element)
