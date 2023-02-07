@@ -20,7 +20,7 @@
     {{ encore_entry_script_tags(type) }}
     {% endblock %}
   </head>
-  <body {% block bodyData %}{% endblock %}>
+  <body {% block bodyData %}class="position-relative"{% endblock %}>
     {% if app.user %}
       {% include "header.html.twig" %}
     {% endif %}

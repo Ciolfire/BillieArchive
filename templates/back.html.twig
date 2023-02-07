@@ -1,1 +1,1 @@
-<a href="{{app.request.headers.get('referer')}}" class="ms-2 w-25 btn btn-primary">{{ 'back'|trans({}, 'app')}}</a>
+<a href="{{app.request.headers.get('referer')}}" class="btn btn-primary position-fixed sticky-top end-0" style="top:100px;">{% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} %} {{ 'back'|trans({}, 'app')}}</a>

@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Attribute;
 use App\Entity\DisciplinePower;
+use App\Entity\Skill;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,6 +42,7 @@ class DisciplinePowerType extends AbstractType
         'expanded' => true,
         'translation_domain' => "character",
         'group_by' => function($choice) use ($translator) {
+          /** @var Attribute $choice */
           return $translator->trans($choice->getCategory(), [], 'character');
         },
         ])
@@ -48,6 +52,7 @@ class DisciplinePowerType extends AbstractType
         'translation_domain' => "character",
         'choice_attr' => ['class' =>'text-sub'],
         'group_by' => function($choice) use ($translator) {
+          /** @var Skill $choice */
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])

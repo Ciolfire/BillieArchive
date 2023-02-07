@@ -17,7 +17,7 @@
     <i class="fa-xs fa-solid fa-plus"></i>
   {% elseif icon == 'free' or icon == 'pass' %}
     {{ source('@icons/' ~ 'ticket.svg') }}
-  {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' %}
+  {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' or icon == "traits" %}
     {{ source('@icons/' ~ 'skills.svg') }}
   {% elseif icon == 'options' %}
     {{ source('@icons/' ~ 'gears.svg') }}
@@ -211,9 +211,9 @@
     {# {{ source('@icons/' ~ 'hand-holding-droplet.svg') }} #}
   {% elseif icon == 'vitae' %}
     {{ source('@icons/' ~ 'goo-spurt.svg') }}
-  {% elseif icon == 'discipline' %}
+  {% elseif icon == 'discipline' or icon == 'disciplines' %}
     {{ source('@icons/' ~ 'fangs-circle.svg') }}
-  {% elseif icon == 'devotion' %}
+  {% elseif icon == 'devotion' or icon == 'devotions' %}
     {{ source('@icons/' ~ 'dagger-rose.svg') }}
     {# <i class="ok fa-solid fa-droplet"></i> #}
 {# werewolf #}
