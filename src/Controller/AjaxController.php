@@ -27,8 +27,18 @@ class AjaxController extends AbstractController
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
 
+      switch ($data->value) {
+        case "App\Entity\Clan":
+          $choices = $this->dataService->findBy($data->value, ["isBloodline" => false]);
+          break;
+
+        default:
+          $choices = $this->dataService->findAll($data->value);
+          break;
+      }
+
       $choices = $this->render('forms/choices.html.twig', [
-        'choices' => $this->dataService->findAll($data->value),
+        'choices' => $choices,
       ])->getContent();
       return new JsonResponse(['choices' => $choices]);
     } else {
