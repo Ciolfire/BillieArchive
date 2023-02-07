@@ -1,0 +1,10 @@
+{% extends "character_sheet/element/attribute.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block controller %}role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ ('attribute' ~ '.' ~ base)|trans }}"{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ attribute.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
+  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ attribute.id ~ '-' ~ value }}"></label>
+{% endblock %}

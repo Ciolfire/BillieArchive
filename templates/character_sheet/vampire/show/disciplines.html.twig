@@ -1,0 +1,18 @@
+{% extends "character_sheet/vampire/element/disciplines.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block list %}
+  {% for chDiscipline in character.disciplines %}
+    <div class="col-12 col-lg-6 justify-content-center">
+      <div class="discipline-block w-100 container g-0">
+        {% set max = 5 %}
+        {% set maxPower = chDiscipline.level %}
+        {% set min = 0 %}
+        {% set base = chDiscipline.level %}
+        {% set discipline = chDiscipline.discipline %}
+        {% include "character_sheet/vampire/show/discipline.html.twig" %}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "character_sheet/show.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block header %}
+  {% include "character_sheet/vampire/show/header.html.twig" %}
+{% endblock %}
+
+{% block traits %}
+  <div class="row pb-3">
+    {% include 'character_sheet/vampire/show/vitae.html.twig' %}
+    {% include 'character_sheet/vampire/show/potency.html.twig' %}
+  </div>
+{% endblock %}
+
+{% block subtraits %}
+  <div class="row justify-content-center">
+    {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
+    {% if character.clan.parentClan is not null %}
+      <div class="col-12"></div>
+      {% include "character_sheet/vampire/show/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
+    {% else %}
+      {% include "character_sheet/vampire/show/weakness.html.twig" with { 'clan': character.clan } %}
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block powers %}
+  <div id="vampire" data-tabs-target="page">
+    {% include "character_sheet/vampire/show/powers.html.twig" %}
+  </div>
+{% endblock %}

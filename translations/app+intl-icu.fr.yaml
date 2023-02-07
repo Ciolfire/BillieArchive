@@ -96,6 +96,8 @@ party:
   name: Équipe
   manage: Gérer l'Équipe
 personal: Personnel
+prerequisite: Prérequis
+prerequisites: Prérequis
 quote: Citation
 rules: Règles
 save: Sauvegarder

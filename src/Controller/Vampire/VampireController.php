@@ -67,7 +67,7 @@ class VampireController extends AbstractController
       $this->service->embrace($character, $form);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
-    return $this->render('vampire/embrace/sheet.html.twig', [
+    return $this->render('character_sheet/vampire/embrace/sheet.html.twig', [
       'character' => $character,
       'clans' => $clans,
       'disciplines' => $disciplines,

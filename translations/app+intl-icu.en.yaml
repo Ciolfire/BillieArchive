@@ -96,6 +96,8 @@ party:
   name: Party
   manage: Manage Party
 personal: Personal
+prerequisite: Prerequisite
+prerequisites: Prerequisites
 quote: Quote
 rules: Rules
 save: Save

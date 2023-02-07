@@ -1,12 +1,16 @@
 @import "~bootstrap/scss/bootstrap";
+@import "rabbit";
+
+@import "book";
+@import "btn";
+@import "character";
 @import "form";
 @import "icon";
-@import "character";
-@import "rabbit";
 @import "merit";
-@import "book";
 @import "note";
+@import "tab";
 @import "text";
+
 @import "default/general.scss";
 @import "default/vampire.scss";
 @import "default/mage.scss";
@@ -75,14 +79,6 @@ footer.footer {
   border-radius: 0.2rem;
 }
 
-.text-sub {
-  font-family: $subTextFont;
-}
-
-.text {
-  font-family: $textFont;
-}
-
 .ok {
   color: $mainColor;
   font-weight: bold;
@@ -92,19 +88,6 @@ footer.footer {
   color: $warningColor;
 }
 
-.btn.btn-primary, .human-btn.btn-primary {
-  background-color: $blockColor;
-  border-color: $borderColor;
-  color: $btnColor;
-  font-weight: bold;
-  &:focus, &:hover, &:active, &.active {
-    box-shadow: 0 0 0 0.25rem $main50pColor;
-    color: $textColor;
-    background-color: $btnColor;
-    border: 1px solid $mainDarkColor;
-  }
-}
-
 .back-img {
   background-position:center;
   background-size:contain;
@@ -112,52 +95,6 @@ footer.footer {
   background-image: url("../images/rabbit_idle.gif");
   &-left {
     background-position: left;
-  }
-}
-
-.btn-check {
-  & + .btn-primary {
-    font-weight: normal;
-  }
-  &:checked + .btn-primary, &:active + .btn-primary {
-    color: $textColor;
-    background-color: $btnColor;
-    border: 1px solid $mainDarkColor;
-  }
-  &:focus + .btn-primary, .btn.btn-primary:focus {
-    box-shadow: 0 0 0 0.25rem $main50pColor;
-    color: $textColor;
-    background-color: $btnColor;
-    border: 1px solid $mainDarkColor;
-  }
-}
-
-.tabs {
-  border: none;
-  li:first-child > .nav-link {
-    border-left-width: 0!important;
-  }
-  li:last-child > .nav-link {
-    border-right-width: 0!important;
-  }
-  .nav-item {
-    .nav-link {
-      background-color: $tabColor;
-      color: $subtextColor;
-      border-color: $borderColor;
-      border-width: 0 0 1px 0;
-      border-radius: 0%;
-      border-style: solid;
-      &.active, &:active, &:focus, &:hover {
-        color: $titleColor;
-        background-color: transparent;
-        border-color: $borderColor;
-        border-width: 1px 1px 0 1px;
-      }
-      .active {
-        color: $mainColor;
-      }
-    }
   }
 }
 
@@ -181,6 +118,10 @@ footer.footer {
   p {
     margin-bottom: 0.5rem;
   }
+}
+
+.invert {
+  filter: invert(0.8);
 }
 
 

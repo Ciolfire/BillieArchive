@@ -70,6 +70,9 @@ tab:
   powers: Pouvoirs
   relations: Relations
   vampire: Vampire
+  traits: Traits
+  disciplines: Disciplines
+  devotions: Dévotions
 
 dot:
   fifth: Le cinquième point coûte double

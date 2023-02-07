@@ -1,0 +1,54 @@
+{% if id is not defined %}
+  {% set id = merit.id %}
+{% endif %}
+
+<div class="col">
+  <div class="card card-merit block" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
+    <div class="card-header">
+      <div class="row align-items-center px-2">
+        <div class="col" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="meritText{{ id }}">
+          {% include "icon.html.twig" with {'icon' : merit.category } only %}
+          <span class="merit-name">{{ merit.name }}</span>
+        </div>
+        <div class="col-auto">
+          <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
+            {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+            {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+              {% block input %}{% endblock %}
+              <div class="dots">
+              {% for value in 1..merit.max %}
+                {% if value >= 5 and value % 5 == 1 %}
+                  <span class="ms-1"></span>
+                {% endif %}
+                {% block dot %}{% endblock %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body text-center text py-0">
+      <div class="merit-{{ id }}-text card-text show" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+        {{ merit.description }}
+      </div>
+      {% if merit.isExpanded %}
+        {% block expanded %}{% endblock %}
+      {% endif %}
+      <div class="merit-{{ id }}-text card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+        {{ merit.effect|default("")|markdown_to_html }}
+        <p class="text-end">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ merit.book.name }}">
+            {{ merit.book.short }} {{ merit.page }}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+      {% include "character_sheet/element/meritPrerequisites.html.twig" %}
+    </div>
+    <div class="card-footer text py-0 d-flex flex-column justify-content-center" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+      <span class="merit-{{ id }}-text text-center show"><i class="fas fa-caret-down"></i></span>
+      <span class="merit-{{ id }}-text text-center collapse"><i class="fas fa-caret-up"></i></span>
+    </div>
+  </div>
+</div>

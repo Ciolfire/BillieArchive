@@ -116,7 +116,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_index');
     }
 
-    return $this->render('character/show.html.twig', [
+    return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
@@ -161,7 +161,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('character/edit.html.twig', [
+    return $this->render('character_sheet/'.$character->getType().'/edit.html.twig', [
       'character' => $character,
       'type' => $character->getType(),
       'form' => $form,
@@ -210,7 +210,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'background'], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character/edit/background.html.twig', [
+    return $this->render('character_sheet/edit/background.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);

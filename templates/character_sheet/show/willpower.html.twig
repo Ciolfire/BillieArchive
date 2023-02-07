@@ -1,0 +1,12 @@
+{% extends "character_sheet/element/willpower.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block dot %}
+{% if index <= current %}
+  {% set value = 1 %}
+{% else %}
+  {% set value = 0 %}
+{% endif %}
+{{ include('character_sheet/element/traitBox.html.twig', {'current': index}) }}
+{% endblock %}

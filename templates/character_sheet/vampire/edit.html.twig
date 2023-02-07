@@ -1,0 +1,9 @@
+{% extends "character_sheet/edit.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block special %}
+  <div id="vampire" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/special.html.twig" %}
+  </div>
+{% endblock %}

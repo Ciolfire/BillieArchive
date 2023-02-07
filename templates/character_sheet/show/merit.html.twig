@@ -1,0 +1,12 @@
+{% extends "character_sheet/element/merit.html.twig" %}
+
+{% set id = chMerit.id %}
+
+{% block dot %}
+<input id="{{ merit.id ~ '-' ~ value }}" type="checkbox" class="btn-check" autocomplete="off" {% if value <= chMerit.level %}checked{% endif %} disabled>
+<label class="btn dot" for="{{ merit.id ~ '-' ~ value }}"></label>
+{% endblock %}
+
+{% block expanded %}
+<h3 class="text-sub">{{ chMerit.choice }}</h3>
+{% endblock %}

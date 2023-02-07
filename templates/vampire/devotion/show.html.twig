@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% trans_default_domain 'vampire' %}
+
 {% block title %}{{ devotion.name }}{% endblock %}
 
 {% block body %}
@@ -8,14 +10,16 @@
   <div class="row">
     <div class="col">
       {{ devotion.description|markdown_to_html }}
-      {% if devotion.prerequisites %}
-      <h2>{{ "prerequisites"|trans }}</h2>
-        {% for prerequisite in devotion.prerequisites %}
-          {{ prerequisite.entity.name }}
-          {{ prerequisite.value }}
-        {% endfor %}
-      {% endif %}
     </div>
+  </div>
+  <div class="row justify-content-center">
+    <h2>{{ "prerequisites"|trans([], 'app') }}</h2>
+    {% for prerequisite in devotion.prerequisites %}
+      <div class="col-4">
+        {{ prerequisite.entity.name }}
+        {{ prerequisite.value }}
+      </div>
+    {% endfor %}
   </div>
 </div>
 

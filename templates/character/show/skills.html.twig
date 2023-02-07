@@ -1,7 +1,0 @@
-{% extends "character/sheet/skills.html.twig" %}
-
-{% trans_default_domain 'character' %}
-
-{% block skill %}
-  {% include "character/show/skill.html.twig" with {'base': attribute(character.skills, skill) } %}
-{% endblock %}

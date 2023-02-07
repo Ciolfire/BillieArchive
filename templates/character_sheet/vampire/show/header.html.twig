@@ -1,0 +1,33 @@
+{% trans_default_domain 'vampire' %}
+
+{% extends "character_sheet/show/header.html.twig" %}
+
+{% block name %}
+<div class="col-12">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <h1>
+        <img class="invert" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:1.5em;"/>
+        {{ character.name }}
+        {% if app.user != character.player %}({{ character.player }}){% endif %}
+          <img class="invert" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:1.5em;"/>
+      </h1>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block details2 %}
+<div class="col-12">
+  <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+    {% if character.clan.isBloodline %}
+      {% include "icon.html.twig" with {'icon': 'bloodline'} %}
+      {{ character.clan.name }}
+      ({{ character.clan.parentClan.name }})</a>
+    {% else %}
+      {% include "icon.html.twig" with {'icon': 'clan'} %}
+      {{ character.clan.name }}
+    {% endif %}
+  </a>
+</div>
+{% endblock %}

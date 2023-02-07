@@ -1,0 +1,25 @@
+{% trans_default_domain 'character' %}
+
+<div class="row align-items-center justify-content-center px-2">
+  <div class="col-7 col-lg-3 text-end">
+    {{ discipline.name }}
+  </div>
+  <div class="col-auto">
+    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-character--embrace-target="clanDiscipline" data-restricted="{{ discipline.isRestricted|number_format }}" data-id="{{ discipline.id }}">
+      <input class="discipline-value" value="0" type="hidden" name="embrace[disciplines][{{ discipline.id }}]" data-dot-target="input" data-action="change->dot#checkDots" data-character--embrace-target="disciplineValue">
+      <div class="dots">
+        {% for value in 1..max %}
+          {% if value >= 5 and value % 5 == 1 %}
+            </div>
+            <div class="dots">
+          {% endif %}
+          <input type="checkbox" class="btn-check" id="{{ discipline.name ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          <label class="btn dot {{ discipline.name }}" for="{{ discipline.name ~ '-' ~ value }}" 
+            data-action="click->dot#activate click->character--embrace#disciplineUpdate"
+            data-dot-value-param="{{ value }}">
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

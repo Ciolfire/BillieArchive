@@ -1,0 +1,26 @@
+{% extends "character_sheet/element/attribute.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+
+{% block controller %}data-controller="dot"{% endblock %}
+
+{% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-id="{{ "attribute." ~ attribute.id }}" data-type="attribute" data-name="{{ attribute.name }}"{% endblock %}
+
+{% block input %}
+  {{ form_row(attribute(form.attributes, attribute.id), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
+{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ attribute.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+  <label class="btn dot {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ attribute.id ~ '-' ~ value }}" 
+    data-action="click->dot#activate click->character--edit#pay"
+    data-dot-value-param="{{ value }}"
+    data-character--edit-type-param="attribute"
+    data-character--edit-id-param="{{ "attribute." ~ attribute.id }}"
+    data-character--edit-name-param="{{ attribute.name }}"
+    data-character--edit-value-param="{{ value }}"
+    data-character--edit-min-param="{{ min }}"
+  >
+  </label>
+{% endblock %}

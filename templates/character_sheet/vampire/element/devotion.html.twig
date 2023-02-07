@@ -1,0 +1,14 @@
+{% trans_default_domain 'character' %}
+
+<div class="col">
+  <h4>{{ devotion.name }}</h4>
+  <p>{{ devotion.short }}</p>
+  {% if devotion.prerequisites %}  
+    {% for prerequisite in devotion.prerequisites %}
+      {{ prerequisite.entity.name }} {{ prerequisite.value }}
+    {% endfor %}
+  {% endif %}
+  <div class="btn btn-primary w-100" data-bs-toggle="button" aria-pressed="true">
+    {{ devotion.cost }} {% include "icon.html.twig" with {'icon': 'xp'} %}
+  </div>
+</div>

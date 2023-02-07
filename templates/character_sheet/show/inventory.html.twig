@@ -1,0 +1,49 @@
+{% trans_default_domain 'character' %}
+<div class="row">
+  <div class="col-3">
+    <div class="block user-select-none h-100">
+      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'inventory', 'hasTips': 0, 'class': 'icon-lg'} %}Body</h3>
+      <div class="col-12 text-center">
+        <input class="form-control" type="text" id="name" name="name" value="Sac">
+        <input class="form-control" type="text" id="name" name="name" value="mouchoirs">
+        <input class="form-control" type="text" id="name" name="name" value="couteau suisse">
+        <input class="form-control" type="text" id="name" name="name" value="zippo">
+        <input class="form-control" type="text" id="name" name="name" value="lunettes de soleil">
+        <input class="form-control" type="text" id="name" name="name" value="téléphone portable">
+        <input class="form-control" type="text" id="name" name="name" value="bouteille d'eau">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="block user-select-none h-100">
+      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'inventory', 'hasTips': 0, 'class': 'icon-lg'} %}House</h3>
+      <div class="col-12 text-center">
+        <input class="form-control" type="text" id="name" name="name" value="Materiel d'espionnage">
+        <input class="form-control" type="text" id="name" name="name" value="imprimante">
+        <input class="form-control" type="text" id="name" name="name" value="trousse de premier soins">
+        <input class="form-control" type="text" id="name" name="name" value="jumelles">
+        <input class="form-control" type="text" id="name" name="name" value="coffre-fort (5 000$ en liquide)">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="block user-select-none h-100">
+      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'inventory', 'hasTips': 0, 'class': 'icon-lg'} %}Assets</h3>
+      <div class="col-12 text-center">
+        <input class="form-control" type="text" id="name" name="name" value="Compte en banque (2 000$)">
+        <input class="form-control" type="text" id="name" name="name" value="coffre-fort à la banque (50cm², disque dur stocké)">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="block user-select-none h-100">
+      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'inventory', 'hasTips': 0, 'class': 'icon-lg'} %}Other</h3>
+      <div class="col-12 text-center">
+        <input class="form-control" type="text" id="name" name="name" value="Scooter (perdu ?)">
+      </div>
+    </div>
+  </div>
+</div>
