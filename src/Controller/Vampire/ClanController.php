@@ -106,7 +106,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{id<\d+>}/edit', name: 'clan_show', methods: ['GET'])]
+  #[Route('/clan/{id<\d+>}/show', name: 'clan_show', methods: ['GET'])]
   public function clanShow(Clan $clan): Response
   {
     return $this->render('vampire/clan/show.html.twig', [

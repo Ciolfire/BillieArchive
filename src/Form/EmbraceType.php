@@ -60,7 +60,7 @@ class EmbraceType extends AbstractType
       'choice_label' => 'name',
       'choice_attr' => function(Attribute $attribute) {
         return [
-          'class' => "d-none {$attribute->getName()}", 
+          'class' => "d-none {$attribute->getIdentifier()}",
           'data-character--embrace-target' => 'clanAttribute',
         ];
       }
