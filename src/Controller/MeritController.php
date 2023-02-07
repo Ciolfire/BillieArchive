@@ -146,9 +146,7 @@ class MeritController extends AbstractController
     foreach ($merits as $merit) {
       /** @var Merit $merit */
       foreach ($merit->getprerequisites() as $prerequisite) {
-        /** @var Prerequisite $prerequisite */
-        $entity = $this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]);
-        $prerequisite->setEntity($entity);
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
       }
     }
 

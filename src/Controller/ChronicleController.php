@@ -49,7 +49,7 @@ class ChronicleController extends AbstractController
       return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
-    return $this->renderForm('chronicle/new.html.twig', [
+    return $this->render('chronicle/new.html.twig', [
       'chronicle' => $chronicle,
       'form' => $form,
     ]);
@@ -128,7 +128,7 @@ class ChronicleController extends AbstractController
       return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
-    return $this->renderForm('chronicle/party/playerChange.html.twig', [
+    return $this->render('chronicle/party/playerChange.html.twig', [
       'chronicle' => $chronicle,
       'action' => 'add',
       'type' => $chronicle->getType(),
@@ -164,7 +164,7 @@ class ChronicleController extends AbstractController
       return $this->redirectToRoute('chronicle_party_index', ['id' => $chronicle->getId()]);
     }
 
-    return $this->renderForm('chronicle/party/playerChange.html.twig', [
+    return $this->render('chronicle/party/playerChange.html.twig', [
       'chronicle' => $chronicle,
       'action' => 'remove',
       'type' => $chronicle->getType(),
@@ -190,7 +190,7 @@ class ChronicleController extends AbstractController
 
       return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('notes/category.html.twig', [
+    return $this->render('notes/category.html.twig', [
       'category' => $category,
       'form' => $form,
     ]);
@@ -210,7 +210,7 @@ class ChronicleController extends AbstractController
 
       return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->renderForm('notes/category.html.twig', [
+    return $this->render('notes/category.html.twig', [
       'category' => $category,
       'form' => $form,
     ]);

@@ -58,7 +58,7 @@ class NoteController extends AbstractController
         return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
       }
     }
-    return $this->renderForm('notes/form.html.twig', [
+    return $this->render('notes/form.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
@@ -90,7 +90,7 @@ class NoteController extends AbstractController
 
     }
 
-    return $this->renderForm('notes/form.html.twig', [
+    return $this->render('notes/form.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
@@ -127,7 +127,7 @@ class NoteController extends AbstractController
       $notes = $this->dataService->findBy(Note::class, ['chronicle' => $note->getChronicle(), 'user' => $user, 'category' => $category]);
     }
 
-    return $this->renderForm('notes/chronicle/index.html.twig', [
+    return $this->render('notes/chronicle/index.html.twig', [
       'chronicle' => $note->getChronicle(),
       'current' => $category,
       'categories' => $categories,
@@ -151,7 +151,7 @@ class NoteController extends AbstractController
       $notes = $this->dataService->findBy(Note::class, ['chronicle' => $chronicle, 'user' => $user, 'category' => null]);
     }
 
-    return $this->renderForm('notes/chronicle/index.html.twig', [
+    return $this->render('notes/chronicle/index.html.twig', [
       'chronicle' => $chronicle,
       'current' => $category,
       'categories' => $categories,
@@ -176,7 +176,7 @@ class NoteController extends AbstractController
         $notes = $repo->findFromSearch($toSearch, $user, $chronicle);
       }
     }
-    return $this->renderForm('notes/search.html.twig', [
+    return $this->render('notes/search.html.twig', [
       'chronicle' => $chronicle,
       'form' => $form,
       'notes' => $notes,
