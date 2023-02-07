@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ devotion.name }}{% endblock %}
+
+{% block body %}
+<div class="container block py-3 mt-5">
+  <h1 class="pb-5">{{ devotion.name }}<a href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a></h1>
+  <div class="row">
+    <div class="col">
+      {{ devotion.description|markdown_to_html }}
+      {% if devotion.prerequisites %}
+      <h2>{{ "prerequisites"|trans }}</h2>
+        {% for prerequisite in devotion.prerequisites %}
+          {{ prerequisite.entity.name }}
+          {{ prerequisite.value }}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% include "back.html.twig" %}
+{% endblock %}

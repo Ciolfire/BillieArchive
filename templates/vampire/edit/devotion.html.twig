@@ -1,0 +1,11 @@
+{% extends "vampire/sheet/devotion.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block controller %}data-controller="dot" role="group"{% endblock %}
+
+{% block data %}data-name="{{ devotion.name }}" data-id="{{ devotion.id }}" data-type="devotion" data-CONTROLLER-base-value="{{ devotion.cost }}" {% endblock %}
+
+{% block input %}
+  {# <input class="devotion-value" value="{{ chdevotion.level|default(0) }}" type="hidden" name="character{% if chdevotion is defined %}[devotionsUp][{{ devotion.id }}]{% else %}[devotions][{{ devotion.id }}]{% endif %}" data-id="{{ devotion.id }}" data-dot-target="input" data-character--edit-target="dot"> #}
+{% endblock %}

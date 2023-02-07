@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Clan;
+use App\Entity\Devotion;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
@@ -31,8 +32,17 @@ class VampireService
           unset($disciplines[$key]);
         }
       }
-
-    return ['disciplines' => $disciplines];
+    $devotions = $this->doctrine->getRepository(Devotion::class)->findAll();
+    foreach ($devotions as $key => $devotion) {
+      /** @var Devotion $devotion */
+      if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
+        unset($disciplines[$key]);
+      }
+    }
+    return [
+      'disciplines' => $disciplines,
+      'devotions' => $devotions,
+    ];
   }
 
   public function embrace(Character $character, FormInterface $form)

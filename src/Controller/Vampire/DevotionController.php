@@ -56,4 +56,37 @@ class DevotionController extends AbstractController
       'type' => 'vampire',
     ]);
   }
+
+  #[Route('/devotion/{id<\d+>}/edit', name: 'vampire_devotion_edit', methods: ['GET', 'POST'])]
+  public function devotionEdit(Devotion $devotion, Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $form = $this->createForm(DevotionType::class, $devotion);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($devotion);
+
+      return $this->redirectToRoute('devotion_show', ['id' => $devotion->getId()]);
+    }
+
+    return $this->render('vampire/devotion/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/devotion/{id<\d+>}/show', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
+  public function devotionShow(Devotion $devotion, Request $request): Response
+  {
+    foreach ($devotion->getprerequisites() as $prerequisite) {
+      $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+    }
+
+    return $this->render('vampire/devotion/show.html.twig', [
+      'devotion' => $devotion,
+      'type' => 'vampire',
+    ]);
+  }
 }

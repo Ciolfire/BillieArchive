@@ -38,6 +38,9 @@ class Vampire extends Character
 
   protected $limit = 5;
 
+  #[ORM\ManyToMany(targetEntity: Devotion::class)]
+  private Collection $devotions;
+
   public function __construct(Character $character = null)
   {
     $this->disciplines = new ArrayCollection();
@@ -47,6 +50,7 @@ class Vampire extends Character
         $this->$property = $value;
       }
     }
+    $this->devotions = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -180,6 +184,43 @@ class Vampire extends Character
     foreach ($this->disciplines as $discipline) {
       /** @var VampireDiscipline $discipline */
       if ($discipline->getDiscipline()->getId() == $id) {
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * @return Collection<int, Devotion>
+   */
+  public function getDevotions(): Collection
+  {
+    return $this->devotions;
+  }
+
+  public function addDevotion(Devotion $devotion): self
+  {
+    if (!$this->devotions->contains($devotion)) {
+      $this->devotions->add($devotion);
+    }
+
+    return $this;
+  }
+
+  public function removeDevotion(Devotion $devotion): self
+  {
+    $this->devotions->removeElement($devotion);
+
+    return $this;
+  }
+
+  public function hasDevotion(int $id): bool
+  {
+    foreach ($this->devotions as $devotion) {
+      /** @var Devotion $devotion */
+      if ($devotion->getId() == $id) {
 
         return true;
       }

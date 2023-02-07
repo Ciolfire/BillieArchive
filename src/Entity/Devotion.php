@@ -46,10 +46,22 @@ class Devotion
   #[ORM\Column(length: 255)]
   private ?string $short = null;
 
+  #[ORM\ManyToMany(targetEntity: Attribute::class)]
+  private Collection $attributes;
+
+  #[ORM\ManyToMany(targetEntity: Skill::class)]
+  private Collection $skills;
+
+  #[ORM\ManyToMany(targetEntity: Discipline::class)]
+  private Collection $disciplines;
+
   public function __construct()
   {
     $this->prerequisites = new ArrayCollection();
     $this->description = "";
+    $this->attributes = new ArrayCollection();
+    $this->skills = new ArrayCollection();
+    $this->disciplines = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -131,6 +143,78 @@ class Devotion
   public function setShort(string $short): self
   {
       $this->short = $short;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Attribute>
+   */
+  public function getAttributes(): Collection
+  {
+      return $this->attributes;
+  }
+
+  public function addAttribute(Attribute $attribute): self
+  {
+      if (!$this->attributes->contains($attribute)) {
+          $this->attributes->add($attribute);
+      }
+
+      return $this;
+  }
+
+  public function removeAttribute(Attribute $attribute): self
+  {
+      $this->attributes->removeElement($attribute);
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Skill>
+   */
+  public function getSkills(): Collection
+  {
+      return $this->skills;
+  }
+
+  public function addSkill(Skill $skill): self
+  {
+      if (!$this->skills->contains($skill)) {
+          $this->skills->add($skill);
+      }
+
+      return $this;
+  }
+
+  public function removeSkill(Skill $skill): self
+  {
+      $this->skills->removeElement($skill);
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Discipline>
+   */
+  public function getDisciplines(): Collection
+  {
+      return $this->disciplines;
+  }
+
+  public function addDiscipline(Discipline $discipline): self
+  {
+      if (!$this->disciplines->contains($discipline)) {
+          $this->disciplines->add($discipline);
+      }
+
+      return $this;
+  }
+
+  public function removeDiscipline(Discipline $discipline): self
+  {
+      $this->disciplines->removeElement($discipline);
 
       return $this;
   }

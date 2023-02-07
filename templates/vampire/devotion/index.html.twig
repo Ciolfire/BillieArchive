@@ -9,13 +9,24 @@
     <h1>{{ (entity ~ "s.label")|trans }}</h1>
     <div class="row mt-5 mb-2">
       {% if is_granted('ROLE_ST') %}
-        <a class="btn btn-primary w-100" href="{{ path('vampire_devotion_new') }}">{{ 'devotion.new'|trans }}</a>
+        <a class="btn btn-primary w-100" href="{{ path('vampire_devotion_new') }}">{% include "icon.html.twig" with {'icon': 'new', 'hasTips': 0} %} {{ 'devotion.new'|trans }}</a>
       {% endif %}
     </div>
     <div class="row block p-2">
       {% for devotion in elements %}
-        {{ devotion.name }}
-        {{ devotion.cost }} xp
+        <div class="col">
+          {{ devotion.name }}
+        </div>
+        <div class="col">
+          {{ devotion.short }}
+        </div>
+        <div class="col">
+          {{ devotion.cost }} xp
+        </div>
+        <div class="col">
+          <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
+          <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
+        </div>
       {% endfor %}
     </div>
   </div>
