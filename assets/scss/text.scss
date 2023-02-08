@@ -1,4 +1,8 @@
 .strong {
+  color: $strongColor;
+}
+
+.accent {
   color: $accentColor;
 }
 
@@ -12,4 +16,7 @@
 
 .text {
   font-family: $textFont;
+  &-default {
+    color: $textColor;
+  }
 }

@@ -1,7 +1,7 @@
 <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ pool.string }}">
   <span class="text">
     {% if pool.total > 0 %}
-      <span class="fw-bold {% if pool.total < 4 %}warning{% elseif pool.total > 9 %}strong{% endif %}">{{ pool.total }}</span>
+      <span class="fw-bold {% if pool.total < 4 %}warning{% elseif pool.total > 9 %}accent{% endif %}">{{ pool.total }}</span>
       {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0} only %}
     {% else %}
       <span class="warning">{{ "luckThrow"|trans([], 'icon') }}</span>

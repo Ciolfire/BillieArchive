@@ -1,1 +1,14 @@
-{% include 'character_sheet/vampire/show/disciplines.html.twig' %}
+<div data-controller="tabs" data-tabs-initial-value="disciplines">
+  <ul class="nav tabs row g-0 my-2">
+    {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'character'} only %}
+    {% if character.devotions is not empty %}
+      {% include "tab.html.twig" with {'name': 'devotions', 'domain': 'character'} only %}
+    {% endif %}
+  </ul>
+  <div id="disciplines" data-tabs-target="page">
+    {% include 'character_sheet/vampire/show/disciplines.html.twig' %}
+  </div>
+  <div id="devotions" data-tabs-target="page">
+    {# {% include "character_sheet/vampire/edit/devotions.html.twig" %} #}
+  </div>
+</div>

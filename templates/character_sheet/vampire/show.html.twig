@@ -30,3 +30,7 @@
     {% include "character_sheet/vampire/show/powers.html.twig" %}
   </div>
 {% endblock %}
+
+{% block specialTab %}
+  {% include "tab.html.twig" with {'name': 'vampire', 'domain': 'character'} only %}
+{% endblock %}

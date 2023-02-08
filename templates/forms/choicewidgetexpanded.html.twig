@@ -10,11 +10,11 @@
       {% endif %}
       {% for name, choices in form.vars.choices %}
         <div class='choice_category'>
-          <strong>{{name}}</strong>
+          <strong class="accent">{{name}}</strong>
         </div>
         <div class="my-radio-group">
           {% for key,choice in choices %}
-            {{- form_widget(form[key],{parent_label_class: 'ko text'} ) -}}
+            {{- form_widget(form[key],{parent_label_class: 'text text-default'} ) -}}
             {{- form_label(form[key]) -}}
           {% endfor %}
         </div>

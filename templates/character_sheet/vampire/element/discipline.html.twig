@@ -68,7 +68,7 @@
           {% set powerPool = power.detailedDicePool(character) %}
           <div class="col-12 power-header">
             <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}">
-              <div class="col-3"><h5>{{ power.levelDots }}</h5></div>
+              <div class="col-3"><h5 class="strong">{{ power.levelDots }}</h5></div>
               <div class="col-6 text-center"><h3>{{ power.name }}</h3></div>
               <div class="col-3 text-end">
                 {% if powerPool != null %}
