@@ -22,10 +22,20 @@ death:
 
 clan:
   label: Clan
-  count: "{0}Aucun Clan|{1}1 Clan|]1,Inf[%count% Clans"
+  count: >-
+    {count, plural,
+      =0 {Aucun Clan}
+      =1 {1 Clan}
+      other {# Clans}
+    }
   bloodline:
     label: Lignée
-    count: "{0}Aucune Lignée|{1}1 Lignée|]1,Inf[%count% Lignées"
+    count: >-
+      {count, plural,
+        =0 {Aucune Lignée}
+        =1 {1 Lignée}
+        other {# Lignées}
+      }
     weakness: Faiblesse de Clan
   bloodlines:
     label: Lignées
@@ -37,7 +47,12 @@ clans:
   label: Clans
 discipline:
   label: Discipline
-  count: "{0}Aucune Discipline|{1}1 Discipline|]1,Inf[%count% Disciplines"
+  count: >-
+    {count, plural,
+      =0 {Aucune Discipline}
+      =1 {1 Discipline}
+      other {# Disciplines}
+    }
   level:
     single: • à •••••
   new: Nouvelle discipline
@@ -49,7 +64,13 @@ disciplines:
     back: Retour à la liste
 devotion:
   label: Dévotion
-  new: Nouvelle devotion
+  new: Nouvelle dévotion
+  count: >-
+    {count, plural,
+      =0 {No Dévotion}
+      =1 {1 Dévotion}
+      other {# Dévotions}
+    }
 devotions:
   label: Dévotions
 embrace:

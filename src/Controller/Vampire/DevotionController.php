@@ -2,6 +2,7 @@
 
 namespace App\Controller\Vampire;
 
+use App\Entity\Book;
 use App\Entity\Description;
 use App\Entity\Devotion;
 use App\Form\DevotionType;
@@ -33,6 +34,31 @@ class DevotionController extends AbstractController
       'entity' => 'devotion',
       'category' => 'character',
       'type' => 'vampire',
+    ]);
+  }
+
+  #[Route("/discipline/{type<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
+  public function devotionList($type, $id)
+  {
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        break;
+      
+      default:
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        break;
+    }
+
+    return $this->render('vampire/devotion/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
+      'entity' => 'devotion',
+      'category' => 'character',
+      'type' => 'vampire',
+      'elements' => $item->getDevotions(),
+      'search' => [],
     ]);
   }
 
