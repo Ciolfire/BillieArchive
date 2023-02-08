@@ -23,6 +23,22 @@
             - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
           {% endif %}
         </div>
+        <div class="col">
+          {% if merit.prerequisites is not empty %}
+            {% for prerequisite in merit.prerequisites %}
+              {% if loop.first != true %}
+                ,
+              {% endif %}
+              {% if prerequisite.type == 'App\\Entity\\Merit' %}
+                <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+                  <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+                </a>
+              {% else %}
+                <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
         <div class="col-3 col-md-2">
           {% if merit.book is not null %}
             {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
@@ -34,23 +50,6 @@
         <div class="col-12 col-lg-6">
           <div id="merit_{{ merit.id }}" class="collapse rule">
             <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
-            {% if merit.prerequisites != null %}
-              <p>
-                Prerequisites:
-                {% for prerequisite in merit.prerequisites %}
-                    {% if loop.first == false %}
-                    ,
-                    {% endif %}
-                    {% if prerequisite.type == 'App\\Entity\\Merit' %}
-                      <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
-                        <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
-                      </a>
-                    {% else %}
-                      <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
-                    {% endif %}
-                {% endfor %}
-              </p>
-            {% endif %}
             {{ merit.effect|markdown_to_html }}
           </div>
         </div>
