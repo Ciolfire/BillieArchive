@@ -12,8 +12,8 @@
         <a class="btn btn-primary w-100" href="{{ path('vampire_devotion_new') }}">{% include "icon.html.twig" with {'icon': 'new', 'hasTips': 0} %} {{ 'devotion.new'|trans }}</a>
       {% endif %}
     </div>
-    <div class="row block p-2">
-      {% for devotion in elements %}
+    {% for devotion in elements %}
+      <div class="row block p-2">
         <div class="col">
           {{ devotion.name }}
         </div>
@@ -27,7 +27,7 @@
           <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
           <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
         </div>
-      {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}
