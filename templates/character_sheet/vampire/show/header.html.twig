@@ -3,7 +3,7 @@
 {% extends "character_sheet/show/header.html.twig" %}
 
 {% block name %}
-<div class="col-12">
+<div class="col-12 py-2">
   <div class="row justify-content-center">
     <div class="col-auto">
       <h1>
@@ -15,6 +15,35 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+        <img class="icon" src="/images/clans/emblems/DaevaToreador-63580ac87fa59-63900223a4528.webp">
+        {% if character.clan.isBloodline %}
+          {{ character.clan.name }}
+          ({{ character.clan.parentClan.name }})</a>
+        {% else %}
+          {{ character.clan.name }}
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {{ "death.age"|trans({"%gender%": "male", "%death%": character.deathAge|default(0) }) }}
+      {{ "death.sire"|trans({"%sire%": character.sire|default('unknown') }) }}
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
 {% endblock %}
 
 {% block details2 %}

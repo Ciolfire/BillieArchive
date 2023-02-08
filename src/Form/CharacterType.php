@@ -31,8 +31,33 @@ class CharacterType extends AbstractType
     }
     $builder
       ->add('player')
-      ->add('name')
-      ->add('age', IntegerType::class, ['attr' => ['min' => 0, 'step' => 1], 'required' => false])
+      ->add('firstName', null, [
+        'label' => false,
+        'empty_data' => "",
+        'attr' => [
+          'placeholder' => 'name.first',
+        ],
+      ])
+      ->add('nickname', null, [
+        'label' => false,
+        'empty_data' => "",
+        'attr' => [
+          'placeholder' => 'name.nick',
+        ],
+      ])
+      ->add('lastName', null, [
+        'label' => false,
+        'empty_data' => "",
+        'attr' => [
+          'placeholder' => 'name.last',
+        ],
+      ])
+      ->add('age', null, [
+        'label' => 'age.label',
+      ])
+      ->add('lookAge', null, [
+        'label' => 'age.looks.label',
+      ])
       ->add('virtue', null, ['label' => 'virtue.name'])
       ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
       ->add('vice', null, ['label' => 'vice.name'])

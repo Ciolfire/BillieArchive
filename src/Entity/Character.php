@@ -5,112 +5,118 @@ namespace App\Entity;
 use App\Entity\References\DisciplineReferences;
 use App\Entity\References\MeritReferences;
 use App\Repository\CharacterRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use League\HTMLToMarkdown\HtmlConverter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: "characters")]
 #[ORM\InheritanceType("JOINED")]
-#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
 // Probably not needed
 #[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
 class Character
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   protected $id;
 
-  #[ORM\Column(type: "string", length: 50)]
-  protected $name;
+  #[ORM\Column(length: 30)]
+  #[Assert\NotBlank]
+  protected ?string $firstName = "";
+
+  #[ORM\Column(length: 60)]
+  protected ?string $nickname = "";
+
+  #[ORM\Column(length: 30)]
+  protected ?string $lastName = "";
+
+  #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
+  protected ?int $age;
+
+  #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
+  protected ?int $lookAge = null;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $moral = 7;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $size = 5;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $willpower = 0;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $currentWillpower = 0;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $xpTotal = 0;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  protected ?int $xpUsed = 0;
+
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  protected ?string $concept;
+
+  #[ORM\Column(type: Types::STRING, length: 25, nullable: true)]
+  protected ?string $faction;
+
+  #[ORM\Column(type: Types::STRING, length: 25, nullable: true)]
+  protected ?string $groupName;
+
+  #[ORM\Column(type: Types::BOOLEAN)]
+  protected bool $isNpc;
+
+  #[ORM\Column(type: Types::TEXT)]
+  protected $background = "";
+
+  #[ORM\Column(type: Types::JSON, nullable: true)]
+  protected $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
+
+  #[ORM\Column(type: Types::JSON)]
+  protected array $experienceLogs = [];
+
+
 
   #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"])]
   protected $attributes;
-
+  
   #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"])]
   protected $skills;
-
+  
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected $specialties;
-
-  #[ORM\Column(type: "integer", nullable: true, options: ["unsigned" => true])]
-  protected $age;
-
-  #[ORM\Column(type: "string", length: 50, nullable: true)]
-  protected $concept;
-
-  #[ORM\Column(type: "string", length: 25, nullable: true)]
-  protected $faction;
-
-  #[ORM\Column(type: "string", length: 25, nullable: true)]
-  protected $groupName;
-
-  #[ORM\Column(type: "smallint")]
-  protected $willpower = 0;
-
+  
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected $virtue;
+    #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  protected ?string $virtueDetail;
 
   #[ORM\ManyToOne(targetEntity: Vice::class)]
   protected $vice;
-
-  #[ORM\Column(type: "smallint")]
-  protected $moral = 7;
-
-  #[ORM\Column(type: "json", nullable: true)]
-  protected $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
-
-  #[ORM\Column(type: "smallint")]
-  protected $size = 5;
-
-  #[ORM\Column(type: "smallint")]
-  protected $currentWillpower = 0;
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  protected ?string $viceDetail;
 
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected $merits;
 
-
-  #[ORM\Column(type: "smallint")]
-  protected $xpTotal = 0;
-
-
-  #[ORM\Column(type: "smallint")]
-  protected $xpUsed = 0;
-
-  protected $limit = 5;
-
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
-  private $player;
+  protected $player;
 
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
-  private $chronicle;
-
-
-  #[ORM\Column(type: "boolean")]
-  private $isNpc;
-
-
-  #[ORM\Column(type: "string", length: 50, nullable: true)]
-  private $virtueDetail;
-
-
-  #[ORM\Column(type: "string", length: 50, nullable: true)]
-  private $viceDetail;
-
-
-  #[ORM\Column(type: "text")]
-  private $background = "";
-
-  #[ORM\Column]
-  private array $experienceLogs = [];
+  protected $chronicle;
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
-  private Collection $notes;
-
+  protected Collection $notes;
+  
+  protected $limit = 5;
+  
   public function __construct()
   {
     if (!$this->attributes) {
@@ -123,7 +129,7 @@ class Character
 
   public function __toString()
   {
-    return $this->name;
+    return $this->getName();
   }
 
   public function getId(): ?int
@@ -153,7 +159,13 @@ class Character
 
   public function getName(): ?string
   {
-    return $this->name;
+    if (!empty($this->nickname)) {
+
+      return "{$this->firstName} “{$this->nickname}” {$this->lastName}";
+    } else {
+
+      return "{$this->firstName} {$this->lastName}";
+    }
   }
 
   public function setName(string $name): self
@@ -163,12 +175,60 @@ class Character
     return $this;
   }
 
+  public function getLastName(): ?string
+  {
+    return $this->lastName;
+  }
+
+  public function setLastName(string $lastName): self
+  {
+    $this->lastName = $lastName;
+
+    return $this;
+  }
+
+  public function getFirstName(): ?string
+  {
+    return $this->firstName;
+  }
+
+  public function setFirstName(string $firstName): self
+  {
+    $this->firstName = $firstName;
+
+    return $this;
+  }
+
+  public function getNickname(): ?string
+  {
+    return $this->nickname;
+  }
+
+  public function setNickname(string $nickname): self
+  {
+    $this->nickname = $nickname;
+
+    return $this;
+  }
+
+  public function getLookAge(): ?int
+  {
+    return $this->lookAge;
+  }
+
+  public function setLookAge(?int $lookAge): self
+  {
+    $this->lookAge = $lookAge;
+
+    return $this;
+  }
+
   public function getAge(): ?int
   {
     return $this->age;
   }
 
-  public function setAge(int $age): self
+  public function setAge(?int $age): self
   {
     $this->age = $age;
 
@@ -631,7 +691,7 @@ class Character
       /** @var Attribute $attribute */
       $identifier = $attribute->getIdentifier();
       $value = $this->attributes->get($identifier);
-      
+
       $details[$identifier] = $value;
       $details['total'] += $value;
       $details['string'] .= " {$attribute->getName()} {$value}";
@@ -647,7 +707,7 @@ class Character
           $value = -1;
         }
       }
-      
+
       $details[$identifier] = $value;
       $details['total'] += $value;
       $details['string'] .= " {$skill->getName()} {$value}";

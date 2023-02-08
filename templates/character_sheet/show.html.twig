@@ -79,4 +79,9 @@
   </div>
   {% include "character_sheet/show/rolls.html.twig" %}
 </div>
+{% block modals %}
+  {% include "character_sheet/modal/avatar.update.html.twig" %}
+  {% include "character_sheet/modal/xp.add.html.twig" %}
+  {% include "character_sheet/modal/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
+{% endblock %}
 {% endblock %}

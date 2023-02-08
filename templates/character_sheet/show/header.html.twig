@@ -1,51 +1,40 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
-<div class="modal fade" id="avatarModal" aria-labelledby="avatarModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content block-solid">
-      <form data-action="character--avatar#update" name="avatar" data-character--avatar-target="form" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <input class="form-control" type="file" name="avatar[upload]"/>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-            {{ 'avatar.save'|trans }}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 <div class="row block p-2">
   {% block name %}
     <h1 class="text-center text">
       {{ character.name }} {% if app.user != character.player %}({{ character.player }}){% endif %}
     </h1>
   {% endblock %}
-  {% block leftCol %}
-    <div class="order-2 order-md-1 col-6 col-md text-center">
+  <div class="order-2 order-md-1 col-6 col-md text-center">
+    {% block leftCol %}
       <div class="row">
         <div class="col-12">
-          {% if character.apparentAge is defined %}
-            {{ "age.less"|trans({"%age%": character.age, "%looks%": character.apparentAge}) }}
-          {% else %}
-            {{ "age.normal"|trans({"%age%": character.age}) }}
-          {% endif %}
+          {% block age %}
+            {% if character.lookAge is defined and character.lookAge != character.age %}
+              {{ "age.normal"|trans({"%age%": character.age|default(0)}, 'character') }}
+              ({{ "age.looks.value"|trans({"%looks%": character.lookAge}, 'character') }})
+            {% elseif character.age is defined %}
+              {{ "age.normal"|trans({"%age%": character.age}, 'character') }}
+            {% endif %}
+          {% endblock %}
         </div>
         <div class="col-12">
-          {% trans %}virtue.name{% endtrans %}: {{ character.virtue }}  {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+          {% block virtue %}
+            {% include "icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
+            {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+          {% endblock %}
         </div>
         <div class="col-12">
-          {% trans %}vice.name{% endtrans %}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+          {% block vice %}
+            {% include "icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
+            {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+          {% endblock %}
         </div>
       </div>
-    </div>
-  {% endblock %}
+    {% endblock %}
+  </div>
   {% block midCol %}
     <div class="order-1 order-md-2 col-12 col-md">
       <div class="row text-center">
@@ -62,16 +51,16 @@
     <div class="order-3 order-md-3 col-6 col-md text-center">
       <div class="row">
         <div class="col-12">
-          {% trans %}Concept{% endtrans %}: {{ character.concept }}
+          {{ "Concept"|trans }}: {{ character.concept }}
         </div>
         <div class="col-12">
-          {% trans %}Chronicle{% endtrans %}: {{ character.chronicle }}
+          {{ "Chronicle"|trans }}: {{ character.chronicle }}
         </div>
         <div class="col-12">
-          {% trans %}Faction{% endtrans %}: {{ character.faction }}
+          {{ "Faction"|trans }}: {{ character.faction }}
         </div>
         <div class="col-12">
-          {% trans %}Group name{% endtrans %}: {{ character.groupName }}
+          {{ "Group name"|trans }}: {{ character.groupName }}
         </div>
       </div>
     </div>

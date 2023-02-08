@@ -15,6 +15,7 @@
     {{ source('@icons/' ~ 'return-arrow.svg') }}
   {% elseif icon == 'add' or icon == 'new' %}
     <i class="fa-xs fa-solid fa-plus"></i>
+
   {% elseif icon == 'free' or icon == 'pass' %}
     {{ source('@icons/' ~ 'ticket.svg') }}
   {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' or icon == "traits" %}
@@ -71,6 +72,10 @@
     {% endif %}
   {% elseif icon == 'inventory' %}
     {{ source('@icons/' ~ 'backpack.svg') }}
+  {% elseif icon == 'virtue' %}
+    {{ source('@icons/' ~ 'virtue.svg') }}
+  {% elseif icon == 'vice' %}
+    {{ source('@icons/' ~ 'vice.svg') }}
   {% elseif icon == 'morality' %}
     {{ source('@icons/' ~ 'heart-wings.svg') }}
   {% elseif icon == 'willpower' %}

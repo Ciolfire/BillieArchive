@@ -7,33 +7,33 @@ use App\Repository\VampireRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   protected $id;
 
-  #[ORM\Column(type: "string", length: 50)]
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   private $sire;
 
-  #[ORM\Column(type: "smallint")]
-  private $apparentAge;
+  #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
+  private $deathAge;
 
   #[ORM\ManyToOne(targetEntity: Clan::class)]
   #[ORM\JoinColumn(nullable: false)]
   private $clan;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: Types::SMALLINT)]
   private $potency = 1;
 
-  #[ORM\Column(type: "smallint")]
+  #[ORM\Column(type: Types::SMALLINT)]
   private $vitae = 1;
 
-  #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true, fetch: "EAGER")]
+  #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true)]
   private $disciplines;
 
   protected $limit = 5;
@@ -68,21 +68,21 @@ class Vampire extends Character
     return $this->sire;
   }
 
-  public function setSire(string $sire): self
+  public function setSire(?string $sire): self
   {
     $this->sire = $sire;
 
     return $this;
   }
 
-  public function getApparentAge(): ?int
+  public function getDeathAge(): ?int
   {
-    return $this->apparentAge;
+    return $this->deathAge;
   }
 
-  public function setApparentAge(int $apparentAge): self
+  public function setDeathAge(?int $deathAge): self
   {
-    $this->apparentAge = $apparentAge;
+    $this->deathAge = $deathAge;
 
     return $this;
   }

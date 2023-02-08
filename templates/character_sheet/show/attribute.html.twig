@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'character' %}
 
-{% block controller %}role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ ('attribute' ~ '.' ~ base)|trans }}"{% endblock %}
+{% block controller %}role="group" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'attribute.value'|trans({'value': base}) }}"{% endblock %}
 
 {% block dot %}
   <input type="checkbox" class="btn-check" id="{{ attribute.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>

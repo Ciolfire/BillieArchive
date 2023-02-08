@@ -6,31 +6,30 @@ use App\Entity\Vampire;
 use App\Repository\DisciplinePowerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
-
-use function PHPUnit\Framework\isNull;
 
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
 class DisciplinePower
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private $id;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   private $name;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 150)]
+  #[ORM\Column(type: Types::STRING, length: 150)]
   private $short = "";
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $details = "";
 
-  #[ORM\Column(type: "smallint", nullable: true)]
+  #[ORM\Column(type: Types::SMALLINT, nullable: true)]
   private $level;
 
   #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: "powers")]

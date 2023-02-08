@@ -6,7 +6,7 @@
   {% if specialties|length > 0 %}role="button" data-bs-toggle="collapse" data-bs-target="#{{ skill ~ "specialties" }}"{% endif %}
 {% endblock %}
 
-{% block data %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ ('skill' ~ '.' ~ base)|trans }}"{% endblock %}
+{% block data %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'skill.value'|trans({'value': base}) }}"{% endblock %}
 
 {% block specialty %}
   {% if specialties|length > 0 %}
@@ -23,7 +23,7 @@
   <div id="{{ skill ~ "specialties" }}" class="collapse ps-3">
     <ul class="list-unstyled mb-1">
       {% for specialty in specialties %}
-          <li>{% include "icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm' } %} {{ specialty.name }}</li>
+          <li>{% include "icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm', 'hasTips': 0 } %} {{ specialty.name }}</li>
       {% endfor %}
     </ul>
   </div>

@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\SkillRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
 
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\SkillTranslation")]
@@ -13,25 +13,25 @@ class Skill
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type:Types::INTEGER)]
   private $id;
 
-  #[ORM\Column(type: "string", length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $identifier;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "string", length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $name;
 
-  #[ORM\Column(type: "string", length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $category;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text", nullable: true)]
+  #[ORM\Column(type: Types::TEXT, nullable: true)]
   private $description;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: "text", nullable: true)]
+  #[ORM\Column(type: Types::TEXT, nullable: true)]
   private $fluff;
 
   public function __toString()

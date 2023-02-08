@@ -1,8 +1,10 @@
 {% trans_default_domain 'app' %}
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
+<nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('index') }}">Billie's Archive <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
+    <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset('billie.webp', 'images') }}">
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -9,6 +9,7 @@ use App\Entity\Chronicle;
 use App\Entity\Human;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
+use App\Form\VampireType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
@@ -19,12 +20,14 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
+use function PHPUnit\Framework\isNull;
 
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
@@ -125,15 +128,28 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, Character $character): Response
+  public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
 
     $merits = $this->service->filterMerits($character, false);
-    $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true]);
+    $type = $character->getType();
+
+    switch ($type) {
+      case 'vampire':
+        $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true]);
+        break;
+
+      default:
+        $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true]);
+        break;
+    }
     $form->handleRequest($request);
     $extraData = $form->getExtraData();
 
     if ($form->isSubmitted() && $form->isValid()) {
+      if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
+        $character->setLookAge($character->getAge());
+      }
       if (isset($extraData['merits'])) {
         $this->create->addMerits($character, $extraData['merits']);
       }
@@ -161,14 +177,14 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('character_sheet/'.$character->getType().'/edit.html.twig', [
+    return $this->render('character_sheet/'.$type.'/edit.html.twig', [
       'character' => $character,
-      'type' => $character->getType(),
+      'type' => $type,
       'form' => $form,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'merits' => $merits,
-      $character->getType() => $this->service->getSpecial($character),
+      $type => $this->service->getSpecial($character),
     ]);
   }
 
@@ -237,7 +253,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character/notes/new.html.twig', [
+    return $this->render('character_sheet/notes/new.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);
@@ -255,7 +271,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => "notes"], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character/notes/edit.html.twig', [
+    return $this->render('character_sheet/notes/edit.html.twig', [
       'note' => $note,
       'form' => $form,
     ]);

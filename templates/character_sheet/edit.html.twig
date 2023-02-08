@@ -8,8 +8,10 @@
 {{ form_start(form, {'attr': {'data-controller': 'character--merits character--edit', 'data-action': 'character--edit:change->character--merits#checkPrerequisite', 'data-character--edit-total-value': character.xpTotal, 'data-character--edit-used-value': character.xpUsed}}) }}
   <input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">
   <div class="container block py-3 mt-5 g-0">
-    {% include "character_sheet/edit/header.html.twig" %}
     {% include "character_sheet/edit/menu.html.twig" %}
+    {% block header %}
+      {% include "character_sheet/edit/header.html.twig" %}
+    {% endblock %}
     <div data-controller="tabs" data-tabs-initial-value="general">
       <ul class="nav tabs row g-0 my-2">
         {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}

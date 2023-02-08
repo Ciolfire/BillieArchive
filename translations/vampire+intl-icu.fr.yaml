@@ -1,3 +1,25 @@
+death:
+  age: >-
+    {gender, select,
+      other {{death, plural,
+        other {Etreint à #}
+        =0 {Etreint à un age inconnu}
+      }}
+      male {{death, plural,
+        other {Etreint à #}
+        =0 {Etreint à un age inconnu}
+      }}
+      female {{death, plural,
+        other {Etreinte à #}
+        =0 {Etreinte à un age inconnu}
+      }}
+    }
+  sire: >-
+    {sire, select,
+      unknown {par un Kindred inconnu}
+      other {par {sire}}
+    }
+
 clan:
   label: Clan
   count: "{0}Aucun Clan|{1}1 Clan|]1,Inf[%count% Clans"
@@ -30,3 +52,6 @@ devotion:
   new: Nouvelle devotion
 devotions:
   label: Dévotions
+embrace:
+  at: Âge à l'étreinte
+  by: par

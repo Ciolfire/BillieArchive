@@ -8,10 +8,10 @@ use App\Repository\MeritRepository;
 use App\Entity\Translation\MeritTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
-
 
 #[ORM\Table(name: "merits")]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
@@ -24,46 +24,46 @@ class Merit
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private $id;
 
   #[Gedmo\Locale]
   private $locale;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 40)]
+  #[ORM\Column(type: Types::STRING, length: 40)]
   private $name;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $category;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+  #[ORM\Column(type: Types::BOOLEAN)]
   private $isFighting;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+  #[ORM\Column(type: Types::BOOLEAN)]
   private $isExpanded;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
+  #[ORM\Column(type: Types::SMALLINT)]
   private $min = 1;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
+  #[ORM\Column(type: Types::SMALLINT)]
   private $max;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+  #[ORM\Column(type: Types::BOOLEAN)]
   private $isUnique;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+  #[ORM\Column(type: Types::BOOLEAN)]
   private $isCreationOnly;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $effect = "";
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+  #[ORM\Column(type: Types::TEXT)]
   private $description;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 20)]
+  #[ORM\Column(type: Types::STRING, length: 20)]
   private $type;
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]

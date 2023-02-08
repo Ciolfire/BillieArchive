@@ -33,7 +33,5 @@
   {% include "icon.html.twig" with {'icon': 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>
   <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
   <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
-  {% include "character/modals/xp.add.html.twig" %}
-  {% include "character/modals/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
 </div>
 {% endblock %}

@@ -1,5 +1,4 @@
 Name: Nom
-Age: Age
 Player: Joueur
 Concept: Concept
 virtue:
@@ -14,9 +13,19 @@ Group name: Nom du groupe
 mental: Mental
 physical: Physique
 social: Social
+details: Details
 
-age.normal: "Age: {age} ans"
-age.less: "Age: {age} (Etreinte à {looks} ans)"
+age:
+  label: Age
+  normal: >-
+    {age, plural,
+      =0 {Age inconnu}
+      =1 {Age: 1 an}
+      other {Age: # ans}
+    }
+  looks:
+    label: Age apparent
+    value: "En fait {looks}"
 
 advantage:
   armor: Armure
@@ -34,13 +43,16 @@ advantage:
 
 attribute:
   label: Attribut
-  0: 0 - Absence totale
-  1: 1 - Pauvre. Unexercised, unpracticed or inept.
-  2: 2 - Moyen. The result of occasional effort or application.
-  3: 3 - Bon. Regular practice or effort, or naturally talented.
-  4: 4 - Exceptionnel. Frequently applied, tested and honed, or naturally gifted.
-  5: 5 - Incroyable. The peak of normal human capability. Continuously exercised or naturally blessed.
-  
+  value: >-
+    {value, plural,
+      =0 {0 - Absence totale.}
+      =1 {1 - Pauvre. Unexercised, unpracticed or inept.}
+      =2 {2 - Moyen. The result of occasional effort or application.}
+      =3 {3 - Bon. Regular practice or effort, or naturally talented.}
+      =4 {4 - Exceptionnel. Frequently applied, tested and honed, or naturally gifted.}
+      =5 {5 - Incroyable. The peak of normal human capability. Continuously exercised or naturally blessed.}
+      other {# - Surnaturelle}
+    }
   intelligence: Intelligence
   wits: Astuce
   resolve: Résolution
@@ -117,14 +129,24 @@ merit:
 merits:
   label: Atouts
 
+name:
+  label: Name
+  first: Prénom
+  nick: Surnom
+  last: Nom
+
 skill:
   label: Compétence
-  0: 0 - Incompétent
-  1: 1 - Novice. Connaissances et/ou techniques basiques.
-  2: 2 - Amateur. Connaissance et/ou techniques professionnelles.
-  3: 3 - Professionel. Connaissance et/ou techniques variées et détaillées.
-  4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
-  5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
+  value: >-
+    {value, plural,
+      =0 {0 - Incompétent}
+      =1 {1 - Novice. Basic knowledge and/or techniques.}
+      =2 {2 - Amateur. Solid working knowledge and/or techniques.}
+      =3 {3 - Professionel. Broad, detailed knowledge and/or techniques.}
+      =4 {4 - Expert. Exceptional depth of knowledge and/or techniques.}
+      =5 {5 - Maitre. Unsurpassed depth of knowledge and/or techniques. A leader in the field.}
+      other {# - Maitrise Surnaturelle}
+    }
   unskilled:
     mental: "-3 si incompétent"
     physical: "-1 si incompétent"
@@ -209,8 +231,8 @@ notes:
   label: Notes
   none: Aucune note
 
-  xp:
-    label: PX
-    free: Gratuit
-    details:
-      none: Aucun changement
+xp:
+  label: PX
+  free: Gratuit
+  details:
+    none: Aucun changement

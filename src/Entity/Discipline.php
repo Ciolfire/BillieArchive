@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book",inversedBy: "disciplines"),])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book",inversedBy: "disciplines")])]
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 #[Gedmo\TranslationEntity(class: DisciplineTranslation::class)]
 class Discipline

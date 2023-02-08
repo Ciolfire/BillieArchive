@@ -1,3 +1,25 @@
+death:
+  age: >-
+    {gender, select,
+      other {{death, plural,
+        other {Embraced at #}
+        =0 {Embraced at an unknown age}
+      }}
+      male {{death, plural,
+        other {Embraced at #}
+        =0 {Embraced at an unknown age}
+      }}
+      female {{death, plural,
+        other {Embraced at #}
+        =0 {Embraced at an unknown age}
+      }}
+    }
+  sire: >-
+    {sire, select,
+      unknown {by an unknown Kindred}
+      other {by {sire}}
+    }
+
 clan:
   label: Clan
   count: "{0}No Clan|{1}1 Clan|]1,Inf[%count% Clans"
@@ -30,3 +52,6 @@ devotion:
   new: New devotion
 devotions:
   label: Devotions
+embrace:
+  at: Embraced at
+  by: by

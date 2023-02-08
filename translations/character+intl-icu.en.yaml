@@ -14,9 +14,19 @@ Group name: Group Name
 mental: Mental
 physical: Physical
 social: Social
+details: Details
 
-age.normal: "Age: {age} years old"
-age.less: "Age: {age} (Embraced at {looks})"
+age:
+  label: Age
+  normal: >-
+    {age, plural,
+      =0 {Age unknown}
+      =1 {Age: 1 year old}
+      other {Age: # years old}
+    }
+  looks:
+    label: Apparent age
+    value: "Looks {looks}"
 
 advantage:
   armor: Armor
@@ -34,13 +44,16 @@ advantage:
 
 attribute:
   label: Attribute
-  0: 0 - Absolute vacancy
-  1: 1 - Poor. Unexercised, unpracticed or inept.
-  2: 2 - Average. The result of occasional effort or application.
-  3: 3 - Good. Regular practice or effort, or naturally talented.
-  4: 4 - Exceptional. Frequently applied, tested and honed, or naturally gifted.
-  5: 5 - Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.
-
+  value: >-
+    {value, plural,
+      =0 {0 - Absolute vacancy.}
+      =1 {1 - Poor. Unexercised, unpracticed or inept.}
+      =2 {2 - Average. The result of occasional effort or application.}
+      =3 {3 - Good. Regular practice or effort, or naturally talented.}
+      =4 {4 - Exceptional. Frequently applied, tested and honed, or naturally gifted.}
+      =5 {5 - Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.}
+      other {# - Surnatural}
+    }
   intelligence: Intelligence
   wits: Wits
   resolve: Resolve
@@ -117,19 +130,28 @@ merit:
 merits:
   label: Merits
 
+name:
+  label: Name
+  first: First name
+  nick: Middle name/Nickname
+  last: Last name
+
 skill:
   label: Skill
-  0: 0 - Unskilled
-  1: 1 - Novice. Basic knowledge and/or techniques.
-  2: 2 - Practitioner. Solid working knowledge and/or techniques.
-  3: 3 - Professional. Broad, detailed knowledge and/or techniques.
-  4: 4 - Expert. Exceptional depth of knowledge and/or techniques.
-  5: 5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.
+  value: >-
+    {value, plural,
+      =0 {0 - Unskilled}
+      =1 {1 - Novice. Basic knowledge and/or techniques.}
+      =2 {2 - Practitioner. Solid working knowledge and/or techniques.}
+      =3 {3 - Professional. Broad, detailed knowledge and/or techniques.}
+      =4 {4 - Expert. Exceptional depth of knowledge and/or techniques.}
+      =5 {5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.}
+      other {# - Surnatural}
+    }
   unskilled:
     mental: "-3 unskilled"
     physical: "-1 unskilled"
     social: "-1 unskilled"
-
   academics: Academics
   computer: Computer
   crafts: Crafts
