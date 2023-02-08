@@ -45,6 +45,9 @@ class DevotionType extends AbstractType
         'label' => 'disciplines.label',
         'expanded' => false,
         'translation_domain' => "vampire",
+        'attr' => [
+          'style' => "height:15em;",
+        ],
       ])
       ->add('attributes', null, [
         'label' => 'attributes.label',
