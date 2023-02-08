@@ -25,12 +25,12 @@ class VampireService
   public function getSpecial(Vampire $vampire)
   {
     $disciplines = $this->dataService->findAll(Discipline::class);
-      foreach ($disciplines as $key => $discipline) {
-        /** @var Discipline $discipline */
-        if ($vampire->hasDiscipline($discipline->getId()) || !$discipline->isAvailable($vampire->getChronicle())) {
-          unset($disciplines[$key]);
-        }
+    foreach ($disciplines as $key => $discipline) {
+      /** @var Discipline $discipline */
+      if (!$this->isDisciplineAllowed($discipline, $vampire)) {
+        unset($disciplines[$key]);
       }
+    }
     $devotions = $this->dataService->findAll(Devotion::class);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
@@ -45,6 +45,24 @@ class VampireService
       'disciplines' => $disciplines,
       'devotions' => $devotions,
     ];
+  }
+
+  private function isDisciplineAllowed(Discipline $discipline, Vampire $vampire)
+  {
+    if ($vampire->hasDiscipline($discipline->getId())) {
+
+      return false;
+    }
+    if (!$discipline->isAvailable($vampire->getChronicle())) {
+
+      return false;
+    }
+    if ($discipline->isRestricted() && !$vampire->getClan()->hasDiscipline($discipline)) {
+
+      return false;
+    }
+
+    return true;
   }
 
   public function embrace(Character $character, FormInterface $form)

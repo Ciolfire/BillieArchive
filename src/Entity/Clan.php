@@ -163,6 +163,16 @@ class Clan
     return $this;
   }
 
+  public function hasDiscipline(Discipline $discipline): bool
+  {
+    if (in_array($discipline, $this->disciplines->toArray())) {
+
+      return true;
+    }
+
+    return false;
+  }
+
   public function getShort(): ?string
   {
     return $this->short;

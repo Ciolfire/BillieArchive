@@ -121,7 +121,7 @@ class Discipline
     return $this;
   }
 
-  public function getIsRestricted(): ?bool
+  public function isRestricted(): ?bool
   {
     return $this->isRestricted;
   }
