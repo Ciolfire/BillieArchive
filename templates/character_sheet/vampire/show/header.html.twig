@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-12">
       <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
-        <img class="icon" src="/images/clans/emblems/DaevaToreador-63580ac87fa59-63900223a4528.webp">
+        <img class="icon" src="{{ asset(character.clan.emblem, 'clans_emblems') }}">
         {% if character.clan.isBloodline %}
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})</a>
