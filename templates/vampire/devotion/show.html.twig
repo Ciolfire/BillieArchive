@@ -15,9 +15,9 @@
   <div class="row justify-content-center">
     <h2>{{ "prerequisites"|trans([], 'app') }}</h2>
     {% for prerequisite in devotion.prerequisites %}
-      <div class="col-4 text-center">
+      <div class="col-4 text-center text-bold fs-5">
         {{ prerequisite.entity.name }}
-        {{ prerequisite.value }}
+        <span class="strong">{{ prerequisite.value }}</span>
       </div>
     {% endfor %}
   </div>

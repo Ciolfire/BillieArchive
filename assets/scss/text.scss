@@ -10,12 +10,15 @@
   color: $warningColor;
 }
 
-.text-sub {
-  font-family: $subTextFont;
-}
 
 .text {
   font-family: $textFont;
+  &-sub {
+    font-family: $subTextFont;
+  }
+  &-bold {
+    font-weight: bold;
+  }
   &-default {
     color: $textColor;
   }
