@@ -48,7 +48,7 @@ class DevotionController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($devotion);
 
-      return $this->redirectToRoute('devotion_show', ['id' => $devotion->getId()]);
+      return $this->redirectToRoute('vampire_devotion_show', ['id' => $devotion->getId()]);
     }
 
     return $this->render('vampire/devotion/new.html.twig', [
@@ -68,7 +68,7 @@ class DevotionController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($devotion);
 
-      return $this->redirectToRoute('devotion_show', ['id' => $devotion->getId()]);
+      return $this->redirectToRoute('vampire_devotion_show', ['id' => $devotion->getId()]);
     }
 
     return $this->render('vampire/devotion/new.html.twig', [
