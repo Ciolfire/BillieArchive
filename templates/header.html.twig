@@ -1,9 +1,18 @@
 {% trans_default_domain 'app' %}
 
+{% set billie = random(0, 2) %}
+
+{% if billie != 0 %}
+  {% set billie = 'billie' ~ billie ~ '.webp' %}
+{% else %}
+  {% set billie = 'billie' ~ random(3, 7) ~ '.webp' %}
+{% endif %}
+
+
 <nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('index') }}">Billie's Archive <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
-    <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset('billie.webp', 'images') }}">
+    <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}">
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
