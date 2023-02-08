@@ -27,9 +27,9 @@
     <button type="button" class="btn btn-primary btn-sm mb-1" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Add prerequisite</button>
   </div>
   <h5>Roll</h5>
-  {{ form_row(form.disciplines) }}
   {{ form_row(form.attributes) }}
   {{ form_row(form.skills) }}
+  {{ form_row(form.disciplines) }}
   <div class="col-12">
     <button class="btn btn-primary w-100">{{ button_label|default('Save') }}</button>
   </div>
