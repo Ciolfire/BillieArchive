@@ -16,8 +16,13 @@
     <h2>{{ "prerequisites"|trans([], 'app') }}</h2>
     {% for prerequisite in devotion.prerequisites %}
       <div class="col-4 text-center text-bold fs-5">
-        {{ prerequisite.entity.name }}
-        <span class="strong">{{ prerequisite.value }}</span>
+        {% if value != 0 %}
+          {{ prerequisite.entity.name }}
+          <span class="strong">{{ prerequisite.value }}</span>
+        {% else %}
+          <span class="strong">{{ prerequisite.entity.name }}</span>
+        {% endif %}
+        
       </div>
     {% endfor %}
   </div>
