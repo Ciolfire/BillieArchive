@@ -52,7 +52,7 @@ class Discipline
   private $powers;
 
   #[ORM\Column]
-  private ?bool $isThaumaturgy = null;
+  private ?bool $isThaumaturgy = false;
 
   public function __construct()
   {
