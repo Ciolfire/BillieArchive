@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Clan;
 use App\Service\DataService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,10 +27,9 @@ class AjaxController extends AbstractController
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
-
       switch ($data->value) {
         case "App\Entity\Clan":
-          $choices = $this->dataService->findBy($data->value, ["isBloodline" => false]);
+          $choices = $this->dataService->findBy($data->value, [], ['isBloodline' => 'ASC', 'name' => 'ASC']);
           break;
 
         default:

@@ -54,7 +54,7 @@ export default class extends Controller {
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        // console.log(xhttp.responseText);
+        //console.log(xhttp.responseText);
         target.innerHTML = JSON.parse(xhttp.responseText).choices;
         target.value = id.value;
       }
@@ -64,7 +64,7 @@ export default class extends Controller {
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
 
-    let data = JSON.stringify({'value': this.typeTarget.value });
+    let data = JSON.stringify({'value': this.typeTarget.value});
     xhttp.send(data);
   }
 }
