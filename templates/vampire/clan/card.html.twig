@@ -38,6 +38,7 @@
         <br>
       {% endif %}
         
+      {% include "icon.html.twig" with {'icon': 'discipline'} %}
       {% for discipline in clan.disciplines %}
         {% if loop.last %}
           &
@@ -46,6 +47,20 @@
         {% endif %}
         <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
       {% endfor %}
+      {% include "icon.html.twig" with {'icon': 'discipline'} %}
+      {% if clan.devotions is not empty %}
+        <br>
+        {% include "icon.html.twig" with {'icon': 'devotion'} %}
+        {% for devotion in clan.devotions %}
+          {% if loop.last and not loop.first %}
+            &
+          {% elseif not loop.first %}
+            ,
+          {% endif %}
+          <a href="{{ path('vampire_devotion_show', {'id': devotion.id}) }}">{{ devotion.name }}</a>
+        {% endfor %}
+        {% include "icon.html.twig" with {'icon': 'devotion'} %}
+      {% endif %}
     </div>
     <div class="clan-{{ clan.id }} clan-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
       <div class="text">{{ clan.description|default("")|markdown_to_html }}</div>

@@ -35,6 +35,7 @@ class DevotionType extends AbstractType
       ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($devotion->getDescription())])
       ->add('short')
       ->add('page')
+      ->add('bloodline')
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,

@@ -30,6 +30,8 @@ clan:
     }
   bloodline:
     label: Lignée
+    devotion: Dévotion de {bloodline}
+    devotions: Dévotions de {bloodline}
     count: >-
       {count, plural,
         =0 {Aucune Lignée}

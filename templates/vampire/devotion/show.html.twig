@@ -7,7 +7,12 @@
 {% block body %}
 <div class="container block py-3 mt-5">
   <h1 class="pb-4">{{ devotion.name }}<a href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a></h1>
-    <p class="text-center pb-2 fs-5">
+    {% if devotion.bloodline %}
+    <p class="text-center fs-5 accent">
+      {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
+    </p>
+    {% endif %}
+    <p class="text-center fs-5">
       {# {% include "icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
       {{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}
     </p>

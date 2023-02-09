@@ -71,6 +71,9 @@ class Clan
   #[ORM\Column]
   private ?bool $isBloodline = false;
 
+  #[ORM\OneToMany(mappedBy: 'bloodline', targetEntity: Devotion::class)]
+  private Collection $devotions;
+
   public function __construct($isBloodline = false)
   {
     $this->isBloodline = $isBloodline;
@@ -78,6 +81,7 @@ class Clan
     $this->attributes = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
     $this->bloodlines = new ArrayCollection();
+    $this->devotions = new ArrayCollection();
   }
 
   public function __toString()
@@ -308,6 +312,36 @@ class Clan
   public function setIsBloodline(bool $isBloodline): self
   {
       $this->isBloodline = $isBloodline;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Devotion>
+   */
+  public function getDevotions(): Collection
+  {
+      return $this->devotions;
+  }
+
+  public function addDevotion(Devotion $devotion): self
+  {
+      if (!$this->devotions->contains($devotion)) {
+          $this->devotions->add($devotion);
+          $devotion->setBloodline($this);
+      }
+
+      return $this;
+  }
+
+  public function removeDevotion(Devotion $devotion): self
+  {
+      if ($this->devotions->removeElement($devotion)) {
+          // set the owning side to null (unless already changed)
+          if ($devotion->getBloodline() === $this) {
+              $devotion->setBloodline(null);
+          }
+      }
 
       return $this;
   }

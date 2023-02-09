@@ -55,6 +55,9 @@ class Devotion
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
   private Collection $disciplines;
 
+  #[ORM\ManyToOne(inversedBy: 'devotions')]
+  private ?Clan $bloodline = null;
+
   public function __construct()
   {
     $this->prerequisites = new ArrayCollection();
@@ -215,6 +218,18 @@ class Devotion
   public function removeDiscipline(Discipline $discipline): self
   {
       $this->disciplines->removeElement($discipline);
+
+      return $this;
+  }
+
+  public function getBloodline(): ?Clan
+  {
+      return $this->bloodline;
+  }
+
+  public function setBloodline(?Clan $bloodline): self
+  {
+      $this->bloodline = $bloodline;
 
       return $this;
   }
