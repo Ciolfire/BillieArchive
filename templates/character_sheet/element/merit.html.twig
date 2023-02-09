@@ -2,15 +2,20 @@
   {% set id = merit.id %}
 {% endif %}
 
-<div class="col">
-  <div class="card card-merit block" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
+<div class="col py-2">
+  <div class="card card-merit block h-100" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="row align-items-center px-2">
         <div class="col" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="meritText{{ id }}">
           {% include "icon.html.twig" with {'icon' : merit.category } only %}
           <span class="merit-name">{{ merit.name }}</span>
         </div>
-        <div class="col-auto">
+        <div class="col">
+          {% if merit.isExpanded %}
+            {% block expanded %}{% endblock %}
+          {% endif %}
+        </div>
+        <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
             {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
             {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
@@ -31,9 +36,6 @@
       <div class="merit-{{ id }}-text card-text show" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
         {{ merit.description }}
       </div>
-      {% if merit.isExpanded %}
-        {% block expanded %}{% endblock %}
-      {% endif %}
       <div class="merit-{{ id }}-text card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
         <p class="text-end">
