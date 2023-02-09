@@ -88,6 +88,7 @@ class BookController extends AbstractController
     return $this->render('wiki/form.html.twig', [
       'entity' => 'book',
       'form' => $form,
+      'action' => 'edit',
       'type' => $book->getSetting(),
     ]);
   }
