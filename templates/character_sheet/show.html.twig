@@ -5,81 +5,81 @@
 {% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
-<div class="container py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
-  {% block menu %}
-    {% include "character_sheet/show/menu.html.twig" %}
-  {% endblock %}
-  {% block header %}
-    {% include "character_sheet/show/header.html.twig" %}
-  {% endblock %}
-  <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
-    {% block background %}{% endblock %}
-    <ul class="nav tabs row g-0 mb-2">
-      {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
-      {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
-      {% block specialTab %}{% endblock %}
-      {# {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
-      {% include "tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %}
-      {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
-      {% if app.user == character.player %}
-        {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
-      {% endif %}
-    </ul>
-    <div id="general" data-tabs-target="page">
-      <div class="row pb-3">
-        <div class="col-12 col-md-6">
-          {%include "character_sheet/show/health.html.twig" %}
-        </div>
-        <div class="col-12 col-md-6">
-          {% include "character_sheet/show/willpower.html.twig" %}
-        </div>
-      </div>
-      {% block traits %}
-      {% endblock %}
-      <div class="row g-0 mb-3">
-        {% include "character_sheet/show/attributes.html.twig" %}
-      </div>
-      <div class="row g-0 my-3">
-        {% include "character_sheet/show/skills.html.twig" %}
-      </div>
-      {% block subtraits %}
-      {% endblock %}
-      <div class="row py-2">
-        {% include "character_sheet/show/advantages.html.twig" %}
-      </div>
-    </div>
-    <div id="merits" data-tabs-target="page">
-      {% include "character_sheet/show/merits.html.twig" %}
-    </div>
-    {% block powers %}
+  <div class="container py-3 mt-5" data-controller="character--avatar" data-character--avatar-id-value="{{ character.id }}">
+    {% block menu %}
+      {% include "character_sheet/show/menu.html.twig" %}
     {% endblock %}
-    <div id="inventory" data-tabs-target="page">
-      {% include "character_sheet/show/inventory.html.twig" %}
-    </div>
-    <div id="background" data-tabs-target="page">
-      <div class="col-12 my-2 text-center">
-        <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-          <div class="block mt-1">
-            {% if character.background != "" %}
-              {{ character.background|markdown_to_html }}
-            {% else %}
-              <p>{{ "background.none"|trans }}</p>
-            {% endif %}
-            <a href="{{ path('character_background', {'id': character.id}) }}">{{ "background.edit"|trans }}</a>
+    {% block header %}
+      {% include "character_sheet/show/header.html.twig" %}
+    {% endblock %}
+    <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
+      {% block background %}{% endblock %}
+      <ul class="nav tabs row g-0 mb-2">
+        {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
+        {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+        {% block specialTab %}{% endblock %}
+        {# {% include "tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
+        {% include "tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %}
+        {% include "tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
+        {% if app.user == character.player %}
+          {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
+        {% endif %}
+      </ul>
+      <div id="general" data-tabs-target="page">
+        <div class="row pb-3">
+          <div class="col-12 col-md-6">
+            {%include "character_sheet/show/health.html.twig" %}
           </div>
+          <div class="col-12 col-md-6">
+            {% include "character_sheet/show/willpower.html.twig" %}
+          </div>
+        </div>
+        {% block traits %}
+        {% endblock %}
+        <div class="row g-0 mb-3">
+          {% include "character_sheet/show/attributes.html.twig" %}
+        </div>
+        <div class="row g-0 my-3">
+          {% include "character_sheet/show/skills.html.twig" %}
+        </div>
+        {% block subtraits %}
+        {% endblock %}
+        <div class="row py-2">
+          {% include "character_sheet/show/advantages.html.twig" %}
+        </div>
       </div>
+      <div id="merits" data-tabs-target="page">
+        {% include "character_sheet/show/merits.html.twig" %}
+      </div>
+      {% block powers %}
+      {% endblock %}
+      <div id="inventory" data-tabs-target="page">
+        {% include "character_sheet/show/inventory.html.twig" %}
+      </div>
+      <div id="background" data-tabs-target="page">
+        <div class="col-12 my-2 text-center">
+          <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+            <div class="block mt-1">
+              {% if character.background != "" %}
+                {{ character.background|markdown_to_html }}
+              {% else %}
+                <p>{{ "background.none"|trans }}</p>
+              {% endif %}
+              <a href="{{ path('character_background', {'id': character.id}) }}">{{ "background.edit"|trans }}</a>
+            </div>
+        </div>
+      </div>
+      {% if app.user == character.player %}
+        <div id="notes" data-tabs-target="page">
+          {% include "character_sheet/show/notes.html.twig" %}
+        </div>
+      {% endif %}
     </div>
-    {% if app.user == character.player %}
-      <div id="notes" data-tabs-target="page">
-        {% include "character_sheet/show/notes.html.twig" %}
-      </div>
-    {% endif %}
+    {% include "character_sheet/show/rolls.html.twig" %}
+    {% block modals %}
+      {% include "character_sheet/modal/avatar.update.html.twig" %}
+      {% include "character_sheet/modal/xp.add.html.twig" %}
+      {% include "character_sheet/modal/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
+    {% endblock %}
   </div>
-  {% include "character_sheet/show/rolls.html.twig" %}
-</div>
-{% block modals %}
-  {% include "character_sheet/modal/avatar.update.html.twig" %}
-  {% include "character_sheet/modal/xp.add.html.twig" %}
-  {% include "character_sheet/modal/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
-{% endblock %}
 {% endblock %}
