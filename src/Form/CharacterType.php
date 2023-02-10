@@ -40,6 +40,7 @@ class CharacterType extends AbstractType
       ])
       ->add('nickname', null, [
         'label' => false,
+        'required' => false,
         'empty_data' => "",
         'attr' => [
           'placeholder' => 'name.nick',

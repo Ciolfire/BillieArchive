@@ -1,4 +1,4 @@
-{% extends "character_sheet/attributes.html.twig" %}
+{% extends "character_sheet/element/attributes.html.twig" %}
 
 {% trans_default_domain 'character' %}
 
@@ -15,5 +15,5 @@
   {% set max = 5 %}
   {% set min = 1 %}
   {% set base = 1 %}
-  {% include "character/new/attribute.html.twig" with {'base': attribute(character.attributes, attribute.id) } %}
+  {% include "character_sheet/new/attribute.html.twig" with {'base': attribute(character.attributes, attribute.id) } %}
 {% endblock %}

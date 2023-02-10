@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}{{ character.name }}{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
+    <h1>Create new Character</h1>
+    <div class="container block py-3 g-0">
+      <a href="{{ path('character_index') }}">back to list</a>
+      {% include "character_sheet/edit/header.html.twig" %}
+      <div class="row g-0">
+        {% include "character_sheet/new/attributes.html.twig" %}
+      </div>
+      <div class="row my-2">
+        {% include "character_sheet/new/skills.html.twig" %}
+      </div>
+      {% include "character_sheet/new/specialties.html.twig" %}
+      {% include "character_sheet/new/background.html.twig" %}
+      {# {% include "character_sheet/new/advantages.html.twig" %} #}
+      {% include "character_sheet/new/merits.html.twig" %}
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+      </div>
+    </div>
+  {{ form_end(form) }}
+{% endblock %}
