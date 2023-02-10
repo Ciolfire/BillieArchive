@@ -37,7 +37,7 @@ class DevotionController extends AbstractController
     ]);
   }
 
-  #[Route("/discipline/{type<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
+  #[Route("/devotion/{type<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
   public function devotionList($type, $id)
   {
     switch ($type) {
