@@ -94,12 +94,12 @@ class Character
   
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected $virtue;
-    #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $virtueDetail;
 
   #[ORM\ManyToOne(targetEntity: Vice::class)]
   protected $vice;
-  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $viceDetail;
 
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
