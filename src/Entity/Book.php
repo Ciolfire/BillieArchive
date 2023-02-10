@@ -56,6 +56,9 @@ class Book
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
   private $devotions;
 
+  #[ORM\Column(nullable: true)]
+  private ?bool $displayFirst = null;
+
   public function __construct($setting="human")
   {
     $this->setting = $setting;
@@ -307,5 +310,17 @@ class Book
     }
 
     return $this;
+  }
+
+  public function isDisplayFirst(): ?bool
+  {
+      return $this->displayFirst;
+  }
+
+  public function setDisplayFirst(?bool $displayFirst): self
+  {
+      $this->displayFirst = $displayFirst;
+
+      return $this;
   }
 }

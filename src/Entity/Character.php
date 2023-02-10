@@ -168,21 +168,11 @@ class Character
     }
   }
 
-  public function setName(string $name): self
+  public function setName(string $firstName, ?string $lastName, ?string $nickname): self
   {
-    $this->name = $name;
-
-    return $this;
-  }
-
-  public function getLastName(): ?string
-  {
-    return $this->lastName;
-  }
-
-  public function setLastName(string $lastName): self
-  {
+    $this->firstName = $firstName;
     $this->lastName = $lastName;
+    $this->nickname = $nickname;
 
     return $this;
   }
@@ -195,6 +185,18 @@ class Character
   public function setFirstName(string $firstName): self
   {
     $this->firstName = $firstName;
+
+    return $this;
+  }
+
+  public function getLastName(): ?string
+  {
+    return $this->lastName;
+  }
+
+  public function setLastName(string $lastName): self
+  {
+    $this->lastName = $lastName;
 
     return $this;
   }

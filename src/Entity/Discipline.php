@@ -48,7 +48,7 @@ class Discipline
   #[ORM\Column(type: Types::TEXT)]
   private $rules;
 
-  #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true, fetch: "EAGER")]
+  #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true)]
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
   private $powers;
 

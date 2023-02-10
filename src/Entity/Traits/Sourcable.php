@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Book;
 
 trait Sourcable {
-  #[ORM\ManyToOne(targetEntity: Book::class, fetch: "EAGER")]
+  #[ORM\ManyToOne(targetEntity: Book::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   protected $book;
 
   #[ORM\Column(type: "smallint", nullable: true)]

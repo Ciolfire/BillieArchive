@@ -31,7 +31,7 @@ class BookController extends AbstractController
     }
 
     return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting]),
+      'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting], ['displayFirst' => 'DESC', 'name' => 'ASC']),
       'entity' => 'book',
       'category' => 'character',
       'type' => $setting,
