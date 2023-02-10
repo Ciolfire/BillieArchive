@@ -18,10 +18,12 @@ class EmbraceType extends AbstractType
   {
     $builder
     ->add('sire', TextType::class, [
-      'label' => 'vampire.sire'
+      'label' => 'vampire.sire',
+      'required' => false,
     ])
     ->add('age', IntegerType::class, [
-      'label' => 'vampire.age'
+      'label' => 'vampire.age',
+      'required' => false,
     ])
     ->add('clan', RadiobuttonType::class, [
       'choices' => $options['clans'],

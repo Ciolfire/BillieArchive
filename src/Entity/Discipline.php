@@ -197,4 +197,15 @@ class Discipline
 
       return $this;
   }
+
+  public function isCreationUnlocked() {
+    if (!$this->isRestricted) {
+      if (!in_array($this->id, [2, 4, 5, 6, 8])) {
+
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
