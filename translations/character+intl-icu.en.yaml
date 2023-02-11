@@ -72,6 +72,7 @@ avatar:
 
 characters: Characters
 npc: NPC
+generated: Pregenerated
 
 tab:
   background: Background

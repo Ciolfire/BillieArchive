@@ -1,0 +1,20 @@
+{% trans_default_domain 'app' %}
+
+<h1>{{ title|trans }}</h1>
+<div class="container">
+  <div class="col-4 offset-4">
+    <a class="btn btn-sm btn-primary w-100 text-center" href=
+      {% if type == "template" %}"{{ path('character_new_template') }}"
+      {% elseif type == "npc" %}"{{ path('character_new', {'isNpc': true }) }}"
+      {% else %}{{ path('character_new', {'isNpc': 0 }) }}
+      {% endif %}
+    >
+      Create {{ type|trans }}
+    </a>
+  </div>
+  <div class="row pt-3">
+    {% for character in characters %}
+      {% include "character/card.html.twig" %}
+    {% endfor %}
+  </div>
+</div>

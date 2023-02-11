@@ -20,10 +20,13 @@ category:
   social: Social
 character:
   label: Personnage
+  npc: PNJ
+  generated: Prétiré
 characters:
+  label: Personnages
   groups: Groupes
-  name: Personnages
-  non.player: PNJ
+  npc: PNJs
+  generated: Prétirés
 chronicle:
   label: Chronique
 chronicles:

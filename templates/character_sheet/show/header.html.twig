@@ -4,7 +4,12 @@
 <div class="row block p-2">
   {% block name %}
     <h1 class="text-center text">
-      {{ character.name }} {% if app.user != character.player %}({{ character.player }}){% endif %}
+      {{ character.name }} 
+      {% if character.player is not null and app.user != character.player %}
+        ({{ character.player }})
+      {% elseif character.isTemplate == true %}
+        ({{ "generated"|trans }})
+      {% endif %}
     </h1>
   {% endblock %}
   <div class="order-2 order-md-1 col-6 col-md text-center">

@@ -26,7 +26,7 @@
           <a class="nav-link" href="{{ path('wiki_index') }}" target="_blank"><i class="fa-solid fa-up-right-from-square fa-xs"></i></a>
         </li>
         <li class="nav-item border-end">
-          <a class="nav-link" href="{{ path('character_index') }}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %} {{ "characters.name"|trans }}</a>
+          <a class="nav-link" href="{{ path('character_index') }}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %} {{ "characters.label"|trans }}</a>
         </li>
         {% if app.user.stories is not empty %}
           <li class="nav-item dropstart border-end">

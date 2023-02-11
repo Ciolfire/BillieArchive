@@ -20,10 +20,13 @@ category:
   social: Social
 character:
   label: Character
+  npc: NPC
+  generated: Pregenerated Character
 characters:
+  label: Characters
   groups: Groups
-  name: Characters
-  non.player: NPC
+  npc: NPCs
+  generated: Pregenerated Characters
 chronicle:
   label: Chronicle
 chronicles:

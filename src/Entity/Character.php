@@ -116,6 +116,11 @@ class Character
   protected Collection $notes;
   
   protected $limit = 5;
+
+  #[ORM\Column]
+  protected ?bool $isTemplate = false;
+
+  protected $type;
   
   public function __construct()
   {
@@ -125,6 +130,8 @@ class Character
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
     $this->notes = new ArrayCollection();
+    
+    $this->type = lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
   }
 
   public function __toString()
@@ -823,5 +830,17 @@ class Character
     }
 
     return $this;
+  }
+
+  public function isTemplate(): ?bool
+  {
+      return $this->isTemplate;
+  }
+
+  public function setIsTemplate(bool $isTemplate): self
+  {
+      $this->isTemplate = $isTemplate;
+
+      return $this;
   }
 }

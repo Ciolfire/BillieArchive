@@ -55,13 +55,47 @@ class CharacterController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy([
-        'player' => $user->getId(),
-        'isNpc' => false
-      ]),
-      'npc' => $characterRepository->findBy([
-        'player' => $user->getId(),
-        'isNpc' => true
+      'characters' => $characterRepository->findBy(
+        [
+          'player' => $user->getId(),
+          'isNpc' => false,
+          'isTemplate' => false,
+        ],
+        [
+          'chronicle' => 'DESC',
+          // 'type' => 'ASC',
+          'firstName' => 'ASC',
+          'lastName' => 'ASC',
+        ]),
+      'npc' => $characterRepository->findBy(
+        [
+          'player' => $user->getId(),
+          'isNpc' => true
+        ],
+        [
+          'chronicle' => 'DESC',
+          // 'type' => 'ASC',
+          'firstName' => 'ASC',
+          'lastName' => 'ASC',
+        ]
+      ),
+    ]);
+  }
+  
+  #[Route('/generated', name: 'character_generated_index', methods: ['GET'])]
+  public function indexTemplates(CharacterRepository $characterRepository): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    return $this->render('character/index.html.twig', [
+      'generated' => $characterRepository->findBy([
+        'isTemplate' => true,
+      ],
+      [
+        'chronicle' => 'ASC',
+        // 'type' => 'ASC',
+        'firstName' => 'ASC',
+        'lastName' => 'ASC',
       ]),
     ]);
   }
@@ -72,20 +106,59 @@ class CharacterController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy([
+      'npc' => $characterRepository->findBy([
         'player' => $user->getId(),
         'isNpc' => true
+      ],
+      [
+        'chronicle' => 'ASC',
+        // 'type' => 'ASC',
+        'firstName' => 'ASC',
+        'lastName' => 'ASC',
       ]),
     ]);
   }
 
-  #[Route('/new/{isNpc}/{chronicle}/', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
+  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}/', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
   public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle = null, bool $isNpc = false): Response
   {
     $character = new Human();
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
     $character->setPlayer($this->getUser());
+    $merits = $this->service->filterMerits($character);
+    $form = $this->createForm(CharacterType::class, $character);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (isset($form->getExtraData()['merits'])) {
+        $this->create->addMerits($character, $form->getExtraData()['merits']);
+      }
+      $this->create->getSpecialties($character, $form);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
+      
+      $this->dataService->save($character);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('character_sheet/new.html.twig', [
+      'character' => $character,
+      'form' => $form,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
+      'merits' => $merits,
+    ]);
+  }
+
+  #[Route('/new/template/', name: 'character_new_template', methods: ['GET', 'POST'])]
+  public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
+  {
+    $character = new Human();
+
+    $character->setIsNpc(false);
+    $character->setIsTemplate(true);
+
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);

@@ -11,7 +11,7 @@
     <div class="col-12 col-lg-6">
       <h2><span>{{ "personal"|trans }}</span></h2>
       <div class="row block mx-1">
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.name"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.label"|trans }}</a></div>
         <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
         <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "icon.html.twig" with {'icon': 'options', 'hasTips': 0 } only %}{{ "options"|trans }}</a></div>
       </div>
@@ -29,7 +29,7 @@
       <h2>{{ "chronicles.title"|trans }}</h2>
       {% if app.user.chronicles is not empty %}
         {% for chronicle in app.user.chronicles %}
-          <div class="row block {{ chronicle.type }} mx-1">
+          <div class="row block {{ chronicle.type }} mx-1 mb-3">
             <h3>{{ chronicle.name }}</h3>
             {% include "chronicle/base.html.twig" %}
           </div>
@@ -45,7 +45,7 @@
     <div class="col-12 col-lg-6">
       <h2>{{ "stories.title"|trans }}</h2>
       {% for chronicle in app.user.stories %}
-        <div class="row block {{ chronicle.type }} mx-1">
+        <div class="row block {{ chronicle.type }} mx-1 mb-3">
           <h3>{{ chronicle.name }}</h3>
           <div class="row">
             {% include "chronicle/story/base.html.twig" %}

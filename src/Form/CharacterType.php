@@ -27,7 +27,11 @@ class CharacterType extends AbstractType
     if ($chronicle) {
       $chronicles = [$chronicle];
     } else {
-      $chronicles = array_merge($player->getChronicles()->toArray(), $player->getStories()->toArray());
+      if ($player) {
+        $chronicles = array_merge($player->getChronicles()->toArray(), $player->getStories()->toArray());
+      } else {
+        $chronicles = [];
+      }
     }
     $builder
       ->add('player')
@@ -75,10 +79,25 @@ class CharacterType extends AbstractType
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
       if (!$options['is_edit']) {
-        $builder->add('specialty1', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('specialty2', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('specialty3', CharacterSpecialtyType::class, ['mapped' => false, 'label' => false])
-        ->add('background', CKEditorType::class , ['label' => false, 'empty_data' => ""]);
+        $builder->add('specialty1', CharacterSpecialtyType::class, [
+          'required' => false,
+          'mapped' => false,
+          'label' => false,
+          ])
+        ->add('specialty2', CharacterSpecialtyType::class, [
+          'required' => false,
+          'mapped' => false,
+          'label' => false,
+          ])
+        ->add('specialty3', CharacterSpecialtyType::class, [
+          'required' => false,
+          'mapped' => false,
+          'label' => false,
+          ])
+        ->add('background', CKEditorType::class , [
+          'label' => false,
+          'empty_data' => "",
+        ]);
       }
   }
 

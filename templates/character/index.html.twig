@@ -5,28 +5,16 @@
 {% block title %}{{ "characters"|trans }}{% endblock %}
 
 {% block body %}
-<h1>{{ "characters"|trans }}</h1>
-<div class="container">
-  <div class="col-4 offset-4">
-    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('character_new') }}">Create new</a>
-  </div>
-  <div class="row pt-3">
-    {% for character in characters %}
-      {% include "character/card.html.twig" %}
-    {% endfor %}
-  </div>
-</div>
-<h1>{{ "npc"|trans }}</h1>
-<div class="container">
-  <div class="col-4 offset-4">
-    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('character_new', {'isNpc': true })}}">Create new</a>
-  </div>
-  <div class="row pt-3">
-    {% for character in npc %}
-      {% include "character/card.html.twig" %}
-    {% endfor %}
-  </div>
-</div>
+
+{% if characters is defined %}
+  {% include "character/list.html.twig" with {'title': 'characters.label', 'characters': characters, 'type': 'character'} %}
+{% endif %}
+{% if npc is defined %}
+  {% include "character/list.html.twig" with {'title': 'characters.npc', 'characters': npc, 'type': 'npc'} %}
+{% endif %}
+{% if generated is defined %}
+  {% include "character/list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'template'} %}
+{% endif %}
 {% endblock %}
 
 

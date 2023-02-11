@@ -92,8 +92,10 @@ class CreationService
     foreach ($specialties as $specialty) {
       $specialty = $specialty->getData();
       /** @var CharacterSpecialty $specialty */
-      $specialty->setCharacter($character);
-      $character->addSpecialty($specialty);
+      if (!is_null($specialty->getName())) {
+        $specialty->setCharacter($character);
+        $character->addSpecialty($specialty);
+      }
     }
   }
 }
