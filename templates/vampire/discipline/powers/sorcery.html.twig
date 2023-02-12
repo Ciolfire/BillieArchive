@@ -1,9 +1,5 @@
 {% trans_default_domain 'vampire' %}
 
-{% if (rituals|first).level == 0 %}
-{% endif %}
-
-
 <div>
   {% for ritual in rituals %}
     {% if loop.first and ritual.level == 0 %}
