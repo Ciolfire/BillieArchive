@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book",inversedBy: "disciplines")])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines")])]
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 #[Gedmo\TranslationEntity(class: DisciplineTranslation::class)]
 class Discipline
@@ -53,10 +53,19 @@ class Discipline
   private $powers;
 
   #[ORM\Column]
-  private ?bool $isThaumaturgy = false;
+  private ?bool $isThaumaturgy;
 
-  public function __construct()
+  #[ORM\Column]
+  private ?bool $isSorcery;
+
+  #[ORM\Column]
+  private ?bool $isCoil;
+
+  public function __construct($sorcery = false, $thaumaturgy = false, $coil = false)
   {
+    $this->isSorcery = $sorcery;
+    $this->isThaumaturgy = $thaumaturgy;
+    $this->isCoil = $coil;
     $this->powers = new ArrayCollection();
   }
 
@@ -189,17 +198,18 @@ class Discipline
 
   public function isThaumaturgy(): ?bool
   {
-      return $this->isThaumaturgy;
+    return $this->isThaumaturgy;
   }
 
   public function setIsThaumaturgy(bool $isThaumaturgy): self
   {
-      $this->isThaumaturgy = $isThaumaturgy;
+    $this->isThaumaturgy = $isThaumaturgy;
 
-      return $this;
+    return $this;
   }
 
-  public function isCreationUnlocked() {
+  public function isCreationUnlocked()
+  {
     if (!$this->isRestricted) {
       if (!in_array($this->id, [2, 4, 5, 6, 8])) {
 
@@ -208,5 +218,29 @@ class Discipline
     }
 
     return true;
+  }
+
+  public function isSorcery(): ?bool
+  {
+    return $this->isSorcery;
+  }
+
+  public function setIsSorcery(bool $isSorcery): self
+  {
+    $this->isSorcery = $isSorcery;
+
+    return $this;
+  }
+
+  public function isCoil(): ?bool
+  {
+    return $this->isCoil;
+  }
+
+  public function setIsCoil(bool $isCoil): self
+  {
+    $this->isCoil = $isCoil;
+
+    return $this;
   }
 }

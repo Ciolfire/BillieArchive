@@ -5,11 +5,11 @@
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
-  <div class="container">
-    <h1>{{ (entity ~ ".label")|trans }}</h1>
+  <div class="container mt-3">
+    <h2>{% include "icon.html.twig" with {'icon': category, 'hastips': 0, 'class': 'icon-lg' } %} {{ (category ~ ".label")|trans }}</h2>
     <div class="row mt-5 mb-2">
       {% if is_granted('ROLE_ST') %}
-        <a class="btn btn-primary w-100" href="{{ path('vampire_discipline_new') }}">{{ 'discipline.new'|trans }}</a>
+        <a class="btn btn-primary w-100" href="{{ path('vampire_' ~ category ~ '_new') }}">{{ (category ~ '.new')|trans }}</a>
       {% endif %}
     </div>
     <div class="row block p-2">

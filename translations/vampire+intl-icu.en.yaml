@@ -75,6 +75,26 @@ devotion:
     }
 devotions:
   label: Devotions
+coil:
+  label: Coil of the Dragon
+  new: New Coil
+  power:
+    label: Tier
+    new: New Tier
+coils:
+  label: Coils of the Dragon
+sorcery:
+  label: Blood Sorcery
+  new: New Sorcery
+  power:
+    label: Ritual
+    new: New Ritual
+thaumaturgy:
+  label: Thaumaturgy
+  new: New path
+  power:
+    label: Power
+    new: New Power
 embrace:
   at: Embraced at
   by: by

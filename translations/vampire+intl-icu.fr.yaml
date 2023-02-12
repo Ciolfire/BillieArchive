@@ -75,6 +75,26 @@ devotion:
     }
 devotions:
   label: Dévotions
+coil:
+  label: Anneau du Dragon
+  new: Nouvel Anneau
+  power:
+    label: Tier
+    new: Nouveau Tier
+coils:
+  label: Anneaux du Dragon
+sorcery:
+  label: Sorcellerie du Sang
+  new: Nouvelle Sorcellerie
+  power:
+    label: Rituel
+    new: Nouveau rituel
+thaumaturgy:
+  label: Thaumaturgie
+  new: Nouvelle voie
+  power:
+    label: Pouvoir
+    new: Nouveau pouvoir
 embrace:
-  at: Âge à l'étreinte
+  at: Âge lors de l'étreinte
   by: par

@@ -30,14 +30,63 @@ class DisciplineController extends AbstractController
     $this->dataService = $dataService;
     $this->service = $service;
   }
-  #[Route('/disciplines', name: 'discipline_index', methods: ['GET'])]
+  
+  #[Route('/disciplines', name: 'vampire_discipline_index', methods: ['GET'])]
   public function disciplines(): Response
   {
+    $disciplines = $this->dataService->findBy(Discipline::class, [
+      'isSorcery' => false,
+      'isThaumaturgy' => false,
+      'isCoil' => false,
+    ]);
+
     return $this->render('vampire/discipline/index.html.twig', [
-      'elements' => $this->dataService->findAll(Discipline::class),
+      'elements' => $disciplines,
       'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
       'entity' => 'discipline',
-      'category' => 'character',
+      'category' => 'discipline',
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/sorcery', name: 'vampire_sorcery_index', methods: ['GET'])]
+  public function sorcery(): Response
+  {
+    $disciplines = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
+
+    return $this->render('vampire/discipline/index.html.twig', [
+      'elements' => $disciplines,
+      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'entity' => 'discipline',
+      'category' => 'sorcery',
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/thaumaturgy', name: 'vampire_thaumaturgy_index', methods: ['GET'])]
+  public function thaumaturgy(): Response
+  {
+    $disciplines = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
+
+    return $this->render('vampire/discipline/index.html.twig', [
+      'elements' => $disciplines,
+      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'entity' => 'discipline',
+      'category' => 'thaumaturgy',
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/coils', name: 'vampire_coils_index', methods: ['GET'])]
+  public function coils(): Response
+  {
+    $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
+
+    return $this->render('vampire/discipline/index.html.twig', [
+      'elements' => $disciplines,
+      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'entity' => 'discipline',
+      'category' => 'coil',
       'type' => 'vampire',
     ]);
   }
@@ -57,6 +106,72 @@ class DisciplineController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $discipline = new Discipline();
+    $form = $this->createForm(DisciplineType::class, $discipline);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($discipline);
+
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+    }
+
+    return $this->render('vampire/discipline/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/sorcery/new', name: 'vampire_sorcery_new', methods: ['GET', 'POST'])]
+  public function sorceryNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $discipline = new Discipline(true);
+
+    $form = $this->createForm(DisciplineType::class, $discipline);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($discipline);
+
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+    }
+
+    return $this->render('vampire/discipline/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/thaumaturgy/new', name: 'vampire_thaumaturgy_new', methods: ['GET', 'POST'])]
+  public function thaumaturgyNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $discipline = new Discipline(false, true);
+
+    $form = $this->createForm(DisciplineType::class, $discipline);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($discipline);
+
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+    }
+
+    return $this->render('vampire/discipline/new.html.twig', [
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/coils/new', name: 'vampire_coil_new', methods: ['GET', 'POST'])]
+  public function coilsNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $discipline = new Discipline(false, false, true);
+
     $form = $this->createForm(DisciplineType::class, $discipline);
 
     $form->handleRequest($request);
