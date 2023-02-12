@@ -1,0 +1,23 @@
+{% trans_default_domain 'vampire' %}
+
+{% if (rituals|first).level == 0 %}
+{% endif %}
+
+
+<div>
+  {% for ritual in rituals %}
+    {% if loop.first and ritual.level == 0 %}
+      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}</h2>
+      {{ (rituals|first).details }}
+      {% set level = 0 %}
+    {% else %} 
+      {% if ritual.level != level %}
+        {% set level = ritual.level %}
+        <h2 class="pb-2">{{ 'sorcery.powers.level'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h2>
+      {% endif %}
+      {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+      <h3>{{ ritual.name }}</h3>
+      <p>{{ ritual.details }}</p>
+    {% endif %}
+  {% endfor %}
+</div>
