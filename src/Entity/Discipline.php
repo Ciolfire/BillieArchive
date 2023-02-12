@@ -38,7 +38,7 @@ class Discipline
   private $description;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: Types::STRING, length: 80, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 90, nullable: true)]
   private $short;
 
   #[ORM\Column(type: Types::BOOLEAN)]
