@@ -80,6 +80,13 @@ coil:
   new: New Coil
   power:
     label: Tier
+    level: >-
+      {level, selectordinal,
+        one   {#st}
+        two   {#nd}
+        few   {#rd}
+        other {#th}
+      } Tier: {name}
     new: New Tier
 coils:
   label: Coils of the Dragon

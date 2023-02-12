@@ -1,1 +1,17 @@
 {% trans_default_domain 'vampire' %}
+{% trans_default_domain 'vampire' %}
+
+<div>
+  {% for tier in tiers %}
+      <h2 class="pb-2">
+        {{ 'coil.power.level'|trans({'%level%': tier.level, '%name%': tier.name}) }}
+        {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': tier.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+      </h2>
+      <div class="rule p-3 my-3">
+        {{ tier.details|markdown_to_html }}
+      </div>
+  {% endfor %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary w-100 my-3" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'coil.power.new'|trans }}</a>
+  {% endif %}
+</div>
