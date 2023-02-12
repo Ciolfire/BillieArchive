@@ -35,28 +35,30 @@ class DisciplinePowerType extends AbstractType
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short', 'translation_domain' => "app"])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
-      ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
-      ->add('discipline', null, ['label' => 'discipline.label'])
-      ->add('attributes', null, [
-        'label' => 'attributes.label',
-        'expanded' => true,
-        'translation_domain' => "character",
-        'group_by' => function($choice) use ($translator) {
-          /** @var Attribute $choice */
-          return $translator->trans($choice->getCategory(), [], 'character');
-        },
-        ])
-      ->add('skills', null, [
-        'label' => 'skills.label',
-        'expanded' => true,
-        'translation_domain' => "character",
-        'choice_attr' => ['class' =>'text-sub'],
-        'group_by' => function($choice) use ($translator) {
-          /** @var Skill $choice */
-          return $translator->trans($choice->getCategory(), [], 'character');
-        },
-      ])
-      ->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => "app"]);
+      ->add('level', null, ['label' => 'level', 'translation_domain' => "app"]);
+    if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil() && !$power->getDiscipline()->isThaumaturgy()) {
+      $builder
+        ->add('attributes', null, [
+          'label' => 'attributes.label',
+          'expanded' => true,
+          'translation_domain' => "character",
+          'group_by' => function($choice) use ($translator) {
+            /** @var Attribute $choice */
+            return $translator->trans($choice->getCategory(), [], 'character');
+          },
+          ])
+        ->add('skills', null, [
+          'label' => 'skills.label',
+          'expanded' => true,
+          'translation_domain' => "character",
+          'choice_attr' => ['class' =>'text-sub'],
+          'group_by' => function($choice) use ($translator) {
+            /** @var Skill $choice */
+            return $translator->trans($choice->getCategory(), [], 'character');
+          },
+        ]);
+    }
+    $builder->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => "app"]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -1,9 +1,12 @@
 {% trans_default_domain 'vampire' %}
 
 <div>
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary w-100 my-3" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'sorcery.power.new'|trans }}</a>
+  {% endif %}
   {% for ritual in rituals %}
     {% if loop.first and ritual.level == 0 %}
-      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}</h2>
+      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}</h2>
       {{ (rituals|first).details|markdown_to_html }}
       {% set level = 0 %}
     {% else %} 
