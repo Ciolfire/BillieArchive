@@ -22,7 +22,7 @@ class DisciplinePower
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   private $name;
 
-  #[ORM\Column(type: Types::STRING, length: 150)]
+  #[ORM\Column(type: Types::STRING, length: 200)]
   private $short = "";
 
   #[Gedmo\Translatable]
