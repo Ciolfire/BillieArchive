@@ -268,7 +268,7 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/index.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
       'entity' => 'discipline',
-      'category' => 'character',
+      'category' => 'discipline',
       'type' => 'vampire',
       'elements' => $item->getDisciplines(),
       'search' => [],
