@@ -29,7 +29,6 @@ class DisciplineType extends AbstractType
       ->add('short')
       ->add('rules', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($rules)])
       ->add('isRestricted')
-      ->add('isThaumaturgy')
       ->add('book')
       ->add('page')
       ->add('save', SubmitType::class);
