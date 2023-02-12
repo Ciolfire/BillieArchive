@@ -86,7 +86,7 @@ class DisciplineController extends AbstractController
       'elements' => $disciplines,
       'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
       'entity' => 'discipline',
-      'category' => 'coil',
+      'category' => 'coils',
       'type' => 'vampire',
     ]);
   }
@@ -165,7 +165,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/coils/new', name: 'vampire_coil_new', methods: ['GET', 'POST'])]
+  #[Route('/coils/new', name: 'vampire_coils_new', methods: ['GET', 'POST'])]
   public function coilsNew(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

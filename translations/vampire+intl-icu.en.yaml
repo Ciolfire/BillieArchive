@@ -89,6 +89,7 @@ coil:
       } Tier: {name}
     new: New Tier
 coils:
+  new: New Coil
   label: Coils of the Dragon
 sorcery:
   label: Blood Sorcery
