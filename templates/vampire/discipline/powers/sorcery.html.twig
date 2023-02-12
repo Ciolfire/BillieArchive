@@ -8,7 +8,7 @@
   {% for ritual in rituals %}
     {% if loop.first and ritual.level == 0 %}
       <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}</h2>
-      {{ (rituals|first).details }}
+      {{ (rituals|first).details|markdown_to_html }}
       {% set level = 0 %}
     {% else %} 
       {% if ritual.level != level %}
