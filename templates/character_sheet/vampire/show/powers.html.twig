@@ -7,10 +7,10 @@
 <div data-controller="tabs" data-tabs-initial-value="disciplines">
   <ul class="nav tabs row g-0">
     {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
-    {% if thaumaturgy is not empty %}
+    {% if sorcery is not empty %}
       {% include "tab.html.twig" with {'name': 'sorcery', 'domain': 'vampire'} only %}
     {% endif %}
-    {% if thaumaturgy is not empty %}
+    {% if coils is not empty %}
       {% include "tab.html.twig" with {'name': 'coils', 'domain': 'vampire'} only %}
     {% endif %}
     {% if thaumaturgy is not empty %}
