@@ -83,10 +83,7 @@ tab:
   notes: Notes
   powers: Powers
   relations: Relations
-  vampire: Vampire
   traits: Traits
-  disciplines: Disciplines
-  devotions: Devotions
 
 dot:
   fifth: Fifth dot cost two

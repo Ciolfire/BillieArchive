@@ -109,3 +109,11 @@ thaumaturgy:
 embrace:
   at: Embraced at
   by: by
+
+tab:
+  coils: Anneaux
+  devotions: Dévotions
+  disciplines: Disciplines
+  sorcery: Sorcellerie
+  thaumaturgy: Thaumaturgie
+  vampire: Vampire

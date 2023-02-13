@@ -15,6 +15,12 @@
     {{ source('@icons/' ~ 'return-arrow.svg') }}
   {% elseif icon == 'add' or icon == 'new' %}
     <i class="fa-xs fa-solid fa-plus"></i>
+  {% elseif icon == 'language' %}
+    {{ source('@icons/' ~ 'language-solid.svg') }}
+  {% elseif icon == 'open-tab' %}
+    {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
+  {% elseif icon == 'exit' %}
+    {{ source('@icons/' ~ 'right-from-bracket-solid.svg') }}
 
   {% elseif icon == 'free' or icon == 'pass' %}
     {{ source('@icons/' ~ 'ticket.svg') }}
@@ -53,15 +59,12 @@
     {{ source('@icons/' ~ 'flow-tornado.svg') }}
   {% elseif icon == 'finesse' %}
     {{ source('@icons/' ~ 'flow-gentle.svg') }}
-    {# <i class="fa-solid fa-feather fa-fw"></i> #}
   {% elseif icon == 'resistance' %}
     {{ source('@icons/' ~ 'flow-crossed.svg') }}
-    {# <i class="fa-solid fa-shield fa-fw"></i> #}
   {% elseif icon == 'mental' %}
     <i class="fas fa-brain"></i>
   {% elseif icon == 'physical' %}
     {{ source('@icons/' ~ 'muscular-torso.svg') }}
-    {# <i class="fas fa-running"></i> #}
   {% elseif icon == 'social' %}
     <i class="fa-solid fa-comments"></i>
   {% elseif icon == 'health' %}
@@ -111,13 +114,11 @@
   {% elseif icon == 'athletics' %}
     {{ source('@icons/' ~ 'body-balance.svg') }}
     {# {{ source('@icons/' ~ 'jumping-rope.svg') }} #}
-    {# <i class="fa-solid fa-person-running fa-fw"></i> #}
   {% elseif icon == 'brawl' %}
     {{ source('@icons/' ~ 'punch.svg') }}
   {% elseif icon == 'drive' %}
     {{ source('@icons/' ~ 'car-key.svg') }}
     {# {{ source('@icons/' ~ 'steering-wheel.svg') }} #}
-    {# <i class="fa-solid fa-car-crash fa-fw"></i> #}
   {% elseif icon == 'firearms' %}
     {{ source('@icons/' ~ 'gun.svg') }}
   {% elseif icon == 'larceny' %}
@@ -149,7 +150,6 @@
     {# {{ source('@icons/' ~ 'modern-city.svg') }} #}
     {# {{ source('@icons/' ~ 'hoodie.svg') }} #}
   {% elseif icon == 'subterfuge' %}
-    {# <i class="fa-solid fa-masks-theater fa-fw"></i> #}
     {# {{ source('@icons/' ~ 'drama-masks.svg') }} #}
     {{ source('@icons/' ~ 'sand-snake.svg') }}
   {% elseif icon == 'specialties' %}
@@ -174,8 +174,6 @@
   {% elseif icon == 'size' %}
     {{ source('@icons/' ~ 'body-height.svg') }}
   {% elseif icon == 'initiative' %}
-    {# <i class="fa-solid fa-star-shooting"></i> #}
-    {# <i class="fa-solid fa-angles-right"></i> #}
     {{ source('@icons/' ~ 'thunderball.svg') }}
   {% elseif icon == 'defense' %}
     {{ source('@icons/' ~ 'dodging.svg') }}
@@ -184,7 +182,7 @@
   {% elseif icon == 'universal' %}
     <i class="fa-solid fa-universal-access fa-fw"></i>
   {% elseif icon == 'human' %}
-    <i class="fa-solid fa-person fa-fw"></i>
+    {{ source('@icons/' ~ 'person.svg') }}
 {# Other #}
   {% elseif icon == 'all' %}
     <i class="fa-solid fa-earth-europe"></i>

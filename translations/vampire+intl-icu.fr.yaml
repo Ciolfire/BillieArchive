@@ -98,3 +98,11 @@ thaumaturgy:
 embrace:
   at: Âge lors de l'étreinte
   by: par
+
+tab:
+  coils: Anneaux
+  devotions: Dévotions
+  disciplines: Disciplines
+  sorcery: Sorcellerie
+  thaumaturgy: Thaumaturgie
+  vampire: Vampire

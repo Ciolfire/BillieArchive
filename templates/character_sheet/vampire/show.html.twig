@@ -26,11 +26,11 @@
 {% endblock %}
 
 {% block powers %}
-  <div id="vampire" data-tabs-target="page">
+  <div id="vampire" class="g-0" data-tabs-target="page">
     {% include "character_sheet/vampire/show/powers.html.twig" %}
   </div>
 {% endblock %}
 
 {% block specialTab %}
-  {% include "tab.html.twig" with {'name': 'vampire', 'domain': 'character'} only %}
+  {% include "tab.html.twig" with {'name': 'vampire', 'domain': 'vampire'} only %}
 {% endblock %}

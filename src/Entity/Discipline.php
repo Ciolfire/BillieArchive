@@ -79,6 +79,15 @@ class Discipline
     return $this->id;
   }
 
+  public function isSimple(): bool {
+    if ($this->isThaumaturgy() || $this->isCoil() || $this->isSorcery()) {
+
+      return false;
+    }
+
+    return true;
+  }
+
   public function IsSinglePower(): bool
   {
     if (count($this->getPowers()) == 1) {

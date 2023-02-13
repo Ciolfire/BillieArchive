@@ -144,6 +144,54 @@ class Vampire extends Character
     return $this->disciplines;
   }
 
+  public function getFilteredDisciplines($filter = null): mixed
+  {
+    switch ($filter) {
+      case 'discipline':
+        $disciplines = [];
+        foreach ($this->disciplines as $discipline) {
+          /** @var VampireDiscipline $discipline */
+          if ($discipline->getDiscipline()->isSimple()) {
+            $disciplines[] = $discipline;
+          }
+        }
+        break;
+
+      case 'sorcery':
+        $disciplines = [];
+        foreach ($this->disciplines as $discipline) {
+          /** @var VampireDiscipline $discipline */
+          if ($discipline->getDiscipline()->isSorcery()) {
+            $disciplines[] = $discipline;
+          }
+        }
+        break;
+      case 'coils':
+        $disciplines = [];
+        foreach ($this->disciplines as $discipline) {
+          /** @var VampireDiscipline $discipline */
+          if ($discipline->getDiscipline()->isCoil()) {
+            $disciplines[] = $discipline;
+          }
+        }
+        break;
+      case 'thaumaturgy':
+        $disciplines = [];
+        foreach ($this->disciplines as $discipline) {
+          /** @var VampireDiscipline $discipline */
+          if ($discipline->getDiscipline()->isThaumaturgy()) {
+            $disciplines[] = $discipline;
+          }
+        }
+        break;
+      default:
+        $disciplines = $this->disciplines->toArray();
+        break;
+    }
+
+    return $disciplines;
+  }
+
   public function addDiscipline(VampireDiscipline $discipline): self
   {
     if (!$this->disciplines->contains($discipline)) {

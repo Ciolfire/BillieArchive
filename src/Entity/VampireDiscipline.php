@@ -14,7 +14,7 @@ class VampireDiscipline
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
   private $id;
 
-  #[ORM\ManyToOne(targetEntity: Discipline::class)]
+  #[ORM\ManyToOne(targetEntity: Discipline::class, fetch: "EAGER")]
   #[ORM\JoinColumn(nullable: false)]
   private $discipline;
 

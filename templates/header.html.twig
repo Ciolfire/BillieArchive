@@ -23,7 +23,10 @@
           <a class="nav-link" href="{{ path('wiki_index') }}">{% include "icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 } only %} {{ "wiki"|trans }}</a>
         </li>
         <li class="nav-item border-end">
-          <a class="nav-link" href="{{ path('wiki_index') }}" target="_blank"><i class="fa-solid fa-up-right-from-square fa-xs"></i></a>
+          <a class="nav-link" href="{{ path('wiki_index') }}" target="_blank">
+            {% include "icon.html.twig" with {'icon': 'open-tab', 'class': 'icon-sm', 'hasTips': 0 } only %}
+            {# {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }} #}
+          </a>
         </li>
         <li class="nav-item border-end">
           <a class="nav-link" href="{{ path('character_index') }}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %} {{ "characters.label"|trans }}</a>
@@ -54,8 +57,7 @@
         {% endif %}
         <li class="nav-item dropstart border-end">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-language"></i>
-            {# {{ app.request.locale }} #}
+            {% include "icon.html.twig" with {'icon': 'language', 'hasTips': 0 } only %}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'fr'}) )}}">fr</a></li>
@@ -63,7 +65,10 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('logout') }}"><i class="fa-solid fa-right-from-bracket"></i>{{ "logout"|trans }}</a>
+          <a class="nav-link" href="{{ path('logout') }}">
+            {% include "icon.html.twig" with {'icon': 'exit', 'hasTips': 0 } only %}
+            {{ "logout"|trans }}
+          </a>
         </li>
       </ul>
     </div>

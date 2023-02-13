@@ -14,7 +14,7 @@
     {% endblock %}
     <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
       {% block background %}{% endblock %}
-      <ul class="nav tabs row g-0 mb-2">
+      <ul class="nav tabs row g-0">
         {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
         {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
         {% block specialTab %}{% endblock %}
@@ -25,7 +25,7 @@
           {% include "tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
         {% endif %}
       </ul>
-      <div id="general" data-tabs-target="page">
+      <div id="general" class="tab-content" data-tabs-target="page">
         <div class="row pb-3">
           <div class="col-12 col-md-6">
             {%include "character_sheet/show/health.html.twig" %}
@@ -48,15 +48,15 @@
           {% include "character_sheet/show/advantages.html.twig" %}
         </div>
       </div>
-      <div id="merits" data-tabs-target="page">
+      <div id="merits" class="tab-content" data-tabs-target="page">
         {% include "character_sheet/show/merits.html.twig" %}
       </div>
       {% block powers %}
       {% endblock %}
-      <div id="inventory" data-tabs-target="page">
+      <div id="inventory" class="tab-content" data-tabs-target="page">
         {% include "character_sheet/show/inventory.html.twig" %}
       </div>
-      <div id="background" data-tabs-target="page">
+      <div id="background" class="tab-content" data-tabs-target="page">
         <div class="col-12 my-2 text-center">
           <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
             <div class="block mt-1">
@@ -70,7 +70,7 @@
         </div>
       </div>
       {% if app.user == character.player %}
-        <div id="notes" data-tabs-target="page">
+        <div id="notes" class="tab-content" data-tabs-target="page">
           {% include "character_sheet/show/notes.html.twig" %}
         </div>
       {% endif %}
