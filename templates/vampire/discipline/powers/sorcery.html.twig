@@ -12,11 +12,11 @@
     {% else %} 
       {% if ritual.level != level %}
         {% set level = ritual.level %}
-        <h2 class="pb-2">{{ 'sorcery.powers.level'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h2>
+        <h3 class="pb-2">{{ 'sorcery.powers.level'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h3>
       {% endif %}
       <div class="block p-3 my-3">
         {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
-        <h3>{{ ritual.name }}</h3>
+        <h4>{{ ritual.name }}</h4>
         {{ ritual.details|markdown_to_html }}
       </div>
     {% endif %}
