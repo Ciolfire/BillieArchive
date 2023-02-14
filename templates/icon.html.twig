@@ -62,11 +62,11 @@
   {% elseif icon == 'resistance' %}
     {{ source('@icons/' ~ 'flow-crossed.svg') }}
   {% elseif icon == 'mental' %}
-    <i class="fas fa-brain"></i>
+    {{ source('@icons/' ~ 'brain.svg') }}
   {% elseif icon == 'physical' %}
-    {{ source('@icons/' ~ 'muscular-torso.svg') }}
+    {{ source('@icons/' ~ 'stone-bust.svg') }}
   {% elseif icon == 'social' %}
-    <i class="fa-solid fa-comments"></i>
+    {{ source('@icons/' ~ 'conversation.svg') }}
   {% elseif icon == 'health' %}
     {% if type == 'vampire' %}
       {{ source('@icons/' ~ 'heart-organ.svg') }}
