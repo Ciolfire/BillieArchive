@@ -212,7 +212,11 @@ class DisciplineController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $power = new DisciplinePower($discipline, $discipline->getMaxLevel() + 1);
+    if (!$discipline->isSorcery()) {
+      $power = new DisciplinePower($discipline, $discipline->getMaxLevel() + 1);
+    } else {
+      $power = new DisciplinePower($discipline, 1);
+    }
     $form = $this->createForm(DisciplinePowerType::class, $power);
 
     $form->handleRequest($request);
