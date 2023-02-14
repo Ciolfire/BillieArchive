@@ -16,7 +16,7 @@
       <ul class="nav tabs row g-0 my-2">
         {% include "tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
         {% include "tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
-        {% include "tab.html.twig" with {'name': character.type, 'domain': 'character'} only %}
+        {% block specialTab %}{% endblock %}
       </ul>
       <div id="general" data-tabs-target="page">
         <div class="row g-0">

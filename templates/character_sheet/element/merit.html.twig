@@ -10,11 +10,6 @@
           {% include "icon.html.twig" with {'icon' : merit.category } only %}
           <span class="merit-name">{{ merit.name }}</span>
         </div>
-        <div class="col">
-          {% if merit.isExpanded %}
-            {% block expanded %}{% endblock %}
-          {% endif %}
-        </div>
         <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
             {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
@@ -29,6 +24,11 @@
               {% endfor %}
             </div>
           </div>
+        </div>
+        <div class="col-12">
+          {% if merit.isExpanded %}
+            {% block expanded %}{% endblock %}
+          {% endif %}
         </div>
       </div>
     </div>

@@ -11,3 +11,7 @@
 {% block header %}
   {% include "character_sheet/vampire/edit/header.html.twig" %}
 {% endblock %}
+
+{% block specialTab %}
+  {% include "tab.html.twig" with {'name': 'vampire', 'domain': 'vampire'} only %}
+{% endblock %}

@@ -26,8 +26,10 @@
         <div class="col">
           {% if merit.prerequisites is not empty %}
             {% for prerequisite in merit.prerequisites %}
-              {% if loop.first != true %}
-                ,
+              {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
+                or
+              {% else %}
+                {% if not loop.first %}&{% endif %}
               {% endif %}
               {% if prerequisite.type == 'App\\Entity\\Merit' %}
                 <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
@@ -36,6 +38,7 @@
               {% else %}
                 <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
               {% endif %}
+              {% set group = prerequisite.choiceGroup %}
             {% endfor %}
           {% endif %}
         </div>

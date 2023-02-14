@@ -191,7 +191,12 @@ class CharacterController extends AbstractController
       $this->addFlash('notice', 'You are not allowed to see this character');
       return $this->redirectToRoute('character_index');
     }
-
+    foreach ($character->getMerits() as $charMerit) {
+      /** @var Merit $merit */
+      foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+      }
+    }
     return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
       'character' => $character,
       'attributes' => $this->attributes,
@@ -248,6 +253,20 @@ class CharacterController extends AbstractController
       $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    foreach ($character->getMerits() as $charMerit) {
+      /** @var Merit $merit */
+      foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+      }
+    }
+
+    foreach ($merits as $merit) {
+      /** @var Merit $merit */
+      foreach ($merit->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+      }
     }
 
     return $this->render('character_sheet/'.$type.'/edit.html.twig', [

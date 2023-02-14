@@ -2,9 +2,9 @@
 
 <div data-controller="tabs" data-tabs-initial-value="traits">
   <ul class="nav tabs row g-0 my-2">
-    {% include "tab.html.twig" with {'name': 'traits', 'domain': 'character'} only %}
-    {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'character'} only %}
-    {% include "tab.html.twig" with {'name': 'devotions', 'domain': 'character'} only %}
+    {% include "tab.html.twig" with {'name': 'traits', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'devotions', 'domain': 'vampire'} only %}
   </ul>
   <div id="traits" data-tabs-target="page">
     {% include "character_sheet/vampire/edit/potency.html.twig" %}

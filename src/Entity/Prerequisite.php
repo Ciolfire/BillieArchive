@@ -165,4 +165,9 @@ class Prerequisite
 
       return $this;
   }
+
+  public function getRealType(): string
+  {
+    return strtolower(substr($this->type, strrpos($this->type, '\\') + 1));
+  }
 }

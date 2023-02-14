@@ -1,21 +1,17 @@
-{% for type, prerequisites in merit.prerequisites %}
-  {# {% if not loop.first %}|{% endif %} #}
-  {% for prerequisite in prerequisites %}
-    {# {% if not loop.first %},{% endif %} #}
-    {% if prerequisite[0] == 'con' %}
-      {{ prerequisite[1] }}
-    {% else %}
-      <span data-character--merits-target="prerequisite" data-type="{{ type }}" data-name="{{ prerequisite[0] }}" data-value="{{ prerequisite[1] }}">
-        {% if type == 'merit' %}
-          {% for merit in merits %}
-            {% if merit.id == prerequisite[0] %}
-              {{ merit.name ~ " " ~ prerequisite[1]}}
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          {{ prerequisite[0] ~ " " ~ prerequisite[1]}}
-        {% endif %}
-      </span>
-    {% endif %}
-  {% endfor %}
+{% for prerequisite in merit.prerequisites %}
+  {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
+    or
+  {% else %}
+    {% if not loop.first %}&{% endif %}
+  {% endif %}
+  {% if prerequisite.realType == "merit" %}
+    {% set identifier = prerequisite.entity.id %}
+  {% else %}
+    {% set identifier = prerequisite.entity.identifier %}
+  {% endif %}
+  
+    <span data-character--merits-target="prerequisite" data-type="{{ prerequisite.realType }}" data-name="{{ identifier }}" data-value="{{ prerequisite.value }}">
+      {{ prerequisite.entity.name }} {{ prerequisite.value }}
+    </span>
+  {% set group = prerequisite.choiceGroup %}
 {% endfor %}
