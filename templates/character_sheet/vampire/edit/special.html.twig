@@ -1,20 +1,44 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
+
+{% set characterDisciplines = character.getFilteredDisciplines('discipline') %}
+{% set characterSorcery = character.getFilteredDisciplines('sorcery') %}
+{% set characterCoils = character.getFilteredDisciplines('coils') %}
+{% set characterThaumaturgy = character.getFilteredDisciplines('thaumaturgy') %}
+{% set characterDevotions = character.devotions %}
 
 <div data-controller="tabs" data-tabs-initial-value="traits">
   <ul class="nav tabs row g-0 my-2">
-    {% include "tab.html.twig" with {'name': 'traits', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'traits', 'domain': 'character'} only %}
     {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'sorcery', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'coils', 'domain': 'vampire'} only %}
+    {% include "tab.html.twig" with {'name': 'thaumaturgy', 'domain': 'vampire'} only %}
     {% include "tab.html.twig" with {'name': 'devotions', 'domain': 'vampire'} only %}
   </ul>
-  <div id="traits" data-tabs-target="page">
-    {% include "character_sheet/vampire/edit/potency.html.twig" %}
-    {% include "character_sheet/edit/willpower.html.twig" %}
+  <div id="traits" class="tab-content" data-tabs-target="page">
+    <div class="row">
+      <div class="col-12 col-lg mb-3">
+        {% include "character_sheet/vampire/edit/potency.html.twig" %}
+      </div>
+      <div class="col-12 col-lg mb-3">
+        {% include "character_sheet/edit/willpower.html.twig" %}
+      </div>
+    </div>
   </div>
-  <div id="disciplines" data-tabs-target="page">
-    {% include "character_sheet/vampire/edit/disciplines.html.twig" %}
+  <div id="disciplines" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterPowers': characterDisciplines, 'powers': vampire.disciplines} %}
   </div>
-  <div id="devotions" data-tabs-target="page">
-    {% include "character_sheet/vampire/edit/devotions.html.twig" %}
+  <div id="sorcery" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterPowers': characterSorcery, 'powers': vampire.sorcery} %}
+  </div>
+  <div id="coils" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterPowers': characterCoils, 'powers': vampire.coils} %}
+  </div>
+  <div id="thaumaturgy" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterPowers': characterThaumaturgy, 'powers': vampire.thaumaturgy} %}
+  </div>
+  <div id="devotions" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/devotions.html.twig" with {'characterPowers': characterDevotions, 'devotions': vampire.devotions} %}
   </div>
 </div>
 

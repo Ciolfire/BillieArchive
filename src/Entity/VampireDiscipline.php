@@ -77,4 +77,16 @@ class VampireDiscipline
 
     return $this;
   }
+
+  public function getType(): string
+  {
+    if ($this->discipline->isSorcery()) {
+      return 'sorcery';
+    } else if ($this->discipline->isCoil()) {
+      return 'coil';
+    } else if ($this->discipline->isThaumaturgy()) {
+      return 'thaumaturgy';
+    }
+    return 'discipline';
+  }
 }

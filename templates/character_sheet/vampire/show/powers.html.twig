@@ -1,3 +1,5 @@
+{% trans_default_domain 'vampire' %}
+
 {% set disciplines = character.getFilteredDisciplines('discipline') %}
 {% set sorcery = character.getFilteredDisciplines('sorcery') %}
 {% set coils = character.getFilteredDisciplines('coils') %}
@@ -24,7 +26,7 @@
     {% include 'character_sheet/vampire/show/disciplines.html.twig' with {'characterDisciplines': disciplines} %}
   </div>
   <div id="sorcery" class="tab-content" data-tabs-target="page">
-    {% include 'character_sheet/vampire/show/disciplines.html.twig' with {'characterDisciplines': sorcery} %}
+    {% include 'character_sheet/vampire/show/sorceries.html.twig' with {'characterDisciplines': sorcery} %}
   </div>
   <div id="coils" class="tab-content" data-tabs-target="page">
     {% include 'character_sheet/vampire/show/disciplines.html.twig' with {'characterDisciplines': coils} %}

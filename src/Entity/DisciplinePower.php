@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Homebrewable;
+use App\Entity\Traits\Sourcable;
 use App\Entity\Vampire;
 use App\Repository\DisciplinePowerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,6 +16,9 @@ use League\HTMLToMarkdown\HtmlConverter;
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
 class DisciplinePower
 {
+  use Homebrewable;
+  use Sourcable;
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]

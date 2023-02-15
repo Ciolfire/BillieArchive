@@ -36,7 +36,13 @@ class DisciplinePowerType extends AbstractType
       ->add('short', null, ['empty_data' => '', 'label' => 'short', 'translation_domain' => "app"])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"]);
-    if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil() && !$power->getDiscipline()->isThaumaturgy()) {
+      if (!$power->getDiscipline()->isSimple()) {
+        $builder
+          ->add('book')
+          ->add('page')
+          ->add('homebrewFor');
+      }
+      if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil()) {
       $builder
         ->add('attributes', null, [
           'label' => 'attributes.label',

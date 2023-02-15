@@ -41,6 +41,9 @@ class Vampire extends Character
   #[ORM\ManyToMany(targetEntity: Devotion::class)]
   private Collection $devotions;
 
+  #[ORM\ManyToMany(targetEntity: DisciplinePower::class)]
+  private Collection $rituals;
+
   public function __construct(Character $character = null)
   {
     $this->disciplines = new ArrayCollection();
@@ -51,6 +54,7 @@ class Vampire extends Character
       }
     }
     $this->devotions = new ArrayCollection();
+    $this->rituals = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -275,5 +279,52 @@ class Vampire extends Character
     }
 
     return false;
+  }
+
+  /**
+   * @return Collection<int, DisciplinePower>
+   */
+  public function getRituals(): Collection
+  {
+    return $this->rituals;
+  }
+
+  public function addRitual(DisciplinePower $ritual): self
+  {
+    if (!$this->rituals->contains($ritual)) {
+      $this->rituals->add($ritual);
+    }
+
+    return $this;
+  }
+
+  public function removeRitual(DisciplinePower $ritual): self
+  {
+    $this->rituals->removeElement($ritual);
+
+    return $this;
+  }
+
+  public function hasRitual(DisciplinePower $ritual): bool
+  {
+    if (in_array($ritual, $this->rituals->toArray())) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /** Get the total level of the character in the coils of the Dragons, mostly used to calculate costs */
+  public function coilLevel(): int
+  {
+    $level = 0;
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      if ('coil' == $discipline->getType()) {
+        $level += $discipline->getLevel();
+      }
+    }
+
+    return $level;
   }
 }

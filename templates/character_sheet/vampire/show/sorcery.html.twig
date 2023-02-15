@@ -1,0 +1,33 @@
+{% extends "character_sheet/vampire/element/sorcery.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block controller %}role="group"{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ discipline.name ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
+  <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ discipline.name ~ '-' ~ value }}"></label>
+{% endblock %}
+
+{% block rituals %}
+  {% for power in discipline.powers %}
+    <div class="row">
+      {% if power.level == 0 or character.hasRitual(power) %}
+        {% set powerPool = power.detailedDicePool(character) %}
+        <div class="col-12 power-header">
+          <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}">
+            <div class="col-3"><h5 class="strong">{{ power.levelDots }}</h5></div>
+            <div class="col-6 text-center"><h3>{{ power.name }}</h3></div>
+            <div class="col-3 text-end">
+              {% if powerPool != null %}
+                {% include "dicePool.html.twig" with {'pool' : powerPool} %}
+              {% endif %}
+            </div>
+            <div class="col-12 text-sub text-center"><p>{{ power.short }}</p></div>
+          </div>
+        </div>
+        <div class="discipline-power-{{ power.id }} accordion-collapse collapse py-2" data-bs-parent=".powers-block-{{ discipline.id }}">{{ power.details|markdown_to_html }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}

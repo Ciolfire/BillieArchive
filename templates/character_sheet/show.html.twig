@@ -27,10 +27,10 @@
       </ul>
       <div id="general" class="tab-content" data-tabs-target="page">
         <div class="row pb-3">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-3">
             {%include "character_sheet/show/health.html.twig" %}
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-3">
             {% include "character_sheet/show/willpower.html.twig" %}
           </div>
         </div>
@@ -75,7 +75,7 @@
         </div>
       {% endif %}
     </div>
-    {% include "character_sheet/show/rolls.html.twig" %}
+    {# {% include "character_sheet/show/rolls.html.twig" %} #}
     {% block modals %}
       {% include "character_sheet/modal/avatar.update.html.twig" %}
       {% include "character_sheet/modal/xp.add.html.twig" %}

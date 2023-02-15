@@ -24,13 +24,11 @@ class VampireService
 
   public function getSpecial(Vampire $vampire)
   {
-    $disciplines = $this->dataService->findAll(Discipline::class);
-    foreach ($disciplines as $key => $discipline) {
-      /** @var Discipline $discipline */
-      if (!$this->isDisciplineAllowed($discipline, $vampire)) {
-        unset($disciplines[$key]);
-      }
-    }
+    $disciplines = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]), $vampire);
+    $sorcery = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isSorcery' => true]), $vampire);
+    $coils = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => true]), $vampire);
+    $thaumaturgy = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]), $vampire);
+    // dd($disciplines, $vampire);
     $devotions = $this->dataService->findAll(Devotion::class);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
@@ -43,8 +41,23 @@ class VampireService
     }
     return [
       'disciplines' => $disciplines,
+      'sorcery' => $sorcery,
+      'coils' => $coils,
+      'thaumaturgy' => $thaumaturgy,
       'devotions' => $devotions,
     ];
+  }
+
+  private function filterDisciplines(array $disciplines, Vampire $vampire) : array
+  {
+    foreach ($disciplines as $key => $discipline) {
+      /** @var Discipline $discipline */
+      if (!$this->isDisciplineAllowed($discipline, $vampire)) {
+        unset($disciplines[$key]);
+      }
+    }
+
+    return $disciplines;
   }
 
   private function isDisciplineAllowed(Discipline $discipline, Vampire $vampire)

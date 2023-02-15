@@ -10,10 +10,21 @@
     </span>
   </div>
   <p class="merit-filters mb-1 ms-5">
-    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="">{% include "icon.html.twig" with {'icon' : 'all' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="mental">{% include "icon.html.twig" with {'icon' : 'mental' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="physical">{% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
-    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="social">{% include "icon.html.twig" with {'icon' : 'social' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="">
+      <span class="d-none d-md-inline">{{ "all"|trans([], 'icon') }}</span>
+      {% include "icon.html.twig" with {'icon' : 'all' } only %}
+    </span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="mental">
+      <span class="d-none d-md-inline">{{ "mental"|trans }}</span>
+      {% include "icon.html.twig" with {'icon' : 'mental' } only %}
+    </span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="physical">
+      <span class="d-none d-md-inline">{{ "physical"|trans }}</span>
+      {% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="social">
+      <span class="d-none d-md-inline">{{ "social"|trans }}</span>
+      {% include "icon.html.twig" with {'icon' : 'social' } only %}
+    </span>
   </p>
   <div id="meritsWrapper" class="row row-cols-2 row-cols-lg-2 row-cols-xl-3 ps-5 mt-0 g-4 collapse show">
     {% block list %}{% endblock %}
