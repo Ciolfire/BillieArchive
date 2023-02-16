@@ -208,6 +208,12 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
   public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
+      $this->addFlash('notice', 'You are not allowed to see this character');
+      return $this->redirectToRoute('character_index');
+    }
 
     $merits = $this->service->filterMerits($character, false);
     $type = $character->getType();

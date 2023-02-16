@@ -1,12 +1,15 @@
 {% trans_default_domain 'character' %}
 
+
+
 <div id="menu" class="container">
   <div class="row justify-content-center g-0">
     <div class="col-2">
-      <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
-        {% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
-        {# {{ "edit"|trans({}, "app") }} #}
-      </a>
+      {% if not character.isTemplate or is_granted('ROLE_GM') %}
+        <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
+          {% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
+        </a>
+      {% endif %}
     </div>
     {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
@@ -15,7 +18,7 @@
       </div>
     </div>
     <div class="col-2">
-      <a href="{{ path('character_index') }}" class="btn btn-sm btn-menu btn-primary w-100">
+      <a href="{% if character.isTemplate %}{{ path('character_generated_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
         {# {{ "back"|trans({}, "app") }} #}
       </a>
