@@ -58,8 +58,8 @@
       </div>
       <div id="background" class="tab-content" data-tabs-target="page">
         <div class="col-12 my-2 text-center">
-          <img class="col-12 col-lg-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-            <div class="block mt-1">
+          <img class="block col-12 col-md-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+            <div class="block mt-1 text-start p-3">
               {% if character.background != "" %}
                 {{ character.background|markdown_to_html }}
               {% else %}

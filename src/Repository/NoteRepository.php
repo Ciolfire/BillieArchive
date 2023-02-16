@@ -89,7 +89,7 @@ class NoteRepository extends ServiceEntityRepository
     return $qb
       ->Where('n.chronicle = :chronicle')
       ->andWhere('n.user = :user')
-      ->andWhere($qb->expr()->orX($qb->expr()->like('n.content', ':search'), $qb->expr()->like('n.title', ':search')))
+      ->andWhere($qb->expr()->orX($qb->expr()->like('n.plainText', ':search'), $qb->expr()->like('n.title', ':search')))
       // ->andWhere('(n.title LIKE "%:search%" OR n.content LIKE %:search% OR n.category.name LIKE %:search%)')
       ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
       ->setParameter('user', $user->getId(), Types::INTEGER)

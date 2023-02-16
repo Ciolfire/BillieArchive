@@ -50,6 +50,9 @@ class Note
   #[ORM\ManyToMany(targetEntity: 'Note', inversedBy: 'linkedNotes')]
   private Collection $linkToNotes;
 
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $plainText = null;
+
   public function __construct()
   {
     $this->linkedNotes = new ArrayCollection();
@@ -97,6 +100,7 @@ class Note
 
   public function setContent(string $content): self
   {
+    $this->plainText = strip_tags($content);
     $converter = new HtmlConverter();
     $this->content = $converter->convert($content);
 
@@ -178,5 +182,17 @@ class Note
     $this->linkToNotes->removeElement($linkedNote);
 
     return $this;
+  }
+
+  public function getPlainText(): ?string
+  {
+      return $this->plainText;
+  }
+
+  public function setPlainText(string $plainText): self
+  {
+      $this->plainText = $plainText;
+
+      return $this;
   }
 }

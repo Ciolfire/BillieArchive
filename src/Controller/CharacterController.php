@@ -322,7 +322,7 @@ class CharacterController extends AbstractController
       $character->setBackground($background);
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'background'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/edit/background.html.twig', [
       'character' => $character,

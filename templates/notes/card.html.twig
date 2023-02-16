@@ -5,7 +5,7 @@
     <div class="note-header">
       <h5 class="note-title">{% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %} {{ note.assignedAt|format_datetime('full', 'none') }}</h5>
     </div>
-    <div class="note-body py-5">
+    <div class="note-body p-3">
       {{ note.content|markdown_to_html }}
     </div>
     <div class="note-footer container py-4">

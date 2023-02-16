@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-<div class="col-12 my-2 text-center">
+<div class="col-12 my-2">
   <div class="accordion" id="notesList">
     {% for note in character.notes|reverse %}
       {% set cYear = note.assignedAt|date('Y') %}
