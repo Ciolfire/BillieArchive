@@ -141,6 +141,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
+    $this->dataService->loadMeritsPrerequisites($merits);
 
     return $this->render('character_sheet/new.html.twig', [
       'character' => $character,
@@ -169,11 +170,11 @@ class CharacterController extends AbstractController
       $this->create->getSpecialties($character, $form);
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
-      
       $this->dataService->save($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
+    $this->dataService->loadMeritsPrerequisites($merits);
 
     return $this->render('character_sheet/new.html.twig', [
       'character' => $character,
@@ -261,19 +262,8 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    foreach ($character->getMerits() as $charMerit) {
-      /** @var Merit $merit */
-      foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
-    }
-
-    foreach ($merits as $merit) {
-      /** @var Merit $merit */
-      foreach ($merit->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
-    }
+    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
+    $this->dataService->loadMeritsPrerequisites($merits);
 
     return $this->render('character_sheet/'.$type.'/edit.html.twig', [
       'character' => $character,

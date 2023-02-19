@@ -38,7 +38,7 @@ export default class extends Controller {
         this.switch(this.creationAttrTargets[index], "ko", "ok");
       }
     });
-    this.advantagesUpdate();
+    // this.advantagesUpdate();
     if (event) {
       changed = event.target.getAttribute("for").split('-')[0];
     }
@@ -123,33 +123,33 @@ export default class extends Controller {
   }
 
   advantagesUpdate() {
-    let health = 5;
-    let healthElem = null;
+    // let health = 5;
+    // let healthElem = null;
 
-    this.advantageTargets.forEach(advantage => {
-      switch (advantage.id) {
-        case "defense":
-          advantage.innerText = Math.min(this.attr('wits'), this.attr('dexterity'));
-          break;
-        case "initiative":
-          advantage.innerText = this.attr('dexterity') + this.attr('composure');
-          break;
-        case "size":
-          health += this.attr('stamina');
-          break;
-        case "health":
-          healthElem = advantage;
-          break;
-        case "speed":
-          advantage.innerText = this.attr('dexterity') + this.attr('strength') + 5;
-          break;
-        case "willpower":
-          advantage.innerText = this.attr('resolve') + this.attr('composure');
-          break;
-        default:
-          break;
-      }
-    });
-    healthElem.innerText = health;
+    // this.advantageTargets.forEach(advantage => {
+    //   switch (advantage.id) {
+    //     case "defense":
+    //       advantage.innerText = Math.min(this.attr('wits'), this.attr('dexterity'));
+    //       break;
+    //     case "initiative":
+    //       advantage.innerText = this.attr('dexterity') + this.attr('composure');
+    //       break;
+    //     case "size":
+    //       health += this.attr('stamina');
+    //       break;
+    //     case "health":
+    //       healthElem = advantage;
+    //       break;
+    //     case "speed":
+    //       advantage.innerText = this.attr('dexterity') + this.attr('strength') + 5;
+    //       break;
+    //     case "willpower":
+    //       advantage.innerText = this.attr('resolve') + this.attr('composure');
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
+    // healthElem.innerText = health;
   }
 }

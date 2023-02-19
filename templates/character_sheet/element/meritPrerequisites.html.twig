@@ -4,14 +4,16 @@
   {% else %}
     {% if not loop.first %}&{% endif %}
   {% endif %}
-  {% if prerequisite.realType == "merit" %}
-    {% set identifier = prerequisite.entity.id %}
-  {% else %}
-    {% set identifier = prerequisite.entity.identifier %}
+  {% if prerequisite.entity != null %}
+    {% if prerequisite.realType == "merit" %}
+      {% set identifier = prerequisite.entity.id %}
+    {% elseif prerequisite.entity != null %}
+      {% set identifier = prerequisite.entity.identifier %}
+    {% endif %}
   {% endif %}
   
-    <span data-character--merits-target="prerequisite" data-type="{{ prerequisite.realType }}" data-name="{{ identifier }}" data-value="{{ prerequisite.value }}">
-      {{ prerequisite.entity.name }} {{ prerequisite.value }}
+    <span data-character--merits-target="prerequisite" data-type="{{ prerequisite.realType }}" data-name="{{ identifier|default(null) }}" data-value="{{ prerequisite.value }}">
+      {{ prerequisite.entity.name|default("") }} {{ prerequisite.value|default(0) }}
     </span>
   {% set group = prerequisite.choiceGroup %}
 {% endfor %}

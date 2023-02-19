@@ -172,4 +172,27 @@ class DataService
     ->setParameter('note', $note->getId(), Types::INTEGER)
     ->executeQuery()->fetchAllAssociative();
   }
+
+  public function loadMeritsPrerequisites(mixed $merits, string $type=null)
+  {
+    switch ($type) {
+      case 'character':
+        foreach ($merits as $charMerit) {
+          /** @var Merit $merit */
+          foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
+            $prerequisite->setEntity($this->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+          }
+        }
+        break;
+
+      default:
+        foreach ($merits as $merit) {
+          /** @var Merit $merit */
+          foreach ($merit->getprerequisites() as $prerequisite) {
+            $prerequisite->setEntity($this->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+          }
+        }
+        break;
+    }
+  }
 }
