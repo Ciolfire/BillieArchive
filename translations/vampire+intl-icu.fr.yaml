@@ -38,13 +38,13 @@ clan:
         =1 {1 Lignée}
         other {# Lignées}
       }
-    weakness: Faiblesse de Clan
+    weakness: Faiblesse de Lignée
   bloodlines:
     label: Lignées
   parent:
     any: Libre
     label: Clan Parent
-  weakness: Faiblesse de Lignée
+  weakness: Faiblesse de Clan
 clans:
   label: Clans
 discipline:

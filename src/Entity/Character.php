@@ -144,6 +144,47 @@ class Character
     return $this->id;
   }
 
+  public function getPowerRating(): ?int
+  {
+    $sum = $this->setPowerRating();
+
+    return $sum;
+  }
+
+  public function setPowerRating(): ?int
+  {
+    $sum = 0;
+    $weight = [
+      0 => 0,
+      1 => 1,
+      2 => 3,
+      3 => 6,
+      4 => 10,
+      5 => 15,
+      6 => 21,
+      7 => 28,
+      8 => 36,
+      9 => 45,
+      10 => 55,
+    ];
+
+    foreach ($this->attributes->list as $attribute) {
+      $sum += $weight[$this->attributes->get($attribute)] * 4;
+    }
+
+    foreach ($this->skills->list as $skill) {
+      $sum += $weight[$this->skills->get($skill)] * 2;
+    }
+
+    foreach ($this->merits as $merit) {
+      /** @var CharacterMerit $merit */
+      $sum += $weight[$merit->getLevel()] * 1;
+    }
+
+    return $sum;
+  }
+  
+
   public function getType(): string
   {
     return lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));

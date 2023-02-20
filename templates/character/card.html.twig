@@ -7,19 +7,33 @@
       <div class="w-100 text-center">{{ ('type.' ~ character.type)|trans }}</div>
       <img class="character-icon" src={% include "chronicle/icon.html.twig" with {"chronicle": character.chronicle} only %} />
     </div>
+    <div>
+      {{ character.name }}
+    </div>
     <div class="character-card-avatar position-relative text-center">
       <img src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
     </div>
-    <div>
-      <p>{{ character.name }}</p>
-      <p>
+    <div class="position-relative">
+      <div class="d-flex flex-column justify-content-end h-100">
+        <p>
+          {{ character.concept}}
+        </p>
         {% if showPlayer|default(0) %}
-          {{ character.player }}
+          <p>
+            {{ character.player }}
+        </p>
         {% endif %}
         {% if showChronicle|default(1) %}
-          {{ character.chronicle }}
+          <p>
+            {{ character.chronicle }}
+          </p>
         {% endif %}
-      </p>
+        {# {% if isTemplate|default(false) %} #}
+          <p>
+            PR: {{ character.powerRating }}
+          </p>
+        {# {% endif %} #}
+      </div>
     </div>
   </a>
 </div>

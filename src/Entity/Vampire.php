@@ -57,6 +57,45 @@ class Vampire extends Character
     $this->rituals = new ArrayCollection();
   }
 
+  public function setPowerRating(): ?int
+  {
+    $sum = 0;
+    $weight = [
+      0 => 0,
+      1 => 1,
+      2 => 3,
+      3 => 6,
+      4 => 10,
+      5 => 15,
+      6 => 21,
+      7 => 28,
+      8 => 36,
+      9 => 45,
+      10 => 55,
+    ];
+
+    foreach ($this->attributes->list as $attribute) {
+      $sum += $weight[$this->attributes->get($attribute)] * 5;
+    }
+
+    foreach ($this->skills->list as $skill) {
+      $sum += $weight[$this->skills->get($skill)] * 3;
+    }
+
+    foreach ($this->merits as $merit) {
+      /** @var CharacterMerit $merit */
+      $sum += $weight[$merit->getLevel()] * 2;
+    }
+
+    $sum += $this->potency * 8;
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      $sum += $weight[$discipline->getLevel()] * 7;
+    }
+
+    return $sum;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

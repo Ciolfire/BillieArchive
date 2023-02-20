@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "characters_skills")]
 class CharacterSkills
 {
+  public $list = [
+    'academics', 'computer', 'crafts', 'investigation', 'medicine', 'occult', 'politics', 'science',
+    'athletics', 'brawl', 'drive', 'firearms', 'larceny', 'stealth', 'survival', 'weaponry',
+    'animalKen', 'empathy', 'expression', 'intimidation', 'persuasion', 'socialize', 'streetwise', 'subterfuge',
+  ];
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]

@@ -10,6 +10,7 @@
     &-header {
       display: flex;
       padding: 0;
+      border-bottom: 1px solid silver;
     }
     &-avatar {
       display: flex;
@@ -18,7 +19,7 @@
       padding: 0;
       border-top: 1px solid $mainDarkColor;
       border-bottom: 1px solid $mainDarkColor;
-      background-color: black;
+      background-color: rgba(#000, .3);
       img {
         max-width: 100%;
         max-height: 100%;
