@@ -191,7 +191,13 @@ export default class extends Controller
       
       if (entry != null) {
         if (entry.type == "specialty") {
-          entry.info.name = document.getElementById(id).getElementsByTagName("input")[0].value;
+          let specialty = document.getElementById(id).getElementsByTagName("input")[0];
+          if (specialty.value != "") {
+            entry.info.name = specialty.value;
+          } else {
+            delete this.spendInfoValue[id];
+            specialty.parentNode.removeChild(specialty);
+          }
         } else if (entry.type == "merit") {
           entry.info.id = entry.info.id.replace('merit-','');
           let details = undefined;

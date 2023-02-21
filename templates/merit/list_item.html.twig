@@ -1,59 +1,65 @@
 {% trans_default_domain 'app' %}
 
 {% set type = merit.type|default('universal') %}
-      <div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" data-bs-target="#merit_{{ merit.id }}" data-bs-toggle="collapse" 
-      data-search-target="item" 
-      data-name="{{ merit.name }}" 
-      data-type="{{ type }}" 
-      data-category="{{ merit.category }}" 
-      data-style="{{ merit.isFighting|default(0) }}"
-      >
-        <div class="col-12 col-md-3 text-center text-md-start fw-bold">
-          {% include "icon.html.twig" with {'icon': type} only %}
-          {{ merit.name }}
-        </div>
-        <div class="col-3 col-md-1">
-          {% include "icon.html.twig" with {'icon': merit.category} only %}
-          {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
-          {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
-        </div>
-        <div class="col-3 col-md-1">
-          {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
-          {% if merit.min != merit.max %}
-            - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
-          {% endif %}
-        </div>
-        <div class="col">
-          {% if merit.prerequisites is not empty %}
-            {% for prerequisite in merit.prerequisites %}
-              {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
-                or
-              {% else %}
-                {% if not loop.first %}&{% endif %}
-              {% endif %}
-              {% if prerequisite.type == 'App\\Entity\\Merit' %}
-                <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
-                  <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
-                </a>
-              {% else %}
-                <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
-              {% endif %}
-              {% set group = prerequisite.choiceGroup %}
-            {% endfor %}
-          {% endif %}
-        </div>
-        <div class="col-3 col-md-2">
-          {% if merit.book is not null %}
-            {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
-            {% elseif merit.homebrewFor is not null %}
-              Chronicle: {{ merit.homebrewFor.name }} {# TEMP #}
-          {% endif %}
-        </div>
-        <div class="col-12 text">{{ merit.description }}</div>
-        <div class="col-12 col-lg-6">
-          <div id="merit_{{ merit.id }}" class="collapse rule">
-            <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
-            {{ merit.effect|markdown_to_html }}
-          </div>
-        </div>
-      </div>
+<div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" data-bs-target=".merit_{{ merit.id }}" data-bs-toggle="collapse" 
+  data-search-target="item"
+  data-name="{{ merit.name }}"
+  data-type="{{ type }}"
+  data-category="{{ merit.category }}"
+  data-style="{{ merit.isFighting|default(0) }}"
+>
+  <div class="col-12 col-md-3 text-center text-md-start fw-bold">
+    {% include "icon.html.twig" with {'icon': type} only %}
+    {{ merit.name }}
+  </div>
+  <div class="col-3 col-md-1">
+    {% include "icon.html.twig" with {'icon': merit.category} only %}
+    {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+    {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+  </div>
+  <div class="col-3 col-md-1">
+    {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
+    {% if merit.min != merit.max %}
+      - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if merit.prerequisites is not empty %}
+      {% for prerequisite in merit.prerequisites %}
+        {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
+          or
+        {% else %}
+          {% if not loop.first %}&{% endif %}
+        {% endif %}
+        {% if prerequisite.type == 'App\\Entity\\Merit' %}
+          <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+            <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+          </a>
+        {% else %}
+          <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+        {% endif %}
+        {% set group = prerequisite.choiceGroup %}
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="col-3 col-md-2">
+    {% if merit.book is not null %}
+      {{ "source"|trans({'%book%': merit.book.short, '%page%': merit.page }) }}
+      {% elseif merit.homebrewFor is not null %}
+        Chronicle: {{ merit.homebrewFor.name }} {# TEMP #}
+    {% endif %}
+  </div>
+  <div class="col-12 text">{{ merit.description }}</div>
+  <div class="col-12 col-lg-8">
+    <div class="merit_{{ merit.id }} collapse rule">
+      {{ merit.effect|markdown_to_html }}
+    </div>
+  </div>
+</div>
+<div class="row merit_{{ merit.id }} collapse">
+  <div class="col-12 text-center py-2">
+    <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "icon.html.twig" with {'icon': 'view'} %} {{ "action.view"|trans }}</a>
+    <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "icon.html.twig" with {'icon': 'edit'} %} {{ "action.edit"|trans }}</a>
+    {{ include('merit/_delete_form.html.twig') }}
+  </div>
+</div>

@@ -73,7 +73,7 @@ class CreationService
   {
     foreach ($formSpecialties as $skill => $skillSpec) {
       if (!empty($skillSpec)) {
-        $skill = $this->doctrine->getRepository(Skill::class)->findOneBy(['name' => $skill]);
+        $skill = $this->doctrine->getRepository(Skill::class)->findOneBy(['identifier' => $skill]);
         foreach ($skillSpec as $id => $name) {
           $specialty = new CharacterSpecialty($character, $skill, $name);
           
