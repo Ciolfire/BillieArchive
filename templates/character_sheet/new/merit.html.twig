@@ -5,7 +5,17 @@
 {% block data %}data-dot-base-value="{{ 0 }}" data-dot-min-value="{{ 0 }}"{% endblock %}
 
 {% block input %}
-  <input class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" data-id="{{ merit.id }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--creation-target="merit" data-character--merits-target="merit">
+  <input
+    class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" 
+    data-id="{{ merit.id }}"
+    data-name="{{ merit.name }}"
+    data-category="{{ merit.category }}"
+    data-fighting="{{ merit.isFighting }}"
+    data-creation="{{ merit.isCreationOnly }}"
+    data-dot-target="input"
+    data-character--creation-target="merit"
+    data-character--merits-target="merit"
+  >
 {% endblock %}
 
 {% block dot %}

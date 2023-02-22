@@ -59,7 +59,7 @@ export default class extends Controller
     return false;
   }
 
-  // Display the items, depending if the match the search criterias
+  // Display the items, depending if they match the search criterias
   getResults()
   {
     let hasFilter = this.checkFilters();

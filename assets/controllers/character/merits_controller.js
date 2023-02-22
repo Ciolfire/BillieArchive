@@ -160,14 +160,54 @@ export default class extends Controller {
 
   filter(event) {
     let category = event.params.category;
+    let fighting = event.params.fighting;
+    let creation = event.params.creation;
 
+    /** set the active button */
     this.filterTargets.forEach(element => {
       element.classList.remove("active");
     });
     event.currentTarget.classList.add("active");
+
+    if (category !== undefined ) {
+      this.checkCategory(category);
+    } else if (fighting !== undefined) {
+      this.checkFighting(fighting);
+    } else if (creation !== undefined) {
+      this.checkCreation(creation);
+    }
+  }
+
+  checkCategory(category) {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.category == category || category == "") {
+        if (card.classList.contains('d-none')) {
+          card.classList.remove('d-none')
+        }
+      } else {
+        card.classList.add('d-none')
+      }
+    });
+  }
+
+  checkFighting(fighting) {
+    this.meritTargets.forEach(merit => {
+      let card = merit.closest('.card').parentElement;
+      if (merit.dataset.fighting) {
+        if (card.classList.contains('d-none')) {
+          card.classList.remove('d-none')
+        }
+      } else {
+        card.classList.add('d-none')
+      }
+    });
+  }
+
+  checkCreation(creation) {
+    this.meritTargets.forEach(merit => {
+      let card = merit.closest('.card').parentElement;
+      if (merit.dataset.creation) {
         if (card.classList.contains('d-none')) {
           card.classList.remove('d-none')
         }
