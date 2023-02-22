@@ -3,12 +3,13 @@
 {% endif %}
 
 <div class="col py-2">
-  <div class="card card-merit block h-100" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
+  <div class="card card-merit block" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="row align-items-center">
-        <div class="col" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="meritText{{ id }}">
+        <div class="col-auto" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="meritText{{ id }}">
           {% include "icon.html.twig" with {'icon' : merit.category } only %}
           <span class="merit-name">{{ merit.name }}</span>
+          <span class="accent">{% include "icon.html.twig" with {'icon' : merit.type } only %}</span>
         </div>
         <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
@@ -32,8 +33,8 @@
         </div>
       </div>
     </div>
-    <div class="card-body text-center text py-0">
-      <div class="merit-{{ id }}-text card-text show h-100" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+    <div class="card-body text-center text py-0 d-flex flex-column">
+      <div class="merit-{{ id }}-text card-text show flex-grow-1" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
         {{ merit.description }}
       </div>
       <div class="merit-{{ id }}-text card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">

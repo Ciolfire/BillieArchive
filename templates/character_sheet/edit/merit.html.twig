@@ -5,7 +5,17 @@
 {% block data %}data-name="{{ merit.name }}" data-type="merit" data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
 
 {% block input %}
-  <input class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" data-id="{{ chMerit.id|default(merit.id) }}" data-category="{{ merit.category }}" data-dot-target="input" data-character--merits-target="merit" data-character--edit-target="dot">
+  <input
+    class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" 
+    data-id="{{ chMerit.id|default(merit.id) }}"
+    data-name="{{ merit.name }}"
+    data-category="{{ merit.category }}"
+    data-fighting="{{ merit.isFighting }}"
+    data-creation="{{ merit.isCreationOnly }}"
+    data-dot-target="input"
+    data-character--merits-target="merit"
+    data-character--edit-target="dot"
+  >
 {% endblock %}
 
 {% block dot %}
