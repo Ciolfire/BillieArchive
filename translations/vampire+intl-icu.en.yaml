@@ -1,3 +1,32 @@
+clan:
+  label: Clan
+  count: >-
+    {count, plural,
+      =0 {No Clan}
+      =1 {1 Clan}
+      other {# Clans}
+    }
+  bloodline:
+    label: Bloodline
+    join: Join Bloodline
+    devotion: "{bloodline}'s devotion"
+    devotions: "{bloodline}'s devotion"
+    count: >-
+      {count, plural,
+        =0 {No Bloodline}
+        =1 {1 Bloodline}
+        other {# Bloodlines}
+      }
+    weakness: Bloodline Weakness
+  bloodlines:
+    label: Bloodlines
+  parent:
+    any: Any
+    label: Parent Clan
+  weakness: Clan Weakness
+clans:
+  label: Clans
+
 death:
   age: >-
     {gender, select,
@@ -20,33 +49,35 @@ death:
       other {by {sire}}
     }
 
-clan:
-  label: Clan
+devotion:
+  label: Devotion
+  new: New devotion
   count: >-
     {count, plural,
-      =0 {No Clan}
-      =1 {1 Clan}
-      other {# Clans}
+      =0 {No Devotion}
+      =1 {1 Devotion}
+      other {# Devotions}
     }
-  bloodline:
-    label: Bloodline
-    devotion: "{bloodline}'s devotion"
-    devotions: "{bloodline}'s devotion"
-    count: >-
-      {count, plural,
-        =0 {No Bloodline}
-        =1 {1 Bloodline}
-        other {# Bloodlines}
-      }
-    weakness: Bloodline Weakness
-  bloodlines:
-    label: Bloodlines
-  parent:
-    any: Any
-    label: Parent Clan
-  weakness: Clan Weakness
-clans:
-  label: Clans
+devotions:
+  label: Devotions
+
+# Disciplines
+coil:
+  label: Coil of the Dragon
+  new: New Coil
+  power:
+    label: Tier
+    level: >-
+      {level, selectordinal,
+        one   {#st}
+        two   {#nd}
+        few   {#rd}
+        other {#th}
+      } Tier: {name}
+    new: New Tier
+coils:
+  new: New Coil
+  label: Coils of the Dragon
 discipline:
   label: Discipline
   count: >-
@@ -64,33 +95,6 @@ disciplines:
   label: Disciplines
   list:
     back: Back to the list
-devotion:
-  label: Devotion
-  new: New devotion
-  count: >-
-    {count, plural,
-      =0 {No Devotion}
-      =1 {1 Devotion}
-      other {# Devotions}
-    }
-devotions:
-  label: Devotions
-coil:
-  label: Coil of the Dragon
-  new: New Coil
-  power:
-    label: Tier
-    level: >-
-      {level, selectordinal,
-        one   {#st}
-        two   {#nd}
-        few   {#rd}
-        other {#th}
-      } Tier: {name}
-    new: New Tier
-coils:
-  new: New Coil
-  label: Coils of the Dragon
 sorcery:
   label: Blood Sorcery
   new: New Sorcery
@@ -106,9 +110,32 @@ thaumaturgy:
   power:
     label: Power
     new: New Power
+
 embrace:
+  label: Embrace
   at: Embraced at
   by: by
+  save: Start my Requiem
+  discipline:
+    creation:
+      info: "Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
+      favored: Currently
+      all: Total
+  title: You have been embraced...
+
+sire: Sire
+potency:
+  name: Blood Potency
+feeding:
+  animal: The Vampire can feed on animal, Human and Kindred alike
+  human: The Vampire must find sustenance from Human or Kindred
+  vampire: Only the pure Vitae from a kindred can nourish the Vampire
+  hungry: The Vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
+  starved: The Vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
+vitae: Vitae
+
+morality:
+  name: Humanity
 
 tab:
   coils: Coils

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
 {% block title %}Embrace{% endblock %}
 
 {% block body %}
-  <h1>You have been embraced...</h1>
+  <h1>{{ "bloodline.join"|trans }}</h1>
   <div class="container block py-3 mt-5">
   </div>
   <a href="{{ path('character_show', {'id': character.id }) }}">back to character</a>

@@ -88,9 +88,6 @@ tab:
 dot:
   fifth: Fifth dot cost two
 
-morality:
-  name: Morality
-
 willpower:
   name: Willpower
   value: >-
@@ -188,38 +185,6 @@ power: >-
     one {Power}
     other {Powers}
   }
-
-vampire:
-  age: Age at Death
-  bloodline:
-    name: Bloodline
-    join: Join a Bloodline
-  sire: Sire
-  potency:
-    name: Blood Potency
-  feeding:
-    animal: The Vampire can feed on animal, Human and Kindred alike
-    human: The Vampire must find sustenance from Human or Kindred
-    vampire: Only the pure Vitae from a kindred can nourish the Vampire
-  hungry: The Vampire has four Vitae in his system or less, he is hungry and suffer -1 to resist Frenzy
-  starved: The Vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
-  vitae: Vitae
-
-embrace:
-  name: Embrace
-  save: Start your Requiem
-  discipline:
-    creation:
-      info: "Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
-      favored: Currently
-      all: Total
-
-awaken:
-  name: Awaken
-
-change:
-  name: First Change
-
 
 background:
   edit: Edit background

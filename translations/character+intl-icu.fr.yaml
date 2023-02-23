@@ -87,9 +87,6 @@ tab:
 dot:
   fifth: Le cinquième point coûte double
 
-morality:
-  name: Moralité
-
 willpower:
   name: Willpower
   value: >-
@@ -188,37 +185,6 @@ power: >-
     one {Pouvoir}
     other {Pouvoirs}
   }
-
-vampire:
-  age: Age de la Mort
-  bloodline:
-    name: Lignée
-    join: Rejoindre une Lignée
-  sire: Sire
-  potency:
-    name: Puissance du Sang
-  feeding:
-    animal: Le Vampire peut tout aussi bien se nourrir sur des animaux, des Humains et des Vampires
-    human: Le vampire doit se nourrir d'Humains ou de Vampires
-    vampire: Seule la Vitae pure issue d'un Vampire permet à ce Vampire de se sustancer.
-  hungry: Le Vampire a 4 Vitae ou moins, il a faim et souffre d'un -1 pour résister à la Frénésie
-  starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
-  vitae: Vitae
-
-embrace:
-  name: Etreinte
-  save: Débuter votre Requiem
-  discipline:
-    creation:
-      info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
-      favored: Actuellement
-      all: Total
-
-awaken:
-  name: Eveil
-
-change:
-  name: Premier Changement
 
 background:
   edit: Modifier l'historique

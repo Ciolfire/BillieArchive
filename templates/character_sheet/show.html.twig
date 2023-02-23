@@ -43,6 +43,9 @@
           {% include "character_sheet/show/skills.html.twig" %}
         </div>
         {% block subtraits %}
+          <div class="row justify-content-center">
+            {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
+          </div>
         {% endblock %}
         <div class="row py-2">
           {% include "character_sheet/show/advantages.html.twig" %}

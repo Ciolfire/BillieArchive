@@ -1,3 +1,32 @@
+clan:
+  label: Clan
+  count: >-
+    {count, plural,
+      =0 {Aucun Clan}
+      =1 {1 Clan}
+      other {# Clans}
+    }
+  bloodline:
+    label: Lignée
+    join: Rejoindre lignée
+    devotion: Dévotion de {bloodline}
+    devotions: Dévotions de {bloodline}
+    count: >-
+      {count, plural,
+        =0 {Aucune Lignée}
+        =1 {1 Lignée}
+        other {# Lignées}
+      }
+    weakness: Faiblesse de Lignée
+  bloodlines:
+    label: Lignées
+  parent:
+    any: Libre
+    label: Clan Parent
+  weakness: Faiblesse de Clan
+clans:
+  label: Clans
+
 death:
   age: >-
     {gender, select,
@@ -20,33 +49,35 @@ death:
       other {par {sire}}
     }
 
-clan:
-  label: Clan
+devotion:
+  label: Dévotion
+  new: Nouvelle dévotion
   count: >-
     {count, plural,
-      =0 {Aucun Clan}
-      =1 {1 Clan}
-      other {# Clans}
+      =0 {No Dévotion}
+      =1 {1 Dévotion}
+      other {# Dévotions}
     }
-  bloodline:
-    label: Lignée
-    devotion: Dévotion de {bloodline}
-    devotions: Dévotions de {bloodline}
-    count: >-
-      {count, plural,
-        =0 {Aucune Lignée}
-        =1 {1 Lignée}
-        other {# Lignées}
-      }
-    weakness: Faiblesse de Lignée
-  bloodlines:
-    label: Lignées
-  parent:
-    any: Libre
-    label: Clan Parent
-  weakness: Faiblesse de Clan
-clans:
-  label: Clans
+devotions:
+  label: Dévotions
+
+# Disciplines
+coil:
+  label: Anneau du Dragon
+  new: Nouvel Anneau
+  power:
+    label: Tier
+    level: >-
+      {level, selectordinal,
+        one   {premier}
+        two   {second}
+        few   {#ème}
+        other {#ème}
+      } Tier: {name}
+    new: Nouveau Tier
+coils:
+  new: Nouvel Anneau
+  label: Anneaux du Dragon
 discipline:
   label: Discipline
   count: >-
@@ -64,40 +95,47 @@ disciplines:
   label: Disciplines
   list:
     back: Retour à la liste
-devotion:
-  label: Dévotion
-  new: Nouvelle dévotion
-  count: >-
-    {count, plural,
-      =0 {No Dévotion}
-      =1 {1 Dévotion}
-      other {# Dévotions}
-    }
-devotions:
-  label: Dévotions
-coil:
-  label: Anneau du Dragon
-  new: Nouvel Anneau
-  power:
-    label: Tier
-    new: Nouveau Tier
-coils:
-  label: Anneaux du Dragon
 sorcery:
   label: Sorcellerie du Sang
   new: Nouvelle Sorcellerie
   power:
     label: Rituel
+    level: "Rituel de {sorcery} de niveau {level}"
     new: Nouveau rituel
+  powers:
+    level: "Rituels de niveau {level} de {sorcery}"
 thaumaturgy:
   label: Thaumaturgie
   new: Nouvelle voie
   power:
     label: Pouvoir
     new: Nouveau pouvoir
+
 embrace:
+  label: Étreinte
   at: Âge lors de l'étreinte
   by: par
+  save: Commencez mon Requiem
+  discipline:
+    creation:
+      info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
+      favored: Actuellement
+      all: Total
+  title: Vous avez été Étreint...
+
+sire: Sire
+potency:
+  name: Blood Potency
+feeding:
+  animal: Le Vampire peut tout aussi bien se nourrir sur des animaux, des Humains et des Vampires
+  human: Le vampire doit se nourrir d'Humains ou de Vampires
+  vampire: Seule la Vitae pure issue d'un Vampire permet à ce Vampire de se sustancer.
+  hungry: Le Vampire a 4 Vitae ou moins, il a faim et souffre d'un -1 pour résister à la Frénésie
+  starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
+vitae: Vitae
+
+morality:
+  name: Humanité
 
 tab:
   coils: Anneaux

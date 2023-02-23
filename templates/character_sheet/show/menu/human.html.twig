@@ -3,18 +3,18 @@
 <div class="col-2">
     <a class="vampire btn btn-sm btn-menu w-100" href="{{ path('character_embrace', {'id': character.id}) }}">
       {% include "icon.html.twig" with {'icon': 'vampire', 'hasTips': 0} only %}
-      <span class="d-none d-md-inline">{{ "embrace.name"|trans }}</span>
+      <span class="d-none d-md-inline">{{ "embrace.label"|trans([], 'vampire') }}</span>
     </a>
 </div>
 <div class="col-2">
   <a class="mage btn btn-sm btn-menu w-100" href="#">
     {% include "icon.html.twig" with {'icon': 'mage', 'hasTips': 0} only %}
-    <span class="d-none d-md-inline">{{ "awaken.name"|trans }}</span>
+    <span class="d-none d-md-inline">{{ "awaken.label"|trans([], 'mage') }}</span>
   </a>
 </div>
 <div class="col-2">
   <a class="werewolf btn btn-sm btn-menu w-100" href="#">
     {% include "icon.html.twig" with {'icon': 'werewolf', 'hasTips': 0} only %}
-    <span class="d-none d-md-inline">{{ "change.name"|trans }}</span>
+    <span class="d-none d-md-inline">{{ "change.label"|trans([], 'werewolf') }}</span>
   </a>
 </div>

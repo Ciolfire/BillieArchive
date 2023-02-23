@@ -18,11 +18,11 @@ class EmbraceType extends AbstractType
   {
     $builder
     ->add('sire', TextType::class, [
-      'label' => 'vampire.sire',
+      'label' => 'embrace.by',
       'required' => false,
     ])
     ->add('age', IntegerType::class, [
-      'label' => 'vampire.age',
+      'label' => 'embrace.at',
       'required' => false,
     ])
     ->add('clan', RadiobuttonType::class, [
@@ -74,7 +74,7 @@ class EmbraceType extends AbstractType
     $resolver->setDefaults([
       'clans' => null,
       'attributes' => null,
-      'translation_domain' => 'character',
+      'translation_domain' => 'vampire',
       "allow_extra_fields" => true,
     ]);
   }

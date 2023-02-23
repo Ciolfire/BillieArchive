@@ -1,13 +1,13 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
 <div class="block user-select-none h-100 p-3">
-  <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ 'vampire.vitae'|trans }}</h3>
+  <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ 'vitae'|trans }}</h3>
   {% set vitae = character.vitae %}
   <div class="d-flex flex-column align-items-start">
     <div class="text-start">
     {% for index in 1..5 %}
       <span class="d-inline-block malus-box text-center text-sub">
-        <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'vampire.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'vampire.hungry'|trans }}">-1{% endif %}</div>
+        <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'feeding.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'feeding.hungry'|trans }}">-1{% endif %}</div>
       </span>
       {% endfor %}
     </div>

@@ -39,6 +39,10 @@ description:
   label: Description
   short:
     label: Résumé
+derangement:
+  label: Dérangement
+derangements:
+  label: Dérangements
 edit: Modifier
 emblem: Emblème
 homebrew: Règles maison
