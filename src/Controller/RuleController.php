@@ -48,9 +48,8 @@ class RuleController extends AbstractController
   #[Route("/{id<\d+>}", name:"rule_show", methods:["GET"])]
   public function show(Rule $rule): Response
   {
-    return $this->render('element/show.html.twig', [
-      'element' => 'rule',
-      'entity' => $rule,
+    return $this->render('rule/show.html.twig', [
+      'rule' => $rule,
     ]);
   }
 
@@ -94,7 +93,7 @@ class RuleController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/delete", name:"rule_translate", methods:["POST"])]
+  #[Route("/{id<\d+>}/delete", name:"rule_delete", methods:["POST"])]
   public function delete(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $rule->getId(), $request->request->get('_token'))) {

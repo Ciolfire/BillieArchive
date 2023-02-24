@@ -2,16 +2,17 @@
 
 {% set first = true %}
 
-<div class="row mb-2">
-  <h3>{{ rule.title }}</h2>
-  <h4>Includes</h4>
-  {% for subrule in rule.subrules %}
-    <div class="col-4">
-      {{ subrule.title }}
+<a href="{{ path('rule_show', {'id': rule.id }) }}">
+  <div class="col-12 btn btn-primary">
+    <h3>{{ rule.title }}</h2>
+    <h4>Includes</h4>
+    <div class="row">
+      {% for subrule in rule.subrules %}
+        <div class="col-4 mt-3 text-center">
+          <h5>{{ subrule.title }}</h5>
+          <p>{{ "source"|trans({'page': subrule.page, 'book': subrule.book.short }) }}</p>
+        </div>
+      {% endfor %}
     </div>
-  {% endfor %}
-  <div class="col-12 text-center pe-3">
-    <a type="button" href="{{ path('rule_show', {'id': rule.id }) }}" class="btn btn-primary">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-    <a type="button" href="{{ path('rule_edit', {'id': rule.id }) }}" class="btn btn-primary">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
   </div>
-</div>
+</a>
