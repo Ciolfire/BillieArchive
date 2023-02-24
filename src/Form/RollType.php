@@ -34,8 +34,8 @@ class RollType extends AbstractType
       ->add('action', ChoiceType::class, [
         'choices' => [
           'roll.action.instant' => 0,
-          'roll.action.reflexive' => 1,
-          'roll.action.extended' => 2,
+          'roll.action.extended' => 1,
+          'roll.action.reflexive' => 2,
         ]
       ])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])

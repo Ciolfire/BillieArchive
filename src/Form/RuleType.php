@@ -45,8 +45,9 @@ class RuleType extends AbstractType
           return $er->createQueryBuilder('r')->where('r.parentRule IS NULL')->orderBy('r.title', 'ASC');
         }
       ],)
+      ->add('book')
       ->add('page')
-      ->add('book');
+      ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -53,6 +53,9 @@ class Roll
   #[ORM\Column]
   private ?bool $isImportant = null;
 
+  #[ORM\Column]
+  private ?bool $isContested = null;
+
   public function __construct()
   {
     $this->attributes = new ArrayCollection();
@@ -169,5 +172,17 @@ class Roll
     $this->isImportant = $isImportant;
 
     return $this;
+  }
+
+  public function isContested(): ?bool
+  {
+      return $this->isContested;
+  }
+
+  public function setIsContested(bool $isContested): self
+  {
+      $this->isContested = $isContested;
+
+      return $this;
   }
 }

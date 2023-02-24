@@ -3,9 +3,11 @@
 {% set first = true %}
 
 <a href="{{ path('rule_show', {'id': rule.id }) }}">
-  <div class="col-12 btn btn-primary">
-    <h3>{{ rule.title }}</h2>
-    <h4>Includes</h4>
+  <div class="col-12 btn btn-primary rounded-0">
+    <h2>{{ rule.title }}</h2>
+    {% if rule.subrules is not empty %}
+      <h4>Includes</h4>
+    {% endif %}
     <div class="row">
       {% for subrule in rule.subrules %}
         <div class="col-4 mt-3 text-center">
