@@ -5,6 +5,7 @@
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
+  {% include "back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container">
     <h1>{{ (entity ~ "s.label")|trans }}</h1>
     <div class="row mt-5 mb-2">

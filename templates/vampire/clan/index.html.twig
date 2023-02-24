@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block body %}
+  {% include "back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container">
     <div class="row block py-3">
       <h1>{{ "clans.label"|trans }}{% include "icon.html.twig" with {'icon' : entity, 'hasTips': 0 } only %}</h1>

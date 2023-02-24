@@ -5,6 +5,7 @@
 {% block title %}Wiki{% endblock %}
 
 {% block body %}
+  {% include "back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container mt-3">
     <h2>{% include "icon.html.twig" with {'icon': category, 'hastips': 0, 'class': 'icon-lg' } %} {{ (category ~ ".label")|trans }}</h2>
     <div class="row mt-5 mb-2">
