@@ -2,21 +2,23 @@
 
 {% trans_default_domain 'app' %}
 
+{% block title %}{{ rule.title }}{% endblock %}
+
 {% block body %}
-	<div class="container">
-		<div class="row">
-			<div class="block mt-3">
-				{% if is_granted('ROLE_ST') %}
-					<a class="float-end" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
-				{% endif %}
-				<h1>{{ rule.title }}</h1>
-				<span>
-					<div>
-						{{ rule.details|markdown_to_html }}
-					</div>
+  <div class="container">
+    <div class="row">
+      <div class="{% if rule.type is not null %}{{rule.type}}{% endif %} block mt-3">
+        {% if is_granted('ROLE_ST') %}
+          <a class="float-end" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+        {% endif %}
+        <h1>{{ rule.title }}</h1>
+        <span>
+          <div>
+            {{ rule.details|markdown_to_html }}
+          </div>
           <div class="row">
             {% for subrule in rule.subrules %}
-              <div class="col-6">
+              <div class="col-6 {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
               {% if is_granted('ROLE_ST') %}
                 <a class="float-end" href="{{ path('rule_edit', {'id': subrule.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
               {% endif %}
@@ -25,9 +27,8 @@
               </div>
             {% endfor %}
           </div>
-				</div>
-			</div>
-		</div>
-
-		{% include "back.html.twig" %}
-	{% endblock %}
+        </div>
+      </div>
+    </div>
+    {% include "back.html.twig" with {'link': path('rule_index')} %}
+  {% endblock %}

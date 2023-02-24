@@ -1,0 +1,22 @@
+{% trans_default_domain 'app' %}
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form method="post" action="{{ path(element ~ '_delete', {'id': entity.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
+          <button class="btn btn-warning">{% include "icon.html.twig" with {'icon': 'delete'} %} {{ "action.delete"|trans }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

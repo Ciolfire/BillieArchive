@@ -35,7 +35,7 @@ class RuleController extends AbstractController
       $entityManager->persist($rule);
       $entityManager->flush();
 
-      return $this->redirectToRoute('rule_list', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('element/new.html.twig', [
@@ -56,13 +56,15 @@ class RuleController extends AbstractController
   #[Route("/{id<\d+>}/edit", name:"rule_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
     $form = $this->createForm(RuleType::class, $rule);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager->flush();
 
-      return $this->redirectToRoute('rule_list', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('element/new.html.twig', [
@@ -75,6 +77,8 @@ class RuleController extends AbstractController
   #[Route("/{id<\d+>}/translate/{language}", name:"rule_translate", methods:["GET", "POST"])]
   public function translate(Request $request, Rule $rule, $language, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
     $form = $this->createForm(RuleType::class, $rule);
     $form->handleRequest($request);
     $rule->setTranslatableLocale($language); // change locale
@@ -83,7 +87,7 @@ class RuleController extends AbstractController
       $entityManager->persist($rule);
       $entityManager->flush();
 
-      return $this->redirectToRoute('rule_list', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('element/new.html.twig', [
@@ -96,15 +100,17 @@ class RuleController extends AbstractController
   #[Route("/{id<\d+>}/delete", name:"rule_delete", methods:["POST"])]
   public function delete(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
   {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
     if ($this->isCsrfTokenValid('delete' . $rule->getId(), $request->request->get('_token'))) {
       $entityManager->remove($rule);
       $entityManager->flush();
     }
 
-    return $this->redirectToRoute('rule_list', [], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("/{type}/{id<\d+>}", name: "rule_list", methods: ["GET"])]
+  #[Route("/{type}/{id<\d+>}", name: "rule_index", methods: ["GET"])]
   public function list($type = null, $id = null)
   {
     if (is_null($type)) {
