@@ -51,7 +51,7 @@ class Note
   private Collection $linkToNotes;
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $plainText = null;
+  private ?string $plainText = "";
 
   public function __construct()
   {
