@@ -1,21 +1,25 @@
 .icon {
-  display: inline-block;
+  display  : inline-block;
   font-size: large;
+
   &.icon-sm {
     svg {
       height: 0.8em;
-      width: 0.8em;
+      width : 0.8em;
     }
   }
+
   &.icon-lg {
     vertical-align: 0.2em;
+
     svg {
       height: 2em;
-      width: 2em;
+      width : 2em;
     }
   }
+
   svg {
     height: 1.4em;
-    width: 1.4em;
+    width : 1.4em;
   }
 }

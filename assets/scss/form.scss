@@ -1,40 +1,45 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
+  margin            : 0;
 }
 
 /* Firefox */
 input[type=number] {
-  appearance: textfield;
+  appearance     : textfield;
   -moz-appearance: textfield;
 }
 
 .form-control {
-  color: $mainColor;
+  color           : $mainColor;
   background-color: $inputBackColor;
+
   &:focus {
-    color: $mainColor;
+    color           : $mainColor;
     background-color: $inputActiveBColor;
-    box-shadow: $mainColor 0px 0px 4px 1px;
+    box-shadow      : $mainColor 0px 0px 4px 1px;
   }
+
   border: none;
 }
 
-label, legend {
+label,
+legend {
   font-family: $labelFont;
-  color: $labelColor;
+  color      : $labelColor;
 }
 
-input, textarea {
-  font-family: "arial";
+input,
+textarea {
+  font-family   : "arial";
   // font-family: $inputFont;
 }
 
 .form-select {
   background-color: $inputBackColor;
-  color: $mainColor;
-  border-color: $mainColor;
+  color           : $mainColor;
+  border-color    : $mainColor;
+
   option {
     background-color: rgba(0, 0, 0, 0.8);
   }
@@ -45,7 +50,8 @@ input, textarea {
   // border: $mainColor;
 }
 
-.form-control:disabled, .form-control[readonly] {
-	background-color: #000000d6;
-	opacity: 1;
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #000000d6;
+  opacity         : 1;
 }

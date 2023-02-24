@@ -24,15 +24,15 @@ html {
 }
 
 body {
-  background-color: $pageColor;
-  background-image: url("../#{$background}");
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color     : $pageColor;
+  background-image     : url("../#{$background}");
+  background-position  : center;
+  background-repeat    : no-repeat;
   background-attachment: fixed;
-  background-size: cover;
-  color: $textColor;
-  font-family: $mainFont;
-  margin-bottom: 5rem;
+  background-size      : cover;
+  color                : $textColor;
+  font-family          : $mainFont;
+  margin-bottom        : 5rem;
 }
 
 .header-navbar {
@@ -40,19 +40,21 @@ body {
 }
 
 footer.footer {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  background-color: $footerColor;
-  border: 1px solid $borderColor;
+  position           : fixed;
+  left               : 50%;
+  bottom             : 0;
+  background-color   : $footerColor;
+  border             : 1px solid $borderColor;
   border-bottom-width: 0px;
-  padding: 3px;
-  padding-top: 5px;
+  padding            : 3px;
+  padding-top        : 5px;
+
   #expand_btn {
     margin-top: -7px;
-    width: 50%;
+    width     : 50%;
     text-align: center;
-    cursor: pointer;
+    cursor    : pointer;
+
     &:hover {
       color: $mainDarkColor;
     }
@@ -65,7 +67,8 @@ footer.footer {
 
 .block {
   background-color: $blockColor;
-  box-shadow: $mainColor 0px 0px 7px 3px;
+  box-shadow      : $mainColor 0px 0px 7px 3px;
+
   &-solid {
     background-color: $solidBlockColor;
   }
@@ -73,17 +76,17 @@ footer.footer {
 
 .block-wiki {
   font-family: 'goudy';
-  font-size: 1.2em;
+  font-size  : 1.2em;
 }
 
 .title-block {
   background-color: $inputBackColor;
-  padding: 0.2rem 1.5rem;
-  border-radius: 0.2rem;
+  padding         : 0.2rem 1.5rem;
+  border-radius   : 0.2rem;
 }
 
 .ok {
-  color: $mainColor;
+  color      : $mainColor;
   font-weight: bold;
 }
 
@@ -92,32 +95,36 @@ footer.footer {
 }
 
 .back-img {
-  background-position:center;
-  background-size:contain;
-  background-repeat:no-repeat;
-  background-image: url("../images/rabbit_idle.gif");
+  background-position: center;
+  background-size    : contain;
+  background-repeat  : no-repeat;
+  background-image   : url("../images/rabbit_idle.gif");
+
   &-left {
     background-position: left;
   }
 }
 
-.fluff, blockquote {
-  font-style: italic;
+.fluff,
+blockquote {
+  font-style      : italic;
   background-color: #000000a1;
-  padding: 0.5rem;
-  border-radius: 0.5em;
+  padding         : 0.5rem;
+  border-radius   : 0.5em;
+
   p {
     margin-bottom: 0;
   }
 }
 
 .rule {
-  font-family: $textFont;
-  font-size: 1.2rem;
+  font-family     : $textFont;
+  font-size       : 1.2rem;
   background-color: $darkBlockColor;
-  color: $textBrightColor;
-  padding: 0.5rem;
-  border-radius: 0.5em;
+  color           : $textBrightColor;
+  padding         : 0.5rem;
+  border-radius   : 0.5em;
+
   p {
     margin-bottom: 0.5rem;
   }
@@ -129,53 +136,54 @@ footer.footer {
 
 
 .flash-notice {
-  text-align: center;
+  text-align      : center;
   background-color: #000000bd;
-  color: greenyellow;
-  width: fit-content;
-  margin: auto;
-  padding: 1em;
-  border: 1px solid green;
-  border-radius: 0.3em;
+  color           : greenyellow;
+  width           : fit-content;
+  margin          : auto;
+  padding         : 1em;
+  border          : 1px solid green;
+  border-radius   : 0.3em;
 }
 
 .search {
   &-icon {
-    color: $mainDarkColor;
-    background: $mainColor;
+    color        : $mainDarkColor;
+    background   : $mainColor;
     border-radius: 50% 0% 0% 50%;
-    border: 2px solid $mainColor;
-    width: 27px;
-    line-height: 24px;
-    margin-top: 0px;
-    padding: 1px 3px;
-    z-index: 2;
+    border       : 2px solid $mainColor;
+    width        : 27px;
+    line-height  : 24px;
+    margin-top   : 0px;
+    padding      : 1px 3px;
+    z-index      : 2;
   }
+
   &-field {
-    z-index: 1;
-    margin-left: -1px;
-    border-color: $borderColor;
+    z-index         : 1;
+    margin-left     : -1px;
+    border-color    : $borderColor;
     background-color: $inputBackColor;
-    color: $mainColor;
+    color           : $mainColor;
   }
 }
 
 @font-face {
   font-family: 'hopper_edward';
-  src: url('#{$fonts}/P22_Hopper_Edward.ttf');
+  src        : url('#{$fonts}/P22_Hopper_Edward.ttf');
 }
 
 @font-face {
   font-family: 'get_show';
-  src: url('#{$fonts}/Get Show.ttf');
+  src        : url('#{$fonts}/Get Show.ttf');
 }
 
 @font-face {
   font-family: 'roustel';
-  src: url('#{$fonts}/Roustel.ttf');
+  src        : url('#{$fonts}/Roustel.ttf');
 }
 
 @font-face {
   font-family: 'JMHtypewriter';
-  src: url('#{$fonts}/JMH Typewriter.ttf');
+  src        : url('#{$fonts}/JMH Typewriter.ttf');
 }

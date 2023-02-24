@@ -1,21 +1,24 @@
 .clan {
   &-card {
     background-color: rgba(24, 32, 55, 0.88);
-    border: 1px solid $mainColor;
-    box-shadow: $mainColor 0px 0px 7px 3px;
-    margin-bottom: 1em;
-    border-radius: 0.5em;
+    border          : 1px solid $mainColor;
+    box-shadow      : $mainColor 0px 0px 7px 3px;
+    margin-bottom   : 1em;
+    border-radius   : 0.5em;
+
     &-header {
-      border-bottom-left-radius: 0;
+      border-bottom-left-radius : 0;
       border-bottom-right-radius: 0;
     }
+
     & .clan-card-footer {
-      border-top-left-radius: 0;
+      border-top-left-radius : 0;
       border-top-right-radius: 0;
     }
+
     & .clan-card-body {
       background-color: rgba(0, 0, 0, 0.23);
-      border-top: 1px solid $mainColor;
+      border-top      : 1px solid $mainColor;
     }
   }
 }

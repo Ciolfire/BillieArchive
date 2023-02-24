@@ -1,113 +1,133 @@
 .note {
-  margin: 0.5em;
+  margin : 0.5em;
   padding: 0.5em;
+
   &-default {
     background-color: $blockColor;
-    box-shadow: $mainColor 0px 0px 7px 3px;
-    margin-bottom: 1rem !important;
+    box-shadow      : $mainColor 0px 0px 7px 3px;
+    margin-bottom   : 1rem !important;
+
     &-solid {
       background-color: $solidBlockColor;
     }
   }
+
   &-handwritting {
     background-color: rgb(247, 247, 120);
-    color: black;
-    font-family: 'roustel';
-    box-shadow: 2px 8px 9px black;
+    color           : black;
+    font-family     : 'roustel';
+    box-shadow      : 2px 8px 9px black;
+
     strong {
-      color: black;
+      color           : black;
       background-color: #00f7ffb6;
     }
+
     h3 {
-      color: black;
+      color      : black;
       font-family: 'roustel';
       text-shadow: none;
-      font-size: xx-large;
+      font-size  : xx-large;
     }
+
     h5 {
-      color: black;
+      color      : black;
       font-family: 'roustel';
       text-shadow: none;
-      font-size: x-large;
+      font-size  : x-large;
     }
+
     p {
       font-size: x-large;
     }
+
     blockquote {
       background-color: #ffffff8c;
-      border-radius: 0px 2% 2% 0;
-      border-left: 5px solid #cf0000;
-      box-shadow: 5px 1px 13px black;
-      font-style: initial;
+      border-radius   : 0px 2% 2% 0;
+      border-left     : 5px solid #cf0000;
+      box-shadow      : 5px 1px 13px black;
+      font-style      : initial;
     }
   }
+
   &-paper {
     background-color: #fcf0e2;
-    color: black;
-    font-family: 'JMHtypewriter';
-    box-shadow: 2px 8px 9px black;
+    color           : black;
+    font-family     : 'JMHtypewriter';
+    box-shadow      : 2px 8px 9px black;
+
     strong {
-      color:red;
+      color: red;
     }
-    h3,h5 {
-      color: black;
+
+    h3,
+    h5 {
+      color      : black;
       font-family: 'JMHtypewriter';
       text-shadow: none;
     }
+
     blockquote {
-      border: 3px dashed #d60000;
+      border          : 3px dashed #d60000;
       background-color: #ffffffe0;
-      font-style: initial;
-      border-radius: 0;
+      font-style      : initial;
+      border-radius   : 0;
     }
   }
+
   &-terminal {
     background-color: #000000;
-    border: 1px solid rgb(0, 159, 16);
-    color: rgb(0, 159, 16);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border          : 1px solid rgb(0, 159, 16);
+    color           : rgb(0, 159, 16);
+    font-family     : system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
     strong {
-      color:rgb(255, 242, 0)
+      color: rgb(255, 242, 0)
     }
+
     h3 {
-      margin: -8px;
-      margin-bottom: -0.5rem;
-      padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin          : -8px;
+      margin-bottom   : -0.5rem;
+      padding-bottom  : 0.5rem;
+      margin-bottom   : 0.5rem;
       background-color: rgb(0, 159, 16);
-      color: black;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      text-shadow: none;
+      color           : black;
+      font-family     : system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      text-shadow     : none;
     }
+
     h5 {
-      color: rgb(0, 201, 40);
+      color      : rgb(0, 201, 40);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       text-shadow: none;
     }
+
     blockquote {
-      background: rgb(15, 33, 20);
-      color: rgb(71, 208, 8);
-      border: 1px solid rgb(71, 208, 8);
+      background      : rgb(15, 33, 20);
+      color           : rgb(71, 208, 8);
+      border          : 1px solid rgb(71, 208, 8);
       border-top-width: 15px;
-      border-radius: 0;
-      font-style: initial;
+      border-radius   : 0;
+      font-style      : initial;
     }
   }
 }
 
 #note-list {
   .note {
-    margin: 0;
-    padding: 0;
+    margin          : 0;
+    padding         : 0;
     background-color: #000000bd;
-    color: silver;
-    border: 1px solid $mainColor;
-    font-family: "JMHtypewriter";
+    color           : silver;
+    border          : 1px solid $mainColor;
+    font-family     : "JMHtypewriter";
+
     &-header {
       background-color: $mainColor;
-      margin-bottom: 1em;
-      padding: 0.5em;
+      margin-bottom   : 1em;
+      padding         : 0.5em;
     }
+
     &-footer {
       background-color: $blockColor;
     }

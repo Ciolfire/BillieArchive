@@ -1,29 +1,38 @@
-.btn.btn-primary, .human-btn.btn-primary {
+.btn.btn-primary,
+.human-btn.btn-primary {
   background-color: $blockColor;
-  border-color: $borderColor;
-  color: $btnColor;
-  font-weight: bold;
-  &:focus, &:hover, &:active, &.active {
-    box-shadow: 0 0 0 0.25rem $main50pColor;
-    color: $textColor;
+  border-color    : $borderColor;
+  color           : $btnColor;
+  font-weight     : bold;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow      : 0 0 0 0.25rem $main50pColor;
+    color           : $textColor;
     background-color: $btnHover;
-    border: 1px solid $mainDarkColor;
+    border          : 1px solid $mainDarkColor;
   }
 }
 
 .btn-check {
-  & + .btn-primary {
+  &+.btn-primary {
     font-weight: normal;
   }
-  &:checked + .btn-primary, &:active + .btn-primary {
-    color: $textColor;
+
+  &:checked+.btn-primary,
+  &:active+.btn-primary {
+    color           : $textColor;
     background-color: $btnColor;
-    border: 1px solid $mainDarkColor;
+    border          : 1px solid $mainDarkColor;
   }
-  &:focus + .btn-primary, .btn.btn-primary:focus {
-    box-shadow: 0 0 0 0.25rem $main50pColor;
-    color: $textColor;
+
+  &:focus+.btn-primary,
+  .btn.btn-primary:focus {
+    box-shadow      : 0 0 0 0.25rem $main50pColor;
+    color           : $textColor;
     background-color: $btnHover;
-    border: 1px solid $mainDarkColor;
+    border          : 1px solid $mainDarkColor;
   }
 }
