@@ -1,0 +1,173 @@
+<?php
+
+namespace App\Entity;
+
+use App\Entity\Traits\Sourcable;
+use App\Entity\Traits\Typed;
+use App\Repository\RollRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use League\HTMLToMarkdown\HtmlConverter;
+
+#[ORM\Entity(repositoryClass: RollRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\RollTranslation")]
+class Roll
+{
+  public const Type = [
+    0 => 'roll.action.instant',
+    1 => 'roll.action.reflexive',
+    2 => 'roll.action.extended',
+  ];
+
+  use Typed;
+  use Sourcable;
+
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column]
+  private ?int $id = null;
+
+  #[Gedmo\Locale]
+  private $locale;
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(length: 255)]
+  private ?string $name = null;
+
+  #[ORM\ManyToMany(targetEntity: Attribute::class, inversedBy: 'rolls')]
+  private Collection $attributes;
+
+  #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'rolls')]
+  private Collection $skills;
+
+  #[ORM\Column(type: Types::SMALLINT)]
+  private ?int $action = null;
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $details = "";
+
+  #[ORM\Column]
+  private ?bool $isImportant = null;
+
+  public function __construct()
+  {
+    $this->attributes = new ArrayCollection();
+    $this->skills = new ArrayCollection();
+  }
+
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
+
+  public function setTranslatableLocale($locale)
+  {
+    $this->locale = $locale;
+  }
+
+  public function getName(): ?string
+  {
+    return $this->name;
+  }
+
+  public function setName(string $name): self
+  {
+    $this->name = $name;
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, Attribute>
+   */
+  public function getAttributes(): Collection
+  {
+    return $this->attributes;
+  }
+
+  public function addAttribute(Attribute $attribute): self
+  {
+    if (!$this->attributes->contains($attribute)) {
+      $this->attributes->add($attribute);
+    }
+
+    return $this;
+  }
+
+  public function removeAttribute(Attribute $attribute): self
+  {
+    $this->attributes->removeElement($attribute);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, Skill>
+   */
+  public function getSkills(): Collection
+  {
+    return $this->skills;
+  }
+
+  public function addSkill(Skill $skill): self
+  {
+    if (!$this->skills->contains($skill)) {
+      $this->skills->add($skill);
+    }
+
+    return $this;
+  }
+
+  public function removeSkill(Skill $skill): self
+  {
+    $this->skills->removeElement($skill);
+
+    return $this;
+  }
+
+  public function getAction(): ?int
+  {
+    return $this->action;
+  }
+
+  public function setAction(int $action): self
+  {
+    $this->action = $action;
+
+    return $this;
+  }
+
+  public function getActionName(): string
+  {
+    return self::Type[$this->action];
+  }
+
+  public function getDetails(): ?string
+  {
+    return $this->details;
+  }
+
+  public function setDetails(string $details): self
+  {
+    $converter = new HtmlConverter();
+    $this->details = $converter->convert($details);
+
+    return $this;
+  }
+
+  public function isImportant(): ?bool
+  {
+    return $this->isImportant;
+  }
+
+  public function setIsImportant(bool $isImportant): self
+  {
+    $this->isImportant = $isImportant;
+
+    return $this;
+  }
+}

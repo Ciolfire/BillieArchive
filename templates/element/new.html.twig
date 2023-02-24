@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% if entity.id is null %}
+  {% set action = "new" %}
+{% else %}
+  {% set action = "edit" %}
+{% endif %}
+
+{% block title %}
+{{ (element ~ '.' ~ action)|trans }}
+{% endblock %}
+
+
+{% block body %}
+  <h1>{{ (element ~ '.' ~ action)|trans }}</h1>
+  <div class="container block py-3">
+    {{ include('element/forms/_form.html.twig') }}
+  </div>
+  {% include "back.html.twig" %}
+{% endblock %}

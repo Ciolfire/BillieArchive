@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SkillRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -33,6 +35,14 @@ class Skill
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT, nullable: true)]
   private $fluff;
+
+  #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'skills')]
+  private Collection $rolls;
+
+  public function __construct()
+  {
+      $this->rolls = new ArrayCollection();
+  }
 
   public function __toString()
   {
@@ -102,5 +112,32 @@ class Skill
     $this->fluff = $fluff;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Roll>
+   */
+  public function getRolls(): Collection
+  {
+      return $this->rolls;
+  }
+
+  public function addRoll(Roll $roll): self
+  {
+      if (!$this->rolls->contains($roll)) {
+          $this->rolls->add($roll);
+          $roll->addSkill($this);
+      }
+
+      return $this;
+  }
+
+  public function removeRoll(Roll $roll): self
+  {
+      if ($this->rolls->removeElement($roll)) {
+          $roll->removeSkill($this);
+      }
+
+      return $this;
   }
 }

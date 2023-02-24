@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AttributeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -40,6 +42,14 @@ class Attribute
   #[Gedmo\Translatable]
   #[ORM\Column(type: "text")]
   private $fluff;
+
+  #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'attributes')]
+  private Collection $rolls;
+
+  public function __construct()
+  {
+      $this->rolls = new ArrayCollection();
+  }
 
   public function __toString()
   {
@@ -123,5 +133,32 @@ class Attribute
     $this->fluff = $converter->convert($fluff);
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Roll>
+   */
+  public function getRolls(): Collection
+  {
+      return $this->rolls;
+  }
+
+  public function addRoll(Roll $roll): self
+  {
+      if (!$this->rolls->contains($roll)) {
+          $this->rolls->add($roll);
+          $roll->addAttribute($this);
+      }
+
+      return $this;
+  }
+
+  public function removeRoll(Roll $roll): self
+  {
+      if ($this->rolls->removeElement($roll)) {
+          $roll->removeAttribute($this);
+      }
+
+      return $this;
   }
 }

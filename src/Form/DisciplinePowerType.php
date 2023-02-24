@@ -21,7 +21,7 @@ class DisciplinePowerType extends AbstractType
 
   public function __construct(TranslatorInterface $translator)
   {
-      $this->translator = $translator;
+    $this->translator = $translator;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -30,35 +30,35 @@ class DisciplinePowerType extends AbstractType
     $translator = $this->translator;
     /** @var DisciplinePower */
     $power = $options['data'];
-    
+
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short', 'translation_domain' => "app"])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"]);
-      if (!$power->getDiscipline()->isSimple()) {
-        $builder
-          ->add('book')
-          ->add('page')
-          ->add('homebrewFor');
-      }
-      if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil()) {
+    if (!$power->getDiscipline()->isSimple()) {
+      $builder
+        ->add('book')
+        ->add('page')
+        ->add('homebrewFor');
+    }
+    if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil()) {
       $builder
         ->add('attributes', null, [
           'label' => 'attributes.label',
           'expanded' => true,
           'translation_domain' => "character",
-          'group_by' => function($choice) use ($translator) {
+          'group_by' => function ($choice) use ($translator) {
             /** @var Attribute $choice */
             return $translator->trans($choice->getCategory(), [], 'character');
           },
-          ])
+        ])
         ->add('skills', null, [
           'label' => 'skills.label',
           'expanded' => true,
           'translation_domain' => "character",
-          'choice_attr' => ['class' =>'text-sub'],
-          'group_by' => function($choice) use ($translator) {
+          'choice_attr' => ['class' => 'text-sub'],
+          'group_by' => function ($choice) use ($translator) {
             /** @var Skill $choice */
             return $translator->trans($choice->getCategory(), [], 'character');
           },

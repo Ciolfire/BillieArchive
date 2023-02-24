@@ -45,6 +45,8 @@ derangements:
   label: Derangements
 edit: Edit
 emblem: Emblem
+flaw.label: Flaw
+flaws.label: Flaws
 homebrew: Homebrew
 infos: Infos
 keyword: Keyword
@@ -106,7 +108,15 @@ personal: Personal
 prerequisite: Prerequisite
 prerequisites: Prerequisites
 quote: Quote
-roll: Roll
+roll:
+  label: Roll
+  edit: Edit Roll
+  new: New Roll
+  action:
+    label: Action
+    extended: Extended
+    reflexive: Reflexive
+    instant: Instant
 rolls: Rolls
 rules: Rules
 save: Save

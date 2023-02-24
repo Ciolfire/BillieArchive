@@ -35,6 +35,9 @@ input, textarea {
   background-color: $inputBackColor;
   color: $mainColor;
   border-color: $mainColor;
+  option {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 }
 
 .radio-button {

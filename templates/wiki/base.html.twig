@@ -2,18 +2,21 @@
 
 <div class="row block generic pt-2">
   <h2 class="pe-none"><img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" /> World of Darkness <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" /></h2>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'human'})}}">{% include "icon.html.twig" with {'icon': 'book', 'hasTips': 0 } only %}{{ "books"|trans}}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('attribute_index')}}">{% include "icon.html.twig" with {'icon': 'general', 'hasTips': 0 } only %}{{ "attributes.label"|trans({}, 'character')}}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('skill_index')}}">{% include "icon.html.twig" with {'icon': 'general', 'hasTips': 0 } only %}{{ "skills.label"|trans({}, 'character')}}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "icon.html.twig" with {'icon': 'merits', 'hasTips': 0 } only %}{{ "merits"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'human'})}}">{% include "icon.html.twig" with {'icon': 'book', 'hasTips': 0 } only %} {{ "books"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('rule_list')}}">{% include "icon.html.twig" with {'icon': 'rules', 'hasTips': 0 } only %} {{ "rules"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('attribute_index')}}">{% include "icon.html.twig" with {'icon': 'general', 'hasTips': 0 } only %} {{ "attributes.label"|trans({}, 'character')}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('skill_index')}}">{% include "icon.html.twig" with {'icon': 'general', 'hasTips': 0 } only %} {{ "skills.label"|trans({}, 'character')}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('roll_list')}}">{% include "icon.html.twig" with {'icon': 'dice', 'hasTips': 0 } only %} {{ "rolls"|trans }}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "icon.html.twig" with {'icon': 'merits', 'hasTips': 0 } only %} {{ "merits"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="#">{% include "icon.html.twig" with {'icon': 'flaw', 'hasTips': 0 } only %} {{ "flaws.label"|trans }}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('derangement_list')}}">{% include "icon.html.twig" with {'icon': 'derangement', 'hasTips': 0 } only %} {{ "derangements.label"|trans }}</a></div>
   {# <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="#">{{ "advantages"|trans}}</a></div> #}
-  {# <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="#">{{ "rules"|trans}}</a></div> #}
 </div>
 
 <div class="row vampire mt-3 pt-2">
   <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /> Vampire: The Requiem <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /></h2>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'vampire'})}}">{% include "icon.html.twig" with {'icon': 'book', 'hasTips': 0 } only %}{{ "books"|trans}}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('clan_index')}}">{% include "icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %}{{ "clans.label"|trans({}, 'vampire')}} & {{ "clan.bloodlines.label"|trans({}, 'vampire')}}{% include "icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0 } only %}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('clan_index')}}">{% include "icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %}{{ "clans.label"|trans({}, 'vampire')}} <span class="d-none d-sm-inline">& {{ "clan.bloodlines.label"|trans({}, 'vampire')}}</span>{% include "icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0 } only %}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('vampire_discipline_index')}}">{% include "icon.html.twig" with {'icon': 'discipline', 'hasTips': 0 } only %}{{ "disciplines.label"|trans({}, 'vampire')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('devotion_index')}}">{% include "icon.html.twig" with {'icon': 'devotion', 'hasTips': 0 } only %}{{ "devotions.label"|trans({}, 'vampire')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('vampire_sorcery_index')}}">{% include "icon.html.twig" with {'icon': 'sorcery', 'hasTips': 0 } only %}{{ "sorcery.label"|trans({}, 'vampire')}}</a></div>

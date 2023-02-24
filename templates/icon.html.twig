@@ -1,26 +1,28 @@
 {% trans_default_domain 'icon' %}
 
 <span class="icon {{ class|default("")}}" {% if hasTips|default(true) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
-  {% if icon == 'hide' %}
-    <i class="fa-solid fa-eye-slash"></i>
-  {% elseif icon == 'show' or icon == 'view' %}
-    <i class="fa-solid fa-eye"></i>
-  {% elseif icon == 'edit' %}
-    {{ source('@icons/' ~ 'fountain-pen.svg') }}
-  {% elseif icon == 'save' %}
-    {{ source('@icons/' ~ 'save.svg') }}
-  {% elseif icon == 'delete' %}
-    {{ source('@icons/' ~ 'trash-can.svg') }}
+  {% if icon == 'add' or icon == 'new' %}
+    {{ source('@icons/' ~ 'plus-solid.svg') }}
   {% elseif icon == 'back' %}
     {{ source('@icons/' ~ 'return-arrow.svg') }}
-  {% elseif icon == 'add' or icon == 'new' %}
-    {{ source('@icons/' ~ 'plus-solid.svg') }}
-  {% elseif icon == 'language' %}
-    {{ source('@icons/' ~ 'language-solid.svg') }}
-  {% elseif icon == 'open-tab' %}
-    {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
+  {% elseif icon == 'delete' %}
+    {{ source('@icons/' ~ 'trash-can.svg') }}
+  {% elseif icon == 'edit' %}
+    {{ source('@icons/' ~ 'fountain-pen.svg') }}
   {% elseif icon == 'exit' %}
     {{ source('@icons/' ~ 'right-from-bracket-solid.svg') }}
+  {% elseif icon == 'folder' %}
+    {{ source('@icons/' ~ 'open-folder.svg') }}
+  {% elseif icon == 'hide' %}
+    <i class="fa-solid fa-eye-slash"></i>
+  {% elseif icon == 'language' %}
+    {{ source('@icons/' ~ 'language-solid.svg') }}
+  {% elseif icon == 'save' %}
+    {{ source('@icons/' ~ 'save.svg') }}
+  {% elseif icon == 'show' or icon == 'view' %}
+    <i class="fa-solid fa-eye"></i>
+  {% elseif icon == 'open-tab' %}
+    {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
 
   {% elseif icon == 'free' or icon == 'pass' %}
     {{ source('@icons/' ~ 'ticket.svg') }}
@@ -28,9 +30,9 @@
     {{ source('@icons/' ~ 'skills.svg') }}
   {% elseif icon == 'options' %}
     {{ source('@icons/' ~ 'gears.svg') }}
-  {% elseif icon == 'folder' %}
-    {{ source('@icons/' ~ 'open-folder.svg') }}
   {% elseif icon == 'book' %}
+    {{ source('@icons/' ~ 'book-pile.svg') }}
+  {% elseif icon == 'rule' or icon == 'rules' %}
     {{ source('@icons/' ~ 'bookmarklet.svg') }}
   {% elseif icon == 'notes' or icon == 'note' %}
     {{ source('@icons/' ~ 'notebook.svg') }}
@@ -39,7 +41,8 @@
   {% elseif icon == 'background' %}
     {{ source('@icons/' ~ 'id-card.svg') }}
   {% elseif icon == 'details' %}
-    <i class="fa-solid fa-list"></i>
+    {{ source('@icons/' ~ 'details.svg') }}
+    {# <i class="fa-solid fa-list"></i> #}
   {% elseif icon == 'xp' %}
     {{ source('@icons/' ~ 'upgrade.svg') }}
   {% elseif icon == 'logs' %}
@@ -50,11 +53,12 @@
     {{ source('@icons/' ~ 'd10.svg') }}
   {% elseif icon == 'luckThrow' %}
     {{ source('@icons/' ~ 'coinflip.svg') }}
+  {% elseif icon == 'party' %}
+    {{ source('@icons/' ~ 'three-friends.svg') }}
+
   {# Character #}
   {% elseif icon == 'characters' %}
     {{ source('@icons/' ~ 'backup.svg') }}
-  {% elseif icon == 'party' %}
-    {{ source('@icons/' ~ 'three-friends.svg') }}
   {% elseif icon == 'power' %}
     {{ source('@icons/' ~ 'flow-tornado.svg') }}
   {% elseif icon == 'finesse' %}
@@ -75,6 +79,8 @@
     {% endif %}
   {% elseif icon == 'inventory' %}
     {{ source('@icons/' ~ 'backpack.svg') }}
+  {% elseif icon == 'flaw' %}
+    {{ source('@icons/' ~ 'flaw.svg') }}
   {% elseif icon == 'virtue' %}
     {{ source('@icons/' ~ 'virtue.svg') }}
   {% elseif icon == 'vice' %}

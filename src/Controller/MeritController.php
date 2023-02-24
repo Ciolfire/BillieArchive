@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Entity\Description;
 use App\Entity\Merit;
-use App\Entity\Prerequisite;
 use App\Form\MeritType;
-use App\Repository\MeritRepository;
 
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,19 +18,15 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route("{_locale<%supported_locales%>?%default_locale%}/merit")]
 class MeritController extends AbstractController
 {
-  private $repository;
   private $dataService;
   private $categories = ['mental', 'physical', 'social'];
 
-  public function __construct(DataService $dataService, MeritRepository $meritRepository)
+  public function __construct(DataService $dataService)
   {
-    $this->repository = $meritRepository;
     $this->dataService = $dataService;
   }
 
-  /**
-   * @Route("/new", name="merit_new", methods={"GET", "POST"})
-   */
+  #[Route("/new", name:"merit_new", methods:["GET", "POST"])]
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
     $merit = new Merit();
@@ -53,9 +47,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id<\d+>}", name="merit_show", methods={"GET"})
-   */
+  #[Route("/{id<\d+>}", name:"merit_show", methods:["GET"])]
   public function show(Merit $merit): Response
   {
     return $this->render('merit/show.html.twig', [
@@ -63,9 +55,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id<\d+>}/edit", name="merit_edit", methods={"GET", "POST"})
-   */
+  #[Route("/{id<\d+>}/edit", name:"merit_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(MeritType::class, $merit);
@@ -83,9 +73,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id<\d+>}/translate/{language}", name="merit_translate", methods={"GET", "POST"})
-   */
+  #[Route("/{id<\d+>}/translate/{language}", name:"merit_translate", methods:["GET", "POST"])]
   public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(MeritType::class, $merit);
@@ -105,9 +93,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{id<\d+>}", name="merit_delete", methods={"POST"})
-   */
+  #[Route("/{id<\d+>}/delete", name:"merit_delete", methods:["POST"])]
   public function delete(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $merit->getId(), $request->request->get('_token'))) {

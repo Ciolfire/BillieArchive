@@ -1,0 +1,26 @@
+{% trans_default_domain 'app' %}
+
+{% set first = true %}
+
+<div class="block">
+  <div class="row mb-2">
+    <h3>{{ derangement.name }}</h2>
+    <div class="col-4">
+      {{ derangement.severity }}
+    </div>
+    <div class="col-4">
+      {% if derangement.isExtreme %}
+        <span class="accent">Extreme</span>
+      {% endif %}
+    </div>
+    <div class="col-4 text-end pe-3">
+      <button type="button" class="btn btn-primary" data-bs-target=".action-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
+      <a type="button" href="{{ path('derangement_edit', {'id': derangement.id }) }}" class="btn btn-primary">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="action-{{ derangement.id }} collapse p-5">{{ derangement.details|markdown_to_html }}</div>
+    </div>
+  </div>
+</div>

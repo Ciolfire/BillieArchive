@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ "rolls"|trans }}{% endblock %}
+
+{% block bodyData %}
+  data-controller="search" data-search-type-value="roll"
+{% endblock %}
+
+{% block body %}
+  <div class="container block py-3">
+    <div class="row py-3">
+      <h1>{% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}
+      <span>{{ "rolls"|trans }}</span>
+      {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
+      <div class="col-auto">
+        {% if description is defined and description is not null and description.value is not empty %}
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
+        {% endif %}
+      </div>
+      <div id="collapseDescription" class="col-12 flex-grow block collapse">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+    {% if is_granted('ROLE_ST') %}
+      <a class="btn btn-primary ms-auto w-100" href="{{ path('roll_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+    {% endif %}
+    <div class="mt-3">
+      {% for roll in rolls %}
+        {% include "roll/list_item.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

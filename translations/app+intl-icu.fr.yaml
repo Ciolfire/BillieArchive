@@ -45,6 +45,8 @@ derangements:
   label: Dérangements
 edit: Modifier
 emblem: Emblème
+flaw.label: Désavantage
+flaws.label: Désavantages
 homebrew: Règles maison
 infos: Infos
 keyword: Mot-clef
@@ -106,7 +108,15 @@ personal: Personnel
 prerequisite: Prérequis
 prerequisites: Prérequis
 quote: Citation
-roll: Lancer
+roll:
+  label: Lancer
+  edit: Modification de Lancer
+  new: Nouveau Lancer
+  action:
+    label: Action
+    extended: Étendue
+    reflexive: Reflexe
+    instant: Instantanée
 rolls: Lancers
 rules: Règles
 save: Sauvegarder
