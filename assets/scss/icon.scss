@@ -2,6 +2,14 @@
   display  : inline-block;
   font-size: large;
 
+  &.icon-xs {
+    svg {
+      height: 0.5em;
+      width : 0.5em;
+      vertical-align: super;
+    }
+  }
+
   &.icon-sm {
     svg {
       height: 0.8em;
