@@ -20,7 +20,7 @@
   </div>
   {% if entity.id is not null %}
     <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal">{% include "icon.html.twig" with {'icon': 'delete', 'hasTips': 0} only %}</button>
+    {% include "element/delete.html.twig" %}
   {% endif %}
-  {% include "element/delete.html.twig" %}
   {% include "back.html.twig" %}
 {% endblock %}

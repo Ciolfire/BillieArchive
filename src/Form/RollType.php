@@ -39,6 +39,8 @@ class RollType extends AbstractType
         ]
       ])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])
+      ->add('isContested')
+      ->add('contestedText')
       ->add('isImportant')
       ->add('type', ChoiceType::class, [
         'required' => false,

@@ -94,7 +94,7 @@ class DerangementController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/delete", name:"derangement_translate", methods:["POST"])]
+  #[Route("/{id<\d+>}/delete", name:"derangement_delete", methods:["POST"])]
   public function delete(Request $request, Derangement $derangement, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $derangement->getId(), $request->request->get('_token'))) {

@@ -62,7 +62,9 @@ class DisciplinePowerType extends AbstractType
             /** @var Skill $choice */
             return $translator->trans($choice->getCategory(), [], 'character');
           },
-        ]);
+        ])
+        ->add('contestedText')
+        ;
     }
     $builder->add('save', SubmitType::class, ['label' => 'save', 'translation_domain' => "app"]);
   }

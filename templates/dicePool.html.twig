@@ -1,10 +1,18 @@
-<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ pool.string }}">
-  <span class="text">
+<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ pool.string }}{% if contested|default(null) is not null %} {{ contested }}{% endif %}">
+  <span class="text text-strong">
     {% if pool.total > 0 %}
-      <span class="fw-bold {% if pool.total < 4 %}warning{% elseif pool.total > 9 %}accent{% endif %}">{{ pool.total }}</span>
+      <span class="fw-bold {% if pool.total < 4 %}warning{% elseif pool.total > 9 %}accent{% endif %}">
+        {{ pool.total }}
+      </span>
+      {% if contested|default(null) is not null %}
+        <span class="warning">{% include "icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}</span>
+      {% endif %}
       {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0} only %}
     {% else %}
       <span class="warning">{{ "luckThrow"|trans([], 'icon') }}</span>
+      {% if contested|default(null) is not null %}
+        {% include "icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}
+      {% endif %}
       {% include "icon.html.twig" with {'icon': "luckThrow", 'hasTips': 0} only %}
     {% endif %}
   </span>
