@@ -7,6 +7,7 @@ use App\Entity\Character;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\Human;
+use App\Entity\Roll;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
 use App\Form\VampireType;
@@ -198,10 +199,13 @@ class CharacterController extends AbstractController
         $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
       }
     }
+    $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
+
     return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
+      'rolls' => $rolls,
       'type' => $character->getType(),
     ]);
   }

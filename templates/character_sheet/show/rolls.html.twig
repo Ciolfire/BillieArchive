@@ -1,12 +1,26 @@
-{% trans_default_domain 'character' %}
-<div class="row my-2">
-  <div class="col-12 g-0">
-    <div class="block user-select-none h-100">
-      <h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'dice', 'hasTips': 0, 'class': 'icon-lg'} %} {{ 'rolls'|trans([], 'app') }}</h3>
-      <div class="row p-1 text-sub">
-        <div class="col-6"><h5>Perception</h5> Wits + Composure or a relevant Skill in place of Composure; reflexive action (p. 45)</div>
-        <div class="col-6"><h5>Memorizing and Remembering</h5> Intelligence + Composure; reflexive action (p. 44)</div>
+{% trans_default_domain 'app' %}
+
+<h3 class="text-center pt-1">{% include "icon.html.twig" with {'icon': 'dice', 'hasTips': 0, 'class': 'icon-lg'} %}{{ 'rolls'|trans([], 'app') }}</h3>
+{% for roll in rolls %}
+  {% if roll.type == character.type or roll.type == null %}
+    <div class="col-6">
+      <div class="row">
+        <h5>{{ roll.name }}
+          {% if roll.book is not null %}({{ "src"|trans({'book' : roll.book.short, 'page' : roll.page })}})
+          {% endif %}
+        </h5>
+        <div class="col-6 text-center">
+          <span class="text-strong">
+            {{ roll.actionName|trans }}
+            {% if roll.isContested %},
+              {{ "roll.action.contested"|trans}}
+            {% endif %}
+          </span>
+        </div>
+        <div class="col-6 text-center">
+          <span class="">{% include "dicePool.html.twig" with {'pool': character.detailedDicePool(roll.attributes, roll.skills), 'contested': roll.contestedText } %}</span>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  {% endif %}
+{% endfor %}

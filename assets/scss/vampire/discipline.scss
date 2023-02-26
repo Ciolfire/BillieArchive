@@ -17,6 +17,16 @@
       }
     }
 
+    .text {
+      font-family: $textFont;
+      &-strong {
+        .accent {
+          filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
+        }
+        filter: drop-shadow(-1px 1px 0 #ffffff99) drop-shadow(-1px -1px 0 #ffffff99) drop-shadow(1px -1px 0 #ffffff99) drop-shadow(1px 1px 0 #ffffff99);
+      }
+    }
+
     .fluff,
     blockquote {
       color           : $textBrightColor;

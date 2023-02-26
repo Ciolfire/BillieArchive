@@ -18,8 +18,8 @@ class Roll
 {
   public const Type = [
     0 => 'roll.action.instant',
-    1 => 'roll.action.reflexive',
-    2 => 'roll.action.extended',
+    1 => 'roll.action.extended',
+    2 => 'roll.action.reflexive',
   ];
 
   use Typed;

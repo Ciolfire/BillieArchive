@@ -78,7 +78,9 @@
         </div>
       {% endif %}
     </div>
-    {# {% include "character_sheet/show/rolls.html.twig" %} #}
+    <div class="row block mt-3 p-2 user-select-none">
+      {% include "character_sheet/show/rolls.html.twig" %}
+    </div>
     {% block modals %}
       {% include "character_sheet/modal/avatar.update.html.twig" %}
       {% include "character_sheet/modal/xp.add.html.twig" %}

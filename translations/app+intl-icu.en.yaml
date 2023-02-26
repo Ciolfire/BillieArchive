@@ -114,15 +114,17 @@ roll:
   new: New Roll
   action:
     label: Action
+    contested: Contested
     extended: Extended
-    reflexive: Reflexive
     instant: Instant
+    reflexive: Reflexive
 rolls: Rolls
 rules: Rules
 save: Save
 short: Effect
 skills: Skills
 source: "{book} page {page}"
+src: "{book} p.{page}"
 stories:
   new: New story
   name: Stories

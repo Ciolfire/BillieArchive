@@ -114,15 +114,17 @@ roll:
   new: Nouveau Lancer
   action:
     label: Action
+    contested: Contestée
     extended: Étendue
-    reflexive: Reflexe
     instant: Instantanée
+    reflexive: Reflexe
 rolls: Lancers
 rules: Règles
 save: Sauvegarder
 short: Effet
 skills: Compétences
 source: "{book} page {page}"
+src: "{book} p.{page}"
 stories:
   new: Nouvelle histoire
   name: Histoires
