@@ -14,12 +14,12 @@
       {% endif %}
       {% if month is not defined or cMonth != month or cYear != year %}
         <div class="col-12">
-          <p class="mb-0">{{ cMonth }}</p>
+          <h3 class="my-1">{{ cMonth }}</h3>
         </div>
       {% endif %}
       <div class="col-6 col-md-4 col-lg-2">
         <a class="btn btn-primary fs-sm w-100 h-100" href="#note-{{ note.id }}">
-          {{ note.assignedAt|format_datetime('short', 'none') }}
+          {{ note.assignedAt|format_datetime(pattern="E d") }}
           <br>
           {{ note.title|default('—') }}
         </a>
