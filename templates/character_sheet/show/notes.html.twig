@@ -51,7 +51,9 @@
     {% endfor %}
   </div>
   {% if character.notes is not empty %}
-    <a href="#" class="position-sticky bottom-0 btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
+    <div class="position-sticky bottom-0 text-center">
+      <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
+    </div>
   {% else %}
     <p>{{ "notes.none"|trans }}</p>
   {% endif %}
