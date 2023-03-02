@@ -188,29 +188,6 @@ $avatar-size: 200px * (1 + .05 * 2);
   vertical-align: middle;
 }
 
-// .card-merit {
-//   // min-height: 178px;
-// }
-
-.merit {
-  &-filters {
-    z-index: 1;
-  }
-
-  &-hide {
-    position                  : absolute;
-    top                       : 0;
-    left                      : 12px;
-    height                    : 100%;
-    width                     : auto;
-    background-color          : $main50pColor;
-    border                    : 1px solid $mainColor;
-    border-left               : none;
-    border-top-right-radius   : 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-  }
-}
-
 .health-box,
 .trait-box {
   height    : 1.5rem;

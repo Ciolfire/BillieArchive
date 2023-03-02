@@ -181,7 +181,7 @@ export default class extends Controller {
   checkCategory(category) {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
-      if (merit.dataset.category == category || category == "") {
+      if (merit.dataset.fighting != true && (merit.dataset.category == category) || category == "") {
         if (card.classList.contains('d-none')) {
           card.classList.remove('d-none')
         }

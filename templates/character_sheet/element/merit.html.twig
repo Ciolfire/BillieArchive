@@ -3,7 +3,7 @@
 {% endif %}
 
 <div class="col py-2">
-  <div class="card card-merit block" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
+  <div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="row align-items-center">
         <div class="col-auto" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="meritText{{ id }}">

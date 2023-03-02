@@ -39,3 +39,5 @@
     <div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
   {% endif %}
 {% endblock %}
+
+{% block owned %}{% if chMerit is defined %} merit-owned{% endif %}{% endblock %}

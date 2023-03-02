@@ -17,7 +17,7 @@
   <h2 class="text-center py-3 user-select-none">New Disciplines</h2>
   {% for power in powers %}
     <div class="col-12 col-lg-6 justify-content-center">
-      <div class="block w-100 container g-0">
+      <div class="block w-100 container g-0 my-2">
         {% set min = 0 %}
         {% set base = 0 %}
         {% include "character_sheet/vampire/edit/discipline.html.twig" with {'discipline' : power } %}
