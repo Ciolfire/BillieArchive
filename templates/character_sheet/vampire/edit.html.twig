@@ -6,6 +6,17 @@
   {% include "character_sheet/vampire/edit/header.html.twig" %}
 {% endblock %}
 
+{% block form_start %}
+  {% set form_attributes = {
+      'data-controller': 'character--merits character--edit',
+      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
+      'data-character--edit-total-value': character.xpTotal,
+      'data-character--edit-used-value': character.xpUsed,
+      'data-character--edit-coils-value': character.coilsLevel
+  } %}
+  {{ form_start(form, {'attr': form_attributes}) }}
+{% endblock %}
+
 {% block special %}
   <div id="vampire" class="g-0" data-tabs-target="page">
     {% include "character_sheet/vampire/edit/special.html.twig" %}

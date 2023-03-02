@@ -15,6 +15,8 @@ export default class extends Controller
     total: Number,
     used: Number,
     spend: Number,
+    coilsCurrent: {},
+    coils: Number,
     emptyInfo: String,
     costs: {
       'attribute': 5,
@@ -32,6 +34,7 @@ export default class extends Controller
 
   connect()
   {
+    this.baseCoilsValue = this.coilsValue;
     this.emptyInfoValue = this.usingInfoTarget.innerText;
     this.dotTargets.forEach(target => {
       let data = target.parentElement.dataset;
@@ -58,15 +61,42 @@ export default class extends Controller
     if (event.params.type == "merit") {
       key = event.target.parentElement.parentElement.firstElementChild.id;
     }
-    this.payDot(key, event.params.name, event.params.min, event.params.value, event.params.type);
+    if (event.params.coils == true) {
+      this.payCoil(key, event);
+    } else {
+      this.payDot(key, event.params.name, event.params.min, event.params.value, event.params.type);
+    }
 
     let changed = event.target.getAttribute("for").split('-')[0];
     this.dispatch("change", { detail: { type: event.params.type, target: changed } });
   }
 
-  payDot(key, name, min, value, type)
+  payCoil(key, event)
   {
-    let cost = this.calculateCost(this.costsValue[type], +min, value, type);
+    let id = event.params.id;
+    let min = event.params.min;
+    let value = event.params.value;
+    if (this.coilsCurrentValue[event.params.id]) {
+      min = this.coilsCurrentValue[event.params.id];
+      if (min == value) {
+        value = event.params.min;
+      }
+    }
+    console.debug("Starting coil value", this.coilsValue);
+    this.payDot(key, event.params.name, event.params.min, value, event.params.type, this.coilsValue - min);
+    this.coilsValue = this.coilsValue + (value - min);
+    this.coilsCurrentValue[event.params.id] = value;
+    console.debug("Ending coil value", this.coilsValue);
+  }
+
+
+  // Additive allow to have items with cumulative values, like coils
+  payDot(key, name, min, value, type, addititve=0)
+  {
+    let cost = this.calculateCost(this.costsValue[type], +min, value, type, addititve);
+
+    console.debug("Cost for current coil",cost);
+    console.debug("min|value", min, value);
 
     if ((this.spendInfoValue[key] != null && this.spendInfoValue[key]['info']['cost'] == cost) || value <= min) {
       this.spendInfoValue[key] = undefined;
@@ -86,16 +116,18 @@ export default class extends Controller
     this.updateSpend();
   }
   
-  calculateCost(cost, min, value, type)
+
+  calculateCost(cost, min, value, type, additive=0)
   {
     let total = 0;
     
-    if (type != 'willpower') {
-      for (let i = min+1; i <= value; i++) {
-        total += i * cost;
-      }
-    } else {
+    if (type == 'willpower') {
       total = cost * (value - min);
+    } else {
+      for (let i = min+1; i <= value; i++) {
+        console.debug(total, i, additive, cost);
+        total += (i + additive) * cost;
+      }
     }
 
     return total;

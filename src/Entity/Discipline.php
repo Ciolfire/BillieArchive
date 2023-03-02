@@ -202,7 +202,15 @@ class Discipline
 
   public function getMaxLevel(): int
   {
-    return count($this->powers);
+    $max = 0;
+    foreach ($this->powers as $power) {
+      /** @var DisciplinePower $power */
+      if ($power->getLevel() > $max) {
+        $max = $power->getLevel();
+      }
+    }
+
+    return $max;
   }
 
   public function isThaumaturgy(): ?bool

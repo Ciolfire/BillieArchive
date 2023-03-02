@@ -354,7 +354,7 @@ class Vampire extends Character
   }
 
   /** Get the total level of the character in the coils of the Dragons, mostly used to calculate costs */
-  public function coilLevel(): int
+  public function coilsLevel(): int
   {
     $level = 0;
     foreach ($this->disciplines as $discipline) {
