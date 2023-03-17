@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\Merit;
 use App\Form\MeritType;
@@ -26,7 +27,7 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/new", name:"merit_new", methods:["GET", "POST"])]
+  #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
     $merit = new Merit();
@@ -47,7 +48,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}", name:"merit_show", methods:["GET"])]
+  #[Route("/{id<\d+>}", name: "merit_show", methods: ["GET"])]
   public function show(Merit $merit): Response
   {
     return $this->render('merit/show.html.twig', [
@@ -55,7 +56,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/edit", name:"merit_edit", methods:["GET", "POST"])]
+  #[Route("/{id<\d+>}/edit", name: "merit_edit", methods: ["GET", "POST"])]
   public function edit(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(MeritType::class, $merit);
@@ -73,7 +74,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/translate/{language}", name:"merit_translate", methods:["GET", "POST"])]
+  #[Route("/{id<\d+>}/translate/{language}", name: "merit_translate", methods: ["GET", "POST"])]
   public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(MeritType::class, $merit);
@@ -93,7 +94,7 @@ class MeritController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/delete", name:"merit_delete", methods:["POST"])]
+  #[Route("/{id<\d+>}/delete", name: "merit_delete", methods: ["POST"])]
   public function delete(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
     if ($this->isCsrfTokenValid('delete' . $merit->getId(), $request->request->get('_token'))) {
@@ -107,6 +108,7 @@ class MeritController extends AbstractController
   #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
   public function list($type = null, $id = null)
   {
+    $chronicle = false;
     $search = ['category' => $this->categories];
     switch ($type) {
       case 'book':
@@ -122,11 +124,24 @@ class MeritController extends AbstractController
           }
         }
         break;
-      
-        default:
-          $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
-          $search['type'] = $this->dataService->getMeritTypes();
-          $type = "human";
+      case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+        if ($item instanceof Chronicle) {
+          $chronicle = $id;
+          $type = $item->getType();
+          $merits = $item->getMerits();
+          // We get the type of book for the search filters
+          // $types = $this->dataService->getMeritTypes($item);
+          // if (count($types) > 1) {
+          //   $search['type'] = $types;
+          // }
+        }
+        break;
+      default:
+        $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
+        $search['type'] = $this->dataService->getMeritTypes();
+        $type = "human";
         break;
     }
     foreach ($merits as $merit) {
@@ -141,6 +156,7 @@ class MeritController extends AbstractController
       'merits' => $merits,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
       'search' => $search, // Kinda want to replace for dynamic list
+      'chronicle' => $chronicle,
     ]);
   }
 }

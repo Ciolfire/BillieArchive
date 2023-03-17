@@ -3,6 +3,7 @@
 namespace App\Controller\Vampire;
 
 use App\Entity\Book;
+use App\Entity\Chronicle;
 use App\Entity\User;
 use App\Entity\Vampire;
 use App\Entity\Clan;
@@ -184,6 +185,10 @@ class ClanController extends AbstractController
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
         break;
       
+      case 'chronicle':
+          /** @var Chronicle */
+          $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+          break;
         default:
         # code...
         break;

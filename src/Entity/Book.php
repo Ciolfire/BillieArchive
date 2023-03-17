@@ -62,8 +62,8 @@ class Book
   public function __construct($setting="human")
   {
     $this->setting = $setting;
-    $this->clans = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->disciplines = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->clans = new ArrayCollection();
+    $this->disciplines = new ArrayCollection();
     $this->merits = new ArrayCollection();
   }
 

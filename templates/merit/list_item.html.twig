@@ -14,6 +14,7 @@
   </div>
   <div class="col-3 col-md-1">
     {% include "icon.html.twig" with {'icon': merit.category} only %}
+    {% if merit.homebrewFor is not null %}{% include "icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
     {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
     {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
   </div>

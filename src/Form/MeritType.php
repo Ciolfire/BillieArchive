@@ -46,7 +46,9 @@ class MeritType extends AbstractType
         'allow_add' => true,
       ])
       ->add('book')
-      ->add('page');
+      ->add('page')
+      ->add('homebrewFor')
+      ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

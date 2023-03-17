@@ -3,7 +3,7 @@
 {% trans_default_domain 'app' %}
 
 {% block body %}
-<h2>{% include "icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 } only %}{{ "wiki"|trans }}</h2>
+<h1 class="py-2">{% include "icon.html.twig" with {'icon': 'wiki', 'hasTips': 0, 'class': 'icon-lg' } only %}{{ "wiki"|trans }}</h1>
 
 <div class="container">
   {% include "wiki/base.html.twig" %}

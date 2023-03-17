@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain 'app' %}
+
 {% block body %}
 <div class="d-flex align-items-center vh-100">
   <div class="container">
@@ -22,7 +24,7 @@
             <label class="col-form-label col-sm-auto required" for="password">Password</label>
             <div class="col-sm">
               <input type="password" id="password" name="_password" class="form-control"/>
-              <label><input type="checkbox" name="_remember_me" checked/>Keep me logged in</label>
+              <label class="form-check form-switch"><input class="form-check-input" type="checkbox" name="_remember_me"/>{{ "remember"|trans }}</label>
             </div>
           </div>
           <div class="mb-3 row">

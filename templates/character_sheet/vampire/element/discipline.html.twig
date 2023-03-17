@@ -2,7 +2,7 @@
 
 <div class="row align-items-center px-2 user-select-none">
   <div class="col-12 text-center p-2">
-    <h2>{{ discipline.name }}</h2>
+    <h2>{{ discipline.name }} {% if discipline.homebrewFor is not null %}{% include "icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}</h2>
   </div>
   <div class="col-12 text-center">
     <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>

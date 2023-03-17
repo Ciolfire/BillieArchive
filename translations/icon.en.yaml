@@ -1,5 +1,6 @@
 add: Add
 back: Back
+delete: Delete
 edit: Edit
 new: New
 search: Search
@@ -13,6 +14,7 @@ all: All
 creation: Character creation only.
 folder: Folder
 hide: Hide
+homebrew: Homebrew
 logs: Logs
 note: Note
 notes: Notes

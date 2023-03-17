@@ -11,10 +11,15 @@
 {% endblock %}
 
 {% block body %}
-  {% include "back.html.twig" with {'link': path('wiki_index')} %}
+  {% if chronicle == false %}
+    {% include "back.html.twig" with {'link': path('wiki_index')} %}
+  {% else %}
+    {% include "back.html.twig" with {'link': path('homebrew_index', {'id': chronicle})} %}
+  {% endif %}
+  
   <div class="container block py-3">
     <div class="row py-3">
-      <h1>{% include "icon.html.twig" with {'icon': "merits", 'hasTips': 0 } only %}{{ "merits"|trans }}</h1>
+      <h1>{% include "icon.html.twig" with {'icon': "merits", 'hasTips': 0, 'class': 'icon-lg' } only %} {{ "merits"|trans }}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>

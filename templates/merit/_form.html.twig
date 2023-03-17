@@ -22,5 +22,6 @@
   <button type="button" class="btn btn-primary btn-sm mb-1" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Add prerequisite</button>
   {{ form_row(form.book) }}
   {{ form_row(form.page) }}
+  {{ form_row(form.homebrewFor) }}
   <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -108,6 +108,7 @@ personal: Personnel
 prerequisite: Prérequis
 prerequisites: Prérequis
 quote: Citation
+remember: Rester connecté
 roll:
   label: Lancer
   edit: Modification de Lancer

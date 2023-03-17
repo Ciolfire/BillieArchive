@@ -13,6 +13,7 @@
         </div>
         <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
+            {% if merit.homebrewFor is not null %}{% include "icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
             {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
             {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
               {% block input %}{% endblock %}
@@ -40,9 +41,13 @@
       <div class="merit-{{ id }}-text card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
         <p class="text-end">
+          {% if merit.book is not null %}
           <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ merit.book.name }}">
             {{ merit.book.short }} {{ merit.page }}
           </span>
+          {% elseif merit.homebrewFor is defined %}
+            <span>{{ merit.homebrewFor.name }}</span>
+          {% endif %}
         </p>
       </div>
     </div>

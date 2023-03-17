@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: ChronicleRepository::class)]
+// #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
 class Chronicle
 {
   #[ORM\Id]
@@ -31,10 +32,20 @@ class Chronicle
   #[ORM\Column(type: "string", length: 50)]
   private $type;
 
+  #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'homebrewFor')]
+  private $merits;
+
+  #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
+  private $clans;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
     $this->players = new ArrayCollection();
+    $this->merits = new ArrayCollection();
+    
+    // Vampire
+    $this->clans = new ArrayCollection();
   }
 
   public function __toString(): string
@@ -158,5 +169,40 @@ class Chronicle
       $this->type = $type;
 
       return $this;
+  }
+
+  public function getMerits(): Collection
+  {
+    return $this->merits;
+  }
+
+  public function getClans(): array
+  {
+    $clans = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if (!$clan->isBloodline()) {
+
+        $clans[] = $clan;
+      }
+    }
+
+    return $clans;
+  }
+
+  public function getBloodlines(): array
+  {
+    $bloodlines = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if ($clan->isBloodline()) {
+
+        $bloodlines[] = $clan;
+      }
+    }
+
+    return $bloodlines;
   }
 }

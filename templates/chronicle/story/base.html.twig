@@ -1,10 +1,20 @@
 {% trans_default_domain 'app' %}
 
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.manage"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.npc"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{{ "characters.groups"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
-<div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{{ "homebrew"|trans }}</a></div>
+<div class="col-6">
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.manage"|trans }}</a>
+</div>
+<div class="col-6">
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.npc"|trans }}</a>
+</div>
+{# <div class="col-6">
+  <a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "icon.html.twig" with {'icon': 'group', 'hasTips': 0 } only %} {{ "characters.groups"|trans }}</a>
+</div> #}
+<div class="col-6">
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a>
+</div>
+<div class="col-6">
+  <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'homebrew', 'hasTips': 0 } only %}{{ "homebrew"|trans }}</a>
+</div>
 <h4>{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</h4>
 {% for character in chronicle.characters %}
   {% if character.isNpc == false %}

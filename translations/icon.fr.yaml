@@ -1,5 +1,6 @@
 add: Ajouter
 back: Retour
+delete: Supprimer
 edit: Modifier
 new: Nouveau
 search: Recherche
@@ -13,6 +14,7 @@ all: Tous
 creation: Création uniquement
 folder: Dossier
 hide: Cacher
+homebrew: Règles maison ;)
 logs: Historique
 note: Note
 notes: Notes
