@@ -87,6 +87,10 @@ class DisciplinePower
 
   public function getLevelDots(): ?string
   {
+    if ($this->level == 0) {
+
+      return '• - •••••';
+    }
     return str_repeat('•', $this->level);
   }
 

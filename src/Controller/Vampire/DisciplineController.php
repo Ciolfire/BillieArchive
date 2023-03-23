@@ -42,7 +42,7 @@ class DisciplineController extends AbstractController
 
     return $this->render('vampire/discipline/index.html.twig', [
       'elements' => $disciplines,
-      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
       'entity' => 'discipline',
       'category' => 'discipline',
       'type' => 'vampire',
@@ -56,7 +56,7 @@ class DisciplineController extends AbstractController
 
     return $this->render('vampire/discipline/index.html.twig', [
       'elements' => $disciplines,
-      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vampire_sorcery']),
       'entity' => 'discipline',
       'category' => 'sorcery',
       'type' => 'vampire',
@@ -70,7 +70,7 @@ class DisciplineController extends AbstractController
 
     return $this->render('vampire/discipline/index.html.twig', [
       'elements' => $disciplines,
-      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vampire_thaumaturgy']),
       'entity' => 'discipline',
       'category' => 'thaumaturgy',
       'type' => 'vampire',
@@ -84,7 +84,7 @@ class DisciplineController extends AbstractController
 
     return $this->render('vampire/discipline/index.html.twig', [
       'elements' => $disciplines,
-      'description' => $this->dataService->findBy(Description::class, ['name' => 'discipline']),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
       'entity' => 'discipline',
       'category' => 'coils',
       'type' => 'vampire',

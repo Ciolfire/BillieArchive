@@ -28,5 +28,5 @@
       </div>
     </div>
   </div>
-  <a class="btn btn-primary position-sticky bottom-0" href="{{ path('vampire_discipline_index') }}">{% include "icon.html.twig" with {'icon': 'back'} only %}{{ 'disciplines.list.back'|trans }}</a>
+  {% include "back.html.twig" %}
 {% endblock %}

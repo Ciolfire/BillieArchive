@@ -1,20 +1,14 @@
 {% trans_default_domain 'vampire' %}
 
-<thead class="collapse discipline-{{ discipline.id }}">
-  <tr>
-    <th scope="col">{{ ("level")|trans({}, 'app') }}</th>
-    <th scope="col" colspan="2">{{ ("short")|trans({}, 'app') }}</th>
-    <th scope="col">{{ ("actions")|trans({}, 'app') }}</th>
-  </tr>
-</thead>
-<tbody class="collapse discipline-{{ discipline.id }}" data-bs-parent="#disciplinesTable">
-  <tr class="table-secondary">
-    <td>{{ "discipline.level.single"|trans }}</td>
-    <td colspan="2">{{ discipline.power.short|default("") }}</td>
-    <td class="border-start">
-      {% if is_granted('ROLE_ST') and discipline.power is not null %}
-        <a href="{{ path('discipline_power_edit', {'id': discipline.power.id}) }}">{% include "icon.html.twig" with {'icon' : 'edit' } only %}</a>
-      {% endif %}
-    </td>
-  </tr>
-</tbody>
+{% set power = discipline.power %}
+
+<div class="container collapse discipline-{{ discipline.id }} p-2" data-bs-parent="#disciplinesTable">
+  <div class="row">
+    <div class="col-2 offset-md-2"><span class="text-strong">{{ ("level")|trans({}, 'app') }}</span></div>
+    <div class="col-10 col-md-8"><span class="text-strong">{{ ("short")|trans({}, 'app') }}</span></div>
+  </div>
+  <div class="row">
+    <div class="col-2 offset-md-2">{{ power.getLevelDots }}</div>
+    <div class="col-10 col-md-8">{{ power.short }}</div>
+  </div>
+</div>
