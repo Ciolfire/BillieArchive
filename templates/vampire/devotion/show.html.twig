@@ -7,32 +7,32 @@
 {% block body %}
 <div class="container block py-3 mt-5">
   <h1 class="pb-4">{{ devotion.name }}<a href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a></h1>
-    {% if devotion.bloodline %}
-    <p class="text-center fs-5 accent">
-      {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
-    </p>
-    {% endif %}
-    <p class="text-center fs-5">
-      {# {% include "icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
-      <span class="text-strong">{{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}</span>
-    </p>
+  {% if devotion.bloodline %}
+  <p class="text-center fs-5 text-strong accent">
+    {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
+  </p>
+  {% endif %}
   <div class="row justify-content-center">
-    <div class="col col-lg-6">
-      {{ devotion.description|markdown_to_html }}
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <h2>{{ "prerequisites"|trans([], 'app') }}</h2>
+    {# <h2>{{ "prerequisites"|trans([], 'app') }}</h2> #}
     {% for prerequisite in devotion.prerequisites %}
       <div class="col-4 text-center text-bold fs-5">
         {% if prerequisite.value != 0 %}
-          {{ prerequisite.entity.name }}
-          <span class="strong">{{ prerequisite.value }}</span>
+          <span class="text-strong">{{ prerequisite.entity.name }}</span>
+          <span class="text-strong strong">{{ prerequisite.value }}</span>
         {% else %}
-          <span class="strong">{{ prerequisite.entity.name }}</span>
+          <span class="text-strong accent">{{ prerequisite.entity.name }}</span>
         {% endif %}
       </div>
     {% endfor %}
+  </div>
+  <p class="text-center fs-5">
+    {# {% include "icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
+    <span class="text-strong">{{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}</span>
+  </p>
+  <div class="row justify-content-center">
+    <div class="col col-lg-6 block">
+      {{ devotion.description|markdown_to_html }}
+    </div>
   </div>
   <div class="row justify-content-end pe-2 mt-2">
     {{ "source"|trans({'book': devotion.book, 'page': devotion.page}, 'app' ) }}
