@@ -34,7 +34,7 @@
         {% if app.user.stories is not empty %}
           <li class="nav-item dropstart border-end">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Stories
+              {{ "stories.name"|trans }}
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               {% for story in app.user.stories %}

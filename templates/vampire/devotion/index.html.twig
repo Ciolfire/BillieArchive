@@ -44,37 +44,37 @@
         </div>
     </div>
     <div class="row text-center">
-      <div class="col-12">
+      <div class="col-12 sticky-top" style="top:65px;">
         <div class="col">
           <div class="block row">
-            <div class="col">
+            <div class="col-12 col-md col-lg-3">
               {{ "name"|trans({}, 'app') }}
             </div>
-            <div class="col">
+            <div class="col-12 col-md col-lg-4">
               {{ "short"|trans({}, 'app') }}
             </div>
-            <div class="col">
+            <div class="col col-lg-2">
               {{ "prerequisite"|trans({}, 'app') }}
             </div>
-            <div class="col">
+            <div class="col col-lg-1">
               {{ "cost"|trans({}, 'app') }}
             </div>
-            <div class="col">
+            <div class="col col-lg-2">
               {{ "actions"|trans({}, 'app') }}
             </div>
           </div>
         </div>
       </div>
       {% for devotion in devotions %}
-        <div class="col-12 py-2 border-bottom" data-search-target="item" data-name="{{ devotion.name }}">
+        <div class="col-12 py-2 bdr-b" data-search-target="item" data-name="{{ devotion.name }}">
           <div class="row">
-            <div class="col">
+            <div class="col-12 col-md col-lg-3">
               <h4 class="text-strong">{{ devotion.name }}</h4>
             </div>
-            <div class="col">
-              {{ devotion.short }}
+            <div class="col-12 col-md col-lg-4 pb-2 pb-md-0">
+              <span>{{ devotion.short }}</span>
             </div>
-            <div class="col">
+            <div class="col col-lg-2">
               {% for prerequisite in devotion.prerequisites %}
                 {% if prerequisite.value != 0 %}
                   {{ prerequisite.entity.name }}
@@ -84,10 +84,10 @@
                 {% endif %}
               {% endfor %}
             </div>
-            <div class="col">
+            <div class="col col-lg-1">
               <span class="text-strong">{{ devotion.cost }} xp</span>
             </div>
-            <div class="col">
+            <div class="col col-lg-2">
               <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
               <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
             </div>

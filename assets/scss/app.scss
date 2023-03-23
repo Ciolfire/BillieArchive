@@ -74,6 +74,26 @@ footer.footer {
   }
 }
 
+.bdr {
+  border: 1px solid $main50pColor;
+
+  &-s {
+    border-left: 1px solid $main50pColor;
+  }
+
+  &-t {
+    border-top: 1px solid $main50pColor;
+  }
+
+  &-e {
+    border-right: 1px solid $main50pColor;
+  }
+
+  &-b {
+    border-bottom: 1px solid $main50pColor;
+  }
+}
+
 .block-wiki {
   font-family: 'goudy';
   font-size  : 1.2em;
