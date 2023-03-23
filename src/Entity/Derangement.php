@@ -35,7 +35,7 @@ class Derangement
   #[ORM\Column(type: Types::TEXT)]
   private ?string $details = "";
 
-  #[ORM\OneToOne(targetEntity: self::class, cascade: ['persist', 'remove'])]
+  #[ORM\ManyToOne(targetEntity: self::class, cascade: ['persist', 'remove'])]
   private ?self $previousAilment = null;
 
 
