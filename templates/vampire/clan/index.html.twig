@@ -61,7 +61,10 @@
     {% endif %}
     {% if bloodlines is defined %}
       <div class="row">
-        <h1 class="mb-5 pt-3">{{ "clan.bloodlines.label"|trans([], 'vampire') }}</h1>
+        <h1 class="mb-5 pt-3">
+          {% include "icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 0, 'class' : "icon-xl" } only %}
+          {{ "clan.bloodlines.label"|trans([], 'vampire') }}
+        </h1>
         {% for bloodline in bloodlines %}
           {% include "vampire/clan/card.html.twig" with {'clan' : bloodline} %}
         {% endfor %}
