@@ -33,6 +33,7 @@ chronicles:
   title: Mes Chroniques
   name: Chroniques
   none: Vous n'avez pas encore rejoint de chronique ...
+cost: Coût
 create: Créer
 dashboard: Tableau de bord
 description:

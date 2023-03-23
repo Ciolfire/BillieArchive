@@ -33,6 +33,7 @@ chronicles:
   title: My Chronicles
   name: Chronicles
   none: You haven't joined any Chronicle yet ...
+cost: Cost
 create: Create
 dashboard: Dashboard
 description:

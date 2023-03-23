@@ -26,6 +26,15 @@
     }
   }
 
+  &.icon-xl {
+    vertical-align: 0.8em;
+
+    svg {
+      height: 3.5em;
+      width : 3.5em;
+    }
+  }
+
   svg {
     height: 1.4em;
     width : 1.4em;

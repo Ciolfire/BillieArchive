@@ -14,10 +14,10 @@
     {% endif %}
     <p class="text-center fs-5">
       {# {% include "icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
-      {{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}
+      <span class="text-strong">{{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}</span>
     </p>
-  <div class="row">
-    <div class="col">
+  <div class="row justify-content-center">
+    <div class="col col-lg-6">
       {{ devotion.description|markdown_to_html }}
     </div>
   </div>
@@ -31,9 +31,11 @@
         {% else %}
           <span class="strong">{{ prerequisite.entity.name }}</span>
         {% endif %}
-        
       </div>
     {% endfor %}
+  </div>
+  <div class="row justify-content-end pe-2 mt-2">
+    {{ "source"|trans({'book': devotion.book, 'page': devotion.page}, 'app' ) }}
   </div>
 </div>
 

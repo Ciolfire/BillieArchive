@@ -25,12 +25,22 @@ class DevotionController extends AbstractController
     $this->dataService = $dataService;
     $this->service = $service;
   }
+  
   #[Route('/devotions', name: 'devotion_index', methods: ['GET'])]
   public function disciplines(): Response
   {
+    $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
+
+    foreach ($devotions as $devotion) {
+      /** @var Devotion $devotion */
+      foreach ($devotion->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+      }
+    }
+
     return $this->render('vampire/devotion/index.html.twig', [
-      'elements' => $this->dataService->findAll(Devotion::class),
-      'description' => $this->dataService->findBy(Description::class, ['name' => 'devotion']),
+      'devotions' => $devotions,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
       'category' => 'character',
       'type' => 'vampire',

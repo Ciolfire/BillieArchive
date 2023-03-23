@@ -1,0 +1,7 @@
+{% trans_default_domain 'app' %}
+
+{% if book.merits|length > 0 %}
+  <a href="{{ path('merit_list', {'type': 'book', 'id': book.id}) }}">
+    {{ "merit.count"|trans({'count': book.merits|length}) }}
+  </a>
+{% endif %}

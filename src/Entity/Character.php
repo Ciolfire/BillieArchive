@@ -94,7 +94,7 @@ class Character
   
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected $virtue;
-    #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $virtueDetail;
 
   #[ORM\ManyToOne(targetEntity: Vice::class)]

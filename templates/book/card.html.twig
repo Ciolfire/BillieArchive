@@ -11,13 +11,11 @@
       {% if book.cover is not null %}
         <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
       {% endif %}
-      <p class="book-content text-center">
-        <a {% if book.merits|length > 0 %} href="{{ path('merit_list', {'type': 'book', 'id': book.id}) }}"{% endif %}>
-          {{ "merit.count"|trans({'count': book.merits|length}) }}
-        </a>
-        {% include "book/details/"~ book.setting ~".html.twig" %}
-      </p>
       <h5>{{ book.releasedAt|date('M Y') }}</h5>
+      <p class="book-content text-center">
+        {% include "book/details/human.html.twig" %}
+        {% include "book/details/vampire.html.twig" %}
+      </p>
     </div>
     <div class="col-12 col-md-6">
       <div class="small">{{ book.description|markdown_to_html }}</div>

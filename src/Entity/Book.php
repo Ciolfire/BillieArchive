@@ -54,6 +54,7 @@ class Book
   private $disciplines;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $devotions;
 
   #[ORM\Column(nullable: true)]
