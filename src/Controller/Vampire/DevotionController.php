@@ -62,12 +62,20 @@ class DevotionController extends AbstractController
         break;
     }
 
+    $devotions = $item->getDevotions();
+    foreach ($devotions as $devotion) {
+      /** @var Devotion $devotion */
+      foreach ($devotion->getprerequisites() as $prerequisite) {
+        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+      }
+    }
+
     return $this->render('vampire/devotion/index.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
       'category' => 'character',
       'type' => 'vampire',
-      'elements' => $item->getDevotions(),
+      'devotions' => $devotions,
       'search' => [],
     ]);
   }
