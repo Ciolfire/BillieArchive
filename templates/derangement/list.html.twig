@@ -28,11 +28,17 @@
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
-    <div class="mt-3">
-      {% for derangement in derangements %}
-        {% include "derangement/list_item.html.twig" %}
-      {% endfor %}
+    <div class="row mt-2 text-center">
+      <div class="col-6">
+        <h2>{{ "derangement.mild"|trans }}</h2>
+      </div>
+      <div class="col-6">
+        <h2>{{ "derangement.severe"|trans }}</h2>
+      </div>
     </div>
+    {% for derangement in derangements %}
+      {% include "derangement/list_item.html.twig" %}
+    {% endfor %}
   </div>
 {% endblock %}
 

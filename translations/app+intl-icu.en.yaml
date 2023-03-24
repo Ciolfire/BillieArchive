@@ -42,6 +42,8 @@ description:
     label: Short description
 derangement:
   label: Derangement
+  mild: Mild
+  severe: Severe
 derangements:
   label: Derangements
 edit: Edit

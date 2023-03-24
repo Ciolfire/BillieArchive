@@ -10,10 +10,11 @@
   <div class="col-6">
 {% endif %}
     <div class="block h-100">
-      <h3 class="user-select-none">
+      {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': derangement.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+      <h2 class="user-select-none">
         {{ derangement.name }}
         {% if derangement.type %}{% include "icon.html.twig" with {'icon': derangement.type|default(''), 'hasTips': 0} %}{% endif %}
-      </h3>
+      </h2>
       <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
       <div class="action-{{ derangement.id }} collapse p-5">{{ derangement.details|markdown_to_html }}</div>
     </div>
@@ -25,12 +26,12 @@
         {% for degeneration in derangement.degenerations %}
           <div class="col-12">
             <div class="block {{ degeneration.type }} my-2">
-              <a type="button" href="{{ path('derangement_edit', {'id': degeneration.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
-              <h3 class="user-select-none">
+              {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': degeneration.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+              <h2 class="user-select-none">
                 {% if degeneration.type %}{% include "icon.html.twig" with {'icon': degeneration.type|default(''), 'hasTips': 0} %}{% endif %}
                 {{ degeneration.name }}
                 {% if degeneration.isExtreme %}{% include "icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
-              </h3>
+              </h2>
               <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ degeneration.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
               <div class="action-{{ degeneration.id }} collapse p-5">{{ degeneration.details|markdown_to_html }}</div>
             </div>

@@ -42,6 +42,8 @@ description:
     label: Résumé
 derangement:
   label: Dérangement
+  mild: Bénin
+  severe: Grave
 derangements:
   label: Dérangements
 edit: Modifier
