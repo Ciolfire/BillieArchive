@@ -2,7 +2,9 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ "derangements"|trans }}{% endblock %}
+{% set footer = true %}
+
+{% block title %}{{ "derangements.label"|trans }}{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="derangement"
@@ -12,9 +14,11 @@
   {% include "back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
     <div class="row py-3">
-      <h1>{% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
-      <span>{{ "derangements"|trans }}</span>
-      {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
+      <h1>
+        {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
+        <span>{{ "derangements.label"|trans }}</span>
+        {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
+      </h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -24,13 +28,25 @@
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
-    {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto w-100" href="{{ path('derangement_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
-    {% endif %}
     <div class="mt-3">
       {% for derangement in derangements %}
         {% include "derangement/list_item.html.twig" %}
       {% endfor %}
     </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
+    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('derangement_new') }}">
+          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+          {% include "icon.html.twig" with {'icon' : 'derangement', 'hasTips': 0 } only %}
+        </a>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}

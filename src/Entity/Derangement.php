@@ -6,6 +6,8 @@ use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Entity\Traits\Typed;
 use App\Repository\DerangementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -35,12 +37,19 @@ class Derangement
   #[ORM\Column(type: Types::TEXT)]
   private ?string $details = "";
 
-  #[ORM\ManyToOne(targetEntity: self::class, cascade: ['persist', 'remove'])]
+  #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'degenerations', cascade: ['persist', 'remove'])]
   private ?self $previousAilment = null;
 
+  #[ORM\OneToMany(mappedBy: "previousAilment", targetEntity: self::class)]
+  private Collection $degenerations;
 
   #[ORM\Column]
   private ?bool $isExtreme = null;
+
+  public function __construct()
+  {
+    $this->degenerations = new ArrayCollection();
+  }
 
   public function __toString()
   {
@@ -114,5 +123,10 @@ class Derangement
     }
 
     return "severe";
+  }
+
+  public function getDegenerations(): Collection
+  {
+    return $this->degenerations;
   }
 }

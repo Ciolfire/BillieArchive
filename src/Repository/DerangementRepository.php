@@ -39,6 +39,32 @@ class DerangementRepository extends ServiceEntityRepository
     }
   }
 
+  /**
+   * @return Derangement[] Returns an array of Derangement objects
+   */
+  public function findMild(): array
+  {
+    return $this->createQueryBuilder('d')
+      ->andWhere('d.previousAilment IS NULL')
+      ->orderBy('d.name', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Derangement[] Returns an array of Derangement objects
+   */
+  public function findMildByType($type): array
+  {
+    return $this->createQueryBuilder('d')
+      ->andWhere('d.type = :type')
+      ->andWhere('d.previousAilment IS NULL')
+      ->setParameter('type', $type)
+      ->orderBy('d.name', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
   //    /**
   //     * @return Derangement[] Returns an array of Derangement objects
   //     */

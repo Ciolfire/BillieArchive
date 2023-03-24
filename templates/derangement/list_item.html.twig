@@ -2,25 +2,41 @@
 
 {% set first = true %}
 
-<div class="block">
-  <div class="row mb-2">
-    <h3>{{ derangement.name }}</h2>
-    <div class="col-4">
-      {{ derangement.severity }}
-    </div>
-    <div class="col-4">
-      {% if derangement.isExtreme %}
-        <span class="accent">Extreme</span>
-      {% endif %}
-    </div>
-    <div class="col-4 text-end pe-3">
-      <button type="button" class="btn btn-primary" data-bs-target=".action-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-      <a type="button" href="{{ path('derangement_edit', {'id': derangement.id }) }}" class="btn btn-primary">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
+<div class="row mb-2" data-search-target="item" data-name="{{ derangement.name }} {% for degeneration in derangement.degenerations %}{{degeneration.name}}{% endfor %}">
+
+{% if derangement.degenerations is empty %}
+  <div class="col-12">
+{% else %}
+  <div class="col-6">
+{% endif %}
+    <div class="block h-100">
+      <h3 class="user-select-none">
+        {{ derangement.name }}
+        {% if derangement.type %}{% include "icon.html.twig" with {'icon': derangement.type|default(''), 'hasTips': 0} %}{% endif %}
+      </h3>
+      <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
       <div class="action-{{ derangement.id }} collapse p-5">{{ derangement.details|markdown_to_html }}</div>
     </div>
   </div>
+
+  {% if derangement.degenerations is not empty %}
+    <div class="col-6">
+      <div class="row">
+        {% for degeneration in derangement.degenerations %}
+          <div class="col-12">
+            <div class="block {{ degeneration.type }} my-2">
+              <a type="button" href="{{ path('derangement_edit', {'id': degeneration.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+              <h3 class="user-select-none">
+                {% if degeneration.type %}{% include "icon.html.twig" with {'icon': degeneration.type|default(''), 'hasTips': 0} %}{% endif %}
+                {{ degeneration.name }}
+                {% if degeneration.isExtreme %}{% include "icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
+              </h3>
+              <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ degeneration.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
+              <div class="action-{{ degeneration.id }} collapse p-5">{{ degeneration.details|markdown_to_html }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %} 
 </div>

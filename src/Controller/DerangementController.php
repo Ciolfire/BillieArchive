@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Derangement;
 use App\Entity\Description;
 use App\Form\DerangementType;
-
+use App\Repository\DerangementRepository;
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,13 +108,16 @@ class DerangementController extends AbstractController
   #[Route("/{type}/{id<\d+>}", name: "derangement_list", methods: ["GET"])]
   public function list($type = null, $id = null)
   {
+    /** @var DerangementRepository $repo */
+    $repo = $this->dataService->getRepository(Derangement::class);
+
     if (is_null($type)) {
-      $derangements = $this->dataService->findBy(Derangement::class, [], ['name' => 'ASC']);
+      $derangements = $repo->findMild();
       $type = "human";
     } else {
-      $derangements = $this->dataService->findBy(Derangement::class, ['type' => $type], ['name' => 'ASC']);
+      $derangements = $repo->findMildByType($type);
     }
-
+    // dd($derangements);
     return $this->render('derangement/list.html.twig', [
       'type' => $type,
       'derangements' => $derangements,
