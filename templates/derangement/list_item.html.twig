@@ -16,7 +16,7 @@
         {% if derangement.type %}{% include "icon.html.twig" with {'icon': derangement.type|default(''), 'hasTips': 0} %}{% endif %}
       </h2>
       <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-      <div class="derangement-{{ derangement.id }} collapse p-5">{{ derangement.details|markdown_to_html }}</div>
+      <div class="derangement-{{ derangement.id }} collapse p-2">{{ derangement.details|markdown_to_html }}</div>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
                 {% if degeneration.isExtreme %}{% include "icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
               </h2>
               <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ degeneration.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-              <div class="derangement-{{ degeneration.id }} collapse p-5">{{ degeneration.details|markdown_to_html }}</div>
+              <div class="derangement-{{ degeneration.id }} collapse p-2">{{ degeneration.details|markdown_to_html }}</div>
             </div>
           </div>
         {% endfor %}
