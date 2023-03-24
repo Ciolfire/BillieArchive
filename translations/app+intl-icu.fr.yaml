@@ -42,7 +42,9 @@ description:
     label: Résumé
 derangement:
   label: Dérangement
+  extreme: Extrême
   mild: Bénin
+  previous: Version grave de
   severe: Grave
 derangements:
   label: Dérangements

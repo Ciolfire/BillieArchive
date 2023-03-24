@@ -43,6 +43,8 @@ description:
 derangement:
   label: Derangement
   mild: Mild
+  extreme: Extreme
+  previous: Severe version of
   severe: Severe
 derangements:
   label: Derangements

@@ -29,14 +29,18 @@ class DerangementType extends AbstractType
     $element = $options['data'];
 
     $builder
-      ->add('name')
+      ->add('name', null, ['label' => 'name'])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])
-      ->add('type')
-      ->add('isExtreme')
-      ->add('previousAilment')
-      ->add('type')
-      ->add('book')
-      ->add('page')
+      ->add('type', null, ['label' => 'type'])
+      ->add('isExtreme', null, ['label' => 'derangement.extreme'])
+      ->add('previousAilment', null, [
+        'label' => 'derangement.previous',
+        'choice_filter' => function (?Derangement $derangement) {
+          return $derangement ? is_null($derangement->getPreviousAilment()) : true;
+        }
+      ])
+      ->add('book', null, ['label' => 'book'])
+      ->add('page', null, ['label' => 'page'])
       ;
   }
 

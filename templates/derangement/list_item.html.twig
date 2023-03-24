@@ -2,7 +2,7 @@
 
 {% set first = true %}
 
-<div class="row mb-2" data-search-target="item" data-name="{{ derangement.name }} {% for degeneration in derangement.degenerations %}{{degeneration.name}}{% endfor %}">
+<div class="row my-3" data-search-target="item" data-name="{{ derangement.name }} {% for degeneration in derangement.degenerations %}{{degeneration.name}}{% endfor %}">
 
 {% if derangement.degenerations is empty %}
   <div class="col-12">

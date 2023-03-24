@@ -13,11 +13,10 @@
 {% block body %}
   {% include "back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
-    <div class="row py-3">
+    <div class="row">
       <h1>
         {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
         <span>{{ "derangements.label"|trans }}</span>
-        {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
       </h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
