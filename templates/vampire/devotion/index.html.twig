@@ -86,7 +86,7 @@
           <div class="col col-lg-1">
             <span class="text-strong">{{ devotion.cost }} xp</span>
           </div>
-          <div class="col col-lg-2">
+          <div class="col col-lg-2 bdr-s">
             <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
             <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
           </div>

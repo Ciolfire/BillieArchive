@@ -23,8 +23,6 @@ class ClanType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name"])
-      ->add('nickname', null, ['label' => "nickname"])
-      ->add('short', null, ['label' => "description.short.label"])
       ->add('quote', null, ['label' => "quote"])
       ->add('book', null, ['label' => "book"])
       ->add('page', null, ['label' => "page"])
@@ -38,19 +36,33 @@ class ClanType extends AbstractType
               'image/*',
             ],
             'mimeTypesMessage' => 'image Invalid',
-            ])
-          ],
           ])
-      ->add('weakness', CKEditorType::class, [
-        'label' => 'clan.weakness',
-        'translation_domain' => 'vampire',
-        'empty_data' => '',
-        'data' => $converter->convert($clan->getWeakness())
+        ],
       ])
       ->add('description', CKEditorType::class, [
         'empty_data' => '', 
         'data' => $converter->convert($clan->getDescription()), 
         'label' => "description.label",
+      ]);
+      if ($clan->isBloodline()) {
+        $builder->add('parentClan', null, [
+            'label' => 'clan.parent.label',
+            'translation_domain' => 'vampire',
+            'choice_filter' => function (?Clan $clan) {
+              return $clan ? !$clan->isBloodline() : false;
+            }
+          ]
+        );
+      } else {
+        $builder->add('attributes', null, ['expanded' => true, 'label' => 'attributes']);
+      }
+      $builder->add('nickname', null, ['label' => "nickname"])
+      ->add('short', null, ['label' => "description.short.label"])
+      ->add('weakness', CKEditorType::class, [
+        'label' => 'clan.weakness',
+        'translation_domain' => 'vampire',
+        'empty_data' => '',
+        'data' => $converter->convert($clan->getWeakness())
       ])
       ->add('disciplines', null, [
         'expanded' => true,
@@ -63,17 +75,6 @@ class ClanType extends AbstractType
         'translation_domain' => 'vampire',
       ])
       ;
-    if ($clan->isBloodline()) {
-      $builder->add('parentClan', null, [
-          'label' => 'clan.parent.label',
-          'translation_domain' => 'vampire',
-          'choice_filter' => function (?Clan $clan) {
-            return $clan ? !$clan->isBloodline() : false;
-          }
-        ]);
-    } else {
-      $builder->add('attributes', null, ['expanded' => true, 'label' => 'attributes']);
-    }
     $builder
       ->add('homebrewFor', null, ['label' => "chronicle.label"])
       ->add('keywords', null, ['label' => 'keywords'])

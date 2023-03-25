@@ -26,7 +26,7 @@
     {% if discipline.rules %}
       <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
         <span class="d-flex flex-column justify-content-center text-center">
-          rules
+          {{ "rules"|trans({}, 'app') }}
           <span class="discipline-rules-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
           <span class="details-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
         </span>
