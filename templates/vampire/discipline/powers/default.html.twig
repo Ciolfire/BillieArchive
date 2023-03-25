@@ -4,7 +4,7 @@
   <h2 class="pb-2">{{ 'power'|trans({'%count%': powers|length}, "character") }}</h2>
   <div class="block p-2">
     {% for power in powers %}
-      <div class="bdr-b">
+      <div class="bdr-b py-2">
         {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
         <h3>{{ power.levelDots }} {{ power.name }}</h3>
         <p>{{ power.details|markdown_to_html }}</p>
