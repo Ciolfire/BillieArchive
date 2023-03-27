@@ -115,14 +115,14 @@ class Derangement
     return $this;
   }
 
-  public function getSeverity(): string
+  public function isMild(): bool
   {
     if (null === $this->getPreviousAilment()) {
 
-      return "mild";
+      return true;
     }
 
-    return "severe";
+    return false;
   }
 
   public function getDegenerations(): Collection

@@ -57,6 +57,10 @@ class Book
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $devotions;
 
+  #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private $derangements;
+
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
 
@@ -66,6 +70,7 @@ class Book
     $this->clans = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
     $this->merits = new ArrayCollection();
+    $this->derangements = new ArrayCollection();
   }
 
   public function __toString()
@@ -311,6 +316,11 @@ class Book
     }
 
     return $this;
+  }
+
+  public function getDerangements(): Collection
+  {
+    return $this->derangements;
   }
 
   public function isDisplayFirst(): ?bool

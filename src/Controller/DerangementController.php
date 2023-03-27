@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Derangement;
 use App\Entity\Description;
 use App\Form\DerangementType;
@@ -111,15 +112,21 @@ class DerangementController extends AbstractController
     /** @var DerangementRepository $repo */
     $repo = $this->dataService->getRepository(Derangement::class);
 
-    if (is_null($type)) {
-      $derangements = $repo->findMild();
-      $type = "human";
-    } else {
-      $derangements = $repo->findMildByType($type);
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $derangements = $item->getDerangements();
+        $setting = $item->getSetting();
+        break;
+      default:
+        $derangements = $repo->findMild();
+        $setting = "human";
+        break;
     }
     // dd($derangements);
     return $this->render('derangement/list.html.twig', [
-      'type' => $type,
+      'type' => $setting,
       'derangements' => $derangements,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'derangement']),
       // 'search' => $search, // Kinda want to replace for dynamic list

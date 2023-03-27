@@ -42,6 +42,12 @@ description:
     label: Short description
 derangement:
   label: Derangement
+  count: >-
+    {count, plural,
+      =0 {Aucun Derangement}
+      =1 {1 Derangement}
+      other {# Derangements}
+    }
   mild: Mild
   extreme: Extreme
   previous: Severe version of

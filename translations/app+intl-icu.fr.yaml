@@ -42,6 +42,12 @@ description:
     label: Résumé
 derangement:
   label: Dérangement
+  count: >-
+    {count, plural,
+      =0 {Aucun Dérangement}
+      =1 {1 Dérangement}
+      other {# Dérangements}
+    }
   extreme: Extrême
   mild: Bénin
   previous: Version grave de

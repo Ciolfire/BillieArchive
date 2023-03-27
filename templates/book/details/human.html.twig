@@ -5,3 +5,8 @@
     {{ "merit.count"|trans({'count': book.merits|length}) }}
   </a>
 {% endif %}
+{% if book.derangements|length > 0 %}
+    <a href="{{ path('derangement_list', {'type': 'book', 'id': book.id}) }}">
+    {{ "derangement.count"|trans({'count': book.derangements|length}) }}
+  </a>
+{% endif %}
