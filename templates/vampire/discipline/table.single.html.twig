@@ -8,7 +8,7 @@
     <div class="col-10 col-md-8"><span class="text-strong">{{ ("short")|trans({}, 'app') }}</span></div>
   </div>
   <div class="row">
-    <div class="col-2 offset-md-2">{{ power.getLevelDots }}</div>
+    <div class="col-2 offset-md-2">{{ power.getLevelDots|default(0) }}</div>
     <div class="col-10 col-md-8">{{ power.short }}</div>
   </div>
 </div>
