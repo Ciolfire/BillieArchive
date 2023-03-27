@@ -116,7 +116,16 @@ class DerangementController extends AbstractController
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $derangements = $item->getDerangements();
+        $list = $item->getDerangements();
+        $derangements = [];
+        foreach ($list as $derangement) {
+          /** @var Derangement $derangement */
+          if (!is_null($derangement->getPreviousAilment())) {
+            $derangements[] = $derangement->getPreviousAilment();
+          } else {
+            $derangements[] = $derangement;
+          }
+        }
         $setting = $item->getSetting();
         break;
       default:
