@@ -121,9 +121,10 @@ class DerangementController extends AbstractController
         foreach ($list as $derangement) {
           /** @var Derangement $derangement */
           if (!is_null($derangement->getPreviousAilment())) {
-            $derangements[] = $derangement->getPreviousAilment();
+            $id = $derangement->getPreviousAilment()->getId();
+            $derangements[$id] = $derangement->getPreviousAilment();
           } else {
-            $derangements[] = $derangement;
+            $derangements[$derangement->getId()] = $derangement;
           }
         }
         $setting = $item->getSetting();
