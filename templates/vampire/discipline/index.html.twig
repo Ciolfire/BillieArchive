@@ -51,7 +51,7 @@
       </div>
       {% if discipline.maxLevel > 1 %}
         {% include "vampire/discipline/table.multi.html.twig" %}
-      {% else %}
+      {% else if discipline.power %}
         {% include "vampire/discipline/table.single.html.twig" %}
       {% endif %}
     {% endfor %}
