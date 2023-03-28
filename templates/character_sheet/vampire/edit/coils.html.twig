@@ -5,24 +5,24 @@
 {% block list %}
   {% set max = 5 %}
   {% set maxPower = 5 %}
-  {% for characterPower in characterPowers %}
+  {% for characterDiscipline in characterDisciplines %}
     <div class="col-12 col-lg-6 justify-content-center">
       <div class="discipline-block w-100 container g-0">
-        {% set min = characterPower.level %}
-        {% set base = characterPower.level %}
-        {% set max = characterPower.discipline.maxLevel %}
-        {% include "character_sheet/vampire/edit/coil.html.twig" with { 'characterDiscipline': characterPower, 'discipline': characterPower.discipline } %}
+        {% set min = characterDiscipline.level %}
+        {% set base = characterDiscipline.level %}
+        {% set max = characterDiscipline.discipline.maxLevel %}
+        {% include "character_sheet/vampire/edit/coil.html.twig" with { 'characterDiscipline': characterDiscipline, 'discipline': characterDiscipline.discipline } %}
       </div>
     </div>
   {% endfor %}
   <h2 class="text-center py-3 user-select-none">New Disciplines</h2>
-  {% for power in powers %}
+  {% for discipline in disciplines %}
     <div class="col-12 col-lg-6 justify-content-center">
       <div class="block w-100 container g-0 my-2">
         {% set min = 0 %}
-        {% set max = power.maxLevel %}
+        {% set max = discipline.maxLevel %}
         {% set base = 0 %}
-        {% include "character_sheet/vampire/edit/coil.html.twig" with {'discipline' : power } %}
+        {% include "character_sheet/vampire/edit/coil.html.twig" with {'discipline' : discipline } %}
       </div>
     </div>
   {% endfor %}
