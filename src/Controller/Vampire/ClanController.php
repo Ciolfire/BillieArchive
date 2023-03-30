@@ -44,12 +44,6 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
-  public function bloodlines(): Response
-  {
-    return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
-  }
-
   #[Route('/clan/new', name: 'clan_new', methods: ['GET', 'POST'])]
   public function clanNew(Request $request): Response
   {
@@ -70,7 +64,7 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('vampire/clan/new.html.twig', [
       'action' => 'new',
       'entity' => 'clan',
       'form' => $form,
@@ -78,36 +72,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/bloodline/new', name: 'bloodline_new', methods: ['GET', 'POST'])]
-  public function bloodlineNew(Request $request): Response
-  {
-    $this->denyAccessUnlessGranted('ROLE_ST');
-
-    $clan = new Clan(true);
-
-    $form = $this->createForm(ClanType::class, $clan);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $emblem = $form->get('emblem')->getData();
-      if (!is_null($emblem)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
-      }
-      $this->dataService->save($clan);
-
-      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('wiki/form.html.twig', [
-      'action' => 'new',
-      'trans' => 'clan.bloodline',
-      'entity' => 'bloodline',
-      'form' => $form,
-      'type' => 'vampire',
-    ]);
-  }
-
-  #[Route('/clan/{id<\d+>}/show', name: 'clan_show', methods: ['GET'])]
+  #[Route('/clan/{id<\d+>}', name: 'clan_show', methods: ['GET'])]
   public function clanShow(Clan $clan): Response
   {
     return $this->render('vampire/clan/show.html.twig', [
@@ -141,9 +106,44 @@ class ClanController extends AbstractController
       $entity = 'clan';
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('vampire/clan/new.html.twig', [
       'action' => 'edit',
       'entity' => $entity,
+      'form' => $form,
+      'type' => 'vampire',
+    ]);
+  }
+
+  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
+  public function bloodlines(): Response
+  {
+    return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/bloodline/new', name: 'bloodline_new', methods: ['GET', 'POST'])]
+  public function bloodlineNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $clan = new Clan(true);
+
+    $form = $this->createForm(ClanType::class, $clan);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $emblem = $form->get('emblem')->getData();
+      if (!is_null($emblem)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      }
+      $this->dataService->save($clan);
+
+      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('vampire/clan/new.html.twig', [
+      'action' => 'new',
+      'trans' => 'clan.bloodline',
+      'entity' => 'bloodline',
       'form' => $form,
       'type' => 'vampire',
     ]);

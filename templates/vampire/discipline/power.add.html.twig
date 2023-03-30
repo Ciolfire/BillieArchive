@@ -3,9 +3,9 @@
 {% trans_default_domain 'vampire' %}
 
 {% block title %}
-  {{ "discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}
+  {{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}
 {% endblock %}
-{% block header %}{{ "discipline.power.add"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
+{% block header %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 
 {% block form %}{{ form(form) }}{% endblock %}
 

@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'vampire' %}
 
-{% block title %}{{ "discipline.power.add"|trans }}{% endblock %}
+{% block title %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 {% block header %}{{ "#{power.discipline.name} - #{power.name}" }}{% endblock %}
 
 {% block form %}{{ form(form) }}{% endblock %}

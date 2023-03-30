@@ -8,7 +8,9 @@
           valid: valid,
         }) -}}
       {% endif %}
+      <div class="row">
       {% for name, choices in form.vars.choices %}
+      <div class="col">
         <div class='choice_category'>
           <strong class="accent">{{name}}</strong>
         </div>
@@ -18,6 +20,7 @@
             {{- form_label(form[key]) -}}
           {% endfor %}
         </div>
+      </div>
       {% endfor %}
     {% else %}
       {%- for child in form %}
@@ -27,6 +30,7 @@
           valid: valid,
         }) -}}
       {% endfor -%}
+      </div>
     {% endif %}
   </div>
 {%- endblock choice_widget_expanded %}
