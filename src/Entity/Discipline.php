@@ -104,6 +104,21 @@ class Discipline
     } else return null;
   }
 
+  public function getRitual(): ?DisciplinePower
+  {
+    if ($this->isSorcery()) {
+      foreach ($this->powers as $power) {
+        /** @var DisciplinePower $power */
+        if ($power->getLevel() == 0) {
+
+          return $power;
+        }
+      }
+    }
+
+    return null;
+  }
+
   public function getName(): ?string
   {
     return $this->name;
