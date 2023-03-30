@@ -69,6 +69,7 @@ class DevotionType extends AbstractType
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
+      ->add('contestedText')
       ->add('homebrewFor')
       ->add('book');
   }

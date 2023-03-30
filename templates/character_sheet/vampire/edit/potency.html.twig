@@ -37,11 +37,11 @@
 <label class="btn dot{% if value == 1 %} dot-locked{% else %} dot-selectable{% endif %}" for="{{ trait ~ '-' ~ index }}"
   data-action="click->dot#activate click->character--edit#pay"
   data-dot-value-param="{{ index }}"
-  data-character--edit-type-param="{{ trait }}"
   data-character--edit-id-param="potency"
+  data-character--edit-type-param="{{ trait }}"
   data-character--edit-name-param="{{ 'potency.name'|trans }}"
   data-character--edit-value-param="{{ index }}"
-  data-character--edit-min-param="{{ current }}"
+  data-character--edit-base-param="{{ current }}"
 >
 </label>
 {% endblock %}

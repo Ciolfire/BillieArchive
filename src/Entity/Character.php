@@ -729,7 +729,7 @@ class Character
     return $total + $bonus;
   }
 
-  public function detailedDicePool(Collection $attributes, Collection $skills, array $modifiers = [])
+  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = [])
   {
     $details = [
       'total' => 0,
@@ -756,11 +756,27 @@ class Character
         } else {
           $value = -1;
         }
-      }
-
+      } 
       $details[$identifier] = $value;
       $details['total'] += $value;
       $details['string'] .= " {$skill->getName()} {$value}";
+    }
+    if (!is_null($specials)) {
+      $value = 0;
+      foreach ($specials as $special) {
+        if ($this instanceof Vampire) {
+          /** @var Vampire $this */
+          $discipline = $this->getDiscipline($special->getId());
+          if (!is_null($discipline)) {
+            $value = $this->getDiscipline($special->getId())->getLevel();
+          } else {
+            $value = 0;
+          }
+        }
+        $details[$special->getId()] = $value;
+        $details['total'] += $value;
+        $details['string'] .= " {$special->getName()} {$value}";
+      }
     }
     foreach ($modifiers as $key => $value) {
       $details['total'] += $value;

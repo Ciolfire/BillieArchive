@@ -2,7 +2,7 @@
 
 {% block controller %}data-controller="dot"{% endblock %}
 
-{% block data %}data-name="{{ merit.name }}" data-type="merit" data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
+{% block data %}data-name="{{ merit.name }}" data-id="{{ chMerit.id|default(merit.id) }}" data-type="merit" data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
 
 {% block input %}
   <input
@@ -21,13 +21,13 @@
 {% block dot %}
   <input type="checkbox" {% if chMerit is defined and value <= chMerit.level %}checked{% endif %} class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
   <label class="btn dot{% if value < merit.min %} dot-disabled disabled{% else %} dot-selectable{% endif %}{% if chMerit is defined and value <= chMerit.level %} dot-locked{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
-    data-action="click->dot#activate click->character--edit#pay {% if isImproving is not defined %}click->character--merits#add{% endif %}"
+    data-action="click->dot#activate click->character--edit#payMerit {% if isImproving is not defined %}click->character--merits#add{% endif %}"
     data-dot-value-param="{{ value }}"
-    data-character--edit-type-param="merit"
     data-character--edit-id-param="{{ chMerit.id|default(merit.id) }}"
+    data-character--edit-type-param="merit"
     data-character--edit-name-param="{{ merit.name }}"
     data-character--edit-value-param="{{ value }}"
-    data-character--edit-min-param="{{ chMerit.level|default(0) }}"
+    data-character--edit-base-param="{{ chMerit.level|default(0) }}"
   >
   </label>
 {% endblock %}

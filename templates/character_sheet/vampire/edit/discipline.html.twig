@@ -15,11 +15,11 @@
 <label class="btn dot {% if characterDiscipline is defined and value <= characterDiscipline.level %} dot-locked{% else %}dot-selectable{% endif %}" for="{{ discipline.id ~ '-' ~ value }}"
   data-action="click->dot#activate click->character--edit#pay"
   data-dot-value-param="{{ value }}"
+  data-character--edit-id-param="{{ discipline.id }}"
   data-character--edit-type-param="{% if character.clan.favored(discipline) %}favoredDiscipline{% else %}discipline{% endif %}"
-  data-character--edit-id-param="discipline-{{ discipline.id }}"
   data-character--edit-name-param="{{ discipline.name }}"
   data-character--edit-value-param="{{ value }}"
-  data-character--edit-min-param="{{ characterDiscipline.level|default(0) }}"
+  data-character--edit-base-param="{{ characterDiscipline.level|default(0) }}"
 >
 </label>
 {% endblock %}

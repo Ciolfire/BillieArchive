@@ -19,11 +19,11 @@
   <label class="btn dot{% if value <= min %} dot-locked{% else %} dot-selectable{% endif %}" for="{{ skill ~ '-' ~ value }}"
     data-action="click->dot#activate click->character--edit#pay"
     data-dot-value-param="{{ value }}"
+    data-character--edit-id-param="{{ skill }}"
     data-character--edit-type-param="skill"
-    data-character--edit-id-param="{{ "skill." ~ skill }}"
     data-character--edit-name-param="{{ name }}"
     data-character--edit-value-param="{{ value }}"
-    data-character--edit-min-param="{{ min }}"
+    data-character--edit-base-param="{{ min }}"
   >
   </label>
 {% endblock %}

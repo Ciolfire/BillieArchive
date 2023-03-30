@@ -30,7 +30,7 @@ class CreationService
     }
     
     foreach ($merits as $id => $merit) {
-      // We take advantage of the fact that a string with non-number char count as the first number ie: 6-df456 is 6
+      // We take advantage of the fact that a string with non-number char count as the number before the letters ie: 6-df456 is 6
       /** @var Merit $entityMerit */
       $entityMerit = $this->doctrine->getRepository(Merit::class)->find($id);
       if (!is_null($entityMerit)) {

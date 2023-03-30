@@ -178,7 +178,7 @@ class DisciplinePower
       return null;
     }
     
-    return $character->detailedDicePool($this->attributes, $this->skills, $modifiers);
+    return $character->detailedDicePool($this->attributes, $this->skills, null, $modifiers);
   }
 
   /**

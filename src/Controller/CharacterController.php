@@ -34,7 +34,7 @@ use function PHPUnit\Framework\isNull;
 class CharacterController extends AbstractController
 {
   private $dataService;
-  private $service;
+  private CharacterService $service;
   private $vService;
   private $create;
   private $attributes;
@@ -236,6 +236,7 @@ class CharacterController extends AbstractController
     $extraData = $form->getExtraData();
 
     if ($form->isSubmitted() && $form->isValid()) {
+      // dd($form);
       if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
         $character->setLookAge($character->getAge());
       }
@@ -276,6 +277,7 @@ class CharacterController extends AbstractController
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'merits' => $merits,
+      //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
       $type => $this->service->getSpecial($character),
     ]);
   }

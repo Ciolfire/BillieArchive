@@ -58,6 +58,9 @@ class Devotion
   #[ORM\ManyToOne(inversedBy: 'devotions')]
   private ?Clan $bloodline = null;
 
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $contestedText = null;
+
   public function __construct()
   {
     $this->prerequisites = new ArrayCollection();
@@ -230,6 +233,18 @@ class Devotion
   public function setBloodline(?Clan $bloodline): self
   {
       $this->bloodline = $bloodline;
+
+      return $this;
+  }
+
+  public function getContestedText(): ?string
+  {
+      return $this->contestedText;
+  }
+
+  public function setContestedText(?string $contestedText): self
+  {
+      $this->contestedText = $contestedText;
 
       return $this;
   }

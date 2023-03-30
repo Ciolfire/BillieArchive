@@ -19,13 +19,13 @@
 <input type="checkbox" {% if value == 1 %}checked {% endif %}{% if index > limit %}disabled{% endif %}
  class="btn-check" id="{{ trait ~'-' ~ index }}" value="{{ index }}" autocomplete="off" data-dot-target="dot">
 <label class="btn dot{% if value == 1 %} dot-locked{% endif %}{% if index > limit %} dot-disabled{% else %} dot-selectable{% endif %}" for="{{ trait ~ '-' ~ index }}"
-  data-action="click->dot#activate click->character--edit#pay"
+  data-action="click->dot#activate click->character--edit#payWillpower"
   data-dot-value-param="{{ index }}"
   data-character--edit-type-param="{{ trait }}"
   data-character--edit-id-param="willpower"
   data-character--edit-name-param="{{ 'willpower.name'|trans }}"
   data-character--edit-value-param="{{ index }}"
-  data-character--edit-min-param="{{ max }}"
+  data-character--edit-base-param="{{ max }}"
 >
 </label>
 {% endblock %}

@@ -14,6 +14,7 @@
   {{ form_row(form.page) }}
   {{ form_row(form.short) }}
   {{ form_row(form.description) }}
+  {{ form_row(form.contestedText) }}
   {{ form_row(form.cost) }}
   <div {{ stimulus_controller('form-collection') }}
     data-form-collection-index-value="{{ form.prerequisites|length > 0 ? form.prerequisites|last.vars.name + 1 : 0 }}"

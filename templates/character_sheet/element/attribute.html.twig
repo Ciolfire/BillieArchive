@@ -12,6 +12,7 @@
       {% block input %}{% endblock %}
       <div class="dots">
         {% for value in 1..max %}
+          {# we create a new dots block, for visual break #}
           {% if value >= 5 and value % 5 == 1 %}
             </div>
             <div class="dots">

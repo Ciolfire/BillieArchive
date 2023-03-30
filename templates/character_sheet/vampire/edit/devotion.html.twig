@@ -4,8 +4,30 @@
 
 {% block controller %}data-controller="dot" role="group"{% endblock %}
 
-{% block data %}data-name="{{ devotion.name }}" data-id="{{ devotion.id }}" data-type="devotion" data-CONTROLLER-base-value="{{ devotion.cost }}" {% endblock %}
+{% block data %}data-name="{{ devotion.name }}" data-id="{{ devotion.id }}" data-type="devotion" data-controller-base-value="{{ devotion.cost }}" {% endblock %}
 
 {% block input %}
-  {# <input class="devotion-value" value="{{ chdevotion.level|default(0) }}" type="hidden" name="character{% if chdevotion is defined %}[devotionsUp][{{ devotion.id }}]{% else %}[devotions][{{ devotion.id }}]{% endif %}" data-id="{{ devotion.id }}" data-dot-target="input" data-character--edit-target="dot"> #}
+  <div class="card-footer">
+    <div class="btn btn-primary w-100" data-bs-toggle="button" aria-pressed="true"
+      data-action="click->character--edit#payDevotion"
+      data-character--edit-id-param="{{ devotion.id }}"
+      data-character--edit-type-param="devotion"
+      data-character--edit-name-param="{{ devotion.name }}"
+      data-character--edit-value-param="{{ devotion.cost }}">
+      {{ devotion.cost }} {% include "icon.html.twig" with {'icon': 'xp'} %}
+      <input data-character--edit-target="devotionInput" data-value="{{ devotion.cost }}" data-name="{{ devotion.name }}" id ="devotion-{{ devotion.id }}" class="devotion-value" value="0" type="hidden" name="character[devotions][{{ devotion.id }}]">
+    </div>
+  </div>
+{% endblock %}
+
+{% block prerequisites %}
+{% if devotion.prerequisites %}
+  <div class="d-flex flex-row justify-content-evenly">
+    {% for prerequisite in devotion.prerequisites %}
+      {% if prerequisite.value > 0 %}
+        <div class="d-inline-block">{{ prerequisite.entity.name }} {{ prerequisite.value }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
 {% endblock %}

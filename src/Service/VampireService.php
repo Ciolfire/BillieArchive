@@ -29,7 +29,7 @@ class VampireService
     $coils = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => true]), $vampire);
     $thaumaturgy = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]), $vampire);
     // dd($disciplines, $vampire);
-    $devotions = $this->dataService->findAll(Devotion::class);
+    $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
       if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
@@ -101,7 +101,7 @@ class VampireService
     /** @var Vampire $vampire */
     $vampire = $this->dataService->find(Vampire::class, $character->getId());
     $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
-    $this->addDiscipline($vampire, $form->getExtraData()['disciplines']);
+    $this->addDisciplines($vampire, $form->getExtraData()['disciplines']);
     $this->dataService->save($vampire);
   }
 
@@ -112,20 +112,34 @@ class VampireService
       $discipline->setLevel($level);
     }
     if (isset($data['disciplines'])) {
-      $this->addDiscipline($vampire, $data['disciplines']);
+      $this->addDisciplines($vampire, $data['disciplines']);
     }
     if (isset($data['potency']) && $data['potency'] > $vampire->getPotency()) {
       $vampire->setPotency($data['potency']);
     }
+
+    if (isset($data['devotions'])) {
+      $this->addDevotions($vampire, $data['devotions']);
+    }
   }
 
-  public function addDiscipline(Vampire $vampire, array $disciplines)
+  public function addDisciplines(Vampire $vampire, array $disciplines)
   {
     foreach ($disciplines as $id => $level) {
       $discipline = $this->dataService->find(Discipline::class, $id);
       $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
       $this->dataService->add($newDiscipline);
       $vampire->addDiscipline($newDiscipline);
+    }
+  }
+
+  public function addDevotions(Vampire $vampire, array $devotions)
+  {
+    foreach ($devotions as $id => $value) {
+      if ($value == 1) {
+        $devotion = $this->dataService->find(Devotion::class, $id);
+        $vampire->addDevotion($devotion);
+      }
     }
   }
 

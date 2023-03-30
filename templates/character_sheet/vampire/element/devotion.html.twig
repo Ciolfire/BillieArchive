@@ -1,24 +1,31 @@
 {% trans_default_domain 'character' %}
 
+{% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines) %}
+
 <div class="col py-2">
   <div class="card devotion-card block">
     <div class="card-header">
+      <span class="float-start">
+        <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "dicePool.html.twig" with {'pool' : powerPool, 'contested' : devotion.contestedText} %}</span>
+      </span>
       <h4>{{ devotion.name }}</h4>
+      <span class="float-end">{% if devotion.bloodline is not null %}<span class="accent">{{ devotion.bloodline.name }}</span>{% endif %}</span>
     </div>
     <div class="card-body d-flex flex-column">
-      <div class="card-text flex-grow-1">{{ devotion.short }}</div>
-      {% if devotion.prerequisites %}
-        <div class="d-flex flex-row justify-content-evenly">
-          {% for prerequisite in devotion.prerequisites %}
-            <div class="d-inline-block">{{ prerequisite.entity.name }} {{ prerequisite.value }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-    <div class="card-footer">
-      <div class="btn btn-primary w-100" data-bs-toggle="button" aria-pressed="true">
-        {{ devotion.cost }} {% include "icon.html.twig" with {'icon': 'xp'} %}
+      <div class="card-text flex-grow-1" data-bs-toggle="collapse" data-bs-target=".devotion-{{ devotion.id }}-text" type="button" aria-expanded="false" aria-controls="devotion-{{ devotion.id }}-text">
+        {% block text %}
+          <div class="devotion-{{ devotion.id }}-text show">
+            <p>{{ devotion.short }}</p>
+          </div>
+          <div class="devotion-{{ devotion.id }}-text collapse">
+            {{ devotion.description|default("")|markdown_to_html }}
+          </div>
+        {% endblock %}
       </div>
+      {% block prerequisites %}{% endblock %}
+      <div class="devotion-{{ devotion.id }}-text collapse text-end py-2">{% include "book.html.twig" with {'book': devotion.book, 'page': devotion.page } %}</div>
     </div>
+    {% block input %}
+    {% endblock %}
   </div>
 </div>
