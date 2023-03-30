@@ -1,6 +1,6 @@
 {% trans_default_domain 'app' %}
 
-<div id="{{ book.name }}" class="col-12 col-lg-6 block block-wiki" data-search-target="item" 
+<div id="{{ book.name }}" class="col-12 col-lg-6 block" data-search-target="item" 
       data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}" >
   {% if is_granted('ROLE_ST') %}
     <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
@@ -18,7 +18,7 @@
       </p>
     </div>
     <div class="col-12 col-md-6">
-      <div class="small" style="overflow-y:auto;height:500px;">{{ book.description|markdown_to_html }}</div>
+      <div class="small" style="overflow-y:auto;height:450px;">{{ book.description|markdown_to_html }}</div>
     </div>
   </div>
 </div>

@@ -72,6 +72,14 @@ footer.footer {
   &-solid {
     background-color: $solidBlockColor;
   }
+
+  &-light {
+    background-color: $lightBlockColor;
+  }
+
+  &-dark {
+    background-color: $blockColor;
+  }
 }
 
 .bdr {

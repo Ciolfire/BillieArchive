@@ -14,7 +14,7 @@
         </div>
         <div class="my-radio-group">
           {% for key,choice in choices %}
-            {{- form_widget(form[key],{parent_label_class: 'text text-default'} ) -}}
+            {{- form_widget(form[key],{parent_label_class: 'text text-option'} ) -}}
             {{- form_label(form[key]) -}}
           {% endfor %}
         </div>

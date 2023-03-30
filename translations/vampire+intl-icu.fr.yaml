@@ -90,7 +90,7 @@ discipline:
     single: • à •••••
   new: Nouvelle discipline
   power:
-    add: Ajouter un pouvoir
+    add: "{discipline} - Nouveau pouvoir"
 disciplines:
   label: Disciplines
   list:

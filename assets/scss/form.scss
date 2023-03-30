@@ -15,7 +15,7 @@ input[type=number] {
   background-color: $inputBackColor;
 
   &:focus {
-    color           : $mainColor;
+    color           : $mainBrightColor;
     background-color: $inputActiveBColor;
     box-shadow      : $mainColor 0px 0px 4px 1px;
   }
@@ -37,11 +37,11 @@ textarea {
 
 .form-select {
   background-color: $inputBackColor;
-  color           : $mainColor;
+  color           : $mainBrightColor;
   border-color    : $mainColor;
 
   option {
-    background-color: rgba(0, 0, 0, 0.8);
+    // background-color: $inputBackColor;
   }
 }
 
