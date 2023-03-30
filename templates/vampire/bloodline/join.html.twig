@@ -1,27 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
-{% block title %}{{ "vampire.bloodline.join"|trans }}{% endblock %}
+{% block title %}
+  {{ "clan.bloodline.join"|trans }}
+{% endblock %}
 
 {% block body %}
-  <h1>{{ vampire.name }}</h1>
-  <div class="container block py-3 mt-5">
+  <div class="container block py-5">
+    <h1>{{ vampire.name }}</h1>
     <h2>Your blood thicken...</h2>
     <form method="post">
-      {% for bloodline in bloodlines %}
-        <input id="{{ bloodline.id }}" name="bloodline" type="radio" class="btn-check" value="{{ bloodline.id }}">
-        <div class="block btn btn-primary {{ bloodline.name }} ">
-          <label for="{{ bloodline.id }}" class="btn btn-primary">
-            <h1 class="p-3">{{ bloodline.name }}</h1>
-            <div class="p-3">{{ bloodline.short|markdown_to_html }}</div>
-            <div class="p-3 d-none">{{ bloodline.description|markdown_to_html }}</div>
-          </label>
+      <div class="row">
+        {% for bloodline in bloodlines %}
+          <div class="col-12 col-md-6 col-lg-4 py-2" data-bs-toggle="collapse" data-bs-target=".description-{{ bloodline.id }}" aria-expanded="false" aria-controls="description-{{ bloodline.id }}">
+            <input type="radio" class="btn-check" name="bloodline" id="{{ bloodline.id }}" autocomplete="off" value="{{ bloodline.id }}">
+            <label class="btn btn-primary h-100" for="{{ bloodline.id }}">
+              <img class="mx-auto d-block" src="{{ asset(bloodline.emblem, 'clans_emblems') }}" alt="{{ bloodline.name}}" height="200"/>
+              {{ bloodline.name }}
+              <div class="text p-3">{{ bloodline.short|markdown_to_html }}</div>
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="row">
+        <h2 class="py-3">{{ "description.label"|trans({}, 'app')}}</h2>
+        <div id="accordionBloodlines" class="accordion">
+          {% for bloodline in bloodlines %}
+            <div class="description-{{ bloodline.id }} collapse" data-bs-parent="#accordionBloodlines">
+              {% include "vampire/clan/card.html.twig" with {'clan' : bloodline, 'isShown': false} %}
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
+      </div>
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary w-100" type="submit">{{ "vampire.bloodline.join"|trans }}</button>
+          <button class="btn btn-primary w-100" type="submit">{{ "clan.bloodline.join"|trans }}</button>
         </div>
       </div>
     </form>

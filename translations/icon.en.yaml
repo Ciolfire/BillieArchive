@@ -71,6 +71,7 @@ vitae: Vitae
 
 alternate_setting: Alternate Setting
 antagonist: Antagonist
+chronicle: Chronicle
 core: Core
 equipment: Equipment
 human: Mortal
@@ -82,10 +83,11 @@ translation: Translation
 vampire: Vampire
 bloodline: Bloodline
 bloodlines: Bloodlines
-ghoul: Ghoul
 clan: Clan
 covenant: Covenant
-chronicle: Chronicle
+devotion: Devotion
+discipline: Discipline
+ghoul: Ghoul
 
 body_thief: Body Thief
 purified: Purified

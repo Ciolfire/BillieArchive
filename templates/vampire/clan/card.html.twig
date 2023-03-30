@@ -9,7 +9,7 @@
 <div id="{{ clan.name }}" class="col-12" data-search-target="item" data-name="{{ clan.name }}" data-parent="{{ clan.parentClan }}">
   <div class="clan-card position-relative">
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path(entity ~ '_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+      <a class="position-absolute end-0" href="{{ path('clan_edit', {'id': clan.id}) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
     <blockquote class="text-center mb-2 clan-card-header">
       <h2>{{ clan.name }}
