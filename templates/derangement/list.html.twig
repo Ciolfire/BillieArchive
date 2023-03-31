@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block body %}
-  {% include "back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
     <div class="row">
       <h1>
-        {% include "icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
+        {% include "_icon.html.twig" with {'icon': "derangement", 'hasTips': 0, 'class': 'icon-lg' } only %}
         <span>{{ "derangements.label"|trans }}</span>
       </h1>
       <div class="col-auto">
@@ -48,8 +48,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('derangement_new') }}">
-          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "icon.html.twig" with {'icon' : 'derangement', 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : 'derangement', 'hasTips': 0 } only %}
         </a>
       </div>
     {% endif %}

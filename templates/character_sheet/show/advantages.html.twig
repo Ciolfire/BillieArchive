@@ -6,32 +6,32 @@
 {% set speed = character.speedDetails %}
 <div class="col-4 col-lg-2">
   <span class="d-none d-md-inline">{{ "advantage.size"|trans }}</span>
-  {% include "icon.html.twig" with {'icon': 'size'} only %}
+  {% include "_icon.html.twig" with {'icon': 'size'} only %}
   <span id="size">{{ character.size }}</span>
 </div>
 <div class="col-4 col-lg-2" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.speed.tooltip"|trans(speed.details) }}">
   <span class="d-none d-md-inline">{{ "advantage.speed.label"|trans }}</span>
-  {% include "icon.html.twig" with {'icon': 'speed', 'hasTips': 0} only %}
+  {% include "_icon.html.twig" with {'icon': 'speed', 'hasTips': 0} only %}
   <span id="speed">{{ "advantage.speed.value"|trans({'speed': speed.total }) }}</span>
 </div>
 <div class="col-4 col-lg-2" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.initiative.tooltip"|trans(initiative.details) }}">
   <span class="d-none d-md-inline">{{ "advantage.initiative.label"|trans }}</span>
-  {% include "icon.html.twig" with {'icon': 'initiative', 'hasTips' : 0 } only %}
+  {% include "_icon.html.twig" with {'icon': 'initiative', 'hasTips' : 0 } only %}
   <span id="initiative">{{ initiative.total }}</span>
 </div>
 <div class="col-4 col-lg-2" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.defense.tooltip"|trans(defense.details) }}">
   <span class="d-none d-md-inline">{{ "advantage.defense.label"|trans }}</span>
-  {% include "icon.html.twig" with {'icon': 'defense', 'hasTips': 0} only %}
+  {% include "_icon.html.twig" with {'icon': 'defense', 'hasTips': 0} only %}
   <span id="defense">{{ defense.total }}</span>
 </div>
 <div class="col-4 col-lg-2">
   <span class="d-none d-md-inline">{{ "advantage.armor"|trans }}</span>
-  {% include "icon.html.twig" with {'icon': 'armor'} only %}
+  {% include "_icon.html.twig" with {'icon': 'armor'} only %}
   <span id="armor">0</span>
 </div>
 <div class="col-4 col-lg-2 fw-bold">
-  {% include "icon.html.twig" with {'icon': 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>
+  {% include "_icon.html.twig" with {'icon': 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>
   <span id="xp-used" data-character--experience-target="used">{{ character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
-  <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "icon.html.twig" with {'icon': 'add'} only %}</span>
+  <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "_icon.html.twig" with {'icon': 'add'} only %}</span>
 </div>
 {% endblock %}

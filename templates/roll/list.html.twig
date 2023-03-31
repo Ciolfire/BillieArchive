@@ -9,12 +9,12 @@
 {% endblock %}
 
 {% block body %}
-  {% include "back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
     <div class="row py-3">
-      <h1>{% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}
+      <h1>{% include "_icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}
       <span>{{ "rolls"|trans }}</span>
-      {% include "icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
+      {% include "_icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -25,7 +25,7 @@
       </div>
     </div>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto w-100" href="{{ path('roll_new') }}">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+      <a class="btn btn-primary ms-auto w-100" href="{{ path('roll_new') }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
     {% endif %}
     <div class="mt-3">
       {% for roll in rolls %}

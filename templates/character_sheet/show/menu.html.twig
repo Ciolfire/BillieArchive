@@ -7,19 +7,19 @@
     <div class="col-2">
       {% if not character.isTemplate or is_granted('ROLE_GM') %}
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
-          {% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
+          {% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
         </a>
       {% endif %}
     </div>
     {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
-        {% include "icon.html.twig" with {'icon': 'logs'} only %}
+        {% include "_icon.html.twig" with {'icon': 'logs'} only %}
       </div>
     </div>
     <div class="col-2">
       <a href="{% if character.isTemplate %}{{ path('character_generated_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
-        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+        {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
         {# {{ "back"|trans({}, "app") }} #}
       </a>
     </div>

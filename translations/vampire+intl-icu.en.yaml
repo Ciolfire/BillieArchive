@@ -17,12 +17,14 @@ clan:
         =1 {1 Bloodline}
         other {# Bloodlines}
       }
+    new: New Bloodline
     weakness: Bloodline Weakness
   bloodlines:
     label: Bloodlines
   parent:
     any: Any
     label: Parent Clan
+  new: New Clan
   weakness: Clan Weakness
 clans:
   label: Clans

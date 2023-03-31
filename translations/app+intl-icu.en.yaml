@@ -2,7 +2,8 @@ action:
   label: Action
   add: Add
   delete: Delete
-  edit: Edit
+  edit: Update
+  new: Save
   remove: Remove
   save: Save
   search: Search
@@ -19,10 +20,12 @@ category:
   physical: Physical
   social: Social
 character:
+  pc: Character
   label: Character
   npc: NPC
   generated: Pregenerated Character
 characters:
+  pc : Characters
   label: Characters
   groups: Groups
   npc: NPCs
@@ -136,6 +139,7 @@ save: Save
 short: Effect
 skills: Skills
 source: "{book} page {page}"
+source.not.found: Unknown Source
 src: "{book} p.{page}"
 stories:
   new: New story
@@ -164,6 +168,5 @@ type:
   purified: Purified
   innocents: Innocents
   possessed: Possessed
-
 toc: Table of Content
 wiki: Wiki

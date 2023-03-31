@@ -4,7 +4,7 @@
 
 {% block morality %}
   <div class="block user-select-none p-1" type="button" data-bs-toggle="collapse" data-bs-target=".morality">
-    <h4 class="text-center pt-1">{% include "icon.html.twig" with {'icon' : 'morality', 'hasTips': 0, 'class': 'icon-lg'} only %} {{ 'morality.name'|trans([], type) }}</h4>
+    <h4 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'morality', 'hasTips': 0, 'class': 'icon-lg'} only %} {{ 'morality.name'|trans([], type) }}</h4>
     <div class="col-12 text-center">
       <h5 class="morality show {% if morality <= 3 %}warning{% else %}accent{% endif %}">{{ morality }}
         <span class="morality text-center show"><i class="fas fa-caret-down"></i></span>

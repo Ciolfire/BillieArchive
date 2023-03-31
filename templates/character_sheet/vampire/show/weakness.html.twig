@@ -3,9 +3,9 @@
 <div class="col-12 col-md-6">
   <div class="block user-select-none p-2" type="button" data-bs-toggle="collapse" data-bs-target=".clan-weakness">
     <h5 class="text-center pt-1">
-      {% include "icon.html.twig" with {'icon': 'clan', 'hasTips': 0} %}
+      {% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0} %}
       {{ 'clan.weakness'|trans }}
-      {% include "icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
+      {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
     </h5>
     <div class="clan-weakness collapse">
       {{ clan.weakness|markdown_to_html }}
@@ -20,9 +20,9 @@
   <div class="col-12 col-md-6">
     <div class="block user-select-none p-2" type="button" data-bs-toggle="collapse" data-bs-target=".bloodline-weakness">
       <h5 class="text-center pt-1">
-        {% include "icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0} %}
+        {% include "_icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0} %}
         {{ 'clan.bloodline.weakness'|trans }}
-        {% include "icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
+        {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
       </h5>
       <div class="bloodline-weakness collapse">
         {{ bloodline.weakness|markdown_to_html }}

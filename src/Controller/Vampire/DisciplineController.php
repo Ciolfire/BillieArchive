@@ -116,6 +116,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
+      'action' => 'new',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -138,6 +139,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
+      'action' => 'new',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -160,6 +162,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
+      'action' => 'new',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -182,6 +185,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
+      'action' => 'new',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -202,6 +206,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
+      'action' => 'edit',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -227,6 +232,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/power.add.html.twig', [
+      'action' => 'new',
       'power' => $power,
       'form' => $form,
       'type' => 'vampire',
@@ -248,6 +254,7 @@ class DisciplineController extends AbstractController
     }
 
     return $this->render('vampire/discipline/power.edit.html.twig', [
+      'action' => 'edit',
       'power' => $power,
       'form' => $form,
       'type' => 'vampire',

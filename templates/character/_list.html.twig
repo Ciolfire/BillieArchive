@@ -1,6 +1,9 @@
 {% trans_default_domain 'app' %}
 
-<h1>{{ title|trans }}</h1>
+<h1>
+  {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0, 'class': 'icon-lg'} only %}
+  {{ title|trans }}
+</h1>
 <div class="container">
   <div class="col-4 offset-4">
     <a class="btn btn-sm btn-primary w-100 text-center" href=
@@ -9,12 +12,12 @@
       {% else %}{{ path('character_new', {'isNpc': 0 }) }}
       {% endif %}
     >
-      Create {{ type|trans }}
+      {{ "new"|trans }}{% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0} only %}
     </a>
   </div>
   <div class="row pt-3">
     {% for character in characters %}
-      {% include "character/card.html.twig" %}
+      {% include "character/_card.html.twig" %}
     {% endfor %}
   </div>
 </div>

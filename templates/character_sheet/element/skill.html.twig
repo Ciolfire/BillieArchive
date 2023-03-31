@@ -5,7 +5,7 @@
 <div class="row align-items-center px-2" {% block wrapper %}{% endblock %}>
   <div class="col {% if attribute(character, "skills") is not null and attribute(attribute(character, "skills"), skill) > 3 %}accent{% endif %}">
     <span class="user-select-none">
-      {% include "icon.html.twig" with {'icon' : skill, 'hasTips': 0 } only %}
+      {% include "_icon.html.twig" with {'icon' : skill, 'hasTips': 0 } only %}
       {{ name }}
     </span>
     {% block specialty %}{% endblock %}

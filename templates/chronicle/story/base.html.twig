@@ -1,26 +1,26 @@
 {% trans_default_domain 'app' %}
 
 <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.manage"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.manage"|trans }}</a>
 </div>
 <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.npc"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_npc_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.npc"|trans }}</a>
 </div>
 {# <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "icon.html.twig" with {'icon': 'group', 'hasTips': 0 } only %} {{ "characters.groups"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "_icon.html.twig" with {'icon': 'group', 'hasTips': 0 } only %} {{ "characters.groups"|trans }}</a>
 </div> #}
 <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a>
 </div>
 <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'homebrew', 'hasTips': 0 } only %}{{ "homebrew"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'homebrew', 'hasTips': 0 } only %}{{ "homebrew"|trans }}</a>
 </div>
-<h4>{% include "icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</h4>
+<h4>{% include "_icon.html.twig" with {'icon': 'party', 'hasTips': 0 } only %}{{ "party.name"|trans }}</h4>
 {% for character in chronicle.characters %}
   {% if character.isNpc == false %}
     <div class="col-6">
       <div class="w-100 h-100 py-1">
-        <a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include character.type ~ '/back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
+        <a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include character.type ~ '/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
           <div class="character-frame character-frame-list position-relative text-center mb-2">
             <img class="p-1" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
           </div>

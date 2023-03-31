@@ -19,10 +19,12 @@ category:
   physical: Physique
   social: Social
 character:
+  pc: Personnage
   label: Personnage
   npc: PNJ
   generated: Prétiré
 characters:
+  pc: Personnages
   label: Personnages
   groups: Groupes
   npc: PNJs
@@ -136,6 +138,7 @@ save: Sauvegarder
 short: Effet
 skills: Compétences
 source: "{book} page {page}"
+source.not.found: Source Inconnue
 src: "{book} p.{page}"
 stories:
   new: Nouvelle histoire

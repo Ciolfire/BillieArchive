@@ -10,13 +10,13 @@
   <div class="col-6">
 {% endif %}
     <div class="block {{ derangement.type }} h-100">
-      {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': derangement.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+      {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': derangement.id }) }}" class="float-end">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
       <h2 class="user-select-none">
-        {% if derangement.type %}{% include "icon.html.twig" with {'icon': derangement.type|default(''), 'hasTips': 0} %}{% endif %}
+        {% if derangement.type %}{% include "_icon.html.twig" with {'icon': derangement.type|default(''), 'hasTips': 0} %}{% endif %}
         {{ derangement.name }}{% if not derangement.isMild %} ({{ derangement.previousAilment.name }} - {{ "derangement.severe"|trans }}){% endif %}
-        {% if derangement.isExtreme %}{% include "icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
+        {% if derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
       </h2>
-      <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ derangement.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
+      <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ derangement.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
       <div class="derangement-{{ derangement.id }} collapse p-2">{{ derangement.details|markdown_to_html }}</div>
     </div>
   </div>
@@ -27,13 +27,13 @@
         {% for degeneration in derangement.degenerations %}
           <div class="col-12">
             <div class="block {{ degeneration.type }} my-2">
-              {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': degeneration.id }) }}" class="float-end">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+              {% if is_granted('ROLE_ST') %}<a type="button" href="{{ path('derangement_edit', {'id': degeneration.id }) }}" class="float-end">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
               <h2 class="user-select-none">
-                {% if degeneration.type %}{% include "icon.html.twig" with {'icon': degeneration.type|default(''), 'hasTips': 0} %}{% endif %}
+                {% if degeneration.type %}{% include "_icon.html.twig" with {'icon': degeneration.type|default(''), 'hasTips': 0} %}{% endif %}
                 {{ degeneration.name }}
-                {% if degeneration.isExtreme %}{% include "icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
+                {% if degeneration.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
               </h2>
-              <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ degeneration.id }}" data-bs-toggle="collapse">{% include "icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
+              <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ degeneration.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
               <div class="derangement-{{ degeneration.id }} collapse p-2">{{ degeneration.details|markdown_to_html }}</div>
             </div>
           </div>

@@ -4,34 +4,34 @@
 <div class="position-relative row mb-2 ps-4">
   <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
     <span class="position-sticky top-50 my-2">
-      <span id="meritsWrapper" class="show">{% include "icon.html.twig" with {'icon' : 'hide' } only %}</span>
-      <span id="meritsWrapper" class="collapse">{% include "icon.html.twig" with {'icon' : 'show' } only %}</span>
+      <span id="meritsWrapper" class="show">{% include "_icon.html.twig" with {'icon' : 'hide' } only %}</span>
+      <span id="meritsWrapper" class="collapse">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</span>
     </span>
   </div>
   <p class="merit-filters mb-1 ms-5">
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="">
       <span class="d-none d-md-inline">{{ "all"|trans([], 'icon') }}</span>
-      {% include "icon.html.twig" with {'icon' : 'all' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'all' } only %}
     </span>
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="mental">
       <span class="d-none d-md-inline">{{ "mental"|trans }}</span>
-      {% include "icon.html.twig" with {'icon' : 'mental' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'mental' } only %}
     </span>
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="physical">
       <span class="d-none d-md-inline">{{ "physical"|trans }}</span>
-      {% include "icon.html.twig" with {'icon' : 'physical' } only %}</span>
+      {% include "_icon.html.twig" with {'icon' : 'physical' } only %}</span>
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-fighting-param="fighting">
       <span class="d-none d-md-inline">{{ "style"|trans([], 'icon') }}</span>
-      {% include "icon.html.twig" with {'icon' : 'style' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'style' } only %}
     </span>
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="social">
       <span class="d-none d-md-inline">{{ "social"|trans }}</span>
-      {% include "icon.html.twig" with {'icon' : 'social' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'social' } only %}
     </span>
     {% if character.id == null %}
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-creation-param="creation">
       <span class="d-none d-md-inline">{{ "creation"|trans([], 'icon') }}</span>
-      {% include "icon.html.twig" with {'icon' : 'creation' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'creation' } only %}
     </span>
     {% endif %}
   </p>

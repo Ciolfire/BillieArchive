@@ -11,14 +11,14 @@
 {% endblock %}
 
 {% block body %}
-{% include "back.html.twig" with {'link': path('wiki_index')} %}
+{% include "_back.html.twig" with {'link': path('wiki_index')} %}
 <div class="container block py-3  ">
   
   <div class="row mb-3">
     <div class="col-12">
       <div class="p-2">
         <h1 class="user-select-none">
-          {% include "icon.html.twig" with {'icon' : category, 'hasTips': 0, 'class' : "icon-xl" } only %}
+          {% include "_icon.html.twig" with {'icon' : category, 'hasTips': 0, 'class' : "icon-xl" } only %}
           {{ (category ~ ".label")|trans }}
         </h1>
         <div class="col-auto">
@@ -46,7 +46,7 @@
           {{ discipline.short }}
         </div>
         <div class="col-2 col-md-1 text-center">
-          <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "icon.html.twig" with {'icon' : 'show' } only %}</a>
+          <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</a>
         </div>
       </div>
       {% if discipline.maxLevel > 1 %}
@@ -66,8 +66,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('vampire_' ~ category ~ '_new') }}">
-          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "icon.html.twig" with {'icon' : category, 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : category, 'hasTips': 0 } only %}
         </a>
       </div>
     {% endif %}

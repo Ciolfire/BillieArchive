@@ -11,14 +11,14 @@
 {% endblock %}
 
 {% block body %}
-  {% include "back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
     
     <div class="row mb-3">
       <div class="col-12">
         <div class="p-2">
           <h1 class="user-select-none">
-            {% include "icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
+            {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
             {{ "devotions.label"|trans }}
           </h1>
           <div class="col-auto">
@@ -87,8 +87,8 @@
             <span class="text-strong">{{ devotion.cost }} xp</span>
           </div>
           <div class="col col-lg-2 bdr-s">
-            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
-            <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
+            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
+            <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
           </div>
         </div>
       {% endfor %}
@@ -111,8 +111,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('vampire_devotion_new') }}">
-          <span class="d-none d-md-inline">{% include "icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "icon.html.twig" with {'icon' : 'devotion', 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : 'devotion', 'hasTips': 0 } only %}
         </a>
       </div>
     {% endif %}
@@ -127,7 +127,7 @@
       {% for element in devotions %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           <span class="d-none d-md-inline">{% if key != 'parent' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-          {% include "icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+          {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
         </a>
       {% endfor %}
     {% endfor %} #}

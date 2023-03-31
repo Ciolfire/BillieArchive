@@ -17,9 +17,11 @@ clan:
         =1 {1 Lignée}
         other {# Lignées}
       }
+    new: Nouvelle lignée
     weakness: Faiblesse de Lignée
   bloodlines:
     label: Lignées
+  new: Nouveau Clan
   parent:
     any: Libre
     label: Clan Parent

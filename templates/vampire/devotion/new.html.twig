@@ -32,11 +32,13 @@
   {{ form_row(form.skills) }}
   {{ form_row(form.disciplines) }}
   {{ form_row(form.homebrewFor) }}
-  <div class="col-12">
-    <button class="btn btn-primary w-100">{{ button_label|default('Save') }}</button>
+  <div class="row justify-content-center">
+    <div class="col col-md-6">
+      <button class="btn btn-primary w-100">
+        {{ ("action." ~ action|default('save'))|trans({}, 'app') }}
+        {% include "_icon.html.twig" with {'icon' : action, 'hasTips': 0} only %}
+      </button>
+    </div>
   </div>
 {{ form_end(form) }}
-{% endblock %}
-
-{% block actions %}
 {% endblock %}

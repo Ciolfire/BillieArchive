@@ -1,4 +1,10 @@
+{% trans_default_domain 'app' %}
+
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_widget(form) }}
+<button class="btn btn-primary w-25">
+  {{ ("action." ~ button_label|default('action.save'))|trans }}
+  {% include "_icon.html.twig" with {'icon' : action, 'hasTips': 0} only %}
+</button>
 {{ form_end(form) }}

@@ -14,7 +14,7 @@ trait Homebrewable {
     return $this->homebrewFor;
   }
 
-  public function setHomebrewFor(Chronicle $chronicle): self
+  public function setHomebrewFor(?Chronicle $chronicle): self
   {
     $this->homebrewFor = $chronicle;
 

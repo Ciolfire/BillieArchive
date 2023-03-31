@@ -7,15 +7,15 @@
     <div class="card-header">
       <div class="row align-items-center">
         <div class="col-auto" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="merit-{{ id }}-text">
-          {% include "icon.html.twig" with {'icon' : merit.category } only %}
+          {% include "_icon.html.twig" with {'icon' : merit.category } only %}
           <span class="merit-name">{{ merit.name }}</span>
-          <span class="accent">{% include "icon.html.twig" with {'icon' : merit.type } only %}</span>
+          <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type } only %}</span>
         </div>
         <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
-            {% if merit.homebrewFor is not null %}{% include "icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
-            {% if merit.isFighting %}{% include "icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
-            {% if merit.isCreationOnly %}{% include "icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+            {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
+            {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+            {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
               {% block input %}{% endblock %}
               <div class="dots">
               {% for value in 1..merit.max %}

@@ -65,17 +65,15 @@ class ClanType extends AbstractType
         'data' => $converter->convert($clan->getWeakness())
       ])
       ->add('disciplines', null, [
+        'label' => 'disciplines.label',
         'expanded' => true,
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'label_attr' => ['class' => 'text pe-2 form-choice-width'],
         'query_builder' => function (EntityRepository $er) {
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
-        'label' => 'disciplines.label',
         'translation_domain' => 'vampire',
       ])
-      ;
-    $builder
       ->add('homebrewFor', null, ['label' => "chronicle.label"])
       ->add('keywords', null, ['label' => 'keywords'])
     ;

@@ -54,11 +54,11 @@
 <div class="col-12">
   <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
     {% if character.clan.isBloodline %}
-      {% include "icon.html.twig" with {'icon': 'bloodline'} %}
+      {% include "_icon.html.twig" with {'icon': 'bloodline'} %}
       {{ character.clan.name }}
       ({{ character.clan.parentClan.name }})</a>
     {% else %}
-      {% include "icon.html.twig" with {'icon': 'clan'} %}
+      {% include "_icon.html.twig" with {'icon': 'clan'} %}
       {{ character.clan.name }}
     {% endif %}
   </a>

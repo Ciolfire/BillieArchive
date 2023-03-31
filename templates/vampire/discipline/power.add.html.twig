@@ -7,7 +7,12 @@
 {% endblock %}
 {% block header %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 
-{% block form %}{{ form(form) }}{% endblock %}
+{% block form %}
+  {{ form(form_start) }}
+  
+  {{ form(form_end) }}
+
+{% endblock %}
 
 {% block actions %}
 {% endblock %}

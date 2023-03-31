@@ -7,29 +7,29 @@
 {% block body %}
 <div class="container">
   <div class="row justify-content-center">
-    <h1>{% include "icon.html.twig" with {'icon': 'homebrew', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ "homebrew"|trans }} - {{ chronicle.name }}</h1>
+    <h1>{% include "_icon.html.twig" with {'icon': 'homebrew', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ "homebrew"|trans }} - {{ chronicle.name }}</h1>
     <div class="block row mt-5">
       <h2>{{ "type.universal"|trans }}</h2>
       <div class="col-6 col-lg">
         <a class="btn btn-primary w-100 m-2" href="{{path('merit_list', {'type': 'chronicle', 'id': chronicle.id })}}">
-          {% include "icon.html.twig" with {'icon': 'merits', 'hasTips': 0 } only %} {{ "merits"|trans }}
+          {% include "_icon.html.twig" with {'icon': 'merits', 'hasTips': 0 } only %} {{ "merits"|trans }}
         </a>
       </div>
       {# <div class="col-6 col-lg">
         <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">
-          {% include "icon.html.twig" with {'icon': 'rules', 'hasTips': 0 } only %} {{ "rules"|trans }}
+          {% include "_icon.html.twig" with {'icon': 'rules', 'hasTips': 0 } only %} {{ "rules"|trans }}
         </a>
       </div> #}
     </div>
     <div class="block vampire row">
       <h2>{{ "type.vampire"|trans }}</h2>
-      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'type': 'chronicle', 'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %} {{ "clans.label"|trans([], "vampire") }}</a></div>
-      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'disciplines', 'hasTips': 0 } only %} {{ "disciplines.label"|trans([], "vampire") }}</a></div>
-      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "icon.html.twig" with {'icon': 'devotions', 'hasTips': 0 } only %} {{ "devotions.label"|trans([], "vampire") }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'type': 'chronicle', 'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %} {{ "clans.label"|trans([], "vampire") }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'disciplines', 'hasTips': 0 } only %} {{ "disciplines.label"|trans([], "vampire") }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'devotions', 'hasTips': 0 } only %} {{ "devotions.label"|trans([], "vampire") }}</a></div>
     </div>
   </div>
 </div>
 
-{% include "back.html.twig" with {'link': path('chronicle_show', {'id': chronicle.id}) } %}
+{% include "_back.html.twig" with {'link': path('chronicle_show', {'id': chronicle.id}) } %}
 
 {% endblock %}

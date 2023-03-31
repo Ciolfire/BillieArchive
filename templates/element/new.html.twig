@@ -19,8 +19,8 @@
     {{ include('element/forms/_form.html.twig') }}
   </div>
   {% if entity.id is not null %}
-    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal">{% include "icon.html.twig" with {'icon': 'delete', 'hasTips': 0} only %}</button>
+    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal">{% include "_icon.html.twig" with {'icon': 'delete', 'hasTips': 0} only %}</button>
     {% include "element/delete.html.twig" %}
   {% endif %}
-  {% include "back.html.twig" %}
+  {% include "_back.html.twig" %}
 {% endblock %}

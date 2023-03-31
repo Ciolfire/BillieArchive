@@ -57,11 +57,13 @@
     {{ source('@icons/' ~ 'sword-clash.svg') }}
   {% elseif icon == 'party' %}
     {{ source('@icons/' ~ 'three-friends.svg') }}
-  {% elseif icon == 'group' %}
+  {% elseif icon == 'group' or icon == 'npc' %}
     {{ source('@icons/' ~ 'minions.svg') }}
   {% elseif icon == 'homebrew' %}
     {{ source('@icons/' ~ 'homebrew.svg') }}
   {# Character #}
+  {% elseif icon == 'character' %}
+    {{ source('@icons/' ~ 'person.svg') }}
   {% elseif icon == 'characters' %}
     {{ source('@icons/' ~ 'backup.svg') }}
   {% elseif icon == 'power' %}

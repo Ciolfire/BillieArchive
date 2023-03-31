@@ -6,7 +6,7 @@
   <div class="card devotion-card block">
     <div class="card-header">
       <span class="float-start">
-        <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "dicePool.html.twig" with {'pool' : powerPool, 'contested' : devotion.contestedText} %}</span>
+        <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "_dicePool.html.twig" with {'pool' : powerPool, 'contested' : devotion.contestedText} %}</span>
       </span>
       <h4>{{ devotion.name }}</h4>
       <span class="float-end">{% if devotion.bloodline is not null %}<span class="accent">{{ devotion.bloodline.name }}</span>{% endif %}</span>
@@ -23,7 +23,9 @@
         {% endblock %}
       </div>
       {% block prerequisites %}{% endblock %}
-      <div class="devotion-{{ devotion.id }}-text collapse text-end py-2">{% include "book.html.twig" with {'book': devotion.book, 'page': devotion.page } %}</div>
+      <div class="devotion-{{ devotion.id }}-text collapse text-end py-2">
+        {% include "_source.html.twig" with {'element': devotion } only %}
+      </div>
     </div>
     {% block input %}
     {% endblock %}

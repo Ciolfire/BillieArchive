@@ -96,6 +96,7 @@ class DevotionController extends AbstractController
     }
 
     return $this->render('vampire/devotion/new.html.twig', [
+      'action' => 'new',
       'form' => $form,
       'type' => 'vampire',
     ]);
@@ -116,6 +117,7 @@ class DevotionController extends AbstractController
     }
 
     return $this->render('vampire/devotion/new.html.twig', [
+      'action' => 'edit',
       'form' => $form,
       'type' => 'vampire',
     ]);

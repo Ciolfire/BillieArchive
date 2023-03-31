@@ -11,7 +11,7 @@
   <div class="row mb-3 justify-content-end">
     <div class="col-2">
       <a href="{{ path('chronicle_notes', {'id': chronicle.id} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
-        {% include "icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+        {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
       </a>
     </div>
   </div>
@@ -21,7 +21,7 @@
     </h1>
     <h2 class="text-center mt-3">
       {{ title }}
-      {% include "icon.html.twig" with {'icon': 'folder', 'hasTips': 0} only %}
+      {% include "_icon.html.twig" with {'icon': 'folder', 'hasTips': 0} only %}
     </h2>
     <div class="col">
       <p class="text-sub">{{ "note.search.tips"|trans|nl2br }}</p>
@@ -37,7 +37,7 @@
         </div>
         {% for note in notes %}
           <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ note.id }}">
-            {% include "icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
+            {% include "_icon.html.twig" with {'icon' : 'note', 'hasTips': 0 } %}
             {{ note.title ~ ' - ' ~ note.category|default('/') }}
           </button>
         {% endfor %}

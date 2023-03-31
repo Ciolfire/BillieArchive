@@ -27,13 +27,13 @@
         </div>
         <div class="col-12">
           {% block virtue %}
-            {% include "icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
             {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
           {% endblock %}
         </div>
         <div class="col-12">
           {% block vice %}
-            {% include "icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
             {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
           {% endblock %}
         </div>

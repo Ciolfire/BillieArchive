@@ -1,0 +1,20 @@
+{% trans_default_domain 'app' %}
+
+{% if short is not defined %}
+  {% set short = false %}
+{% endif %}
+
+
+{% if element.book is not null %}
+  {# <a href="{{path('book_show', {'id': element.book.id }) }}"> #}
+    {% if short == true %}
+      {{ "src"|trans({'%book%': element.book.short, '%page%': element.page|default("?")}, "app") }}
+    {% else %}
+      {{ "source"|trans({'%book%': element.book.name, '%page%': element.page|default("?")}, "app") }}
+    {% endif %}
+  {# </a> #}
+{% elseif element.homebrewFor is not null %}
+  <a href="{{path('chronicle_show', {'id': element.homebrewFor.id }) }}">{{ element.homebrewFor.name }}</a>
+{% else %}
+  {{ "source.not.found"|trans }}
+{% endif %}

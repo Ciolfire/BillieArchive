@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="container block py-3 mt-5">
-  <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
+  <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
   <h1 class="pb-4 user-select-none">{{ devotion.name }}</h1>
   {% if devotion.bloodline %}
   <p class="text-center fs-5 text-strong accent">
@@ -27,7 +27,7 @@
     {% endfor %}
   </div>
   <p class="text-center fs-5">
-    {# {% include "icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
+    {# {% include "_icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
     <span class="text-strong">{{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}</span>
   </p>
   <div class="row justify-content-center">
@@ -40,5 +40,5 @@
   </div>
 </div>
 
-{% include "back.html.twig" %}
+{% include "_back.html.twig" %}
 {% endblock %}

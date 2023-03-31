@@ -11,15 +11,15 @@
     <div class="col-12 col-lg-6">
       <h2><span>{{ "personal"|trans }}</span></h2>
       <div class="row block mx-1">
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.label"|trans }}</a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "icon.html.twig" with {'icon': 'options', 'hasTips': 0 } only %}{{ "options"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "_icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.label"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "_icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %}{{ "notes"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "_icon.html.twig" with {'icon': 'options', 'hasTips': 0 } only %}{{ "options"|trans }}</a></div>
       </div>
     </div>
     <div class="col-12 col-lg-6">
       <h2>&nbsp;</h2>
       <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
-        <h2>{% include "icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 , 'class': 'icon-lg pe-2'} only %}{{ "wiki"|trans }}</h2>
+        <h2>{% include "_icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 , 'class': 'icon-lg pe-2'} only %}{{ "wiki"|trans }}</h2>
       </button>
     </div>
     <div class="col-12 container collapseWiki collapse mb-3">
