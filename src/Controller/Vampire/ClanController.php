@@ -131,12 +131,16 @@ class ClanController extends AbstractController
 
     if ($clan->isBloodline()) {
       $entity = 'bloodline';
+      $trans = 'clan.bloodline.';
     } else {
       $entity = 'clan';
+      $trans = 'clan.';
+
     }
 
     return $this->render('vampire/clan/form.html.twig', [
       'action' => 'edit',
+      'trans' => $trans,
       'entity' => $entity,
       'form' => $form,
       'type' => 'vampire',

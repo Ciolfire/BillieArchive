@@ -18,9 +18,11 @@ clan:
         other {# Bloodlines}
       }
     new: New Bloodline
+    edit: Edit Bloodline
     weakness: Bloodline Weakness
   bloodlines:
     label: Bloodlines
+  edit: Edit Clan
   parent:
     any: Any
     label: Parent Clan

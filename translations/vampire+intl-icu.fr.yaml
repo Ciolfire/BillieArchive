@@ -17,10 +17,12 @@ clan:
         =1 {1 Lignée}
         other {# Lignées}
       }
+    edit: Modifier une lignée
     new: Nouvelle lignée
     weakness: Faiblesse de Lignée
   bloodlines:
     label: Lignées
+  edit: Modifier un Clan
   new: Nouveau Clan
   parent:
     any: Libre
