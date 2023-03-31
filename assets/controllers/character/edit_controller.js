@@ -351,6 +351,8 @@ export default class extends Controller
     }
     // remove all elements with no point spent
     this.removeElements('merit');
+    // Yes, they don't exist for non-vampire, yes I don't care :)
+    this.removeElements('discipline');
     this.removeElements('devotion');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     document.forms['character'].submit();
