@@ -5,7 +5,7 @@
 {% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
-  <div class="container py-3 mt-5" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
+  <div class="container-fluid container-lg py-3 mt-5" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
     {% block menu %}
       {% include "character_sheet/show/menu.html.twig" %}
     {% endblock %}
