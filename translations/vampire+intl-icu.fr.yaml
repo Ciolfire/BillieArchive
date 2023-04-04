@@ -101,6 +101,7 @@ disciplines:
     back: Retour à la liste
 sorcery:
   label: Sorcellerie du Sang
+  learn: Apprendre une Nouvelle Sorcellerie
   new: Nouvelle Sorcellerie
   power:
     label: Rituel
@@ -108,6 +109,9 @@ sorcery:
     new: Nouveau rituel
   powers:
     level: "Rituels de niveau {level} de {sorcery}"
+sorceries:
+  label: Sorcelleries
+  new: Nouvelles Sorcelleries
 thaumaturgy:
   label: Thaumaturgie
   new: Nouvelle voie

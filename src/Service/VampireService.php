@@ -9,6 +9,7 @@ use App\Entity\Devotion;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
+use App\Entity\DisciplinePower;
 use App\Repository\ClanRepository;
 
 use Symfony\Component\Form\FormInterface;
@@ -121,6 +122,10 @@ class VampireService
     if (isset($data['devotions'])) {
       $this->addDevotions($vampire, $data['devotions']);
     }
+
+    if (isset($data['rituals'])) {
+      $this->addRituals($vampire, $data['rituals']);
+    }
   }
 
   public function addDisciplines(Vampire $vampire, array $disciplines)
@@ -139,6 +144,16 @@ class VampireService
       if ($value == 1) {
         $devotion = $this->dataService->find(Devotion::class, $id);
         $vampire->addDevotion($devotion);
+      }
+    }
+  }
+
+  public function addRituals(Vampire $vampire, array $rituals)
+  {
+    foreach ($rituals as $id => $value) {
+      if ($value == 1) {
+        $ritual = $this->dataService->find(DisciplinePower::class, $id);
+        $vampire->addRitual($ritual);
       }
     }
   }

@@ -102,6 +102,7 @@ disciplines:
     back: Back to the list
 sorcery:
   label: Blood Sorcery
+  learn: Learn New Sorcery
   new: New Sorcery
   power:
     label: Ritual
@@ -109,6 +110,9 @@ sorcery:
     new: New Ritual
   powers:
     level: "Level-{level} {sorcery} Rituals"
+sorceries:
+  label: Sorceries
+  new: New Sorceries
 thaumaturgy:
   label: Thaumaturgy
   new: New path

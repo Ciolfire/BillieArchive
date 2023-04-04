@@ -1,0 +1,11 @@
+{% trans_default_domain 'vampire' %}
+
+{% set action = "edit" %}
+{% block action %}{% endblock %}
+{% block rituals %}
+  {% block creation %}{% endblock %}
+  <div class="row">
+    {% block list %}
+    {% endblock %}
+  </div>
+{% endblock %}

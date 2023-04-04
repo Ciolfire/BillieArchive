@@ -11,11 +11,13 @@ export default class extends Controller
     "spend",
     "xpLogs",
     "devotionInput",
+    "ritualInput",
   ];
   static values = {
     total: Number,
     used: Number,
     spend: Number,
+    ritualCurrent: {},
     coilsCurrent: {},
     coils: Number,
     emptyInfo: String,
@@ -55,21 +57,20 @@ export default class extends Controller
         event.target = target;
 
         // We want to handle the coil differently
-        console.log(data);
         if (data.coils == 1) {
           data.type = 'coil';
         }
         switch (data.type) {
           case 'willpower':
-            console.debug('willpower');
+            // console.debug('willpower');
             this.payWillpower(event);
             break;
           case 'merit':
-            console.debug('merit');
+            // console.debug('merit');
             this.payMerit(event);
             break;
           case 'coil':
-            console.debug('coil');
+            // console.debug('coil');
             this.payCoil(event);
             break;
           default:
@@ -89,6 +90,21 @@ export default class extends Controller
         event.params.value = +data.value;
         event.target = target.parentElement;
         this.payDevotion(event, true);
+      }
+    });
+    this.ritualInputTargets.forEach(target => {
+      let data = target.dataset;
+      if (target.value == 1) {
+        let event = {};
+
+        event.params = {};
+        event.params.id = target.id.replace('ritual-','');
+        event.params.sorceryId = data.sorceryId;
+        event.params.type = "ritual";
+        event.params.name = data.name;
+        event.params.value = +data.value;
+        event.target = target.parentElement;
+        this.payRitual(event, true);
       }
     });
     // Used for prerequisite, secondary
@@ -220,6 +236,84 @@ export default class extends Controller
     // this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
 
+  // Handle the case of the first free ritual of each level
+  ritualRealCost(params) {
+    let value = params.value;
+    let level = params.value / 2;
+    let id = params.sorceryId;
+    let key = `ritual-${id}-${level}`;
+    // Only if no free ritual already taken
+    if (document.getElementById(key).dataset.firstFree == 1) {
+      // Hard case :'(
+      if (this.ritualCurrentValue[id] == undefined) {
+        // Initialize Sorcery array
+        this.ritualCurrentValue[id] = {};
+      }
+      if (this.ritualCurrentValue[id][level] == undefined) {
+        // Initialize ritual level array
+        this.ritualCurrentValue[id][level] = {};
+      }
+      if (Object.values(this.ritualCurrentValue[id][level]).every((v) => v === false)) {
+        // Set the free ritual, since it's not found
+        this.ritualCurrentValue[id][level][params.id] = true;
+        value = 0;
+      } else if (this.ritualCurrentValue[id][level][params.id] == undefined) {
+        // Free ritual found, we set it as false, to allow a futur change of cost
+        this.ritualCurrentValue[id][level][params.id] = false;
+      }
+    }
+
+    return value;
+  }
+
+  payRitual(event, refresh = false)
+  {
+    let params = event.params;
+    let key = `ritual-${params.sorceryId}-${params.id}`;
+    let cost = this.ritualRealCost(params);
+    let input = document.getElementById("ritual-" + event.params.id);
+
+    if (input.value == 0 || refresh == true) {
+      event.target.classList.add('active');
+      input.value = 1;
+      this.spendInfoValue[key] = {
+        type: params.type,
+        info: {
+          name: params.name,
+          id: params.id,
+          cost: cost,
+        }
+      };
+    } else {
+      // We cancel the change, so we unset
+      event.target.classList.remove('active');
+      input.value = 0;
+      // First we check if we need to apply the free cost to another ritual
+      let level = params.value / 2;
+      let needRefresh = false;
+      if (this.ritualCurrentValue[params.sorceryId] && this.ritualCurrentValue[params.sorceryId][level]) {
+        needRefresh = this.ritualCurrentValue[params.sorceryId][level][params.id];
+      }
+
+      this.ritualCurrentValue[params.sorceryId][level][params.id] = undefined;
+      delete this.ritualCurrentValue[params.sorceryId][level][params.id];
+      if (needRefresh && this.ritualCurrentValue[params.sorceryId][level] != undefined) {
+        let keyR = Object.keys(this.ritualCurrentValue[params.sorceryId][level])[0];
+        if (keyR != undefined) {
+          this.ritualCurrentValue[params.sorceryId][level][keyR] = true;
+          let replacement = `ritual-${params.sorceryId}-${keyR}`;
+          this.spendInfoValue[replacement].info.cost = 0;
+        }
+      }
+      this.spendInfoValue[key] = undefined;
+      delete this.spendInfoValue[key];
+    }
+    // Get the cost for this specific dot
+    this.updateSpend();
+    // Prerequisites update, no need, nothing depend on rituals ?
+    // this.dispatch("change", { detail: { type: params.type, target: params.id } });
+  }
+
   // VAMPIRE OFF //
 
   allocate(cost, key, params)
@@ -266,6 +360,7 @@ export default class extends Controller
           break;
 
         case 'devotion':
+        case 'ritual':
           info = current.info;
           total += info.cost;
           text += `${info['name']} (${info['cost']})</br>`;
@@ -286,6 +381,29 @@ export default class extends Controller
       text = this.emptyInfoValue;
     }
     this.usingInfoTarget.innerHTML = text;
+  }
+
+  showRituals(event)
+  {
+    let params = event.params;
+    let key = params.type + '-' + params.id;
+    let level = params.value;
+    // The pay function goes first, if the entry is deleted that means we unselected it, genius :) !
+    if (this.spendInfoValue[key] == null) {
+      level = params.base;
+    }
+    let rituals = document.getElementsByClassName('ritual-element-' + params.id);
+    // For each ritual, we only show it if it's available :)
+    // If it's selected, it stays selected :(
+    for (const ritual of rituals) {
+      if (ritual.dataset.level <= level) {
+        ritual.classList.add('show');
+        ritual.classList.remove('collapse');
+      } else {
+        ritual.classList.add('collapse');
+        ritual.classList.remove('show');
+      }
+    }
   }
 
   newSpecialty(event)
@@ -354,6 +472,7 @@ export default class extends Controller
     // Yes, they don't exist for non-vampire, yes I don't care :)
     this.removeElements('discipline');
     this.removeElements('devotion');
+    this.removeElements('ritual');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     document.forms['character'].submit();
   }

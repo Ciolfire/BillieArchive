@@ -21,7 +21,7 @@
               <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.type ~ '.' ~ log.info.id)|trans([], 'character') }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' %}
               <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
-            {% elseif log.type == 'devotion' %}
+            {% elseif log.type == 'devotion' or log.type == 'ritual' %}
               <span class="accent">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
             {% else %}
               <span class="accent">{{ (log.type~".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})

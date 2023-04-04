@@ -1,31 +1,23 @@
-attribute:
-  label: Attribut augmenté
+attribute.label: Attribut augmenté
 
 
 logs: Logs
 
-merit:
-  label: "{0}Nouvel Atout|[1,Inf]Atout amélioré"
+merit.label: "{0}Nouvel Atout|[1,Inf]Atout amélioré"
 
 
-skill:
-  label: "{0}Nouvelle Compétence|[1,Inf]Compétence améliorée"
-specialty:
-  label: Nouvelle Specialité
+skill.label: "{0}Nouvelle Compétence|[1,Inf]Compétence améliorée"
+specialty.label: Nouvelle Specialité
 
 
-willpower:
-  label: Regain de Volonté
+willpower.label: Regain de Volonté
 
 # Vampire
-devotion:
-  label: "Nouvelle Dévotion"
-discipline:
-  label: "{0}Nouvelle Discipline|[1,Inf]Discipline améliorée"
-favoredDiscipline:
-  label: "{0}Nouvelle Discipline de Clan|[1,Inf]Discipline de Clan améliorée"
-potency:
-  label: Puissance du Sang augmentée
+devotion.label: "Nouvelle Dévotion"
+discipline.label: "{0}Nouvelle Discipline|[1,Inf]Discipline améliorée"
+favoredDiscipline.label: "{0}Nouvelle Discipline de Clan|[1,Inf]Discipline de Clan améliorée"
+potency.label: Puissance du Sang augmentée
+ritual.label: Nouveau Rituel
 
 xp:
   add: Choisissez le nombre de points d'experience à attribuer au personnage.

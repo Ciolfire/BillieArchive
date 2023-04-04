@@ -9,11 +9,10 @@
       <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}</h2>
       {{ ritual.details|markdown_to_html }}
   {% endif %}
-  {% set level = 0 %}
   
   <div id="ritual-{{ discipline.id }}" class="row accordion">
     {% for ritual in rituals[1:] %}
-      {% if ritual.level != level|default(1) %}
+      {% if ritual.level != level|default(0) %}
         {% set level = ritual.level %}
         <h3 class="mt-3 py-2 bdr-t">{{ 'sorcery.powers.level'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h3>
       {% endif %}

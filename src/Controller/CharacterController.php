@@ -236,7 +236,6 @@ class CharacterController extends AbstractController
     $extraData = $form->getExtraData();
 
     if ($form->isSubmitted() && $form->isValid()) {
-      // dd($form);
       if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
         $character->setLookAge($character->getAge());
       }

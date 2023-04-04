@@ -353,6 +353,19 @@ class Vampire extends Character
     return false;
   }
 
+  public function hasRitualAtLevel(Discipline $discipline, $level = 1): bool
+  {
+    foreach ($this->rituals as $ritual) {
+      /** @var DisciplinePower $ritual */
+      if ($ritual->getDiscipline() === $discipline && $ritual->getLevel() == $level) {
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   /** Get the total level of the character in the coils of the Dragons, mostly used to calculate costs */
   public function coilsLevel(): int
   {

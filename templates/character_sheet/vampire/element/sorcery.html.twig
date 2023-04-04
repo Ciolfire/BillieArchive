@@ -1,82 +1,98 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
-<div class="row align-items-center px-2 user-select-none">
-  <div class="col-12 text-center p-2">
-    <h2>{{ discipline.name }}</h2>
-  </div>
-  <div class="col-12 text-center">
-    <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
-      {% block input %}{% endblock %}
-      <div class="dots">
-        {% for value in 1..max %}
-          {% if value >= 5 and value % 5 == 1 %}
-            </div>
-            <div class="dots">
-          {% endif %}
-          {% block dot %}{% endblock %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  <div class="col-12 text-sub text-center"><p>{{ discipline.short }}</p></div>
-</div>
+{% if sorcery.powers|length > 0 and (sorcery.powers|first).level == 0 %}
+  {% set ritual = sorcery.powers|first %}
+{% endif %}
 
-<div class="row g-0 ok">
-  {% block rulesBtn %}
-    {% if discipline.rules %}
-      <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
-        <span class="d-flex flex-column justify-content-center text-center">
-          rules
-          <span class="discipline-rules-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
-          <span class="details-block discipline-rules-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
-        </span>
-      </div>
-    {% endif %}
-  {% endblock %}
-  {% block powersBtn %}
-    <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-powers-{{ discipline.id }}" type="button">
-      <span class="d-flex flex-column justify-content-center text-center">
-        {{ 'power'|trans({'%count%': discipline.powers|length}) }}
-        <span class="discipline-powers-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
-        <span class="details-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
-      </span>
-    </div>
-  {% endblock %}
-</div>
+<div class="col-12 justify-content-center mt-5">
+  <div class="block w-100 container g-0">
 
-<div class="row m-0 details-block">
-  {% block rules %}
-    {% if discipline.rules %}
-      <div class="col-12 discipline-rules-{{ discipline.id }} collapse">
-        {{ discipline.rules|markdown_to_html }}
+    <div class="row align-items-center px-2 user-select-none">
+      <div class="col-12 discipline-block text-center p-2">
+        <h2>{{ sorcery.name }}</h2>
       </div>
-    {% endif %}
-  {% endblock %}
-  <div class="powers-block-{{ discipline.id }} discipline-powers-{{ discipline.id }} collapse">
-    <div class="col-12">
-      <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
-    </div>
-    {% block rituals %}
-      {% for power in discipline.powers %}
-        <div class="row">
-        {% if power.level <= maxPower %}
-          {% set powerPool = power.detailedDicePool(character) %}
-          <div class="col-12 power-header">
-            <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ power.id }}">
-              <div class="col-3"><h5 class="strong">{{ power.levelDots }}</h5></div>
-              <div class="col-6 text-center"><h3>{{ power.name }}</h3></div>
-              <div class="col-3 text-end">
-                {% if powerPool != null %}
-                  {% include "_dicePool.html.twig" with {'pool' : powerPool, 'contested' : power.contestedText} %}
-                {% endif %}
+      <div class="col-12 text-center">
+        <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
+          <div class="dots">
+            {% for value in 1..max %}
+              {% if value >= 5 and value % 5 == 1 %}
               </div>
-              <div class="col-12 text-sub text-center"><p>{{ power.short }}</p></div>
-            </div>
+              <div class="dots">
+              {% endif %}
+              {% block dot %}{% endblock %}
+            {% endfor %}
           </div>
-          <div class="discipline-power-{{ power.id }} accordion-collapse collapse py-2" data-bs-parent=".powers-block-{{ discipline.id }}">{{ power.details|markdown_to_html }}</div>
-        {% endif %}
+          {% block pool %}
+            {% set powerPool = ritual.detailedDicePool(character) %}
+            {% if powerPool is not null %}
+              <div class="float-end">{% include "_dicePool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
+            {% endif %}
+          {% endblock %}
+        </div>
       </div>
-      {% endfor %}
-    {% endblock %}
+      <div class="col-12 text-sub text-center">
+        <p>{{ sorcery.short }}</p>
+      </div>
+    </div>
+
+    <div class="row g-0 ok">
+      {% block rules_btn %}
+        {% if sorcery.rules %}
+          <div class="col" data-bs-toggle="collapse" data-bs-target=".sorcery-rules-{{ sorcery.id }}" type="button">
+            <span class="d-flex flex-column justify-content-center text-center">
+              {{ 'rules'|trans({}, 'app') }}
+              <span class="sorcery-rules-{{ sorcery.id }} text-center show">
+                <i class="fas fa-caret-down"></i>
+              </span>
+              <span class="details-block sorcery-rules-{{ sorcery.id }} text-center collapse">
+                <i class="fas fa-caret-up"></i>
+              </span>
+            </span>
+          </div>
+        {% endif %}
+      {% endblock %}
+      {% block powers_btn %}
+        <div class="col" data-bs-toggle="collapse" data-bs-target=".sorcery-powers-{{ sorcery.id }}" type="button">
+          <span class="d-flex flex-column justify-content-center text-center">
+            {{ 'sorcery.power.label'|trans }}
+            <span class="sorcery-powers-{{ sorcery.id }} text-center show">
+              <i class="fas fa-caret-down"></i>
+            </span>
+            <span class="details-block sorcery-powers-{{ sorcery.id }} text-center collapse">
+              <i class="fas fa-caret-up"></i>
+            </span>
+          </span>
+        </div>
+      {% endblock %}
+    </div>
+
+    <div class="row m-0 details-block">
+      {% block rules %}
+        {% if sorcery.rules %}
+          <div class="col-12 sorcery-rules-{{ sorcery.id }} collapse">
+            {{ sorcery.rules|markdown_to_html }}
+          </div>
+        {% endif %}
+      {% endblock %}
+      <div class="powers-block-{{ sorcery.id }} sorcery-powers-{{ sorcery.id }} collapse">
+        <div class="col-12">
+          <div class="fluff m-2">{{ sorcery.description|markdown_to_html }}</div>
+        </div>
+        {% block ritual %}
+          {% if ritual %}
+              <div class="row">
+                <div class="col-12 power-header">
+                  <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ ritual.id }}">
+                    <div class="col-3 text-end">
+                    </div>
+                  </div>
+                </div>
+                <div class="discipline-power-{{ ritual.id }} py-2" data-bs-parent=".powers-block-{{ sorcery.id }}">{{ ritual.details|markdown_to_html }}</div>
+            </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+    </div>
   </div>
 </div>
+{% block rituals %}{% endblock %}
