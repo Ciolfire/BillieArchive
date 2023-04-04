@@ -8,9 +8,9 @@
 {% block header %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 
 {% block form %}
-  {{ form(form_start) }}
+  {{ form_start(form) }}
   
-  {{ form(form_end) }}
+  {{ form_end(form ) }}
 
 {% endblock %}
 
