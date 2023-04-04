@@ -9,13 +9,11 @@
     {% set base = characterDiscipline.level %}
     {% set max = characterDiscipline.discipline.maxLevel %}
     {% if max == 0 %}{% set max = 5 %}{% endif %}
-    {% if min < max %}
-      <div class="col-12 justify-content-center">
-        <div class="w-100 container g-0">
-          {% include "character_sheet/vampire/edit/sorcery.html.twig" with { 'characterDiscipline': characterDiscipline, 'sorcery': characterDiscipline.discipline } %}
-        </div>
+    <div class="col-12 justify-content-center">
+      <div class="w-100 container g-0">
+        {% include "character_sheet/vampire/edit/sorcery.html.twig" with { 'characterDiscipline': characterDiscipline, 'sorcery': characterDiscipline.discipline } %}
       </div>
-    {% endif %}
+    </div>
   {% endfor %}
   <h2 class="text-center py-3 mt-5 bdr-t user-select-none">{{ "sorcery.learn"|trans }}</h2>
   {% for discipline in disciplines %}
