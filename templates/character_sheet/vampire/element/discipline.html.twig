@@ -1,7 +1,7 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'vampire' %}
 
 <div class="row align-items-center px-2 user-select-none">
-  <div class="col-12 text-center p-2">
+  <div class="col-12 discipline-block text-center p-2">
     <h2>{{ discipline.name }} {% if discipline.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}</h2>
   </div>
   <div class="col-12 text-center">
@@ -22,7 +22,7 @@
 </div>
 
 <div class="row g-0 ok">
-  {% block rulesBtn %}
+  {% block rules_btn %}
     {% if discipline.rules %}
       <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-rules-{{ discipline.id }}" type="button">
         <span class="d-flex flex-column justify-content-center text-center">
@@ -33,10 +33,10 @@
       </div>
     {% endif %}
   {% endblock %}
-  {% block powersBtn %}
+  {% block powers_btn %}
     <div class="col" data-bs-toggle="collapse" data-bs-target=".discipline-powers-{{ discipline.id }}" type="button">
       <span class="d-flex flex-column justify-content-center text-center">
-        {{ 'power'|trans({'%count%': discipline.powers|length}) }}
+        {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
         <span class="discipline-powers-{{ discipline.id }} text-center show"><i class="fas fa-caret-down"></i></span>
         <span class="details-block discipline-powers-{{ discipline.id }} text-center collapse"><i class="fas fa-caret-up"></i></span>
       </span>
