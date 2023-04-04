@@ -1,4 +1,4 @@
-<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ pool.string }}{% if contested|default(null) is not null %} {{ contested }}{% endif %}">
+<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ pool.string|default(null) }}{% if contested|default(null) is not null %} {{ contested }}{% endif %}">
   <span class="text text-strong">
     {% if pool.total > 0 %}
       <span class="fw-bold {% if pool.total < 4 %}warning{% elseif pool.total > 9 %}accent{% endif %}">
