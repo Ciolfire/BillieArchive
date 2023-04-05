@@ -42,7 +42,7 @@ class DisciplinePowerType extends AbstractType
         ->add('page')
         ->add('homebrewFor');
     }
-    if (!$power->getDiscipline()->isSorcery() && !$power->getDiscipline()->isCoil()) {
+    if (!($power->getDiscipline()->isSorcery() && $power->getLevel() > 0) && !$power->getDiscipline()->isCoil()) {
       $builder
         ->add('attributes', null, [
           'label' => 'attributes.label',
