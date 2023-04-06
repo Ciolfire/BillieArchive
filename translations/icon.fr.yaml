@@ -57,6 +57,12 @@ specialty:
   add: Ajouter une spécialité pour cette compétence
   remove: Annuler l'ajout
 
+
+merit:
+  unique: Cet Atout ne peut être pris qu'une fois.
+  not.unique: Cet Atout peut être pris plusieurs fois.
+expanded: Cet Atout nécessite des détails à la sélection.
+
 size: Taille
 speed: Vitesse
 initiative: Initiative
@@ -89,7 +95,10 @@ discipline: Discipline
 ghoul: Goule
 
 body_thief: Voleur de Corps
+innocents: Innocents
+possessed: Possedés
 purified: Purifié
+
 
 derangement: Derangement
 extreme: Extrême

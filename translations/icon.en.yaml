@@ -57,6 +57,10 @@ specialty:
   add: Add a specialty for this skill
   remove: Cancel the addition
 
+merit:
+  unique: This Merit can only be taken once.
+  not.unique: This Merit can be taken more than once.
+expanded: This Merit required additionnal information when selected.
 
 size: Size
 speed: Speed
@@ -90,6 +94,8 @@ discipline: Discipline
 ghoul: Ghoul
 
 body_thief: Body Thief
+innocents: Innocents
+possessed: Possessed
 purified: Purified
 
 derangement: Derangement

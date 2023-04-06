@@ -1,7 +1,7 @@
 {% trans_default_domain 'icon' %}
 
 <span class="icon {{ class|default("")}}" {% if hasTips|default(true) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
-  {% if icon == 'add' or icon == 'new' %}
+  {% if icon == 'add' %}
     {{ source('@icons/' ~ 'plus-solid.svg') }}
   {% elseif icon == 'back' %}
     {{ source('@icons/' ~ 'return-arrow.svg') }}
@@ -18,6 +18,8 @@
   {% elseif icon == 'language' %}
     {{ source('@icons/' ~ 'language-solid.svg') }}
   {% elseif icon == 'save' %}
+    {{ source('@icons/' ~ 'save.svg') }}
+  {% elseif icon == 'create' or icon == 'new' %}
     {{ source('@icons/' ~ 'save.svg') }}
   {% elseif icon == 'show' or icon == 'view' %}
     <i class="fa-solid fa-eye"></i>
@@ -36,6 +38,12 @@
     {{ source('@icons/' ~ 'bookmarklet.svg') }}
   {% elseif icon == 'notes' or icon == 'note' %}
     {{ source('@icons/' ~ 'notebook.svg') }}
+  {% elseif icon == 'expanded' %}
+    {{ source('@icons/' ~ 'notebook.svg') }}
+  {% elseif icon == 'merit.unique' %}
+    {{ source('@icons/' ~ 'inverted-dice-1.svg') }}
+  {% elseif icon == 'merit.not.unique' %}
+    {{ source('@icons/' ~ 'infinity.svg') }}
   {% elseif icon == 'relations' %}
     <i class="fa-solid fa-users"></i>
   {% elseif icon == 'background' %}
@@ -49,7 +57,7 @@
     {{ source('@icons/' ~ 'backward-time.svg') }}
   {% elseif icon == 'wiki' %}
     {{ source('@icons/' ~ 'wiki.svg') }}
-  {% elseif icon == 'dice' %}
+  {% elseif icon == 'dice' or icon == "roll" %}
     {{ source('@icons/' ~ 'd10.svg') }}
   {% elseif icon == 'luckThrow' %}
     {{ source('@icons/' ~ 'coinflip.svg') }}
@@ -79,7 +87,7 @@
   {% elseif icon == 'social' %}
     {{ source('@icons/' ~ 'conversation.svg') }}
   {% elseif icon == 'health' %}
-    {% if type == 'vampire' %}
+    {% if setting == 'vampire' %}
       {{ source('@icons/' ~ 'heart-organ.svg') }}
     {% else %}
       {{ source('@icons/' ~ 'health-normal.svg') }}
@@ -104,7 +112,7 @@
   {% elseif icon == 'merits' %}
     {{ source('@icons/' ~ 'checkbox-tree.svg') }}
   {% elseif icon == 'creation' %}
-    <i class="fa-solid fa-key"></i>
+    {{ source('@icons/' ~ 'padlock-open.svg') }}
   {% elseif icon == 'style' %}
     {{ source('@icons/' ~ 'high-kick.svg') }}
   {# Skills #}
