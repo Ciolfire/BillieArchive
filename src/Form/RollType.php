@@ -30,8 +30,9 @@ class RollType extends AbstractType
     $element = $options['data'];
 
     $builder
-      ->add('name')
+      ->add('name', null, ['label' => "name"])
       ->add('action', ChoiceType::class, [
+        'label' => 'action.label',
         'choices' => [
           'roll.action.instant' => 0,
           'roll.action.extended' => 1,
@@ -39,10 +40,11 @@ class RollType extends AbstractType
         ]
       ])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])
-      ->add('isContested')
-      ->add('contestedText')
-      ->add('isImportant')
+      ->add('isContested', null, ['label' => "contested.label"])
+      ->add('contestedText', null, ['label' => "contested.text"])
+      ->add('isImportant', null, ['label' => "important"])
       ->add('type', ChoiceType::class, [
+        'label' => 'type.label',
         'required' => false,
         'choices' => [
           'type.vampire' => 'vampire',
@@ -67,8 +69,8 @@ class RollType extends AbstractType
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
-      ->add('book')
-      ->add('page')
+      ->add('book', null, ['label' => "book"])
+      ->add('page', null, ['label' => "page"])
       ;
   }
 

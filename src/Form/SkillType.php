@@ -17,17 +17,18 @@ class SkillType extends AbstractType
     $skill = $options['data'];
     $converter = new LeagueMarkdown();
     $builder
-      // ->add('identifier')
-      // ->add('category')
-      ->add('name')
-      ->add('description', CKEditorType::class, ['data' => $converter->convert($skill->getDescription())])
-      ->add('fluff', CKEditorType::class, ['data' => $converter->convert($skill->getFluff())]);
+      ->add('name', null, ['label' => 'name'])
+      ->add('identifier', null, ['label' => 'identifier'])
+      ->add('category', null, ['label' => 'category.label'])
+      ->add('description', CKEditorType::class, ['label' => 'description.label', 'data' => $converter->convert($skill->getDescription())])
+      ->add('fluff', CKEditorType::class, ['label' => 'description.fluff', 'data' => $converter->convert($skill->getFluff())]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Skill::class,
+      'translation_domain' => 'app',
     ]);
   }
 }

@@ -56,7 +56,7 @@ class MeritType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Merit::class,
-      "translation_domain" => 'app',
+      'translation_domain' => 'app',
     ]);
   }
 }

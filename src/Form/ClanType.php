@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Clan;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,21 +16,30 @@ use Twig\Extra\Markdown\LeagueMarkdown;
 
 class ClanType extends AbstractType
 {
+  public $translator;
+
+  public function __construct(TranslatorInterface $translator)
+  {
+      $this->translator = $translator;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     /** @var Clan */
     $clan = $options['data'];
     $converter = new LeagueMarkdown();
+    $translator = $this->translator;
 
     $builder
-      ->add('name', null, ['label' => "name"])
-      ->add('quote', null, ['label' => "quote"])
-      ->add('book', null, ['label' => "book"])
-      ->add('page', null, ['label' => "page"])
+      ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
+      ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
+      ->add('book', null, ['label' => "book", 'translation_domain' => "app"])
+      ->add('page', null, ['label' => "page", 'translation_domain' => "app"])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
         'mapped' => false,
         'required' => false,
+        'translation_domain' => "app",
         'constraints' => [
           new File([
             'mimeTypes' => [
@@ -40,9 +50,10 @@ class ClanType extends AbstractType
         ],
       ])
       ->add('description', CKEditorType::class, [
-        'empty_data' => '', 
+        'empty_data' => '',
         'data' => $converter->convert($clan->getDescription()), 
         'label' => "description.label",
+        'translation_domain' => "app",
       ]);
       if ($clan->isBloodline()) {
         $builder->add('parentClan', null, [
@@ -54,10 +65,18 @@ class ClanType extends AbstractType
           ]
         );
       } else {
-        $builder->add('attributes', null, ['expanded' => true, 'label' => 'attributes']);
+        $builder->add('attributes', null, [
+          'expanded' => true,
+          'translation_domain' => "app",
+          'label' => 'attributes',
+          'group_by' => function($choice) use ($translator) {
+            /** @var Attribute $choice */
+            return $translator->trans($choice->getCategory(), [], 'character');
+          },
+        ]);
       }
-      $builder->add('nickname', null, ['label' => "nickname"])
-      ->add('short', null, ['label' => "description.short.label"])
+      $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => 'app'])
+      ->add('short', null, ['label' => "description.short.label", 'translation_domain' => 'app'])
       ->add('weakness', CKEditorType::class, [
         'label' => 'clan.weakness',
         'translation_domain' => 'vampire',
@@ -72,10 +91,9 @@ class ClanType extends AbstractType
         'query_builder' => function (EntityRepository $er) {
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
-        'translation_domain' => 'vampire',
       ])
-      ->add('homebrewFor', null, ['label' => "chronicle.label"])
-      ->add('keywords', null, ['label' => 'keywords'])
+      ->add('homebrewFor', null, ['label' => "chronicle.label", 'translation_domain' => 'app'])
+      ->add('keywords', null, ['label' => 'keywords', 'translation_domain' => 'app'])
     ;
   }
 
@@ -83,7 +101,7 @@ class ClanType extends AbstractType
   {
     $resolver->setDefaults([
       "data_class" => Clan::class,
-      "translation_domain" => 'app',
+      "translation_domain" => 'vampire',
       "allow_extra_fields" => true,
       "is_edit" => false,
     ]);
