@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% set setting = 'vampire' %}
+{# {% set footer = true %} #}
+
+{% block title %}
+  {{ (type ~ ".label")|trans }}
+{% endblock %}
+
+{# {% block bodyData %}
+  data-controller="search" data-search-type-value="discipline"
+{% endblock %} #}
+
+{% block body %}
+  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  <div class="container block py-3  ">
+
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="p-2">
+          <h1 class="user-select-none">
+            {% include "_icon.html.twig" with {'icon' : 'sorcery', 'hasTips': 0, 'class' : "icon-xl" } only %}
+            {{ "sorcery.label"|trans }}
+          </h1>
+          <div class="col-auto">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+              <h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div id="collapseDescription" class="collapse col">
+        <div class="block block-wiki p-2">
+          {{ description.value|default("")|markdown_to_html }}
+        </div>
+      </div>
+    </div>
+
+    <div id="disciplinesTable" class="accordion block row">
+      {% for ritual in rituals %}
+        {% if ritual.level > 0 %}
+          {% set discipline = ritual.discipline %}
+          <div class="col-12 col-md-6 my-3">
+            <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
+              {% if is_granted('ROLE_ST') %}
+                <a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+              {% endif %}
+              <h4>{{ ritual.name }}</h4>
+              <h5>{{ 'sorcery.powers.level'|trans({'%level%': ritual.level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h5>
+              <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
+              <div class="ritual-text--{{ discipline.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ discipline.id }}">
+                {{ ritual.details|markdown_to_html }}
+                {% include "_source.html.twig" with {'element': ritual } only %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{# {% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
+    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %} #}

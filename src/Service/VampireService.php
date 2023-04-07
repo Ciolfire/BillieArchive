@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Clan;
+use App\Entity\Description;
 use App\Entity\Devotion;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
@@ -171,7 +172,84 @@ class VampireService
     }
   }
 
-  /** Save and or edit a clan/bloodline */
-  public function handleClan($isNew = true, $isBloodline = false) {
+  public function getDisciplines($type = "discipline", $filter = null, $id = null)
+  {
+    $template = 'vampire/discipline/index.html.twig';
+    $criteria = [];
+
+    if (!is_null($filter)) {
+      switch ($filter) {
+        case 'book':
+        default:
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+
+        $criteria['book'] = $item;
+        break;
+      }
+    }
+
+    switch ($type) {
+      case 'all':
+        $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_discipline']);
+        $type = 'discipline';
+        break;
+      case 'sorcery':
+        $criteria['isSorcery'] = true;
+        $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_sorcery']);
+        break;
+      case 'thaumaturgy':
+        $criteria['isThaumaturgy'] = true;
+        $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_thaumaturgy']);
+        break;
+      case 'coils':
+        $criteria['isCoil'] = true;
+        $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_coils']);
+        break;
+      case 'discipline':
+      default:
+        $criteria['isSorcery'] = false;
+        $criteria['isThaumaturgy'] = false;
+        $criteria['isCoil'] = false;
+        $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_discipline']);
+        break;
+    }
+
+    $disciplines = $this->dataService->findBy(Discipline::class, $criteria, ['name' => 'ASC']);
+
+    return [
+      'template' => $template,
+      'disciplines' => $disciplines,
+      'description' => $description,
+      'entity' => 'discipline',
+      'type' => $type
+    ];
+  }
+
+  public function getRituals($filter = null, $id = null)
+  {
+    $criteria = [];
+
+    if (!is_null($filter)) {
+      switch ($filter) {
+        case 'book':
+        default:
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+
+        $criteria['book'] = $item;
+        break;
+      }
+    }
+
+    $rituals = $item->getRituals();
+    $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_ritual']);
+
+    return [
+      'rituals' => $rituals,
+      'description' => $description,
+      'entity' => 'discipline',
+      'type' => 'ritual',
+    ];
   }
 }

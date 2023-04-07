@@ -34,60 +34,52 @@ class DisciplineController extends AbstractController
   #[Route('/disciplines', name: 'vampire_discipline_index', methods: ['GET'])]
   public function disciplines(): Response
   {
-    $disciplines = $this->dataService->findBy(Discipline::class, [
-      'isSorcery' => false,
-      'isThaumaturgy' => false,
-      'isCoil' => false,
-    ]);
+    $data = $this->service->getDisciplines();
 
-    return $this->render('vampire/discipline/index.html.twig', [
-      'elements' => $disciplines,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
       'entity' => 'discipline',
-      'category' => 'discipline',
-      'type' => 'vampire',
+      'type' => 'discipline',
     ]);
   }
 
-  #[Route('/sorcery', name: 'vampire_sorcery_index', methods: ['GET'])]
-  public function sorcery(): Response
+  #[Route('/sorceries', name: 'vampire_sorcery_index', methods: ['GET'])]
+  public function sorceries(): Response
   {
-    $disciplines = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
+    $data = $this->service->getDisciplines('sorcery');
 
-    return $this->render('vampire/discipline/index.html.twig', [
-      'elements' => $disciplines,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vampire_sorcery']),
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
       'entity' => 'discipline',
-      'category' => 'sorcery',
-      'type' => 'vampire',
-    ]);
-  }
-
-  #[Route('/thaumaturgy', name: 'vampire_thaumaturgy_index', methods: ['GET'])]
-  public function thaumaturgy(): Response
-  {
-    $disciplines = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
-
-    return $this->render('vampire/discipline/index.html.twig', [
-      'elements' => $disciplines,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vampire_thaumaturgy']),
-      'entity' => 'discipline',
-      'category' => 'thaumaturgy',
-      'type' => 'vampire',
+      'type' => 'sorcery',
     ]);
   }
 
   #[Route('/coils', name: 'vampire_coils_index', methods: ['GET'])]
   public function coils(): Response
   {
-    $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
+    $data = $this->service->getDisciplines('coils');
 
-    return $this->render('vampire/discipline/index.html.twig', [
-      'elements' => $disciplines,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
       'entity' => 'discipline',
-      'category' => 'coils',
-      'type' => 'vampire',
+      'type' => 'coils',
+    ]);
+  }
+
+  #[Route('/thaumaturgy', name: 'vampire_thaumaturgy_index', methods: ['GET'])]
+  public function thaumaturgy(): Response
+  {
+    $data = $this->service->getDisciplines('thaumaturgy');
+
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
+      'entity' => 'discipline',
+      'type' => 'thaumaturgy',
     ]);
   }
 
@@ -96,7 +88,6 @@ class DisciplineController extends AbstractController
   {
     return $this->render('vampire/discipline/show.html.twig', [
       'discipline' => $discipline,
-      'type' => 'vampire',
     ]);
   }
 
@@ -118,7 +109,6 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/new.html.twig', [
       'action' => 'new',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -141,7 +131,6 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/new.html.twig', [
       'action' => 'new',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -164,7 +153,6 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/new.html.twig', [
       'action' => 'new',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -187,7 +175,6 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/new.html.twig', [
       'action' => 'new',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -208,7 +195,6 @@ class DisciplineController extends AbstractController
     return $this->render('vampire/discipline/new.html.twig', [
       'action' => 'edit',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -235,7 +221,6 @@ class DisciplineController extends AbstractController
       'action' => 'new',
       'power' => $power,
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -257,32 +242,32 @@ class DisciplineController extends AbstractController
       'action' => 'edit',
       'power' => $power,
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
-  #[Route("/discipline/{type<\w+>}/{id<\d+>}", name: "discipline_list", methods: ["GET"])]
-  public function clanList($type, $id)
+  #[Route("/ritual/{filter<\w+>}/{id<\d+>}", name: "ritual_list", methods: ["GET"])]
+  public function ritualFilter(string $filter, $id)
   {
-    switch ($type) {
-      case 'book':
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        break;
-      
-      default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        break;
-    }
+    $data = $this->service->getRituals($filter, $id);
 
-    return $this->render('vampire/discipline/index.html.twig', [
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'discipline']),
+    return $this->render('vampire/discipline/powers/rituals.html.twig', [
+      'rituals' => $data['rituals'],
+      'description' => $data['description'],
       'entity' => 'discipline',
-      'category' => 'discipline',
-      'type' => 'vampire',
-      'elements' => $item->getDisciplines(),
-      'search' => [],
+      'type' => $data['type'],
+    ]);
+  }
+
+  #[Route("/{type<\w+>}/{filter<\w+>}/{id<\d+>}", name: "discipline_filter", methods: ["GET"])]
+  public function disciplineFilter(string $type, string $filter, $id): Response
+  {
+    $data = $this->service->getDisciplines($type, $filter, $id);
+
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
+      'entity' => 'discipline',
+      'type' => $data['type'],
     ]);
   }
 }
