@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ 'action.duplicate'|trans }}{{ "character.generated"|trans }}{% endblock %}
+
+
+{% block body %}
+  <h1 class="py-3">
+    {% include "_icon.html.twig" with {'icon': 'duplicate', 'hasTips': 0, 'class': 'icon-xl'} %}
+    {{ 'action.duplicate'|trans }}
+    {{ "character.generated"|trans }}
+  </h1>
+  <div class="container block py-3">
+    <h2>{{ character.name }}</h2>
+    {{ form(form) }}
+  </div>
+  {% include "_back.html.twig" %}
+{% endblock %}
+
+
+{% block javascripts %}
+  {{ parent() }}
+
+{% endblock %}

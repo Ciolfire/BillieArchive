@@ -47,8 +47,12 @@ class CharacterAttributes
   #[ORM\OneToOne(targetEntity: Character::class, mappedBy: "attributes")]
   protected $character;
 
-  public function __construct()
+  public function __construct(?CharacterAttributes $attributes = null)
   {
+    $property_names  = array_keys(get_object_vars($this));
+    foreach ($property_names as $property_name) {
+      $this->{$property_name} = $attributes->$property_name;
+    }
   }
 
   public function getId(): ?int

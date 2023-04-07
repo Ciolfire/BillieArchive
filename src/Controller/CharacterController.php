@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -206,7 +207,7 @@ class CharacterController extends AbstractController
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'rolls' => $rolls,
-      'type' => $character->getType(),
+      'setting' => $character->getType(),
     ]);
   }
 
@@ -221,9 +222,9 @@ class CharacterController extends AbstractController
     }
 
     $merits = $this->service->filterMerits($character, false);
-    $type = $character->getType();
+    $setting = $character->getType();
 
-    switch ($type) {
+    switch ($setting) {
       case 'vampire':
         $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true]);
         break;
@@ -269,27 +270,55 @@ class CharacterController extends AbstractController
     $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
     $this->dataService->loadMeritsPrerequisites($merits);
 
-    return $this->render('character_sheet/'.$type.'/edit.html.twig', [
+    return $this->render('character_sheet/'.$setting.'/edit.html.twig', [
       'character' => $character,
-      'type' => $type,
+      'setting' => $setting,
       'form' => $form,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'merits' => $merits,
       //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
-      $type => $this->service->getSpecial($character),
+      $setting => $this->service->getSpecial($character),
     ]);
   }
 
-  #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['POST'])]
-  public function delete(Request $request, Character $character, EntityManagerInterface $entityManager): Response
+  #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['GET'])]
+  public function delete(Request $request, Character $character): Response
   {
-    if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
+    // if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
       $this->dataService->remove($character);
-    }
+    // }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
+
+  #[Route('/{id<\d+>}/duplicate', name: 'character_duplicate', methods: ['GET', 'POST'])]
+  public function duplicate(Request $request, Character $character): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    $stories = $user->getStories();
+    
+    $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
+    ->add('story', ChoiceType::class, [
+      'choices' => $stories,
+      'choice_label' => 'name',
+      'choice_value' => 'id',
+    ])
+    ->add('submit', SubmitType::class,['label' => 'action.duplicate'])
+    ->getForm();
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $this->getParameter('characters_directory'));
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+    return $this->render('character/duplicate.html.twig', [
+      'form' => $form,
+      'character' => $character,
+    ]);
+  }
+
 
   #[Route('/{id<\d+>}/background', name: 'character_background', methods: ['GET', 'POST'])]
   public function background(Request $request, Character $character): Response

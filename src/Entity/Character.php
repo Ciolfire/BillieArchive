@@ -83,13 +83,13 @@ class Character
 
 
 
-  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"])]
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
   protected $attributes;
   
-  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"])]
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
   protected $skills;
   
-  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
   protected $specialties;
   
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
@@ -102,7 +102,7 @@ class Character
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $viceDetail;
 
-  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
   protected $merits;
 
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
@@ -142,6 +142,12 @@ class Character
   public function getId(): ?int
   {
     return $this->id;
+  }
+
+  public function setId(?int $id)
+  {
+    $this->id = $id;
+    return $this;
   }
 
   public function getPowerRating(): ?int

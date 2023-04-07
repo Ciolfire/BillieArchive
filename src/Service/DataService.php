@@ -3,12 +3,15 @@
 namespace App\Service;
 
 use App\Entity\Book;
+use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Entity\User;
-use Doctrine\Common\Collections\Criteria;
+use App\Entity\Vice;
+use App\Entity\Virtue;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -194,5 +197,25 @@ class DataService
         }
         break;
     }
+  }
+
+  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user, $path)
+  {
+    $oldId = $character->getId();
+    $vice = $character->getVirtue()->getId();
+    $virtue = $character->getVice()->getId();
+    $this->doctrine->resetManager();
+    $character->setId(null);
+    $character->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
+    $character->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
+    $character->setIsTemplate(false);
+    $character->setIsNpc(true);
+    $character->setVice($this->findOneBy(Vice::class, ['id' => $vice]));
+    $character->setVirtue($this->findOneBy(Virtue::class, ['id' => $virtue]));
+    $this->manager->persist($character);
+    $this->manager->flush();
+    // Need to check how to properly import the avatar
+    // $filesystem = new Filesystem();
+    // $filesystem->copy("{$path}/{$oldId}", "{$path}/{$character->getId()}", true);
   }
 }
