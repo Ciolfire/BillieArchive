@@ -12,6 +12,7 @@ class CharacterVoter extends Voter
 {
   public const VIEW = 'view';
   public const EDIT = 'edit';
+  public const DELETE = 'delete';
   private $security;
 
   public function __construct(Security $security)
@@ -53,6 +54,7 @@ class CharacterVoter extends Voter
     return match($attribute) {
       self::VIEW => $this->canView($character, $user),
       self::EDIT => $this->canEdit($character, $user),
+      self::DELETE => $this->canDelete($character, $user),
       default => throw new \LogicException('This code should not be reached!')
     };
   }
@@ -75,6 +77,14 @@ class CharacterVoter extends Voter
       return true;
     }
     if ($user === $character->getChronicle()->getStoryteller()) {
+
+      return true;
+    }
+  }
+
+  private function canDelete(Character $character, User $user): bool
+  {
+    if ($user === $character->getPlayer()) {
 
       return true;
     }

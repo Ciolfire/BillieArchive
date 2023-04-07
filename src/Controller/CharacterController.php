@@ -285,6 +285,7 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['GET'])]
   public function delete(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('delete', $character);
     // if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
       $this->dataService->remove($character);
     // }
