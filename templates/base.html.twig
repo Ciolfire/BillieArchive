@@ -8,16 +8,15 @@
       {% endblock %}
     </title>
     <link rel="icon" href="{{ asset('rabbit_move_slow.gif', 'images') }}">
-    {% if type is not defined %}
-      {% set type = "human" %}
+    {% if setting is not defined %}
+      {% set setting = "human" %}
     {% endif %}
-    {# {% set type = "vampire" %} #}
     {% block stylesheets %}
-      {{ encore_entry_link_tags(type) }}
+      {{ encore_entry_link_tags(setting) }}
     {% endblock %}
 
     {% block javascripts %}
-    {{ encore_entry_script_tags(type) }}
+    {{ encore_entry_script_tags(setting) }}
     {% endblock %}
   </head>
   <body {% block bodyData %}class="position-relative"{% endblock %}>

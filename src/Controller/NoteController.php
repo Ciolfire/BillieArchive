@@ -133,7 +133,7 @@ class NoteController extends AbstractController
       'categories' => $categories,
       'notes' => $notes,
       'currentNote' => $note,
-      'type' => $note->getChronicle()->getType(),
+      'setting' => $note->getChronicle()->getType(),
     ]);
   }
 
@@ -156,7 +156,7 @@ class NoteController extends AbstractController
       'current' => $category,
       'categories' => $categories,
       'notes' => $notes,
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 

@@ -74,29 +74,6 @@ class RuleController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/translate/{language}", name:"rule_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Rule $rule, $language, EntityManagerInterface $entityManager): Response
-  {
-    $this->denyAccessUnlessGranted('ROLE_ST');
-
-    $form = $this->createForm(RuleType::class, $rule);
-    $form->handleRequest($request);
-    $rule->setTranslatableLocale($language); // change locale
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($rule);
-      $entityManager->flush();
-
-      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('element/new.html.twig', [
-      'element' => 'rule',
-      'entity' => $rule,
-      'form' => $form,
-    ]);
-  }
-
   #[Route("/{id<\d+>}/delete", name:"rule_delete", methods:["POST"])]
   public function delete(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
   {
@@ -110,21 +87,44 @@ class RuleController extends AbstractController
     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("/{type}/{id<\d+>}", name: "rule_index", methods: ["GET"])]
-  public function list($type = null, $id = null)
+  #[Route("/{setting}/{id<\d+>}", name: "rule_index", methods: ["GET"])]
+  public function list($setting = null, $id = null)
   {
-    if (is_null($type)) {
+    if (is_null($setting)) {
       $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
-      $type = "human";
+      $setting = "human";
     } else {
-      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $type], ['title' => 'ASC']);
+      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'setting' => $setting], ['title' => 'ASC']);
     }
 
     return $this->render('rule/list.html.twig', [
-      'type' => $type,
+      'setting' => $setting,
       'rules' => $rules,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'rule']),
       // 'search' => $search, // Kinda want to replace for dynamic list
     ]);
   }
+
+  // #[Route("/{id<\d+>}/translate/{language}", name:"rule_translate", methods:["GET", "POST"])]
+  // public function translate(Request $request, Rule $rule, $language, EntityManagerInterface $entityManager): Response
+  // {
+  //   $this->denyAccessUnlessGranted('ROLE_ST');
+
+  //   $form = $this->createForm(RuleType::class, $rule);
+  //   $form->handleRequest($request);
+  //   $rule->setTranslatableLocale($language); // change locale
+
+  //   if ($form->isSubmitted() && $form->isValid()) {
+  //     $entityManager->persist($rule);
+  //     $entityManager->flush();
+
+  //     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
+  //   }
+
+  //   return $this->render('element/new.html.twig', [
+  //     'element' => 'rule',
+  //     'entity' => $rule,
+  //     'form' => $form,
+  //   ]);
+  // }
 }

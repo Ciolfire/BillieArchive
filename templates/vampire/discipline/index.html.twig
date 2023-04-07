@@ -2,9 +2,10 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = 'vampire' %}
 {% set footer = true %}
 
-{% block title %}{{ (category ~ ".label")|trans }}{% endblock %}
+{% block title %}{{ (type ~ ".label")|trans }}{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="discipline"
@@ -18,8 +19,8 @@
     <div class="col-12">
       <div class="p-2">
         <h1 class="user-select-none">
-          {% include "_icon.html.twig" with {'icon' : category, 'hasTips': 0, 'class' : "icon-xl" } only %}
-          {{ (category ~ ".label")|trans }}
+          {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0, 'class' : "icon-xl" } only %}
+          {{ (type ~ ".label")|trans }}
         </h1>
         <div class="col-auto">
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -50,9 +51,9 @@
         </div>
       </div>
       {% if discipline.maxLevel > 1 %}
-        {% include "vampire/discipline/table.multi.html.twig" %}
+        {% include "vampire/discipline/_table.multi.html.twig" %}
       {% elseif discipline.power %}
-        {% include "vampire/discipline/table.single.html.twig" %}
+        {% include "vampire/discipline/_table.single.html.twig" %}
       {% endif %}
     {% endfor %}
   </div>
@@ -65,9 +66,9 @@
     <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('vampire_' ~ category ~ '_new') }}">
+        <a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
           <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : category, 'hasTips': 0 } only %}
+          {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}
         </a>
       </div>
     {% endif %}

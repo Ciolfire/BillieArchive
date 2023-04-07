@@ -2,11 +2,14 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ action|default('new')|trans }} {{ entity|trans }}
+{% block title %}{{ (entity ~ '.edit')|trans }}
 {% endblock %}
 
 {% block body %}
-  <h1>{{ action|default('new')|trans }} {{ entity|trans }}{% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
+  <h1>
+    {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class': 'icon-lg' } only %}
+    {{ (entity ~ '.edit')|trans }}
+  </h1>
 
   <div class="container py-3 mt-5 g-0">
     <div class="row block">

@@ -1,6 +1,0 @@
-{% trans_default_domain 'app' %}
-
-<form class="d-inline-block" method="post" action="{{ path('merit_delete', {'id': merit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ merit.id) }}">
-  <button class="btn btn-warning">{% include "_icon.html.twig" with {'icon': 'delete'} %} {{ "action.delete"|trans }}</button>
-</form>

@@ -2,6 +2,7 @@ action:
   label: Action
   add: Ajouter
   delete: Supprimer
+  duplicate: Duplicate
   edit: Modifier
   remove: Retirer
   save: Sauvegarder
@@ -9,6 +10,9 @@ action:
   view: Voir
 actions: Actions
 advantages: Avantages
+attribute:
+  new: Nouvel Attribut
+  edit: Modifier un Attribut
 attributes: Attributs
 back: Retour
 book: Livre
@@ -35,11 +39,17 @@ chronicles:
   title: Mes Chroniques
   name: Chroniques
   none: Vous n'avez pas encore rejoint de chronique ...
+confirm: Êtes-vous sûr ?
+contested:
+  label: Contestée
+  text: Texte de resistance
 cost: Coût
+cover: Couverture
 create: Créer
 dashboard: Tableau de bord
 description:
   label: Description
+  fluff: Texte d'ambiance
   short:
     label: Résumé
 derangement:
@@ -57,16 +67,27 @@ derangement:
 derangements:
   label: Dérangements
 edit: Modifier
+effect: Effect
 emblem: Emblème
 flaw.label: Désavantage
 flaws.label: Désavantages
 homebrew: Règles maison
+homebrewFor: Contenu spécial pour
+identifier: Identifiant
+important: Important
 infos: Infos
 keyword: Mot-clef
 keywords: Mots-clefs
 level: Niveau
 logout: Déconnexion
+max: Max
+min: Min
 merit:
+  new: Nouvel Atout
+  creation: Creation Uniquement
+  expanded: Necessite un choix/des détails, ...
+  fighting: Style de combat
+  unique: Ne peut être pris plusieurs fois
   count: >-
     {count, plural,
       =0 {Aucun Atout}
@@ -118,9 +139,14 @@ party:
   name: Équipe
   manage: Gérer l'Équipe
 personal: Personnel
-prerequisite: Prérequis
+prerequisite:
+  label: Prérequis
+  add: Nouveau Prérequis
+  choice: Selection
+  group: Index de choix (X ou Y ou ...)
 prerequisites: Prérequis
 quote: Citation
+release: Parution
 remember: Rester connecté
 roll:
   label: Lancer
@@ -133,9 +159,21 @@ roll:
     instant: Instantanée
     reflexive: Reflexe
 rolls: Lancers
+rule:
+  edit: Modifier la Règle
+  new: Nouvelle Règle
+  parent: Règle Parente
 rules: Règles
+ruleset:
+  label: Version des Règles
+  first: Première Édition
+  second: Seconde Édition
 save: Sauvegarder
-short: Effet
+setting: Gamme
+shortname: Sigle
+skill:
+  new: Nouvelle Compétence
+  edit: Modifier une Compétence
 skills: Compétences
 source: "{book} page {page}"
 source.not.found: Source Inconnue
@@ -168,5 +206,7 @@ type:
   innocents: Innocents
   possessed: Possedé
 
+title: Title
 toc: Table des matières
+value: Valeur
 wiki: Encyclopédie

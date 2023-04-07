@@ -13,8 +13,8 @@
       {% endif %}
       <h5>{{ book.releasedAt|date('M Y') }}</h5>
       <p class="book-content text-center">
-        {% include "book/details/human.html.twig" %}
-        {% include "book/details/vampire.html.twig" %}
+        {% include "book/details/_details_human.html.twig" %}
+        {% include "book/details/_details_vampire.html.twig" %}
       </p>
     </div>
     <div class="col-12 col-md-6">

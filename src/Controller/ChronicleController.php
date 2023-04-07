@@ -60,7 +60,7 @@ class ChronicleController extends AbstractController
   {
     return $this->render('chronicle/show.html.twig', [
       'chronicle' => $chronicle,
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 
@@ -69,7 +69,7 @@ class ChronicleController extends AbstractController
   {
     return $this->render('chronicle/homebrew/index.html.twig', [
       'chronicle' => $chronicle,
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 
@@ -78,7 +78,7 @@ class ChronicleController extends AbstractController
   {
     return $this->render('chronicle/party/index.html.twig', [
       'chronicle' => $chronicle,
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 
@@ -87,7 +87,7 @@ class ChronicleController extends AbstractController
   {
     return $this->render('character/npc/index.html.twig', [
       'chronicle' => $chronicle,
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 
@@ -131,7 +131,7 @@ class ChronicleController extends AbstractController
     return $this->render('chronicle/party/playerChange.html.twig', [
       'chronicle' => $chronicle,
       'action' => 'add',
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
       'form' => $form,
     ]);
   }
@@ -167,7 +167,7 @@ class ChronicleController extends AbstractController
     return $this->render('chronicle/party/playerChange.html.twig', [
       'chronicle' => $chronicle,
       'action' => 'remove',
-      'type' => $chronicle->getType(),
+      'setting' => $chronicle->getType(),
       'form' => $form,
     ]);
   }

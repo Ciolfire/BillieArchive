@@ -8,12 +8,12 @@
 
 <div data-controller="tabs" data-tabs-initial-value="traits">
   <ul class="nav tabs row g-0 my-2">
-    {% include "tab.html.twig" with {'name': 'traits', 'domain': 'character'} only %}
-    {% include "tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
-    {% include "tab.html.twig" with {'name': 'sorcery', 'domain': 'vampire'} only %}
-    {% include "tab.html.twig" with {'name': 'coils', 'domain': 'vampire'} only %}
-    {% include "tab.html.twig" with {'name': 'thaumaturgy', 'domain': 'vampire'} only %}
-    {% include "tab.html.twig" with {'name': 'devotions', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'traits', 'domain': 'character'} only %}
+    {% include "_tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'sorcery', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'coils', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'thaumaturgy', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'devotions', 'domain': 'vampire'} only %}
   </ul>
   <div id="traits" class="tab-content" data-tabs-target="page">
     <div class="row">

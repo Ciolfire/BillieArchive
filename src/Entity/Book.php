@@ -44,22 +44,27 @@ class Book
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
   private $cover;
 
+  #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private $derangements;
+
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
   private $merits;
-
+  
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
   private $clans;
-
-  #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
-  private $disciplines;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $devotions;
+  
+  #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
+  private $disciplines;
 
-  #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
-  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $derangements;
+  #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'book')]
+  #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
+  private $rituals;
+
 
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
@@ -67,10 +72,13 @@ class Book
   public function __construct($setting="human")
   {
     $this->setting = $setting;
-    $this->clans = new ArrayCollection();
-    $this->disciplines = new ArrayCollection();
-    $this->merits = new ArrayCollection();
     $this->derangements = new ArrayCollection();
+    $this->merits = new ArrayCollection();
+    // vampire
+    // $this->clans = new ArrayCollection();
+    // $this->devotions = new ArrayCollection();
+    // $this->disciplines = new ArrayCollection();
+    // $this->rituals = new ArrayCollection();
   }
 
   public function __toString()
@@ -180,6 +188,23 @@ class Book
       return $this;
   }
 
+  public function getDerangements(): Collection
+  {
+    return $this->derangements;
+  }
+
+  public function isDisplayFirst(): ?bool
+  {
+      return $this->displayFirst;
+  }
+
+  public function setDisplayFirst(?bool $displayFirst): self
+  {
+      $this->displayFirst = $displayFirst;
+
+      return $this;
+  }
+
   public function getMerits(): Collection
   {
     return $this->merits;
@@ -206,6 +231,9 @@ class Book
 
     return $this;
   }
+  
+  
+  // VAMPIRE
 
   public function getClansAndBloodlines(): Collection
   {
@@ -264,33 +292,6 @@ class Book
     return $this;
   }
 
-  public function getDisciplines(): Collection
-  {
-    return $this->disciplines;
-  }
-
-  public function addDiscipline(Discipline $discipline): self
-  {
-    if (!$this->disciplines->contains($discipline)) {
-      $this->disciplines[] = $discipline;
-      $discipline->setBook($this);
-    }
-
-    return $this;
-  }
-
-  public function removeDiscipline(Discipline $discipline): self
-  {
-    if ($this->disciplines->removeElement($discipline)) {
-      // set the owning side to null (unless already changed)
-      if ($discipline->getBook() === $this) {
-        $discipline->setBook(null);
-      }
-    }
-
-    return $this;
-  }
-
   public function getDevotions(): Collection
   {
     return $this->devotions;
@@ -318,20 +319,57 @@ class Book
     return $this;
   }
 
-  public function getDerangements(): Collection
+  public function getDisciplines(): Collection
   {
-    return $this->derangements;
+    return $this->disciplines;
   }
 
-  public function isDisplayFirst(): ?bool
+  public function addDiscipline(Discipline $discipline): self
   {
-      return $this->displayFirst;
+    if (!$this->disciplines->contains($discipline)) {
+      $this->disciplines[] = $discipline;
+      $discipline->setBook($this);
+    }
+
+    return $this;
   }
 
-  public function setDisplayFirst(?bool $displayFirst): self
+  public function removeDiscipline(Discipline $discipline): self
   {
-      $this->displayFirst = $displayFirst;
+    if ($this->disciplines->removeElement($discipline)) {
+      // set the owning side to null (unless already changed)
+      if ($discipline->getBook() === $this) {
+        $discipline->setBook(null);
+      }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getRituals(): Collection
+  {
+    return $this->rituals;
+  }
+
+  public function addRitual(DisciplinePower $ritual): self
+  {
+    if (!$this->rituals->contains($ritual)) {
+      $this->rituals[] = $ritual;
+      $ritual->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeRitual(DisciplinePower $ritual): self
+  {
+    if ($this->rituals->removeElement($ritual)) {
+      // set the owning side to null (unless already changed)
+      if ($ritual->getBook() === $this) {
+        $ritual->setBook(null);
+      }
+    }
+
+    return $this;
   }
 }

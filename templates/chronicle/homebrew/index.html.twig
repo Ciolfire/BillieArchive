@@ -23,7 +23,7 @@
     </div>
     <div class="block vampire row">
       <h2>{{ "type.vampire"|trans }}</h2>
-      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'type': 'chronicle', 'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %} {{ "clans.label"|trans([], "vampire") }}</a></div>
+      <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'filter': 'chronicle', 'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0 } only %} {{ "clans.label"|trans([], "vampire") }}</a></div>
       <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'disciplines', 'hasTips': 0 } only %} {{ "disciplines.label"|trans([], "vampire") }}</a></div>
       <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'devotions', 'hasTips': 0 } only %} {{ "devotions.label"|trans([], "vampire") }}</a></div>
     </div>

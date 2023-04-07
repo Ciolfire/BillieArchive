@@ -12,9 +12,10 @@
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}
-      <span>{{ "rolls"|trans }}</span>
-      {% include "_icon.html.twig" with {'icon': "dice", 'hasTips': 0, 'class': 'icon-lg' } only %}</h1>
+      <h1>
+        {% include "_icon.html.twig" with {'icon': "roll", 'hasTips': 0, 'class': 'icon-xl' } only %}
+        {{ "rolls"|trans }}
+      </h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -29,7 +30,7 @@
     {% endif %}
     <div class="mt-3">
       {% for roll in rolls %}
-        {% include "roll/list_item.html.twig" %}
+        {% include "roll/_list_item.html.twig" %}
       {% endfor %}
     </div>
   </div>

@@ -109,6 +109,12 @@ sorcery:
     level: "Level-{level} {sorcery} Ritual"
     new: New Ritual
   powers:
+    count: >-
+      {count, plural,
+        =0 {No Ritual}
+        =1 {1 Ritual}
+        other {# Rituals}
+      }
     level: "Level-{level} {sorcery} Rituals"
 sorceries:
   label: Sorceries

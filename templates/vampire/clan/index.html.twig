@@ -2,6 +2,7 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = "vampire" %}
 {% set footer = true %}
 
 {% block title %}{{ "clans.label"|trans([], 'vampire') }}{% endblock %}
@@ -55,7 +56,7 @@
     {% if clans is defined %}
       <div class="row">
         {% for clan in clans %}
-          {% include "vampire/clan/card.html.twig" with {'clan' : clan} %}
+          {% include "vampire/clan/_card.html.twig" with {'clan' : clan} %}
         {% endfor %}
       </div>
     {% endif %}
@@ -66,7 +67,7 @@
           {{ "clan.bloodlines.label"|trans([], 'vampire') }}
         </h1>
         {% for bloodline in bloodlines %}
-          {% include "vampire/clan/card.html.twig" with {'clan' : bloodline} %}
+          {% include "vampire/clan/_card.html.twig" with {'clan' : bloodline} %}
         {% endfor %}
       </div>
     {% endif %}
@@ -90,7 +91,7 @@
           <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
           {% include "_icon.html.twig" with {'icon' : 'clan', 'hasTips': 1 } only %}
         </a>
-        <a class="btn btn-primary" href="{{ path('bloodline_new') }}">
+        <a class="btn btn-primary" href="{{ path('clan_new', {'bloodline': true}) }}">
           <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
           {% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 1 } only %}
         </a>

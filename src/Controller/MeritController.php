@@ -51,6 +51,10 @@ class MeritController extends AbstractController
   #[Route("/{id<\d+>}", name: "merit_show", methods: ["GET"])]
   public function show(Merit $merit): Response
   {
+    foreach ($merit->getprerequisites() as $prerequisite) {
+      $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+    }
+
     return $this->render('merit/show.html.twig', [
       'merit' => $merit,
     ]);
@@ -64,27 +68,6 @@ class MeritController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
-
-      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('merit/edit.html.twig', [
-      'merit' => $merit,
-      'form' => $form,
-    ]);
-  }
-
-  #[IsGranted('ROLE_ST')]
-  #[Route("/{id<\d+>}/translate/{language}", name: "merit_translate", methods: ["GET", "POST"])]
-  public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
-  {
-    $form = $this->createForm(MeritType::class, $merit);
-    $form->handleRequest($request);
-    $merit->setTranslatableLocale($language); // change locale
-    // dd($merit);
-    if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($merit);
       $entityManager->flush();
 
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
@@ -118,9 +101,9 @@ class MeritController extends AbstractController
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
         if ($item instanceof Book) {
-          $type = $item->getSetting();
+          $setting = $item->getSetting();
           $merits = $item->getMerits();
-          // We get the type of book for the search filters
+          // We get the type of book/item for the search filters
           $types = $this->dataService->getMeritTypes($item);
           if (count($types) > 1) {
             $search['type'] = $types;
@@ -132,7 +115,7 @@ class MeritController extends AbstractController
         $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
         if ($item instanceof Chronicle) {
           $chronicle = $id;
-          $type = $item->getType();
+          $setting = $item->getType();
           $merits = $item->getMerits();
           // We get the type of book for the search filters
           // $types = $this->dataService->getMeritTypes($item);
@@ -144,7 +127,7 @@ class MeritController extends AbstractController
       default:
         $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
         $search['type'] = $this->dataService->getMeritTypes();
-        $type = "human";
+        $setting = "human";
         break;
     }
     foreach ($merits as $merit) {
@@ -155,11 +138,33 @@ class MeritController extends AbstractController
     }
 
     return $this->render('merit/list.html.twig', [
-      'type' => $type,
+      'setting' => $setting,
       'merits' => $merits,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
       'search' => $search, // Kinda want to replace for dynamic list
       'chronicle' => $chronicle,
     ]);
   }
+
+  // Only needed if we want to translate for another language from a locale
+  // #[IsGranted('ROLE_ST')]
+  // #[Route("/{id<\d+>}/translate/{language}", name: "merit_translate", methods: ["GET", "POST"])]
+  // public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
+  // {
+  //   $form = $this->createForm(MeritType::class, $merit);
+  //   $form->handleRequest($request);
+  //   $merit->setTranslatableLocale($language); // change locale
+  //   // dd($merit);
+  //   if ($form->isSubmitted() && $form->isValid()) {
+  //     $entityManager->persist($merit);
+  //     $entityManager->flush();
+
+  //     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
+  //   }
+
+  //   return $this->render('merit/edit.html.twig', [
+  //     'merit' => $merit,
+  //     'form' => $form,
+  //   ]);
+  // }
 }

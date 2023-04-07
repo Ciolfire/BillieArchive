@@ -34,7 +34,7 @@ class BookController extends AbstractController
       'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting], ['displayFirst' => 'DESC', 'name' => 'ASC']),
       'entity' => 'book',
       'category' => 'character',
-      'type' => $setting,
+      'setting' => $setting,
       'footer' => true,
       'search' => $search,
     ]);
@@ -64,7 +64,7 @@ class BookController extends AbstractController
       'entity' => 'book',
       'action' => 'new',
       'form' => $form,
-      'type' => $setting,
+      'setting' => $setting,
     ]);
   }
 
@@ -90,7 +90,7 @@ class BookController extends AbstractController
       'entity' => 'book',
       'action' => 'edit',
       'form' => $form,
-      'type' => $book->getSetting(),
+      'setting' => $book->getSetting(),
     ]);
   }
 }

@@ -2,6 +2,7 @@ action:
   label: Action
   add: Add
   delete: Delete
+  duplicate: Duplicate
   edit: Update
   new: Save
   remove: Remove
@@ -10,6 +11,9 @@ action:
   view: View
 actions: Actions
 advantages: Advantages
+attribute:
+  new: New Attribute
+  edit: Edit Attribute
 attributes: Attributes
 back: Back
 book: Book
@@ -36,10 +40,16 @@ chronicles:
   title: My Chronicles
   name: Chronicles
   none: You haven't joined any Chronicle yet ...
+confirm: Are you sure ?
+contested:
+  label: Contested
+  text: Resistance Text (vs ...)
 cost: Cost
+cover: Cover
 create: Create
 dashboard: Dashboard
 description:
+  fluff: Fluff
   label: Description
   short:
     label: Short description
@@ -58,16 +68,27 @@ derangement:
 derangements:
   label: Derangements
 edit: Edit
+effect: Effect
 emblem: Emblem
 flaw.label: Flaw
 flaws.label: Flaws
 homebrew: Homebrew
+homebrewFor: Homebrew for
+identifier: Identifier
+important: Important
 infos: Infos
 keyword: Keyword
 keywords: Keywords
 level: Level
 logout: Logout
+max: Max
+min: Min
 merit:
+  new: New Merit
+  creation: Creation Only
+  expanded: Choice or details needed
+  fighting: Fighting Style
+  unique: Can only be taken once
   count: >-
     {count, plural,
       =0 {No Merit}
@@ -119,9 +140,14 @@ party:
   name: Party
   manage: Manage Party
 personal: Personal
-prerequisite: Prerequisite
+prerequisite:
+  label: Prerequisite
+  add: New Prerequisite
+  choice: Selection
+  group: Choice index (X or Y or ...)
 prerequisites: Prerequisites
 quote: Quote
+release: Release date
 remember: Stay connected
 roll:
   label: Roll
@@ -134,9 +160,21 @@ roll:
     instant: Instant
     reflexive: Reflexive
 rolls: Rolls
+rule:
+  edit: Edit Rule
+  new: New Rule
+  parent: Parent Rule
 rules: Rules
+ruleset:
+  label: Rule version
+  first: First Edition
+  second: Second Edition
 save: Save
-short: Effect
+shortname: Acronym
+setting: Setting
+skill:
+  new: New Skill
+  edit: Edit Skill
 skills: Skills
 source: "{book} page {page}"
 source.not.found: Unknown Source
@@ -168,5 +206,8 @@ type:
   purified: Purified
   innocents: Innocents
   possessed: Possessed
+
+title: Title
 toc: Table of Content
+value: Value
 wiki: Wiki

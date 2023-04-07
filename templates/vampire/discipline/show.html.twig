@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = 'vampire' %}
+
 {% block title %}{{ discipline.name }}{% endblock %}
 
 {% block body %}
@@ -18,17 +20,17 @@
           <p>{{ "source"|trans({"%book%": discipline.book, "%page%": discipline.page}, "app") }}</p>
         {% endif %}
         {% if discipline.isSorcery %}
-          {% include "vampire/discipline/powers/sorcery.html.twig" with {'rituals': discipline.powers} %}
+          {% include "vampire/discipline/powers/_sorcery.html.twig" with {'rituals': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_sorcery_index')} %}
         {% elseif discipline.isCoil %}
-          {% include "vampire/discipline/powers/coil.html.twig" with {'tiers': discipline.powers} %}
+          {% include "vampire/discipline/powers/_coil.html.twig" with {'tiers': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_coils_index')} %}
         {% elseif discipline.isThaumaturgy %}
-          {% include "vampire/discipline/powers/default.html.twig" with {'powers': discipline.powers} %}
+          {% include "vampire/discipline/powers/_default.html.twig" with {'powers': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_thaumaturgy_index')} %}
           {# {% include "vampire/discipline/powers/thaumaturgy.html.twig" with {'powers': discipline.powers} %} #}
         {% else %}
-          {% include "vampire/discipline/powers/default.html.twig" with {'powers': discipline.powers} %}
+          {% include "vampire/discipline/powers/_default.html.twig" with {'powers': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_discipline_index')} %}
         {% endif %}
       </div>

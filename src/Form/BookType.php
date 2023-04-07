@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
 class BookType extends AbstractType
@@ -22,19 +23,25 @@ class BookType extends AbstractType
     $description = $book->getDescription();
 
     $builder
-      ->add('name')
-      ->add('ruleset')
-      ->add('type')
-      ->add('short')
+      ->add('name', null, ['label' => "name"])
+      ->add('ruleset', ChoiceType::class, [
+        'label' => "ruleset.label",
+        'choices' => [
+          "ruleset.first" => 1,
+          "ruleset.second" => 2
+        ],
+      ])
+      ->add('type', null, ['label' => "type.label"])
+      ->add('short', null, ['label' => "shortname"])
       ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($description), 'label' => false])
       ->add('releasedAt', DateType::class, [
-        'input'  => 'datetime_immutable',
+        'label' => 'release',
+        'input' => 'datetime_immutable',
         'years' => range('2004', date('Y')),
       ])
-      ->add('setting')
+      ->add('setting', null, ['label' => "setting"])
       ->add('cover', FileType::class, [
-        'label' => 'file',
-        'translation_domain' => 'app',
+        'label' => 'cover',
         'mapped' => false,
         'required' => false,
         'constraints' => [
@@ -53,6 +60,7 @@ class BookType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Book::class,
+      "translation_domain" => 'app',
     ]);
   }
 }

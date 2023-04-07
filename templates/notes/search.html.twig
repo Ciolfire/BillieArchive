@@ -42,7 +42,7 @@
           </button>
         {% endfor %}
         {% for note in notes %}
-          {% include "notes/card.html.twig" %}
+          {% include "notes/_card.html.twig" %}
         {% endfor %}
       {% else %}
         <img height="80" src="{{ asset('rabbit_idle.gif', 'images') }}">

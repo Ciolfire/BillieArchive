@@ -1,22 +1,18 @@
 {% trans_default_domain 'app' %}
 
 {% set type = merit.type|default('universal') %}
-<div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" data-bs-target=".merit_{{ merit.id }}" data-bs-toggle="collapse" 
-  data-search-target="item"
-  data-name="{{ merit.name }}"
-  data-type="{{ type }}"
-  data-category="{{ merit.category }}"
-  data-style="{{ merit.isFighting|default(0) }}"
->
+<div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" {% block data %}{% endblock %}>
   <div class="col-12 col-md-3 text-center text-md-start fw-bold">
     {% include "_icon.html.twig" with {'icon': type} only %}
     {{ merit.name }}
   </div>
-  <div class="col-3 col-md-1">
+  <div class="col-3 col-md-2">
     {% include "_icon.html.twig" with {'icon': merit.category} only %}
     {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
-    {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+    {% if not merit.isUnique %}{% include "_icon.html.twig" with {'icon': 'merit.not.unique'} %}{% else %}{% include "_icon.html.twig" with {'icon': 'merit.unique'} %}{% endif %}
     {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+    {% if merit.isExpanded %}{% include "_icon.html.twig" with {'icon': 'expanded'} %}{% endif %}
+    {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
   </div>
   <div class="col-3 col-md-1">
     {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
@@ -52,15 +48,9 @@
   </div>
   <div class="col-12 text">{{ merit.description }}</div>
   <div class="col-12 col-lg-8">
-    <div class="merit_{{ merit.id }} collapse rule">
+    <div class="merit_{{ merit.id }} rule {% block collapse %}{% endblock %}">
       {{ merit.effect|markdown_to_html }}
     </div>
   </div>
 </div>
-<div class="row merit_{{ merit.id }} collapse">
-  <div class="col-12 text-center py-2">
-    <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'view'} %} {{ "action.view"|trans }}</a>
-    <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} %} {{ "action.edit"|trans }}</a>
-    {{ include('merit/_delete_form.html.twig') }}
-  </div>
-</div>
+{% block actions%}{% endblock %}

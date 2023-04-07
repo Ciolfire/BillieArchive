@@ -1,14 +1,14 @@
 {% trans_default_domain 'app' %}
 
-<div class="modal fade" id="deleteModal" tabindex="-1">
+<div class="modal fade" id="deleteModal-{{element}}-{{entity.id}}" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content bg-dark">
       <div class="modal-header">
-        <h5 class="modal-title">Delete</h5>
+        <h5 class="modal-title">{{ "action.delete"|trans }} {{ entity.name|default(entity.id) }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Are you sure ?</p>
+        <p>{{ "confirm"|trans}}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

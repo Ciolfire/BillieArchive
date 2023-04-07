@@ -25,7 +25,7 @@
         {{ form_row(prerequisite)}}
       {% endfor %}
     </ul>
-    <button type="button" class="btn btn-primary btn-sm mb-1" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Add prerequisite</button>
+    {% include "forms/_prerequisite_button.html.twig" %}
   </div>
   <h5>Roll</h5>
   {{ form_row(form.attributes) }}

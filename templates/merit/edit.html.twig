@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain 'app' %}
+
+
 {% block title %}Edit Merit
 {% endblock %}
 
@@ -9,10 +12,8 @@
   <div class="container py-3 mt-5 g-0">
     <div class="row block">
       <div class="col p-3">
-        {{ include('merit/_form.html.twig', {'button_label': 'Update'}) }}
-        <a href="{{ path('merit_list') }}">back to list</a>
+        {% include "merit/_form.html.twig" with {'button_label': 'edit'} %}
       </div>
     </div>
   </div>
-  {{ include('merit/_delete_form.html.twig') }}
 {% endblock %}

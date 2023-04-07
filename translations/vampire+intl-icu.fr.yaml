@@ -108,6 +108,12 @@ sorcery:
     level: "Rituel de {sorcery} de niveau {level}"
     new: Nouveau rituel
   powers:
+    count: >-
+      {count, plural,
+        =0 {No Rituel}
+        =1 {1 Rituel}
+        other {# Rituels}
+      }
     level: "Rituels de niveau {level} de {sorcery}"
 sorceries:
   label: Sorcelleries

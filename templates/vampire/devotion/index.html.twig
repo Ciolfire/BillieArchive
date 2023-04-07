@@ -2,6 +2,7 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = "vampire" %}
 {% set footer = true %}
 
 {% block title %}{{ "devotions.label"|trans }}{% endblock %}
@@ -52,10 +53,10 @@
           <h4>{{ "name"|trans({}, 'app') }}</h4>
         </div>
         <div class="col-12 col-md col-lg-4">
-          <h4>{{ "short"|trans({}, 'app') }}</h4>
+          <h4>{{ "effect"|trans({}, 'app') }}</h4>
         </div>
         <div class="col col-lg-2">
-          <h4>{{ "prerequisite"|trans({}, 'app') }}</h4>
+          <h4>{{ "prerequisite.label"|trans({}, 'app') }}</h4>
         </div>
         <div class="col col-lg-1">
           <h4>{{ "cost"|trans({}, 'app') }}</h4>

@@ -5,6 +5,8 @@
     {{ source('@icons/' ~ 'plus-solid.svg') }}
   {% elseif icon == 'back' %}
     {{ source('@icons/' ~ 'return-arrow.svg') }}
+  {% elseif icon == 'copy' or icon == 'duplicate' %}
+    {{ source('@icons/' ~ 'clone.svg') }}
   {% elseif icon == 'delete' %}
     {{ source('@icons/' ~ 'trash-can.svg') }}
   {% elseif icon == 'edit' %}

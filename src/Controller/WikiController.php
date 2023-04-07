@@ -26,9 +26,7 @@ class WikiController extends AbstractController
   #[Route('/', name: 'wiki_index', methods: ['GET'])]
   public function index(): Response
   {
-    return $this->render('wiki/index.html.twig', [
-      'type' => 'human',
-    ]);
+    return $this->render('wiki/index.html.twig');
   }
 
   #[Route('/attributes', name: 'attribute_index', methods: ['GET'])]
@@ -39,7 +37,7 @@ class WikiController extends AbstractController
       'elements' => $this->dataService->findAll(Attribute::class),
       'entity' => 'attribute',
       'category' => 'character',
-      'type' => 'human',
+      'setting' => 'human',
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'attribute']),
       'isFixed' => true
     ]);
@@ -59,7 +57,7 @@ class WikiController extends AbstractController
       return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('wiki/edit.html.twig', [
       'action' => 'edit',
       'entity' => 'attribute',
       'form' => $form,
@@ -73,7 +71,6 @@ class WikiController extends AbstractController
       'elements' => $this->dataService->findAll(Skill::class),
       'entity' => 'skill',
       'category' => 'character',
-      'type' => 'human',
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'skill']),
       'isFixed' => true
     ]);
@@ -93,9 +90,9 @@ class WikiController extends AbstractController
       return $this->redirectToRoute('skill_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('wiki/edit.html.twig', [
       'action' => 'edit',
-      'entity' => 'attribute',
+      'entity' => 'skill',
       'form' => $form,
       'footer' => false,
     ]);

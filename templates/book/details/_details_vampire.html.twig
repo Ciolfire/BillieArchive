@@ -1,0 +1,18 @@
+{% trans_default_domain 'vampire' %}
+
+{% if book.clans|length > 0 or book.bloodlines|length > 0 %}
+  <a href="{{ path('clan_list', {'filter': 'book', 'id': book.id}) }}">
+    {% if book.clans|length > 0 %}
+      {{ "clan.count"|trans({'%count%': book.clans|length}) }}
+    {% endif %}
+    {% if book.clans|length > 0 and book.bloodlines|length > 0 %}
+      <br>
+    {% endif %}
+    {% if book.bloodlines|length > 0 %}
+      {{ "clan.bloodline.count"|trans({'%count%': book.bloodlines|length}) }}
+    {% endif %}
+  </a>
+{% endif %}
+{% if book.disciplines|length > 0 %}<a href="{{ path('discipline_list', {'filter': 'book', 'id': book.id}) }}">{{ "discipline.count"|trans({'%count%': book.disciplines|length}) }}</a>{% endif %}
+{% if book.devotions|length > 0 %}<a href="{{ path('devotion_list', {'filter': 'book', 'id': book.id}) }}">{{ "devotion.count"|trans({'%count%': book.devotions|length}) }}</a>{% endif %}
+{% if book.rituals|length > 0 %}<a href="{{ path('discipline_filter', {'type': 'sorcery', 'filter': 'book', 'id': book.id}) }}">{{ "sorcery.powers.count"|trans({'%count%': book.devotions|length}) }}</a>{% endif %}

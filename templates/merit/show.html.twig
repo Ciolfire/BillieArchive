@@ -3,62 +3,19 @@
 {% block title %}Merit{% endblock %}
 
 {% block body %}
-<div class="container block py-3">
-    <h1>Merit</h1>
-
-    <table class="table" style="color:white;">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ merit.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ merit.name }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ merit.category }}</td>
-            </tr>
-            <tr>
-                <th>IsFighting</th>
-                <td>{{ merit.isFighting ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>IsExpanded</th>
-                <td>{{ merit.isExpanded ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Min</th>
-                <td>{{ merit.min }}</td>
-            </tr>
-            <tr>
-                <th>Max</th>
-                <td>{{ merit.max }}</td>
-            </tr>
-            <tr>
-                <th>IsUnique</th>
-                <td>{{ merit.isUnique ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>IsCreationOnly</th>
-                <td>{{ merit.isCreationOnly ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Prerequisites</th>
-                <td>{{ merit.prerequisites ? merit.prerequisites|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Effect</th>
-                <td>{{ merit.effect ? merit.effect }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('merit_list') }}">back to list</a>
-
-    <a href="{{ path('merit_edit', {'id': merit.id}) }}">edit</a>
-
-    {{ include('merit/_delete_form.html.twig') }}
-</div>
+  <div class="container block py-3">
+    {% include "merit/_item.html.twig" %}
+    {% if is_granted('ROLE_ST') %}
+      <div class="row merit_{{ merit.id }}">
+        <div class="col-12 text-center py-2 d-flex justify-content-around">
+          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} %}</a>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{ merit.id }}">{% include "_icon.html.twig" with {'icon': 'delete', 'hasTips': 0} only %}</button>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% include "_back.html.twig" %}
+  {% if is_granted('ROLE_ST') %}
+    {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
+  {% endif %}
 {% endblock %}

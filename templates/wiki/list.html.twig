@@ -17,7 +17,7 @@
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container">
     <div class="row block py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': entity, 'hasTips': 0, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ type)|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {'icon': entity, 'hasTips': 0, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ setting)|trans }}</h1>
       <div class="col-auto">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
         {% if description is defined and description is not null and description.value is not empty %}
@@ -37,7 +37,7 @@
     </div>
     <div class="row">
       {% for element in elements %}
-        {% include entity ~ "/card.html.twig" with { (entity): element} %}
+        {% include entity ~ "/_card.html.twig" with { (entity): element} %}
       {% endfor %}
     </div>
   </div>
@@ -55,7 +55,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') and isFixed|default(false) != true %}
-      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new') }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">

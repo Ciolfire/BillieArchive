@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = 'vampire' %}
+
 {% block title %}Embrace{% endblock %}
 
 {% block body %}
@@ -18,8 +20,8 @@
         <div class="p-3 d-none">{{ clan.description|markdown_to_html }}</div>
       </div>
     {% endfor %}
-    {{ form_row(form.attribute) }}
-    {% include "character_sheet/vampire/embrace/disciplines.html.twig" %}
+    {{ form_row(form.attribute, {'attr': {'class': 'btn-check'}}) }}
+    {% include "character_sheet/vampire/embrace/_disciplines.html.twig" %}
     <div class="row">
       <div class="col">
         <button class="btn btn-primary w-100 disabled" type="submit" data-character--embrace-target="submit" data-action="click->character--embrace#clean">{{ "embrace.save"|trans }}</button>

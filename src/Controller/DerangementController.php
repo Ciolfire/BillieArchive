@@ -134,9 +134,8 @@ class DerangementController extends AbstractController
         $setting = "human";
         break;
     }
-    // dd($derangements);
+
     return $this->render('derangement/list.html.twig', [
-      'type' => $setting,
       'derangements' => $derangements,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'derangement']),
       // 'search' => $search, // Kinda want to replace for dynamic list

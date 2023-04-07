@@ -21,7 +21,10 @@
       {# {% include "character_sheet/new/advantages.html.twig" %} #}
       {% include "character_sheet/new/merits.html.twig" %}
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+        <button class="btn btn-primary" type="submit">
+          {% include "_icon.html.twig" with {'icon': 'create'} %}
+          {{ "create"|trans([], 'app') }}
+        </button>
       </div>
     </div>
   {{ form_end(form) }}

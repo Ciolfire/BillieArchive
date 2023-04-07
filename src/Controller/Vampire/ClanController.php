@@ -37,7 +37,6 @@ class ClanController extends AbstractController
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
       'category' => 'character',
-      'type' => 'vampire',
       'search' => [
         'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
       ],
@@ -50,16 +49,15 @@ class ClanController extends AbstractController
     return $this->render('vampire/clan/show.html.twig', [
       'clan' => $clan,
       'entity' => 'clan',
-      'type' => 'vampire',
     ]);
   }
 
-  #[Route('/clan/new', name: 'clan_new', methods: ['GET', 'POST'])]
-  public function clanNew(Request $request): Response
+  #[Route('/clan/{bloodline<\d+>?0}/new', name: 'clan_new', methods: ['GET', 'POST'])]
+  public function clanNew(bool $bloodline, Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $clan = new Clan();
+    $clan = new Clan($bloodline);
     $form = $this->createForm(ClanType::class, $clan);
 
     $form->handleRequest($request);
@@ -77,37 +75,8 @@ class ClanController extends AbstractController
     return $this->render('vampire/clan/form.html.twig', [
       'action' => 'new',
       'entity' => 'clan',
-      'form' => $form,
-      'type' => 'vampire',
-    ]);
-  }
-
-  #[Route('/bloodline/new', name: 'bloodline_new', methods: ['GET', 'POST'])]
-  public function bloodlineNew(Request $request): Response
-  {
-    $this->denyAccessUnlessGranted('ROLE_ST');
-
-    $clan = new Clan(true);
-
-    $form = $this->createForm(ClanType::class, $clan);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $emblem = $form->get('emblem')->getData();
-      if (!is_null($emblem)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
-      }
-      $this->dataService->save($clan);
-
-      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('vampire/clan/form.html.twig', [
-      'action' => 'new',
       'trans' => 'clan.bloodline.',
-      'entity' => 'bloodline',
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -143,7 +112,6 @@ class ClanController extends AbstractController
       'trans' => $trans,
       'entity' => $entity,
       'form' => $form,
-      'type' => 'vampire',
     ]);
   }
 
@@ -176,14 +144,13 @@ class ClanController extends AbstractController
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,
-      'type' => 'vampire',
     ]);
   }
 
-  #[Route("/clan/{type<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
-  public function clanList($type, $id)
+  #[Route("/clan/{filter<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
+  public function clanList($filter, $id)
   {
-    switch ($type) {
+    switch ($filter) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
@@ -202,7 +169,6 @@ class ClanController extends AbstractController
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
       'category' => 'character',
-      'type' => 'vampire',
       'clans' => $item->getClans(),
       'bloodlines' => $item->getBloodlines(),
       'search' => [],

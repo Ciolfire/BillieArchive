@@ -11,6 +11,13 @@
         </a>
       {% endif %}
     </div>
+    {% if character.isTemplate %}
+      <div class="col-2">
+        <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_duplicate', {'id': character.id}) }}">
+          {% include "_icon.html.twig" with {'icon': 'duplicate'} only %}
+        </a>
+      </div>
+    {% endif %}
     {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">

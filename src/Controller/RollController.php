@@ -105,18 +105,18 @@ class RollController extends AbstractController
     return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("/{type}/{id<\d+>}", name: "roll_list", methods: ["GET"])]
-  public function list($type = null, $id = null)
+  #[Route("/{setting}/{id<\d+>}", name: "roll_list", methods: ["GET"])]
+  public function list($setting = null, $id = null)
   {
-    if (is_null($type)) {
+    if (is_null($setting)) {
       $rolls = $this->dataService->findBy(Roll::class, [], ['name' => 'ASC']);
-      $type = "human";
+      $setting = "human";
     } else {
-      $rolls = $this->dataService->findBy(Roll::class, ['type' => $type], ['name' => 'ASC']);
+      $rolls = $this->dataService->findBy(Roll::class, ['setting' => $setting], ['name' => 'ASC']);
     }
 
     return $this->render('roll/list.html.twig', [
-      'type' => $type,
+      'setting' => $setting,
       'rolls' => $rolls,
       // 'description' => $this->dataService->findOneBy(Description::class, ['name' => 'roll']),
       // 'search' => $search, // Kinda want to replace for dynamic list

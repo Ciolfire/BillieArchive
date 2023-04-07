@@ -72,7 +72,6 @@ class VampireController extends AbstractController
       'clans' => $clans,
       'disciplines' => $disciplines,
       'form' => $form,
-      'type' => "vampire",
     ]);
   }
 }

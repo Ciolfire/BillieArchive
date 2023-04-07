@@ -2,10 +2,12 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set setting = "vampire" %}
+
 {% block title %}{{ "clans.label"|trans([], 'vampire') }}{% endblock %}
 
 {% block body %}
   <div class="container">
-    {% include "vampire/clan/card.html.twig" with {'clan' : clan, 'isShown': true} %}
+    {% include "vampire/clan/_card.html.twig" with {'clan' : clan, 'isShown': true} %}
   </div>
 {% endblock %}

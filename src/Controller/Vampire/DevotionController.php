@@ -42,15 +42,14 @@ class DevotionController extends AbstractController
       'devotions' => $devotions,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
-      'category' => 'character',
-      'type' => 'vampire',
+      'category' => 'character'
     ]);
   }
 
-  #[Route("/devotion/{type<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
-  public function devotionList($type, $id)
+  #[Route("/devotion/{filter<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
+  public function devotionList($filter, $id)
   {
-    switch ($type) {
+    switch ($filter) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
@@ -74,7 +73,6 @@ class DevotionController extends AbstractController
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
       'category' => 'character',
-      'type' => 'vampire',
       'devotions' => $devotions,
       'search' => [],
     ]);
@@ -97,8 +95,7 @@ class DevotionController extends AbstractController
 
     return $this->render('vampire/devotion/new.html.twig', [
       'action' => 'new',
-      'form' => $form,
-      'type' => 'vampire',
+      'form' => $form
     ]);
   }
 
@@ -118,8 +115,7 @@ class DevotionController extends AbstractController
 
     return $this->render('vampire/devotion/new.html.twig', [
       'action' => 'edit',
-      'form' => $form,
-      'type' => 'vampire',
+      'form' => $form
     ]);
   }
 
@@ -132,7 +128,6 @@ class DevotionController extends AbstractController
 
     return $this->render('vampire/devotion/show.html.twig', [
       'devotion' => $devotion,
-      'type' => 'vampire',
     ]);
   }
 }
