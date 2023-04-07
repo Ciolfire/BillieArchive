@@ -21,33 +21,34 @@ class MeritType extends AbstractType
     $merit = $options['data'];
 
     $builder
-      ->add('name')
-      ->add('type', null, ['required' => false, 'empty_data' => ''])
+      ->add('name', null, ['label' => "name"])
+      ->add('type', null, ['label' => "type.label", 'required' => false, 'empty_data' => ''])
       ->add('category', ChoiceType::class, [
+        'label' => "category.label",
         'choices' => [
-          'mental' => 'mental',
-          'physical' => 'physical',
-          'social' => 'social',
+          'category.mental' => 'mental',
+          'category.physical' => 'physical',
+          'category.social' => 'social',
         ],
-        'translation_domain' => 'character',
-        ])
-      ->add('description')
-      ->add('min')
-      ->add('max')
-      ->add('isCreationOnly')
-      ->add('isFighting')
-      ->add('isExpanded')
-      ->add('isUnique')
-      ->add('effect', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
+      ])
+      ->add('description', null, ['label' => "description.label"])
+      ->add('effect', CKEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
+      ->add('min', null, ['label' => "min"])
+      ->add('max', null, ['label' => "max"])
+      ->add('isCreationOnly', null, ['label' => "merit.creation"])
+      ->add('isUnique', null, ['label' => "merit.unique"])
+      ->add('isExpanded', null, ['label' => "merit.expanded"])
+      ->add('isFighting', null, ['label' => "merit.fighting"])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
         'entry_options' => ['label' => false],
         'allow_add' => true,
+        'allow_delete' => true,
       ])
-      ->add('book')
-      ->add('page')
-      ->add('homebrewFor')
+      ->add('book', null, ['label' => "book"])
+      ->add('page', null, ['label' => "page"])
+      ->add('homebrewFor', null, ['label' => "homebrewFor"])
       ;
   }
 
@@ -55,6 +56,7 @@ class MeritType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Merit::class,
+      "translation_domain" => 'app',
     ]);
   }
 }
