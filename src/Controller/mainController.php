@@ -53,7 +53,11 @@ class mainController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_GM');
 
-    $user->setIsVerified(true);
+    if ($user->isVerified()) {
+      $user->setIsVerified(false);
+    } else {
+      $user->setIsVerified(true);
+    }
     $this->dataService->flush();
 
     return $this->redirectToRoute('users');

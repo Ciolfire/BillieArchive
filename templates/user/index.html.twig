@@ -3,24 +3,30 @@
 {% trans_default_domain 'user' %}
 
 {% block body %}
-  <div class="container block py-3 mt-5">
+  <div class="container block py-3 mt-5 text-center">
       {% for user in users %}
         <div class="row pb-5">
-          <div class="col-6 col-md-2">
+          <div class="col-6 col-xl-2 text-end">
             {% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 1, 'domain': 'user'} %}
             {{ user.username }}
             ({{ user.id }})
-            {% if not user.isVerified %}
-              <a href="{{path('user_activate', {'id' : user.id})}}">Activate</a>
+          </div>
+          <div class="col-6 col-xl-2 text-start">
+            {{ user.email }}
+            {% if user != "Ciol" %}
+              <a href="{{path('user_activate', {'id' : user.id})}}">
+                {% if not user.isVerified %}
+                  Activate
+                {% else %}
+                  Deactivate
+                {% endif %}
+              </a>
             {% endif %}
           </div>
-          <div class="col-6 col-md-2">
-            {{ user.email }}
-          </div>
-          {% if user.role != "ROLE_GM" and user != "Ciol"  %}
+          {% if user.role != "ROLE_GM" and user != "Ciol" %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_GM'})}}">
-                {% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'gm', 'hasTips': 0} %}
+                <div>{% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'gm', 'hasTips': 0} %}</div>
                 {{ "switch.gm"|trans }}
               </a>
             </div>
@@ -28,7 +34,7 @@
           {% if user.role != "ROLE_ST" and user != "Ciol"  %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_ST'})}}">
-                {% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'st', 'hasTips': 0} %}
+                <div>{% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'st', 'hasTips': 0} %}</div>
                 {{ "switch.st"|trans }}
               </a>
             </div>
@@ -36,7 +42,7 @@
           {% if user.role != "ROLE_PLAYER" and user != "Ciol" %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_PLAYER'})}}">
-                {% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'player', 'hasTips': 0} %}
+                <div>{% include "_icon.html.twig" with {'icon': user.role, 'hasTips': 0} %} → {% include "_icon.html.twig" with {'icon': 'player', 'hasTips': 0} %}</div>
                 {{ "switch.player"|trans }}
               </a>
             </div>
