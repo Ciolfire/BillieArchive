@@ -1,4 +1,4 @@
-{% trans_default_domain 'icon' %}
+{% trans_default_domain domain|default('icon') %}
 
 <span class="icon {{ class|default("")}}" {% if hasTips|default(true) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
   {% if icon == 'add' %}
@@ -27,7 +27,14 @@
     <i class="fa-solid fa-eye"></i>
   {% elseif icon == 'open-tab' %}
     {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
-
+  {% elseif icon == 'users' %}
+    <i class="fa-solid fa-users-rectangle"></i>
+  {% elseif icon == 'gm' or icon == 'ROLE_GM' %}
+    {{ source('@icons/' ~ 'gm.svg') }}
+  {% elseif icon == 'st' or icon == 'ROLE_ST' %}
+    {{ source('@icons/' ~ 'st.svg') }}
+  {% elseif icon == 'player' or icon == 'ROLE_PLAYER' %}
+    {{ source('@icons/' ~ 'player.svg') }}
   {% elseif icon == 'free' or icon == 'pass' %}
     {{ source('@icons/' ~ 'ticket.svg') }}
   {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' or icon == "traits" %}
@@ -234,7 +241,7 @@
     <img height="20" src="{{ asset('LogoVentrue.webp', 'clans') }}">
   {% elseif icon == 'ghoul' %}
     <i class="fa-solid fa-ankh fa-fw"></i>
-  {% elseif icon == 'bloodline' %}
+  {% elseif icon == 'bloodline' or icon == 'bloodlines' %}
     {{ source('@icons/' ~ 'wavy-itinerary.svg') }}
   {% elseif icon == 'potency' %}
     {{ source('@icons/' ~ 'blood-bolt.svg') }}
@@ -270,10 +277,7 @@
     <i class="fa-solid fa-map-location-dot"></i>
   {% elseif icon == 'joke' %}
     <i class="fa-regular fa-face-grin-tears"></i>
-  {% elseif icon == 'bloodlines' %}
-    <i class="fa-solid fa-users-rectangle"></i>
   {% elseif icon == 'clan' %}
-    {# <i class="fa-solid fa-people-group"></i> #}
     {{ source('@icons/' ~ 'self-love.svg') }}
   {% elseif icon == 'covenant' %}
     <i class="fa-solid fa-landmark"></i>

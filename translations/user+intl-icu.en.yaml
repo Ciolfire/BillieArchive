@@ -1,0 +1,7 @@
+switch:
+  gm: Switch to God Machine Accreditation
+  st: Switch to Storyteller Accreditation
+  player: Switch to Default Accreditation
+ROLE_GM: God Machine
+ROLE_ST: Storyteller
+ROLE_PLAYER: Basic User

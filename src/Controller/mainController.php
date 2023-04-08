@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Service\DataService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,33 +11,51 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/{_locale<%supported_locales%>?%default_locale%}")]
 class mainController extends AbstractController
 {
-    #[Route("/", name: "index")]
-    public function index()
-    {
-      return $this->render('index.html.twig', [
-      ]);
-    }
+  private $dataService;
 
-    #[Route("/users", name: "users")]
-    public function users(UserRepository $userRepository)
-    {
-      $this->denyAccessUnlessGranted('ROLE_GM');
+  public function __construct(DataService $dataService)
+  {
+    $this->dataService = $dataService;
+  }
 
-      $users = $userRepository->findAll();
+  #[Route("/", name: "index")]
+  public function index()
+  {
+    return $this->render('index.html.twig', [
+    ]);
+  }
 
-      return $this->render('user/index.html.twig', [
-        'users' => $users,
-      ]);
-    }
+  #[Route("/users", name: "users")]
+  public function users()
+  {
+    $this->denyAccessUnlessGranted('ROLE_GM');
 
-    #[Route("/user/switch/{id<\d+>}/{role}", name: "user_switch_role", methods: ["GET"])]
-    public function switchRole(User $user, UserRepository $userRepository, string $role, ManagerRegistry $doctrine)
-    {
-      $this->denyAccessUnlessGranted('ROLE_GM');
+    $users = $this->dataService->findBy(User::class, [], ['username' => 'ASC']);
 
-      $user->setRoles([$role]);
-      $doctrine->getManager()->flush();
+    return $this->render('user/index.html.twig', [
+      'users' => $users,
+    ]);
+  }
 
-      return $this->redirectToRoute('users');
-    }
+  #[Route("/user/switch/{id<\d+>}/{role}", name: "user_switch_role", methods: ["GET"])]
+  public function switchRole(User $user, string $role)
+  {
+    $this->denyAccessUnlessGranted('ROLE_GM');
+
+    $user->setRoles([$role]);
+    $this->dataService->flush();
+
+    return $this->redirectToRoute('users');
+  }
+
+  #[Route("/user/{id<\d+>}/activate", name: "user_activate", methods: ["GET"])]
+  public function userActivate(User $user)
+  {
+    $this->denyAccessUnlessGranted('ROLE_GM');
+
+    $user->setIsVerified(true);
+    $this->dataService->flush();
+
+    return $this->redirectToRoute('users');
+  }
 }

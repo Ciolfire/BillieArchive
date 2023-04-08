@@ -29,8 +29,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
-use function PHPUnit\Framework\isNull;
-
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
 {
