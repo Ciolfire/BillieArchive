@@ -49,9 +49,11 @@ class CharacterAttributes
 
   public function __construct(?CharacterAttributes $attributes = null)
   {
-    $property_names  = array_keys(get_object_vars($this));
-    foreach ($property_names as $property_name) {
-      $this->{$property_name} = $attributes->$property_name;
+    if (!is_null($attributes)) {
+      $property_names  = array_keys(get_object_vars($this));
+      foreach ($property_names as $property_name) {
+        $this->{$property_name} = $attributes->$property_name;
+      }
     }
   }
 
