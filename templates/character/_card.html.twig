@@ -7,7 +7,7 @@
       <div class="w-100 text-center">{{ ('type.' ~ character.type)|trans }}</div>
       <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
     </div>
-    <div>
+    <div class="character-card-name">
       {{ character.name }}
     </div>
     <div class="character-card-avatar position-relative text-center">

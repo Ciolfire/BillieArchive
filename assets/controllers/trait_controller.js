@@ -7,6 +7,7 @@ export default class extends Controller {
     current: 0,
     id: 0,
     type: 'null',
+    inverted: false,
   }
 
   connect() {
@@ -24,10 +25,10 @@ export default class extends Controller {
   }
 
   update() {
-    if (this.currentValue == 1) {
-      this.show("none");
-    } else {
+    if (this.currentValue == 1 && this.invertedValue == false || this.currentValue == 0 && this.invertedValue == true) {
       this.show("on");
+    } else {
+      this.show("none");
     }
   }
 
