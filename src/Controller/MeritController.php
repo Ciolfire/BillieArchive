@@ -117,15 +117,10 @@ class MeritController extends AbstractController
           $chronicle = $id;
           $setting = $item->getType();
           $merits = $item->getMerits();
-          // We get the type of book for the search filters
-          // $types = $this->dataService->getMeritTypes($item);
-          // if (count($types) > 1) {
-          //   $search['type'] = $types;
-          // }
         }
         break;
       default:
-        $merits = $this->dataService->findBy(Merit::class, [], ['name' => 'ASC']);
+        $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
         $search['type'] = $this->dataService->getMeritTypes();
         $setting = "human";
         break;

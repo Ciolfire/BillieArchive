@@ -193,8 +193,10 @@ class VampireService
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
         $criteria['book'] = $item;
         $back = ['path' => 'book_index', 'id' => $id];
-        break;
       }
+    } else {
+      $back = null;
+      $criteria['homebrewFor'] = null;
     }
 
     switch ($type) {
@@ -220,7 +222,6 @@ class VampireService
         $criteria['isThaumaturgy'] = false;
         $criteria['isCoil'] = false;
         $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_discipline']);
-        break;
     }
 
     $disciplines = $this->dataService->findBy(Discipline::class, $criteria, ['name' => 'ASC']);
