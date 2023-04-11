@@ -22,31 +22,48 @@ $accentColor      : gold;
 
 $background: "images/back2.jpg";
 
+
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     color           : 
+//     background-color: 
+//     box-shadow      : 0 0 0 0.25rem rgba(125, 0, 0, 0.5);
+//   }
+
+//   &:focus-visible {
+//     outline: 2px solid red;
+//   }
+// }
 // Text
-$textColor      : #a1a5b9;
-$textDarkColor  : #000000;
-$textBrightColor: #ff6161;
-$titleColor     : silver;
-$titleShadow    : rgb(43, 0, 0);
-$btnColor       : #151515b5;
-$btnTextColor   : $mainBrightColor;
-$btnHover       : $main50pColor;
-$labelColor     : $mainColor;
-$subtextColor   : #a1a5b9a1;
-$linkColor      : $mainBrightColor;
-$linkHoverColor : #ce8904;
-$strongColor    : $mainBrightColor;
+$textColor          : #a1a5b9;
+$textDarkColor      : #000000;
+$textBrightColor    : #ff6161;
+$titleColor         : silver;
+$titleShadow        : rgb(43, 0, 0);
+$btnColor           : rgba(32, 0, 0, 0.8);
+$btnTextColor       : silver;
+$btnBorderColor     : #7d0000;
+$btnActiveColor     : rgba(125, 0, 0, 0.8);
+$btnActiveTextColor : white;
+$btnActiveShadow    : rgba(125, 0, 0, 0.5);
+$btnHover           : $main50pColor;
+$labelColor         : $mainColor;
+$subtextColor       : #a1a5b9a1;
+$linkColor          : $mainBrightColor;
+$linkHoverColor     : #ce8904;
+$strongColor        : $mainBrightColor;
 // Font
-$mainFont       : "mrsEaves-bold";
-$h1Font         : "Cezanne";
-$h2Font         : "Cezanne";
-$h3Font         : "goudy";
-$h4Font         : "goudy";
-$h5Font         : "goudy";
-$textFont       : "goudy";
-$subTextFont    : "goudy";
-$labelFont      : "goudy";
-$inputFont      : "goudy";
+$mainFont           : "mrsEaves-bold";
+$h1Font             : "Cezanne";
+$h2Font             : "Cezanne";
+$h3Font             : "goudy";
+$h4Font             : "goudy";
+$h5Font             : "goudy";
+$textFont           : "goudy";
+$subTextFont        : "goudy";
+$labelFont          : "goudy";
+$inputFont          : "goudy";
 
 @font-face {
   font-family: 'Cezanne';

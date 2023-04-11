@@ -2,7 +2,7 @@ $fonts: "../../fonts";
 
 $pageColor         : rgb(37, 37, 37);
 $footerColor       : #131828db;
-$blockColor        : #1a2139f5;//#131828db;
+$blockColor        : #1a2139f5; //#131828db;
 $darkBlockColor    : #0b0b0b85;
 $lightBlockColor   : #FFFFFF80;
 $solidBlockColor   : #131828;
@@ -26,31 +26,35 @@ $accentColor       : gold;
 $background: "images/back1.jpg";
 
 // Text
-$textColor      : #a1a5b9;
-$textDarkColor  : #000000;
-$textBrightColor: #c0c0c0;
-$titleColor     : #6f80c5;
-$titleShadow    : rgba(0, 0, 0, 0.541);
-$btnColor       : #1a2139f5;
-$btnTextColor   : $mainColor;
-$btnHover       : $mainBright50pColor;
-$labelColor     : $textColor;
-$subtextColor   : #a1a5b9a1;
-$strongColor    : $mainBrightColor;
-$linkColor      : $mainBrightColor;
-$linkHoverColor : $accentColor;
-$strongColor    : $mainBrightColor;
+$textColor          : #a1a5b9;
+$textDarkColor      : #000000;
+$textBrightColor    : #c0c0c0;
+$titleColor         : #6f80c5;
+$titleShadow        : rgba(0, 0, 0, 0.541);
+$btnColor           : #1a2139f5;
+$btnTextColor       : $mainColor;
+$btnBorderColor     : $mainColor;
+$btnActiveColor     : #283971f5;
+$btnActiveTextColor : white;
+$btnActiveShadow    : rgba(0, 40, 125, 0.578);
+$btnHover           : $mainBright50pColor;
+$labelColor         : $textColor;
+$subtextColor       : #a1a5b9a1;
+$strongColor        : $mainBrightColor;
+$linkColor          : $mainBrightColor;
+$linkHoverColor     : $accentColor;
+$strongColor        : $mainBrightColor;
 // Font
-$mainFont       : "goudy";
-$h1Font         : "escalidogothico";//"PlasticMan";
-$h2Font         : "escalidogothico";//"PlasticMan";
-$h3Font         : "escalidogothico";
-$h4Font         : "escalidogothico";
-$h5Font         : "escalidogothico";
-$textFont       : "goudy";
-$subTextFont    : "goudy";
-$labelFont      : "escalidogothico";
-$inputFont      : "goudy";
+$mainFont           : "goudy";
+$h1Font             : "escalidogothico"; //"PlasticMan";
+$h2Font             : "escalidogothico"; //"PlasticMan";
+$h3Font             : "escalidogothico";
+$h4Font             : "escalidogothico";
+$h5Font             : "escalidogothico";
+$textFont           : "goudy";
+$subTextFont        : "goudy";
+$labelFont          : "escalidogothico";
+$inputFont          : "goudy";
 
 @font-face {
   font-family: 'CaslonAntique';
