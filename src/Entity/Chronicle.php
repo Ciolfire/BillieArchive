@@ -32,9 +32,11 @@ class Chronicle
   private $type;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $merits;
 
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $clans;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
@@ -42,6 +44,7 @@ class Chronicle
   private $devotions;
   
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private $disciplines;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'homebrewFor')]
