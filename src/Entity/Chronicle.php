@@ -20,9 +20,11 @@ class Chronicle
   private $name;
 
   #[ORM\OneToMany(targetEntity:Character::class, mappedBy: "chronicle")]
+  #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
   private $characters;
 
   #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "chronicles")]
+  #[ORM\OrderBy(["username" => "ASC", "id" => "DESC"])]
   private $players;
 
   #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "stories")]
