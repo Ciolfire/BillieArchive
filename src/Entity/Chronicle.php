@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: ChronicleRepository::class)]
-// #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
 class Chronicle
 {
   #[ORM\Id]
@@ -38,6 +37,17 @@ class Chronicle
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
   private $clans;
 
+  #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private $devotions;
+  
+  #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'homebrewFor')]
+  private $disciplines;
+
+  #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
+  private $rituals;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -46,6 +56,7 @@ class Chronicle
     
     // Vampire
     $this->clans = new ArrayCollection();
+    $this->devotions = new ArrayCollection();
   }
 
   public function __toString(): string
@@ -204,5 +215,20 @@ class Chronicle
     }
 
     return $bloodlines;
+  }
+
+  public function getDevotions(): Collection
+  {
+    return $this->devotions;
+  }
+
+  public function getDisciplines(): Collection
+  {
+    return $this->disciplines;
+  }
+
+  public function getRituals(): Collection
+  {
+    return $this->rituals;
   }
 }

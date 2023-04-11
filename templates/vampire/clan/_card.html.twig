@@ -16,6 +16,7 @@
         {% if clan.isBloodline is same as(true) %}
           ({{ clan.parentClan.name|default("clan.parent.any"|trans) }})
         {% endif %}
+        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
       </h2>
       <h5>{{ clan.nickname }}</h5>
       {{ clan.quote }}

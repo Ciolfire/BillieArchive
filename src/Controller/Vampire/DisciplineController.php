@@ -267,6 +267,7 @@ class DisciplineController extends AbstractController
       'elements' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
+      'back' => $data['back'],
       'type' => $data['type'],
     ]);
   }

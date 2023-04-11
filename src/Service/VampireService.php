@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Book;
 use App\Entity\Character;
+use App\Entity\Chronicle;
 use App\Entity\Clan;
 use App\Entity\Description;
 use App\Entity\Devotion;
@@ -179,12 +180,19 @@ class VampireService
 
     if (!is_null($filter)) {
       switch ($filter) {
+        case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+        $criteria['homebrewFor'] = $item;
+        $back = ['path' => 'homebrew_index', 'id' => $id];
+
+        break;
         case 'book':
         default:
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-
         $criteria['book'] = $item;
+        $back = ['path' => 'book_index', 'id' => $id];
         break;
       }
     }
@@ -222,7 +230,8 @@ class VampireService
       'disciplines' => $disciplines,
       'description' => $description,
       'entity' => 'discipline',
-      'type' => $type
+      'type' => $type,
+      'back' => $back,
     ];
   }
 

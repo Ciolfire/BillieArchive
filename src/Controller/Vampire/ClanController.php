@@ -104,7 +104,6 @@ class ClanController extends AbstractController
     } else {
       $entity = 'clan';
       $trans = 'clan.';
-
     }
 
     return $this->render('vampire/clan/form.html.twig', [
@@ -151,18 +150,16 @@ class ClanController extends AbstractController
   public function clanList($filter, $id)
   {
     switch ($filter) {
+      case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+        $back = ['path' => 'homebrew_index', 'id' => $id];
+        break;
       case 'book':
+      default:
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        break;
-      
-      case 'chronicle':
-          /** @var Chronicle */
-          $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-          break;
-        default:
-        # code...
-        break;
+        $back = ['path' => 'book_index', 'id' => $id];
     }
 
     return $this->render('vampire/clan/index.html.twig', [
@@ -172,6 +169,7 @@ class ClanController extends AbstractController
       'clans' => $item->getClans(),
       'bloodlines' => $item->getBloodlines(),
       'search' => [],
+      'back' => $back,
     ]);
   }
 }

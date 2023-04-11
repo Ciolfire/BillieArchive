@@ -4,45 +4,60 @@
 
 {% set setting = "vampire" %}
 
-{% block title %}{{ devotion.name }}{% endblock %}
+{% block title %}
+  {{ devotion.name }}
+{% endblock %}
 
 {% block body %}
-<div class="container block py-3 mt-5">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
-  {% endif %}
-  <h1 class="pb-4 user-select-none">{{ devotion.name }}</h1>
-  {% if devotion.bloodline %}
-  <p class="text-center fs-5 text-strong accent">
-    {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
-  </p>
-  {% endif %}
-  <div class="row justify-content-center">
-    {# <h2>{{ "prerequisites"|trans([], 'app') }}</h2> #}
-    {% for prerequisite in devotion.prerequisites %}
-      <div class="col-4 text-center text-bold fs-5">
-        {% if prerequisite.value != 0 %}
-          <span class="text-strong">{{ prerequisite.entity.name }}</span>
-          <span class="text-strong strong">{{ prerequisite.value }}</span>
-        {% else %}
-          <span class="text-strong accent">{{ prerequisite.entity.name }}</span>
-        {% endif %}
+  <div class="container block py-3 mt-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
+    {% endif %}
+    <h1 class="pb-4 user-select-none">{{ devotion.name }}
+      {% if devotion.homebrewFor is not null %}
+        {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-xl' } only %}
+      {% endif %}
+    </h1>
+    {% if devotion.bloodline %}
+      <p class="text-center fs-5 text-strong accent">
+        {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
+      </p>
+    {% endif %}
+    <div
+      class="row justify-content-center">
+      {# <h2>{{ "prerequisites"|trans([], 'app') }}</h2> #}
+      {% for prerequisite in devotion.prerequisites %}
+        <div class="col-4 text-center text-bold fs-5">
+          {% if prerequisite.value != 0 %}
+            <span class="text-strong">{{ prerequisite.entity.name }}</span>
+            <span class="text-strong strong">{{ prerequisite.value }}</span>
+          {% else %}
+            <span class="text-strong accent">{{ prerequisite.entity.name }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <p
+      class="text-center fs-5">
+      {# {% include "_icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
+      <span class="text-strong">{{ devotion.cost }}
+        {{ "xp.label"|trans([], 'character') }}</span>
+    </p>
+    <div class="row justify-content-center">
+      <div class="col col-lg-6 block">
+        {{ devotion.description|default('???')|markdown_to_html }}
       </div>
-    {% endfor %}
-  </div>
-  <p class="text-center fs-5">
-    {# {% include "_icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
-    <span class="text-strong">{{ devotion.cost }} {{ "xp.label"|trans([], 'character') }}</span>
-  </p>
-  <div class="row justify-content-center">
-    <div class="col col-lg-6 block">
-      {{ devotion.description|markdown_to_html }}
+    </div>
+    <div class="row justify-content-end pe-2 mt-2">
+      {% if devotion.book is not null %}
+        {{ "source"|trans({'book': devotion.book, 'page': devotion.page}, 'app' ) }}
+      {% elseif devotion.homebrewFor is not null %}
+        Chronicle:
+        {{ devotion.homebrewFor.name }}
+        {# TEMP #}
+      {% endif %}
     </div>
   </div>
-  <div class="row justify-content-end pe-2 mt-2">
-    {{ "source"|trans({'book': devotion.book, 'page': devotion.page}, 'app' ) }}
-  </div>
-</div>
 
-{% include "_back.html.twig" %}
+  {% include "_back.html.twig" %}
 {% endblock %}

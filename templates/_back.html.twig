@@ -1,3 +1,8 @@
-{% set link = link|default(app.request.headers.get('referer')) %}
+{% if back is defined %}
+  {% set link = path(back.path, {'id': back.id}) %}
+{% else %}
+  {% set link = link|default(app.request.headers.get('referer')) %}
+{% endif %}
+
 
 <a href="{{ link }}" class="btn btn-primary position-fixed sticky-top end-0" style="top:100px;">{% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} %} {{ 'back'|trans({}, 'app')}}</a>

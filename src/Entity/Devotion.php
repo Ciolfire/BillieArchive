@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions")])]
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[Gedmo\TranslationEntity(class: DevotionTranslation::class)]
 class Devotion
 {

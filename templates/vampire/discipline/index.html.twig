@@ -5,72 +5,81 @@
 {% set setting = 'vampire' %}
 {% set footer = true %}
 
-{% block title %}{{ (type ~ ".label")|trans }}{% endblock %}
+{% block title %}
+	{{ (type ~ ".label")|trans }}
+{% endblock %}
 
 {% block bodyData %}
-  data-controller="search" data-search-type-value="discipline"
+	data-controller="search" data-search-type-value="discipline"
 {% endblock %}
 
 {% block body %}
-{% include "_back.html.twig" with {'link': path('wiki_index')} %}
-<div class="container block py-3  ">
-  
-  <div class="row mb-3">
-    <div class="col-12">
-      <div class="p-2">
-        <h1 class="user-select-none">
-          {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0, 'class' : "icon-xl" } only %}
-          {{ (type ~ ".label")|trans }}
-        </h1>
-        <div class="col-auto">
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row mb-3">
-    <div id="collapseDescription" class="collapse col">
-      <div class="block block-wiki p-2">
-        {{ description.value|default("")|markdown_to_html }}
-      </div>
-    </div>
-  </div>
-  
-  <div id="disciplinesTable" class="accordion block">
-    {% for discipline in elements %}
-      <div class="row bdr-t p-2 g-0" role="button" data-search-target="item" data-name="{{ discipline.name }}">
-        <div class="col-12 col-md-5" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
-          <h4 class="text-strong">{{ discipline.name }}</h4>
-        </div>
-        <div class="col-10 col-md-6 bdr-e" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
-          {{ discipline.short }}
-        </div>
-        <div class="col-2 col-md-1 text-center">
-          <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</a>
-        </div>
-      </div>
-      {% if discipline.maxLevel > 1 %}
-        {% include "vampire/discipline/_table.multi.html.twig" %}
-      {% elseif discipline.power %}
-        {% include "vampire/discipline/_table.single.html.twig" %}
-      {% endif %}
-    {% endfor %}
-  </div>
-</div>
+	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	<div class="container block py-3  ">
+		<div class="row mb-3">
+			<div class="col-12">
+				<div class="p-2">
+					<h1 class="user-select-none">
+						{% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0, 'class' : "icon-xl" } only %}
+						{{ (type ~ ".label")|trans }}
+					</h1>
+					<div class="col-auto">
+						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+							<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div id="collapseDescription" class="collapse col">
+				<div class="block block-wiki p-2">
+					{{ description.value|default("")|markdown_to_html }}
+				</div>
+			</div>
+		</div>
+
+		<div id="disciplinesTable" class="accordion block">
+			{% for discipline in elements %}
+				<div class="row bdr-t p-2 g-0" role="button" data-search-target="item" data-name="{{ discipline.name }}">
+					<div class="col-12 col-md-5" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
+						<h4 class="text-strong">{{ discipline.name }}
+							{% if discipline.homebrewFor is not null %}
+								{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+							{% endif %}
+						</h4>
+					</div>
+					<div class="col-10 col-md-6 bdr-e" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
+						{{ discipline.short }}
+					</div>
+					<div class="col-2 col-md-1 text-center">
+						<a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</a>
+					</div>
+				</div>
+				{% if discipline.maxLevel > 1 %}
+					{% include "vampire/discipline/_table.multi.html.twig" %}
+				{% elseif discipline.power %}
+					{% include "vampire/discipline/_table.single.html.twig" %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
-    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}
-        </a>
-      </div>
-    {% endif %}
-  </div>
+	<div class="col-12 d-flex align-items-center position-relative">
+		<span class="search-icon">
+			<i class="fa-solid fa-magnifying-glass fa-fw"></i>
+		</span>
+		<input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+		{% if is_granted('ROLE_ST') %}
+			<div class="ms-auto">
+				<a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+					{% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0 } only %}
+				</a>
+			</div>
+		{% endif %}
+	</div>
 {% endblock %}

@@ -5,7 +5,9 @@
 {% set setting = "vampire" %}
 {% set footer = true %}
 
-{% block title %}{{ "devotions.label"|trans }}{% endblock %}
+{% block title %}
+  {{ "devotions.label"|trans }}
+{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="devotion"
@@ -14,7 +16,7 @@
 {% block body %}
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block py-3">
-    
+
     <div class="row mb-3">
       <div class="col-12">
         <div class="p-2">
@@ -23,28 +25,31 @@
             {{ "devotions.label"|trans }}
           </h1>
           <div class="col-auto">
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+              <h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+            </a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div
+      class="row mb-3">
       {# <div id="collapseToc" class="col-auto collapse">
-        <ul class="toc block">
-          <p class="mt-2">{{ "devotions.label"|trans([], 'vampire') }}</p>
-          {% for devotion in devotions %}
-            <li>
-              <a href="#{{ devotion.name }}">{{ devotion.name }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div> #}
+              <ul class="toc block">
+                <p class="mt-2">{{ "devotions.label"|trans([], 'vampire') }}</p>
+                {% for devotion in devotions %}
+                  <li>
+                    <a href="#{{ devotion.name }}">{{ devotion.name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div> #}
       <div id="collapseDescription" class="collapse col">
         <div class="block block-wiki p-2">
           {{ description.value|default("")|markdown_to_html }}
-          </div>
         </div>
+      </div>
     </div>
 
     <div class="block">
@@ -69,7 +74,11 @@
       {% for devotion in devotions %}
         <div class="row g-0 text-center py-2 bdr-b" data-search-target="item" data-name="{{ devotion.name }}">
           <div class="col-12 col-md col-lg-3">
-            <h4 class="text-strong">{{ devotion.name }}</h4>
+            <h4 class="text-strong">{{ devotion.name }}
+              {% if devotion.homebrewFor is not null %}
+                {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+              {% endif %}
+            </h4>
           </div>
           <div class="col-12 col-md col-lg-4 pb-2 pb-md-0">
             <span>{{ devotion.short }}</span>
@@ -85,7 +94,8 @@
             {% endfor %}
           </div>
           <div class="col col-lg-1">
-            <span class="text-strong">{{ devotion.cost }} xp</span>
+            <span class="text-strong">{{ devotion.cost }}
+              xp</span>
           </div>
           <div class="col col-lg-2 bdr-s">
             <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
@@ -102,15 +112,18 @@
 
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
-    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    <span class="search-icon">
+      <i class="fa-solid fa-magnifying-glass fa-fw"></i>
+    </span>
+    <input
+    class="search-field" type="text" data-search-target="query" data-action="search#getResults">
     {# <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
-      <span class="fa-layers fa-fw">
-        <i class="fa-solid fa-circle"></i>
-        <span class="ok footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-        <span class="ok footer-collapse collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-      </span>
-    </div> #}
+          <span class="fa-layers fa-fw">
+            <i class="fa-solid fa-circle"></i>
+            <span class="ok footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+            <span class="ok footer-collapse collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+          </span>
+        </div> #}
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('vampire_devotion_new') }}">
@@ -120,19 +133,19 @@
       </div>
     {% endif %}
   </div>
-  <div class="col-auto py-3 footer-collapse collapse">
-    {# {% for key, devotions in search %}
-      {% if key != 'parent' %}
-        <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
-      {% else %}
-        <h5 class="text-center pe-none">{{ ('clan.parent.label')|trans }}</h5>
-      {% endif %}
-      {% for element in devotions %}
-        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          <span class="d-none d-md-inline">{% if key != 'parent' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-          {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
-        </a>
-      {% endfor %}
-    {% endfor %} #}
+  <div
+    class="col-auto py-3 footer-collapse collapse">{# {% for key, devotions in search %}
+            {% if key != 'parent' %}
+              <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
+            {% else %}
+              <h5 class="text-center pe-none">{{ ('clan.parent.label')|trans }}</h5>
+            {% endif %}
+            {% for element in devotions %}
+              <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+                <span class="d-none d-md-inline">{% if key != 'parent' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
+                {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+              </a>
+            {% endfor %}
+          {% endfor %} #}
   </div>
 {% endblock %}

@@ -8,7 +8,7 @@
       <span class="float-start">
         <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "_dicePool.html.twig" with {'pool' : powerPool, 'contested' : devotion.contestedText} %}</span>
       </span>
-      <h4>{{ devotion.name }}</h4>
+      <h4>{{ devotion.name }}{% if devotion.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}</h4>
       <span class="float-end">{% if devotion.bloodline is not null %}<span class="accent">{{ devotion.bloodline.name }}</span>{% endif %}</span>
     </div>
     <div class="card-body d-flex flex-column">
