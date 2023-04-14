@@ -53,6 +53,7 @@ class Devotion
   private Collection $skills;
 
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $disciplines;
 
   #[ORM\ManyToOne(inversedBy: 'devotions')]

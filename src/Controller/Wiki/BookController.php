@@ -86,7 +86,7 @@ class BookController extends AbstractController
       return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('wiki/edit.html.twig', [
       'entity' => 'book',
       'action' => 'edit',
       'form' => $form,

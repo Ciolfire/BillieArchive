@@ -33,7 +33,7 @@ class AjaxController extends AbstractController
           break;
 
         default:
-          $choices = $this->dataService->findAll($data->value);
+          $choices = $this->dataService->findBy($data->value, [], ['name' => 'ASC']);
           break;
       }
 

@@ -12,17 +12,7 @@
   {{ form_row(form.isExpanded) }}
   {{ form_row(form.isUnique) }}
   {{ form_row(form.isFighting) }}
-  <div {{ stimulus_controller('form-collection') }}
-    data-form-collection-index-value="{{ form.prerequisites|length > 0 ? form.prerequisites|last.vars.name + 1 : 0 }}"
-    data-form-collection-prototype-value="{{ form_widget(form.prerequisites.vars.prototype)|e('html_attr') }}"
-  >
-  <ul class="bdr" {{ stimulus_target('form-collection', 'collectionContainer') }}>
-    <h3>{{ "prerequisite.label"|trans([], 'app') }}</h3>
-    {% for prerequisite in form.prerequisites %}
-      {{ form_row(prerequisite)}}
-    {% endfor %}
-    {% include "forms/_prerequisite_button.html.twig" %}
-  </ul>
+  {% include "forms/_prerequisite_field.html.twig" %}
   {{ form_row(form.book) }}
   {{ form_row(form.page) }}
   {{ form_row(form.homebrewFor) }}

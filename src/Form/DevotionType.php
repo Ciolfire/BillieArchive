@@ -4,8 +4,9 @@ namespace App\Form;
 
 use App\Entity\Attribute;
 use App\Entity\Devotion;
+use App\Entity\Discipline;
 use App\Entity\Skill;
-
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -30,12 +31,12 @@ class DevotionType extends AbstractType
     /** @var Devotion $devotion */
     $devotion = $options['data'];
     $builder
-      ->add('name')
-      ->add('cost')
-      ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($devotion->getDescription())])
-      ->add('short')
-      ->add('page')
-      ->add('bloodline')
+      ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
+      ->add('cost', null, ['label' => 'cost', 'translation_domain' => 'app'])
+      ->add('description', CKEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $converter->convert($devotion->getDescription())])
+      ->add('short', null, ['label' => 'description.short.label', 'translation_domain' => 'app'])
+      ->add('page', null, ['label' => 'page', 'translation_domain' => 'app'])
+      ->add('bloodline', null, ['label' => 'clan.bloodline.label'])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
@@ -49,6 +50,9 @@ class DevotionType extends AbstractType
         'translation_domain' => "vampire",
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'label_attr' => ['class' => 'text pe-2 form-choice-width'],
+        'query_builder' => function (EntityRepository $er) {
+          return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
+        },
       ])
       ->add('attributes', null, [
         'label' => 'attributes.label',
@@ -69,15 +73,17 @@ class DevotionType extends AbstractType
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
-      ->add('contestedText')
-      ->add('homebrewFor')
-      ->add('book');
+      ->add('contestedText', null, ['label' => 'contested.text', 'translation_domain' => 'app'])
+      ->add('homebrewFor', null, ['label' => 'homebrewFor', 'translation_domain' => 'app'])
+      ->add('book', null, ['label' => 'book', 'translation_domain' => 'app']);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Devotion::class,
+      "translation_domain" => 'vampire',
+
     ]);
   }
 }
