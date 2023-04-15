@@ -130,6 +130,11 @@ name:
   nick: Surnom
   last: Nom
 
+new:
+  character: Nouveau Personnage
+  npc: Nouveau PNJ
+  generated: Nouveau Prétiré
+
 skill:
   label: Compétence
   value: >-

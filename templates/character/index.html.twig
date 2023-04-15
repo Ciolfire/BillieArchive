@@ -14,6 +14,6 @@
     {% include "character/_list.html.twig" with {'title': 'characters.npc', 'characters': npc, 'type': 'npc'} %}
   {% endif %}
   {% if generated is defined %}
-    {% include "character/_list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'template'} %}
+    {% include "character/_list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'npc'} %}
   {% endif %}
 {% endblock %}

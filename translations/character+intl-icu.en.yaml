@@ -131,6 +131,11 @@ name:
   nick: Middle name/Nickname
   last: Last name
 
+new:
+  character: New character
+  npc: New NPC
+  generated: New Template
+
 skill:
   label: Skill
   value: >-

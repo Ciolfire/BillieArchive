@@ -2,13 +2,23 @@
 
 {% trans_default_domain 'character' %}
 
-{% block title %}{{ character.name }}{% endblock %}
+{% if character.isNpc %}
+  {% set title = "new.npc"|trans %}
+{% elseif character.isTemplate %}
+  {% set title =  "new.generated"|trans %}
+{% else %}
+  {% set title =  "new.character"|trans %}
+{% endif %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
 
 {% block body %}
+  {% include "_back.html.twig" %}
   {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
-    <h1>Create new Character</h1>
     <div class="container block py-3 g-0">
-      <a href="{{ path('character_index') }}">back to list</a>
+      <h1>{{ title }} {{ character.chronicle.name|default('') }}</h1>
       {% include "character_sheet/edit/header.html.twig" %}
       <div class="row g-0">
         {% include "character_sheet/new/attributes.html.twig" %}

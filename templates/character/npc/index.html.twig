@@ -17,23 +17,3 @@
   </div>
 </div>
 {% endblock %}
-
-
-{% block name %}
-
-<div class="row">
-{# <div class="row block block-{{ character.type }}" role="button" onclick='location.href="{{ path('character_show', {'id': character.id}) }}"'> #}
-
-<div class="col"></div>
-{% if type == "human" %}<div class="col">{{ character.type }}</div>{% endif %}
-{# <div class="col">{{ character.player }}</div> #}
-{# <div class="col">{{ character.concept }}</div> #}
-{# <div class="col">{{ character.chronicle }}</div> #}
-{# </div> #}
-{# {% else %} #}
-<td colspan="11">no records found</td>
-</div>
-</div>
-</div>
-
-{% endblock %}
