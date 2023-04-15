@@ -1,24 +1,25 @@
 {% trans_default_domain 'app' %}
 
-<div id="{{ book.name }}" class="col-12 col-lg-6 block" data-search-target="item" 
-      data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}" >
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
-  {% endif %}
-  <h3>{{ book.name }}</h3>
-  <div class="row">
-    <div class="col-12 col-md-6 left-panel">
-      {% if book.cover is not null %}
-        <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
-      {% endif %}
-      <h5>{{ book.releasedAt|date('M Y') }}</h5>
-      <p class="book-content text-center">
-        {% include "book/details/_details_human.html.twig" %}
-        {% include "book/details/_details_vampire.html.twig" %}
-      </p>
-    </div>
-    <div class="col-12 col-md-6">
-      <div class="small" style="overflow-y:auto;height:450px;">{{ book.description|markdown_to_html }}</div>
+<div id="{{ book.name }}" class="col-12 col-lg-6 py-2" data-search-target="item" data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}">
+  <div class="block">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+    {% endif %}
+    <h3>{{ book.name }}</h3>
+    <div class="row">
+      <div class="col-12 col-md-6 left-panel">
+        {% if book.cover is not null %}
+          <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
+        {% endif %}
+        <h5>{{ book.releasedAt|date('M Y') }}</h5>
+        <p class="book-content text-center">
+          {% include "book/details/_details_human.html.twig" %}
+          {% include "book/details/_details_vampire.html.twig" %}
+        </p>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="small" style="overflow-y:auto;height:450px;">{{ book.description|markdown_to_html }}</div>
+      </div>
     </div>
   </div>
 </div>
