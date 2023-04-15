@@ -16,30 +16,34 @@
   {{ form_start(form, {'attr': form_attributes}) }}
 {% endblock %}
   <input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">
-  <div class="container block py-3 mt-5 g-0">
-    {% include "character_sheet/edit/menu.html.twig" %}
-    {% block header %}
-      {% include "character_sheet/edit/header.html.twig" %}
+  <div class="container py-3 mt-5 g-0">
+    {% block menu %}
+      {% include "character_sheet/edit/menu.html.twig" %}
     {% endblock %}
-    <div data-controller="tabs" data-tabs-initial-value="general">
-      <ul class="nav tabs row g-0 my-2">
-        {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
-        {% include "_tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
-        {% block specialTab %}{% endblock %}
-      </ul>
-      <div id="general" data-tabs-target="page">
-        <div class="row g-0">
-          {% include "character_sheet/edit/attributes.html.twig" %}
-        </div>
-        <div class="row my-2">
-          {% include "character_sheet/edit/skills.html.twig" %}
-        </div>
-      </div>
-      <div id="merits" data-tabs-target="page">
-        {% include "character_sheet/edit/merits.html.twig" %}
-      </div>
-      {% block special %}
+    <div class="block">
+      {% block header %}
+        {% include "character_sheet/edit/header.html.twig" %}
       {% endblock %}
+      <div data-controller="tabs" data-tabs-initial-value="general">
+        <ul class="nav tabs row g-0 my-2">
+          {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
+          {% include "_tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+          {% block specialTab %}{% endblock %}
+        </ul>
+        <div id="general" data-tabs-target="page">
+          <div class="row g-0">
+            {% include "character_sheet/edit/attributes.html.twig" %}
+          </div>
+          <div class="row my-2">
+            {% include "character_sheet/edit/skills.html.twig" %}
+          </div>
+        </div>
+        <div id="merits" data-tabs-target="page">
+          {% include "character_sheet/edit/merits.html.twig" %}
+        </div>
+        {% block special %}
+        {% endblock %}
+      </div>
     </div>
   </div>
 {{ form_end(form) }}

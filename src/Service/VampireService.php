@@ -18,14 +18,14 @@ use Symfony\Component\Form\FormInterface;
 
 class VampireService
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {
     $this->dataService = $dataService;
   }
 
-  public function getSpecial(Vampire $vampire)
+  public function getSpecial(Vampire $vampire) : array
   {
     $disciplines = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]), $vampire);
     $sorcery = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isSorcery' => true]), $vampire);
@@ -51,6 +51,9 @@ class VampireService
     ];
   }
 
+  /**
+ * @param array<int, Discipline> $disciplines
+ */
   private function filterDisciplines(array $disciplines, Vampire $vampire) : array
   {
     foreach ($disciplines as $key => $discipline) {

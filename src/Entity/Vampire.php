@@ -307,7 +307,7 @@ class Vampire extends Character
     return $this;
   }
 
-  public function hasDevotion(int $id): bool
+  public function hasDevotion(?int $id): bool
   {
     foreach ($this->devotions as $devotion) {
       /** @var Devotion $devotion */
