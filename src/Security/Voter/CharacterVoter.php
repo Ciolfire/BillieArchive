@@ -76,10 +76,12 @@ class CharacterVoter extends Voter
 
       return true;
     }
-    if ($user === $character->getChronicle()->getStoryteller()) {
+    if (!is_null($character->getChronicle()) && $user === $character->getChronicle()->getStoryteller()) {
 
       return true;
     }
+
+    return false;
   }
 
   private function canDelete(Character $character, User $user): bool
@@ -88,5 +90,7 @@ class CharacterVoter extends Voter
 
       return true;
     }
+
+    return false;
   }
 }

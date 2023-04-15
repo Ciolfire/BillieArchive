@@ -12,8 +12,8 @@
       <h2><span>{{ "personal"|trans }}</span></h2>
       <div class="row block mx-1">
         <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "_icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %}{{ "characters.label"|trans }}</a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "_icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %} {{ "notes"|trans }}</a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="#">{% include "_icon.html.twig" with {'icon': 'options', 'hasTips': 0 } only %} {{ "options"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'notes', 'hasTips': 0 } only %} {{ "notes"|trans }}</a></div>
+        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'options', 'hasTips': 0 } only %} {{ "options"|trans }}</a></div>
         {% if is_granted('ROLE_GM') %}
           <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('users')}}">{% include "_icon.html.twig" with {'icon': 'users', 'hasTips': 0 } only %} {{ "users"|trans }}</a></div>
         {% endif %}

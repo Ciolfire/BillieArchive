@@ -8,7 +8,7 @@
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('skill_index')}}">{% include "_icon.html.twig" with {'icon': 'general', 'hasTips': 0 } only %} {{ "skills.label"|trans({}, 'character')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('roll_list')}}">{% include "_icon.html.twig" with {'icon': 'dice', 'hasTips': 0 } only %} {{ "rolls"|trans }}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('merit_list')}}">{% include "_icon.html.twig" with {'icon': 'merits', 'hasTips': 0 } only %} {{ "merits"|trans}}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="#">{% include "_icon.html.twig" with {'icon': 'flaw', 'hasTips': 0 } only %} {{ "flaws.label"|trans }}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'flaw', 'hasTips': 0 } only %} {{ "flaws.label"|trans }}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('derangement_list')}}">{% include "_icon.html.twig" with {'icon': 'derangement', 'hasTips': 0 } only %} {{ "derangements.label"|trans }}</a></div>
   {# <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="#">{{ "advantages"|trans}}</a></div> #}
 </div>
