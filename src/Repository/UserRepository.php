@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,7 +38,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    public function getAvailablePlayersForChronicle(User $storyteller = null, $players)
+    /**
+     * @param Collection<int, User> $players
+     */
+    public function getAvailablePlayersForChronicle(User $storyteller = null, Collection $players) : ?Collection
     {
         $playersId = "0";
         foreach ($players as $player) {

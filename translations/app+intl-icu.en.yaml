@@ -85,6 +85,7 @@ max: Max
 min: Min
 merit:
   new: New Merit
+  edit: Edit Merit
   creation: Creation Only
   expanded: Choice or details needed
   fighting: Fighting Style

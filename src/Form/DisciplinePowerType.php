@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
 use App\Entity\Attribute;
+use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Skill;
 
@@ -17,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DisciplinePowerType extends AbstractType
 {
-  public $translator;
+  public TranslatorInterface $translator;
 
   public function __construct(TranslatorInterface $translator)
   {
@@ -30,19 +31,21 @@ class DisciplinePowerType extends AbstractType
     $translator = $this->translator;
     /** @var DisciplinePower */
     $power = $options['data'];
+    /** @var Discipline */
+    $discipline = $power->getDiscipline();
 
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short', 'translation_domain' => "app"])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"]);
-    if (!$power->getDiscipline()->isSimple()) {
+    if (!$discipline->isSimple()) {
       $builder
         ->add('book')
         ->add('page')
         ->add('homebrewFor');
     }
-    if (!($power->getDiscipline()->isSorcery() && $power->getLevel() > 0) && !$power->getDiscipline()->isCoil()) {
+    if (!($discipline->isSorcery() && $power->getLevel() > 0) && !$discipline->isCoil()) {
       $builder
         ->add('attributes', null, [
           'label' => 'attributes.label',

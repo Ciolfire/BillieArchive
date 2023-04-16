@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
@@ -17,7 +17,7 @@ use Twig\Extra\Markdown\LeagueMarkdown;
 
 class DevotionType extends AbstractType
 {
-  public $translator;
+  public TranslatorInterface $translator;
 
   public function __construct(TranslatorInterface $translator)
   {

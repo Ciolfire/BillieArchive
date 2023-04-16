@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -25,56 +25,56 @@ class Clan
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 40)]
-  private $name;
+  private string $name = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $description = "";
+  private string $description = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
-  private $attributes;
+  private Collection $attributes;
 
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
   #[ORM\OrderBy(["name" => "ASC"])]
-  private $disciplines;
+  private Collection $disciplines;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $short = "";
+  private string $short = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 100)]
-  private $keywords;
+  private string $keywords = "";
 
   #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
-  private $parentClan;
+  private ?Clan $parentClan = null;
 
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
-  private $bloodlines;
+  private Collection $bloodlines;
 
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-  private $emblem;
+  private ?string $emblem;
 
   #[ORM\Column(length: 50)]
-  private ?string $nickname = null;
+  private string $nickname = "";
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $weakness = "";
+  private string $weakness = "";
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $quote = null;
 
   #[ORM\Column]
-  private ?bool $isBloodline = false;
+  private bool $isBloodline = false;
 
   #[ORM\OneToMany(mappedBy: 'bloodline', targetEntity: Devotion::class)]
   private Collection $devotions;
 
-  public function __construct($isBloodline = false)
+  public function __construct(bool $isBloodline = false)
   {
     $this->isBloodline = $isBloodline;
 
@@ -106,12 +106,12 @@ class Clan
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(string $description): self
+  public function setDescription(string $description = ""): self
   {
     $converter = new HtmlConverter();
     $this->description = $converter->convert($description);
@@ -211,11 +211,6 @@ class Clan
     return false;
   }
 
-  public function isBloodline(): ?bool
-  {
-    return $this->isBloodline;
-  }
-
   public function getParentClan(): ?self
   {
     return $this->parentClan;
@@ -279,7 +274,7 @@ class Clan
     return $this;
   }
 
-  public function getWeakness(): ?string
+  public function getWeakness(): string
   {
     return $this->weakness;
   }
@@ -296,7 +291,7 @@ class Clan
     return $this->quote;
   }
 
-  public function setQuote(?string $quote): self
+  public function setQuote(string $quote = ""): self
   {
     $converter = new HtmlConverter();
     $this->quote = $converter->convert($quote);
@@ -304,7 +299,7 @@ class Clan
     return $this;
   }
 
-  public function isIsBloodline(): ?bool
+  public function isBloodline(): bool
   {
       return $this->isBloodline;
   }

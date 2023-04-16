@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
+use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
@@ -15,61 +16,61 @@ class Book
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private ?int $id = null;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
-  private $name;
+  #[ORM\Column(type: Types::STRING, length: 255)]
+  private string $name ="";
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
+  #[ORM\Column(type: Types::SMALLINT)]
 
-  private $ruleset;
+  private int $ruleset = 1;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50, nullable: true)]
-  private $type;
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  private ?string $type;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 10, nullable: true)]
-  private $short;
+  #[ORM\Column(type: Types::STRING, length: 10, nullable: true)]
+  private ?string $short;
 
   #[Gedmo\Translatable]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
-  private $description = "";
+  #[ORM\Column(type: Types::TEXT)]
+  private string $description = "";
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
-  private $releasedAt;
+  #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+  private \DateTimeImmutable $releasedAt;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 50)]
-  private $setting;
+  #[ORM\Column(type: Types::STRING, length: 50)]
+  private string $setting = "";
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
-  private $cover;
+  #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+  private ?string $cover;
 
   #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $derangements;
+  private Collection $derangements;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
-  private $merits;
+  private Collection $merits;
   
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
-  private $clans;
+  private Collection $clans;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $devotions;
+  private Collection $devotions;
   
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
-  private $disciplines;
+  private Collection $disciplines;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'book')]
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
-  private $rituals;
+  private Collection $rituals;
 
 
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
 
-  public function __construct($setting="human")
+  public function __construct(string $setting="human")
   {
     $this->setting = $setting;
     $this->derangements = new ArrayCollection();
@@ -139,12 +140,12 @@ class Book
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(string $description): self
+  public function setDescription(string $description = ""): self
   {
     $converter = new HtmlConverter();
     $this->description = $converter->convert($description);
@@ -235,11 +236,17 @@ class Book
   
   // VAMPIRE
 
+  /**
+   * @return Collection<Clan>
+   */
   public function getClansAndBloodlines(): Collection
   {
     return $this->clans;
   }
 
+  /**
+   * @return array<Clan>
+   */
   public function getClans(): array
   {
     $clans = [];
@@ -255,6 +262,9 @@ class Book
     return $clans;
   }
 
+  /**
+   * @return array<Clan>
+   */
   public function getBloodlines(): array
   {
     $bloodlines = [];

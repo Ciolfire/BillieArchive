@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		- '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+ is never read, only written.#'
+		- '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+ is never written, only read.#'
+		# - '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+ is unused.#'
+	checkGenericClassInNonGenericObjectType: false

@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Edit Merit</h1>
+  {% include "_back.html.twig" %}
+  <h1>
+    {% include "_icon.html.twig" with {'icon' : 'merits', 'hasTips': 0, 'class': 'icon-xl' } only %}
+    {{ "merit.edit"|trans }}
+  </h1>
 
   <div class="container py-3 mt-5 g-0">
     <div class="row block">

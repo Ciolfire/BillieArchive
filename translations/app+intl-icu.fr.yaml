@@ -84,6 +84,7 @@ max: Max
 min: Min
 merit:
   new: Nouvel Atout
+  edit: Modifier l'Atout
   creation: Creation Uniquement
   expanded: Necessite un choix/des détails, ...
   fighting: Style de combat

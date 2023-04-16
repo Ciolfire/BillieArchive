@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -27,7 +27,7 @@ class NoteCategory
   private ?User $user = null;
 
   #[ORM\Column(length: 255)]
-  private ?string $name = "";
+  private string $name = "";
 
   public function __construct()
   {
@@ -98,12 +98,12 @@ class NoteCategory
     return $this;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
 
-  public function setName(string $name): self
+  public function setName(string $name = ""): self
   {
     $this->name = $name;
 

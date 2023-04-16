@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -12,24 +12,25 @@ class CharacterMerit
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\ManyToOne(targetEntity: Merit::class)]
   #[ORM\JoinColumn(nullable: false)]
-  private $merit;
+  private Merit $merit;
 
   #[ORM\Column(type: "string", length: 255, nullable: true)]
-  private $choice;
+  private ?string $choice;
 
+  /** @var array<string> */
   #[ORM\Column(type: "json", nullable: true)]
-  private $details = [];
+  private ?array $details = [];
 
   #[ORM\Column(type: "smallint")]
-  private $level;
+  private int $level;
 
   #[ORM\ManyToOne(targetEntity: Character::class, inversedBy: "merits", cascade: ["persist"])]
   #[ORM\JoinColumn(nullable: false)]
-  private $character;
+  private ?Character $character;
 
   public function getId(): ?int
   {
@@ -41,7 +42,7 @@ class CharacterMerit
     return $this->merit;
   }
 
-  public function setMerit(?Merit $merit): self
+  public function setMerit(Merit $merit): self
   {
     $this->merit = $merit;
 
@@ -60,11 +61,17 @@ class CharacterMerit
     return $this;
   }
 
+  /**
+   * @return array<string>
+   */
   public function getDetails(): ?array
   {
     return $this->details;
   }
 
+  /**
+   * @param array<string> $details
+   */
   public function setDetails(?array $details): self
   {
     $this->details = $details;
@@ -72,7 +79,7 @@ class CharacterMerit
     return $this;
   }
 
-  public function getLevel(): ?int
+  public function getLevel(): int
   {
     return $this->level;
   }

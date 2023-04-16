@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -18,34 +18,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id = null;
 
   #[ORM\Column(type: 'string', length: 180, unique: true)]
-  private $username;
+  private string $username;
 
   #[ORM\Column(type: 'string', length: 180, unique: true)]
-  private $email;
+  private string $email;
 
   #[ORM\Column(type: 'string', length: 10)]
-  private $locale = "en";
+  private string $locale = "en";
 
+  /** @var array<string> $roles */
   #[ORM\Column(type: 'json')]
-  private $roles = [];
+  private array $roles = [];
 
   #[ORM\Column(type: 'string')]
-  private $password;
+  private string $password;
 
   #[ORM\Column(type: 'boolean')]
-  private $isVerified = false;
+  private bool $isVerified = false;
 
   #[ORM\OneToMany(targetEntity: Character::class, mappedBy: 'player')]
-  private $characters;
+  private Collection $characters;
 
   #[ORM\ManyToMany(targetEntity: Chronicle::class, inversedBy: 'players')]
-  private $chronicles;
+  private Collection $chronicles;
 
   #[ORM\OneToMany(targetEntity: Chronicle::class, mappedBy: 'storyteller')]
-  private $stories;
+  private Collection $stories;
 
   #[ORM\OneToMany(mappedBy: 'author', targetEntity: CharacterNote::class, orphanRemoval: true)]
   private Collection $userCharacterNotes;
@@ -134,6 +135,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return array_unique($roles);
   }
 
+  /**
+   * @param array<string> $roles
+   */
   public function setRoles(array $roles): self
   {
     $this->roles = $roles;
@@ -183,7 +187,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   /**
    * @see UserInterface
    */
-  public function eraseCredentials()
+  public function eraseCredentials() : void
   {
     // If you store any temporary, sensitive data on the user, clear it here
     // $this->plainPassword = null;
@@ -264,17 +268,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this;
   }
 
-  public function removeStory(Chronicle $story): self
-  {
-    if ($this->stories->removeElement($story)) {
-      // set the owning side to null (unless already changed)
-      if ($story->getStoryteller() === $this) {
-        $story->setStoryteller(null);
-      }
-    }
+  // public function removeStory(Chronicle $story): self
+  // {
+  //   if ($this->stories->removeElement($story)) {
+  //     // set the owning side to null (unless already changed)
+  //     if ($story->getStoryteller() === $this) {
+  //       $story->setStoryteller(null);
+  //     }
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
   /**
    * @return Collection<int, CharacterNote>
@@ -336,7 +340,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this;
   }
 
-  public function getChronicleNotes(Chronicle $chronicle)
+  /**
+   * @return array<Note>
+   */
+  public function getChronicleNotes(Chronicle $chronicle) : array
   {
     $notes = [];
     foreach ($this->notes as $note) {

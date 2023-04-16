@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DerangementType extends AbstractType
 {
-  public $translator;
+  public TranslatorInterface $translator;
 
   public function __construct(TranslatorInterface $translator)
   {

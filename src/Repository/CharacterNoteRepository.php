@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -37,20 +37,6 @@ class CharacterNoteRepository extends ServiceEntityRepository
     if ($flush) {
       $this->getEntityManager()->flush();
     }
-  }
-
-  /**
-   * @return CharacterNote[] Returns an array of CharacterNote objects
-   */
-  public function findByCharacterFieldOrderByMostRecent($value): array
-  {
-    return $this->createQueryBuilder('c')
-      ->andWhere('c.character_id = :val')
-      ->setParameter('val', $value)
-      ->orderBy('c.date', 'DESC')
-      // ->setMaxResults(10)
-      ->getQuery()
-      ->getResult();
   }
 
   //    /**

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
@@ -12,6 +12,7 @@ use App\Form\ClanType;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,8 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire')]
 class ClanController extends AbstractController
 {
-  private $dataService;
-  private $service;
+  private DataService $dataService;
+  private VampireService $service;
 
   public function __construct(DataService $dataService, VampireService $service)
   {
@@ -64,8 +65,9 @@ class ClanController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $emblem = $form->get('emblem')->getData();
-      if (!is_null($emblem)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      $path = $this->getParameter('clans_emblems_directory');
+      if ($emblem instanceof UploadedFile && is_string($path)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $path));
       }
       $this->dataService->save($clan);
 
@@ -90,8 +92,9 @@ class ClanController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $emblem = $form->get('emblem')->getData();
-      if (!is_null($emblem)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $this->getParameter('clans_emblems_directory')));
+      $path = $this->getParameter('clans_emblems_directory');
+      if ($emblem instanceof UploadedFile && is_string($path)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $path));
       }
       $this->dataService->flush();
 
@@ -132,8 +135,11 @@ class ClanController extends AbstractController
 
     // Form submited
     if ($request->request->get('bloodline')) {
-      $vampire->setClan($this->dataService->find(Clan::class, $request->request->get('bloodline')));
-      $this->dataService->flush();
+      $bloodline = $this->dataService->find(Clan::class, $request->request->get('bloodline'));
+      if ($bloodline instanceof Clan) {
+        $vampire->setClan($bloodline);
+        $this->dataService->flush();
+      }
 
       return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
@@ -147,7 +153,7 @@ class ClanController extends AbstractController
   }
 
   #[Route("/clan/{filter<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
-  public function clanList($filter, $id)
+  public function clanList(string $filter, int $id): Response
   {
     switch ($filter) {
       case 'chronicle':

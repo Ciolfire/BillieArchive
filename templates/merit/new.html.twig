@@ -5,6 +5,7 @@
 {% block title %}{{ "merit.new"|trans }}{% endblock %}
 
 {% block body %}
+  {% include "_back.html.twig" %}
   <h1>
     {% include "_icon.html.twig" with {'icon' : 'merits', 'hasTips': 0, 'class': 'icon-xl' } only %}
     {{ "merit.new"|trans }}

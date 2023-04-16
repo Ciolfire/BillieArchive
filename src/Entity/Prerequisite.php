@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -17,13 +17,13 @@ class Prerequisite
   private ?int $id = null;
 
   #[ORM\Column]
-  private ?string $type = null;
+  private string $type = "";
 
   #[ORM\Column]
   private ?int $entityId = null;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private ?int $value = null;
+  private int $value;
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true)]
   private ?int $choiceGroup = null;
@@ -34,7 +34,7 @@ class Prerequisite
   #[ORM\ManyToMany(targetEntity: Devotion::class, mappedBy: 'prerequisites')]
   private Collection $devotions;
 
-  private $entity = null;
+  private mixed $entity = null;
 
   public function __construct()
   {
@@ -52,7 +52,7 @@ class Prerequisite
     return $this->id;
   }
 
-  public function getType(): ?string
+  public function getType(): string
   {
     return $this->type;
   }
@@ -127,12 +127,12 @@ class Prerequisite
     return $this;
   }
 
-  public function getEntity()
+  public function getEntity() : ?object
   {
     return $this->entity;
   }
 
-  public function setEntity($entity)
+  public function setEntity(object $entity) : self
   {
     $this->entity = $entity;
 

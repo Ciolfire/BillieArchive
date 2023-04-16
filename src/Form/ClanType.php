@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Entity\Attribute;
 use App\Entity\Clan;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -16,7 +17,7 @@ use Twig\Extra\Markdown\LeagueMarkdown;
 
 class ClanType extends AbstractType
 {
-  public $translator;
+  public TranslatorInterface $translator;
 
   public function __construct(TranslatorInterface $translator)
   {

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -24,7 +24,7 @@ class Character
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  protected $id;
+  protected ?int $id = null;
 
   #[ORM\Column(length: 30)]
   #[Assert\NotBlank]
@@ -43,22 +43,22 @@ class Character
   protected ?int $lookAge = null;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $moral = 7;
+  protected int $moral = 7;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $size = 5;
+  protected int $size = 5;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $willpower = 0;
+  protected int $willpower = 0;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $currentWillpower = 0;
+  protected int $currentWillpower = 0;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $xpTotal = 0;
+  protected int $xpTotal = 0;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  protected ?int $xpUsed = 0;
+  protected int $xpUsed = 0;
 
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   protected ?string $concept;
@@ -73,60 +73,61 @@ class Character
   protected bool $isNpc;
 
   #[ORM\Column(type: Types::TEXT)]
-  protected $background = "";
+  protected string $background = "";
 
+  /** @var array<string, int> */
   #[ORM\Column(type: Types::JSON, nullable: true)]
-  protected $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
+  protected array $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
 
+  /** @var array<string, mixed> */
   #[ORM\Column(type: Types::JSON)]
   protected array $experienceLogs = [];
 
 
 
   #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
-  protected $attributes;
+  protected CharacterAttributes $attributes;
   
   #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
-  protected $skills;
+  protected CharacterSkills $skills;
   
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
-  protected $specialties;
+  protected Collection $specialties;
   
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
-  protected $virtue;
+  protected ?Virtue $virtue;
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $virtueDetail;
 
   #[ORM\ManyToOne(targetEntity: Vice::class)]
-  protected $vice;
+  protected ?Vice $vice;
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $viceDetail;
 
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
-  protected $merits;
+  protected Collection $merits;
 
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
-  protected $player;
+  protected ?User $player = null;
 
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
-  protected $chronicle;
+  protected ?Chronicle $chronicle;
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
   protected Collection $notes;
   
-  protected $limit = 5;
+  protected int $limit = 5;
 
   #[ORM\Column]
   protected ?bool $isTemplate = false;
 
-  protected $type;
+  protected string $type;
   
   public function __construct()
   {
-    if (!$this->attributes) {
-      $this->setAttributes(new CharacterAttributes());
-    }
+    $this->setAttributes(new CharacterAttributes());
+    $this->setSkills(new CharacterSkills());
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
     $this->notes = new ArrayCollection();
@@ -139,12 +140,20 @@ class Character
     return $this->getName();
   }
 
-  public function getId(): ?int
+  /**
+   * @return array<string>
+   */
+  public function getProperties() : array
+  {
+    return get_object_vars($this);
+  }
+
+  public function getId() : ?int
   {
     return $this->id;
   }
 
-  public function setId(?int $id)
+  public function setId(?int $id) : self
   {
     $this->id = $id;
     return $this;
@@ -211,7 +220,7 @@ class Character
     return true;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     if (!empty($this->nickname)) {
 
@@ -339,7 +348,7 @@ class Character
     return $this;
   }
 
-  public function addAttribute(string $attribute, int $value)
+  public function addAttribute(string $attribute, int $value) : self
   {
     $this->attributes->set($attribute, $this->attributes->get($attribute) + $value);
 
@@ -351,12 +360,17 @@ class Character
     return $this->specialties;
   }
 
-  public function getSkillSpecialties($filter): array
+  /**
+   * @return array<CharacterSpecialty>
+   */
+  public function getSkillSpecialties(string $filter): array
   {
     $result = [];
     foreach ($this->specialties as $specialty) {
+      /** @var Skill $skill */
+      $skill = $specialty->getSkill();
       /** @var CharacterSpecialty $specialty */
-      if ($filter == $specialty->getSkill()->getIdentifier()) {
+      if ($filter == $skill->getIdentifier()) {
         $result[] = $specialty;
       }
     }
@@ -381,7 +395,7 @@ class Character
     return $this;
   }
 
-  public function getWillpower(): ?int
+  public function getWillpower(): int
   {
     return $this->willpower;
   }
@@ -436,12 +450,12 @@ class Character
     return $this;
   }
 
-  public function getAttributes(): ?CharacterAttributes
+  public function getAttributes(): CharacterAttributes
   {
     return $this->attributes;
   }
 
-  public function setAttributes(?CharacterAttributes $attributes): self
+  public function setAttributes(CharacterAttributes $attributes): self
   {
     $this->attributes = $attributes;
     $attributes->setCharacter($this);
@@ -449,12 +463,12 @@ class Character
     return $this;
   }
 
-  public function getSkills(): ?CharacterSkills
+  public function getSkills(): CharacterSkills
   {
     return $this->skills;
   }
 
-  public function setSkills(?CharacterSkills $skills): self
+  public function setSkills(CharacterSkills $skills): self
   {
     $this->skills = $skills;
     $skills->setCharacter($this);
@@ -462,6 +476,9 @@ class Character
     return $this;
   }
 
+  /**
+   * @return array<string, int>
+   */
   public function getWounds(): array
   {
     if (!$this->wounds) {
@@ -471,6 +488,9 @@ class Character
     return $this->wounds;
   }
 
+  /**
+   * @param array<string, int> $wounds
+   */
   public function setWounds(array $wounds): self
   {
     $this->wounds = $wounds;
@@ -509,15 +529,6 @@ class Character
   {
     $base = $this->size + $this->getLimit();
 
-
-    if ($this->getType() == "vampire") {
-      /**@var Vampire $this */
-      $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
-      if (!is_null($resilience)) {
-        $base = $base + $resilience->getLevel();
-      }
-    }
-
     return $base;
   }
 
@@ -533,7 +544,7 @@ class Character
     return $threesold;
   }
 
-  public function getCurrentWillpower(): ?int
+  public function getCurrentWillpower(): int
   {
     return $this->currentWillpower;
   }
@@ -557,12 +568,15 @@ class Character
     return $this->attributes->getStrength() + $this->attributes->getDexterity() + 5 + $bonus;
   }
 
+  /**
+   * @return array<string, mixed>
+   */
   public function getSpeedDetails(): array
   {
     $bonus = 0;
 
     $merit = $this->hasMerit(MeritReferences::FLEET_OF_FOOT);
-    if ($merit) {
+    if (!is_null($merit)) {
       $bonus = $merit->getLevel();
     }
 
@@ -574,7 +588,7 @@ class Character
     ];
 
     return [
-      'total' => array_sum($details),
+      'total' => (int)array_sum($details),
       'details' => $details,
     ];
   }
@@ -591,6 +605,9 @@ class Character
     return $this->attributes->getDexterity() + $this->attributes->getComposure() + $bonus;
   }
 
+  /**
+   * @return array<string, mixed>
+   */
   public function getInitiativeDetails(): array
   {
     $bonus = 0;
@@ -607,7 +624,7 @@ class Character
     ];
 
     return [
-      'total' => array_sum($details),
+      'total' => (int)array_sum($details),
       'details' => $details,
     ];
   }
@@ -618,6 +635,9 @@ class Character
     return min($this->attributes->getDexterity(), $this->attributes->getWits());
   }
 
+  /**
+   * @return array<string, mixed>
+   */
   public function getDefenseDetails(): array
   {
     $bonus = 0;
@@ -629,7 +649,7 @@ class Character
     ];
 
     return [
-      'total' => min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus,
+      'total' => (int)min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus,
       'details' => $details,
     ];
   }
@@ -664,13 +684,18 @@ class Character
     return $this;
   }
 
-  public function hasMerit(int $id): ?CharacterMerit
+  public function hasMerit(?int $id): ?CharacterMerit
   {
-    foreach ($this->merits as $merit) {
-      /** @var CharacterMerit $merit */
-      if ($merit->getMerit()->getId() == $id) {
+    if (!is_null($id)) {
 
-        return $merit;
+      /** @var CharacterMerit $charMerit */
+      foreach ($this->merits as $charMerit) {
+        /** @var Merit $merit */
+        $merit = $charMerit->getMerit();
+        if ($merit->getId() == $id) {
+          
+          return $charMerit;
+        }
       }
     }
 
@@ -713,6 +738,9 @@ class Character
     return $this;
   }
 
+  /**
+   * @return int
+   */
   public function dicePool(Collection $attributes, Collection $skills, int $bonus = 0)
   {
     $total = 0;
@@ -735,7 +763,11 @@ class Character
     return $total + $bonus;
   }
 
-  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = [])
+  /**
+   * @param array<string, int> $modifiers
+   * @return array<string, mixed>
+   */
+  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []) : array
   {
     $details = [
       'total' => 0,
@@ -773,13 +805,13 @@ class Character
         if ($this instanceof Vampire) {
           /** @var Vampire $this */
           $discipline = $this->getDiscipline($special->getId());
-          if (!is_null($discipline)) {
-            $value = $this->getDiscipline($special->getId())->getLevel();
+          if ($discipline instanceof VampireDiscipline) {
+            $value = $discipline->getLevel();
           } else {
             $value = 0;
           }
         }
-        $details[$special->getId()] = $value;
+        $details[(string)$special->getId()] = $value;
         $details['total'] += $value;
         $details['string'] .= " {$special->getName()} {$value}";
       }
@@ -840,12 +872,12 @@ class Character
     return $this;
   }
 
-  public function getBackground(): ?string
+  public function getBackground(): string
   {
     return $this->background;
   }
 
-  public function setBackground(string $background): self
+  public function setBackground(string $background = ""): self
   {
     $converter = new HtmlConverter();
     $this->background = $converter->convert($background);
@@ -853,11 +885,17 @@ class Character
     return $this;
   }
 
+  /**
+   * @return array<string, mixed>
+   */
   public function getExperienceLogs(): array
   {
     return $this->experienceLogs;
   }
 
+  /**
+   * @param array<string, mixed> $experienceLogs
+   */
   public function setExperienceLogs(array $experienceLogs): self
   {
     $this->experienceLogs = $experienceLogs;

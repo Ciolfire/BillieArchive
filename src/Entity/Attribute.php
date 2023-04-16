@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -17,31 +17,31 @@ class Attribute
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: "string", length: 20)]
-  private $identifier;
+  private string $identifier = "";
 
   #[ORM\Column(type: "string", length: 20)]
-  private $category;
+  private string $category = "";
 
   #[ORM\Column(type: "string", length: 20)]
-  private $type;
+  private string $type = "";
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: "string", length: 20)]
-  private $name;
+  private string $name = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: "text")]
-  private $description;
+  private string $description = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: "text")]
-  private $fluff;
+  private string $fluff = "";
 
   #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'attributes')]
   private Collection $rolls;
@@ -61,7 +61,7 @@ class Attribute
     return $this->id;
   }
 
-  public function getIdentifier(): ?string
+  public function getIdentifier(): string
   {
     return $this->identifier;
   }
@@ -73,7 +73,7 @@ class Attribute
     return $this;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
@@ -85,7 +85,7 @@ class Attribute
     return $this;
   }
 
-  public function getCategory(): ?string
+  public function getCategory(): string
   {
     return $this->category;
   }
@@ -109,12 +109,12 @@ class Attribute
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(string $description): self
+  public function setDescription(string $description = ""): self
   {
     $converter = new HtmlConverter();
     $this->description = $converter->convert($description);
@@ -122,12 +122,12 @@ class Attribute
     return $this;
   }
 
-  public function getFluff(): ?string
+  public function getFluff(): string
   {
     return $this->fluff;
   }
 
-  public function setFluff(string $fluff): self
+  public function setFluff(string $fluff = ""): self
   {
     $converter = new HtmlConverter();
     $this->fluff = $converter->convert($fluff);

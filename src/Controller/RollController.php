@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("{_locale<%supported_locales%>?%default_locale%}/roll")]
 class RollController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {
@@ -74,7 +74,7 @@ class RollController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/translate/{language}", name:"roll_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Roll $roll, $language, EntityManagerInterface $entityManager): Response
+  public function translate(Request $request, Roll $roll, string $language, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(RollType::class, $roll);
     $form->handleRequest($request);
@@ -97,7 +97,10 @@ class RollController extends AbstractController
   #[Route("/{id<\d+>}/delete", name:"roll_delete", methods:["POST"])]
   public function delete(Request $request, Roll $roll, EntityManagerInterface $entityManager): Response
   {
-    if ($this->isCsrfTokenValid('delete' . $roll->getId(), $request->request->get('_token'))) {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $token = $request->request->get('_token');
+    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $roll->getId(), $token)) {
       $entityManager->remove($roll);
       $entityManager->flush();
     }
@@ -106,7 +109,7 @@ class RollController extends AbstractController
   }
 
   #[Route("/{setting}/{id<\d+>}", name: "roll_list", methods: ["GET"])]
-  public function list($setting = null, $id = null)
+  public function list(string $setting = null, int $id = null) : Response
   {
     if (is_null($setting)) {
       $rolls = $this->dataService->findBy(Roll::class, [], ['name' => 'ASC']);

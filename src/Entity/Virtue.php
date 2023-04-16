@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
 use App\Repository\VirtueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: VirtueRepository::class)]
@@ -11,14 +12,14 @@ class Virtue
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-    private $id;
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $id;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 10)]
-    private $name;
+    #[ORM\Column(type: Types::STRING, length: 10)]
+    private string $name = "";
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-    private $details;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private string $details;
 
     public function getId(): ?int
     {
@@ -30,7 +31,7 @@ class Virtue
         return $this->name;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

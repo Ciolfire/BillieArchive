@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -23,24 +23,24 @@ class DisciplinePower
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
-  private $name;
+  private ?string $name;
 
   #[ORM\Column(type: Types::STRING)]
-  private $short = "";
+  private string $short = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $details = "";
+  private string $details = "";
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-  private $level;
+  private ?int $level;
 
   #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: "powers")]
   #[ORM\JoinColumn(nullable: false)]
-  private $discipline;
+  private ?Discipline $discipline = null;
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
   private Collection $attributes;
@@ -52,7 +52,7 @@ class DisciplinePower
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
-  public function __construct($discipline, $level)
+  public function __construct(Discipline $discipline, int $level)
   {
     $this->discipline = $discipline;
     $this->level = $level;
@@ -65,11 +65,11 @@ class DisciplinePower
     return $this->id;
   }
 
-  public function __toString()
+  public function __toString() : string
   {
     if ($this->name === null) {
 
-      return $this->id;
+      return (string)$this->id;
     }
     return $this->name;
   }
@@ -86,9 +86,9 @@ class DisciplinePower
     return $this;
   }
 
-  public function getLevelDots(): ?string
+  public function getLevelDots(): string
   {
-    if ($this->level == 0) {
+    if (is_null($this->level) || $this->level == 0) {
 
       return '• - •••••';
     }
@@ -112,12 +112,12 @@ class DisciplinePower
     return $this;
   }
 
-  public function getDetails(): ?string
+  public function getDetails(): string
   {
     return $this->details;
   }
 
-  public function setDetails(string $details): self
+  public function setDetails(string $details = ""): self
   {
     $converter = new HtmlConverter();
     $details = $converter->convert($details);
@@ -145,16 +145,19 @@ class DisciplinePower
     return $this;
   }
 
-  public function dicePool(Vampire $character)
+  public function dicePool(Vampire $character) : mixed
   {
-    $characterDiscipline = $character->getDiscipline($this->discipline->getId());
+    /** @var Discipline $discipline */
+    $discipline = $this->discipline;
+    $id = (int)$discipline->getId();
+    $characterDiscipline = $character->getDiscipline($id);
     if ($characterDiscipline) {
       $level = $characterDiscipline->getLevel();
     } else {
       $level = 0;
     }
 
-    if ($this->discipline->isThaumaturgy()) {
+    if ($discipline->isThaumaturgy()) {
       $bonus =  $level - $this->level;
     } else {
       $bonus = $level;
@@ -163,15 +166,17 @@ class DisciplinePower
     return $character->dicePool($this->attributes, $this->skills, $bonus);
   }
 
-  public function detailedDicePool(Vampire $character)
+  public function detailedDicePool(Vampire $character) : mixed
   {
-    $discipline = $character->getDiscipline($this->discipline->getId());
-    // dd($this->discipline->getId());
+    /** @var Discipline $discipline */
+    $discipline = $this->discipline;
+    $id = (int)$discipline->getId();
+    $charDiscipline = $character->getDiscipline($id);
     
     $modifiers = [
-      $this->discipline->getName() => $discipline? $discipline->getLevel() : 0,
+      $discipline->getName() => $charDiscipline? $charDiscipline->getLevel() : 0,
     ];
-    if ($this->discipline->isThaumaturgy()) {
+    if ($discipline->isThaumaturgy()) {
       $modifiers['thaumaturgy'] = -$this->level;
     }
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "characters_skills")]
 class CharacterSkills
 {
-  public $list = [
+  /** @var array<string> */
+  public array $list = [
     'academics', 'computer', 'crafts', 'investigation', 'medicine', 'occult', 'politics', 'science',
     'athletics', 'brawl', 'drive', 'firearms', 'larceny', 'stealth', 'survival', 'weaponry',
     'animalKen', 'empathy', 'expression', 'intimidation', 'persuasion', 'socialize', 'streetwise', 'subterfuge',
@@ -19,82 +20,82 @@ class CharacterSkills
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id = 0;
+  private int $id = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $academics = 0;
+  private int $academics = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $computer = 0;
+  private int $computer = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $crafts = 0;
+  private int $crafts = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $investigation = 0;
+  private int $investigation = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $medicine = 0;
+  private int $medicine = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $occult = 0;
+  private int $occult = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $politics = 0;
+  private int $politics = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $science = 0;
+  private int $science = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $athletics = 0;
+  private int $athletics = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $brawl = 0;
+  private int $brawl = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $drive = 0;
+  private int $drive = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $firearms = 0;
+  private int $firearms = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $larceny = 0;
+  private int $larceny = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $stealth = 0;
+  private int $stealth = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $survival = 0;
+  private int $survival = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $weaponry = 0;
+  private int $weaponry = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $animalKen = 0;
+  private int $animalKen = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $empathy = 0;
+  private int $empathy = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $expression = 0;
+  private int $expression = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $intimidation = 0;
+  private int $intimidation = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $persuasion = 0;
+  private int $persuasion = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $socialize = 0;
+  private int $socialize = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $streetwise = 0;
+  private int $streetwise = 0;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
-  private $subterfuge = 0;
+  private int $subterfuge = 0;
 
   #[ORM\OneToOne(targetEntity: Character::class, mappedBy: "skills")]
-  private $character;
+  private Character $character;
 
   public function __construct()
   {
@@ -105,9 +106,11 @@ class CharacterSkills
     return $this->id;
   }
 
-  public function setCharacter(Character $character)
+  public function setCharacter(Character $character) : self
   {
     $this->character = $character;
+
+    return $this;
   }
 
   public function get(string $skill): ?int

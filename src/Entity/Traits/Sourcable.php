@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity\Traits;
 
@@ -8,10 +8,10 @@ use App\Entity\Book;
 trait Sourcable {
   #[ORM\ManyToOne(targetEntity: Book::class)]
   #[ORM\OrderBy(["name" => "ASC"])]
-  protected $book;
+  protected ?Book $book;
 
   #[ORM\Column(type: "smallint", nullable: true)]
-  protected $page;
+  protected ?int $page;
 
   public function getBook(): ?Book
   {
@@ -25,12 +25,12 @@ trait Sourcable {
     return $this;
   }
 
-  public function getPage(): ?string
+  public function getPage(): ?int
   {
     return $this->page;
   }
 
-  public function setPage(?string $page): self
+  public function setPage(?int $page): self
   {
     $this->page = $page;
 

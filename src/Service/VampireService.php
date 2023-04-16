@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service;
 
@@ -13,7 +13,6 @@ use App\Entity\VampireDiscipline;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Repository\ClanRepository;
-
 use Symfony\Component\Form\FormInterface;
 
 class VampireService
@@ -25,22 +24,33 @@ class VampireService
     $this->dataService = $dataService;
   }
 
+
+  /**
+   * @return array<string, array<int, object>>
+   */
   public function getSpecial(Vampire $vampire) : array
   {
-    $disciplines = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]), $vampire);
-    $sorcery = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isSorcery' => true]), $vampire);
-    $coils = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isCoil' => true]), $vampire);
-    $thaumaturgy = $this->filterDisciplines($this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]), $vampire);
-    // dd($disciplines, $vampire);
+    /** @var array<int, Discipline> */
+    $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
+    /** @var array<int, Discipline> */
+    $sorcery = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
+    /** @var array<int, Discipline> */
+    $coils = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
+    /** @var array<int, Discipline> */
+    $thaumaturgy = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
+
+    $disciplines = $this->filterDisciplines($disciplines, $vampire);
+    $sorcery = $this->filterDisciplines($sorcery, $vampire);
+    $coils = $this->filterDisciplines($coils, $vampire);
+    $thaumaturgy = $this->filterDisciplines($thaumaturgy, $vampire);
+
     $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
       if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
         unset($devotions[$key]);
       }
-      foreach ($devotion->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
+      $this->dataService->loadPrerequisites($devotion);
     }
     return [
       'disciplines' => $disciplines,
@@ -53,6 +63,7 @@ class VampireService
 
   /**
  * @param array<int, Discipline> $disciplines
+ * @return array<int, Discipline>
  */
   private function filterDisciplines(array $disciplines, Vampire $vampire) : array
   {
@@ -66,9 +77,9 @@ class VampireService
     return $disciplines;
   }
 
-  private function isDisciplineAllowed(Discipline $discipline, Vampire $vampire)
+  private function isDisciplineAllowed(Discipline $discipline, Vampire $vampire) : bool
   {
-    if ($vampire->hasDiscipline($discipline->getId())) {
+    if (!is_null($discipline->getId()) && $vampire->hasDiscipline($discipline->getId())) {
 
       return false;
     }
@@ -76,7 +87,7 @@ class VampireService
 
       return false;
     }
-    if ($discipline->isRestricted() && !$vampire->getClan()->hasDiscipline($discipline)) {
+    if ($discipline->isRestricted() && !(!is_null($vampire->getClan()) && $vampire->getClan()->hasDiscipline($discipline))) {
 
       return false;
     }
@@ -84,10 +95,9 @@ class VampireService
     return true;
   }
 
-  public function embrace(Character $character, FormInterface $form)
+  public function embrace(Character $character, FormInterface $form) : void
   {
     $connection = $this->dataService->getConnection();
-
     $data = $form->getData();
 
     // The human is gone forever...
@@ -111,11 +121,14 @@ class VampireService
     $this->dataService->save($vampire);
   }
 
-  public function handleEdit(Vampire $vampire, array $data)
+  /** @param array<string, mixed> $data */
+  public function handleEdit(Vampire $vampire, array $data) : void
   {
     foreach ($data['disciplinesUp'] as $id => $level) {
       $discipline = $vampire->getDiscipline($id);
-      $discipline->setLevel($level);
+      if ($discipline) {
+        $discipline->setLevel($level);
+      }
     }
     if (isset($data['disciplines'])) {
       $this->addDisciplines($vampire, $data['disciplines']);
@@ -133,37 +146,49 @@ class VampireService
     }
   }
 
-  public function addDisciplines(Vampire $vampire, array $disciplines)
+  /** @param array<int, int> $disciplines */
+  public function addDisciplines(Vampire $vampire, array $disciplines) : void
   {
     foreach ($disciplines as $id => $level) {
       $discipline = $this->dataService->find(Discipline::class, $id);
-      $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
+      if ($discipline instanceof Discipline) {
+        $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
+      } else {
+        throw new \Exception("\$discipline not a Discipline");
+      }
       $this->dataService->add($newDiscipline);
       $vampire->addDiscipline($newDiscipline);
     }
   }
 
-  public function addDevotions(Vampire $vampire, array $devotions)
+  /** @param array<int, int> $devotions */
+  public function addDevotions(Vampire $vampire, array $devotions) : void
   {
     foreach ($devotions as $id => $value) {
       if ($value == 1) {
         $devotion = $this->dataService->find(Devotion::class, $id);
-        $vampire->addDevotion($devotion);
+        if ($devotion instanceof Devotion) {
+          $vampire->addDevotion($devotion);
+        }
       }
     }
   }
 
-  public function addRituals(Vampire $vampire, array $rituals)
+  /** @param array<int, int> $rituals */
+  public function addRituals(Vampire $vampire, array $rituals) : void
   {
     foreach ($rituals as $id => $value) {
       if ($value == 1) {
         $ritual = $this->dataService->find(DisciplinePower::class, $id);
-        $vampire->addRitual($ritual);
+        if ($ritual instanceof DisciplinePower) {
+          $vampire->addRitual($ritual);
+        }
       }
     }
   }
 
-  public function getBloodlines($item = null)
+  /** @return array<int, Clan> */
+  public function getBloodlines(mixed $item = null) : array
   {
     /** @var ClanRepository $repo */
     $repo = $this->dataService->getRepository(Clan::class);
@@ -176,7 +201,10 @@ class VampireService
     }
   }
 
-  public function getDisciplines($type = "discipline", $filter = null, $id = null)
+  /**
+   * @return array<string, mixed>
+   */
+  public function getDisciplines(string $type = "discipline", string $filter = null, int $id = null) : array
   {
     $template = 'vampire/discipline/index.html.twig';
     $criteria = [];
@@ -239,7 +267,10 @@ class VampireService
     ];
   }
 
-  public function getRituals($filter = null, $id = null)
+  /**
+   * @return array<string, mixed>
+   */
+  public function getRituals(string $filter = null, int $id = null) : array
   {
     $criteria = [];
 
@@ -251,11 +282,12 @@ class VampireService
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
 
         $criteria['book'] = $item;
-        break;
       }
+      $rituals = $item->getRituals();
+    } else {
+      $rituals = [];
     }
 
-    $rituals = $item->getRituals();
     $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_ritual']);
 
     return [

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -13,16 +13,16 @@ class CharacterSpecialty
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: "string", length: 30)]
-  private $name;
+  private ?string $name;
 
   #[ORM\ManyToOne(targetEntity: Character::class, inversedBy: "specialties", cascade: ["persist", "remove"])]
-  private $character;
+  private ?Character $character;
 
   #[ORM\ManyToOne(targetEntity: Skill::class)]
-  private $skill;
+  private ?Skill $skill;
 
 
   public function __construct(Character $character = null, Skill $skill = null, string $name = null)

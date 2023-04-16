@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -22,9 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/{_locale<%supported_locales%>?%default_locale%}/chronicle")]
 class ChronicleController extends AbstractController
 {
-  private $doctrine;
-  private $service;
-  private $dataService;
+  private ManagerRegistry $doctrine;
+  private CharacterService $service;
+  private DataService $dataService;
 
   public function __construct(ManagerRegistry $doctrine, CharacterService $service, DataService $dataService)
   {
@@ -42,7 +42,9 @@ class ChronicleController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      $chronicle->setStoryteller($this->getUser());
+      /** @var User $user */
+      $user = $this->getUser();
+      $chronicle->setStoryteller($user);
       $this->doctrine->getManager()->persist($chronicle);
       $this->doctrine->getManager()->flush();
       $this->addFlash('notice', "{$chronicle->getName()} created");
@@ -56,7 +58,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/", name: "chronicle_show", methods: ["GET"])]
-  public function show(Chronicle $chronicle)
+  public function show(Chronicle $chronicle) : Response
   {
     return $this->render('chronicle/show.html.twig', [
       'chronicle' => $chronicle,
@@ -65,7 +67,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/homebrew", name: "homebrew_index", methods: ["GET"])]
-  public function homebrew(Chronicle $chronicle)
+  public function homebrew(Chronicle $chronicle) : Response
   {
     return $this->render('chronicle/homebrew/index.html.twig', [
       'chronicle' => $chronicle,
@@ -74,7 +76,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/party", name: "chronicle_party_index", methods: ["GET"])]
-  public function party(Chronicle $chronicle)
+  public function party(Chronicle $chronicle) : Response
   {
     return $this->render('chronicle/party/index.html.twig', [
       'chronicle' => $chronicle,
@@ -83,7 +85,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/npc", name: "chronicle_npc_index", methods: ["GET"])]
-  public function npc(Chronicle $chronicle)
+  public function npc(Chronicle $chronicle) : Response
   {
     return $this->render('character/npc/index.html.twig', [
       'chronicle' => $chronicle,
@@ -92,7 +94,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/npc/add", name: "chronicle_npc_add", methods: ["GET"])]
-  public function addNpc(Chronicle $chronicle)
+  public function addNpc(Chronicle $chronicle) : Response
   {
 
     return $this->redirectToRoute('character_new', ['chronicle' => $chronicle->getId(), 'isNpc' => true]);
@@ -140,7 +142,7 @@ class ChronicleController extends AbstractController
   public function removePlayer(Request $request, Chronicle $chronicle) : Response
   {
     $availablePlayers = $chronicle->getPlayers();
-    if ($availablePlayers) {
+    if (count($availablePlayers) > 0) {
       $form = $this->createFormBuilder()
         ->add('player', ChoiceType::class, [
           'choices' => $availablePlayers,

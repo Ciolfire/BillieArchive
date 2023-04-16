@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("{_locale<%supported_locales%>?%default_locale%}/derangement")]
 class DerangementController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {
@@ -75,7 +75,7 @@ class DerangementController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/translate/{language}", name:"derangement_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Derangement $derangement, $language, EntityManagerInterface $entityManager): Response
+  public function translate(Request $request, Derangement $derangement, string $language, EntityManagerInterface $entityManager): Response
   {
     $form = $this->createForm(DerangementType::class, $derangement);
     $form->handleRequest($request);
@@ -98,7 +98,10 @@ class DerangementController extends AbstractController
   #[Route("/{id<\d+>}/delete", name:"derangement_delete", methods:["POST"])]
   public function delete(Request $request, Derangement $derangement, EntityManagerInterface $entityManager): Response
   {
-    if ($this->isCsrfTokenValid('delete' . $derangement->getId(), $request->request->get('_token'))) {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $token = $request->request->get('_token');
+    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $derangement->getId(), $token)) {
       $entityManager->remove($derangement);
       $entityManager->flush();
     }
@@ -107,7 +110,7 @@ class DerangementController extends AbstractController
   }
 
   #[Route("/{type}/{id<\d+>}", name: "derangement_list", methods: ["GET"])]
-  public function list($type = null, $id = null)
+  public function list(string $type = null, int $id = null) : Response
   {
     /** @var DerangementRepository $repo */
     $repo = $this->dataService->getRepository(Derangement::class);

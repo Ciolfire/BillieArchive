@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/wiki')]
 class WikiController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {

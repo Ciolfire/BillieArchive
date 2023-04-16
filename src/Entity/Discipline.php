@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -24,33 +24,33 @@ class Discipline
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 50)]
-  private $name;
+  private string $name;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $description;
+  private string $description;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 90, nullable: true)]
-  private $short;
+  private string $short;
 
   #[ORM\Column(type: Types::BOOLEAN)]
-  private $isRestricted =  1;
+  private bool $isRestricted = true;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $rules;
+  private string $rules;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true)]
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
-  private $powers;
+  private Collection $powers;
 
   #[ORM\Column]
   private ?bool $isThaumaturgy;
@@ -61,7 +61,7 @@ class Discipline
   #[ORM\Column]
   private ?bool $isCoil;
 
-  public function __construct($sorcery = false, $thaumaturgy = false, $coil = false)
+  public function __construct(bool $sorcery = false, bool $thaumaturgy = false, bool $coil = false)
   {
     $this->isSorcery = $sorcery;
     $this->isThaumaturgy = $thaumaturgy;
@@ -119,7 +119,7 @@ class Discipline
     return null;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
@@ -148,7 +148,7 @@ class Discipline
     return $this->short;
   }
 
-  public function setShort(?string $short): self
+  public function setShort(string $short = ""): self
   {
     $this->short = $short;
 
@@ -172,14 +172,10 @@ class Discipline
     return $this->rules;
   }
 
-  public function setRules(string $rules): self
+  public function setRules(string $rules = ""): self
   {
-    if (!is_null($rules)) {
-      $converter = new HtmlConverter();
-      $rules = $converter->convert($rules);
-    } else {
-      $rules = "";
-    }
+    $converter = new HtmlConverter();
+    $rules = $converter->convert($rules);
     $this->rules = $rules;
 
     return $this;
@@ -240,7 +236,7 @@ class Discipline
     return $this;
   }
 
-  public function isCreationUnlocked()
+  public function isCreationUnlocked() : bool
   {
     if (!$this->isRestricted) {
       if (!in_array($this->id, [2, 4, 5, 6, 8])) {

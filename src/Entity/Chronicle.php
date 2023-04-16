@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -14,44 +14,44 @@ class Chronicle
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
-  private $name;
+  private string $name;
 
   #[ORM\OneToMany(targetEntity:Character::class, mappedBy: "chronicle")]
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
-  private $characters;
+  private Collection $characters;
 
   #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "chronicles")]
   #[ORM\OrderBy(["username" => "ASC", "id" => "DESC"])]
-  private $players;
+  private Collection $players;
 
   #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "stories")]
-  private $storyteller;
+  private User $storyteller;
 
   #[ORM\Column(type: "string", length: 50)]
-  private $type;
+  private string $type;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $merits;
+  private Collection $merits;
 
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $clans;
+  private Collection $clans;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $devotions;
+  private Collection $devotions;
   
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private $disciplines;
+  private Collection $disciplines;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
-  private $rituals;
+  private Collection $rituals;
 
   public function __construct()
   {
@@ -142,7 +142,7 @@ class Chronicle
     return $this->storyteller;
   }
 
-  public function setStoryteller(?User $storyteller): self
+  public function setStoryteller(User $storyteller): self
   {
     $this->storyteller = $storyteller;
 
@@ -162,6 +162,9 @@ class Chronicle
     return null;
   }
 
+  /**
+   * @return array<Character>
+   */
   public function getNpc(): array
   {
     $npc = [];
@@ -192,6 +195,9 @@ class Chronicle
     return $this->merits;
   }
 
+  /**
+   * @return array<Clan>
+   */
   public function getClans(): array
   {
     $clans = [];
@@ -207,6 +213,9 @@ class Chronicle
     return $clans;
   }
 
+  /**
+   * @return array<Clan>
+   */
   public function getBloodlines(): array
   {
     $bloodlines = [];

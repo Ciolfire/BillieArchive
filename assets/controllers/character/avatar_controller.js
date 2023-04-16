@@ -23,10 +23,14 @@ export default class extends Controller {
     avatar.src = this.srcValue;
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
-        //ok
-        var timestamp = new Date().getTime();
-        avatar.src = `${avatar.src}?t=${timestamp}`;
-        console.log(avatar.src);
+        if (xhttp.status == 200) {
+          //ok
+          var timestamp = new Date().getTime();
+          avatar.src = `${avatar.src}?t=${timestamp}`;
+          console.log(avatar.src);
+        } else if (xhttp.status == 204) {
+          console.log('avatar not saved');
+        }
       }
     };
     xhttp.open("POST", `/en/character/${this.idValue}/avatar/update`, true);

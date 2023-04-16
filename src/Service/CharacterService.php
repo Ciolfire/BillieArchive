@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service;
 
@@ -6,20 +6,21 @@ use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\Merit;
 use App\Entity\Skill;
+use App\Entity\Vampire;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CharacterService
 {
-  private $doctrine;
-  private $vService;
+  private DataService $dataService;
+  private VampireService $vService;
 
-  public function __construct(EntityManagerInterface $entityManager, VampireService $vService)
+  public function __construct(DataService $dataService, VampireService $vService)
   {
-    $this->doctrine = $entityManager;
+    $this->dataService = $dataService;
     $this->vService = $vService;
   }
 
-  public function takeWound(Character $character, int $value)
+  public function takeWound(Character $character, int $value) : void
   {
     $wounds = $character->getWounds();
     switch ($value) {
@@ -45,10 +46,10 @@ class CharacterService
         break;
     }
     $character->setWounds($wounds);
-    $this->doctrine->flush();
+    $this->dataService->flush();
   }
 
-  public function healWound(Character $character, int $value)
+  public function healWound(Character $character, int $value) : void
   {
     $wounds = $character->getWounds();
     switch ($value) {
@@ -71,10 +72,11 @@ class CharacterService
         break;
     }
     $character->setWounds($wounds);
-    $this->doctrine->flush();
+    $this->dataService->flush();
   }
 
-  public function updateLogs(Character $character, $logs, $isFree) {
+  public function updateLogs(Character $character, string $logs, bool $isFree) : void
+  {
     $logs = json_decode($logs);
     foreach ($logs as $key => $entry) {
       if (is_null($entry)) {
@@ -83,11 +85,15 @@ class CharacterService
         $entry->info->cost = 0;
       }
     }
-    $logs = json_decode(json_encode($logs), true);
+    $logs = json_encode($logs);
+    if ($logs !== false) {
+      $logs = json_decode($logs, true);
+    }
     // We only handle it if something has changed
-    if (!empty($logs)) {
-      $time = time();
-      $logs = ["{$time}" => $logs];
+    if (!empty($logs) && is_array($logs)) {
+      $time = (string)time();
+      /** @var array<string, mixed> */
+      $logs = [$time => $logs];
       $oldlogs = $character->getExperienceLogs();
       if (!empty($oldlogs)) {
         $logs = $logs + $oldlogs;
@@ -96,7 +102,7 @@ class CharacterService
     }
   }
 
-  public function updateTrait(Character $character, $data)
+  public function updateTrait(Character $character, \stdClass $data) : void
   {
     switch ($data->trait) {
       case 'willpower':
@@ -116,30 +122,35 @@ class CharacterService
         }
         break;
       }
-    $this->doctrine->flush();
+    $this->dataService->flush();
   }
 
-  public function updateWillpower(Character $character, int $value)
+  public function updateWillpower(Character $character, int $value) : void
   {
     $character->setWillpower($value);
   }
 
-  public function updateExperience(Character $character, $data)
+  public function updateExperience(Character $character, \stdClass $data) : ?int
   {
     if ($data->method == "add") {
       $total = $character->getXpTotal();
-      $new = $total + $data->value;
+      $new = $total + (int)$data->value;
       $character->setXpTotal($new);
-      $this->doctrine->flush();
-
-      return $new;
+      $this->dataService->flush();
+    } else {
+      $new = null;
     }
+
+    return $new;
   }
 
+  /**
+   *  @return array<string, array<string, array<string, string|null>>>
+   */
   public function getSortedAttributes() : array
   {
     $sortedAttributes = [];
-    $attributes = $this->doctrine->getRepository(Attribute::class)->findAll();
+    $attributes = $this->dataService->findAll(Attribute::class);
     foreach ($attributes as $attribute) {
       /** @var Attribute $attribute */
       if (!isset($sortedAttributes[$attribute->getCategory()])) {
@@ -151,10 +162,13 @@ class CharacterService
     return $sortedAttributes;
   }
 
+  /**
+   *  @return array<string, array<string, string|null>>
+   */
   public function getSortedSkills() : array
   {
     $sortedSkills = [];
-    $skills = $this->doctrine->getRepository(Skill::class)->findAll();
+    $skills = $this->dataService->findAll(Skill::class);
     foreach ($skills as $skill) {
       /** @var Skill $skill */
       if (!isset($sortedSkills[$skill->getCategory()])) {
@@ -166,17 +180,19 @@ class CharacterService
     return $sortedSkills;
   }
 
-  /** Remove all non valid merits */
-  public function filterMerits(Character $character, $isCreation = true)
+  /** Remove all non valid merits 
+   *  @return array<int, object>
+   */
+  public function filterMerits(Character $character, bool $isCreation = true) : array
   {
-    $merits = $this->doctrine->getRepository(Merit::class)->findAll();
+    $merits = $this->dataService->findAll(Merit::class);
 
     foreach ($merits as $key => $merit) {
       /** @var Merit $merit */
-      if ($merit->getIsUnique() && !is_null($character->hasMerit($merit->getId()))) {
+      if ($merit->isUnique() && !is_null($character->hasMerit($merit->getId()))) {
         // Character already has this merit, we remove it from the list
         unset($merits[$key]);
-      } else if (!$isCreation && $merit->getIsCreationOnly()) {
+      } else if (!$isCreation && $merit->isCreationOnly()) {
         // Level 1 merit
         unset($merits[$key]);
       }
@@ -187,9 +203,13 @@ class CharacterService
     return $merits;
   }
 
-  public function getSpecial(Character $character)
+  /**
+   * @return array<string, array<int, object>>|null
+   */
+  public function getSpecial(Character $character) : ?array
   {
     if ($character->getType() == 'vampire') {
+      /** @var Vampire $character */
       return $this->vService->getSpecial($character);
     } else {
 

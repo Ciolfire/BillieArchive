@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Form\Type\ExpandedEntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,6 +25,11 @@ class NoteType extends AbstractType
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
+    if ($chronicle instanceof Chronicle) {
+      $characters = $chronicle->getCharacters();
+    } else {
+      $characters = null;
+    }
     $converter = new LeagueMarkdown();
     $builder
       ->add('title', null, ['label' => 'note.title'])
@@ -49,7 +55,7 @@ class NoteType extends AbstractType
       ])
       ->add('character', null, [
         'label' => 'character.label',
-        'choices' => $chronicle->getCharacters(),
+        'choices' => $characters,
       ])
       ->add('notes', ExpandedEntityType::class, [
         'class' => Note::class,

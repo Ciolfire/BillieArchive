@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Security\Voter;
 
@@ -13,7 +13,7 @@ class CharacterVoter extends Voter
   public const VIEW = 'view';
   public const EDIT = 'edit';
   public const DELETE = 'delete';
-  private $security;
+  private Security $security;
 
   public function __construct(Security $security)
   {
@@ -48,7 +48,7 @@ class CharacterVoter extends Voter
     }
 
     // you know $subject is a Character object, thanks to `supports()`
-    /** @var Character $post */
+    /** @var Character $character */
     $character = $subject;
 
     return match($attribute) {
@@ -68,6 +68,8 @@ class CharacterVoter extends Voter
     if ($character->isTemplate()) {
       return true;
     }
+
+    return false;
   }
 
   private function canEdit(Character $character, User $user): bool

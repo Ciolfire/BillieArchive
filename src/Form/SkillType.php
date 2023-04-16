@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
@@ -13,7 +13,7 @@ class SkillType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    /** @var Skill $attribute */
+    /** @var Skill $skill */
     $skill = $options['data'];
     $converter = new LeagueMarkdown();
     $builder

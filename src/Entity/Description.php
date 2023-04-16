@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -11,13 +11,13 @@ class Description
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: "string", length: 50)]
-  private $name;
+  private string $name;
 
   #[ORM\Column(type: "text")]
-  private $value;
+  private string $value;
 
   public function getId(): ?int
   {

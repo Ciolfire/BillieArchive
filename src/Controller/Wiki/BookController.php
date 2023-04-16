@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller\Wiki;
 
@@ -6,6 +6,7 @@ use App\Entity\Book;
 use App\Form\BookType;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/wiki')]
 class BookController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {
@@ -21,7 +22,7 @@ class BookController extends AbstractController
   }
 
   #[Route('/books/{setting}', name: 'book_index', methods: ['GET'])]
-  public function books($setting = "human"): Response
+  public function books(string $setting = "human"): Response
   {
     $search = [];
     // $search['setting'] = [$setting];
@@ -41,7 +42,7 @@ class BookController extends AbstractController
   }
 
   #[Route('/book/new/{setting}', name: 'book_new', methods: ['GET', 'POST'])]
-  public function bookNew(Request $request, $setting="human"): Response
+  public function bookNew(Request $request, string $setting="human"): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -52,15 +53,16 @@ class BookController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $cover = $form->get('cover')->getData();
-      if (!is_null($cover)) {
-        $book->setCover($this->dataService->upload($cover, $this->getParameter('books_cover_directory')));
+      $path = $this->getParameter('books_cover_directory');
+      if ($cover instanceof UploadedFile  && is_string($path)) {
+        $book->setCover($this->dataService->upload($cover, $path));
       }
       $this->dataService->save($book);
 
       return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('wiki/form.html.twig', [
+    return $this->render('wiki/new.html.twig', [
       'entity' => 'book',
       'action' => 'new',
       'form' => $form,
@@ -78,8 +80,9 @@ class BookController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $cover = $form->get('cover')->getData();
-      if (!is_null($cover)) {
-        $book->setCover($this->dataService->upload($cover, $this->getParameter('books_cover_directory')));
+      $path = $this->getParameter('books_cover_directory');
+      if ($cover instanceof UploadedFile && is_string($path)) {
+        $book->setCover($this->dataService->upload($cover, $path));
       }
       $this->dataService->flush();
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -37,7 +37,10 @@ class ClanRepository extends ServiceEntityRepository
     }
     */
 
-  public function findByBook(Book $book)
+  /**
+   * @return Clan[] Returns an array of Clan objects
+   */
+  public function findByBook(Book $book) : array
   {
     return $this->createQueryBuilder('c')
       ->andWhere('c.isBloodline = false')
@@ -48,7 +51,10 @@ class ClanRepository extends ServiceEntityRepository
       ->getResult();
   }
 
-  public function findAllBloodlines()
+  /**
+   * @return Clan[] Returns an array of Clan objects
+   */
+  public function findAllBloodlines() : array
   {
     return $this->createQueryBuilder('c')
       ->andWhere('c.isBloodline = true')

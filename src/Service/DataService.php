@@ -1,26 +1,31 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service;
 
 use App\Entity\Book;
 use App\Entity\Character;
+use App\Entity\CharacterMerit;
 use App\Entity\Chronicle;
+use App\Entity\Devotion;
+use App\Entity\Merit;
 use App\Entity\Note;
 use App\Entity\User;
 use App\Entity\Vice;
 use App\Entity\Virtue;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DataService
 {
-  private $doctrine;
-  private $manager;
-  private $slugger;
+  private ManagerRegistry $doctrine;
+  private ObjectManager $manager;
+  private SluggerInterface $slugger;
 
   public function __construct(ManagerRegistry $doctrine, SluggerInterface $slugger)
   {
@@ -29,15 +34,16 @@ class DataService
     $this->slugger = $slugger;
   }
 
-  public function getConnection()
+  public function getConnection(?string $name = null) : Connection
   {
-    return $this->doctrine->getConnection();
+    /** @var Connection */
+    return $this->doctrine->getConnection($name);
   }
 
   /**
    * Add an entity, will add security checks there
    */
-  public function add($entity)
+  public function add(object $entity) : void
   {
     $this->manager->persist($entity);
   }
@@ -45,7 +51,7 @@ class DataService
   /**
    * Save an entity, will add security checks there
    */
-  public function save($entity)
+  public function save(object $entity) : void
   {
     $this->manager->persist($entity);
     $this->flush();
@@ -54,52 +60,88 @@ class DataService
   /**
    * Remove an entity, will add security checks there
    */
-  public function remove($entity)
+  public function remove(object $entity) : void
   {
     $this->manager->remove($entity);
     $this->flush();
   }
 
-  public function flush()
+  public function flush() : void
   {
     $this->manager->flush();
   }
 
-  public function reset()
+  public function reset() : ObjectManager
   {
     return $this->doctrine->resetManager();
   }
 
-  public function getRepository($entity)
+  /**
+   * @template T of object
+   * @param class-string<T> $entity
+   * @return ObjectRepository<object>
+   */
+  public function getRepository(string $entity) : ObjectRepository
   {
     return $this->doctrine->getRepository($entity);
   }
 
-  public function find(string $class, $element)
+  /**
+   * @template T of object
+   * @param class-string<T> $class
+   * @return T|null
+   */
+  public function find(string $class, mixed $id): ?object
   {
+    $object = $this->getRepository($class)->find($id);
 
-    return $this->doctrine->getRepository($class)->find($element);
+    if ($object instanceof $class) {
+      return $object;
+    } else {
+      return null;
+    }
   }
 
-  public function findBy(string $class, array $criteria, array $orderBy=null)
+  /**
+   * @template T of object
+   * @param class-string<T> $class
+   * @param array<string, mixed> $criteria>
+   * @return T|null
+  */
+  public function findOneBy(string $class, array $criteria) : ?object
+  {
+    $object = $this->getRepository($class)->findOneBy($criteria);
+    
+    if ($object instanceof $class) {
+      return $object;
+    } else {
+      return null;
+    }
+  }
+  
+  /**
+   * @param class-string $class
+   * @param array<string, mixed> $criteria
+   * @param array<string, 'ASC'|'asc'|'DESC'|'desc'>|null $orderBy
+   * @return array<int, object>
+   */
+  public function findBy(string $class, array $criteria, array $orderBy = null): array
   {
 
-    return $this->doctrine->getRepository($class)->findBy($criteria, $orderBy);
+    return $this->getRepository($class)->findBy($criteria, $orderBy);
   }
 
-  public function findOneBy(string $class, array $criteria)
+  /**
+   * @param class-string $class
+   * @return array<int, object>
+   */
+  public function findAll(string $class) : array
   {
 
-    return $this->doctrine->getRepository($class)->findOneBy($criteria);
+    return  $this->getRepository($class)->findAll();
   }
 
-  public function findAll($class)
-  {
-
-    return  $this->doctrine->getRepository($class)->findAll();
-  }
-
-  public function upload(UploadedFile $file, string $target, string $fileName=null)
+  public function upload(UploadedFile $file, string $target, string $fileName=null) : ?string
   {
     if (is_null($fileName)) {
       $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -110,15 +152,18 @@ class DataService
     try {
       $file->move($target, $fileName);
     } catch (FileException $e) {
+
+      return null;
       // ... handle exception if something happens during file upload
     }
 
     return $fileName;
   }
 
-  public function getMeritTypes(Book $book = null)
+  /** @return array<string> */
+  public function getMeritTypes(Book $book = null) : array
   {
-    $qb = $this->doctrine->getConnection()->createQueryBuilder()
+    $qb = $this->getConnection()->createQueryBuilder()
     ->select('type')
     ->from('merits')
     ->groupBy('type')
@@ -135,9 +180,10 @@ class DataService
     return $result;
   }
 
-  public function getBookTypes(string $setting)
+  /** @return array<string> */
+  public function getBookTypes(string $setting) : array
   {
-    return $this->doctrine->getConnection()->createQueryBuilder()
+    return $this->getConnection()->createQueryBuilder()
     ->select('type')
     ->from('book')
     ->where('setting = :setting')
@@ -147,9 +193,10 @@ class DataService
     ->executeQuery()->fetchFirstColumn();
   }
 
-  public function getChronicleNotesCategory(Chronicle $chronicle, User $user)
+  /** @return array<string> */
+  public function getChronicleNotesCategory(Chronicle $chronicle, User $user) : array
   {
-    return $this->doctrine->getConnection()->createQueryBuilder()
+    return $this->getConnection()->createQueryBuilder()
     ->select('category')
     ->from('note')
     ->where('chronicle_id = :chronicle')
@@ -161,57 +208,90 @@ class DataService
     ->executeQuery()->fetchFirstColumn();
   }
 
-  public function getLinkableNotes(User $user, Note $note)
+  /**
+   * @return array<int, array<string, mixed>>
+  **/
+  public function getLinkableNotes(User $user, Note $note) : array
   {
-    return $this->doctrine->getConnection()->createQueryBuilder()
-    ->select('id, title')
-    ->from('note')
-    ->where('chronicle_id = :chronicle')
-    ->andWhere('user_id = :user')
-    ->andWhere('id != :note')
-    ->orderBy('category_id', 'ASC')
-    ->setParameter('chronicle', $note->getChronicle()->getId(), Types::INTEGER)
-    ->setParameter('user', $user->getId(), Types::INTEGER)
-    ->setParameter('note', $note->getId(), Types::INTEGER)
-    ->executeQuery()->fetchAllAssociative();
+    $chronicle = $note->getChronicle();
+
+    if ($chronicle instanceof Chronicle) {
+      
+      return $this->getConnection()->createQueryBuilder()
+      ->select('id, title')
+      ->from('note')
+      ->where('chronicle_id = :chronicle')
+      ->andWhere('user_id = :user')
+      ->andWhere('id != :note')
+      ->orderBy('category_id', 'ASC')
+      ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
+      ->setParameter('user', $user->getId(), Types::INTEGER)
+      ->setParameter('note', $note->getId(), Types::INTEGER)
+      ->executeQuery()->fetchAllAssociative();
+    } else {
+
+      return [];
+    }
   }
 
-  public function loadMeritsPrerequisites(mixed $merits, string $type=null)
+  public function loadMeritsPrerequisites(mixed $merits, string $type=null) : void
   {
     switch ($type) {
       case 'character':
+        /** @var CharacterMerit $charMerit */
         foreach ($merits as $charMerit) {
-          /** @var Merit $merit */
-          foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
-            $prerequisite->setEntity($this->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+          if ($charMerit->getMerit() instanceof Merit) {
+            $this->loadPrerequisites($charMerit->getMerit());
           }
         }
         break;
 
       default:
+        /** @var Merit $merit */
         foreach ($merits as $merit) {
-          /** @var Merit $merit */
-          foreach ($merit->getprerequisites() as $prerequisite) {
-            $prerequisite->setEntity($this->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
+          if ($merit instanceof Merit) {
+            $this->loadPrerequisites($merit);
           }
         }
         break;
     }
   }
 
-  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user, $path)
+  /**
+   * @template T of Merit|Devotion
+   * @param T $entity
+   */
+  public function loadPrerequisites(object $entity) : void
+  {
+    if (method_exists(get_class($entity), 'getPrerequisites')) {
+      foreach ($entity->getPrerequisites() as $prerequisite) {
+        $className = $prerequisite->getType();
+        if (class_exists($className)) {
+          $prereqEntity = $this->findOneBy($className, ['id' => $prerequisite->getEntityId()]);
+          if (!is_null($prereqEntity)) {
+            $prerequisite->setEntity($prereqEntity);
+          }
+        }
+      }
+    }
+  }
+
+  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user, string $path) : void
   {
     $oldId = $character->getId();
-    $vice = $character->getVirtue()->getId();
-    $virtue = $character->getVice()->getId();
+    // $vice = $character->getVirtue();
+    // $virtue = $character->getVice();
     $this->doctrine->resetManager();
     $character->setId(null);
     $character->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
     $character->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
     $character->setIsTemplate(false);
     $character->setIsNpc(true);
-    $character->setVice($this->findOneBy(Vice::class, ['id' => $vice]));
-    $character->setVirtue($this->findOneBy(Virtue::class, ['id' => $virtue]));
+
+    // $vice = $this->findOneBy(Vice::class, ['id' => $vice]);
+
+    // $character->setVice($vice);
+    // $character->setVirtue($this->findOneBy(Virtue::class, ['id' => $virtue]));
     $this->manager->persist($character);
     $this->manager->flush();
     // Need to check how to properly import the avatar

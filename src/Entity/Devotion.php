@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -27,24 +27,24 @@ class Devotion
   private ?int $id = null;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $name = null;
+  private string $name = "";
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'devotions', cascade: ['persist', 'remove'])]
   private Collection $prerequisites;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private ?int $cost = null;
+  private int $cost = 0;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $description = null;
+  private string $description = "";
 
   #[ORM\Column(length: 255)]
-  private ?string $short = null;
+  private string $short = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
   private Collection $attributes;
@@ -76,7 +76,7 @@ class Devotion
     return $this->id;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
@@ -112,7 +112,7 @@ class Devotion
     return $this;
   }
 
-  public function getCost(): ?int
+  public function getCost(): int
   {
     return $this->cost;
   }
@@ -124,19 +124,15 @@ class Devotion
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(string $description): self
+  public function setDescription(string $description = ""): self
   {
-    if (!is_null($description)) {
-      $converter = new HtmlConverter();
-      $description = $converter->convert($description);
-    } else {
-      $description = "";
-    }
+    $converter = new HtmlConverter();
+    $description = $converter->convert($description);
     $this->description = $description;
 
     return $this;

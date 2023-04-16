@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -21,13 +21,13 @@ class Note
   private ?int $id = null;
 
   #[ORM\Column(length: 255, nullable: true)]
-  private ?string $title = null;
+  private string $title = "";
 
   #[ORM\Column]
   private ?\DateTimeImmutable $assignedAt = null;
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $content = "";
+  private string $content = "";
 
   #[ORM\ManyToOne]
   private ?Chronicle $chronicle = null;
@@ -47,7 +47,7 @@ class Note
   #[ORM\JoinTable(name: 'note_links')]
   #[ORM\JoinColumn(name: 'note_source', referencedColumnName: 'id')]
   #[ORM\InverseJoinColumn(name: 'note_target', referencedColumnName: 'id')]
-  #[ORM\ManyToMany(targetEntity: 'Note', inversedBy: 'linkedNotes')]
+  #[ORM\ManyToMany(targetEntity: Note::class, inversedBy: 'linkedNotes')]
   private Collection $linkToNotes;
 
   #[ORM\Column(type: Types::TEXT)]
@@ -69,12 +69,12 @@ class Note
     return $this->id;
   }
 
-  public function getTitle(): ?string
+  public function getTitle(): string
   {
     return $this->title;
   }
 
-  public function setTitle(?string $title): self
+  public function setTitle(string $title = ""): self
   {
     $this->title = $title;
 
@@ -93,7 +93,7 @@ class Note
     return $this;
   }
 
-  public function getContent(): ?string
+  public function getContent(): string
   {
     return $this->content;
   }

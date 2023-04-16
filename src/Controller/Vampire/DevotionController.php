@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
@@ -18,8 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire')]
 class DevotionController extends AbstractController
 {
-  private $dataService;
-  private $service;
+  private DataService $dataService;
+  private VampireService $service;
 
   public function __construct(DataService $dataService, VampireService $service)
   {
@@ -32,11 +32,9 @@ class DevotionController extends AbstractController
   {
     $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
 
+    /** @var Devotion $devotion */
     foreach ($devotions as $devotion) {
-      /** @var Devotion $devotion */
-      foreach ($devotion->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
+      $this->dataService->loadPrerequisites($devotion);
     }
 
     return $this->render('vampire/devotion/index.html.twig', [
@@ -48,7 +46,7 @@ class DevotionController extends AbstractController
   }
 
   #[Route("/devotion/{filter<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
-  public function devotionList($filter, $id)
+  public function devotionList(string $filter, int $id): Response
   {
     switch ($filter) {
       case 'chronicle':
@@ -64,11 +62,9 @@ class DevotionController extends AbstractController
     }
 
     $devotions = $item->getDevotions();
+    /** @var Devotion $devotion */
     foreach ($devotions as $devotion) {
-      /** @var Devotion $devotion */
-      foreach ($devotion->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
+      $this->dataService->loadPrerequisites($devotion);
     }
 
     return $this->render('vampire/devotion/index.html.twig', [
@@ -125,9 +121,7 @@ class DevotionController extends AbstractController
   #[Route('/devotion/{id<\d+>}/show', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
   public function devotionShow(Devotion $devotion, Request $request): Response
   {
-    foreach ($devotion->getprerequisites() as $prerequisite) {
-      $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-    }
+    $this->dataService->loadPrerequisites($devotion);
 
     return $this->render('vampire/devotion/show.html.twig', [
       'devotion' => $devotion,

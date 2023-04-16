@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -25,46 +25,46 @@ class Merit
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  private $id;
+  private ?int $id = null;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 40)]
-  private $name;
+  private string $name;
 
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private $category;
+  private string $category;
 
   #[ORM\Column(type: Types::BOOLEAN)]
-  private $isFighting;
+  private bool $isFighting;
 
   #[ORM\Column(type: Types::BOOLEAN)]
-  private $isExpanded;
+  private bool $isExpanded;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private $min = 1;
+  private int $min = 1;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private $max;
+  private int $max;
 
   #[ORM\Column(type: Types::BOOLEAN)]
-  private $isUnique;
+  private bool $isUnique;
 
   #[ORM\Column(type: Types::BOOLEAN)]
-  private $isCreationOnly;
+  private bool $isCreationOnly;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $effect = "";
+  private string $effect = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private $description;
+  private string $description;
 
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private $type;
+  private string $type;
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
@@ -87,9 +87,11 @@ class Merit
     return $this->id;
   }
 
-  public function setTranslatableLocale($locale)
+  public function setTranslatableLocale(string $locale) : self
   {
     $this->locale = $locale;
+
+    return $this;
   }
 
   public function getName(): ?string
@@ -116,7 +118,7 @@ class Merit
     return $this;
   }
 
-  public function getIsFighting(): ?bool
+  public function isFighting(): ?bool
   {
     return $this->isFighting;
   }
@@ -128,7 +130,7 @@ class Merit
     return $this;
   }
 
-  public function getIsExpanded(): ?bool
+  public function isExpanded(): ?bool
   {
     return $this->isExpanded;
   }
@@ -164,7 +166,7 @@ class Merit
     return $this;
   }
 
-  public function getIsUnique(): ?bool
+  public function isUnique(): ?bool
   {
     return $this->isUnique;
   }
@@ -176,7 +178,7 @@ class Merit
     return $this;
   }
 
-  public function getIsCreationOnly(): ?bool
+  public function isCreationOnly(): ?bool
   {
     return $this->isCreationOnly;
   }
@@ -188,12 +190,12 @@ class Merit
     return $this;
   }
 
-  public function getEffect(): ?string
+  public function getEffect(): string
   {
     return $this->effect;
   }
 
-  public function setEffect(string $effect): self
+  public function setEffect(string $effect = ""): self
   {
     $converter = new HtmlConverter();
     $this->effect = $converter->convert($effect);

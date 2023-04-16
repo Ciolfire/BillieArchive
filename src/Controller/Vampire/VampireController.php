@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
@@ -28,8 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire')]
 class VampireController extends AbstractController
 {
-  private $dataService;
-  private $service;
+  private DataService $dataService;
+  private VampireService $service;
 
   public function __construct(DataService $dataService, VampireService $service)
   {

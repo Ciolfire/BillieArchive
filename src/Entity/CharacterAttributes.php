@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -10,42 +10,43 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "characters_attributes")]
 class CharacterAttributes
 {
-  public $list = ['intelligence', 'wits', 'resolve', 'strength', 'dexterity', 'stamina', 'presence', 'manipulation', 'composure'];
+  /** @var array<string> */
+  public array $list = ['intelligence', 'wits', 'resolve', 'strength', 'dexterity', 'stamina', 'presence', 'manipulation', 'composure'];
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $intelligence = 1;
+  protected int $intelligence = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $wits = 1;
+  protected int $wits = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $resolve = 1;
+  protected int $resolve = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $strength = 1;
+  protected int $strength = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $dexterity = 1;
+  protected int $dexterity = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $stamina = 1;
+  protected int $stamina = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $presence = 1;
+  protected int $presence = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $manipulation = 1;
+  protected int $manipulation = 1;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
-  protected $composure = 1;
+  protected int $composure = 1;
 
   #[ORM\OneToOne(targetEntity: Character::class, mappedBy: "attributes")]
-  protected $character;
+  protected Character $character;
 
   public function __construct(?CharacterAttributes $attributes = null)
   {
@@ -62,12 +63,15 @@ class CharacterAttributes
     return $this->id;
   }
 
-  public function setCharacter(Character $character)
+  public function setCharacter(Character $character) : self
   {
     $this->character = $character;
+
+    return $this;
   }
 
-  public function get($attribute) {
+  public function get(string $attribute) : mixed
+  {
     return min($this->character->getLimit(), $this->$attribute);
   }
 
@@ -78,7 +82,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getIntelligence(): ?int
+  public function getIntelligence(): int
   {
     return min($this->character->getLimit(), $this->intelligence);
   }
@@ -90,7 +94,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getWits(): ?int
+  public function getWits(): int
   {
     return min($this->character->getLimit(), $this->wits);
   }
@@ -102,7 +106,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getResolve(): ?int
+  public function getResolve(): int
   {
     return min($this->character->getLimit(), $this->resolve);
   }
@@ -116,7 +120,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getStrength(): ?int
+  public function getStrength(): int
   {
     return min($this->character->getLimit(), $this->strength);
   }
@@ -128,7 +132,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getDexterity(): ?int
+  public function getDexterity(): int
   {
     return min($this->character->getLimit(), $this->dexterity);
   }
@@ -140,7 +144,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getStamina(): ?int
+  public function getStamina(): int
   {
     return min($this->character->getLimit(), $this->stamina);
   }
@@ -152,7 +156,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getPresence(): ?int
+  public function getPresence(): int
   {
     return min($this->character->getLimit(), $this->presence);
   }
@@ -164,7 +168,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getManipulation(): ?int
+  public function getManipulation(): int
   {
     return min($this->character->getLimit(), $this->manipulation);
   }
@@ -176,7 +180,7 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getComposure(): ?int
+  public function getComposure(): int
   {
 
     return min($this->character->getLimit(), $this->composure);

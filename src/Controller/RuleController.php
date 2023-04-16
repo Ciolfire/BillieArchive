@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("{_locale<%supported_locales%>?%default_locale%}/rule")]
 class RuleController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
   public function __construct(DataService $dataService)
   {
@@ -79,7 +79,8 @@ class RuleController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    if ($this->isCsrfTokenValid('delete' . $rule->getId(), $request->request->get('_token'))) {
+    $token = $request->request->get('_token');
+    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $rule->getId(), $token)) {
       $entityManager->remove($rule);
       $entityManager->flush();
     }
@@ -88,7 +89,7 @@ class RuleController extends AbstractController
   }
 
   #[Route("/{setting}/{id<\d+>}", name: "rule_index", methods: ["GET"])]
-  public function list($setting = null, $id = null)
+  public function list(string $setting = null, ?int $id = null) : Response
   {
     if (is_null($setting)) {
       $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);

@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Entity\Attribute;
+use App\Entity\Derangement;
 use App\Entity\Roll;
+use App\Entity\Skill;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RollType extends AbstractType
 {
-  public $translator;
+  public TranslatorInterface $translator;
 
   public function __construct(TranslatorInterface $translator)
   {

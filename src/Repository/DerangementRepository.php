@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -54,7 +54,7 @@ class DerangementRepository extends ServiceEntityRepository
   /**
    * @return Derangement[] Returns an array of Derangement objects
    */
-  public function findMildByType($type): array
+  public function findMildByType(string $type): array
   {
     return $this->createQueryBuilder('d')
       ->andWhere('d.type = :type')

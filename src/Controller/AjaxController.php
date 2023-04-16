@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -9,11 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 #[Route('/ajax')]
 class AjaxController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
 
 
   public function __construct(DataService $dataService)
@@ -23,7 +24,7 @@ class AjaxController extends AbstractController
 
 
   #[Route('/load/prerequisites', name: 'a_load_prerequisites', methods: ['GET', 'POST'])]
-  public function loadPrerequisites(Request $request): JsonResponse
+  public function loadPrerequisites(Request $request): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());

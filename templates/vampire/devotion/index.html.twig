@@ -86,10 +86,10 @@
           <div class="col col-lg-2">
             {% for prerequisite in devotion.prerequisites %}
               {% if prerequisite.value != 0 %}
-                {{ prerequisite.entity.name }}
+                {{ prerequisite.entity.name|default("") }}
                 {{ prerequisite.value }}
               {% else %}
-                <span class="strong">{{ prerequisite.entity.name }}</span>
+                <span class="strong">{{ prerequisite.entity.name|default("") }}</span>
               {% endif %}
             {% endfor %}
           </div>

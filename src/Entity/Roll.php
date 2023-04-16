@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -31,11 +31,11 @@ class Roll
   private ?int $id = null;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $name = null;
+  private string $name = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class, inversedBy: 'rolls')]
   private Collection $attributes;
@@ -48,13 +48,13 @@ class Roll
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $details = "";
+  private string $details = "";
 
   #[ORM\Column]
-  private ?bool $isImportant = null;
+  private bool $isImportant = false;
 
   #[ORM\Column]
-  private ?bool $isContested = null;
+  private bool $isContested = false;
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255, nullable: true)]
@@ -71,9 +71,11 @@ class Roll
     return $this->id;
   }
 
-  public function setTranslatableLocale($locale)
+  public function setTranslatableLocale(string $locale) : self
   {
     $this->locale = $locale;
+
+    return $this;
   }
 
   public function getName(): ?string
@@ -153,7 +155,7 @@ class Roll
     return self::Type[$this->action];
   }
 
-  public function getDetails(): ?string
+  public function getDetails(): string
   {
     return $this->details;
   }
@@ -166,7 +168,7 @@ class Roll
     return $this;
   }
 
-  public function isImportant(): ?bool
+  public function isImportant(): bool
   {
     return $this->isImportant;
   }
@@ -178,7 +180,7 @@ class Roll
     return $this;
   }
 
-  public function isContested(): ?bool
+  public function isContested(): bool
   {
       return $this->isContested;
   }

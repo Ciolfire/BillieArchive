@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -19,8 +19,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route("{_locale<%supported_locales%>?%default_locale%}/merit")]
 class MeritController extends AbstractController
 {
-  private $dataService;
-  private $categories = ['mental', 'physical', 'social'];
+  private DataService $dataService;
+  /** @var array<string> */
+  private array $categories = ['mental', 'physical', 'social'];
 
   public function __construct(DataService $dataService)
   {
@@ -51,9 +52,7 @@ class MeritController extends AbstractController
   #[Route("/{id<\d+>}", name: "merit_show", methods: ["GET"])]
   public function show(Merit $merit): Response
   {
-    foreach ($merit->getprerequisites() as $prerequisite) {
-      $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-    }
+    $this->dataService->loadPrerequisites($merit);
 
     return $this->render('merit/show.html.twig', [
       'merit' => $merit,
@@ -83,7 +82,10 @@ class MeritController extends AbstractController
   #[Route("/{id<\d+>}/delete", name: "merit_delete", methods: ["POST"])]
   public function delete(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
   {
-    if ($this->isCsrfTokenValid('delete' . $merit->getId(), $request->request->get('_token'))) {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $token = $request->request->get('_token');
+    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $merit->getId(), $token)) {
       $entityManager->remove($merit);
       $entityManager->flush();
     }
@@ -92,7 +94,7 @@ class MeritController extends AbstractController
   }
 
   #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
-  public function list($type = null, $id = null)
+  public function list(string $type = null, int $id = null) : Response
   {
     $chronicle = false;
     $search = ['category' => $this->categories];
@@ -125,11 +127,9 @@ class MeritController extends AbstractController
         $setting = "human";
         break;
     }
+    /** @var Merit $merit */
     foreach ($merits as $merit) {
-      /** @var Merit $merit */
-      foreach ($merit->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
+      $this->dataService->loadPrerequisites($merit);
     }
 
     return $this->render('merit/list.html.twig', [

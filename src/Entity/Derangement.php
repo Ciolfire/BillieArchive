@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -28,15 +28,15 @@ class Derangement
   private ?int $id = null;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $name = null;
+  private string $name = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $details = "";
+  private string $details = "";
 
   #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'degenerations', cascade: ['persist', 'remove'])]
   private ?self $previousAilment = null;
@@ -45,7 +45,7 @@ class Derangement
   private Collection $degenerations;
 
   #[ORM\Column]
-  private ?bool $isExtreme = null;
+  private bool $isExtreme = false;
 
   public function __construct()
   {
@@ -62,29 +62,31 @@ class Derangement
     return $this->id;
   }
 
-  public function setTranslatableLocale($locale)
+  public function setTranslatableLocale(string $locale) : self
   {
     $this->locale = $locale;
+
+    return $this;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
 
-  public function setName(string $name): self
+  public function setName(string $name = ""): self
   {
     $this->name = $name;
 
     return $this;
   }
 
-  public function getDetails(): ?string
+  public function getDetails(): string
   {
     return $this->details;
   }
 
-  public function setDetails(string $details): self
+  public function setDetails(string $details = ""): self
   {
     $converter = new HtmlConverter();
     $this->details = $converter->convert($details);

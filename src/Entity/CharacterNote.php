@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -17,7 +17,7 @@ class CharacterNote
   private ?int $id = null;
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $content = "";
+  private string $content = "";
 
   #[ORM\ManyToOne(inversedBy: 'notes')]
   #[ORM\JoinColumn(nullable: false)]
@@ -41,12 +41,12 @@ class CharacterNote
     return $this->id;
   }
 
-  public function getContent(): ?string
+  public function getContent(): string
   {
     return $this->content;
   }
 
-  public function setContent(string $content): self
+  public function setContent(string $content = ""): self
   {
     $converter = new HtmlConverter();
     $this->content = $converter->convert($content);

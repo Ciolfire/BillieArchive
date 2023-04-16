@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity\Traits;
 
@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Homebrewable {
   #[ORM\ManyToOne(targetEntity: Chronicle::class)]
-  private $homebrewFor;
+  private ?Chronicle $homebrewFor;
 
   public function getHomebrewFor(): ?Chronicle
   {
@@ -22,7 +22,7 @@ trait Homebrewable {
   }
 
   public function isAvailable(?Chronicle $chronicle): bool {
-    if ($this->homebrewFor === null || $chronicle === $this->homebrewFor ) {
+    if (is_null($this->homebrewFor) || $chronicle === $this->homebrewFor ) {
       return true;
     }
 

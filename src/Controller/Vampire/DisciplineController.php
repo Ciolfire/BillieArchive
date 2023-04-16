@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
@@ -22,8 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire')]
 class DisciplineController extends AbstractController
 {
-  private $dataService;
-  private $service;
+  private DataService $dataService;
+  private VampireService $service;
 
   public function __construct(DataService $dataService, VampireService $service)
   {
@@ -234,8 +234,10 @@ class DisciplineController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($power);
+      /** @var Discipline */
+      $discipline = $power->getDiscipline();
 
-      return $this->redirectToRoute('discipline_show', ['id' => $power->getDiscipline()->getId()]);
+      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/discipline/power.edit.html.twig', [
@@ -246,7 +248,7 @@ class DisciplineController extends AbstractController
   }
 
   #[Route("/ritual/{filter<\w+>}/{id<\d+>}", name: "ritual_list", methods: ["GET"])]
-  public function ritualFilter(string $filter, $id)
+  public function ritualFilter(string $filter, int $id): Response
   {
     $data = $this->service->getRituals($filter, $id);
 
@@ -259,7 +261,7 @@ class DisciplineController extends AbstractController
   }
 
   #[Route("/{type<\w+>}/{filter<\w+>}/{id<\d+>}", name: "discipline_filter", methods: ["GET"])]
-  public function disciplineFilter(string $type, string $filter, $id): Response
+  public function disciplineFilter(string $type, string $filter, int $id): Response
   {
     $data = $this->service->getDisciplines($type, $filter, $id);
 

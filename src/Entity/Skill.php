@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -16,25 +16,25 @@ class Skill
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type:Types::INTEGER)]
-  private $id;
+  private ?int $id;
 
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private $identifier;
+  private string $identifier = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private $name;
+  private string $name = "";
 
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private $category;
-
-  #[Gedmo\Translatable]
-  #[ORM\Column(type: Types::TEXT, nullable: true)]
-  private $description;
+  private string $category = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT, nullable: true)]
-  private $fluff;
+  private string $description = "";
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: Types::TEXT, nullable: true)]
+  private string $fluff = "";
 
   #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'skills')]
   private Collection $rolls;
@@ -54,7 +54,7 @@ class Skill
     return $this->id;
   }
 
-  public function getIdentifier(): ?string
+  public function getIdentifier(): string
   {
     return $this->identifier;
   }
@@ -66,7 +66,7 @@ class Skill
     return $this;
   }
 
-  public function getName(): ?string
+  public function getName(): string
   {
     return $this->name;
   }
@@ -78,7 +78,7 @@ class Skill
     return $this;
   }
 
-  public function getCategory(): ?string
+  public function getCategory(): string
   {
     return $this->category;
   }
@@ -90,24 +90,24 @@ class Skill
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(?string $description): self
+  public function setDescription(string $description = ""): self
   {
     $this->description = $description;
 
     return $this;
   }
 
-  public function getFluff(): ?string
+  public function getFluff(): string
   {
     return $this->fluff;
   }
 
-  public function setFluff(?string $fluff): self
+  public function setFluff(string $fluff = ""): self
   {
     $this->fluff = $fluff;
 

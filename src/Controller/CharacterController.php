@@ -1,13 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Character;
+use App\Entity\CharacterMerit;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\Human;
 use App\Entity\Roll;
+use App\Entity\Vampire;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
 use App\Form\VampireType;
@@ -16,6 +18,7 @@ use App\Service\CharacterService;
 use App\Service\CreationService;
 use App\Service\DataService;
 use App\Service\VampireService;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Psr\Log\LoggerInterface;
@@ -26,25 +29,28 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
 {
-  private $dataService;
+  private DataService $dataService;
+  private CreationService $create;
   private CharacterService $service;
-  private $vService;
-  private $create;
-  private $attributes;
-  private $skills;
+  private VampireService $vService;
+  /** @var array<string, array<string, array<string, string|null>>> */
+  private array $attributes;
+  /** @var array<string, array<string, string|null>> */
+  private array $skills;
 
   public function __construct(DataService $dataService, CreationService $create, CharacterService $service, VampireService $vService)
   {
     $this->dataService = $dataService;
+    $this->create = $create;
     $this->service = $service;
     $this->vService = $vService;
-    $this->create = $create;
     $this->attributes = $this->service->getSortedAttributes();
     $this->skills = $this->service->getSortedSkills();
   }
@@ -125,7 +131,9 @@ class CharacterController extends AbstractController
     $character = new Human();
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
-    $character->setPlayer($this->getUser());
+    /** @var User $user */
+    $user = $this->getUser();
+    $character->setPlayer($user);
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);
@@ -192,12 +200,8 @@ class CharacterController extends AbstractController
       $this->addFlash('notice', 'You are not allowed to see this character');
       return $this->redirectToRoute('character_index');
     }
-    foreach ($character->getMerits() as $charMerit) {
-      /** @var Merit $merit */
-      foreach ($charMerit->getMerit()->getprerequisites() as $prerequisite) {
-        $prerequisite->setEntity($this->dataService->findOneBy($prerequisite->getType(), ['id' => $prerequisite->getEntityId()]));
-      }
-    }
+    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
+
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
@@ -242,7 +246,7 @@ class CharacterController extends AbstractController
         $this->create->addMerits($character, $extraData['merits']);
       }
       if (isset($extraData['meritsUp'])) {
-        $this->create->updateMerits($character, $extraData['meritsUp']);
+        $this->create->updateMerits($extraData['meritsUp']);
       }
       if (isset($extraData['specialties'])) {
         $this->create->addSpecialties($character, $extraData['specialties']);
@@ -251,6 +255,7 @@ class CharacterController extends AbstractController
         $this->service->updateWillpower($character, $extraData['willpower']);
       }
       if ($character->getType() == "vampire") {
+        /** @var Vampire $character */
         $this->vService->handleEdit($character, $extraData);
       }
       if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
@@ -309,8 +314,11 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $this->getParameter('characters_directory'));
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      $path = $this->getParameter('characters_directory');
+      if (is_string($path)) {
+        $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $path);
+        return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      }
     }
     return $this->render('character/duplicate.html.twig', [
       'form' => $form,
@@ -357,12 +365,14 @@ class CharacterController extends AbstractController
   public function addNote(Request $request, Character $character): Response
   {
     $note = new CharacterNote();
-    $note->setAuthor($this->getUser());
+    /** @var User $user */
+    $user = $this->getUser();
+    $note->setAuthor($user);
     $note->setCharacter($character);
 
     $latestNote = $character->getNotes()->first();
     $options = [];
-    if ($latestNote instanceof CharacterNote) {
+    if ($latestNote instanceof CharacterNote && $latestNote->getAssignedAt() instanceof DateTimeImmutable) {
       $options['date'] = $latestNote->getAssignedAt()->format('Y-m-d H:i:s');
     }
     $form = $this->createForm(CharacterNoteType::class, $note, $options);
@@ -388,7 +398,7 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush($note);
+      $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => "notes"], Response::HTTP_SEE_OTHER);
     }
@@ -399,7 +409,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
-  public function updateWounds(Request $request, Character $character): JsonResponse
+  public function updateWounds(Request $request, Character $character): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -408,14 +418,16 @@ class CharacterController extends AbstractController
       } else {
         $this->service->healWound($character, $data->value);
       }
+
       return new JsonResponse($data);
     } else {
+
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }
   }
 
   #[Route('/{id<\d+>}/trait/update', name: 'character_trait_update', methods: ['POST'])]
-  public function updateTrait(Request $request, Character $character): JsonResponse
+  public function updateTrait(Request $request, Character $character) : JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -427,7 +439,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/experience/update', name: 'character_experience_update', methods: ['POST'])]
-  public function updateExperience(Request $request, Character $character): JsonResponse
+  public function updateExperience(Request $request, Character $character) : JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -439,16 +451,22 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
-  public function updateAvatar(Request $request, Character $character, LoggerInterface $logger): JsonResponse
+  public function updateAvatar(Request $request, Character $character) : JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $avatar = $request->files->get('avatar')['upload'];
-      if (!is_null($avatar)) {
-        $file = $this->dataService->upload($avatar, $this->getParameter('characters_directory'), $character->getId());
+      $path = $this->getParameter('characters_directory');
+      if (!is_null($avatar) && is_string($path)) {
+        $file = $this->dataService->upload($avatar, $path, (string)$character->getId());
+
+        if (!is_null($file)) {
+          return new JsonResponse($file);
+        }
       }
 
-      return new JsonResponse($file);
+      return new JsonResponse(null, 204);
     } else {
+
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }
   }

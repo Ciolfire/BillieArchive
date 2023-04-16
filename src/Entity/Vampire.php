@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\References\DisciplineReferences;
 use App\Entity\VampireDiscipline;
 use App\Repository\VampireRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,31 +13,31 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  #[ORM\Column(type: Types::INTEGER)]
-  protected $id;
+  // #[ORM\Id]
+  // #[ORM\GeneratedValue]
+  // #[ORM\Column(type: Types::INTEGER)]
+  // protected $id;
 
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
-  private $sire;
+  private ?string $sire = null;
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
-  private $deathAge;
+  private ?int $deathAge = null;
 
   #[ORM\ManyToOne(targetEntity: Clan::class)]
   #[ORM\JoinColumn(nullable: false)]
-  private $clan;
+  private Clan $clan;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private $potency = 1;
+  private int $potency = 1;
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private $vitae = 1;
+  private int $vitae = 1;
 
   #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true)]
-  private $disciplines;
+  private Collection $disciplines;
 
-  protected $limit = 5;
+  protected int $limit = 5;
 
   #[ORM\ManyToMany(targetEntity: Devotion::class)]
   private Collection $devotions;
@@ -47,9 +48,9 @@ class Vampire extends Character
   public function __construct(Character $character = null)
   {
     $this->disciplines = new ArrayCollection();
-    if ($character) {
+    if (is_object($character)) {
       // Initializing class properties
-      foreach ($character as $property => $value) {
+      foreach ($character->getProperties() as $property => $value) {
         $this->$property = $value;
       }
     }
@@ -135,7 +136,7 @@ class Vampire extends Character
     return $this->clan;
   }
 
-  public function setClan(?Clan $clan): self
+  public function setClan(Clan $clan): self
   {
     $this->clan = $clan;
 
@@ -187,7 +188,7 @@ class Vampire extends Character
     return $this->disciplines;
   }
 
-  public function getFilteredDisciplines($filter = null): mixed
+  public function getFilteredDisciplines(string $filter = null): mixed
   {
     switch ($filter) {
       case 'discipline':
@@ -245,17 +246,17 @@ class Vampire extends Character
     return $this;
   }
 
-  public function removeDiscipline(VampireDiscipline $discipline): self
-  {
-    if ($this->disciplines->removeElement($discipline)) {
-      // set the owning side to null (unless already changed)
-      if ($discipline->getVampire() === $this) {
-        $discipline->setVampire(null);
-      }
-    }
+  // public function removeDiscipline(VampireDiscipline $discipline): self
+  // {
+  //   if ($this->disciplines->removeElement($discipline)) {
+  //     // set the owning side to null (unless already changed)
+  //     if ($discipline->getVampire() === $this) {
+  //       $discipline->setVampire(null);
+  //     }
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
   public function getDiscipline(int $id): ?VampireDiscipline
   {
@@ -353,7 +354,7 @@ class Vampire extends Character
     return false;
   }
 
-  public function hasRitualAtLevel(Discipline $discipline, $level = 1): bool
+  public function hasRitualAtLevel(Discipline $discipline, int $level = 1): bool
   {
     foreach ($this->rituals as $ritual) {
       /** @var DisciplinePower $ritual */
@@ -378,5 +379,17 @@ class Vampire extends Character
     }
 
     return $level;
+  }
+
+  public function getMaxHealth(): ?int
+  {
+    $base = $this->size + $this->getLimit();
+
+    $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
+    if (!is_null($resilience)) {
+      $base = $base + $resilience->getLevel();
+    }
+
+    return $base;
   }
 }

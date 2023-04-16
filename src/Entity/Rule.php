@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -24,15 +24,15 @@ class Rule
   private ?int $id = null;
 
   #[Gedmo\Locale]
-  private $locale;
+  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $title = null;
+  private string $title = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $details = "";
+  private string $details = "";
 
   #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'subrules')]
   private ?self $parentRule = null;
@@ -55,9 +55,11 @@ class Rule
     return $this->id;
   }
 
-  public function setTranslatableLocale($locale)
+  public function setTranslatableLocale(string $locale) : self
   {
     $this->locale = $locale;
+
+    return $this;
   }
 
   public function getTitle(): ?string
@@ -72,7 +74,7 @@ class Rule
     return $this;
   }
 
-  public function getDetails(): ?string
+  public function getDetails(): string
   {
     return $this->details;
   }

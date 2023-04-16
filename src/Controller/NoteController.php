@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/{_locale<%supported_locales%>?%default_locale%}")]
 class NoteController extends AbstractController
 {
-  private $doctrine;
-  private $dataService;
+  private ManagerRegistry $doctrine;
+  private DataService $dataService;
 
   public function __construct(ManagerRegistry $doctrine, DataService $dataService)
   {
@@ -50,12 +50,15 @@ class NoteController extends AbstractController
       $user->addNote($note);
       $this->dataService->save($note);
 
-      if ($note->getCategory() instanceof NoteCategory) {
+      /** @var Chronicle $chronicle */
+      $chronicle = $note->getChronicle();
+      $category = $note->getCategory();
+      if ($category instanceof NoteCategory) {
 
-        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $note->getCategory()->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
       } else {
 
-        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
       }
     }
     return $this->render('notes/form.html.twig', [
@@ -80,12 +83,15 @@ class NoteController extends AbstractController
     
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
-      if ($note->getCategory() instanceof NoteCategory) {
+      /** @var Chronicle $chronicle */
+      $chronicle = $note->getChronicle();
+      $category = $note->getCategory();
+      if ($category instanceof NoteCategory) {
 
-        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $note->getCategory()->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
       } else {
 
-        return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
       }
 
     }
@@ -101,16 +107,17 @@ class NoteController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
+    /** @var Chronicle $chronicle */
+    $chronicle = $note->getChronicle();
     $category = $note->getCategory();
-    /** @var NoteRepository $repo */
     $this->dataService->remove($note);
 
     if ($category instanceof NoteCategory) {
 
-      return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
     } else {
 
-      return $this->redirectToRoute('chronicle_notes', ['id' => $note->getChronicle()->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => null], Response::HTTP_SEE_OTHER);
     }
   }
 
@@ -119,21 +126,23 @@ class NoteController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
+    /** @var Chronicle $chronicle */
+    $chronicle = $note->getChronicle();
     $notes = null;
-    $categories = $this->dataService->findBy(NoteCategory::class, ['chronicle' => $note->getChronicle(), 'user' => $user]);
+    $categories = $this->dataService->findBy(NoteCategory::class, ['chronicle' => $chronicle, 'user' => $user]);
     $category = $note->getCategory();
 
     if ($category instanceof NoteCategory) {
-      $notes = $this->dataService->findBy(Note::class, ['chronicle' => $note->getChronicle(), 'user' => $user, 'category' => $category]);
+      $notes = $this->dataService->findBy(Note::class, ['chronicle' => $chronicle, 'user' => $user, 'category' => $category]);
     }
-
+    
     return $this->render('notes/chronicle/index.html.twig', [
-      'chronicle' => $note->getChronicle(),
+      'chronicle' => $chronicle,
       'current' => $category,
       'categories' => $categories,
       'notes' => $notes,
       'currentNote' => $note,
-      'setting' => $note->getChronicle()->getType(),
+      'setting' => $chronicle->getType(),
     ]);
   }
 
