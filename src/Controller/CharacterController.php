@@ -55,7 +55,7 @@ class CharacterController extends AbstractController
     $this->skills = $this->service->getSortedSkills();
   }
 
-  #[Route('/', name: 'character_index', methods: ['GET'])]
+  #[Route('', name: 'character_index', methods: ['GET'])]
   public function index(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -125,8 +125,8 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}/', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
-  public function new(Request $request, EntityManagerInterface $entityManager, Chronicle $chronicle = null, bool $isNpc = false): Response
+  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
+  public function new(Request $request, Chronicle $chronicle = null, bool $isNpc = false): Response
   {
     $character = new Human();
     $character->setChronicle($chronicle);
@@ -160,7 +160,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/template/', name: 'character_new_template', methods: ['GET', 'POST'])]
+  #[Route('/new/template', name: 'character_new_template', methods: ['GET', 'POST'])]
   public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
   {
     $character = new Human();

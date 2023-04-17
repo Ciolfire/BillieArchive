@@ -88,14 +88,14 @@ class RuleController extends AbstractController
     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("/{setting}/{id<\d+>}", name: "rule_index", methods: ["GET"])]
-  public function list(string $setting = null, ?int $id = null) : Response
+  #[Route("/{setting}", name: "rule_index", methods: ["GET"])]
+  public function list(string $setting = null) : Response
   {
     if (is_null($setting)) {
       $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
       $setting = "human";
     } else {
-      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'setting' => $setting], ['title' => 'ASC']);
+      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $setting], ['title' => 'ASC']);
     }
 
     return $this->render('rule/list.html.twig', [

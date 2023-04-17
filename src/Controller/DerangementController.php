@@ -24,6 +24,49 @@ class DerangementController extends AbstractController
     $this->dataService = $dataService;
   }
 
+  #[Route("s", name: "derangement_index", methods: ["GET"])]
+  public function index() : Response
+  {
+    // Should move the logic in service, so that this is no longer a redirect :)
+    return $this->redirectToRoute('derangement_list', ['type' => null, 'id' => null]);
+  }
+
+  #[Route("/list/{type}/{id<\d+>}", name: "derangement_list", methods: ["GET"])]
+  public function list(string $type = null, int $id = null) : Response
+  {
+    /** @var DerangementRepository $repo */
+    $repo = $this->dataService->getRepository(Derangement::class);
+
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $list = $item->getDerangements();
+        $derangements = [];
+        foreach ($list as $derangement) {
+          /** @var Derangement $derangement */
+          if (!is_null($derangement->getPreviousAilment())) {
+            $id = $derangement->getPreviousAilment()->getId();
+            $derangements[$id] = $derangement->getPreviousAilment();
+          } else {
+            $derangements[$derangement->getId()] = $derangement;
+          }
+        }
+        $setting = $item->getSetting();
+        break;
+      default:
+        $derangements = $repo->findMild();
+        $setting = "human";
+        break;
+    }
+
+    return $this->render('derangement/list.html.twig', [
+      'derangements' => $derangements,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'derangement']),
+      // 'search' => $search, // Kinda want to replace for dynamic list
+    ]);
+  }
+
   #[Route("/new", name:"derangement_new", methods:["GET", "POST"])]
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
@@ -107,41 +150,5 @@ class DerangementController extends AbstractController
     }
 
     return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
-  }
-
-  #[Route("/{type}/{id<\d+>}", name: "derangement_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
-  {
-    /** @var DerangementRepository $repo */
-    $repo = $this->dataService->getRepository(Derangement::class);
-
-    switch ($type) {
-      case 'book':
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $list = $item->getDerangements();
-        $derangements = [];
-        foreach ($list as $derangement) {
-          /** @var Derangement $derangement */
-          if (!is_null($derangement->getPreviousAilment())) {
-            $id = $derangement->getPreviousAilment()->getId();
-            $derangements[$id] = $derangement->getPreviousAilment();
-          } else {
-            $derangements[$derangement->getId()] = $derangement;
-          }
-        }
-        $setting = $item->getSetting();
-        break;
-      default:
-        $derangements = $repo->findMild();
-        $setting = "human";
-        break;
-    }
-
-    return $this->render('derangement/list.html.twig', [
-      'derangements' => $derangements,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'derangement']),
-      // 'search' => $search, // Kinda want to replace for dynamic list
-    ]);
   }
 }

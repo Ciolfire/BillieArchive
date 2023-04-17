@@ -28,6 +28,54 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
+  #[Route("/list/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
+  public function list(string $type = null, int $id = null) : Response
+  {
+    $chronicle = false;
+    $search = ['category' => $this->categories];
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        if ($item instanceof Book) {
+          $setting = $item->getSetting();
+          $merits = $item->getMerits();
+          // We get the type of book/item for the search filters
+          $types = $this->dataService->getMeritTypes($item);
+          if (count($types) > 1) {
+            $search['type'] = $types;
+          }
+        }
+        break;
+      case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+        if ($item instanceof Chronicle) {
+          $chronicle = $id;
+          $setting = $item->getType();
+          $merits = $item->getMerits();
+        }
+        break;
+      default:
+        $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
+        $search['type'] = $this->dataService->getMeritTypes();
+        $setting = "human";
+        break;
+    }
+    /** @var Merit $merit */
+    foreach ($merits as $merit) {
+      $this->dataService->loadPrerequisites($merit);
+    }
+
+    return $this->render('merit/list.html.twig', [
+      'setting' => $setting,
+      'merits' => $merits,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
+      'search' => $search, // Kinda want to replace for dynamic list
+      'chronicle' => $chronicle,
+    ]);
+  }
+
   #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
   public function new(Request $request, EntityManagerInterface $entityManager): Response
   {
@@ -91,54 +139,6 @@ class MeritController extends AbstractController
     }
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
-  }
-
-  #[Route("/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
-  {
-    $chronicle = false;
-    $search = ['category' => $this->categories];
-    switch ($type) {
-      case 'book':
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        if ($item instanceof Book) {
-          $setting = $item->getSetting();
-          $merits = $item->getMerits();
-          // We get the type of book/item for the search filters
-          $types = $this->dataService->getMeritTypes($item);
-          if (count($types) > 1) {
-            $search['type'] = $types;
-          }
-        }
-        break;
-      case 'chronicle':
-        /** @var Chronicle */
-        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        if ($item instanceof Chronicle) {
-          $chronicle = $id;
-          $setting = $item->getType();
-          $merits = $item->getMerits();
-        }
-        break;
-      default:
-        $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
-        $search['type'] = $this->dataService->getMeritTypes();
-        $setting = "human";
-        break;
-    }
-    /** @var Merit $merit */
-    foreach ($merits as $merit) {
-      $this->dataService->loadPrerequisites($merit);
-    }
-
-    return $this->render('merit/list.html.twig', [
-      'setting' => $setting,
-      'merits' => $merits,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
-      'search' => $search, // Kinda want to replace for dynamic list
-      'chronicle' => $chronicle,
-    ]);
   }
 
   // Only needed if we want to translate for another language from a locale

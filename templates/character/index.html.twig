@@ -8,12 +8,12 @@
 
 {% block body %}
   {% if characters is defined %}
-    {% include "character/_list.html.twig" with {'title': 'characters.pc', 'characters': characters, 'type': 'character'} %}
+    {% include "character/_list.html.twig" with {'title': 'characters.pc', 'characters': characters, 'type': 'character', 'icon': 'character'} %}
   {% endif %}
   {% if npc is defined %}
-    {% include "character/_list.html.twig" with {'title': 'characters.npc', 'characters': npc, 'type': 'npc'} %}
+    {% include "character/_list.html.twig" with {'title': 'characters.npc', 'characters': npc, 'type': 'npc', 'icon': 'npc'} %}
   {% endif %}
   {% if generated is defined %}
-    {% include "character/_list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'npc'} %}
+    {% include "character/_list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'template', 'icon': 'npc'} %}
   {% endif %}
 {% endblock %}

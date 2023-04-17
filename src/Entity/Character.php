@@ -84,7 +84,6 @@ class Character
   protected array $experienceLogs = [];
 
 
-
   #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
   protected CharacterAttributes $attributes;
   
@@ -111,7 +110,7 @@ class Character
   protected ?User $player = null;
 
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
-  protected ?Chronicle $chronicle;
+  protected ?Chronicle $chronicle = null;
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]

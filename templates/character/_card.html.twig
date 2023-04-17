@@ -27,6 +27,10 @@
           <p class="accent">
             {{ character.chronicle }}
           </p>
+        {% else %}
+          <p class="accent">
+            {{ character.groupName|default('-') }}
+          </p>
         {% endif %}
         {# {% if isTemplate|default(false) %} #}
           <p>

@@ -20,7 +20,7 @@ class Chronicle
   private string $name;
 
   #[ORM\OneToMany(targetEntity:Character::class, mappedBy: "chronicle")]
-  #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
+  #[ORM\OrderBy(["groupName" => "ASC", "firstName" => "ASC", "id" => "DESC"])]
   private Collection $characters;
 
   #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "chronicles")]

@@ -10,33 +10,50 @@
         {% if error %}
           <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-        
-        <h1>Login</h1>
+        <h1>
+          <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" />
+            Billie's Archive
+          <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" />
+        </h1>
+        <h2>{{ "login"|trans }}</h2>
         
         <form action="{{ path('login') }}" method="post">
           <div class="mb-3 row">
-            <label class="col-form-label col-sm-auto required" for="username">Username</label>
+            <label class="col-form-label col-sm-auto required" for="username">{{ "username"|trans }}</label>
             <div class="col-sm">
               <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-form-label col-sm-auto required" for="password">Password</label>
+            <label class="col-form-label col-sm-auto required" for="password">{{ "password"|trans }}</label>
             <div class="col-sm">
               <input type="password" id="password" name="_password" class="form-control"/>
               <label class="form-check form-switch"><input class="form-check-input" type="checkbox" name="_remember_me"/>{{ "remember"|trans }}</label>
             </div>
           </div>
           <div class="mb-3 row">
+            <div class="col text-start">
+              {% if app.request.locale != 'fr' %}
+                <a class="btn btn-primary" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'fr'}) )}}">Fr</a>
+              {% else %}
+                <a class="btn btn-primary" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'en'}) )}}">En</a>
+              {% endif %}
+              
+            </div>
             <div class="col text-end">
-              <a href="{{path('app_register')}}">Register</a>
+              <a href="{{path('app_register')}}">
+                {{ "register"|trans }}
+                <img class="float-end" height="50" src="{{ asset('rabbit_idle.gif', 'images') }}">
+              </a>
             </div>
           </div>
           {# If you want to control the URL the user is redirected to on success
           <input type="hidden" name="_target_path" value="/account"/> #}
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-          
-          <button class="btn btn-primary w-100 mb-2" type="submit">login</button>
+          <button class="btn btn-primary w-100 mb-2" type="submit">
+            {% include "_icon.html.twig" with {'icon': 'login', 'hasTips': 0} %}
+            {{ "login"|trans }}
+          </button>
         </form>
       </div>
     </div>

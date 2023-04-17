@@ -31,35 +31,35 @@ class Discipline
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 50)]
-  private string $name;
+  private string $name = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private string $description;
+  private string $description = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 90, nullable: true)]
-  private string $short;
+  private ?string $short = null;
 
   #[ORM\Column(type: Types::BOOLEAN)]
   private bool $isRestricted = true;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private string $rules;
+  private string $rules = "";
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true)]
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
   private Collection $powers;
 
   #[ORM\Column]
-  private ?bool $isThaumaturgy;
+  private bool $isThaumaturgy = false;
 
   #[ORM\Column]
-  private ?bool $isSorcery;
+  private bool $isSorcery = false;
 
   #[ORM\Column]
-  private ?bool $isCoil;
+  private bool $isCoil = false;
 
   public function __construct(bool $sorcery = false, bool $thaumaturgy = false, bool $coil = false)
   {
@@ -124,19 +124,19 @@ class Discipline
     return $this->name;
   }
 
-  public function setName(string $name): self
+  public function setName(string $name = ""): self
   {
     $this->name = $name;
 
     return $this;
   }
 
-  public function getDescription(): ?string
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  public function setDescription(string $description): self
+  public function setDescription(string $description = ""): self
   {
     $this->description = $description;
 
@@ -148,14 +148,14 @@ class Discipline
     return $this->short;
   }
 
-  public function setShort(string $short = ""): self
+  public function setShort(?string $short): self
   {
     $this->short = $short;
 
     return $this;
   }
 
-  public function isRestricted(): ?bool
+  public function isRestricted(): bool
   {
     return $this->isRestricted;
   }
@@ -167,7 +167,7 @@ class Discipline
     return $this;
   }
 
-  public function getRules(): ?string
+  public function getRules(): string
   {
     return $this->rules;
   }
@@ -224,7 +224,7 @@ class Discipline
     return $max;
   }
 
-  public function isThaumaturgy(): ?bool
+  public function isThaumaturgy(): bool
   {
     return $this->isThaumaturgy;
   }
@@ -248,7 +248,7 @@ class Discipline
     return true;
   }
 
-  public function isSorcery(): ?bool
+  public function isSorcery(): bool
   {
     return $this->isSorcery;
   }
@@ -260,7 +260,7 @@ class Discipline
     return $this;
   }
 
-  public function isCoil(): ?bool
+  public function isCoil(): bool
   {
     return $this->isCoil;
   }

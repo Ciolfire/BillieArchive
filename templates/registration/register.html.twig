@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
-{% endblock %}
+{% trans_default_domain 'app' %}
+
+{% block title %}Register{% endblock %}
 
 {% block body %}
   <div class="d-flex align-items-center vh-100">
@@ -12,7 +13,10 @@
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
           {% endfor %}
 
-          <h1>Register</h1>
+          <h1>
+            {% include "_icon.html.twig" with {'icon': 'register', 'class': 'icon-lg', 'hasTips': 0} %}
+            Register
+          </h1>
 
           {{ form_start(registrationForm) }}
           {{ form_row(registrationForm.email) }}
@@ -20,8 +24,20 @@
           {{ form_row(registrationForm.plainPassword, {
                         label: 'Password'
                     }) }}
-
-          <button type="submit" class="btn btn-primary w-100 mb-2">Register</button>
+          <div class="row">
+            <div class="col-8">
+              <button type="submit" class="btn btn-primary w-100 mb-2">
+                {% include "_icon.html.twig" with {'icon': 'login', 'hasTips': 0} %}
+                {{ "continue"|trans }}
+              </button>
+            </div>
+            <div class="col-4">
+              <a href="{{app.request.headers.get('referer')}}" class="btn btn-primary w-100 mb-2">
+                {% include "_icon.html.twig" with {'icon': 'back'} %}
+                {{ "back"|trans }}
+              </a>
+            </div>
+          </div>
           {{ form_end(registrationForm) }}
         </div>
       </div>

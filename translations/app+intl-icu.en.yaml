@@ -1,6 +1,7 @@
 action:
   label: Action
   add: Add
+  continue: Continuer
   delete: Delete
   duplicate: Duplicate
   edit: Update
@@ -80,6 +81,7 @@ infos: Infos
 keyword: Keyword
 keywords: Keywords
 level: Level
+login: Login
 logout: Logout
 max: Max
 min: Min
@@ -148,6 +150,7 @@ prerequisite:
   group: Choice index (X or Y or ...)
 prerequisites: Prerequisites
 quote: Quote
+register: Register
 release: Release date
 remember: Stay connected
 roll:
@@ -207,6 +210,11 @@ type:
   purified: Purified
   innocents: Innocents
   possessed: Possessed
+
+email: Email Address
+username: Username
+password: Password
+repeat.password: Repeat Password
 
 title: Title
 toc: Table of Content

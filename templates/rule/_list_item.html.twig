@@ -2,16 +2,16 @@
 
 {% set first = true %}
 
-<a href="{{ path('rule_show', {'id': rule.id }) }}">
-  <div class="col-12 btn {% if rule.type is not null %}{{rule.type}} {{rule.type }}-btn{% else %}btn-primary{% endif %} rounded-0 my-1">
-    <h2>{{ rule.title }}</h2>
+<a class="{% if rule.type is not null %}{{rule.type}}"{% endif %} href="{{ path('rule_show', {'id': rule.id }) }}">
+  <div class="col-12 btn btn-primary rounded-0 my-1">
+    <h3><span class="text-default">{{ rule.title }}</span></h3>
     {% if rule.subrules is not empty %}
       <h4>Includes</h4>
     {% endif %}
     <div class="row">
       {% for subrule in rule.subrules %}
         <div class="col-4 mt-3 text-center {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
-          <h5>{{ subrule.title }}</h5>
+          <h5><span class="text-default">{{ subrule.title }}</span></h5>
           <p>{{ "source"|trans({'page': subrule.page, 'book': subrule.book.short }) }}</p>
         </div>
       {% endfor %}

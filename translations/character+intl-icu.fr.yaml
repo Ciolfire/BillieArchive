@@ -124,6 +124,10 @@ merit:
 merits:
   label: Atouts
 
+morality:
+  human: Morality
+  vampire: Humanity
+
 name:
   label: Name
   first: Prénom

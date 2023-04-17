@@ -12,12 +12,13 @@
       <a class="position-absolute end-0" href="{{ path('clan_edit', {'id': clan.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
     {% endif %}
     <blockquote class="text-center mb-2 clan-card-header">
-      <h2>{{ clan.name }}
-        {% if clan.isBloodline is same as(true) %}
-          ({{ clan.parentClan.name|default("clan.parent.any"|trans) }})
-        {% endif %}
+      <h3>
+        {{ clan.name }}
         {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
-      </h2>
+      </h3>
+      <h4>
+        {% if clan.isBloodline is same as(true) %}({{ clan.parentClan.name|default("clan.parent.any"|trans) }}){% endif %}
+      </h4>
       <h5>{{ clan.nickname }}</h5>
       {{ clan.quote }}
     </blockquote>

@@ -9,11 +9,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-  /**
-   * @Route("/{_locale<%supported_locales%>?%default_locale%}/login", name="login")
-   */
-  public function index(AuthenticationUtils $authenticationUtils): Response
+  #[Route("/{_locale<%supported_locales%>?%default_locale%}/login", name:"login")]
+  public function login(AuthenticationUtils $authenticationUtils): Response
   {
+    if (!is_null($this->getUser())) {
+      return $this->redirectToRoute('index');
+    }
     $error = $authenticationUtils->getLastAuthenticationError();
     $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -23,9 +24,7 @@ class LoginController extends AbstractController
     ]);
   }
 
-  /**
-  * @Route("/logout", name="logout", methods={"GET"})
-  */
+  #[Route("/logout", name:"logout", methods:["GET"])]
   public function logout(): void
   {
       // controller can be blank: it will never be called!

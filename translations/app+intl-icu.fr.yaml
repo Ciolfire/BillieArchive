@@ -1,6 +1,7 @@
 action:
   label: Action
   add: Ajouter
+  continue: Continue
   delete: Supprimer
   duplicate: Duplicate
   edit: Modifier
@@ -79,6 +80,7 @@ infos: Infos
 keyword: Mot-clef
 keywords: Mots-clefs
 level: Niveau
+login: Connexion
 logout: Déconnexion
 max: Max
 min: Min
@@ -147,6 +149,7 @@ prerequisite:
   group: Index de choix (X ou Y ou ...)
 prerequisites: Prérequis
 quote: Citation
+register: Inscription
 release: Parution
 remember: Rester connecté
 roll:
@@ -206,6 +209,11 @@ type:
   purified: Purifié
   innocents: Innocents
   possessed: Possedé
+
+email: Adresse Mail
+username: Identifiant
+password: Mot de passe
+repeat.password: Confirmer le mot de passe
 
 title: Title
 toc: Table des matières

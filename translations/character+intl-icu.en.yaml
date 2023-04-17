@@ -131,6 +131,10 @@ name:
   nick: Middle name/Nickname
   last: Last name
 
+morality:
+  human: Morality
+  vampire: Humanity
+
 new:
   character: New character
   npc: New NPC

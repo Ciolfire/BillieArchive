@@ -64,6 +64,7 @@ class CharacterType extends AbstractType
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
       ])
+      ->add('moral', null, ['label' => "morality.{$character->getType()}", 'attr' => ['min' => 0, 'max' => 10]])
       ->add('virtue', null, ['label' => 'virtue.name'])
       ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
       ->add('vice', null, ['label' => 'vice.name'])

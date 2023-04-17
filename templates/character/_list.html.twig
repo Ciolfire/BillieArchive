@@ -1,7 +1,7 @@
 {% trans_default_domain 'app' %}
 
 <h1>
-  {% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0, 'class': 'icon-lg'} only %}
+  {% include "_icon.html.twig" with {'icon' : icon, 'hasTips': 0, 'class': 'icon-lg'} only %}
   {{ title|trans }}
 </h1>
 <div class="container">
@@ -12,7 +12,7 @@
       {% else %}{{ path('character_new', {'isNpc': 0 }) }}
       {% endif %}
     >
-      {{ "new"|trans }}{% include "_icon.html.twig" with {'icon' : type, 'hasTips': 0} only %}
+      {{ "new"|trans }}{% include "_icon.html.twig" with {'icon' : icon, 'hasTips': 0} only %}
     </a>
   </div>
   <div class="row pt-3">

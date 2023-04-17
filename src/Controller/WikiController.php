@@ -23,7 +23,7 @@ class WikiController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route('/', name: 'wiki_index', methods: ['GET'])]
+  #[Route('', name: 'wiki_index', methods: ['GET'])]
   public function index(): Response
   {
     return $this->render('wiki/index.html.twig');

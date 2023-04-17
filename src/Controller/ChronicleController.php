@@ -85,7 +85,7 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/npc", name: "chronicle_npc_index", methods: ["GET"])]
-  public function npc(Chronicle $chronicle) : Response
+  public function npc(Request $request, Chronicle $chronicle) : Response
   {
     return $this->render('character/npc/index.html.twig', [
       'chronicle' => $chronicle,

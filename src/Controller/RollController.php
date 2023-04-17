@@ -108,14 +108,14 @@ class RollController extends AbstractController
     return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("/{setting}/{id<\d+>}", name: "roll_list", methods: ["GET"])]
-  public function list(string $setting = null, int $id = null) : Response
+  #[Route("/{setting}", name: "roll_list", methods: ["GET"])]
+  public function list(string $setting = null) : Response
   {
     if (is_null($setting)) {
       $rolls = $this->dataService->findBy(Roll::class, [], ['name' => 'ASC']);
       $setting = "human";
     } else {
-      $rolls = $this->dataService->findBy(Roll::class, ['setting' => $setting], ['name' => 'ASC']);
+      $rolls = $this->dataService->findBy(Roll::class, ['type' => $setting], ['name' => 'ASC']);
     }
 
     return $this->render('roll/list.html.twig', [

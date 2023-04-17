@@ -32,7 +32,7 @@ class Merit
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 40)]
-  private string $name;
+  private string $name = "";
 
   #[ORM\Column(type: Types::STRING, length: 20)]
   private string $category;
