@@ -68,7 +68,7 @@ class CreationService
     foreach ($merits as $id => $merit) {
       /** @var CharacterMerit $characterMerit */
       $characterMerit = $this->doctrine->getRepository(CharacterMerit::class)->find($id);
-      $characterMerit->setLevel($merit['level']);
+      $characterMerit->setLevel((int)$merit['level']);
       if (isset($merit['details'])) {
         $characterMerit->setChoice($merit['details']);
       }

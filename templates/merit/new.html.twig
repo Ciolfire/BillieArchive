@@ -13,4 +13,5 @@
   <div class="container block py-3">
     {{ include('merit/_form.html.twig') }}
   </div>
+{% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
 {% endblock %}

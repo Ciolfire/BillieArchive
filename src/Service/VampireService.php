@@ -127,14 +127,14 @@ class VampireService
     foreach ($data['disciplinesUp'] as $id => $level) {
       $discipline = $vampire->getDiscipline($id);
       if ($discipline) {
-        $discipline->setLevel($level);
+        $discipline->setLevel((int)$level);
       }
     }
     if (isset($data['disciplines'])) {
       $this->addDisciplines($vampire, $data['disciplines']);
     }
     if (isset($data['potency']) && $data['potency'] > $vampire->getPotency()) {
-      $vampire->setPotency($data['potency']);
+      $vampire->setPotency((int)$data['potency']);
     }
 
     if (isset($data['devotions'])) {
@@ -152,7 +152,7 @@ class VampireService
     foreach ($disciplines as $id => $level) {
       $discipline = $this->dataService->find(Discipline::class, $id);
       if ($discipline instanceof Discipline) {
-        $newDiscipline = new VampireDiscipline($vampire, $discipline, $level);
+        $newDiscipline = new VampireDiscipline($vampire, $discipline, (int)$level);
       } else {
         throw new \Exception("\$discipline not a Discipline");
       }

@@ -12,7 +12,7 @@
     {% block header %}
       {% include "character_sheet/show/header.html.twig" %}
     {% endblock %}
-    <div class="row block" data-controller="tabs" data-tabs-initial-value="general">
+    <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="general">
       {% block background %}{% endblock %}
       <ul class="nav tabs row g-0">
         {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}

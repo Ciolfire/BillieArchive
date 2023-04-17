@@ -252,14 +252,14 @@ class CharacterController extends AbstractController
         $this->create->addSpecialties($character, $extraData['specialties']);
       }
       if (isset($extraData['willpower'])) {
-        $this->service->updateWillpower($character, $extraData['willpower']);
+        $this->service->updateWillpower($character, (int)$extraData['willpower']);
       }
       if ($character->getType() == "vampire") {
         /** @var Vampire $character */
         $this->vService->handleEdit($character, $extraData);
       }
       if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
-        $character->spendXp($extraData['xp']['spend']);
+        $character->spendXp((int)$extraData['xp']['spend']);
         $isFree = false;
       } else {
         $isFree = true;
