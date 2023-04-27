@@ -35,7 +35,7 @@
         {% for chronicle in app.user.chronicles %}
           <div class="row block {{ chronicle.type }} mx-1 mb-3">
             <h3>{{ chronicle.name }}</h3>
-            {% include "chronicle/base.html.twig" %}
+            {% include "chronicle/_base.html.twig" %}
           </div>
         {% endfor %}
       {% else %}
@@ -52,7 +52,7 @@
         <div class="row block {{ chronicle.type }} mx-1 mb-3">
           <h3>{{ chronicle.name }}</h3>
           <div class="row">
-            {% include "chronicle/story/base.html.twig" %}
+            {% include "chronicle/story/_base.html.twig" %}
           </div>
         </div>
       {% endfor %}
