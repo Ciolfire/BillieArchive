@@ -3,5 +3,8 @@
 namespace App\Entity\Types;
 
 final class SettingType {
-  public const vampire = "vampire";
+  public $human = "human";
+  public $vampire = "vampire";
+  public $mage = "mage";
+  public $werewolf = "werewolf";
 }

@@ -25,7 +25,6 @@ class RuleType extends AbstractType
   
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $types = new \ReflectionClass(SettingType::class);
     $converter = new LeagueMarkdown();
     $translator = $this->translator;
 
@@ -38,7 +37,7 @@ class RuleType extends AbstractType
       ->add('type', ChoiceType::class, [
         'label' => 'type.label',
         'required' => false,
-        'choices' => $types->getConstants(),
+        'choices' => get_class_vars(SettingType::class),
         'choice_label' => function ($choice, $key, $value) {
           return "type.{$key}";
         }
