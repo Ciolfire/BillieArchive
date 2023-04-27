@@ -2,6 +2,9 @@
   display  : inline-block;
   font-size: large;
 
+  &.accent {
+    color: $accentColor;
+  }
   &.icon-xs {
     svg {
       height: 0.5em;

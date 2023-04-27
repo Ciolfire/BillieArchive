@@ -1,9 +1,14 @@
+{% if size is not defined %}
+  {% set size = 2 %}
+{% endif %}
+
+
 {% if setting == "vampire" %}
-  <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" />
+  <img src={{ asset('SkullVTR.png', 'images') }} style="height:{{ size }}em;" />
 {% elseif setting == "mage" %}
-  <img src={{ asset('SkullMTAw.webp', 'images') }} style="height:2em;" />
+  <img src={{ asset('SkullMTAw.webp', 'images') }} style="height:{{ size }}em;" />
 {% elseif setting == "werewolf" %}
-  <img src={{ asset('SkullWTF.png', 'images') }} style="height:2em;" />
+  <img src={{ asset('SkullWTF.png', 'images') }} style="height:{{ size }}em;" />
 {% else %}
-  <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" />
+  <img src={{ asset('SkullWOD.webp', 'images') }} style="height:{{ size }}em;" />
 {% endif %}

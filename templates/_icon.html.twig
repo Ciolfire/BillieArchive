@@ -221,6 +221,19 @@
     <i class="fa-solid fa-universal-access fa-fw"></i>
   {% elseif icon == 'human' %}
     {{ source('@icons/' ~ 'person.svg') }}
+{# Societies #}
+  {% elseif icon == 'religious' %}
+    {{ source('@icons/' ~ 'crucifix.svg') }}
+  {% elseif icon == 'allies' %}
+    {{ source('@icons/' ~ 'three-friends.svg') }}
+  {% elseif icon == 'interest' %}
+    {{ source('@icons/' ~ 'conversation.svg') }}
+  {% elseif icon == 'military' %}
+    {{ source('@icons/' ~ 'stahlhelm.svg') }}
+  {% elseif icon == 'political' %}
+    {{ source('@icons/' ~ 'shaking-hands.svg') }}
+    {# {{ source('@icons/' ~ 'congress.svg') }} #}
+    {# {{ source('@icons/' ~ 'public-speaker.svg') }} #}
 {# Other #}
   {% elseif icon == 'all' %}
     {{ source('@icons/' ~ 'earth-africa-europe.svg') }}
@@ -269,8 +282,8 @@
 {# books #}
   {% elseif icon == 'alternate_setting' %}
     {{ source('@icons/' ~ 'earth-asia-oceania.svg') }}
-  {% elseif icon == 'antagonist' %}
-    <i class="fa-regular fa-face-angry"></i>
+  {% elseif icon == 'antagonist' or icon == 'antagonists' %}
+    {{ source('@icons/' ~ 'pyromaniac.svg') }}
   {% elseif icon == 'chronicle' %}
     <i class="fa-solid fa-book-open"></i>
   {% elseif icon == 'core' %}
@@ -278,7 +291,8 @@
   {% elseif icon == 'equipment' %}
     <i class="fa-solid fa-gun"></i>
   {% elseif icon == 'location' %}
-    <i class="fa-solid fa-map-location-dot"></i>
+    {# <i class="fa-solid fa-map-location-dot"></i> #}
+    {{ source('@icons/' ~ 'modern-city.svg') }}
   {% elseif icon == 'joke' %}
     <i class="fa-regular fa-face-grin-tears"></i>
   {% elseif icon == 'clan' %}
