@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ "society.new"|trans }}{% endblock %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1>
+    {% include "_icon.html.twig" with {'icon' : 'group', 'hasTips': 0, 'class': 'icon-xl' } only %}
+    {{ "society.new"|trans }}
+  </h1>
+  <div class="container block py-3">
+    {% include "element/forms/_form.html.twig" with {'action': 'new'} %}
+  </div>
+{% endblock %}

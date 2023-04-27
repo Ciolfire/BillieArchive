@@ -180,6 +180,22 @@ skill:
   new: New Skill
   edit: Edit Skill
 skills: Skills
+society:
+  label: Group
+  add:
+    character: Assign Characters to this Group
+  new: New Group
+  edit: Edit group
+  type:
+    allies: Allies
+    antagonists: Antagonists
+    interest: Interest
+    religious: Religious
+    political: Political
+    military: Military
+    location: Location
+societies:
+  label: Groups
 source: "{book} page {page}"
 source.not.found: Unknown Source
 src: "{book} p.{page}"
@@ -200,6 +216,8 @@ type:
   universal: Universal
   translation: Translation
   
+  mage: Mage
+
   vampire: Vampire
   bloodlines: Bloodlines
   clan: Clan
@@ -210,6 +228,8 @@ type:
   purified: Purified
   innocents: Innocents
   possessed: Possessed
+
+  werewolf: Werewolf
 
 email: Email Address
 username: Username

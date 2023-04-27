@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% set footer = true %}
+
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ "societies.label"|trans }}{% endblock %}
+
+{% block body %}
+{% include "_back.html.twig" with {'link': path('chronicle_show', {'id': chronicle.id })} %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="block py-3">
+      <h1>{% include "_icon.html.twig" with {'icon' : "group", 'hasTips': 0, "class": 'icon-lg' } only %}{{ "societies.label"|trans }}</h1>
+      <h2>{{ chronicle.name }}</h2>
+      <div class="row">
+        {% for society in chronicle.societies %}
+          <div class="col-12 col-sm-6 col-lg-4 g-2">
+            <a class="btn btn-primary w-100" href="{{ path('society_show', {'id': society.id }) }}">
+              <h4>
+                {{ society.name }}
+              </h4>
+              {% if society.type %}
+                <span class="accent">{% include "_icon.html.twig" with {'icon' : society.type, 'hasTips': 0 } only %}</span>
+                {{ ('society.type.' ~ society.type)|trans }}
+              {% endif %}
+              (
+                {% include "_icon_setting.html.twig" with {'setting' : society.setting, 'hasTips': 0, 'size': 1 } only %}
+                {{ society.characters|length }}
+              )
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center justify-content-center position-relative">
+    <a class="btn btn-primary " href="{{ path('society_chronicle_new', {'chronicle': chronicle.id }) }}">
+      {% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}
+      {% include "_icon.html.twig" with {'icon' : 'group', 'hasTips': 0 } only %}
+    </a>
+  </div>
+{% endblock %}

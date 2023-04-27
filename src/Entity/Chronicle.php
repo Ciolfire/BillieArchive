@@ -53,6 +53,10 @@ class Chronicle
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
   private Collection $rituals;
 
+  #[ORM\OneToMany(mappedBy: 'chronicle', targetEntity: Society::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
+  private Collection $societies;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -62,6 +66,7 @@ class Chronicle
     // Vampire
     $this->clans = new ArrayCollection();
     $this->devotions = new ArrayCollection();
+    $this->societies = new ArrayCollection();
   }
 
   public function __toString(): string
@@ -244,5 +249,35 @@ class Chronicle
   public function getRituals(): Collection
   {
     return $this->rituals;
+  }
+
+  /**
+   * @return Collection<int, Society>
+   */
+  public function getSocieties(): Collection
+  {
+      return $this->societies;
+  }
+
+  public function addSociety(Society $society): self
+  {
+      if (!$this->societies->contains($society)) {
+          $this->societies->add($society);
+          $society->setChronicle($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSociety(Society $society): self
+  {
+      if ($this->societies->removeElement($society)) {
+          // set the owning side to null (unless already changed)
+          if ($society->getChronicle() === $this) {
+              $society->setChronicle(null);
+          }
+      }
+
+      return $this;
   }
 }

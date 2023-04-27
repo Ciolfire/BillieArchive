@@ -5,6 +5,7 @@ action:
   delete: Supprimer
   duplicate: Duplicate
   edit: Modifier
+  new: Sauvegarder
   remove: Retirer
   save: Sauvegarder
   search: Search
@@ -179,6 +180,22 @@ skill:
   new: Nouvelle Compétence
   edit: Modifier une Compétence
 skills: Compétences
+society:
+  label: Groupe
+  add:
+    character: Assigner des Personnages au groupe
+  new: Nouveau Groupe
+  edit: Modifier le Groupe
+  type:
+    allies: Alliés
+    antagonists: Opposants
+    interest: Intérêt
+    religious: Religieux
+    political: Politique
+    military: Militaire
+    location: Lieu
+societies:
+  label: Groupes
 source: "{book} page {page}"
 source.not.found: Source Inconnue
 src: "{book} p.{page}"
@@ -199,6 +216,8 @@ type:
   universal: Universel
   translation: Traduction
   
+  mage: Mage
+
   vampire: Vampire
   bloodlines: Lignées
   clan: Clan
@@ -209,6 +228,8 @@ type:
   purified: Purifié
   innocents: Innocents
   possessed: Possedé
+
+  werewolf: Loup-Garou
 
 email: Adresse Mail
 username: Identifiant

@@ -122,6 +122,9 @@ class Character
   protected ?bool $isTemplate = false;
 
   protected string $type;
+
+  #[ORM\ManyToMany(targetEntity: Society::class, mappedBy: 'characters')]
+  private Collection $societies;
   
   public function __construct()
   {
@@ -132,6 +135,7 @@ class Character
     $this->notes = new ArrayCollection();
     
     $this->type = lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
+    $this->societies = new ArrayCollection();
   }
 
   public function __toString()
@@ -940,6 +944,33 @@ class Character
   public function setIsTemplate(bool $isTemplate): self
   {
       $this->isTemplate = $isTemplate;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Society>
+   */
+  public function getSocieties(): Collection
+  {
+      return $this->societies;
+  }
+
+  public function addSociety(Society $society): self
+  {
+      if (!$this->societies->contains($society)) {
+          $this->societies->add($society);
+          $society->addCharacter($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSociety(Society $society): self
+  {
+      if ($this->societies->removeElement($society)) {
+          $society->removeCharacter($this);
+      }
 
       return $this;
   }
