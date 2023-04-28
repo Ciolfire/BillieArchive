@@ -11,7 +11,7 @@
     {% if max == 0 %}{% set max = 5 %}{% endif %}
     {% if min < max %}
       <div class="col-12 col-lg-6 justify-content-center">
-        <div class="discipline-block w-100 container g-0">
+        <div class="discipline-block w-100 container g-1">
             {% include "character_sheet/vampire/edit/discipline.html.twig" with { 'characterDiscipline': characterDiscipline, 'discipline': characterDiscipline.discipline } %}
         </div>
       </div>

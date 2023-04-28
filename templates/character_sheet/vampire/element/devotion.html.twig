@@ -16,9 +16,11 @@
         {% block text %}
           <div class="devotion-{{ devotion.id }}-text show">
             <p>{{ devotion.short }}</p>
+            <div class="w-100 text-center"><i class="fas fa-caret-down"></i></div>
           </div>
           <div class="devotion-{{ devotion.id }}-text collapse">
             {{ devotion.description|default("")|markdown_to_html }}
+            <div class="w-100 text-center"><i class="fas fa-caret-up"></i></div>
           </div>
         {% endblock %}
       </div>
