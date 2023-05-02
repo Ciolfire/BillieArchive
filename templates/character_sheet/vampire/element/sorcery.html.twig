@@ -25,7 +25,7 @@
           {% block pool %}
             {% set powerPool = ritual.detailedDicePool(character) %}
             {% if powerPool is not null %}
-              <div class="float-end">{% include "_dicePool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
+              <div class="float-end">{% include "_dice_pool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
             {% endif %}
           {% endblock %}
         </div>

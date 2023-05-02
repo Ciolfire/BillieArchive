@@ -12,7 +12,7 @@
 {% block pool %}
   {% if sorcery.powers|length > 0 and (sorcery.powers|first).level == 0 %}
     {% set ritual = sorcery.powers|first %}
-      <div class="float-end">{% include "_dicePool.html.twig" with {'pool' : ritual.detailedDicePool(character), 'contested' : ritual.contestedText} %}</div>
+      <div class="float-end">{% include "_dice_pool.html.twig" with {'pool' : ritual.detailedDicePool(character), 'contested' : ritual.contestedText} %}</div>
   {% endif %}
 {% endblock %}
 
