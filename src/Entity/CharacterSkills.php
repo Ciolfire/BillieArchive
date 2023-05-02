@@ -125,6 +125,18 @@ class CharacterSkills
     return $this;
   }
 
+  public function getAll(bool $any=true) : array
+  {
+    $skills = [];
+    foreach ($this->list as $skill) {
+      if ($any || $this->$skill > 0) {
+        $skills[] = ['id' => $skill, 'value' => $this->$skill];
+      }
+    }
+
+    return $skills;
+  }
+
   public function getAcademics(): ?int
   {
     return $this->academics;

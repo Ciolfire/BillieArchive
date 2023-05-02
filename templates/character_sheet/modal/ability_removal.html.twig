@@ -1,0 +1,51 @@
+{% trans_default_domain 'character' %}
+
+<div class="modal fade" id="abilityRemovalModal" tabindex="-1" aria-labelledby="abilityRemovalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h5 class="modal-title text-sub" id="abilityRemovalModalLabel">{{'ability.removal'|trans }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ path('character_ability_removal', { 'id' : character.id }) }}" method="POST" data-controller="character--ability-removal">
+          <input type="hidden" data-character--ability-removal-target="character" value="{{ character.id }}">
+          <input type="hidden" data-character--ability-removal-target="locale" value="{{ app.request.locale }}">
+          <div class="row">
+            <div class="col-6 mb-3">
+              <select class="form-control" name="type" data-character--ability-removal-target="type" data-action="change->character--ability-removal#load">
+                <option value=""></option>
+                {% for removable in removables %}
+                  <option value="{{removable}}">{{ (removable ~ '.label')|trans }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-6 mb-3">
+              <select class="form-control" name="method" data-character--ability-removal-target="method">
+                <option value=""></option>
+                <option value="reduce">Reduce 1 from</option>
+                <option value="remove">Remove</option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <select class="form-control" name="element" data-character--ability-removal-target="elements" data-action="change->character--ability-removal#unlock">
+                <option value=""></option>
+                {# {% for item in items %}
+                  <option value="{{item.key}}">{{ item.value }}</option>
+                {% endfor %} #}
+              </select>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-warning w-100 disabled" data-character--ability-removal-target="submit">
+              {% include "_icon.html.twig" with {'icon': 'destroy', 'hasTips': 0} %}
+              {{ 'action.confirm'|trans([], 'app') }}
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

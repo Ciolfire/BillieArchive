@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\CharacterMerit;
+use App\Entity\CharacterSpecialty;
 use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vampire;
@@ -215,5 +217,86 @@ class CharacterService
 
       return null;
     }
+  }
+
+  public function removeAbility(Character $character, array $data) : bool
+  {
+    $infos = [];
+    if (isset($data['element'])) {
+      $element = $data['element'];
+      $infos['name'] = $element;
+    }
+    $method = $data['method'];
+    
+    switch ($data['type']) {
+      case 'attribute':
+        $attributes = $character->getAttributes();
+        $value = $attributes->get($element);
+        $infos['base'] = $value;
+        if ($method == 'reduce' && $value > 0) {
+          $newValue = $value - 1;
+        } else {
+          $newValue = 0;
+        }
+        $attributes->set($element, $newValue);
+        break;
+      case 'skill':
+        $skills = $character->getSkills();
+        $value = $skills->get($element);
+        $infos['base'] = $value;
+        if ($method == 'reduce' && $skills->get($element) > 0) {
+        $newValue = $value - 1;
+        } else {
+          $newValue = 0;
+        }
+        $skills->set($element, $newValue);
+        break;
+      case 'merit':
+        $merit = $this->dataService->find(CharacterMerit::class, $element);
+
+        if ($merit instanceof CharacterMerit) {
+          $level = $merit->getLevel();
+          $infos['base'] = $level;
+          $infos['name'] = $merit->getMeritName();
+          if ($method == 'reduce' && $level > 1) {
+            $merit->setLevel($level - 1);
+          } else {
+            $character->removeMerit($merit);
+          }
+        }
+        break;
+      case 'specialty':
+        $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
+        $infos['name'] = "{$specialty->getName()} ({$specialty->getSkill()->getName()})";
+        if ($specialty instanceof CharacterSpecialty) {
+          $character->removeSpecialty($specialty);
+        } else {
+
+          return false;
+        }
+        break;
+      case 'willpower':
+        $willpower = $character->getWillpower();
+        if ($willpower > 1) {
+          $infos['base'] = $willpower;
+          $character->setWillpower($willpower - 1);
+        } else {
+
+          return false;
+        }
+        break;
+      default:
+
+        return false;
+    }
+
+    $logs = [$data['method'] => [
+      'type' => $data['type'],
+      'info' => $infos,
+    ]];
+    $this->updateLogs($character, json_encode($logs), false);
+    $this->dataService->flush();
+
+    return true;
   }
 }

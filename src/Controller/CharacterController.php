@@ -204,12 +204,21 @@ class CharacterController extends AbstractController
 
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
+    $removables = [
+      'attribute',
+      'skill',
+      'merit',
+      'specialty',
+      'willpower',
+    ];
+
     return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'rolls' => $rolls,
       'setting' => $character->getType(),
+      'removables' => $removables,
     ]);
   }
 
@@ -326,6 +335,15 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
+  public function abilityRemoval(Request $request, Character $character): Response
+  {
+    // dd($character, $data->get('type'), $data->get('element'), $data->get('method'));
+    if ($this->service->removeAbility($character, $request->request->all())) {
+      $this->addFlash("info", "{$request->request->get('element')}: {$request->request->get('method')}");
+    }
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+  }
 
   #[Route('/{id<\d+>}/background', name: 'character_background', methods: ['GET', 'POST'])]
   public function background(Request $request, Character $character): Response
@@ -333,9 +351,9 @@ class CharacterController extends AbstractController
     $converter = new LeagueMarkdown();
     $form = $this->createFormBuilder()
       ->add('background', CKEditorType::class , [
-        'empty_data' => '', 
+        'empty_data' => '',
         'data' => $converter->convert($character->getBackground()), 
-        'label' => 'background.label', 
+        'label' => 'background.label',
         'translation_domain' => 'character'
       ])
       ->add('save', SubmitType::class, [

@@ -1,0 +1,55 @@
+{% trans_default_domain 'logs-xp' %}
+
+<div class="modal fade" id="xpLogsModal" tabindex="-1" aria-labelledby="xpLogsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h5 class="modal-title text-sub" id="xpLogsModalLabel">{{'xp.log'|trans }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% for timestamp, entry in logs|reverse(true) %}
+          <p>
+            <span class="ok">{{ timestamp|date()|format_datetime(pattern="d MMM y, hh:mm", locale=app.request.locale) }}</span>
+            <br>
+            {% for key, log in entry %}
+            {% if key == 'reduce' %}
+              <span class="accent">
+                {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
+              </span> ―
+              <span>
+                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base }} ➔ {{ log.info.base - 1 }}
+              </span>
+            {% elseif key == 'remove' %}
+              <span class="accent">
+                {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
+              </span> ―
+              <span>
+                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base|default('') }}
+              </span>
+            {% else %}
+              {% if log.type == 'specialty' %}
+                <span class="accent">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% elseif log.type == 'merit' %}
+                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% elseif log.type == 'skill' or log.type == 'attribute' %}
+                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.type ~ '.' ~ log.info.id)|trans([], 'character') }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' %}
+                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% elseif log.type == 'devotion' or log.type == 'ritual' %}
+                <span class="accent">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% else %}
+                <span class="accent">{{ (log.type~".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% endif %}
+            {% endif %}
+              <br>
+            {% endfor %}
+          </p>
+          <hr>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

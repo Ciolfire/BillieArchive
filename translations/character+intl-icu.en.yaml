@@ -16,6 +16,9 @@ physical: Physical
 social: Social
 details: Details
 
+ability:
+  removal: Remove/Reduce an ability for this character
+
 age:
   label: Age
   normal: >-
@@ -89,7 +92,7 @@ dot:
   fifth: Fifth dot cost two
 
 willpower:
-  name: Willpower
+  label: Willpower
   value: >-
     {value, plural,
       =0 {0 - Exhausted}

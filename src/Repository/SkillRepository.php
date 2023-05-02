@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -14,15 +16,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SkillRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Skill::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Skill::class);
+  }
 
-    // /**
-    //  * @return Skill[] Returns an array of Skill objects
-    //  */
-    /*
+  /**
+   * @return Skills[] Returns an array of Skill objects
+   */
+  public function filterByIdentifiers($identifiers)
+  {
+    return $this->createQueryBuilder('a')
+      ->andWhere('a.identifier IN (:identifiers)')
+      ->setParameter('identifiers', $identifiers)
+      ->orderBy('a.name', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+  // /**
+  //  * @return Skill[] Returns an array of Skill objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
@@ -36,7 +51,7 @@ class SkillRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Skill
     {
         return $this->createQueryBuilder('s')

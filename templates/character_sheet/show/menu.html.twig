@@ -16,17 +16,23 @@
         </a>
       </div>
     {% endif %}
-    {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
         {% include "_icon.html.twig" with {'icon': 'logs'} only %}
       </div>
     </div>
     <div class="col-2">
+      <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#abilityRemovalModal">
+        {% include "_icon.html.twig" with {'icon': 'destroy', 'hasTips': 0} only %}
+      </div>
+    </div>
+    <div class="col-2">
       <a href="{% if character.isTemplate %}{{ path('character_generated_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
-        {# {{ "back"|trans({}, "app") }} #}
       </a>
     </div>
+  </div>
+  <div class="row justify-content-center g-0">
+    {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
   </div>
 </div>

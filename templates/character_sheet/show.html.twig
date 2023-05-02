@@ -82,9 +82,10 @@
       {% include "character_sheet/show/rolls.html.twig" %}
     </div>
     {% block modals %}
-      {% include "character_sheet/modal/avatar.update.html.twig" %}
-      {% include "character_sheet/modal/xp.add.html.twig" %}
-      {% include "character_sheet/modal/xp.logs.html.twig" with { 'logs': character.experienceLogs } only %}
+      {% include "character_sheet/modal/avatar_update.html.twig" %}
+      {% include "character_sheet/modal/xp_add.html.twig" %}
+      {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
+      {% include "character_sheet/modal/ability_removal.html.twig" %}
     {% endblock %}
   </div>
 {% endblock %}

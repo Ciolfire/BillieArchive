@@ -34,6 +34,11 @@ class DataService
     $this->slugger = $slugger;
   }
 
+  public function getDoctrine() : ManagerRegistry
+  {
+    return $this->doctrine;
+  }
+
   public function getConnection(?string $name = null) : Connection
   {
     /** @var Connection */

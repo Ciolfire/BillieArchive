@@ -1,11 +1,13 @@
 action:
   label: Action
   add: Add
+  confirm: Confirm
   continue: Continuer
   delete: Delete
   duplicate: Duplicate
   edit: Update
   new: Save
+  reduce: Reduce by 1
   remove: Remove
   save: Save
   search: Search

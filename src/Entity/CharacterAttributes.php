@@ -82,7 +82,19 @@ class CharacterAttributes
     return $this;
   }
 
-  public function getIntelligence(): int
+  public function getAll(bool $any=true) : array
+  {
+    $attributes = [];
+    foreach ($this->list as $attribute) {
+      if ($any || $this->$attribute > 0) {
+        $attributes[] = ['id' => $attribute, 'value' => $this->$attribute];
+      }
+    }
+
+    return $attributes;
+  }
+
+  public function getIntelligence() : int
   {
     return min($this->character->getLimit(), $this->intelligence);
   }
@@ -99,7 +111,7 @@ class CharacterAttributes
     return min($this->character->getLimit(), $this->wits);
   }
 
-  public function setWits(int $wits): self
+  public function setWits(int $wits) : self
   {
     $this->wits = $wits;
 
@@ -111,7 +123,7 @@ class CharacterAttributes
     return min($this->character->getLimit(), $this->resolve);
   }
 
-  public function setResolve(int $resolve): self
+  public function setResolve(int $resolve) : self
   {
     $difference = $resolve - $this->resolve;
     $this->changeWillpower($difference);

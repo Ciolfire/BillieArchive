@@ -1,4 +1,19 @@
+{% if id is not defined %}
+  {% set id = 'id' %}
+{% endif %}
+
+{% if label is not defined %}
+  {% set label = 'name' %}
+{% endif %}
+
+{% if hasEmpty is not defined %}
+  {% set hasEmpty = true %}
+{% endif %}
+
+
+{% if choices|length > 1 and hasEmpty %}
   <option value="">---</option>
+{% endif %}
 {% for choice in choices %}
-  <option value="{{ choice.id }}">{{ choice.name }}</option>
+  <option value="{{ attribute(choice, id) }}">{{ attribute(choice, label) }}</option>
 {% endfor %}

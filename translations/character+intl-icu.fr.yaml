@@ -15,6 +15,9 @@ physical: Physique
 social: Social
 details: Details
 
+ability:
+  removal: Retire/réduit une capacité du personnage
+
 age:
   label: Age
   normal: >-
@@ -88,7 +91,7 @@ dot:
   fifth: Le cinquième point coûte double
 
 willpower:
-  name: Volonté
+  label: Volonté
   value: >-
     {value, plural,
       =0 {0 - Épuisé}

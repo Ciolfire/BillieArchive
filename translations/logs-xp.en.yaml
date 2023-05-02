@@ -1,5 +1,8 @@
 attribute.label: Attribut increased
 
+reduce: Reduce
+remove: Remove
+
 logs: Logs
 
 merit.label: "{0}New Merit|[1,Inf]Merit improved"

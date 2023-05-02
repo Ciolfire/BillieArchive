@@ -393,6 +393,7 @@ class Character
   public function removeSpecialty(CharacterSpecialty $specialty): self
   {
     if ($this->specialties->removeElement($specialty)) {
+      $specialty->setCharacter(null);
     }
 
     return $this;
@@ -456,6 +457,22 @@ class Character
   public function getAttributes(): CharacterAttributes
   {
     return $this->attributes;
+  }
+
+  /**
+   * @return array<string>
+   */
+  public function getPositiveAttributes(): array
+  {
+    return $this->attributes->getAll(false);
+  }
+
+  /**
+   * @return array<string>
+   */
+  public function getLearnedSkills(): array
+  {
+    return $this->skills->getAll(false);
   }
 
   public function setAttributes(CharacterAttributes $attributes): self

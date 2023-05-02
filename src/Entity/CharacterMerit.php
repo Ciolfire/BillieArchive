@@ -37,6 +37,24 @@ class CharacterMerit
     return $this->id;
   }
 
+  public function getName(): ?string
+  {
+    if (is_null($this->choice)) {
+      return "{$this->merit->getName()} — {$this->level}";
+    }
+
+    return "{$this->merit->getName()} ({$this->choice}) — {$this->level}";
+  }
+
+  public function getMeritName(): ?string
+  {
+    if (is_null($this->choice)) {
+      return "{$this->merit->getName()}";
+    }
+
+    return "{$this->merit->getName()} ({$this->choice})";
+  }
+
   public function getMerit(): ?Merit
   {
     return $this->merit;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -14,15 +16,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AttributeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Attribute::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Attribute::class);
+  }
 
-    // /**
-    //  * @return Attribute[] Returns an array of Attribute objects
-    //  */
-    /*
+  /**
+   * @return Attribute[] Returns an array of Attribute objects
+   */
+  public function filterByIdentifiers($identifiers)
+  {
+    return $this->createQueryBuilder('a')
+      ->andWhere('a.identifier IN (:identifiers)')
+      ->setParameter('identifiers', $identifiers)
+      ->orderBy('a.name', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+  // /**
+  //  * @return Attribute[] Returns an array of Attribute objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
@@ -36,7 +51,7 @@ class AttributeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Attribute
     {
         return $this->createQueryBuilder('a')
