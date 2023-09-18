@@ -62,7 +62,7 @@ specialty:
 merit:
   unique: This Merit can only be taken once.
   not.unique: This Merit can be taken more than once.
-expanded: This Merit required additionnal information when selected.
+expanded: This Merit require additionnal information when selected.
 
 size: Size
 speed: Speed
