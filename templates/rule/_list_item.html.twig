@@ -2,7 +2,7 @@
 
 {% set first = true %}
 
-<a class="{% if rule.type is not null %}{{rule.type}}"{% endif %} href="{{ path('rule_show', {'id': rule.id }) }}">
+<a class="{% if rule.type is not null %}{{rule.type}}{% endif %}" href="{{ path('rule_show', {'id': rule.id }) }}">
   <div class="col-12 btn btn-primary rounded-0 my-1">
     <h3><span class="text-default">{{ rule.title }}</span></h3>
     {% if rule.subrules is not empty %}

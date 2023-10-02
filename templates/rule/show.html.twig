@@ -22,7 +22,12 @@
               {% if is_granted('ROLE_ST') %}
                 <a class="float-end" href="{{ path('rule_edit', {'id': subrule.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
               {% endif %}
-                <h2>{{ subrule.title }}</h2>
+                <h2>
+                  {{ subrule.title }}
+                  <span class="text-sub fs-6">
+                    ({{ subrule.book.short}} {{ subrule.page }})
+                  </span>
+                </h2>
                 {{ subrule.details|markdown_to_html }}
               </div>
             {% endfor %}
