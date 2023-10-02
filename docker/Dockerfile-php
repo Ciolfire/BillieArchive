@@ -1,0 +1,69 @@
+FROM php:8.2-fpm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    coreutils \
+    make \
+    # add here any prerequisite needed for the php extensions
+    libicu-dev
+    ## libcurl4-openssl-dev \
+    ## libxml2-dev \
+    ## libpng-dev \
+    # libzip-dev \
+    zip \
+    curl
+    ## libc-client-dev libkrb5-dev \
+    ## Otherwise impossible to install imap
+    ## && rm -r /var/lib/apt/lists/* \
+    ## && pecl install apcu
+
+# RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+
+# RUN docker-php-ext-install \
+    # ctype \
+    # curl \
+    # dom \
+    # fileinfo \
+    # gd \
+    #iconv \
+    #imap \
+    intl
+    #mysqli \
+    #opcache \
+    pdo \
+    pdo_mysql \
+    #phar \
+    #simplexml \
+    # tokenizer \
+    #xmlwriter \
+    zip
+
+# RUN docker-php-ext-enable intl
+
+RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
+        && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
+        && php composer-setup.php && rm composer-setup.php* \
+        && chmod +x composer.phar && mv composer.phar /usr/bin/composer
+
+COPY build/php/symfony.ini /etc/php8.2/conf.d/
+COPY build/php/symfony.ini /etc/php8.2/cli/conf.d/
+COPY build/php/symfony.pool.conf /etc/php8.2/php-fpm.d/
+#COPY build/php/xdebug.ini  /etc/php/8.2/conf.d/
+
+WORKDIR /var/www/darkness
+
+CMD ["php-fpm", "-F"]
+
+EXPOSE 9000
+
+
+    # php-apcu \
+    # php-imagick \
+    # php-json \
+    # php-mcrypt \
+    # php-mbstring \
+    # php-xml \
+    # php-xdebug \
+    # php-openssl \
+    # php-zlib \
+    # php-session \

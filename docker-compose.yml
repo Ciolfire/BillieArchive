@@ -1,0 +1,61 @@
+version: '3.9'
+services:
+  db:
+    container_name: wod_db
+    image: mysql
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+  php:
+    build: 
+      context: ./docker
+      dockerfile: Dockerfile-php
+    container_name: wod_php
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+    links:
+      - db
+    # ports:
+    #   - "9000:9000"
+    volumes:
+      - ./:/var/www/darkness:cached
+  nginx:
+    build: 
+      context: ./docker
+      dockerfile: Dockerfile-nginx
+    container_name: wod_nginx
+    links:
+      - php
+    ports:
+      - "666:80"
+    volumes:
+      - ./:/var/www/darkness:cached
+  node:
+    command: sh ./yarn.sh
+    container_name: wod_node
+    depends_on: 
+      - php
+    image: node:16-alpine
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    volumes:
+      - ./:/var/www/darkness:cached
+    working_dir: /var/www/darkness
+  phpmyadmin:
+    container_name: wod_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    ports:
+      - '8081:80'
+    environment:
+      - PMA_HOST=db
+      - MYSQL_ROOT_PASSWORD=root
+      - PHP_UPLOAD_MAX_FILESIZE=100MB
+volumes:
+  db:
