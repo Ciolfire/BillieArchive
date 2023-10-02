@@ -42,7 +42,7 @@ class MeritType extends AbstractType
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
-        'entry_options' => ['label' => false],
+        'entry_options' => ['label' => false, 'type' => 'merit'],
         'allow_add' => true,
         'allow_delete' => true,
       ])

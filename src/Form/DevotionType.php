@@ -40,7 +40,7 @@ class DevotionType extends AbstractType
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
-        'entry_options' => ['label' => false],
+        'entry_options' => ['label' => false, 'type' => 'devotion'],
         'allow_add' => true,
         'allow_delete' => true,
       ])
@@ -82,8 +82,7 @@ class DevotionType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Devotion::class,
-      "translation_domain" => 'vampire',
-
+      'translation_domain' => 'vampire',
     ]);
   }
 }
