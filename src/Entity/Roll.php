@@ -13,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RollRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\RollTranslation")]
 class Roll
 {

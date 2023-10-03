@@ -12,6 +12,7 @@ use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Book
 {
   #[ORM\Id]

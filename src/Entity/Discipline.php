@@ -15,6 +15,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "disciplines")])]
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: DisciplineTranslation::class)]
 class Discipline
 {

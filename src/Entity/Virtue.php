@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: VirtueRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Virtue
 {
     #[ORM\Id]

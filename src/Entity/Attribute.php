@@ -11,6 +11,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\AttributeTranslation")]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Entity(repositoryClass: AttributeRepository::class)]
 class Attribute
 {

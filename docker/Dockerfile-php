@@ -5,21 +5,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     coreutils \
     make \
     # add here any prerequisite needed for the php extensions
-    libicu-dev
+    libicu-dev \
     ## libcurl4-openssl-dev \
     ## libxml2-dev \
     ## libpng-dev \
-    # libzip-dev \
+    libzip-dev \
     zip \
     curl
     ## libc-client-dev libkrb5-dev \
     ## Otherwise impossible to install imap
     ## && rm -r /var/lib/apt/lists/* \
-    ## && pecl install apcu
 
 # RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 
-# RUN docker-php-ext-install \
+RUN mkdir -p /usr/src/php/ext/apcu && curl -fsSL        https://pecl.php.net/get/apcu | tar xvz -C "/usr/src/php/ext/apcu" --strip 1 && docker-php-ext-install apcu
+
+RUN docker-php-ext-install \
     # ctype \
     # curl \
     # dom \
@@ -27,9 +28,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # gd \
     #iconv \
     #imap \
-    intl
+    intl \
     #mysqli \
-    #opcache \
+    opcache \
     pdo \
     pdo_mysql \
     #phar \
@@ -37,8 +38,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # tokenizer \
     #xmlwriter \
     zip
-
-# RUN docker-php-ext-enable intl
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
