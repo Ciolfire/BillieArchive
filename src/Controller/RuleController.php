@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("{_locale<%supported_locales%>?%default_locale%}/rule")]
+#[Route("{_locale<%supported_locales%>?%default_locale%}/wiki/rule")]
 class RuleController extends AbstractController
 {
   private DataService $dataService;
@@ -91,11 +91,11 @@ class RuleController extends AbstractController
   #[Route("/{setting}", name: "rule_index", methods: ["GET"])]
   public function list(string $setting = null) : Response
   {
+    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $setting], ['title' => 'ASC']);
     if (is_null($setting)) {
-      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
+      // $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
       $setting = "human";
     } else {
-      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $setting], ['title' => 'ASC']);
     }
 
     return $this->render('rule/list.html.twig', [

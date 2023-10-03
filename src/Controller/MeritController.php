@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route("{_locale<%supported_locales%>?%default_locale%}/merit")]
+#[Route("{_locale<%supported_locales%>?%default_locale%}/wiki/merit")]
 class MeritController extends AbstractController
 {
   private DataService $dataService;

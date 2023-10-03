@@ -6,7 +6,7 @@
 <div class="d-flex align-items-center vh-100">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-lg-4 block text-center">
+      <div class="col-12 col-lg-5 block text-center pt-2">
         {% if error %}
           <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -40,10 +40,16 @@
               {% endif %}
               
             </div>
+            <div class="col text-center">
+              <a href="{{path('wiki_index')}}">
+                {{ "wiki"|trans }}
+                {% include "_icon.html.twig" with {'icon': 'wiki', 'hasTips': 0} %}
+              </a>
+            </div>
             <div class="col text-end">
               <a href="{{path('app_register')}}">
                 {{ "register"|trans }}
-                <img class="float-end" height="50" src="{{ asset('rabbit_idle.gif', 'images') }}">
+                <img class="float-end ps-2" height="22" src="{{ asset('rabbit_idle.gif', 'images') }}">
               </a>
             </div>
           </div>

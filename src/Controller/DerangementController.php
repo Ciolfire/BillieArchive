@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("{_locale<%supported_locales%>?%default_locale%}/derangement")]
+#[Route("{_locale<%supported_locales%>?%default_locale%}/wiki/derangement")]
 class DerangementController extends AbstractController
 {
   private DataService $dataService;
