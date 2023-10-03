@@ -28,6 +28,12 @@
     </div>
     <div class="block vampire row my-5">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'vampire'} %} {{ "type.vampire"|trans }}</h2>
+      <div class="col-12">
+        <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {'type': 'vampire', 'id': chronicle.id })}}">
+          {% include "_icon.html.twig" with {'icon': 'vampire', 'hasTips': 0 } only %}
+          {{ "homebrew.label"|trans({}, 'vampire')}}
+        </a>
+      </div>
       <div class="col-6 col-lg-4">
         <a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'filter': 'chronicle', 'id': chronicle.id })}}">
           {{ chronicle.clans|length }}

@@ -65,6 +65,9 @@ devotion:
 devotions:
   label: Dévotions
 
+homebrew:
+  label: Paramètres des Vampires
+
 # Disciplines
 coil:
   label: Anneau du Dragon
@@ -147,6 +150,7 @@ feeding:
   hungry: Le Vampire a 4 Vitae ou moins, il a faim et souffre d'un -1 pour résister à la Frénésie
   starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
 vitae: Vitae
+vitae.per.turn: Max <span class="accent">{value}</span> par Tour
 
 morality:
   name: Humanité

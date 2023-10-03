@@ -1,25 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\User;
-use App\Entity\Vampire;
 use App\Entity\Clan;
-use App\Entity\Description;
 use App\Entity\Discipline;
-use App\Entity\DisciplinePower;
-use App\Form\ClanType;
-use App\Form\DisciplinePowerType;
-use App\Form\DisciplineType;
 use App\Form\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\DataService;
 use App\Service\VampireService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,7 +56,7 @@ class VampireController extends AbstractController
     $disciplines = $this->dataService->findAll(Discipline::class);
     $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
     $form->handleRequest($request);
-    
+
     if ($form->isSubmitted() && $form->isValid()) {
       $this->service->embrace($character, $form);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);

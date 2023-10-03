@@ -157,6 +157,10 @@ class Vampire extends Character
 
   public function getMaxVitae(): int
   {
+    if (!is_null($this->getChronicle()) && !is_null($this->getChronicle()->getRules('vampire'))) {
+
+      return $this->getChronicle()->getRules('vampire')['maxVitae'][$this->potency];
+    }
     switch ($this->potency) {
       case 10:
         return 100;
@@ -168,6 +172,28 @@ class Vampire extends Character
         return 20;
       default:
         return $this->potency + 9;
+    }
+  }
+
+  public function getMaxVitaePerTurn(): int
+  {
+    if (!is_null($this->getChronicle()) && !is_null($this->getChronicle()->getRules('vampire'))) {
+
+      return $this->getChronicle()->getRules('vampire')['maxVitaePerTurn'][$this->potency];
+    }
+    switch ($this->potency) {
+      case 10:
+        return 15;
+      case 9:
+        return 10;
+      case 8:
+        return 7;
+      case 7:
+        return 5;
+      case 5:
+        return 3;
+      default:
+        return round($this->potency / 2, 0, PHP_ROUND_HALF_DOWN);
     }
   }
 

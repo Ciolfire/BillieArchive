@@ -1,25 +1,27 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
 use App\Repository\ChronicleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 
 #[ORM\Entity(repositoryClass: ChronicleRepository::class)]
 class Chronicle
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+  #[ORM\Column(type: Types::INTEGER)]
   private ?int $id;
 
-  #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+  #[ORM\Column(type: Types::STRING, length: 255)]
   private string $name;
 
-  #[ORM\OneToMany(targetEntity:Character::class, mappedBy: "chronicle")]
+  #[ORM\OneToMany(targetEntity: Character::class, mappedBy: "chronicle")]
   #[ORM\OrderBy(["groupName" => "ASC", "firstName" => "ASC", "id" => "DESC"])]
   private Collection $characters;
 
@@ -27,8 +29,8 @@ class Chronicle
   #[ORM\OrderBy(["username" => "ASC", "id" => "DESC"])]
   private Collection $players;
 
-  #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "stories")]
-  private User $storyteller;
+  #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "stories")]
+  private ?User $storyteller;
 
   #[ORM\Column(type: "string", length: 50)]
   private string $type;
@@ -44,7 +46,7 @@ class Chronicle
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $devotions;
-  
+
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $disciplines;
@@ -57,12 +59,15 @@ class Chronicle
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $societies;
 
+  #[ORM\Column(type: Types::JSON,  nullable: true)]
+  private ?array $rules = null;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
     $this->players = new ArrayCollection();
     $this->merits = new ArrayCollection();
-    
+
     // Vampire
     $this->clans = new ArrayCollection();
     $this->devotions = new ArrayCollection();
@@ -185,14 +190,14 @@ class Chronicle
 
   public function getType(): ?string
   {
-      return $this->type;
+    return $this->type;
   }
 
   public function setType(string $type): self
   {
-      $this->type = $type;
+    $this->type = $type;
 
-      return $this;
+    return $this;
   }
 
   public function getMerits(): Collection
@@ -256,28 +261,49 @@ class Chronicle
    */
   public function getSocieties(): Collection
   {
-      return $this->societies;
+    return $this->societies;
   }
 
   public function addSociety(Society $society): self
   {
-      if (!$this->societies->contains($society)) {
-          $this->societies->add($society);
-          $society->setChronicle($this);
-      }
+    if (!$this->societies->contains($society)) {
+      $this->societies->add($society);
+      $society->setChronicle($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeSociety(Society $society): self
   {
-      if ($this->societies->removeElement($society)) {
-          // set the owning side to null (unless already changed)
-          if ($society->getChronicle() === $this) {
-              $society->setChronicle(null);
-          }
+    if ($this->societies->removeElement($society)) {
+      // set the owning side to null (unless already changed)
+      if ($society->getChronicle() === $this) {
+        $society->setChronicle(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getRules(?string $type): ?array
+  {
+    if ($type && isset($this->rules[$type])) {
+
+      return $this->rules[$type];
+    }
+
+    return $this->rules;
+  }
+
+  public function setRules(?array $rules, string $type): static
+  {
+    if (is_null($this->rules)) {
+      $this->rules = [];
+    }
+
+    $this->rules[$type] = $rules;
+
+    return $this;
   }
 }

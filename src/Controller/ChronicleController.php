@@ -8,9 +8,11 @@ use App\Entity\NoteCategory;
 use App\Entity\User;
 use App\Form\ChronicleType;
 use App\Form\NoteCategoryType;
+use App\Form\VampireRulesType;
 use App\Repository\UserRepository;
 use App\Service\CharacterService;
 use App\Service\DataService;
+use App\Service\VampireService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -227,5 +229,48 @@ class ChronicleController extends AbstractController
     $this->dataService->remove($category);
 
     return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId()], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/{id<\d+>}/rules/{type<\w+>}', name: 'chronicle_rules_set', methods: ['GET', 'POST'])]
+  public function setChronicleRules(Request $request, Chronicle $chronicle, string $type)
+  {
+    // Security, only the storyteller can change these settings, but everyone can see it
+    $user = $this->getUser();
+    $disabled = true;
+    if ($chronicle->getStoryteller() === $user || in_array('ROLE_GM', $user->getRoles())) {
+      $disabled = false;
+    }
+
+    switch ($type) {
+      case 'vampire':
+        $vService = new VampireService($this->dataService);
+        $form = $this->createForm(VampireRulesType::class, null, ['ruleset' => $vService->getRules($chronicle), 'disabled' => $disabled]);
+        break;
+
+      default:
+        break;
+    }
+
+    // We don't have a form, that mean there are no rules for this template, redirect
+    if (!isset($form)) {
+      return $this->redirectToRoute('homebrew_index', ['id' => $chronicle->getId()]);
+    }
+
+    if (!$disabled) {
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+        $chronicle->setRules($form->getData(), 'vampire');
+        $this->dataService->save($chronicle);
+  
+        return $this->redirectToRoute('homebrew_index', ['id' => $chronicle->getId()]);
+      }
+    }
+
+    return $this->render('chronicle/homebrew/rules.html.twig', [
+      'type' => 'vampire',
+      'disabled' => $disabled,
+      'chronicle' => $chronicle,
+      'form' => $form,
+    ]);
   }
 }
