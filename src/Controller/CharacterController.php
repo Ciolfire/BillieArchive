@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Character;
+use App\Entity\CharacterDerangement;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
+use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Roll;
 use App\Entity\Vampire;
@@ -202,6 +204,7 @@ class CharacterController extends AbstractController
     }
     $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
 
+    $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     $removables = [
@@ -219,6 +222,7 @@ class CharacterController extends AbstractController
       'rolls' => $rolls,
       'setting' => $character->getType(),
       'removables' => $removables,
+      'derangements' => $derangements,
     ]);
   }
 
@@ -333,6 +337,30 @@ class CharacterController extends AbstractController
       'form' => $form,
       'character' => $character,
     ]);
+  }
+
+  #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]
+  public function moralityIncrease(Request $request, Character $character): Response
+  {
+    $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/{id<\d+>}/morality/decrease', name: 'character_morality_decrease', methods: ['POST'])]
+  public function moralityDecrease(Request $request, Character $character): Response
+  {
+    $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/{id<\d+>}/derangement/new', name: 'character_derangement_new', methods: ['POST'])]
+  public function derangementNew(Request $request, Character $character): Response
+  {
+    $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]

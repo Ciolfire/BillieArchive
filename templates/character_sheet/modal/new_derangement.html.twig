@@ -1,0 +1,43 @@
+{% trans_default_domain 'character' %}
+
+<div class="modal fade" id="newDerangementModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ "morality.decrease"|trans }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ path('character_derangement_new', { 'id' : character.id }) }}" method="POST">
+          <div class="row">
+            <div class="col-12 mb-3">
+              <p>{{ "derangement.new"|trans }}</p>
+              <label class="accent" for="derangement">{{ "derangement.label"|trans }}</label>
+              <select class="form-control" name="derangement" autocomplete="off">
+                <option value=""></option>
+                {% for derangement in derangements %}
+                  <option value="{{ derangement.id }}" data-bs-toggle="collapse" data-bs-target="#{{ "derangement-" ~ derangement.id }}">{{ derangement.name }} {% if derangement.type %} — {{derangement.type|trans }}{% endif %}</option>
+                {% endfor %}
+              </select>
+              <div class="accordion mt-2" id="accordionDerangement">              
+                {% for derangement in derangements %}
+                  <span id="{{ "derangement-" ~ derangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionDerangement">{{ derangement.details|markdown_to_html }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="accent" for="details">{{ "details"|trans }}</label>
+              <input class="form-control" name="details" type="text">
+            </div>
+            <div class="col-12">
+              <button class="btn btn-warning w-100 mt-5">
+                {% include "_icon.html.twig" with {'icon': 'derangement', 'hasTips': 0} %}
+                {{ 'action.confirm'|trans([], 'app') }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

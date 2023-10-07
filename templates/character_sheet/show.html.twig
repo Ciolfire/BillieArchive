@@ -86,6 +86,9 @@
       {% include "character_sheet/modal/xp_add.html.twig" %}
       {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
       {% include "character_sheet/modal/ability_removal.html.twig" %}
+      {% include "character_sheet/modal/morality_decrease.html.twig" %}
+      {% include "character_sheet/modal/morality_increase.html.twig" %}
+      {% include "character_sheet/modal/new_derangement.html.twig" %}
     {% endblock %}
   </div>
 {% endblock %}

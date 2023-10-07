@@ -109,6 +109,11 @@ willpower:
       other {# - Surnatural}
     }
 
+derangement:
+  label: Derangement
+  add: Add derangement
+  new: The Storyteller may decide that a scene or circumstance to which your character is exposed is too much for him to bear and he breaks under the pressure. The Storyteller decides if the condition is temporary or permanent.
+
 health: Health
 wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
@@ -135,6 +140,16 @@ name:
   last: Last name
 
 morality:
+  decrease: Morality lost
+  derangement:
+    new:  Roll your character's new Morality trait as a dice pool. Manifests a derangement in case of failure. Does NOT apply over 7.
+    overcome: When a derangement is overcome by rising to a higher Morality, that ailment can be erased from your character sheet or ignored for the time being.
+    keep: Keep
+    remove: Remove
+  cost:
+    info: Morality can be regained by spending experience points, or for free if the Storyteller consider it is deserved.
+    pay: Pay
+    free: Free
   human: Morality
   vampire: Humanity
 

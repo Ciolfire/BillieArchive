@@ -108,6 +108,12 @@ willpower:
       other {# - Surnaturelle}
     }
 
+derangement:
+  label: Dérangement
+  add: Ajouter un dérangement
+  new: Le Conteur peut décider qu'une scène ou des circonstances auxquelles le personnage est exposé sont trop dures à supporter et qu'il craque sous la pression. Le Conteur décide s'il s'agit d'une situation temporaire ou permanente.
+
+
 health: Santé
 wound:
   penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
@@ -128,8 +134,18 @@ merits:
   label: Atouts
 
 morality:
-  human: Morality
-  vampire: Humanity
+  decrease: Perte de moralité
+  derangement:
+    new:  Lancez un nombre de dés égal à la nouvelle valeur d'humanité, en cas d'echec le personnage développe un dérangement. Ne s'applique PAS à 8+.
+    overcome: Quand un dérangement devrait être vaincu en remontant en Moralité, cette maladie peut être supprimée ou au choix ignorée.
+    keep: Garder
+    remove: Retirer
+  cost:
+    info: La Moralité peut être regagnée en dépensant des points d'experience, ou gratuitement si le Conteur considère que les actes du personnage le mérite.
+    pay: Payer
+    free: Gratuit
+  human: Moralité
+  vampire: Humanité
 
 name:
   label: Name

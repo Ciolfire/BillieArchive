@@ -4,8 +4,10 @@ namespace App\Service;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\CharacterDerangement;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
+use App\Entity\Derangement;
 use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vampire;
@@ -298,5 +300,45 @@ class CharacterService
     $this->dataService->flush();
 
     return true;
+  }
+
+  public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree) : void
+  {
+    if ($isDerangementRemoved && !is_null($character->getMoralityDerangement($character->getMoral()))) {
+      $character->removeDerangement($character->getMoralityDerangement($character->getMoral()));
+    }
+    $character->setMoral($character->getMoral() + 1);
+    if (!$isFree) {
+      $character->setXpUsed($character->getXpUsed() + $character->getMoral() * 3);
+    }
+    $this->dataService->flush();
+  }
+
+  public function moralityDecrease(Character $character, int $derangementId, string $details) : void
+  {
+    $character->setMoral($character->getMoral() - 1);
+    if (0 != $derangementId) {
+      if (!is_null($character->getMoralityDerangement($character->getMoral()))) {
+        $character->removeDerangement($character->getMoralityDerangement($character->getMoral()));
+      }
+      $derangement = $this->dataService->findOneBy(Derangement::class, ['id' => $derangementId]);
+      if (!is_null($derangement) && $character->getMoral() < 7) {
+        $charDerangement = New CharacterDerangement($character, $details, $character->getMoral(), $derangement);
+        $character->addDerangement($charDerangement);
+        $this->dataService->add($charDerangement);
+      }
+    }
+    $this->dataService->flush();
+  }
+
+  public function newCharacterDerangement(Character $character, int $derangementId, string $details) : void
+  {
+    $derangement = $this->dataService->findOneBy(Derangement::class, ['id' => $derangementId]);
+    if (!is_null($derangement)) {
+      $charDerangement = New CharacterDerangement($character, $details, null, $derangement);
+      $character->addDerangement($charDerangement);
+      $this->dataService->add($charDerangement);
+    }
+    $this->dataService->flush();
   }
 }

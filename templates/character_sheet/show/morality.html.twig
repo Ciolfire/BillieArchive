@@ -3,16 +3,56 @@
 {% trans_default_domain 'character' %}
 
 {% block morality %}
-  <div class="block user-select-none p-1" type="button" data-bs-toggle="collapse" data-bs-target=".morality">
-    <h4 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'morality', 'hasTips': 0, 'class': 'icon-lg'} only %} {{ 'morality.name'|trans([], setting) }}</h4>
-    <div class="col-12 text-center">
-      <h5 class="morality show {% if morality <= 3 %}warning{% else %}accent{% endif %}">{{ morality }}
-        <span class="morality text-center show"><i class="fas fa-caret-down"></i></span>
-      </h5>
-      <div class="morality collapse">
-        <p>Lora ipsum</p>
-        <span class="morality text-center collapse"><i class="fas fa-caret-up"></i></span>
-      </div>
-    </div>
-  </div>
+	<div class="block user-select-none p-1">
+		<h4 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'morality', 'hasTips': 0, 'class': 'icon-lg'} only %}
+			{{ 'morality.name'|trans([], setting) }}</h4>
+		<div class="col-12 text-center">
+			<div class="morality">
+				<span role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDerangementModal">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "derangement.add"|trans }}">
+            {% include "_icon.html.twig" with {'icon': 'add', 'hasTips': 0} only %}
+					  {% include "_icon.html.twig" with {'icon': 'derangement', 'hasTips': 0} only %}
+          </span>
+				</span>
+        <div class="row">
+        {% for charDerangement in character.standardDerangements %}
+          <div role="button" class="col-6 warning" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
+            {{charDerangement}}
+            {% if charDerangement.details %}
+              ({{ charDerangement.details }})
+            {% endif %}
+          </div>
+        {% endfor %}
+        </div>
+        {% for i in 10..0 %}
+          {% set charDerangement = character.moralityDerangement(i)|default(null) %}
+          <div class="row g-0 {% if i == morality %}accent{% endif %}" {% if charDerangement is not null %}role="button" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}"{% endif %}>
+            <div class="col-1">{{ i }}</div>
+            <div class="col-10 morality-derangement">
+                {% if i == morality and i < 10 %}<span role="button" data-bs-toggle="modal" data-bs-target="#moralityIncreaseModal">{% include "_icon.html.twig" with {'icon': 'up', 'class': 'accent'} only %}</span>{% endif %}
+                {% if charDerangement is not null %}
+                  <span class="{% if i >= morality %}warning{% else %}text-muted fst-italic{% endif %}">
+                    {{charDerangement}}
+                    {% if charDerangement.details %}
+                      ({{ charDerangement.details }})
+                    {% endif %}
+                  </span>
+                {% endif %}
+              {% if i == morality and i > 0 %}<span role="button" data-bs-toggle="modal" data-bs-target="#moralityDecreaseModal">{% include "_icon.html.twig" with {'icon': 'down', 'class': 'warning'} only %}</span>{% endif %}
+            </div>
+            <div class="col-1">
+              <input type="checkbox" id="{{ morality ~ '-' ~ i }}" class="btn-check" autocomplete="off" {% if i == morality %}checked{% endif %} disabled>
+              <label class="btn dot" for="{{ morality ~ '-' ~ i }}"></label>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="accordion mt-2" id="accordionCharacterDerangements">
+          {% for characterDerangement in character.derangements %}
+            <span id="{{ "character-derangement-" ~ characterDerangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionCharacterDerangements">{{ characterDerangement.derangement.details|markdown_to_html }}</span>
+          {% endfor %}
+        </div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

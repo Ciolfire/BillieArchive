@@ -1,0 +1,48 @@
+{% trans_default_domain 'character' %}
+
+<div class="modal fade" id="moralityIncreaseModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ "morality.increase"|trans }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="moralityIncrease" action="{{ path('character_morality_increase', { 'id' : character.id }) }}" method="POST">
+          <div class="row">
+            <div class="col-12 mb-3 text-center">
+              {% if character.getMoralityDerangement(character.moral) %}
+                <p>{{ "morality.derangement.overcome"|trans }}</p>
+                <div class="btn-group" role="group">
+                  <input type="radio" class="btn-check" id="derangement1" name="derangement" value="0" required/>
+                  <label class="text-sub btn btn-primary" for="derangement1">{{ "morality.derangement.keep"|trans }}</label>
+                  <input type="radio" class="btn-check" name="derangement" id="derangement2" value="1"/>
+                  <label class="text-sub btn btn-primary" for="derangement2">{{ "morality.derangement.remove"|trans }}</label>
+                </div>
+              {% else %}
+                <input type="hidden" name="derangement" value="0"/>
+              {% endif %}
+            </div>
+            <div class="col-12 mb-3 text-center">
+
+              <p>{{ "morality.cost.info"|trans }}</p>
+              <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" name="free" id="free1" value="0" required/>
+                <label class="text-sub btn btn-primary" for="free1">{{ "morality.cost.pay"|trans }} ({{ (character.moral + 1) * 3}}
+                  xp )</label>
+                <input type="radio" class="btn-check" name="free" id="free2" value="1"/>
+                <label class="text-sub btn btn-primary" for="free2">{{ "morality.cost.free"|trans }}</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" form="moralityIncrease" class="btn btn-warning w-100 mt-5">
+                {% include "_icon.html.twig" with {'icon': 'derangement', 'hasTips': 0} %}
+                {{ 'action.confirm'|trans([], 'app') }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,6 +66,10 @@
   {% elseif icon == 'details' %}
     {{ source('@icons/' ~ 'details.svg') }}
     {# <i class="fa-solid fa-list"></i> #}
+  {% elseif icon == 'up' %}
+    {{ source('@icons/' ~ 'underhand.svg') }}
+  {% elseif icon == 'down' %}
+    {{ source('@icons/' ~ 'overhead.svg') }}
   {% elseif icon == 'xp' %}
     {{ source('@icons/' ~ 'upgrade.svg') }}
   {% elseif icon == 'logs' %}

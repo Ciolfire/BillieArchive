@@ -125,6 +125,9 @@ class Character
 
   #[ORM\ManyToMany(targetEntity: Society::class, mappedBy: 'characters')]
   private Collection $societies;
+
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true)]
+  private Collection $derangements;
   
   public function __construct()
   {
@@ -136,6 +139,7 @@ class Character
     
     $this->type = lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
     $this->societies = new ArrayCollection();
+    $this->derangements = new ArrayCollection();
   }
 
   public function __toString()
@@ -990,5 +994,60 @@ class Character
       }
 
       return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterDerangement>
+   */
+  public function getDerangements(): Collection
+  {
+      return $this->derangements;
+  }
+
+  public function addDerangement(CharacterDerangement $characterDerangement): static
+  {
+      if (!$this->derangements->contains($characterDerangement)) {
+          $this->derangements->add($characterDerangement);
+          $characterDerangement->setCharacter($this);
+      }
+
+      return $this;
+  }
+
+  public function removeDerangement(CharacterDerangement $characterDerangement): static
+  {
+      if ($this->derangements->removeElement($characterDerangement)) {
+          // set the owning side to null (unless already changed)
+          if ($characterDerangement->getCharacter() === $this) {
+              $characterDerangement->setCharacter(null);
+          }
+      }
+
+      return $this;
+  }
+
+  public function getMoralityDerangement(int $morality): ?CharacterDerangement
+  {
+    foreach ($this->getDerangements() as $derangement) {
+      if ($morality === $derangement->getMoralityLink()) {
+
+        return $derangement;
+      }
+    }
+
+    return null;
+  }
+
+  public function getstandardDerangements(): array
+  {
+    $derangements = [];
+
+    foreach ($this->getDerangements() as $derangement) {
+      if (null === $derangement->getMoralityLink()) {
+        $derangements[] = $derangement;
+      }
+    }
+
+    return $derangements;
   }
 }
