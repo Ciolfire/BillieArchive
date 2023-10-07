@@ -134,7 +134,6 @@ merits:
   label: Atouts
 
 morality:
-  decrease: Perte de moralité
   derangement:
     new:  Lancez un nombre de dés égal à la nouvelle valeur d'humanité, en cas d'echec le personnage développe un dérangement. Ne s'applique PAS à 8+.
     overcome: Quand un dérangement devrait être vaincu en remontant en Moralité, cette maladie peut être supprimée ou au choix ignorée.

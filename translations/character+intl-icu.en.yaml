@@ -140,7 +140,6 @@ name:
   last: Last name
 
 morality:
-  decrease: Morality lost
   derangement:
     new:  Roll your character's new Morality trait as a dice pool. Manifests a derangement in case of failure. Does NOT apply over 7.
     overcome: When a derangement is overcome by rising to a higher Morality, that ailment can be erased from your character sheet or ignored for the time being.

@@ -4,14 +4,13 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark">
       <div class="modal-header">
-        <h5 class="modal-title">{{ "morality.decrease"|trans }}</h5>
+        <h5 class="modal-title text-sub">{{ "morality.derangement.new"|trans }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{ path('character_morality_decrease', { 'id' : character.id }) }}" method="POST">
           <div class="row">
             <div class="col-12 mb-3">
-              <p>{{ "morality.derangement.new"|trans }}</p>
               <label class="accent" for="derangement">{{ "derangement.label"|trans }}</label>
               <select class="form-control" name="derangement" autocomplete="off">
                 <option value=""></option>
