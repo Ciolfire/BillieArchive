@@ -193,7 +193,7 @@ class Vampire extends Character
       case 5:
         return 3;
       default:
-        return round($this->potency / 2, 0, PHP_ROUND_HALF_DOWN);
+        return intval(round($this->potency / 2, 0, PHP_ROUND_HALF_DOWN));
     }
   }
 
