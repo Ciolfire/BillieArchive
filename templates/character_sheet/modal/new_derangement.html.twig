@@ -15,7 +15,7 @@
               <select class="form-control" name="derangement" autocomplete="off">
                 <option value=""></option>
                 {% for derangement in derangements %}
-                  <option value="{{ derangement.id }}" data-bs-toggle="collapse" data-bs-target="#{{ "new-derangement-" ~ derangement.id }}">{{ derangement.name }} {% if derangement.type %} — {{derangement.type|trans }}{% endif %}</option>
+                  <option value="{{ derangement.id }}" data-bs-toggle="collapse" data-bs-target="#{{ "new-derangement-" ~ derangement.id }}">{{ derangement.name }} {% if derangement.type %} — {{("type." ~ derangement.type)|trans([], 'app') }}{% endif %}</option>
                 {% endfor %}
               </select>
               <div class="accordion mt-2" id="accordionDerangement">              
