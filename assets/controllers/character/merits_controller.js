@@ -162,6 +162,7 @@ export default class extends Controller {
     let category = event.params.category;
     let fighting = event.params.fighting;
     let creation = event.params.creation;
+    let race     = event.params.race;
 
     /** set the active button */
     this.filterTargets.forEach(element => {
@@ -172,9 +173,11 @@ export default class extends Controller {
     if (category !== undefined ) {
       this.checkCategory(category);
     } else if (fighting !== undefined) {
-      this.checkFighting(fighting);
+      this.checkFighting();
     } else if (creation !== undefined) {
-      this.checkCreation(creation);
+      this.checkCreation();
+    } else if (race !== undefined) {
+      this.checkRace(race);
     }
   }
 
@@ -191,7 +194,7 @@ export default class extends Controller {
     });
   }
 
-  checkFighting(fighting) {
+  checkFighting() {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.fighting) {
@@ -204,10 +207,23 @@ export default class extends Controller {
     });
   }
 
-  checkCreation(creation) {
+  checkCreation() {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.creation) {
+        if (card.classList.contains('d-none')) {
+          card.classList.remove('d-none')
+        }
+      } else {
+        card.classList.add('d-none')
+      }
+    });
+  }
+
+  checkRace(race) {
+    this.meritTargets.forEach(merit => {
+      let card = merit.closest('.card').parentElement;
+      if (merit.dataset.race == race) {
         if (card.classList.contains('d-none')) {
           card.classList.remove('d-none')
         }

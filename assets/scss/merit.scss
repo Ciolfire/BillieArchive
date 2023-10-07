@@ -1,10 +1,10 @@
 .merit {
-  padding   : 1rem 0;
+  padding: 1rem 0;
   border-top: 1px solid silver;
 
   &.merit-vampire,
   &.merit-ghoul {
-    color           : #ca6c6c;
+    color: #ca6c6c;
     background-color: #000000b5;
   }
 
@@ -18,31 +18,38 @@
     .card-header,
     .card-footer {
       background: $darkBlockColor; //#1c1c1c;
-      color     : $textColor;
+      color: $textColor;
     }
 
     min-height: 220px;
 
     &.merit-owned {
       background-color: $lightBlockColor;
-      color           : $mainDarkColor;
+      color: $mainDarkColor;
+    }
+
+    .merit-detail {
+      border: 1px solid $borderColor;
+      border-top: 0;
     }
   }
 
   &-filters {
     z-index: 1;
+    position: sticky;
+    top: 8em;
   }
 
   &-hide {
-    position                  : absolute;
-    top                       : 0;
-    left                      : 12px;
-    height                    : 100%;
-    width                     : auto;
-    background-color          : $main50pColor;
-    border                    : 1px solid $mainColor;
-    border-left               : none;
-    border-top-right-radius   : 0.25rem;
+    position: absolute;
+    top: 0;
+    left: 12px;
+    height: 100%;
+    width: auto;
+    background-color: $main50pColor;
+    border: 1px solid $mainColor;
+    border-left: none;
+    border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
   }
 }

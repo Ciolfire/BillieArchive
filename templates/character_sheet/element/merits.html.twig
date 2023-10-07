@@ -28,6 +28,10 @@
       <span class="d-none d-md-inline">{{ "social"|trans }}</span>
       {% include "_icon.html.twig" with {'icon' : 'social' } only %}
     </span>
+    <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-race-param="{{ character.type }}">
+      <span class="d-none d-md-inline">{{ ("type." ~ character.type)|trans([], 'app') }}</span>
+      {% include "_icon.html.twig" with {'icon' : character.type } only %}
+    </span>
     {% if character.id == null %}
     <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-creation-param="creation">
       <span class="d-none d-md-inline">{{ "creation"|trans([], 'icon') }}</span>
