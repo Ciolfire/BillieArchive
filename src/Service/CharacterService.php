@@ -296,8 +296,8 @@ class CharacterService
       'type' => $data['type'],
       'info' => $infos,
     ]];
-    $this->updateLogs($character, json_encode($logs), false);
     $this->dataService->flush();
+    $this->updateLogs($character, json_encode($logs), false);
 
     return true;
   }

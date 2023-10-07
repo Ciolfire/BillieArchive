@@ -77,7 +77,9 @@ class CharacterAttributes
 
   public function set(string $attribute, int $value): self
   {
-    $this->$attribute = $value;
+    $setter = "set".ucfirst($attribute);
+
+    $this->$setter($value);
 
     return $this;
   }
