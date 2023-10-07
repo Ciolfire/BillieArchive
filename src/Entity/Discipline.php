@@ -11,13 +11,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "disciplines")])]
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-#[Gedmo\TranslationEntity(class: DisciplineTranslation::class)]
-class Discipline
+class Discipline implements Translatable
 {
   use Homebrewable;
   use Sourcable;
@@ -26,9 +26,6 @@ class Discipline
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
   private ?int $id;
-
-  #[Gedmo\Locale]
-  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 50)]
