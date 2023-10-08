@@ -56,7 +56,7 @@
                 {% if log.info.action == 'increase' %}
                   <span class="accent">{{ (log.type ~ ".increase.label")|trans}}</span> ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span>{% if log.info.removed != '' %} ― {{ "morality.increase.derangement"|trans({'%derangement%': log.info.removed})|raw }}{% endif %} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
                 {% else %}
-                  <span class="accent">{{ (log.type ~ ".reduce.label")|trans}}</span> ― {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.value }}</span>{% if log.info.gained != '' %} ― {{ "morality.reduce.derangement"|trans({'%derangement%': log.info.gained})|raw }}{% endif %}
+                  <span class="warning">{{ (log.type ~ ".reduce.label")|trans}}</span> ― {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.value }}</span>{% if log.info.gained != '' %} ― {{ "morality.reduce.derangement"|trans({'%derangement%': log.info.gained})|raw }}{% endif %}
                 {% endif %}
               {% else %}
                 <span class="accent">{{ (log.type ~ ".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
