@@ -14,14 +14,14 @@
             <br>
             {% for key, log in entry %}
             {% if key == 'reduce' %}
-              <span class="accent">
+              <span class="warning">
                 {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
               </span> ―
               <span>
-                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base }} ➔ {{ log.info.base - 1 }}
+                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.base - 1 }}</span>
               </span>
             {% elseif key == 'remove' %}
-              <span class="accent">
+              <span class="warning">
                 {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
               </span> ―
               <span>
@@ -29,17 +29,37 @@
               </span>
             {% else %}
               {% if log.type == 'specialty' %}
-                <span class="accent">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'merit' %}
-                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'skill' or log.type == 'attribute' %}
-                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.type ~ '.' ~ log.info.id)|trans([], 'character') }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.type ~ '.' ~ log.info.id)|trans([], 'character') }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' %}
-                <span class="accent">{{ (log.type~".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'devotion' or log.type == 'ritual' %}
-                <span class="accent">{{ (log.type~".label")|trans }}</span> ― {{ log.info.name }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans }}</span> ― {{ log.info.name }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+              {% elseif log.type == 'xp' %}
+                {% if log.info.action == "add" %}
+                  <span class="accent">{{ (log.type ~ "." ~ "add.label")|trans }}</span> ― <span class="accent fw-bold">{% if log.info.action == "add" %}+{% endif %}{{ log.info.value }}</span> ({{ log.info.base }} ➔ {{ log.info.new }})
+                {% else %}
+                  <span class="accent">{{ (log.type ~ "." ~ "remove.label")|trans }}</span> ― <span class="warning fw-bold">{% if log.info.action == "add" %}+{% endif %}{{ log.info.value }}</span> ({{ log.info.base }} ➔ {{ log.info.new }})
+                {% endif %}
+              {% elseif log.type == 'derangement' %}
+                {% if key == "derangement-reduce" %}
+                  <span class="accent">{{ (log.type ~ ".reduce.label")|trans }}</span> ― {{ log.info.name }} ➔ <span class="warning fw-bold">{{ log.info.replace }}</span>
+                {% elseif key == "derangement-remove" %}
+                  <span class="accent">{{ (log.type ~ ".remove.label")|trans }}</span> ― {{ log.info.name }}
+                {% else %}
+                  <span class="warning">{{ (log.type ~ ".label")|trans }}</span> ― <span class="warning fw-bold">{{ log.info.name }}</span>
+                {% endif %}
+              {% elseif log.type == 'morality' %}
+                {% if log.info.action == 'increase' %}
+                  <span class="accent">{{ (log.type ~ ".increase.label")|trans}}</span> ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span>{% if log.info.removed != '' %} ― {{ "morality.increase.derangement"|trans({'%derangement%': log.info.removed})|raw }}{% endif %} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                {% else %}
+                  <span class="accent">{{ (log.type ~ ".reduce.label")|trans}}</span> ― {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.value }}</span>{% if log.info.gained != '' %} ― {{ "morality.reduce.derangement"|trans({'%derangement%': log.info.gained})|raw }}{% endif %}
+                {% endif %}
               {% else %}
-                <span class="accent">{{ (log.type~".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ {{ log.info.value }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans}}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% endif %}
             {% endif %}
               <br>

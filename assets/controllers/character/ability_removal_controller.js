@@ -16,20 +16,7 @@ export default class extends Controller {
     this.methodTarget.classList.add('collapse');
     this.elementsTarget.classList.add('collapse');
     this.load();
-    // this.listTarget.name = "";
-    // if (this.idTarget.value != "") {
-    //   this.listTarget.value = this.idTarget.value;
-    // }
   }
-
-  // log(event)
-  // {
-  //   console.log(this.typeTarget.value);
-  // }
-
-  // select(event) {
-  //   this.idTarget.value = this.listTarget.value;
-  // }
 
   load() {
     let xhttp = new XMLHttpRequest();

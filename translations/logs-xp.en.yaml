@@ -5,11 +5,20 @@ remove: Remove
 
 logs: Logs
 
+derangement:
+  label: New Derangement
+  reduce.label:  Derangement lighten
+  remove.label: Derangement cured
 merit.label: "{0}New Merit|[1,Inf]Merit improved"
-
+morality:
+  increase:
+    label: Morality Recovered
+    derangement: Cured from the <span class="warning fw-bold">%derangement%</span> derangement
+  reduce:
+    label: Lost Morality
+    derangement: Developed the <span class="warning fw-bold">%derangement%</span> derangement
 skill.label: "{0}New Skill|[1,Inf]Skill improved"
 specialty.label: New Specialty
-
 willpower.label: Willpower regained
 
 # Vampire
@@ -18,9 +27,12 @@ discipline.label: "{0}New Discipline|[1,Inf]Discipline improved"
 favoredDiscipline.label: "{0}New Clan Discipline|[1,Inf]Clan Discipline improved"
 potency.label: Blood Potency increased
 ritual.label: New Ritual
+
 xp:
-  add: Choose how many point of experience to add
+  add.label: XP gagnés
+  remove.label: XP retirés
   details.none: No change
   free: Free
-  log: Experience Expenditure
+  log: Character history
+  modal: Choose how many point of experience to add (negative value to remove)
   save: Confirm

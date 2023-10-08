@@ -79,7 +79,7 @@ class CharacterService
     $this->dataService->flush();
   }
 
-  public function updateLogs(Character $character, string $logs, bool $isFree) : void
+  public function updateLogs(Character $character, string $logs, bool $isFree = false) : void
   {
     $logs = json_decode($logs);
     foreach ($logs as $key => $entry) {
@@ -136,14 +136,33 @@ class CharacterService
 
   public function updateExperience(Character $character, \stdClass $data) : ?int
   {
+    
+
     if ($data->method == "add") {
       $total = $character->getXpTotal();
       $new = $total + (int)$data->value;
       $character->setXpTotal($new);
+      if ($new > $total) {
+        $action = 'add';
+      } else {
+        $action = 'remove';
+      }
+      $logs = ['xp' => [
+        'type' => 'xp',
+        'info' => [
+          'action' => $action,
+          'value' => (int)$data->value,
+          'base' => $total,
+          'new' => $new,
+        ],
+      ]];
+      $this->updateLogs($character, json_encode($logs), false);
       $this->dataService->flush();
     } else {
       $new = null;
     }
+
+
 
     return $new;
   }
@@ -287,6 +306,19 @@ class CharacterService
           return false;
         }
         break;
+      case 'derangement':
+        $derangement = $this->dataService->find(CharacterDerangement::class, $element);
+        if ($method == 'reduce' && !is_null($derangement->getDerangement()->getPreviousAilment())) {
+          $data['method'] = "derangement-reduce";
+          $infos['name'] = $derangement->getName();
+          $derangement->setDerangement($derangement->getDerangement()->getPreviousAilment());
+          $infos['replace'] = $derangement->getName();
+        } else {
+          $data['method'] = "derangement-remove";
+          $infos['name'] = $derangement->getName();
+          $derangement->getCharacter()->removeDerangement($derangement);
+        }
+        break;
       default:
 
         return false;
@@ -296,27 +328,48 @@ class CharacterService
       'type' => $data['type'],
       'info' => $infos,
     ]];
+    $this->updateLogs($character, json_encode($logs));
     $this->dataService->flush();
-    $this->updateLogs($character, json_encode($logs), false);
 
     return true;
   }
 
   public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree) : void
   {
-    if ($isDerangementRemoved && !is_null($character->getMoralityDerangement($character->getMoral()))) {
-      $character->removeDerangement($character->getMoralityDerangement($character->getMoral()));
+    $base = $character->getMoral();
+    $cost = $base * 3;
+    $derangementName = '';
+    $derangement = $character->getMoralityDerangement($base);
+    if ($isDerangementRemoved && !is_null($derangement)) {
+      $character->removeDerangement($derangement);
+      $derangementName = $derangement->getDerangement()->getName();
+      if (!is_null($derangement->getDetails())) {
+        $derangementName .= " ({$derangement->getDetails()})";
+      }
     }
-    $character->setMoral($character->getMoral() + 1);
+    $character->setMoral($base + 1);
     if (!$isFree) {
-      $character->setXpUsed($character->getXpUsed() + $character->getMoral() * 3);
+      $character->setXpUsed($character->getXpUsed() + $cost);
     }
+    $logs = ['morality-increase' => [
+      'type' => 'morality',
+      'info' => [
+        'action' => 'increase',
+        'removed' => $derangementName,
+        'base' => $base,
+        'value' => $base + 1,
+        'cost' => $cost,
+      ],
+    ]];
+    $this->updateLogs($character, json_encode($logs), $isFree);
     $this->dataService->flush();
   }
 
   public function moralityDecrease(Character $character, int $derangementId, string $details) : void
   {
-    $character->setMoral($character->getMoral() - 1);
+    $base = $character->getMoral();
+    $character->setMoral($base - 1);
+    $gained = '';
     if (0 != $derangementId) {
       if (!is_null($character->getMoralityDerangement($character->getMoral()))) {
         $character->removeDerangement($character->getMoralityDerangement($character->getMoral()));
@@ -326,8 +379,22 @@ class CharacterService
         $charDerangement = New CharacterDerangement($character, $details, $character->getMoral(), $derangement);
         $character->addDerangement($charDerangement);
         $this->dataService->add($charDerangement);
+        $gained = $derangement->getName();
+        if (!empty($details)) {
+          $gained .= " ({$details})";
+        }
       }
     }
+    $logs = ['morality-increase' => [
+      'type' => 'morality',
+      'info' => [
+        'action' => 'reduce',
+        'gained' => "{$gained}",
+        'base' => $base,
+        'value' => $base - 1,
+      ],
+    ]];
+    $this->updateLogs($character, json_encode($logs));
     $this->dataService->flush();
   }
 
@@ -338,6 +405,17 @@ class CharacterService
       $charDerangement = New CharacterDerangement($character, $details, null, $derangement);
       $character->addDerangement($charDerangement);
       $this->dataService->add($charDerangement);
+      $derangementName = $derangement->getName();
+      if (!empty($details)) {
+        $derangementName .= " ({$details})";
+      }
+      $logs = ['derangement' => [
+        'type' => 'derangement',
+        'info' => [
+          'name' => $derangementName
+        ],
+      ]];
+      $this->updateLogs($character, json_encode($logs));
     }
     $this->dataService->flush();
   }

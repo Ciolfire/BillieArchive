@@ -13,12 +13,17 @@ export default class extends Controller {
 
   update(event) {
     let xhttp = new XMLHttpRequest();
-    var target = this.totalTarget;
+    var total = this.totalTarget;
+    var used = this.usedTarget;
+
 
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        target.innerText = JSON.parse(xhttp.responseText).total;
+        let nTotal = JSON.parse(xhttp.responseText).total;
+        let left = nTotal - JSON.parse(xhttp.responseText).used;
+        total.innerText = nTotal;
+        used.innerText = left;
       }
     };
     xhttp.open("POST", `/en/character/${this.idValue}/experience/update`, true);

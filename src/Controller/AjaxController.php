@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\CharacterDerangement;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Clan;
@@ -106,6 +107,12 @@ class AjaxController extends AbstractController
         case "willpower":
           unset($methods[1]);
           break;
+        case "derangement":
+          // $choices = $this->dataService->findBy(CharacterMerit::class, ['character' => $character]);
+          $choices = $this->dataService->findBy(CharacterDerangement::class, ['character' => $character, 'moralityLink' => null]);
+          $identifier = 'id';
+          $label = 'derangement';
+          break;
         default:
           $choices = [];
           break;
@@ -115,7 +122,7 @@ class AjaxController extends AbstractController
         $choices = $this->render('forms/choices.html.twig', [
           'choices' => $choices,
           'id' => $identifier,
-          'label' => 'name',
+          'label' => $label,
         ])->getContent();
       } else {
         $choices = null;

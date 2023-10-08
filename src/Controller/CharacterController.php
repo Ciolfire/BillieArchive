@@ -213,6 +213,7 @@ class CharacterController extends AbstractController
       'merit',
       'specialty',
       'willpower',
+      'derangement',
     ];
 
     return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [

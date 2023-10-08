@@ -5,13 +5,20 @@ remove: Suppression
 
 logs: Logs
 
+derangement:
+  label: Nouveau Derangement
+  reduce.label:  Derangement atténué
+  remove.label: Derangement soigné
 merit.label: "{0}Nouvel Atout|[1,Inf]Atout amélioré"
-
-
+morality:
+  increase:
+    label: Moralité Récupérée
+    derangement: Soin du dérangement <span class="warning fw-bold">%derangement%</span>
+  reduce:
+    label: Moralité perdue
+    derangement: Développement du dérangement <span class="warning fw-bold">%derangement%</span>
 skill.label: "{0}Nouvelle Compétence|[1,Inf]Compétence améliorée"
 specialty.label: Nouvelle Specialité
-
-
 willpower.label: Regain de Volonté
 
 # Vampire
@@ -22,8 +29,10 @@ potency.label: Puissance du Sang augmentée
 ritual.label: Nouveau Rituel
 
 xp:
-  add: Choisissez le nombre de points d'experience à attribuer au personnage.
+  add.label: Gained XP
+  remove.label: XP Removed
   details.none: Aucun changement
   free: Gratuit
   log: Dépenses d'expérience
+  modal: Choisissez le nombre de points d'experience à attribuer au personnage. (valeur négative pour en retirer)
   save: Valider
