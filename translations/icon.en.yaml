@@ -15,7 +15,7 @@ dice: Dice
 luckThrow: Luck
 
 all: All
-creation: Character creation only.
+creation: Creation only
 folder: Folder
 hide: Hide
 homebrew: Homebrew
