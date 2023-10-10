@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[Gedmo\TranslationEntity(class: DevotionTranslation::class)]
 class Devotion

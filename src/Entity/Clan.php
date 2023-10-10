@@ -16,7 +16,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
 #[ORM\Table(name: "clan")]
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
 class Clan
 {
