@@ -25,21 +25,23 @@
     {% endif %}
     <div
       class="row justify-content-center">
-      {# <h2>{{ "prerequisites"|trans([], 'app') }}</h2> #}
       {% for prerequisite in devotion.prerequisites %}
         <div class="col-4 text-center text-bold fs-5">
           {% if prerequisite.value != 0 %}
             <span class="text-strong">{{ prerequisite.entity.name }}</span>
             <span class="text-strong strong">{{ prerequisite.value }}</span>
           {% else %}
-            <span class="text-strong accent">{{ prerequisite.entity.name }}</span>
+            {% if prerequisite.type == "App\\Entity\\Devotion" %}
+              <a href="{{ path('vampire_devotion_show', {'id': prerequisite.entity.id }) }}" class="text-strong accent">{{ prerequisite.entity.name }}</a>
+            {% else %}
+              <span class="text-strong accent">{{ prerequisite.entity.name }}</span>
+            {% endif %}
           {% endif %}
         </div>
       {% endfor %}
     </div>
     <p
       class="text-center fs-5">
-      {# {% include "_icon.html.twig" with {'icon': 'xp', 'hasTips': 0} %} #}
       <span class="text-strong">{{ devotion.cost }}
         {{ "xp.label"|trans([], 'character') }}</span>
     </p>

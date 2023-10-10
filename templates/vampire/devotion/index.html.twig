@@ -35,16 +35,6 @@
 
     <div
       class="row mb-3">
-      {# <div id="collapseToc" class="col-auto collapse">
-              <ul class="toc block">
-                <p class="mt-2">{{ "devotions.label"|trans([], 'vampire') }}</p>
-                {% for devotion in devotions %}
-                  <li>
-                    <a href="#{{ devotion.name }}">{{ devotion.name }}</a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div> #}
       <div id="collapseDescription" class="collapse col">
         <div class="block block-wiki p-2">
           {{ description.value|default("")|markdown_to_html }}
