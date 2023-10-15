@@ -12,10 +12,17 @@ export const app = startStimulusApp(require.context(
 
 // Import other 'tuff
 import { Tooltip } from 'bootstrap';
+import { Toast } from 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all.js';
 
 // Activate tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new Tooltip(tooltipTriggerEl)
-})
+var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
+
+// const toastElList = document.querySelectorAll('.toast')
+// const toastList = [...toastElList].map(toastEl => new Toast(toastEl))
+
+// toastElList.forEach(toast => {
+//   const toastBootstrap = Toast.getOrCreateInstance(toast);
+//   toastBootstrap.show();
+// });
