@@ -29,9 +29,6 @@ class Attribute
   #[ORM\Column(type: "string", length: 20)]
   private string $type = "";
 
-  #[Gedmo\Locale]
-  private string $locale = "en";
-
   #[Gedmo\Translatable]
   #[ORM\Column(type: "string", length: 20)]
   private string $name = "";

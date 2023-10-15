@@ -5,20 +5,19 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\MeritRepository;
-use App\Entity\Translation\MeritTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Table(name: "merits")]
-#[ORM\Entity(repositoryClass: MeritRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
-#[Gedmo\TranslationEntity(class: MeritTranslation::class)]
-class Merit
+#[ORM\Entity(repositoryClass: MeritRepository::class)]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+class Merit implements Translatable
 {
   use Homebrewable;
   use Sourcable;
@@ -27,9 +26,6 @@ class Merit
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
   private ?int $id = null;
-
-  #[Gedmo\Locale]
-  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 40)]

@@ -4,20 +4,19 @@ namespace App\Entity;
 
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
-use App\Entity\Translation\DevotionTranslation;
 use App\Repository\DevotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
-#[Gedmo\TranslationEntity(class: DevotionTranslation::class)]
-class Devotion
+class Devotion implements Translatable
 {
   use Homebrewable;
   use Sourcable;
@@ -26,9 +25,6 @@ class Devotion
   #[ORM\GeneratedValue]
   #[ORM\Column]
   private ?int $id = null;
-
-  #[Gedmo\Locale]
-  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]

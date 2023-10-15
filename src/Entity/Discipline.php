@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\DisciplineRepository;
-use App\Entity\Translation\DisciplineTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;

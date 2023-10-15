@@ -27,7 +27,7 @@ class DevotionController extends AbstractController
     $this->service = $service;
   }
   
-  #[Route('/devotions', name: 'devotion_index', methods: ['GET'])]
+  #[Route('/devotions', name: 'vampire_devotion_index', methods: ['GET'])]
   public function disciplines(): Response
   {
     $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);

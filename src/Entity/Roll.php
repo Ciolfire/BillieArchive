@@ -31,9 +31,6 @@ class Roll
   #[ORM\Column]
   private ?int $id = null;
 
-  #[Gedmo\Locale]
-  private string $locale = "en";
-
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
   private string $name = "";

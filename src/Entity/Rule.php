@@ -10,11 +10,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RuleRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-class Rule
+class Rule implements Translatable
 {
   use Typed;
   use Sourcable;
@@ -23,9 +24,6 @@ class Rule
   #[ORM\GeneratedValue]
   #[ORM\Column]
   private ?int $id = null;
-
-  #[Gedmo\Locale]
-  private string $locale = "en";
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]

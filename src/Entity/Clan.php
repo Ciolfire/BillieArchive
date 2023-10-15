@@ -5,20 +5,19 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
-
-#[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
 #[ORM\Table(name: "clan")]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
-class Clan
+class Clan implements Translatable
 {
   use Sourcable;
   use Homebrewable;
