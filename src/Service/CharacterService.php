@@ -24,6 +24,19 @@ class CharacterService
     $this->vService = $vService;
   }
 
+  public function sortCharacters(Character ...$characters)
+  {
+    $sortedCharacters = [];
+    foreach ($characters as $character) {
+      $type = $character->getType();
+      if(!isset($sortedCharacters[$type])) {
+        $sortedCharacters[$type] = [];
+      }
+      $sortedCharacters[$type][] = $character;
+    }
+    return $sortedCharacters;
+  }
+
   public function takeWound(Character $character, int $value) : void
   {
     $wounds = $character->getWounds();

@@ -16,8 +16,11 @@
     </a>
   </div>
   <div class="row pt-3">
-    {% for character in characters %}
+    {% for type,items in characters %}
+    <h2>{{ ('type.' ~ type)|trans() }}</h2>
+    {% for character in items %}
       {% include "character/_card.html.twig" %}
+    {% endfor %}
     {% endfor %}
   </div>
 </div>

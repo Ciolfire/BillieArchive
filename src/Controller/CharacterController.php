@@ -62,31 +62,33 @@ class CharacterController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
+
+    $characters = $characterRepository->findBy(
+      [
+        'player' => $user->getId(),
+        'isNpc' => false,
+        'isTemplate' => false,
+      ],[
+        'chronicle' => 'DESC',
+        'firstName' => 'ASC',
+        'lastName' => 'ASC',
+      ]
+    );
+    $characters = $this->service->sortCharacters(...$characters);
+    $npc = $characterRepository->findBy(
+      [
+        'player' => $user->getId(),
+        'isNpc' => true
+      ],[
+        'chronicle' => 'ASC',
+        'firstName' => 'ASC',
+        'lastName' => 'ASC',
+      ]
+    );
+    $npc = $this->service->sortCharacters(...$npc);
     return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy(
-        [
-          'player' => $user->getId(),
-          'isNpc' => false,
-          'isTemplate' => false,
-        ],
-        [
-          'chronicle' => 'DESC',
-          // 'type' => 'ASC',
-          'firstName' => 'ASC',
-          'lastName' => 'ASC',
-        ]),
-      'npc' => $characterRepository->findBy(
-        [
-          'player' => $user->getId(),
-          'isNpc' => true
-        ],
-        [
-          'chronicle' => 'DESC',
-          // 'type' => 'ASC',
-          'firstName' => 'ASC',
-          'lastName' => 'ASC',
-        ]
-      ),
+      'characters' => $characters,
+      'npc' => $npc,
     ]);
   }
   
@@ -95,16 +97,20 @@ class CharacterController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
-    return $this->render('character/index.html.twig', [
-      'generated' => $characterRepository->findBy([
-        'isTemplate' => true,
-      ],
+
+    $characters = $characterRepository->findBy(
       [
+        'isTemplate' => true,
+      ],[
         'chronicle' => 'ASC',
-        // 'type' => 'ASC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
-      ]),
+      ]
+    );
+    $characters = $this->service->sortCharacters(...$characters);
+
+    return $this->render('character/index.html.twig', [
+      'generated' => $characters,
     ]);
   }
 
@@ -113,17 +119,19 @@ class CharacterController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
-    return $this->render('character/index.html.twig', [
-      'npc' => $characterRepository->findBy([
+    $characters = $characterRepository->findBy(
+      [
         'player' => $user->getId(),
         'isNpc' => true
-      ],
-      [
+      ],[
         'chronicle' => 'ASC',
-        // 'type' => 'ASC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
-      ]),
+      ]
+    );
+    $characters = $this->service->sortCharacters(...$characters);
+    return $this->render('character/index.html.twig', [
+      'npc' => $characters,
     ]);
   }
 
