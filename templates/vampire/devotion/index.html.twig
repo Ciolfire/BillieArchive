@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      {% for devotion in devotions %}
+      {% for devotion in devotions|sort((a, b) => a.name|lower <=> b.name|lower) %}
         <div class="row g-0 text-center py-2 bdr-b" data-search-target="item" data-name="{{ devotion.name }}">
           <div class="col-12 col-md col-lg-3">
             <h4 class="text-strong">{{ devotion.name }}

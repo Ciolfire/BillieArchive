@@ -41,7 +41,7 @@
 		</div>
 
 		<div id="disciplinesTable" class="accordion block">
-			{% for discipline in elements %}
+			{% for discipline in elements|sort((a, b) => a.name <=> b.name) %}
 				<div class="row bdr-t p-2 g-0" role="button" data-search-target="item" data-name="{{ discipline.name }}">
 					<div class="col-12 col-md-5" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
 						<h4 class="text-strong">{{ discipline.name }}
