@@ -1050,4 +1050,9 @@ class Character
 
     return $derangements;
   }
+
+  public function getMaxMorality(): int
+  {
+    return 10;
+  }
 }

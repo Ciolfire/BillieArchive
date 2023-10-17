@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Console\Descriptor\DescriptorInterface;
 
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
@@ -417,5 +418,23 @@ class Vampire extends Character
     }
 
     return $base;
+  }
+
+  public function getMaxMorality(): int
+  {
+    $restriction = 0;
+    $restrictingDisicplines = [];
+    $restrictingDisicplines[] = $this->getDiscipline(DisciplineReferences::CRUAC);
+    $restrictingDisicplines[] = $this->getDiscipline(DisciplineReferences::MERGES);
+
+    if (!empty($restrictingDisicplines)) {
+      foreach ($restrictingDisicplines as $discipline) {
+        if ($discipline instanceof VampireDiscipline && $discipline->getLevel() > $restriction) {
+          $restriction = $discipline->getLevel();
+        }
+      }
+    }
+    
+    return 10 - $restriction;
   }
 }
