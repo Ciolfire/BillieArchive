@@ -51,9 +51,11 @@ COPY build/php/symfony.pool.conf /etc/php8.2/php-fpm.d/
 
 WORKDIR /var/www/darkness
 
+USER www-data
+
 CMD ["php-fpm", "-F"]
 
-EXPOSE 9000
+# EXPOSE 9000
 
 
     # php-apcu \

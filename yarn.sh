@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# npm update
-yarn cache clean && yarn install
+npm install
 yarn watch
+# yarn cache clean && yarn install
