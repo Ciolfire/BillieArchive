@@ -41,18 +41,16 @@ class CharacterController extends AbstractController
   private DataService $dataService;
   private CreationService $create;
   private CharacterService $service;
-  private VampireService $vService;
   /** @var array<string, array<string, array<string, string|null>>> */
   private array $attributes;
   /** @var array<string, array<string, string|null>> */
   private array $skills;
 
-  public function __construct(DataService $dataService, CreationService $create, CharacterService $service, VampireService $vService)
+  public function __construct(DataService $dataService, CreationService $create, CharacterService $service)
   {
     $this->dataService = $dataService;
     $this->create = $create;
     $this->service = $service;
-    $this->vService = $vService;
     $this->attributes = $this->service->getSortedAttributes();
     $this->skills = $this->service->getSortedSkills();
   }
@@ -229,7 +227,7 @@ class CharacterController extends AbstractController
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'rolls' => $rolls,
-      'setting' => $character->getType(),
+      'setting' => $character->getSetting(),
       'removables' => $removables,
       'derangements' => $derangements,
     ]);
@@ -245,10 +243,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_index');
     }
 
-    $merits = $this->service->filterMerits($character, false);
-    $setting = $character->getType();
-
-    switch ($setting) {
+    switch ($character->getType()) {
       case 'vampire':
         $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true]);
         break;
@@ -258,52 +253,24 @@ class CharacterController extends AbstractController
         break;
     }
     $form->handleRequest($request);
-    $extraData = $form->getExtraData();
 
     if ($form->isSubmitted() && $form->isValid()) {
-      if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
-        $character->setLookAge($character->getAge());
-      }
-      if (isset($extraData['merits'])) {
-        $this->create->addMerits($character, $extraData['merits']);
-      }
-      if (isset($extraData['meritsUp'])) {
-        $this->create->updateMerits($extraData['meritsUp']);
-      }
-      if (isset($extraData['specialties'])) {
-        $this->create->addSpecialties($character, $extraData['specialties']);
-      }
-      if (isset($extraData['willpower'])) {
-        $this->service->updateWillpower($character, (int)$extraData['willpower']);
-      }
-      if ($character->getType() == "vampire") {
-        /** @var Vampire $character */
-        $this->vService->handleEdit($character, $extraData);
-      }
-      if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
-        $character->spendXp((int)$extraData['xp']['spend']);
-        $isFree = false;
-      } else {
-        $isFree = true;
-      }
-      $this->service->updateLogs($character, $extraData['xpLogs'], $isFree);
-      $this->dataService->flush();
+     $this->service->editCharacter($character, $form->getExtraData());
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
-    $this->dataService->loadMeritsPrerequisites($merits);
+    $merits = $this->service->loadMerits($character, false);
 
-    return $this->render('character_sheet/'.$setting.'/edit.html.twig', [
+    return $this->render('character_sheet/'.$character->getSetting().'/edit.html.twig', [
       'character' => $character,
-      'setting' => $setting,
+      'setting' => $character->getSetting(),
       'form' => $form,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
       'merits' => $merits,
       //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
-      $setting => $this->service->getSpecial($character),
+      $character->getSetting() => $this->service->getSpecial($character),
     ]);
   }
 
@@ -487,6 +454,18 @@ class CharacterController extends AbstractController
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       $this->service->updateTrait($character, $data);
+      return new JsonResponse('ok');
+    } else {
+      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
+  }
+
+  #[Route('/{id<\d+>}/lesser/trait/update', name: 'character_lesser_trait_update', methods: ['POST'])]
+  public function updateLesserTrait(Request $request, Character $character) : JsonResponse|RedirectResponse
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $this->service->updateLesserTrait($character, $data);
       return new JsonResponse('ok');
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);

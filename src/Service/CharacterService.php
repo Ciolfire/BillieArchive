@@ -11,17 +11,55 @@ use App\Entity\Derangement;
 use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vampire;
-use Doctrine\ORM\EntityManagerInterface;
 
 class CharacterService
 {
   private DataService $dataService;
-  private VampireService $vService;
+  private VampireService $vampireService;
+  private CreationService $create;
 
-  public function __construct(DataService $dataService, VampireService $vService)
+  public function __construct(DataService $dataService, VampireService $vampireService, CreationService $create)
   {
+    $this->create = $create;
     $this->dataService = $dataService;
-    $this->vService = $vService;
+    $this->vampireService = $vampireService;
+  }
+
+  public function editCharacter(Character $character, array $extraData)
+  {
+    if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
+      $character->setLookAge($character->getAge());
+    }
+    if (isset($extraData['merits'])) {
+      $this->create->addMerits($character, $extraData['merits']);
+    }
+    if (isset($extraData['meritsUp'])) {
+      $this->create->updateMerits($extraData['meritsUp']);
+    }
+    if (isset($extraData['specialties'])) {
+      $this->create->addSpecialties($character, $extraData['specialties']);
+    }
+    if (isset($extraData['willpower']) && $extraData['willpower'] > $character->getWillpower()) {
+      $this->updateWillpower($character, (int)$extraData['willpower']);
+    }
+    switch ($character->getType()) {
+      case 'vampire':
+        /** @var Vampire $character */
+        $this->vampireService->handleEdit($character, $extraData);
+        break;
+      
+      default:
+        # code...
+        break;
+    }
+    if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
+      $character->spendXp((int)$extraData['xp']['spend']);
+      $isFree = false;
+    } else {
+      $isFree = true;
+    }
+    $this->updateLogs($character, $extraData['xpLogs'], $isFree);
+    $this->dataService->flush();
   }
 
   public function sortCharacters(Character ...$characters)
@@ -142,6 +180,24 @@ class CharacterService
     $this->dataService->flush();
   }
 
+  public function updateLesserTrait(Character $character, \stdClass $data) : void
+  {
+    $character = $character->getLesserTemplate();
+
+    switch ($data->trait) {
+      default:
+        $getTrait = "get".ucfirst($data->trait);
+        $setTrait = "set".ucfirst($data->trait);
+        if ($data->value == 1) {
+          $character->$setTrait($character->$getTrait() + 1);
+        } else {
+          $character->$setTrait(max(0, $character->$getTrait() - 1));
+        }
+        break;
+      }
+    $this->dataService->flush();
+  }
+
   public function updateWillpower(Character $character, int $value) : void
   {
     $character->setWillpower($value);
@@ -216,6 +272,15 @@ class CharacterService
     return $sortedSkills;
   }
 
+  public function loadMerits(Character $character) : array
+  {
+    $merits = $this->filterMerits($character, false);
+    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
+    $this->dataService->loadMeritsPrerequisites($merits);
+
+    return $merits;
+  }
+
   /** Remove all non valid merits 
    *  @return array<int, object>
    */
@@ -244,12 +309,13 @@ class CharacterService
    */
   public function getSpecial(Character $character) : ?array
   {
-    if ($character->getType() == 'vampire') {
-      /** @var Vampire $character */
-      return $this->vService->getSpecial($character);
-    } else {
+    switch ($character->getType()) {
+      case 'vampire':
+        /** @var Vampire $character */
+        return $this->vampireService->getSpecial($character);
 
-      return null;
+        default:
+        return null;
     }
   }
 
