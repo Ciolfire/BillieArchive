@@ -30,13 +30,13 @@ character:
   pc: Character
   label: Character
   npc: NPC
-  generated: Pregenerated Character
+  generated: Premade Character
 characters:
   pc : Characters
   label: Characters
   groups: Groups
   npc: NPCs
-  generated: Pregenerated Characters
+  generated: Premade Characters
 chronicle:
   label: Chronicle
 chronicles:

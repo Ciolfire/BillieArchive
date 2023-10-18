@@ -201,6 +201,10 @@ blockquote {
   }
 }
 
+.character-sheet {
+  margin-top: 4rem;
+}
+
 @font-face {
   font-family: 'hopper_edward';
   src        : url('#{$fonts}/P22_Hopper_Edward.ttf');

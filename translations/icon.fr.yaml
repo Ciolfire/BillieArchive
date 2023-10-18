@@ -14,9 +14,13 @@ view: Voir
 dice: Dé
 luckThrow: Chance
 
+empty: Vide
+full: Plein
+
 all: Tous
 creation: Création uniquement
 folder: Dossier
+generated: Prétiré
 hide: Cacher
 homebrew: Règles maison ;)
 logs: Historique
