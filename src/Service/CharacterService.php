@@ -286,18 +286,17 @@ class CharacterService
    */
   public function filterMerits(Character $character, bool $isCreation = true) : array
   {
+    $chronicle = $character->getChronicle();
     $merits = $this->dataService->findAll(Merit::class);
 
     foreach ($merits as $key => $merit) {
       /** @var Merit $merit */
-      if ($merit->isUnique() && !is_null($character->hasMerit($merit->getId()))) {
-        // Character already has this merit, we remove it from the list
-        unset($merits[$key]);
-      } else if (!$isCreation && $merit->isCreationOnly()) {
-        // Level 1 merit
-        unset($merits[$key]);
-      }
-      else if ($merit->getType() != "" && $character->getType() != $merit->getType()) {
+      if (
+        ($merit->isUnique() && !is_null($character->hasMerit($merit->getId()))) || // Character already has this merit
+        (!$isCreation && $merit->isCreationOnly()) || // Creation merit
+        ($merit->getType() != "" && $character->getType() != $merit->getType()) || // Template of the character does not match the merit
+        (!is_null($merit->getHomebrewFor()) && $merit->getHomebrewFor() !== $chronicle) // Homebrew merit, only show for the chronicle 
+      ) {
         unset($merits[$key]);
       }
     }
