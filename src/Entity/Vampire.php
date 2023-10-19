@@ -9,16 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Console\Descriptor\DescriptorInterface;
 
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
-  // #[ORM\Id]
-  // #[ORM\GeneratedValue]
-  // #[ORM\Column(type: Types::INTEGER)]
-  // protected $id;
-
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   private ?string $sire = null;
 
@@ -57,6 +51,11 @@ class Vampire extends Character
     }
     $this->devotions = new ArrayCollection();
     $this->rituals = new ArrayCollection();
+  }
+
+  public function getType(): string
+  {
+    return "vampire";
   }
 
   public function setPowerRating(): ?int
