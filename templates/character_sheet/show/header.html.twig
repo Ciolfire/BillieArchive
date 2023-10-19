@@ -8,7 +8,7 @@
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% elseif character.isTemplate == true %}
-        ({{ "generated"|trans }})
+        {% include "_icon.html.twig" with {'icon': 'generated', 'class': 'icon-xl ms-5'} %}
       {% endif %}
     </h1>
   {% endblock %}

@@ -128,6 +128,9 @@ class Character
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true)]
   private Collection $derangements;
+
+  #[ORM\OneToOne(mappedBy: 'sourceCharacter', cascade: ['persist', 'remove'])]
+  private ?CharacterLesserTemplate $lesserTemplate = null;
   
   public function __construct()
   {
@@ -209,7 +212,21 @@ class Character
 
   public function getType(): string
   {
-    return lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
+    if ($this->getLesserTemplate()) {
+      return $this->getLesserTemplate()->getType();
+    }
+
+    return "human";
+  }
+
+  public function getSetting(): string
+  {
+    if ($this->getLesserTemplate()) {
+
+      return $this->getLesserTemplate()->getSetting();
+    }
+
+    return $this->getType();
   }
 
   public function getLimit(): int
@@ -1054,5 +1071,22 @@ class Character
   public function getMaxMorality(): int
   {
     return 10;
+  }
+
+  public function getLesserTemplate(): ?CharacterLesserTemplate
+  {
+      return $this->lesserTemplate;
+  }
+
+  public function setLesserTemplate(CharacterLesserTemplate $lesserTemplate): static
+  {
+      // set the owning side of the relation if necessary
+      if ($lesserTemplate->getSourceCharacter() !== $this) {
+          $lesserTemplate->setSourceCharacter($this);
+      }
+
+      $this->lesserTemplate = $lesserTemplate;
+
+      return $this;
   }
 }

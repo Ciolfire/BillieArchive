@@ -5,7 +5,7 @@
 {% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
-  <div class="container-fluid container-lg py-3 mt-5" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
+  <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
     {% block menu %}
       {% include "character_sheet/show/menu.html.twig" %}
     {% endblock %}
@@ -28,7 +28,7 @@
       <div id="general" class="tab-content" data-tabs-target="page">
         <div class="row pb-3">
           <div class="col-12 col-md-6 mb-3">
-            {%include "character_sheet/show/health.html.twig" %}
+            {% block health %}{%include "character_sheet/show/health.html.twig" %}{% endblock %}
           </div>
           <div class="col-12 col-md-6 mb-3">
             {% include "character_sheet/show/willpower.html.twig" %}
