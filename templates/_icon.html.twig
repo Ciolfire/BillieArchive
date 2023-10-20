@@ -269,7 +269,9 @@
   {% elseif icon == 'Ventrue' %}
     <img height="20" src="{{ asset('LogoVentrue.webp', 'clans') }}">
   {% elseif icon == 'ghoul' %}
-    <i class="fa-solid fa-ankh fa-fw"></i>
+    {{ source('@icons/' ~ 'ankh-solid.svg') }}
+  {% elseif icon == 'ghoul_family' %}
+    {{ source('@icons/' ~ 'minions.svg') }}
   {% elseif icon == 'bloodline' or icon == 'bloodlines' %}
     {{ source('@icons/' ~ 'wavy-itinerary.svg') }}
   {% elseif icon == 'potency' %}
