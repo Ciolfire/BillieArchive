@@ -28,8 +28,8 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/list/{type}/{id<\d+>}", name: "merit_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
+  #[Route("/list/{type}/{id}", name: "merit_list", methods: ["GET"])]
+  public function list(string $type = null, int|string $id = null) : Response
   {
     $chronicle = false;
     $search = ['category' => $this->categories];
@@ -47,7 +47,8 @@ class MeritController extends AbstractController
           }
         }
         break;
-      case 'chronicle':
+
+        case 'chronicle':
         /** @var Chronicle */
         $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
         if ($item instanceof Chronicle) {
@@ -56,6 +57,14 @@ class MeritController extends AbstractController
           $merits = $item->getMerits();
         }
         break;
+      case 'type':
+        $merits = $this->dataService->findBy(Merit::class, ['type' => $id]);
+        $setting = $id;
+        if ($setting == 'ghoul') {
+          $setting = 'vampire';
+        }
+        break;
+
       default:
         $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
         $search['type'] = $this->dataService->getMeritTypes();
