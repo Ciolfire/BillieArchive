@@ -27,7 +27,6 @@ class Clan implements Translatable
   #[ORM\Column(type: Types::INTEGER)]
   private ?int $id;
 
-  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 40)]
   private string $name = "";
 
@@ -59,12 +58,15 @@ class Clan implements Translatable
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   private ?string $emblem;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(length: 50)]
   private string $nickname = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private string $weakness = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $quote = null;
 

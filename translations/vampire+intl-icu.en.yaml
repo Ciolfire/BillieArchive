@@ -70,6 +70,7 @@ ghoul:
   family: 
     clan:
       label: Parent Clan
+    new: New Ghoul Family
     strength: Strengths
     weakness: Weaknesses
   families.label: Ghoul Families

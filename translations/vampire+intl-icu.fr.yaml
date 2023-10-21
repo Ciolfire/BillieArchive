@@ -70,6 +70,7 @@ ghoul:
   family: 
     clan:
       label: Clan Parent
+    new: Nouvelle Famille de Goules
     strength: Forces
     weakness: Faiblesses
   families.label: Ghoul Families

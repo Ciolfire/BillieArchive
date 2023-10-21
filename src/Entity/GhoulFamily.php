@@ -7,6 +7,7 @@ use App\Entity\Traits\Sourcable;
 use App\Repository\GhoulFamilyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "ghoulFamilies"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "ghoulFamilies")])]
@@ -24,24 +25,30 @@ class GhoulFamily implements Translatable
   #[ORM\Column(length: 255)]
   private ?string $name = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $description = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $short = "";
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $emblem = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(length: 50)]
   private ?string $nickname = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $strength = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $weakness = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
   private ?string $quote = null;
 
