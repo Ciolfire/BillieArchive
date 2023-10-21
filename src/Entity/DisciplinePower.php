@@ -170,12 +170,16 @@ class DisciplinePower implements Translatable
     return $character->dicePool($this->attributes, $this->skills, $bonus);
   }
 
-  public function detailedDicePool(Vampire $character) : mixed
+  public function detailedDicePool(Vampire|Ghoul $character) : mixed
   {
     /** @var Discipline $discipline */
     $discipline = $this->discipline;
     $id = (int)$discipline->getId();
-    $charDiscipline = $character->getDiscipline($id);
+    if ($character instanceof Ghoul) {
+      $charDiscipline = $character->getDiscipline($id);
+    } else {
+      $charDiscipline = $character->getDiscipline($id);
+    }
     
     $modifiers = [
       $discipline->getName() => $charDiscipline? $charDiscipline->getLevel() : 0,

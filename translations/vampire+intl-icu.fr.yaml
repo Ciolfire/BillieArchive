@@ -65,6 +65,22 @@ devotion:
 devotions:
   label: Dévotions
 
+ghoul:
+  empty: Si la goule n'a pas sa dose mensuelle de vitae et n'a plus de reserve, elle ne peut plus utiliser ses discipline, et peut exprimer un dérangement
+  family: 
+    clan:
+      label: Clan Parent
+    strength: Forces
+    weakness: Faiblesses
+  families.label: Ghoul Families
+  regent: "Régent: {regent} ({clan})"
+  vitae:
+    info: Utilisation de la Vitae par les Goules
+    usage: |
+      - Activer des Disciplines
+      - Augmenter les Attributs physiques
+      - Soigner les blessures: 1/2C, 1/1L ou 5/1A (sur 2 jours)
+
 homebrew:
   label: Paramètres des Vampires
 
@@ -159,6 +175,7 @@ tab:
   coils: Anneaux
   devotions: Dévotions
   disciplines: Disciplines
+  ghoul: Goule
   sorcery: Sorcellerie
   thaumaturgy: Thaumaturgie
   vampire: Vampire

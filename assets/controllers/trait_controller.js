@@ -14,14 +14,15 @@ export default class extends Controller {
     this.update();
   }
 
-  switch() {
+  switch(event) {
+    let isLesser = event.params.lesser;
     if (this.currentValue == 1) {
       this.currentValue = 0;
     } else {
       this.currentValue = 1;
     }
     this.update();
-    this.save();
+    this.save(isLesser);
   }
 
   update() {
@@ -42,7 +43,7 @@ export default class extends Controller {
     }
   }
 
-  save() {
+  save(isLesser) {
     let xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = function() {
@@ -51,7 +52,11 @@ export default class extends Controller {
         console.log(xhttp.responseText);
       }
     };
-    xhttp.open("POST", `/en/character/${this.idValue}/trait/update`, true);
+    if (isLesser) {
+      xhttp.open("POST", `/en/character/${this.idValue}/lesser/trait/update`, true);
+    } else {
+      xhttp.open("POST", `/en/character/${this.idValue}/trait/update`, true);
+    }
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
     let data = JSON.stringify({'value': this.currentValue, 'trait': this.typeValue});

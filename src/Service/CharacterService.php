@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -47,7 +49,8 @@ class CharacterService
         /** @var Vampire $character */
         $this->vampireService->handleEdit($character, $extraData);
         break;
-      
+      case 'ghoul':
+        $this->vampireService->handleGhoulEdit($character->getLesserTemplate(), $extraData);
       default:
         # code...
         break;
@@ -67,7 +70,7 @@ class CharacterService
     $sortedCharacters = [];
     foreach ($characters as $character) {
       $type = $character->getType();
-      if(!isset($sortedCharacters[$type])) {
+      if (!isset($sortedCharacters[$type])) {
         $sortedCharacters[$type] = [];
       }
       $sortedCharacters[$type][] = $character;
@@ -75,7 +78,7 @@ class CharacterService
     return $sortedCharacters;
   }
 
-  public function takeWound(Character $character, int $value) : void
+  public function takeWound(Character $character, int $value): void
   {
     $wounds = $character->getWounds();
     switch ($value) {
@@ -104,7 +107,7 @@ class CharacterService
     $this->dataService->flush();
   }
 
-  public function healWound(Character $character, int $value) : void
+  public function healWound(Character $character, int $value): void
   {
     $wounds = $character->getWounds();
     switch ($value) {
@@ -130,7 +133,7 @@ class CharacterService
     $this->dataService->flush();
   }
 
-  public function updateLogs(Character $character, string $logs, bool $isFree = false) : void
+  public function updateLogs(Character $character, string $logs, bool $isFree = false): void
   {
     $logs = json_decode($logs);
     foreach ($logs as $key => $entry) {
@@ -157,7 +160,7 @@ class CharacterService
     }
   }
 
-  public function updateTrait(Character $character, \stdClass $data) : void
+  public function updateTrait(Character $character, \stdClass $data): void
   {
     switch ($data->trait) {
       case 'willpower':
@@ -168,44 +171,44 @@ class CharacterService
         }
         break;
       default:
-        $getTrait = "get".ucfirst($data->trait);
-        $setTrait = "set".ucfirst($data->trait);
+        $getTrait = "get" . ucfirst($data->trait);
+        $setTrait = "set" . ucfirst($data->trait);
         if ($data->value == 1) {
           $character->$setTrait($character->$getTrait() + 1);
         } else {
           $character->$setTrait(max(0, $character->$getTrait() - 1));
         }
         break;
-      }
+    }
     $this->dataService->flush();
   }
 
-  public function updateLesserTrait(Character $character, \stdClass $data) : void
+  public function updateLesserTrait(Character $character, \stdClass $data): void
   {
     $character = $character->getLesserTemplate();
 
     switch ($data->trait) {
       default:
-        $getTrait = "get".ucfirst($data->trait);
-        $setTrait = "set".ucfirst($data->trait);
+        $getTrait = "get" . ucfirst($data->trait);
+        $setTrait = "set" . ucfirst($data->trait);
         if ($data->value == 1) {
           $character->$setTrait($character->$getTrait() + 1);
         } else {
           $character->$setTrait(max(0, $character->$getTrait() - 1));
         }
         break;
-      }
+    }
     $this->dataService->flush();
   }
 
-  public function updateWillpower(Character $character, int $value) : void
+  public function updateWillpower(Character $character, int $value): void
   {
     $character->setWillpower($value);
   }
 
-  public function updateExperience(Character $character, \stdClass $data) : ?int
+  public function updateExperience(Character $character, \stdClass $data): ?int
   {
-    
+
 
     if ($data->method == "add") {
       $total = $character->getXpTotal();
@@ -239,7 +242,7 @@ class CharacterService
   /**
    *  @return array<string, array<string, array<string, string|null>>>
    */
-  public function getSortedAttributes() : array
+  public function getSortedAttributes(): array
   {
     $sortedAttributes = [];
     $attributes = $this->dataService->findAll(Attribute::class);
@@ -257,7 +260,7 @@ class CharacterService
   /**
    *  @return array<string, array<string, string|null>>
    */
-  public function getSortedSkills() : array
+  public function getSortedSkills(): array
   {
     $sortedSkills = [];
     $skills = $this->dataService->findAll(Skill::class);
@@ -272,7 +275,7 @@ class CharacterService
     return $sortedSkills;
   }
 
-  public function loadMerits(Character $character) : array
+  public function loadMerits(Character $character): array
   {
     $merits = $this->filterMerits($character, false);
     $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
@@ -284,7 +287,7 @@ class CharacterService
   /** Remove all non valid merits 
    *  @return array<int, object>
    */
-  public function filterMerits(Character $character, bool $isCreation = true) : array
+  public function filterMerits(Character $character, bool $isCreation = true): array
   {
     $chronicle = $character->getChronicle();
     $merits = $this->dataService->findAll(Merit::class);
@@ -306,19 +309,23 @@ class CharacterService
   /**
    * @return array<string, array<int, object>>|null
    */
-  public function getSpecial(Character $character) : ?array
+  public function getSpecial(Character $character): ?array
   {
     switch ($character->getType()) {
       case 'vampire':
         /** @var Vampire $character */
         return $this->vampireService->getSpecial($character);
 
-        default:
+      case 'ghoul':
+        /** @var Vampire $character */
+        return $this->vampireService->getGhoulSpecial($character->getLesserTemplate());
+
+      default:
         return null;
     }
   }
 
-  public function removeAbility(Character $character, array $data) : bool
+  public function removeAbility(Character $character, array $data): bool
   {
     $infos = [];
     if (isset($data['element'])) {
@@ -326,7 +333,7 @@ class CharacterService
       $infos['name'] = $element;
     }
     $method = $data['method'];
-    
+
     switch ($data['type']) {
       case 'attribute':
         $attributes = $character->getAttributes();
@@ -344,7 +351,7 @@ class CharacterService
         $value = $skills->get($element);
         $infos['base'] = $value;
         if ($method == 'reduce' && $skills->get($element) > 0) {
-        $newValue = $value - 1;
+          $newValue = $value - 1;
         } else {
           $newValue = 0;
         }
@@ -412,7 +419,7 @@ class CharacterService
     return true;
   }
 
-  public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree) : void
+  public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree): void
   {
     $base = $character->getMoral();
     $cost = $base * 3;
@@ -443,7 +450,7 @@ class CharacterService
     $this->dataService->flush();
   }
 
-  public function moralityDecrease(Character $character, int $derangementId, string $details) : void
+  public function moralityDecrease(Character $character, int $derangementId, string $details): void
   {
     $base = $character->getMoral();
     $character->setMoral($base - 1);
@@ -454,7 +461,7 @@ class CharacterService
       }
       $derangement = $this->dataService->findOneBy(Derangement::class, ['id' => $derangementId]);
       if (!is_null($derangement) && $character->getMoral() < 7) {
-        $charDerangement = New CharacterDerangement($character, $details, $character->getMoral(), $derangement);
+        $charDerangement = new CharacterDerangement($character, $details, $character->getMoral(), $derangement);
         $character->addDerangement($charDerangement);
         $this->dataService->add($charDerangement);
         $gained = $derangement->getName();
@@ -476,11 +483,11 @@ class CharacterService
     $this->dataService->flush();
   }
 
-  public function newCharacterDerangement(Character $character, int $derangementId, string $details) : void
+  public function newCharacterDerangement(Character $character, int $derangementId, string $details): void
   {
     $derangement = $this->dataService->findOneBy(Derangement::class, ['id' => $derangementId]);
     if (!is_null($derangement)) {
-      $charDerangement = New CharacterDerangement($character, $details, null, $derangement);
+      $charDerangement = new CharacterDerangement($character, $details, null, $derangement);
       $character->addDerangement($charDerangement);
       $this->dataService->add($charDerangement);
       $derangementName = $derangement->getName();

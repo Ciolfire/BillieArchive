@@ -1,0 +1,28 @@
+{% trans_default_domain 'vampire' %}
+
+{% set characterDisciplines = ghoulCharacter.getFilteredDisciplines('discipline') %}
+{% set characterSorcery = ghoulCharacter.getFilteredDisciplines('sorcery') %}
+{% set characterThaumaturgy = ghoulCharacter.getFilteredDisciplines('thaumaturgy') %}
+{% set characterDevotions = ghoulCharacter.devotions %}
+
+<div data-controller="tabs" data-tabs-initial-value="disciplines">
+  <ul class="nav tabs row g-0 my-2">
+    {% include "_tab.html.twig" with {'name': 'disciplines', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'sorcery', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'thaumaturgy', 'domain': 'vampire'} only %}
+    {% include "_tab.html.twig" with {'name': 'devotions', 'domain': 'vampire'} only %}
+  </ul>
+  <div id="disciplines" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterDisciplines': characterDisciplines, 'disciplines': ghoul.disciplines, 'character': ghoulCharacter} %}
+  </div>
+  <div id="sorcery" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/sorceries.html.twig" with {'characterDisciplines': characterSorcery, 'disciplines': ghoul.sorcery, 'character': ghoulCharacter} %}
+  </div>
+  <div id="thaumaturgy" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/disciplines.html.twig" with {'characterDisciplines': characterThaumaturgy, 'disciplines': ghoul.thaumaturgy} %}
+  </div>
+  <div id="devotions" class="tab-content" data-tabs-target="page">
+    {% include "character_sheet/vampire/edit/devotions.html.twig" with {'characterDisciplines': characterDevotions, 'devotions': ghoul.devotions} %}
+  </div>
+</div>
+

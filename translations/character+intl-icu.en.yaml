@@ -28,7 +28,7 @@ age:
       other {Age: # years old}
     }
   looks:
-    label: Apparent age
+    label: "Looks:"
     value: "Looks {looks}"
 
 advantage:
@@ -150,6 +150,7 @@ morality:
     pay: Pay
     free: Free
   human: Morality
+  ghoul: Morality
   vampire: Humanity
 
 new:

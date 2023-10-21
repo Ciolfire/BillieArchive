@@ -62,6 +62,9 @@ class Chronicle
   #[ORM\Column(type: Types::JSON,  nullable: true)]
   private ?array $rules = null;
 
+  #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'homebrewFor')]
+  private Collection $ghoulFamilies;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -303,6 +306,43 @@ class Chronicle
     }
 
     $this->rules[$type] = $rules;
+
+    return $this;
+  }
+
+    /**
+   * @return array<GhoulFamily>
+   */
+  public function getGhoulFamilies(): array
+  {
+    $ghoulFamilies = [];
+
+    foreach ($this->ghoulFamilies as $family) {
+      /** @var GhoulFamily $family */
+      $ghoulFamilies[] = $family;
+    }
+
+    return $ghoulFamilies;
+  }
+
+  public function addGhoulFamily(GhoulFamily $family): self
+  {
+    if (!$this->ghoulFamilies->contains($family)) {
+      $this->ghoulFamilies[] = $family;
+      $family->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGhoulFamily(GhoulFamily $family): self
+  {
+    if ($this->ghoulFamilies->removeElement($family)) {
+      // set the owning side to null (unless already changed)
+      if ($family->getHomebrewFor() === $this) {
+        $family->setHomebrewFor(null);
+      }
+    }
 
     return $this;
   }

@@ -1,0 +1,10 @@
+{% extends 'vampire/form.html.twig' %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block title %}{{ (trans ~ action)|trans }}{% endblock %}
+{% block header %}{% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class': 'icon-xl'} only %}{{ (trans ~ action)|trans }}{% endblock %}
+
+{% block form %}
+{{ parent() }}
+{% endblock %}

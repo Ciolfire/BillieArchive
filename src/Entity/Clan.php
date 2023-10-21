@@ -74,6 +74,9 @@ class Clan implements Translatable
   #[ORM\OneToMany(mappedBy: 'bloodline', targetEntity: Devotion::class)]
   private Collection $devotions;
 
+  #[ORM\OneToMany(mappedBy: 'clan', targetEntity: GhoulFamily::class)]
+  private Collection $ghoulFamilies;
+
   public function __construct(bool $isBloodline = false)
   {
     $this->isBloodline = $isBloodline;
@@ -82,6 +85,7 @@ class Clan implements Translatable
     $this->disciplines = new ArrayCollection();
     $this->bloodlines = new ArrayCollection();
     $this->devotions = new ArrayCollection();
+    $this->ghoulFamilies = new ArrayCollection();
   }
 
   public function __toString()
@@ -335,6 +339,36 @@ class Clan implements Translatable
           // set the owning side to null (unless already changed)
           if ($devotion->getBloodline() === $this) {
               $devotion->setBloodline(null);
+          }
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, GhoulFamily>
+   */
+  public function getGhoulFamilies(): Collection
+  {
+      return $this->ghoulFamilies;
+  }
+
+  public function addGhoulFamily(GhoulFamily $ghoulFamily): static
+  {
+      if (!$this->ghoulFamilies->contains($ghoulFamily)) {
+          $this->ghoulFamilies->add($ghoulFamily);
+          $ghoulFamily->setClan($this);
+      }
+
+      return $this;
+  }
+
+  public function removeGhoulFamily(GhoulFamily $ghoulFamily): static
+  {
+      if ($this->ghoulFamilies->removeElement($ghoulFamily)) {
+          // set the owning side to null (unless already changed)
+          if ($ghoulFamily->getClan() === $this) {
+              $ghoulFamily->setClan(null);
           }
       }
 

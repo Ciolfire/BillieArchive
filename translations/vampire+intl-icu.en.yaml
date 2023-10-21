@@ -65,6 +65,22 @@ devotion:
 devotions:
   label: Devotions
 
+ghoul:
+  empty: Cannot use disciplines and might express derangement if behind monthly dose of vitae and has no vitae in her system
+  family: 
+    clan:
+      label: Parent Clan
+    strength: Strengths
+    weakness: Weaknesses
+  families.label: Ghoul Families
+  regent: "Regent: {regent} ({clan})"
+  vitae:
+    info: Vitae usage by Ghouls
+    usage: |
+      - Activate Disciplines
+      - Augment physical Attributes
+      - Heal wound: 1/2B, 1/1L or 5/1A (over 2 days)
+
 homebrew:
   label: Vampire Settings
 
@@ -160,6 +176,7 @@ tab:
   coils: Coils
   devotions: Devotions
   disciplines: Disciplines
+  ghoul: Ghoul
   sorcery: Sorcery
   thaumaturgy: Thaumaturgy
   vampire: Vampire

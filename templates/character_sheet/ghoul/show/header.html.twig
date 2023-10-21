@@ -1,0 +1,45 @@
+{% trans_default_domain 'vampire' %}
+
+{% extends "character_sheet/show/header.html.twig" %}
+
+{% block name %}
+<div class="col-12">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <h1>
+        {{ character.name }}
+        {% if character.player is not null and app.user != character.player %}
+          ({{ character.player }})
+        {% elseif character.isTemplate == true %}
+          {% include "_icon.html.twig" with {'icon': 'generated', 'class': 'icon-xl ms-5'} %}
+        {% endif %}
+      </h1>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+        {% if ghoulCharacter.family|default(null) %}
+        <a href="{{ path("clan_show", {'id': ghoulCharacter.family.id}) }}">
+            <span class="icon link-icon"><img src="{{ asset(ghoulCharacter.family.emblem, 'ghoul_family_emblems') }}"></span>
+            {{ ghoulCharacter.family.name }}
+        </a>
+        {% endif %}
+    </div>
+    <div class="col-12">
+        {{ "ghoul.regent"|trans({'regent': ghoulCharacter.regent, 'clan': ghoulCharacter.clan.name }) }}
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}      
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

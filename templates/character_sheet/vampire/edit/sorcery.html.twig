@@ -4,7 +4,7 @@
 
 {% block controller %}data-controller="dot" role="group"{% endblock %}
 
-{% block data %}data-name="{{ sorcery.name }}" data-id="{{ sorcery.id }}" data-type="{% if character.clan.favored(sorcery) %}favoredDiscipline{% else %}discipline{% endif %}" data-dot-base-value="{{ characterDiscipline.level|default(0) }}" data-dot-min-value="{{ characterDiscipline.level|default(0) }}"{% endblock %}
+{% block data %}data-name="{{ sorcery.name }}" data-id="{{ sorcery.id }}" data-type="{% if clan.favored(sorcery) %}favoredDiscipline{% else %}discipline{% endif %}" data-dot-base-value="{{ characterDiscipline.level|default(0) }}" data-dot-min-value="{{ characterDiscipline.level|default(0) }}"{% endblock %}
 
 {% block input %}
   <input class="discipline-value" value="{{ characterDiscipline.level|default(0) }}" type="hidden" name="character{% if characterDiscipline is defined %}[disciplinesUp][{{ sorcery.id }}]{% else %}[disciplines][{{ sorcery.id }}]{% endif %}" 
@@ -17,7 +17,7 @@
   data-action="click->dot#activate click->character--edit#pay click->character--edit#showRituals"
   data-dot-value-param="{{ value }}"
   data-character--edit-id-param="{{ sorcery.id }}"
-  data-character--edit-type-param="{% if character.clan.favored(sorcery) %}favoredDiscipline{% else %}discipline{% endif %}"
+  data-character--edit-type-param="{% if clan.favored(sorcery) %}favoredDiscipline{% else %}discipline{% endif %}"
   data-character--edit-name-param="{{ sorcery.name }}"
   data-character--edit-value-param="{{ value }}"
   data-character--edit-base-param="{{ characterDiscipline.level|default(0) }}"

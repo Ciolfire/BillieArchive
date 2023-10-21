@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\References\DisciplineReferences;
+use App\Form\GhoulType;
 use App\Repository\GhoulRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -19,7 +20,7 @@ class Ghoul extends CharacterLesserTemplate
 
   #[ORM\ManyToOne(targetEntity: Clan::class)]
   #[ORM\JoinColumn(nullable: false)]
-  private Clan $regentClan;
+  private Clan $clan;
 
   #[ORM\Column(type: Types::SMALLINT)]
   private int $vitae = 1;
@@ -33,9 +34,12 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class)]
   private Collection $rituals;
 
-  public function __construct(Clan $regentClan, Ghoul $ghoul = null)
+  #[ORM\ManyToOne]
+  private ?GhoulFamily $family = null;
+
+  public function __construct(Clan $clan, Ghoul $ghoul = null)
   {
-    $this->regentClan = $regentClan;
+    $this->clan = $clan;
     $this->disciplines = new ArrayCollection();
     // if (is_object($ghoul)) {
     //   // Initializing class properties
@@ -57,6 +61,11 @@ class Ghoul extends CharacterLesserTemplate
     return "vampire";
   }
 
+  public function getForm(): string
+  {
+    return GhoulType::class;
+  }
+
   public function getRegent(): ?string
   {
     return $this->regent;
@@ -69,14 +78,14 @@ class Ghoul extends CharacterLesserTemplate
     return $this;
   }
 
-  public function getRegentClan(): ?Clan
+  public function getClan(): ?Clan
   {
-    return $this->regentClan;
+    return $this->clan;
   }
 
-  public function setRegentClan(Clan $regentClan): self
+  public function setClan(Clan $clan): self
   {
-    $this->regentClan = $regentClan;
+    $this->clan = $clan;
 
     return $this;
   }
@@ -168,10 +177,10 @@ class Ghoul extends CharacterLesserTemplate
   //   return $this;
   // }
 
-  public function getDiscipline(int $id): ?VampireDiscipline
+  public function getDiscipline(int $id): ?GhoulDiscipline
   {
     foreach ($this->disciplines as $discipline) {
-      /** @var VampireDiscipline $discipline */
+      /** @var GhoulDiscipline $discipline */
       if ($discipline->getDiscipline()->getId() === $id) {
 
         return $discipline;
@@ -184,7 +193,7 @@ class Ghoul extends CharacterLesserTemplate
   public function hasDiscipline(int $id): bool
   {
     foreach ($this->disciplines as $discipline) {
-      /** @var VampireDiscipline $discipline */
+      /** @var GhoulDiscipline $discipline */
       if ($discipline->getDiscipline()->getId() == $id) {
 
         return true;
@@ -305,5 +314,17 @@ class Ghoul extends CharacterLesserTemplate
     }
     
     return 10 - $restriction;
+  }
+
+  public function getFamily(): ?GhoulFamily
+  {
+      return $this->family;
+  }
+
+  public function setFamily(?GhoulFamily $family): static
+  {
+      $this->family = $family;
+
+      return $this;
   }
 }

@@ -67,6 +67,8 @@ class Book
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
   private Collection $rituals;
 
+  #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'book')]
+  private Collection $ghoulFamilies;
 
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
@@ -378,6 +380,43 @@ class Book
       // set the owning side to null (unless already changed)
       if ($ritual->getBook() === $this) {
         $ritual->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  /**
+   * @return array<GhoulFamily>
+   */
+  public function getGhoulFamilies(): array
+  {
+    $ghoulFamilies = [];
+
+    foreach ($this->ghoulFamilies as $family) {
+      /** @var GhoulFamily $family */
+      $ghoulFamilies[] = $family;
+    }
+
+    return $ghoulFamilies;
+  }
+
+  public function addGhoulFamily(GhoulFamily $family): self
+  {
+    if (!$this->ghoulFamilies->contains($family)) {
+      $this->ghoulFamilies[] = $family;
+      $family->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGhoulFamily(GhoulFamily $family): self
+  {
+    if ($this->ghoulFamilies->removeElement($family)) {
+      // set the owning side to null (unless already changed)
+      if ($family->getBook() === $this) {
+        $family->setBook(null);
       }
     }
 

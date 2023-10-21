@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -66,7 +68,8 @@ class CharacterController extends AbstractController
         'player' => $user->getId(),
         'isNpc' => false,
         'isTemplate' => false,
-      ],[
+      ],
+      [
         'chronicle' => 'DESC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
@@ -77,7 +80,8 @@ class CharacterController extends AbstractController
       [
         'player' => $user->getId(),
         'isNpc' => true
-      ],[
+      ],
+      [
         'chronicle' => 'ASC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
@@ -89,7 +93,7 @@ class CharacterController extends AbstractController
       'npc' => $npc,
     ]);
   }
-  
+
   #[Route('/generated', name: 'character_generated_index', methods: ['GET'])]
   public function indexTemplates(CharacterRepository $characterRepository): Response
   {
@@ -99,7 +103,8 @@ class CharacterController extends AbstractController
     $characters = $characterRepository->findBy(
       [
         'isTemplate' => true,
-      ],[
+      ],
+      [
         'chronicle' => 'ASC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
@@ -121,7 +126,8 @@ class CharacterController extends AbstractController
       [
         'player' => $user->getId(),
         'isNpc' => true
-      ],[
+      ],
+      [
         'chronicle' => 'ASC',
         'firstName' => 'ASC',
         'lastName' => 'ASC',
@@ -152,7 +158,7 @@ class CharacterController extends AbstractController
       $this->create->getSpecialties($character, $form);
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
-      
+
       $this->dataService->save($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
@@ -208,8 +214,8 @@ class CharacterController extends AbstractController
       $this->addFlash('notice', 'You are not allowed to see this character');
       return $this->redirectToRoute('character_index');
     }
-    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
 
+    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
     $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
@@ -222,7 +228,7 @@ class CharacterController extends AbstractController
       'derangement',
     ];
 
-    return $this->render('character_sheet/'.$character->getType().'/show.html.twig', [
+    return $this->render('character_sheet/' . $character->getType() . '/show.html.twig', [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
@@ -255,14 +261,14 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-     $this->service->editCharacter($character, $form->getExtraData());
+      $this->service->editCharacter($character, $form->getExtraData());
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
     $merits = $this->service->loadMerits($character, false);
 
-    return $this->render('character_sheet/'.$character->getSetting().'/edit.html.twig', [
+    return $this->render('character_sheet/' . $character->getType() . '/edit.html.twig', [
       'character' => $character,
       'setting' => $character->getSetting(),
       'form' => $form,
@@ -270,7 +276,7 @@ class CharacterController extends AbstractController
       'skills' => $this->skills,
       'merits' => $merits,
       //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
-      $character->getSetting() => $this->service->getSpecial($character),
+      $character->getType() => $this->service->getSpecial($character),
     ]);
   }
 
@@ -279,7 +285,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('delete', $character);
     // if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
-      $this->dataService->remove($character);
+    $this->dataService->remove($character);
     // }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
@@ -291,15 +297,15 @@ class CharacterController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     $stories = $user->getStories();
-    
+
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
-    ->add('story', ChoiceType::class, [
-      'choices' => $stories,
-      'choice_label' => 'name',
-      'choice_value' => 'id',
-    ])
-    ->add('submit', SubmitType::class,['label' => 'action.duplicate'])
-    ->getForm();
+      ->add('story', ChoiceType::class, [
+        'choices' => $stories,
+        'choice_label' => 'name',
+        'choice_value' => 'id',
+      ])
+      ->add('submit', SubmitType::class, ['label' => 'action.duplicate'])
+      ->getForm();
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -354,19 +360,19 @@ class CharacterController extends AbstractController
   {
     $converter = new LeagueMarkdown();
     $form = $this->createFormBuilder()
-      ->add('background', CKEditorType::class , [
+      ->add('background', CKEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($character->getBackground()), 
+        'data' => $converter->convert($character->getBackground()),
         'label' => 'background.label',
         'translation_domain' => 'character'
       ])
       ->add('save', SubmitType::class, [
-        'label' => 'save', 
+        'label' => 'save',
         'translation_domain' => 'app'
       ])
       ->getForm();
     $form->handleRequest($request);
-    
+
     if ($form->isSubmitted() && $form->isValid()) {
       $background = $form->get('background')->getData();
       if ($background == null) {
@@ -399,7 +405,7 @@ class CharacterController extends AbstractController
     }
     $form = $this->createForm(CharacterNoteType::class, $note, $options);
     $form->handleRequest($request);
-    
+
     if ($form->isSubmitted() && $form->isValid()) {
       $character->addNote($note);
       $this->dataService->save($note);
@@ -418,7 +424,7 @@ class CharacterController extends AbstractController
     $options = [];
     $form = $this->createForm(CharacterNoteType::class, $note, $options);
     $form->handleRequest($request);
-    
+
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
 
@@ -449,7 +455,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/trait/update', name: 'character_trait_update', methods: ['POST'])]
-  public function updateTrait(Request $request, Character $character) : JsonResponse|RedirectResponse
+  public function updateTrait(Request $request, Character $character): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -461,7 +467,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/lesser/trait/update', name: 'character_lesser_trait_update', methods: ['POST'])]
-  public function updateLesserTrait(Request $request, Character $character) : JsonResponse|RedirectResponse
+  public function updateLesserTrait(Request $request, Character $character): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -473,7 +479,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/experience/update', name: 'character_experience_update', methods: ['POST'])]
-  public function updateExperience(Request $request, Character $character) : JsonResponse|RedirectResponse
+  public function updateExperience(Request $request, Character $character): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
@@ -485,7 +491,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
-  public function updateAvatar(Request $request, Character $character) : JsonResponse|RedirectResponse
+  public function updateAvatar(Request $request, Character $character): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $avatar = $request->files->get('avatar')['upload'];

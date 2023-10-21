@@ -30,6 +30,8 @@ framework:
                 base_path: '/images/clans/'
             clans_emblems:
                 base_path: '/images/clans/emblems/'
+            ghoul_family_emblems:
+                base_path: '/images/ghoul/emblems/'
             icons:
                 base_path: '/icons/'
 when@test:

@@ -64,7 +64,6 @@ class CharacterType extends AbstractType
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
       ])
-      ->add('moral', null, ['label' => "morality.{$character->getType()}", 'attr' => ['min' => 0, 'max' => 10]])
       ->add('virtue', null, ['label' => 'virtue.name'])
       ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
       ->add('vice', null, ['label' => 'vice.name'])
@@ -80,6 +79,9 @@ class CharacterType extends AbstractType
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
+      if (!is_null($character->getLesserTemplate())) {
+        $builder->add('lesserTemplate', $character->getLesserTemplate()->getForm());
+      }
       if (!$options['is_edit']) {
         $builder->add('specialty1', CharacterSpecialtyType::class, [
           'required' => false,
