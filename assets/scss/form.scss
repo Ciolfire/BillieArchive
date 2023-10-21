@@ -11,7 +11,7 @@ input[type=number] {
 }
 
 .form-control {
-  color           : $mainColor;
+  color           : $textColor;
   background-color: $inputBackColor;
 
   &:focus {
@@ -30,7 +30,7 @@ input[type=number] {
 label,
 legend {
   font-family: $labelFont;
-  color      : $labelColor;
+  color      : $textColor;
 }
 
 input,
