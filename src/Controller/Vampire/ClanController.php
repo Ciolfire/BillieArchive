@@ -123,7 +123,7 @@ class ClanController extends AbstractController
     return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
   public function bloodlineJoin(Request $request, Vampire $vampire): Response
   {
     /** @var User $user */
