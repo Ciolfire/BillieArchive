@@ -30,14 +30,10 @@ class GhoulFamilyType extends AbstractType
     $translator = $this->translator;
 
     $builder
+      ->add('book', null, ['label' => "book", 'translation_domain' => "app"])
+      ->add('page', null, ['label' => "page", 'translation_domain' => "app"])
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
-      ->add('description', CKEditorType::class, [
-        'empty_data' => '',
-        'data' => $converter->convert($family->getDescription()),
-        'label' => "description.label",
-        'translation_domain' => "app",
-      ])
-      ->add('short', null, ['label' => "description.short.label", 'translation_domain' => 'app'])
+      ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
         'mapped' => false,
@@ -52,6 +48,7 @@ class GhoulFamilyType extends AbstractType
           ])
         ],
       ])
+      ->add('short', null, ['label' => "description.short.label", 'translation_domain' => 'app'])
       ->add('clan', null, [
         'label' => 'clan.parent.label',
         'translation_domain' => 'vampire',
@@ -60,6 +57,12 @@ class GhoulFamilyType extends AbstractType
         }
       ])
       ->add('nickname', null, ['label' => "nickname", 'translation_domain' => 'app'])
+      ->add('description', CKEditorType::class, [
+        'empty_data' => '',
+        'data' => $converter->convert($family->getDescription()),
+        'label' => "description.label",
+        'translation_domain' => "app",
+      ])
       ->add('strength', CKEditorType::class, [
         'label' => 'ghoul.family.strength',
         'translation_domain' => 'vampire',
@@ -72,11 +75,7 @@ class GhoulFamilyType extends AbstractType
         'empty_data' => '',
         'data' => $converter->convert($family->getWeakness())
       ])
-      ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
-      ->add('page', null, ['label' => "page", 'translation_domain' => "app"])
-      ->add('book', null, ['label' => "book", 'translation_domain' => "app"])
-      ->add('homebrewFor', null, ['label' => "chronicle.label", 'translation_domain' => 'app'])
-    ;
+      ->add('homebrewFor', null, ['label' => "chronicle.label", 'translation_domain' => 'app']);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
