@@ -9,6 +9,9 @@
     {{ source('@icons/' ~ 'clone.svg') }}
   {% elseif icon == 'delete' %}
     {{ source('@icons/' ~ 'trash-can.svg') }}
+  {% elseif icon == 'cancel' %}
+    {# {{ source('@icons/' ~ 'cancel.svg') }}   #}
+    {{ source('@icons/' ~ 'split-cross.svg') }}  
   {% elseif icon == 'destroy' %}
     {{ source('@icons/' ~ 'mushroom-cloud.svg') }}
   {% elseif icon == 'edit' %}
@@ -97,7 +100,7 @@
     {{ source('@icons/' ~ 'person.svg') }}
   {% elseif icon == 'characters' %}
     {{ source('@icons/' ~ 'backup.svg') }}
-  {% elseif icon == 'generated' %}
+  {% elseif icon == 'premade' %}
     {{ source('@icons/' ~ 'gm.svg') }}
   {% elseif icon == 'power' %}
     {{ source('@icons/' ~ 'flow-tornado.svg') }}

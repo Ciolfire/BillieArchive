@@ -43,7 +43,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     // CHARACTER
     yield ['/en/character'];
-    yield ['/en/character/generated'];
+    yield ['/en/character/premade'];
     yield ['/en/character/npc'];
     yield ['/en/character/new/0/0'];
     yield ['/en/character/new/template'];

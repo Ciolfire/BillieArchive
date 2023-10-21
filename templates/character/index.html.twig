@@ -13,7 +13,7 @@
   {% if npc is defined %}
     {% include "character/_list.html.twig" with {'title': 'characters.npc', 'characters': npc, 'type': 'npc', 'icon': 'npc'} %}
   {% endif %}
-  {% if generated is defined %}
-    {% include "character/_list.html.twig" with {'title': 'characters.generated', 'characters': generated, 'type': 'template', 'icon': 'npc'} %}
+  {% if premade is defined %}
+    {% include "character/_list.html.twig" with {'title': 'characters.premade', 'characters': premade, 'type': 'premade', 'icon': 'premade'} %}
   {% endif %}
 {% endblock %}

@@ -290,7 +290,7 @@ class DataService
     $character->setId(null);
     $character->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
     $character->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
-    $character->setIsTemplate(false);
+    $character->setIsPremade(false);
     $character->setIsNpc(true);
 
     // $vice = $this->findOneBy(Vice::class, ['id' => $vice]);

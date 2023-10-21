@@ -21,8 +21,10 @@ class CharacterLesserTemplate
   #[ORM\Column]
   private ?int $id = null;
 
-  #[ORM\OneToOne(inversedBy: 'lesserTemplate', cascade: ['persist', 'remove'])]
-  #[ORM\JoinColumn(nullable: false)]
+  #[ORM\Column]
+  private bool $isActive = true;
+
+  #[ORM\ManyToOne(inversedBy: 'lesserTemplates')]
   private ?Character $sourceCharacter = null;
 
   public function getId(): ?int
@@ -63,6 +65,18 @@ class CharacterLesserTemplate
   public function setSourceCharacter(Character $sourceCharacter): static
   {
     $this->sourceCharacter = $sourceCharacter;
+
+    return $this;
+  }
+
+  public function isActive(): bool
+  {
+    return $this->isActive;
+  }
+
+  public function setIsActive(bool $isActive): static
+  {
+    $this->isActive = $isActive;
 
     return $this;
   }

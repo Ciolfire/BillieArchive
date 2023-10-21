@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Character;
 use App\Entity\CharacterDerangement;
+use App\Entity\CharacterLesserTemplate;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
@@ -67,7 +68,7 @@ class CharacterController extends AbstractController
       [
         'player' => $user->getId(),
         'isNpc' => false,
-        'isTemplate' => false,
+        'isPremade' => false,
       ],
       [
         'chronicle' => 'DESC',
@@ -94,15 +95,15 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/generated', name: 'character_generated_index', methods: ['GET'])]
-  public function indexTemplates(CharacterRepository $characterRepository): Response
+  #[Route('/premades', name: 'character_premade_index', methods: ['GET'])]
+  public function indexPremades(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
     $user = $this->getUser();
 
     $characters = $characterRepository->findBy(
       [
-        'isTemplate' => true,
+        'isPremade' => true,
       ],
       [
         'chronicle' => 'ASC',
@@ -113,7 +114,7 @@ class CharacterController extends AbstractController
     $characters = $this->service->sortCharacters(...$characters);
 
     return $this->render('character/index.html.twig', [
-      'generated' => $characters,
+      'premade' => $characters,
     ]);
   }
 
@@ -174,13 +175,13 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/template', name: 'character_new_template', methods: ['GET', 'POST'])]
+  #[Route('/new/premade', name: 'character_new_premade', methods: ['GET', 'POST'])]
   public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
   {
     $character = new Human();
 
     $character->setIsNpc(false);
-    $character->setIsTemplate(true);
+    $character->setIsPremade(true);
 
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
@@ -319,6 +320,48 @@ class CharacterController extends AbstractController
       'form' => $form,
       'character' => $character,
     ]);
+  }
+
+  #[Route('/{id<\d+>}/lesser/add', name: 'character_lesser_add', methods: ['GET', 'POST'])]
+  public function applyLesserTemplate(Request $request, Character $character): Response
+  {
+    $oldTemplate = $character->getLesserTemplate();
+    $templates = $this->service->getAllAvailableLesserTemplates($oldTemplate);
+    $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
+      ->add('template', ChoiceType::class, [
+        'choices' => $templates,
+      ])
+      ->add('submit', SubmitType::class, ['label' => 'Apply'])
+      ->getForm();
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (!is_null($oldTemplate)) {
+        if ($oldTemplate->getType() == $form->getData()['template']) {
+          return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+        }
+        $oldTemplate->setIsActive(false);
+      }
+      return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      // $path = $this->getParameter('characters_directory');
+      // if (is_string($path)) {
+      //   $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $path);
+      //   return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      // }
+    }
+    return $this->render('character/lesser/add.html.twig', [
+      'form' => $form,
+      'character' => $character,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/lesser/remove', name: 'character_lesser_remove', methods: ['GET'])]
+  public function removeLesserTemplate(Character $character): Response
+  {
+    $character->getLesserTemplate()->setIsActive(false);
+    $this->dataService->save($character);
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]

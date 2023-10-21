@@ -4,8 +4,8 @@
 
 {% if character.isNpc %}
   {% set title = "new.npc"|trans %}
-{% elseif character.isTemplate %}
-  {% set title =  "new.generated"|trans %}
+{% elseif character.isPremade %}
+  {% set title =  "new.premade"|trans %}
 {% else %}
   {% set title =  "new.character"|trans %}
 {% endif %}

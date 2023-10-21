@@ -65,7 +65,7 @@ class CharacterVoter extends Voter
       return true;
     }
 
-    if ($character->isTemplate()) {
+    if ($character->isPremade()) {
       return true;
     }
 

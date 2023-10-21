@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -86,13 +88,13 @@ class Character
 
   #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
   protected CharacterAttributes $attributes;
-  
+
   #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
   protected CharacterSkills $skills;
-  
+
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
   protected Collection $specialties;
-  
+
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected ?Virtue $virtue;
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
@@ -115,11 +117,11 @@ class Character
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
   protected Collection $notes;
-  
+
   protected int $limit = 5;
 
   #[ORM\Column]
-  protected ?bool $isTemplate = false;
+  protected ?bool $isPremade = false;
 
   protected string $type;
 
@@ -129,9 +131,9 @@ class Character
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true)]
   private Collection $derangements;
 
-  #[ORM\OneToOne(mappedBy: 'sourceCharacter', cascade: ['persist', 'remove'])]
-  private ?CharacterLesserTemplate $lesserTemplate = null;
-  
+  #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class)]
+  private Collection $lesserTemplates;
+
   public function __construct()
   {
     $this->setAttributes(new CharacterAttributes());
@@ -139,10 +141,11 @@ class Character
     $this->specialties = new ArrayCollection();
     $this->merits = new ArrayCollection();
     $this->notes = new ArrayCollection();
-    
+
     $this->type = lcfirst(substr(get_class($this), strrpos(get_class($this), '\\') + 1));
     $this->societies = new ArrayCollection();
     $this->derangements = new ArrayCollection();
+    $this->lesserTemplates = new ArrayCollection();
   }
 
   public function __toString()
@@ -153,17 +156,17 @@ class Character
   /**
    * @return array<string>
    */
-  public function getProperties() : array
+  public function getProperties(): array
   {
     return get_object_vars($this);
   }
 
-  public function getId() : ?int
+  public function getId(): ?int
   {
     return $this->id;
   }
 
-  public function setId(?int $id) : self
+  public function setId(?int $id): self
   {
     $this->id = $id;
     return $this;
@@ -208,7 +211,7 @@ class Character
 
     return $sum;
   }
-  
+
 
   public function getType(): string
   {
@@ -372,7 +375,7 @@ class Character
     return $this;
   }
 
-  public function addAttribute(string $attribute, int $value) : self
+  public function addAttribute(string $attribute, int $value): self
   {
     $this->attributes->set($attribute, $this->attributes->get($attribute) + $value);
 
@@ -734,7 +737,7 @@ class Character
         /** @var Merit $merit */
         $merit = $charMerit->getMerit();
         if ($merit->getId() == $id) {
-          
+
           return $charMerit;
         }
       }
@@ -808,7 +811,7 @@ class Character
    * @param array<string, int> $modifiers
    * @return array<string, mixed>
    */
-  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []) : array
+  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []): array
   {
     $details = [
       'total' => 0,
@@ -835,7 +838,7 @@ class Character
         } else {
           $value = -1;
         }
-      } 
+      }
       $details[$identifier] = $value;
       $details['total'] += $value;
       $details['string'] .= " {$skill->getName()} {$value}";
@@ -974,16 +977,16 @@ class Character
     return $this;
   }
 
-  public function isTemplate(): ?bool
+  public function isPremade(): ?bool
   {
-      return $this->isTemplate;
+    return $this->isPremade;
   }
 
-  public function setIsTemplate(bool $isTemplate): self
+  public function setIsPremade(bool $isPremade): self
   {
-      $this->isTemplate = $isTemplate;
+    $this->isPremade = $isPremade;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -991,26 +994,26 @@ class Character
    */
   public function getSocieties(): Collection
   {
-      return $this->societies;
+    return $this->societies;
   }
 
   public function addSociety(Society $society): self
   {
-      if (!$this->societies->contains($society)) {
-          $this->societies->add($society);
-          $society->addCharacter($this);
-      }
+    if (!$this->societies->contains($society)) {
+      $this->societies->add($society);
+      $society->addCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeSociety(Society $society): self
   {
-      if ($this->societies->removeElement($society)) {
-          $society->removeCharacter($this);
-      }
+    if ($this->societies->removeElement($society)) {
+      $society->removeCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -1018,29 +1021,29 @@ class Character
    */
   public function getDerangements(): Collection
   {
-      return $this->derangements;
+    return $this->derangements;
   }
 
   public function addDerangement(CharacterDerangement $characterDerangement): static
   {
-      if (!$this->derangements->contains($characterDerangement)) {
-          $this->derangements->add($characterDerangement);
-          $characterDerangement->setCharacter($this);
-      }
+    if (!$this->derangements->contains($characterDerangement)) {
+      $this->derangements->add($characterDerangement);
+      $characterDerangement->setCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeDerangement(CharacterDerangement $characterDerangement): static
   {
-      if ($this->derangements->removeElement($characterDerangement)) {
-          // set the owning side to null (unless already changed)
-          if ($characterDerangement->getCharacter() === $this) {
-              $characterDerangement->setCharacter(null);
-          }
+    if ($this->derangements->removeElement($characterDerangement)) {
+      // set the owning side to null (unless already changed)
+      if ($characterDerangement->getCharacter() === $this) {
+        $characterDerangement->setCharacter(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   public function getMoralityDerangement(int $morality): ?CharacterDerangement
@@ -1075,18 +1078,38 @@ class Character
 
   public function getLesserTemplate(): ?CharacterLesserTemplate
   {
-      return $this->lesserTemplate;
+    foreach ($this->lesserTemplates as $template) {
+      /** @var CharacterLesserTemplate $template */
+      if ($template->isActive()) {
+        return $template;
+      }
+    }
+
+    return null;
   }
 
-  public function setLesserTemplate(CharacterLesserTemplate $lesserTemplate): static
+  /**
+   * @return Collection<int, CharacterLesserTemplate>
+   */
+  public function getLesserTemplates(): Collection
   {
-      // set the owning side of the relation if necessary
-      if ($lesserTemplate->getSourceCharacter() !== $this) {
-          $lesserTemplate->setSourceCharacter($this);
+    return $this->lesserTemplates;
+  }
+
+  public function addLesserTemplate(CharacterLesserTemplate $lesserTemplate): static
+  {
+    foreach ($this->lesserTemplates as $template) {
+      /** @var CharacterLesserTemplate $template */
+      if ($template->getType() === $lesserTemplate->getType()) {
+        $template->setIsActive(true);
+
+        return $this;
       }
+    }
 
-      $this->lesserTemplate = $lesserTemplate;
+    $this->lesserTemplates->add($lesserTemplate);
+    $lesserTemplate->setSourceCharacter($this);
 
-      return $this;
+    return $this;
   }
 }

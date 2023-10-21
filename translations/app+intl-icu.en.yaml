@@ -30,13 +30,13 @@ character:
   pc: Character
   label: Character
   npc: NPC
-  generated: Premade Character
+  premade: Premade Character
 characters:
   pc : Characters
   label: Characters
   groups: Groups
   npc: NPCs
-  generated: Premade Characters
+  premade: Premade Characters
 chronicle:
   label: Chronicle
 chronicles:
@@ -83,6 +83,7 @@ infos: Infos
 keyword: Keyword
 keywords: Keywords
 lesser.template.label: Lesser
+lesser.template.apply: Apply lesser Template
 level: Level
 login: Login
 logout: Logout

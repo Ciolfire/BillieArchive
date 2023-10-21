@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\CharacterDerangement;
+use App\Entity\CharacterLesserTemplate;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Derangement;
@@ -237,6 +238,24 @@ class CharacterService
 
 
     return $new;
+  }
+
+  public function getAllAvailableLesserTemplates(?CharacterLesserTemplate $exception = null) : array
+  {
+    if (!is_null($exception)) {
+      $exception = $exception::class;
+    }
+    $templates = [];
+    $classes = array_filter(get_declared_classes(), fn($class) => is_subclass_of($class, CharacterLesserTemplate::class));
+    foreach ($classes as $class) {
+      // We don't add the current template in the list
+      if ($class !== $exception) {
+        $class = new $class();
+        $templates["type.{$class->getType()}"] = $class->getType();
+      }
+    }
+
+    return $templates;
   }
 
   /**

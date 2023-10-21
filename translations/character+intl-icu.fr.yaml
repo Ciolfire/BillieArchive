@@ -74,7 +74,7 @@ avatar:
 
 charactes: Personnages
 npc: PNJ
-generated: Prétiré
+premade: Prétiré
 
 tab:
   background: Histoire
@@ -118,6 +118,8 @@ health: Santé
 wound:
   penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
 
+template.lesser.remove: Retirer le template Mineur actuel
+
 merit:
   label: Atout
   count: >-
@@ -155,7 +157,7 @@ name:
 new:
   character: Nouveau Personnage
   npc: Nouveau PNJ
-  generated: Nouveau Prétiré
+  premade: Nouveau Prétiré
 
 skill:
   label: Compétence

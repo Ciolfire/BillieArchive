@@ -7,7 +7,7 @@
 <div class="container">
   <div class="col-4 offset-4">
     <a class="btn btn-sm btn-primary w-100 text-center" href=
-      {% if type == "template" %}"{{ path('character_new_template') }}"
+      {% if type == "premade" %}"{{ path('character_new_premade') }}"
       {% elseif type == "npc" %}"{{ path('character_new', {'isNpc': true }) }}"
       {% else %}{{ path('character_new', {'isNpc': 0 }) }}
       {% endif %}

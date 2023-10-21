@@ -1,26 +1,26 @@
 {% trans_default_domain 'character' %}
 
 {% if app.user == character.player or is_granted('ROLE_ST') %}
-  <div class="col-2">
-      <a class="vampire btn btn-sm btn-menu w-100" href="{{ path('character_embrace', {'id': character.id}) }}">
+  <div class="col-1">
+      <a class="vampire btn btn-sm btn-menu w-100 text-truncate" href="{{ path('character_embrace', {'id': character.id}) }}">
         {% include "_icon.html.twig" with {'icon': 'vampire', 'hasTips': 0} only %}
         <span class="d-none d-md-inline">{{ "embrace.label"|trans([], 'vampire') }}</span>
       </a>
   </div>
-  <div class="col-2">
-    <a class="mage btn btn-sm btn-menu w-100" href="#">
+  <div class="col-1">
+    <a class="mage btn btn-sm btn-menu w-100 text-truncate" href="#">
       {% include "_icon.html.twig" with {'icon': 'mage', 'hasTips': 0} only %}
       <span class="d-none d-md-inline">{{ "awaken.label"|trans([], 'mage') }}</span>
     </a>
   </div>
-  <div class="col-2">
-    <a class="werewolf btn btn-sm btn-menu w-100" href="#">
+  <div class="col-1">
+    <a class="werewolf btn btn-sm btn-menu w-100 text-truncate" href="#">
       {% include "_icon.html.twig" with {'icon': 'werewolf', 'hasTips': 0} only %}
       <span class="d-none d-md-inline">{{ "change.label"|trans([], 'werewolf') }}</span>
     </a>
   </div>
-  <div class="col-2">
-    <a class="mage btn btn-sm btn-menu w-100" href="{{ path('character_apply_lesser', {'id': character.id}) }}">
+  <div class="col-1">
+    <a class="mage btn btn-sm btn-menu w-100 text-truncate" href="{{ path('character_lesser_add', {'id': character.id}) }}">
       {% include "_icon.html.twig" with {'icon': 'lesser_template', 'hasTips': 0} only %}
       <span class="d-none d-md-inline">{{ "lesser.template.label"|trans([], 'app') }}</span>
     </a>

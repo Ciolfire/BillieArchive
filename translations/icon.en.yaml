@@ -17,7 +17,7 @@ luckThrow: Luck
 all: All
 creation: Creation only
 folder: Folder
-generated: Premade
+premade: Premade
 hide: Hide
 homebrew: Homebrew
 logs: Logs

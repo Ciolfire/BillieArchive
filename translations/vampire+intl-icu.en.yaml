@@ -69,12 +69,14 @@ ghoul:
   empty: Cannot use disciplines and might express derangement if behind monthly dose of vitae and has no vitae in her system
   family: 
     clan:
-      label: Parent Clan
+      label: Regent's Clan
     new: New Ghoul Family
     strength: Strengths
     weakness: Weaknesses
   families.label: Ghoul Families
-  regent: "Regent: {regent} ({clan})"
+  regent:
+    label: Regent
+    info: "Regent: {regent} ({clan})"
   vitae:
     info: Vitae usage by Ghouls
     usage: |

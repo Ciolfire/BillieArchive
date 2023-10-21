@@ -3,19 +3,12 @@
 <div id="menu" class="container">
   <div class="row justify-content-center g-0">
     <div class="col-2">
-      {% if not character.isTemplate or is_granted('ROLE_GM') %}
+      {% if not character.isPremade or is_granted('ROLE_GM') %}
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
           {% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}
         </a>
       {% endif %}
     </div>
-    {% if character.isTemplate %}
-      <div class="col-2">
-        <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_duplicate', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {'icon': 'duplicate'} only %}
-        </a>
-      </div>
-    {% endif %}
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
         {% include "_icon.html.twig" with {'icon': 'logs'} only %}
@@ -26,13 +19,28 @@
         {% include "_icon.html.twig" with {'icon': 'destroy', 'hasTips': 0} only %}
       </div>
     </div>
+    {% if character.isPremade %}
+      <div class="col-2">
+        <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_duplicate', {'id': character.id}) }}">
+          {% include "_icon.html.twig" with {'icon': 'duplicate'} only %}
+        </a>
+      </div>
+    {% endif %}
     <div class="col-2">
-      <a href="{% if character.isTemplate %}{{ path('character_generated_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
+      <a href="{% if character.isPremade %}{{ path('character_premade_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
         {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
       </a>
     </div>
   </div>
   <div class="row justify-content-center g-0">
     {% include("character_sheet/show/menu/" ~ character.type ~ ".html.twig") %}
+    {% if character.lesserTemplate is not null %}
+      <div class="col-1">
+        <a href="{{ path('character_lesser_remove', {'id': character.id}) }}" class="btn btn-sm btn-menu btn-secondary w-100" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ "template.lesser.remove"|trans }}">
+          {% include "_icon.html.twig" with {'icon': 'cancel', 'hasTips': 0, 'class': 'menu-cancel'} only %}
+          {% include "_icon.html.twig" with {'icon': 'lesser_template', 'hasTips': 0} only %}
+        </a>
+      </div>
+    {% endif %}
   </div>
 </div>

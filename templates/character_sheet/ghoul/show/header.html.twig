@@ -10,8 +10,8 @@
         {{ character.name }}
         {% if character.player is not null and app.user != character.player %}
           ({{ character.player }})
-        {% elseif character.isTemplate == true %}
-          {% include "_icon.html.twig" with {'icon': 'generated', 'class': 'icon-xl ms-5'} %}
+        {% elseif character.isPremade == true %}
+          {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5'} %}
         {% endif %}
       </h1>
     </div>
@@ -30,7 +30,7 @@
         {% endif %}
     </div>
     <div class="col-12">
-        {{ "ghoul.regent"|trans({'regent': ghoulCharacter.regent, 'clan': ghoulCharacter.clan.name }) }}
+        {{ "ghoul.regent.info"|trans({'regent': ghoulCharacter.regent, 'clan': ghoulCharacter.clan.name }) }}
     </div>
     <div class="col-12">
       {% block age %}{{ parent() }}{% endblock %}      

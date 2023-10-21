@@ -1,114 +1,113 @@
 %full-fill {
   position: absolute;
-  top     : 0;
-  bottom  : 0;
-  left    : 0;
-  right   : 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .character {
   &-card {
     &-name {
-      height  : 50px;
+      height: 50px;
       overflow: hidden;
     }
 
     &-header {
-      display      : flex;
-      padding      : 0;
+      display: flex;
+      padding: 0;
       border-bottom: 1px solid silver;
     }
 
     &-avatar {
-      display         : flex;
-      align-items     : center;
-      justify-content : center;
-      padding         : 0;
-      border-top      : 1px solid $mainDarkColor;
-      border-bottom   : 1px solid $mainDarkColor;
-      background-color: rgba(#000, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-top: 1px solid $mainDarkColor;
+      border-bottom: 1px solid $mainDarkColor;
+      background-color: rgba(#000, 0.3);
 
       img {
-        object-fit     : cover;
-        width          : 100%;
-        height         : 100%;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
         object-position: top;
-        aspect-ratio   : 1/1;
+        aspect-ratio: 1/1;
       }
     }
   }
 
   &-icon {
-    height       : 1.5rem;
-    width        : 1.5rem;
-    object-fit   : contain;
-    background   : silver;
+    height: 1.5rem;
+    width: 1.5rem;
+    object-fit: contain;
+    background: silver;
     border-radius: 15% 0% 0% 0%;
   }
 
   &-frame {
-    display        : flex;
-    align-items    : center;
+    display: flex;
+    align-items: center;
     justify-content: center;
 
     img {
-      max-width : 100%;
+      max-width: 100%;
       max-height: 100%;
-      width     : auto;
-      height    : auto;
+      width: auto;
+      height: auto;
     }
 
     &-list {
-      width           : 100px;
-      height          : 100px;
-      margin          : auto;
-      background-color: rgba(#000, .3);
-      color           : $mainColor;
-      box-shadow      : inset 0 0 0 1px rgba($mainColor, .5);
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      background-color: rgba(#000, 0.3);
+      color: $mainColor;
+      box-shadow: inset 0 0 0 1px rgba($mainColor, 0.5);
 
       &::before,
       &::after {
         @extend %full-fill;
-        content   : '';
-        margin    : -1 * .05 * 100%;
+        content: "";
+        margin: -1 * 0.05 * 100%;
         box-shadow: inset 0 0 0 2px;
-        animation : clipList 8s linear infinite;
+        animation: clipList 8s linear infinite;
       }
 
       &::before {
-        animation-delay: 8s * -.5;
+        animation-delay: 8s * -0.5;
       }
     }
 
     &-avatar {
-      width           : 200px;
-      height          : 200px;
-      margin          : auto;
-      background-color: rgba(#000, .3);
-      color           : $mainColor;
-      box-shadow      : inset 0 0 0 1px rgba($mainColor, .5);
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      background-color: rgba(#000, 0.3);
+      color: $mainColor;
+      box-shadow: inset 0 0 0 1px rgba($mainColor, 0.5);
 
       &::before,
       &::after {
         @extend %full-fill;
-        content   : '';
-        margin    : -1 * .05 * 100%;
+        content: "";
+        margin: -1 * 0.05 * 100%;
         box-shadow: inset 0 0 0 2px;
-        animation : clipAvatar 8s linear infinite;
+        animation: clipAvatar 8s linear infinite;
       }
 
       &::before {
-        animation-delay: 8s * -.5;
+        animation-delay: 8s * -0.5;
       }
     }
   }
 }
 
-$list-size : 100px * (1 + .05 * 2);
+$list-size: 100px * (1 + 0.05 * 2);
 $path-width: 2px;
 
 @keyframes clipList {
-
   0%,
   100% {
     clip: rect(0px, $list-size, $path-width, 0px);
@@ -127,10 +126,9 @@ $path-width: 2px;
   }
 }
 
-$avatar-size: 200px * (1 + .05 * 2);
+$avatar-size: 200px * (1 + 0.05 * 2);
 
 @keyframes clipAvatar {
-
   0%,
   100% {
     clip: rect(0px, $avatar-size, $path-width, 0px);
@@ -151,12 +149,12 @@ $avatar-size: 200px * (1 + .05 * 2);
 
 .dot {
   background-color: transparent;
-  border-color    : black;
-  margin-left     : 1px !important;
-  margin-right    : 1px !important;
-  border-radius   : 50% !important;
-  padding         : 8px 7px;
-  border-width    : 2px;
+  border-color: black;
+  margin-left: 1px !important;
+  margin-right: 1px !important;
+  border-radius: 50% !important;
+  padding: 8px 7px;
+  border-width: 2px;
 
   &-disabled {
     background-color: rgba(225, 195, 188, 0.26);
@@ -177,7 +175,7 @@ $avatar-size: 200px * (1 + .05 * 2);
 
 .btn-check:active,
 .btn-check:checked {
-  +.dot {
+  + .dot {
     background-color: $mainColor;
 
     &-locked {
@@ -187,31 +185,31 @@ $avatar-size: 200px * (1 + .05 * 2);
 }
 
 .dots {
-  position      : relative;
-  display       : inline-flex;
+  position: relative;
+  display: inline-flex;
   vertical-align: middle;
 }
 
 .health-box,
 .trait-box {
-  height    : 1.5rem;
-  width     : 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background: #ffffff94;
 
   &.disabled {
     background-color: rgba(90, 90, 90, 0.342);
-    cursor          : default;
-    pointer-events  : none;
+    cursor: default;
+    pointer-events: none;
   }
 
   .trait-fill {
-    fill        : $mainDarkColor;
-    stroke      : $mainDarkColor;
+    fill: $mainDarkColor;
+    stroke: $mainDarkColor;
     stroke-width: 10;
   }
 
   .health-fill {
-    stroke      : $mainDarkColor;
+    stroke: $mainDarkColor;
     stroke-width: 10;
   }
 }
@@ -220,23 +218,30 @@ $avatar-size: 200px * (1 + .05 * 2);
   border-bottom: 1px solid $backAccentColor;
 }
 
-
 .malus-box {
   height: 1.5rem;
-  width : 1.5rem;
+  width: 1.5rem;
 }
 
 // Edit
 
 #menu {
-  z-index : 10;
+  z-index: 10;
   position: fixed;
-  top     : 55px;
-  padding : 2px 10px;
+  top: 55px;
+  padding: 2px 10px;
 
   .btn-menu {
-    border-top   : 0;
+    border-top: 0;
     border-radius: 0;
+
+    .menu-cancel {
+      svg {
+        fill: #b53434 !important;
+      }
+      position: absolute;
+      opacity: 50%;
+    }
 
     svg {
       fill: $textColor !important;

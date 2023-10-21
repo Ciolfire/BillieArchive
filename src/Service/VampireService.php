@@ -157,19 +157,13 @@ class VampireService
 
   public function ghoulify(Character $character) : void
   {
-    $connection = $this->dataService->getConnection();
     // $data = $form->getData();
 
-    // The human is turn partly vampire...
+    // The human turn partly vampire...
     $clan = $this->dataService->find(Clan::class, 1);
     $ghoul = new Ghoul($clan);
-    $character->setLesserTemplate($ghoul);
-
-    $discipline = $this->dataService->find(Discipline::class, 1);
-    $newDiscipline = new GhoulDiscipline($ghoul, $discipline, 1);
-    $this->dataService->add($newDiscipline);
-    $ghoul->addDiscipline($newDiscipline);
-    // dd($ghoul);
+    $character->addLesserTemplate($ghoul);
+    $this->dataService->add($ghoul);
     $this->dataService->save($character);
   }
 

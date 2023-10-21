@@ -79,6 +79,7 @@ class VampireController extends AbstractController
     // $form->handleRequest($request);
 
     // if ($form->isSubmitted() && $form->isValid()) {
+      // if ($this->)
       $this->service->ghoulify($character);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     // }

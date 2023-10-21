@@ -12,8 +12,8 @@
         <img class="invert" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:1.5em;"/>
         {% if character.player is not null and app.user != character.player %}
           ({{ character.player }})
-        {% elseif character.isTemplate == true %}
-          {% include "_icon.html.twig" with {'icon': 'generated', 'class': 'icon-xl ms-5'} %}
+        {% elseif character.isPremade == true %}
+          {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5'} %}
         {% endif %}
       </h1>
     </div>

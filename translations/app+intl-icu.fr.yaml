@@ -30,13 +30,13 @@ character:
   pc: Personnage
   label: Personnage
   npc: PNJ
-  generated: Prétiré
+  premade: Prétiré
 characters:
   pc: Personnages
   label: Personnages
   groups: Groupes
   npc: PNJs
-  generated: Prétirés
+  premade: Prétirés
 chronicle:
   label: Chronique
 chronicles:

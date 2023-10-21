@@ -13,18 +13,16 @@ class GhoulType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-      ->add('regent')
+      ->add('regent', null, [
+        'label' => 'ghoul.regent.label',
+        'empty_data' => '',
+      ])
       ->add('clan', null, [
-        'label' => 'clan.parent.label',
-        'translation_domain' => 'vampire',
+        'label' => 'ghoul.family.clan.label',
         'choice_filter' => function (?Clan $clan) {
           return $clan ? !$clan->isBloodline() : false;
         }
       ])
-      // ->add('vitae')
-      // ->add('sourceCharacter')
-      // ->add('devotions')
-      // ->add('rituals')
       // ->add('family')
     ;
   }
@@ -33,6 +31,7 @@ class GhoulType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Ghoul::class,
+      "translation_domain" => 'vampire',
     ]);
   }
 }

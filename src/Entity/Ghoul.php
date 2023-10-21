@@ -16,7 +16,7 @@ class Ghoul extends CharacterLesserTemplate
   protected $limit = 5;
 
   #[ORM\Column(length: 60)]
-  protected ?string $regent = "";
+  protected string $regent = "";
 
   #[ORM\ManyToOne(targetEntity: Clan::class)]
   #[ORM\JoinColumn(nullable: false)]
@@ -37,9 +37,11 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\ManyToOne]
   private ?GhoulFamily $family = null;
 
-  public function __construct(Clan $clan, Ghoul $ghoul = null)
+  public function __construct(Clan $clan = null, Ghoul $ghoul = null)
   {
-    $this->clan = $clan;
+    if (isset($clan)) {
+      $this->clan = $clan;
+    }
     $this->disciplines = new ArrayCollection();
     // if (is_object($ghoul)) {
     //   // Initializing class properties
