@@ -10,6 +10,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.block-light .form-control {
+  color           : $labelColor;
+}
+
 .form-control {
   color           : $textColor;
   background-color: $inputBackColor;
@@ -25,6 +29,12 @@ input[type=number] {
 
 .form-choice-width {
   width: 150px;
+}
+
+.block-light label,
+legend {
+  font-family: $labelFont;
+  color      : $labelColor;
 }
 
 label,

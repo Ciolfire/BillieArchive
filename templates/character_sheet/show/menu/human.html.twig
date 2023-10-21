@@ -8,7 +8,7 @@
       </a>
   </div>
   <div class="col-2">
-    <a class="mage btn btn-sm btn-menu w-100" href="{{ path('character_ghoulify', {'id': character.id}) }}">
+    <a class="mage btn btn-sm btn-menu w-100" href="#">
       {% include "_icon.html.twig" with {'icon': 'mage', 'hasTips': 0} only %}
       <span class="d-none d-md-inline">{{ "awaken.label"|trans([], 'mage') }}</span>
     </a>
@@ -17,6 +17,12 @@
     <a class="werewolf btn btn-sm btn-menu w-100" href="#">
       {% include "_icon.html.twig" with {'icon': 'werewolf', 'hasTips': 0} only %}
       <span class="d-none d-md-inline">{{ "change.label"|trans([], 'werewolf') }}</span>
+    </a>
+  </div>
+  <div class="col-2">
+    <a class="mage btn btn-sm btn-menu w-100" href="{{ path('character_apply_lesser', {'id': character.id}) }}">
+      {% include "_icon.html.twig" with {'icon': 'lesser_template', 'hasTips': 0} only %}
+      <span class="d-none d-md-inline">{{ "lesser.template.label"|trans([], 'app') }}</span>
     </a>
   </div>
 {% endif %}
