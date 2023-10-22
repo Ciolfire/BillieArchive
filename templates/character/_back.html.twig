@@ -1,0 +1,10 @@
+{% if character.type == "vampire" %}
+  {% if character.clan.emblem is not null %}
+    style="background-image:url({{ asset(character.clan.emblem, 'clans_emblems') }});"
+  {% else %}
+    style="background-image:url({{ asset('SkullVTR.png', 'images') }});"
+  {% endif %}
+{# {% elseif character.type == "mage" %} #}
+{% else %}
+  style="background-image:none;"  
+{% endif %}
