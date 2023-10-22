@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -30,7 +32,7 @@ class VampireService
   /**
    * @return array<string, array<int, object>>
    */
-  public function getSpecial(Vampire $vampire) : array
+  public function getSpecial(Vampire $vampire): array
   {
     /** @var array<int, Discipline> */
     $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
@@ -65,7 +67,7 @@ class VampireService
   /**
    * @return array<string, array<int, object>>
    */
-  public function getGhoulSpecial(Ghoul $ghoul) : array
+  public function getGhoulSpecial(Ghoul $ghoul): array
   {
     /** @var array<int, Discipline> */
     $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
@@ -94,10 +96,10 @@ class VampireService
   }
 
   /**
- * @param array<int, Discipline> $disciplines
- * @return array<int, Discipline>
- */
-  private function filterDisciplines(array $disciplines, Vampire|Ghoul $vampire) : array
+   * @param array<int, Discipline> $disciplines
+   * @return array<int, Discipline>
+   */
+  private function filterDisciplines(array $disciplines, Vampire|Ghoul $vampire): array
   {
     foreach ($disciplines as $key => $discipline) {
       /** @var Discipline $discipline */
@@ -109,7 +111,7 @@ class VampireService
     return $disciplines;
   }
 
-  private function isDisciplineAllowed(Discipline $discipline, Vampire|Ghoul $vampire) : bool
+  private function isDisciplineAllowed(Discipline $discipline, Vampire|Ghoul $vampire): bool
   {
     if (!is_null($discipline->getId()) && $vampire->hasDiscipline($discipline->getId())) {
 
@@ -127,7 +129,7 @@ class VampireService
     return true;
   }
 
-  public function embrace(Character $character, FormInterface $form) : void
+  public function embrace(Character $character, FormInterface $form): void
   {
     $connection = $this->dataService->getConnection();
     $data = $form->getData();
@@ -155,7 +157,7 @@ class VampireService
   }
 
 
-  public function ghoulify(Character $character) : void
+  public function ghoulify(Character $character): void
   {
     // $data = $form->getData();
 
@@ -168,12 +170,14 @@ class VampireService
   }
 
   /** @param array<string, mixed> $data */
-  public function handleEdit(Vampire $vampire, array $data) : void
+  public function handleEdit(Vampire $vampire, array $data): void
   {
-    foreach ($data['disciplinesUp'] as $id => $level) {
-      $discipline = $vampire->getDiscipline($id);
-      if ($discipline) {
-        $discipline->setLevel((int)$level);
+    if (isset($data['disciplinesUp'])) {
+      foreach ($data['disciplinesUp'] as $id => $level) {
+        $discipline = $vampire->getDiscipline($id);
+        if ($discipline) {
+          $discipline->setLevel((int)$level);
+        }
       }
     }
     if (isset($data['disciplines'])) {
@@ -193,12 +197,14 @@ class VampireService
   }
 
   /** @param array<string, mixed> $data */
-  public function handleGhoulEdit(Ghoul $ghoul, array $data) : void
+  public function handleGhoulEdit(Ghoul $ghoul, array $data): void
   {
-    foreach ($data['disciplinesUp'] as $id => $level) {
-      $discipline = $ghoul->getDiscipline($id);
-      if ($discipline) {
-        $discipline->setLevel((int)$level);
+    if (isset($data['disciplinesUp'])) {
+      foreach ($data['disciplinesUp'] as $id => $level) {
+        $discipline = $ghoul->getDiscipline($id);
+        if ($discipline) {
+          $discipline->setLevel((int)$level);
+        }
       }
     }
     if (isset($data['disciplines'])) {
@@ -214,7 +220,7 @@ class VampireService
   }
 
   /** @param array<int, int> $disciplines */
-  public function addDisciplines(Vampire|Ghoul $character, array $disciplines) : void
+  public function addDisciplines(Vampire|Ghoul $character, array $disciplines): void
   {
 
     foreach ($disciplines as $id => $level) {
@@ -234,7 +240,7 @@ class VampireService
   }
 
   /** @param array<int, int> $devotions */
-  public function addDevotions(Vampire|Ghoul $character, array $devotions) : void
+  public function addDevotions(Vampire|Ghoul $character, array $devotions): void
   {
     foreach ($devotions as $id => $value) {
       if ($value == 1) {
@@ -247,7 +253,7 @@ class VampireService
   }
 
   /** @param array<int, int> $rituals */
-  public function addRituals(Vampire|Ghoul $character, array $rituals) : void
+  public function addRituals(Vampire|Ghoul $character, array $rituals): void
   {
     foreach ($rituals as $id => $value) {
       if ($value == 1) {
@@ -260,7 +266,7 @@ class VampireService
   }
 
   /** @return array<int, Clan> */
-  public function getBloodlines(mixed $item = null) : array
+  public function getBloodlines(mixed $item = null): array
   {
     /** @var ClanRepository $repo */
     $repo = $this->dataService->getRepository(Clan::class);
@@ -276,7 +282,7 @@ class VampireService
   /**
    * @return array<string, mixed>
    */
-  public function getDisciplines(string $type = "discipline", string $filter = null, int $id = null) : array
+  public function getDisciplines(string $type = "discipline", string $filter = null, int $id = null): array
   {
     $template = 'vampire/discipline/index.html.twig';
     $criteria = [];
@@ -284,18 +290,18 @@ class VampireService
     if (!is_null($filter)) {
       switch ($filter) {
         case 'chronicle':
-        /** @var Chronicle */
-        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        $criteria['homebrewFor'] = $item;
-        $back = ['path' => 'homebrew_index', 'id' => $id];
+          /** @var Chronicle */
+          $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+          $criteria['homebrewFor'] = $item;
+          $back = ['path' => 'homebrew_index', 'id' => $id];
 
-        break;
+          break;
         case 'book':
         default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $criteria['book'] = $item;
-        $back = ['path' => 'book_index', 'id' => $id];
+          /** @var Book */
+          $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+          $criteria['book'] = $item;
+          $back = ['path' => 'book_index', 'id' => $id];
       }
     } else {
       $back = null;
@@ -342,7 +348,7 @@ class VampireService
   /**
    * @return array<string, mixed>
    */
-  public function getRituals(string $filter = null, int $id = null) : array
+  public function getRituals(string $filter = null, int $id = null): array
   {
     $criteria = [];
 
@@ -350,10 +356,10 @@ class VampireService
       switch ($filter) {
         case 'book':
         default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+          /** @var Book */
+          $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
 
-        $criteria['book'] = $item;
+          $criteria['book'] = $item;
       }
       $rituals = $item->getRituals();
     } else {
