@@ -73,7 +73,14 @@ ghoul:
     new: Nouvelle Famille de Goules
     strength: Forces
     weakness: Faiblesses
-  families.label: Ghoul Families
+  families:
+    label: Ghoul Families
+    count: >-
+      {count, plural,
+        =0 {Aucune famille goule}
+        =1 {1 Famille goule}
+        other {# Familles goule}
+      }
   regent: "Régent: {regent} ({clan})"
   vitae:
     info: Utilisation de la Vitae par les Goules

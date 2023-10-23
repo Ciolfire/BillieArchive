@@ -130,7 +130,7 @@ class GhoulController extends AbstractController
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
       'entity' => 'ghoul_family',
       'category' => 'character',
-      'family' => $item->getGhoulFamilies(),
+      'families' => $item->getGhoulFamilies(),
       'search' => [],
       'back' => $back,
     ]);

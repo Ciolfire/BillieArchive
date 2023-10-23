@@ -73,7 +73,14 @@ ghoul:
     new: New Ghoul Family
     strength: Strengths
     weakness: Weaknesses
-  families.label: Ghoul Families
+  families:
+    label: Ghoul Families
+    count: >-
+      {count, plural,
+        =0 {No Family}
+        =1 {1 Ghoul Family}
+        other {# Ghoul Families}
+      }
   regent:
     label: Regent
     info: "Regent: {regent} ({clan})"

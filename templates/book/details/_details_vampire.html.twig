@@ -16,3 +16,4 @@
 {% if book.disciplines|length > 0 %}<a href="{{ path('discipline_filter', {'type': 'all', 'filter': 'book', 'id': book.id}) }}">{{ "discipline.count"|trans({'%count%': book.disciplines|length}) }}</a>{% endif %}
 {% if book.devotions|length > 0 %}<a href="{{ path('devotion_list', {'filter': 'book', 'id': book.id}) }}">{{ "devotion.count"|trans({'%count%': book.devotions|length}) }}</a>{% endif %}
 {% if book.rituals|length > 0 %}<a href="{{ path('ritual_list', {'filter': 'book', 'id': book.id}) }}">{{ "sorcery.powers.count"|trans({'%count%': book.rituals|length}) }}</a>{% endif %}
+{% if book.ghoulFamilies|length > 0 %}<a href="{{ path('ghoul_family_list', {'filter': 'book', 'id': book.id}) }}">{{ "ghoul.families.count"|trans({'%count%': book.ghoulFamilies|length}) }}</a>{% endif %}
