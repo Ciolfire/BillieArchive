@@ -209,57 +209,6 @@ class Chronicle
   }
 
   /**
-   * @return array<Clan>
-   */
-  public function getClans(): array
-  {
-    $clans = [];
-
-    foreach ($this->clans as $clan) {
-      /** @var Clan $clan */
-      if (!$clan->isBloodline()) {
-
-        $clans[] = $clan;
-      }
-    }
-
-    return $clans;
-  }
-
-  /**
-   * @return array<Clan>
-   */
-  public function getBloodlines(): array
-  {
-    $bloodlines = [];
-
-    foreach ($this->clans as $clan) {
-      /** @var Clan $clan */
-      if ($clan->isBloodline()) {
-
-        $bloodlines[] = $clan;
-      }
-    }
-
-    return $bloodlines;
-  }
-
-  public function getDevotions(): Collection
-  {
-    return $this->devotions;
-  }
-
-  public function getDisciplines(): Collection
-  {
-    return $this->disciplines;
-  }
-
-  public function getRituals(): Collection
-  {
-    return $this->rituals;
-  }
-
-  /**
    * @return Collection<int, Society>
    */
   public function getSocieties(): Collection
@@ -308,6 +257,98 @@ class Chronicle
     $this->rules[$type] = $rules;
 
     return $this;
+  }
+
+  /**
+   * @return array<Clan>
+   */
+  public function getClans(): array
+  {
+    $clans = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if (!$clan->isBloodline()) {
+
+        $clans[] = $clan;
+      }
+    }
+
+    return $clans;
+  }
+
+  // VAMPIRE
+
+  /**
+   * @return array<Clan>
+   */
+  public function getBloodlines(): array
+  {
+    $bloodlines = [];
+
+    foreach ($this->clans as $clan) {
+      /** @var Clan $clan */
+      if ($clan->isBloodline()) {
+
+        $bloodlines[] = $clan;
+      }
+    }
+
+    return $bloodlines;
+  }
+
+  public function getDevotions(): Collection
+  {
+    return $this->devotions;
+  }
+
+  public function getDisciplines(): Collection
+  {
+    return $this->disciplines;
+  }
+
+  public function getDisciplinesFromCategory(string $type = "simple"): array
+  {
+    $disciplines = [];
+    foreach ($this->disciplines as $discipline) {
+      switch ($type) {
+        case 'sorcery':
+          if ($discipline instanceof Discipline && $discipline->isSorcery()) {
+            $disciplines[] = $discipline;
+          }
+          break;
+  
+          case 'thaumaturgy':
+          if ($discipline instanceof Discipline && $discipline->isThaumaturgy()) {
+            $disciplines[] = $discipline;
+          }
+          break;
+  
+          case 'coil':
+            if ($discipline instanceof Discipline && $discipline->isCoil()) {
+              $disciplines[] = $discipline;
+            }
+            break;
+        default:
+          if ($discipline instanceof Discipline && (!$discipline->isSorcery() && !$discipline->isThaumaturgy() && !$discipline->isCoil())) {
+            $disciplines[] = $discipline;
+          }
+          break;
+      }
+    }
+
+    return $disciplines;
+  }
+
+  public function getRituals(): Collection
+  {
+    return $this->rituals;
+  }
+
+  public function getCoils()
+  {
+
+    return;
   }
 
     /**

@@ -74,7 +74,7 @@ ghoul:
     strength: Forces
     weakness: Faiblesses
   families:
-    label: Ghoul Families
+    label: Familles de Goules
     count: >-
       {count, plural,
         =0 {Aucune famille goule}
@@ -135,6 +135,7 @@ sorcery:
     level: "Rituel de {sorcery} de niveau {level}"
     new: Nouveau rituel
   powers:
+    label: Rituels
     count: >-
       {count, plural,
         =0 {No Rituel}

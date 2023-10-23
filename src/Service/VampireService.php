@@ -401,6 +401,13 @@ class VampireService
 
     if (!is_null($filter)) {
       switch ($filter) {
+        case 'chronicle':
+          /** @var Chronicle */
+          $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+
+          $criteria['chronicle'] = $item;
+          break;
+
         case 'book':
         default:
           /** @var Book */
