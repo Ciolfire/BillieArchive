@@ -25,6 +25,7 @@ class CharacterLesserTemplate
   private bool $isActive = true;
 
   #[ORM\ManyToOne(inversedBy: 'lesserTemplates')]
+  #[ORM\JoinColumn(nullable: false)]
   private ?Character $sourceCharacter = null;
 
   public function getId(): ?int
@@ -62,7 +63,7 @@ class CharacterLesserTemplate
     return $this->sourceCharacter;
   }
 
-  public function setSourceCharacter(Character $sourceCharacter): static
+  public function setSourceCharacter(?Character $sourceCharacter): static
   {
     $this->sourceCharacter = $sourceCharacter;
 

@@ -338,16 +338,14 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       if (!is_null($oldTemplate)) {
         if ($oldTemplate->getType() == $form->getData()['template']) {
+          // No change in template, shouldn't happen, return
           return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
         }
+        // We deactivate the old template
         $oldTemplate->setIsActive(false);
       }
+      
       return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
-      // $path = $this->getParameter('characters_directory');
-      // if (is_string($path)) {
-      //   $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $path);
-      //   return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
-      // }
     }
     return $this->render('character/lesser/add.html.twig', [
       'form' => $form,

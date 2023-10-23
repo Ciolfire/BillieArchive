@@ -63,6 +63,14 @@ class DataService
   }
 
   /**
+   * Flag an entity for removal
+   */
+  public function delete(object $entity) : void
+  {
+    $this->manager->remove($entity);
+  }
+
+  /**
    * Remove an entity, will add security checks there
    */
   public function remove(object $entity) : void

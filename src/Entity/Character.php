@@ -1112,4 +1112,27 @@ class Character
 
     return $this;
   }
+
+  public function findLesserTemplate(string $type) : ?CharacterLesserTemplate
+  {
+    foreach ($this->lesserTemplates as $template) {
+      /** @var CharacterLesserTemplate $template */
+      if ($template->getType() === $type) {
+
+        return $template;
+      }
+    }
+
+    return null;
+  }
+
+  public function cleanLesserTemplates() : static
+  {
+    foreach ($this->lesserTemplates as $lesserTemplate) {
+      if ($lesserTemplate instanceof CharacterLesserTemplate)
+      $lesserTemplate->setSourceCharacter(null);
+    }
+
+    return $this;
+  }
 }
