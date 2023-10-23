@@ -34,6 +34,34 @@ class ClanController extends AbstractController
   {
     return $this->render('vampire/clan/index.html.twig', [
       'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
+      'entity' => 'clan',
+      'category' => 'character',
+      'search' => [
+        'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
+      ],
+    ]);
+  }
+
+  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
+  public function bloodlines(): Response
+  {
+    return $this->render('vampire/clan/index.html.twig', [
+      'bloodlines' => $this->service->getBloodlines(),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'bloodline']),
+      'entity' => 'bloodline',
+      'category' => 'character',
+      'search' => [
+        'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
+      ],
+    ]);
+  }
+
+  #[Route('/clans', name: 'clan_and_bloodline_index', methods: ['GET'])]
+  public function clansAndBloodline(): Response
+  {
+    return $this->render('vampire/clan/index.html.twig', [
+      'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
       'bloodlines' => $this->service->getBloodlines(),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
@@ -43,6 +71,34 @@ class ClanController extends AbstractController
       ],
     ]);
   }
+
+  #[Route("/clan/{filter<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
+  public function clanList(string $filter, int $id): Response
+  {
+    switch ($filter) {
+      case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+        $back = ['path' => 'homebrew_index', 'id' => $id];
+        break;
+      case 'book':
+      default:
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $back = ['path' => 'book_index', 'id' => $id];
+    }
+
+    return $this->render('vampire/clan/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
+      'entity' => 'clan',
+      'category' => 'character',
+      'clans' => $item->getClans(),
+      'bloodlines' => $item->getBloodlines(),
+      'search' => [],
+      'back' => $back,
+    ]);
+  }
+
 
   #[Route('/clan/{id<\d+>}', name: 'clan_show', methods: ['GET'])]
   public function clanShow(Clan $clan): Response
@@ -117,12 +173,6 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
-  public function bloodlines(): Response
-  {
-    return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
-  }
-
   #[Route('/{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
   public function bloodlineJoin(Request $request, Vampire $vampire): Response
   {
@@ -149,33 +199,6 @@ class ClanController extends AbstractController
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,
-    ]);
-  }
-
-  #[Route("/clan/{filter<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
-  public function clanList(string $filter, int $id): Response
-  {
-    switch ($filter) {
-      case 'chronicle':
-        /** @var Chronicle */
-        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        $back = ['path' => 'homebrew_index', 'id' => $id];
-        break;
-      case 'book':
-      default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $back = ['path' => 'book_index', 'id' => $id];
-    }
-
-    return $this->render('vampire/clan/index.html.twig', [
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
-      'entity' => 'clan',
-      'category' => 'character',
-      'clans' => $item->getClans(),
-      'bloodlines' => $item->getBloodlines(),
-      'search' => [],
-      'back' => $back,
     ]);
   }
 }

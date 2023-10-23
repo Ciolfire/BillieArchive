@@ -5,112 +5,139 @@
 {% set setting = "vampire" %}
 {% set footer = true %}
 
-{% block title %}{{ "clans.label"|trans([], 'vampire') }}{% endblock %}
+{% block title %}
+	{{ "clans.label"|trans([], 'vampire') }}
+{% endblock %}
 
 {% block bodyData %}
-  data-controller="search" data-search-type-value="clan"
+	data-controller="search" data-search-type-value="clan"
 {% endblock %}
 
 {% block body %}
-  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
-  <div class="container">
-    <div class="row mb-3">
-      <div class="col-12">
-        <div class="block p-2">
-          <h1 class="user-select-none">
-            {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
-            {{ "clans.label"|trans }}
-          </h1>
-          <div class="col-auto">
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div id="collapseToc" class="col-auto collapse">
-        <ul class="toc block">
-          <p class="mt-2">{{ "clans.label"|trans([], 'vampire') }}</p>
-          {% for clan in clans %}
-            <li>
-              <a href="#{{ clan.name }}">{{ clan.name }}</a>
-            </li>
-          {% endfor %}
-          {% if bloodlines is defined %}
-            <p class="mt-2">{{ "clan.bloodlines.label"|trans([], 'vampire') }}</p>
-            {% for bloodline in bloodlines %}
-              <li>
-                <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
-              </li>
-            {% endfor %}
-          {% endif %}
-        </ul>
-      </div>
-      <div id="collapseDescription" class="collapse col">
-        <div class="block block-wiki p-2">
-          {{ description.value|default("")|markdown_to_html }}
-          </div>
-        </div>
-    </div>
-    {% if clans is defined %}
-      <div class="row">
-        {% for clan in clans %}
-          {% include "vampire/clan/_card.html.twig" with {'clan' : clan} %}
-        {% endfor %}
-      </div>
-    {% endif %}
-    {% if bloodlines is defined %}
-      <div class="row">
-        <h1 class="mb-5 pt-3">
-          {% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 0, 'class' : "icon-xl" } only %}
-          {{ "clan.bloodlines.label"|trans([], 'vampire') }}
-        </h1>
-        {% for bloodline in bloodlines %}
-          {% include "vampire/clan/_card.html.twig" with {'clan' : bloodline} %}
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
+	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	<div class="container">
+		<div class="row mb-3">
+			<div class="col-12">
+				<div class="block p-2">
+					<h1 class="user-select-none">
+						{% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
+						{% if clans is defined and clans is not empty %}
+							{{ "clans.label"|trans }}
+						{% else %}
+							{{ "clan.bloodlines.label"|trans }}
+						{% endif %}
+
+					</h1>
+					<div class="col-auto">
+						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">
+							<h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4>
+						</a>
+						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+							<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div id="collapseToc" class="col-auto collapse">
+				<ul class="toc block">
+					{% if clans is defined and clans is not empty %}
+						<p class="mt-2">{{ "clans.label"|trans([], 'vampire') }}</p>
+						{% for clan in clans %}
+							<li>
+								<a href="#{{ clan.name }}">{{ clan.name }}</a>
+							</li>
+						{% endfor %}
+					{% endif %}
+					{% if bloodlines is defined %}
+						<p class="mt-2">{{ "clan.bloodlines.label"|trans([], 'vampire') }}</p>
+						{% for bloodline in bloodlines %}
+							<li>
+								<a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
+							</li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+			<div id="collapseDescription" class="collapse col">
+				<div class="block block-wiki p-2">
+					{{ description.value|default("")|markdown_to_html }}
+				</div>
+			</div>
+		</div>
+		{% if clans is defined and clans is not empty %}
+			<div class="row">
+				{% for clan in clans %}
+					{% include "vampire/clan/_card.html.twig" with {'clan' : clan} %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if bloodlines is defined %}
+			<div class="row">
+				{% if clans is defined and clans is not empty %}
+					<h1 class="mb-5 pt-3">
+						{% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 0, 'class' : "icon-xl" } only %}
+						{{ "clan.bloodlines.label"|trans([], 'vampire') }}
+					</h1>
+				{% endif %}
+				{% for bloodline in bloodlines %}
+					{% include "vampire/clan/_card.html.twig" with {'clan' : bloodline} %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
-    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
-    <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
-      <span class="fa-layers fa-fw">
-        <i class="fa-solid fa-circle"></i>
-        <span class="ok footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-        <span class="ok footer-collapse collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-      </span>
-    </div>
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('clan_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : 'clan', 'hasTips': 1 } only %}
-        </a>
-        <a class="btn btn-primary" href="{{ path('clan_new', {'bloodline': true}) }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 1 } only %}
-        </a>
-      </div>
-    {% endif %}
-  </div>
-  <div class="col-auto py-3 footer-collapse collapse">
-    {% for key, elements in search %}
-      {% if key != 'parent' %}
-        <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
-      {% else %}
-        <h5 class="text-center pe-none">{{ ('clan.parent.label')|trans }}</h5>
-      {% endif %}
-      {% for element in elements %}
-        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          <span class="d-none d-md-inline">{% if key != 'parent' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-          {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
-        </a>
-      {% endfor %}
-    {% endfor %}
-  </div>
+	<div class="col-12 d-flex align-items-center position-relative">
+		<span class="search-icon">
+			<i class="fa-solid fa-magnifying-glass fa-fw"></i>
+		</span>
+		<input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+		<div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+			<span class="fa-layers fa-fw">
+				<i class="fa-solid fa-circle"></i>
+				<span class="ok footer-collapse collapse">
+					<i class="fa-solid fa-lg fa-circle-chevron-down"></i>
+				</span>
+				<span class="ok footer-collapse collapse show ">
+					<i class="fa-solid fa-lg fa-circle-chevron-up"></i>
+				</span>
+			</span>
+		</div>
+		{% if is_granted('ROLE_ST') %}
+			<div class="ms-auto">
+				<a class="btn btn-primary" href="{{ path('clan_new') }}">
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+					{% include "_icon.html.twig" with {'icon' : 'clan', 'hasTips': 1 } only %}
+				</a>
+				<a class="btn btn-primary" href="{{ path('clan_new', {'bloodline': true}) }}">
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
+					{% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 1 } only %}
+				</a>
+			</div>
+		{% endif %}
+	</div>
+	<div class="col-auto py-3 footer-collapse collapse">
+		{% for key, elements in search %}
+			{% if key != 'parent' %}
+				<h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
+			{% else %}
+				<h5 class="text-center pe-none">{{ ('clan.parent.label')|trans }}</h5>
+			{% endif %}
+			{% for element in elements %}
+				<a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+					<span class="d-none d-md-inline">
+						{% if key != 'parent' %}
+							{{ (key ~ "." ~ element)|trans }}
+						{% else %}
+							{{ element }}
+						{% endif %}
+					</span>
+					{% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+				</a>
+			{% endfor %}
+		{% endfor %}
+	</div>
 {% endblock %}
