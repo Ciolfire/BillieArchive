@@ -6,7 +6,7 @@
   <div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="row align-items-center">
-        <div class="col-auto" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button" aria-expanded="false" aria-controls="merit-{{ id }}-text">
+        <div class="col-auto" type="button" aria-expanded="false" aria-controls="merit-{{ id }}-text">
           {% include "_icon.html.twig" with {'icon' : merit.category } only %}
           <span class="merit-name">{{ merit.name }}</span>
           <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type } only %}</span>
@@ -34,16 +34,17 @@
         </div>
       </div>
     </div>
-    <div class="card-body text-center text py-0 d-flex flex-column">
-      <div class="merit-{{ id }}-text card-text show flex-grow-1" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+    <div id="merit-{{ id }}-body" class="card-body text-center text py-0 d-flex flex-column accordion position-relative">
+      <div id="merit-{{ id }}-short" class="card-text collapse show flex-grow-1" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-effect" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.description }}
+        <span class="d-block text-center show position-absolute bottom-0 start-50"><i class="fas fa-caret-down"></i></span>
       </div>
-      <div class="merit-{{ id }}-text card-text collapse" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+      <div id="merit-{{ id }}-effect" class="card-text collapse mb-2" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-short" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
-
+        <span class="d-block text-center position-absolute bottom-0 start-50"><i class="fas fa-caret-up"></i></span>
       </div>
     </div>
-    <div class="card-footer text py-0" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
+    <div class="card-footer text py-1" type="button">
       <span class="pe-3">
       {% if merit.book is not null %}
         <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ merit.book.name }}">
@@ -56,10 +57,6 @@
       {% endif %}
       </span>
       {% include "character_sheet/element/meritPrerequisites.html.twig" %}
-    </div>
-    <div class="card-footer text py-0 d-flex flex-column justify-content-center" data-bs-toggle="collapse" data-bs-target=".merit-{{ id }}-text" type="button">
-      <span class="merit-{{ id }}-text text-center show"><i class="fas fa-caret-down"></i></span>
-      <span class="merit-{{ id }}-text text-center collapse"><i class="fas fa-caret-up"></i></span>
     </div>
   </div>
 </div>

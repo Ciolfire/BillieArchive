@@ -8,7 +8,7 @@
 <div class="container block py-3 mt-5">
   <div class="row mb-3 justify-content-end">
     <div class="col-12 my-2 text-center">
-      <div class="accordion" id="notesList">
+      <div id="notesList" class="accordion">
         {% for note in notes|reverse %}
           {% set cYear = note.assignedAt|date('Y') %}
           {% set cMonth = note.assignedAt|date('F') %}

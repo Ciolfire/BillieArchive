@@ -2,7 +2,7 @@
 
 {% block creation %}{% endblock %}
 <div class="position-relative row mb-2 ps-4">
-  <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
+  {# <div class="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
     <span class="position-sticky top-50 my-2">
       <span id="meritsWrapper" class="show">{% include "_icon.html.twig" with {'icon' : 'hide' } only %}</span>
       <span id="meritsWrapper" class="collapse">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</span>
@@ -38,7 +38,7 @@
       {% include "_icon.html.twig" with {'icon' : 'creation' } only %}
     </span>
     {% endif %}
-  </p>
+  </p> #}
   <div id="meritsWrapper" class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 ps-5 mt-0 g-4 collapse show">
     {% block list %}{% endblock %}
   </div>

@@ -30,7 +30,7 @@
       </div>
     </div>
     {% for merit in merits|sort((a, b) => a.name|lower <=> b.name|lower) %}
-      {% include "merit/_list_item.html.twig" %}
+      {% include "merit/card.html.twig" %}
     {% endfor %}
   </div>
 {% endblock %}
