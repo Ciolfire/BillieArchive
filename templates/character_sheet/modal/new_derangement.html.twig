@@ -15,15 +15,17 @@
               <select class="form-control" name="derangement" autocomplete="off">
                 <option value=""></option>
                 {% for derangement in derangements %}
-                  <option value="{{ derangement.id }}" data-bs-toggle="collapse" data-bs-target="#{{ "new-derangement-" ~ derangement.id }}">{{ derangement.name }} {% if derangement.type %} — {{("type." ~ derangement.type)|trans([], 'app') }}{% endif %}</option>
+                  <option value="{{ derangement.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#derangement-{{ derangement.id }}-new">{{ derangement.name }} {% if derangement.type %} — {{("type." ~ derangement.type)|trans([], 'app') }}{% endif %}</option>
                 {% endfor %}
               </select>
-              <div class="accordion mt-2" id="accordionDerangement">              
-                {% for derangement in derangements %}
-                  <span id="{{ "new-derangement-" ~ derangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionDerangement">{{ derangement.details|markdown_to_html }}</span>
-                {% endfor %}
-              </div>
-            </div>
+            </div>  
+          </div>
+          <div id="accordionDerangement" class="row accordion mt-2">
+            {% for derangement in derangements %}
+              <div id="derangement-{{ derangement.id }}-new" class="col-12 collapse" data-bs-parent="#accordionDerangement">{{ derangement.details|markdown_to_html }}</div>
+            {% endfor %}
+          </div>
+          <div class="row">
             <div class="col-12">
               <label class="accent" for="details">{{ "details"|trans }}</label>
               <input class="form-control" name="details" type="text">

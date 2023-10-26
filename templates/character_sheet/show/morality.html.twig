@@ -54,7 +54,7 @@
         {% endfor %}
         <div class="accordion mt-2" id="accordionCharacterDerangements">
           {% for characterDerangement in character.derangements %}
-            <span id="{{ "character-derangement-" ~ characterDerangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionCharacterDerangements">{{ characterDerangement.derangement.details|markdown_to_html }}</span>
+            <div id="character-derangement-{{ characterDerangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionCharacterDerangements">{{ characterDerangement.derangement.details|markdown_to_html }}</div>
           {% endfor %}
         </div>
       </div>
