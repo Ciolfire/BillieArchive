@@ -84,13 +84,6 @@ class Merit implements Translatable
     return $this->id;
   }
 
-  public function setTranslatableLocale(string $locale) : self
-  {
-    $this->locale = $locale;
-
-    return $this;
-  }
-
   public function getName(): ?string
   {
     return $this->name;

@@ -106,6 +106,7 @@ class Character
   protected ?string $viceDetail;
 
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
+  #[ORM\OrderBy(["level" => "DESC", "merit" => "ASC"])]
   protected Collection $merits;
 
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
@@ -704,6 +705,21 @@ class Character
   public function getMerits(): Collection
   {
     return $this->merits;
+  }
+
+  public function getFilteredMerits($filter): array
+  {
+    $merits = [];
+
+    foreach ($this->merits as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getCategory() == $filter) {
+        $key = $merit->getMerit()->getName().(10-$merit->getLevel());
+        $merits[$key] = $merit;
+      }
+    }
+    ksort($merits);
+
+    return $merits;
   }
 
   public function addMerit(CharacterMerit $merit): self

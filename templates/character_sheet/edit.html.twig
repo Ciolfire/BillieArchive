@@ -24,7 +24,7 @@
       {% block header %}
         {% include "character_sheet/edit/header.html.twig" %}
       {% endblock %}
-      <div data-controller="tabs" data-tabs-initial-value="merits">
+      <div data-controller="tabs" data-tabs-initial-value="general">
         <ul class="nav tabs row g-0 my-2">
           {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
           {% include "_tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}

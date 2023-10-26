@@ -207,6 +207,10 @@ stories:
   new: New story
   name: Stories
   title: My Stories
+tab:
+  mental: Mental
+  physical: Physical
+  social: Social
 type:
   label: Type
   alternate_setting: Alternate Setting

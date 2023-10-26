@@ -206,6 +206,10 @@ stories:
   new: Nouvelle histoire
   name: Histoires
   title: Mes Histoires
+tab:
+  mental: Mental
+  physical: Physique
+  social: Social
 type:
   label: Type
   alternate_setting: Univers Alternatif

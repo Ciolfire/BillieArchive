@@ -1,7 +1,37 @@
 {% trans_default_domain 'character' %}
 
+{% set mental = character.filteredMerits('mental') %}
+{% set physical = character.filteredMerits('physical') %}
+{% set social = character.filteredMerits('social') %}
+
+<div data-controller="tabs" data-tabs-initial-value="mental">
+  <ul class="nav tabs row g-0">
+    {% if mental is not empty %}
+      {% include "_tab.html.twig" with {'name': 'mental'} only %}
+    {% endif %}
+    {% if physical is not empty %}
+      {% include "_tab.html.twig" with {'name': 'physical'} only %}
+    {% endif %}
+    {% if social is not empty %}
+      {% include "_tab.html.twig" with {'name': 'social'} only %}
+    {% endif %}
+  </ul>
+  <div id="mental" class="tab-content" data-tabs-target="page">
 <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
-  {% for chMerit in character.merits %}
+  {% for chMerit in mental %}
     {% include "character_sheet/show/merit.html.twig" with {'merit': chMerit.merit} %}
   {% endfor %}
+</div>  </div>
+  <div id="physical" class="tab-content" data-tabs-target="page">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+  {% for chMerit in character.filteredMerits('physical') %}
+    {% include "character_sheet/show/merit.html.twig" with {'merit': chMerit.merit} %}
+  {% endfor %}
+</div>  </div>
+  <div id="social" class="tab-content" data-tabs-target="page">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+  {% for chMerit in character.filteredMerits('social') %}
+    {% include "character_sheet/show/merit.html.twig" with {'merit': chMerit.merit} %}
+  {% endfor %}
+</div>  </div>
 </div>
