@@ -10,23 +10,16 @@
     {% set max = characterDiscipline.discipline.maxLevel %}
     {% if max == 0 %}{% set max = 5 %}{% endif %}
     {% if min < max %}
-      <div class="col-12 col-lg-6 justify-content-center">
-        <div class="discipline-block w-100 container g-1">
+
             {% include "character_sheet/vampire/edit/discipline.html.twig" with { 'characterDiscipline': characterDiscipline, 'discipline': characterDiscipline.discipline } %}
-        </div>
-      </div>
     {% endif %}
   {% endfor %}
   <h2 class="text-center py-3 user-select-none">New Disciplines</h2>
   {% for discipline in disciplines %}
-    <div class="col-12 col-lg-6 justify-content-center">
-      <div class="block w-100 container g-0 my-2">
-        {% set min = 0 %}
-        {% set base = 0 %}
-        {% set max = discipline.maxLevel %}
-        {% if max == 0 %}{% set max = 5 %}{% endif %}
-        {% include "character_sheet/vampire/edit/discipline.html.twig" with {'discipline' : discipline } %}
-      </div>
-    </div>
+    {% set min = 0 %}
+    {% set base = 0 %}
+    {% set max = discipline.maxLevel %}
+    {% if max == 0 %}{% set max = 5 %}{% endif %}
+    {% include "character_sheet/vampire/edit/discipline.html.twig" with {'discipline' : discipline, 'customBlock' : 'discipline-new-block' } %}
   {% endfor %}
 {% endblock %}

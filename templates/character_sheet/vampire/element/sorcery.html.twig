@@ -4,12 +4,15 @@
   {% set ritual = sorcery.powers|first %}
 {% endif %}
 
-<div class="col-12 justify-content-center mt-5">
-  <div class="block w-100 container g-0">
-
+<div class="col-12 justify-content-center">
+  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block{% endif %} w-100 container g-1">
     <div class="row align-items-center px-2 user-select-none">
-      <div class="col-12 discipline-block text-center p-2">
-        <h2>{{ sorcery.name }}</h2>
+      <div class="col-12 discipline-header text-center p-2">
+        <h3>{{ sorcery.name }}
+          {% if sorcery.homebrewFor is not null %}
+            {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+          {% endif %}
+        </h3>
       </div>
       <div class="col-12 text-center">
         <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
@@ -35,46 +38,38 @@
       </div>
     </div>
 
-    <div class="row g-0 ok">
+    <div class="row g-0 ok bdr-t">
       {% block rules_btn %}
         {% if sorcery.rules %}
-          <div class="col" data-bs-toggle="collapse" data-bs-target=".sorcery-rules-{{ sorcery.id }}" type="button">
+          <div class="col bdr-e collapsed" data-bs-toggle="collapse" data-bs-target="#sorcery-{{ sorcery.id }}-rules" type="button">
             <span class="d-flex flex-column justify-content-center text-center">
-              {{ 'rules'|trans({}, 'app') }}
-              <span class="sorcery-rules-{{ sorcery.id }} text-center show">
-                <i class="fas fa-caret-down"></i>
-              </span>
-              <span class="details-block sorcery-rules-{{ sorcery.id }} text-center collapse">
-                <i class="fas fa-caret-up"></i>
+              <span class="discipline-rules-{{ sorcery.id }} text-center show">
+                {{ "rules"|trans({}, 'app') }}
               </span>
             </span>
           </div>
         {% endif %}
       {% endblock %}
       {% block powers_btn %}
-        <div class="col" data-bs-toggle="collapse" data-bs-target=".sorcery-powers-{{ sorcery.id }}" type="button">
+        <div class="col collapsed" data-bs-toggle="collapse" data-bs-target="#sorcery-{{ sorcery.id }}-powers" type="button">
           <span class="d-flex flex-column justify-content-center text-center">
-            {{ 'sorcery.power.label'|trans }}
-            <span class="sorcery-powers-{{ sorcery.id }} text-center show">
-              <i class="fas fa-caret-down"></i>
-            </span>
-            <span class="details-block sorcery-powers-{{ sorcery.id }} text-center collapse">
-              <i class="fas fa-caret-up"></i>
+            <span class="sorcery-powers-{{ sorcery.id }} text-center">
+              {{ 'sorcery.power.label'|trans }}
             </span>
           </span>
         </div>
       {% endblock %}
     </div>
 
-    <div class="row m-0 details-block">
+    <div id="sorcery-{{ sorcery.id }}-body" class="row m-0 accordion">
       {% block rules %}
         {% if sorcery.rules %}
-          <div class="col-12 sorcery-rules-{{ sorcery.id }} collapse">
+          <div id="sorcery-{{ sorcery.id }}-rules" class="col-12 collapse" data-bs-parent="#sorcery-{{ sorcery.id }}-body">
             {{ sorcery.rules|markdown_to_html }}
           </div>
         {% endif %}
       {% endblock %}
-      <div class="powers-block-{{ sorcery.id }} sorcery-powers-{{ sorcery.id }} collapse">
+      <div id="sorcery-{{ sorcery.id }}-powers" class="powers-{{ sorcery.id }}-block collapse" data-bs-parent="#sorcery-{{ sorcery.id }}-body">
         <div class="col-12">
           <div class="fluff m-2">{{ sorcery.description|markdown_to_html }}</div>
         </div>
@@ -82,12 +77,12 @@
           {% if ritual %}
               <div class="row">
                 <div class="col-12 power-header">
-                  <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".discipline-power-{{ ritual.id }}">
+                  <div class="row collapsed mt-3" type="button" data-bs-toggle="collapse" data-bs-target=".sorcery-{{ sorcery.id }}-power-{{ ritual.id }}">
                     <div class="col-3 text-end">
                     </div>
                   </div>
                 </div>
-                <div class="discipline-power-{{ ritual.id }} py-2" data-bs-parent=".powers-block-{{ sorcery.id }}">{{ ritual.details|markdown_to_html }}</div>
+                <div class="sdorcery-{{ sorcery.id }}-power-{{ ritual.id }} py-2" data-bs-parent=".powers-{{ sorcery.id }}-block">{{ ritual.details|markdown_to_html }}</div>
             </div>
           {% endif %}
         {% endblock %}

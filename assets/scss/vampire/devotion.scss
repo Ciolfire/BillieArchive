@@ -1,5 +1,6 @@
-.devotion {
+.card.devotion {
   &-card {
     min-height: 220px;
+    color: $textColor;
   }
 }

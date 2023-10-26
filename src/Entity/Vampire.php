@@ -30,11 +30,13 @@ class Vampire extends Character
   private int $vitae = 1;
 
   #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true)]
+  #[ORM\OrderBy(["level" => "DESC", "discipline" => "ASC"])]
   private Collection $disciplines;
 
   protected int $limit = 5;
 
   #[ORM\ManyToMany(targetEntity: Devotion::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $devotions;
 
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class)]

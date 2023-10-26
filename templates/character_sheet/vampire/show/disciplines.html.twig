@@ -3,20 +3,16 @@
 {% trans_default_domain 'character' %}
 
 {% block list %}
-  {% for chDiscipline in characterDisciplines %}
-    <div class="col-12 col-lg-6 justify-content-center">
-      <div class="discipline-block w-100 container g-1">
-        {% set max = 5 %}
-        {% if chDiscipline.discipline.isCoil %}
-          {% set max = chDiscipline.discipline.maxLevel %}
-        {% endif %}
-        
-        {% set maxPower = chDiscipline.level %}
-        {% set min = 0 %}
-        {% set base = chDiscipline.level %}
-        {% set discipline = chDiscipline.discipline %}
-        {% include "character_sheet/vampire/show/discipline.html.twig" %}
-      </div>
-    </div>
+  {% for chDiscipline in characterDisciplines|sort((a, b) => a.name <=> b.name) %}
+    {% set max = 5 %}
+    {% if chDiscipline.discipline.isCoil %}
+      {% set max = chDiscipline.discipline.maxLevel %}
+    {% endif %}
+    
+    {% set maxPower = chDiscipline.level %}
+    {% set min = 0 %}
+    {% set base = chDiscipline.level %}
+    {% set discipline = chDiscipline.discipline %}
+    {% include "character_sheet/vampire/show/discipline.html.twig" %}
   {% endfor %}
 {% endblock %}
