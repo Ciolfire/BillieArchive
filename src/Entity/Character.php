@@ -713,7 +713,7 @@ class Character
 
     foreach ($this->merits as $merit) {
       if ($merit instanceof CharacterMerit && $merit->getMerit()->getCategory() == $filter) {
-        $key = $merit->getMerit()->getName().(10-$merit->getLevel());
+        $key = $merit->getMerit()->getName().(10-$merit->getLevel().$merit->getId());
         $merits[$key] = $merit;
       }
     }
