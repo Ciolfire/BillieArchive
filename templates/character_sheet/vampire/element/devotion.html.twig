@@ -18,11 +18,11 @@
         {% block text %}
           <div class="devotion-{{ devotion.id }}-text show">
             <p>{{ devotion.short }}</p>
-            <div class="w-100 text-center"><i class="fas fa-caret-down"></i></div>
+            <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-down', 'hasTips': 0} only %}</div>
           </div>
           <div class="devotion-{{ devotion.id }}-text collapse">
             {{ devotion.description|default("")|markdown_to_html }}
-            <div class="w-100 text-center"><i class="fas fa-caret-up"></i></div>
+            <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-up', 'hasTips': 0} only %}</div>
           </div>
         {% endblock %}
       </div>

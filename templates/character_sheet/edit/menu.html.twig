@@ -27,10 +27,10 @@
           </span>
           <div class="py-0 d-flex flex-column justify-content-center">
             <span class="usingInfo show">
-              <i class="fas fa-caret-down"></i>
+              {% include "_icon.html.twig" with {'icon': 'caret-down', 'hasTips': 0} only %}
             </span>
             <span class="usingInfo collapse">
-              <i class="fas fa-caret-up"></i>
+              {% include "_icon.html.twig" with {'icon': 'caret-up', 'hasTips': 0} only %}
             </span>
           </div>
         </div>
