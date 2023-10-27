@@ -16,6 +16,23 @@
   }
 }
 
+.btn.btn-warning {
+  background-color: $warningColor;
+  border-color: $wrongColor;
+  color: $textDarkColor;
+  font-weight: bold;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow: 0 0 0 0.25rem $main50pColor;
+    color: $textColor;
+    background-color: $btnHover;
+    border: 1px solid $mainDarkColor;
+  }
+}
+
 .btn.btn-secondary,
 .human-btn.btn-primary {
   background-color: #1a2139f5;
