@@ -4,27 +4,17 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark">
       <div class="modal-header">
-        <h5 class="modal-title text-sub">{{ "derangement.new"|trans }}</h5>
+        <h4 class="modal-title text-sub">{{ "derangement.new"|trans }}</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{ path('character_derangement_new', { 'id' : character.id }) }}" method="POST">
           <div class="row">
             <div class="col-12 mb-3">
-              <label class="accent" for="derangement">{{ "derangement.label"|trans }}</label>
-              <select class="form-control" name="derangement" autocomplete="off">
-                <option value=""></option>
-                {% for derangement in derangements %}
-                  <option value="{{ derangement.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#derangement-{{ derangement.id }}-new">{{ derangement.name }} {% if derangement.type %} — {{("type." ~ derangement.type)|trans([], 'app') }}{% endif %}</option>
-                {% endfor %}
-              </select>
+              {% include "character_sheet/element/derangement_select.html.twig" %}
             </div>  
           </div>
-          <div id="accordionDerangement" class="row accordion mt-2">
-            {% for derangement in derangements %}
-              <div id="derangement-{{ derangement.id }}-new" class="col-12 collapse" data-bs-parent="#accordionDerangement">{{ derangement.details|markdown_to_html }}</div>
-            {% endfor %}
-          </div>
+          {% include "character_sheet/element/derangement_list.html.twig" %}
           <div class="row">
             <div class="col-12">
               <label class="accent" for="details">{{ "details"|trans }}</label>

@@ -16,8 +16,8 @@
         {{ derangement.name }}{% if not derangement.isMild %} ({{ derangement.previousAilment.name }} - {{ "derangement.severe"|trans }}){% endif %}
         {% if derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
       </h2>
-      <button type="button" class="btn btn-primary w-100" data-bs-target=".derangement-{{ derangement.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-      <div class="derangement-{{ derangement.id }} collapse p-2">{{ derangement.details|markdown_to_html }}</div>
+      <button type="button" class="btn btn-primary w-100" data-bs-target="#derangement-{{ derangement.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
+      <div id="derangement-{{ derangement.id }}" class="collapse p-2">{{ derangement.details|markdown_to_html }}</div>
     </div>
   </div>
 

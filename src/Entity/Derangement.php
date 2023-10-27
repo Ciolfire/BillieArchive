@@ -11,12 +11,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "derangements")])]
 #[ORM\Entity(repositoryClass: DerangementRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\DerangementTranslation")]
-class Derangement
+class Derangement implements Translatable
 {
   use Typed;
   use Sourcable;
@@ -57,13 +58,6 @@ class Derangement
   public function getId(): ?int
   {
     return $this->id;
-  }
-
-  public function setTranslatableLocale(string $locale) : self
-  {
-    $this->locale = $locale;
-
-    return $this;
   }
 
   public function getName(): string

@@ -16,13 +16,29 @@
         </span>
         <div class="row">
           {% for charDerangement in character.standardDerangements %}
-            <div class="col-6">
-              <span class="btn btn-sm btn-warning" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
-                {{charDerangement}}
+            <div class="col-6 px-1 px-md-3 py-2">
+              <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
+                {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'icon-sm'} %}{% endif %}
+                {{ charDerangement }}
                 {% if charDerangement.details %}
                   ({{ charDerangement.details }})
                 {% endif %}
+                {% include "_icon.html.twig" with {'icon': charDerangement.derangement.type|default(''), 'class': 'icon-sm', 'hasTips': 0} %}
               </span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="accordion mt-2 row" id="accordionCharacterDerangements">
+          {% for characterDerangement in character.derangements %}
+            <div class="col-12">
+              <div id="character-derangement-{{ characterDerangement.id }}" class="bdr-b px-5 collapse" data-bs-parent="#accordionCharacterDerangements">
+                <h4>
+                  {% if characterDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
+                  {{ characterDerangement.derangement.name }}{% if not characterDerangement.derangement.isMild %} ({{ characterDerangement.derangement.previousAilment.name }} - {{ "derangement.severe"|trans([], 'app') }}){% endif %}
+                  {% include "_icon.html.twig" with {'icon': characterDerangement.derangement.type|default(''), 'hasTips': 0} %}
+                </h4>
+                {{ characterDerangement.derangement.details|markdown_to_html }}
+              </div>
             </div>
           {% endfor %}
         </div>
@@ -52,11 +68,6 @@
             </div>
           </div>
         {% endfor %}
-        <div class="accordion mt-2" id="accordionCharacterDerangements">
-          {% for characterDerangement in character.derangements %}
-            <div id="character-derangement-{{ characterDerangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionCharacterDerangements">{{ characterDerangement.derangement.details|markdown_to_html }}</div>
-          {% endfor %}
-        </div>
       </div>
     </div>
   </div>

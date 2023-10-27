@@ -11,20 +11,10 @@
         <form action="{{ path('character_morality_decrease', { 'id' : character.id }) }}" method="POST">
           <div class="row">
             <div class="col-12 mb-3">
-              <label class="accent" for="derangement">{{ "derangement.label"|trans }}</label>
-              <select class="form-control" name="derangement" autocomplete="off">
-                <option value=""></option>
-                {% for derangement in derangements %}
-                  <option value="{{ derangement.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#morality-derangement-{{ derangement.id }}">{{ derangement.name }} {% if derangement.type %} — {{("type." ~ derangement.type)|trans([], 'app') }}{% endif %}</option>
-                {% endfor %}
-              </select>
+              {% include "character_sheet/element/derangement_select.html.twig" with {'tag' : 'morality'} %}
             </div>
           </div>
-          <div id="accordionDerangementMorality" class="row accordion mt-2">
-            {% for derangement in derangements %}
-              <div id="morality-derangement-{{ derangement.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionDerangementMorality">{{ derangement.details|markdown_to_html }}</div>
-            {% endfor %}
-          </div>
+          {% include "character_sheet/element/derangement_list.html.twig" with {'id' : 'accordionMoralityDerangement', 'tag' : 'morality'} %}
           <div class="row">
             <div class="col-12">
               <label class="accent" for="details">{{ "details"|trans }}</label>
