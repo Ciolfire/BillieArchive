@@ -21,7 +21,6 @@
   <div class="row justify-content-center">
     {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
     {% if character.clan.parentClan is not null %}
-      <div class="col-12"></div>
       {% include "character_sheet/vampire/show/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
     {% else %}
       {% include "character_sheet/vampire/show/weakness.html.twig" with { 'clan': character.clan } %}

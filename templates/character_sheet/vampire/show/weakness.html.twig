@@ -1,36 +1,29 @@
 {% trans_default_domain 'vampire' %}
 
+{% if clan is not defined %}
+  {% set c = value %}
+{% endif %}
+
+
 <div class="col-12 col-md-6">
-  <div class="block user-select-none p-2" type="button" data-bs-toggle="collapse" data-bs-target=".clan-weakness">
-    <h5 class="text-center pt-1">
+  <div class="block user-select-none p-2">
+    <h4 class="text-center pt-1">
       {% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0} %}
       {{ 'clan.weakness'|trans }}
       {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
-    </h5>
-    <div class="clan-weakness collapse">
+    </h4>
+    <div class="clan-weakness">
       {{ clan.weakness|markdown_to_html }}
     </div>
-    <div class="text-center w-100">
-      <span class="clan-weakness text-center show"><i class="fas fa-caret-down"></i></span>
-      <span class="clan-weakness text-center collapse"><i class="fas fa-caret-up"></i></span>
-    </div>
-  </div>
-</div>
-{% if bloodline is defined %}
-  <div class="col-12 col-md-6">
-    <div class="block user-select-none p-2" type="button" data-bs-toggle="collapse" data-bs-target=".bloodline-weakness">
-      <h5 class="text-center pt-1">
+    {% if bloodline is defined %}
+      <h4 class="text-center pt-1 bdr-t">
         {% include "_icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0} %}
         {{ 'clan.bloodline.weakness'|trans }}
         {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
-      </h5>
-      <div class="bloodline-weakness collapse">
+      </h4>
+      <div class="bloodline-weakness">
         {{ bloodline.weakness|markdown_to_html }}
       </div>
-      <div class="text-center w-100">
-        <span class="bloodline-weakness text-center show"><i class="fas fa-caret-down"></i></span>
-        <span class="bloodline-weakness text-center collapse"><i class="fas fa-caret-up"></i></span>
-      </div>
-    </div>
+    {% endif %}
   </div>
-{% endif %}
+</div>
