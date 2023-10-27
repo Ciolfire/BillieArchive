@@ -35,11 +35,11 @@
       </div>
     </div>
     <div id="merit-{{ id }}-body" class="card-body text-center text py-0 d-flex flex-column accordion">
-      <div id="merit-{{ id }}-short" class="card-text collapse show flex-grow-1" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-effect" data-bs-parent="#merit-{{ id }}-body" type="button">
+      <div id="merit-{{ id }}-short" class="card-text card-short collapse show flex-grow-1" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-effect" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.description }}
         <div class="w-100 text-center"><i class="fas fa-caret-down"></i></div>
       </div>
-      <div id="merit-{{ id }}-effect" class="card-text collapse mb-2" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-short" data-bs-parent="#merit-{{ id }}-body" type="button">
+      <div id="merit-{{ id }}-effect" class="card-text card-effect collapse mb-2" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-short" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
         <div class="w-100 text-center"><i class="fas fa-caret-up"></i></div>
       </div>

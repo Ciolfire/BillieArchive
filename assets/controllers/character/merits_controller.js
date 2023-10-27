@@ -55,30 +55,36 @@ export default class extends Controller {
   meritGeneration(card, length) {
     
     let newCard = card.parentNode.cloneNode(true);
-    let header = newCard.getElementsByClassName('col')[0]
-    let footer = newCard.getElementsByClassName("card-footer")[1];
     
     let valueInput = newCard.getElementsByClassName("merit-value")[0];
     let detailsInput = newCard.getElementsByClassName("merit-detail")[0];
     let rand = valueInput.dataset.id + "-" +  Math.random().toString(36).substring(2, 6);
     
-    // Update all classes
-    let collapsableElements = newCard.getElementsByClassName(`${valueInput.id}-text`);
-    // // When the class name is removed, it is removed from the collapsableElements collection... Magic of js I guess.
-    while (collapsableElements.length > 0) {
-      let element = collapsableElements[0];
-      element.classList.remove(`${valueInput.id}-text`);
-      element.classList.add(`merit-${rand}-text`);
-      element.dataset.bsTarget = `.merit-${rand}-text`;
-    }
-    header.dataset.bsTarget = `.merit-${rand}-text`;
-    footer.dataset.bsTarget = `.merit-${rand}-text`;
+    // This is used for the collapsable elements
+    let body = newCard.getElementsByClassName(`card-body`)[0];
+    let short = newCard.getElementsByClassName(`card-short`)[0];
+    let effect = newCard.getElementsByClassName(`card-effect`)[0];
+
+    body.id = `merit-${rand}-body`;
+    short.id = `merit-${rand}-short`;
+    effect.id = `merit-${rand}-effect`;
+
+    effect.dataset.bsTarget = `#${short.id}`;
+    short.dataset.bsTarget = `#${effect.id}`;
+
+    short.dataset.bsParent = `#${body.id}`;
+    effect.dataset.bsParent = `#${body.id}`;
+
+    // This is to save the merit
     valueInput.id = `merit-${rand}`;
     valueInput.name = `character[merits][${rand}][level]`;
     detailsInput.name = `character[merits][${rand}][details]`;
+    
     // reset the values for the new form
     valueInput.value = 0;
     detailsInput.value = "";
+    
+    // We add it after the same card
     card.parentNode.after(newCard);
   }
 
