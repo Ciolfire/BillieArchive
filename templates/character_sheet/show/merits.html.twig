@@ -4,7 +4,15 @@
 {% set physical = character.filteredMerits('physical') %}
 {% set social = character.filteredMerits('social') %}
 
-<div data-controller="tabs" data-tabs-initial-value="mental">
+{% if mental|length > physical|length and mental|length > social|length %}
+  {% set activeTab = "mental" %}
+{% elseif physical|length > social|length %}
+  {% set activeTab = "physical" %}
+{% else %}    
+  {% set activeTab = "social" %}
+{% endif %}
+
+<div data-controller="tabs" data-tabs-initial-value={{activeTab}}>
   <ul class="nav tabs row g-0">
     {% if mental is not empty %}
       {% include "_tab.html.twig" with {'name': 'mental'} only %}
