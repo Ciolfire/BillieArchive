@@ -19,8 +19,8 @@
         {% include "_tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
         {% block specialTab %}{% endblock %}
         {# {% include "_tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
-        {% include "_tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %}
-        {% include "_tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
+        {# {% include "_tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %} #}
+        {% include "_tab.html.twig" with {'name': 'infos', 'domain': 'character'} only %}
         {% if app.user == character.player %}
           {% include "_tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
         {% endif %}
@@ -59,18 +59,8 @@
       <div id="inventory" class="tab-content" data-tabs-target="page">
         {% include "character_sheet/show/inventory.html.twig" %}
       </div>
-      <div id="background" class="tab-content" data-tabs-target="page">
-        <div class="col-12 my-2 text-center">
-          <img class="block col-12 col-md-6" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-            <div class="block mt-1 text-start p-3">
-              {% if character.background != "" %}
-                {{ character.background|markdown_to_html }}
-              {% else %}
-                <p>{{ "background.none"|trans }}</p>
-              {% endif %}
-              <a href="{{ path('character_background', {'id': character.id}) }}">{{ "background.edit"|trans }}</a>
-            </div>
-        </div>
+      <div id="infos" class="tab-content p-0" data-tabs-target="page">
+        {% include "character_sheet/show/infos.html.twig" %}
       </div>
       {% if app.user == character.player %}
         <div id="notes" class="tab-content" data-tabs-target="page">

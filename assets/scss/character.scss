@@ -7,6 +7,9 @@
 }
 
 .character {
+  &-background-avatar {
+    filter: grayscale(100%);
+  }
   &-card {
     &-name {
       height: 50px;

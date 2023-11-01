@@ -20,14 +20,18 @@
     <div class="container block py-3 g-0">
       <h1>{{ title }} {{ character.chronicle.name|default('') }}</h1>
       {% include "character_sheet/edit/header.html.twig" %}
+      <hr>
       <div class="row g-0">
         {% include "character_sheet/new/attributes.html.twig" %}
       </div>
+      <hr>
       <div class="row my-2">
         {% include "character_sheet/new/skills.html.twig" %}
       </div>
       {% include "character_sheet/new/specialties.html.twig" %}
+      <hr>
       {% include "character_sheet/new/background.html.twig" %}
+      <hr>
       {# {% include "character_sheet/new/advantages.html.twig" %} #}
       {% include "character_sheet/new/merits.html.twig" %}
       <div class="d-grid gap-2">

@@ -69,8 +69,9 @@ attributes:
   label: Attributs
 
 avatar:
-  change: Changer l'avatar du personnage
-  save: Sauvegarder l'avatar
+  modal: Avatar du personnage
+  change: Changer l'avatar
+  save: Sauvegarder le nouvel avatar
 
 charactes: Personnages
 npc: PNJ
@@ -78,11 +79,14 @@ premade: Prétiré
 
 tab:
   background: Histoire
+  description: Description
   general: General
   human: Humain
+  infos: Infos
   inventory: Possessions
   merits: Atouts
   notes: Notes
+  picture: Avatar
   powers: Pouvoirs
   relations: Relations
   traits: Traits
@@ -215,10 +219,10 @@ power: >-
     other {Pouvoirs}
   }
 
-background:
-  edit: Modifier l'historique
-  label: Historique
-  none: Pas d'historique
+infos:
+  background: Historique
+  description: Description
+  none: Aucune information fourine
 notes:
   edit: Modifier les Notes
   label: Notes

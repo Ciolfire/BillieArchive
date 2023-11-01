@@ -1,0 +1,39 @@
+{% trans_default_domain 'character' %}
+
+<div class="position-relative overflow-y-hidden" data-controller="tabs" data-tabs-initial-value="description">
+  <ul class="nav tabs row g-0">
+    {% include "_tab.html.twig" with {'name': 'picture', 'domain': 'character'} only %}
+    {% include "_tab.html.twig" with {'name': 'description', 'domain': 'character'} only %}
+    {% include "_tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
+  </ul>
+  <div class="block position-relative overflow-y-hidden">
+    <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+    <div id="picture" class="tab-content d-flex justify-content-center" data-tabs-target="page">
+      <img class="vh-50" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+    </div>
+    <div id="description" class="tab-content row justify-content-center" data-tabs-target="page">
+      <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'description'}) }}">
+        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+        {{ "infos.description"|trans }}
+      </a>
+      <div class="col-6">
+        {% if character.description != "" %}
+          {{ character.description|markdown_to_html }}
+        {% else %}
+          <p>{{ "infos.none"|trans }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div id="background" class="tab-content" data-tabs-target="page">
+      <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'background'}) }}">
+        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+        {{ "infos.background"|trans }}
+      </a>
+      {% if character.background != "" %}
+        {{ character.background|markdown_to_html }}
+      {% else %}
+        <p>{{ "infos.none"|trans }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>

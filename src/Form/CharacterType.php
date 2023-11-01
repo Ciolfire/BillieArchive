@@ -98,10 +98,15 @@ class CharacterType extends AbstractType
           'mapped' => false,
           'label' => false,
           ])
-        ->add('background', CKEditorType::class , [
+          ->add('description', CKEditorType::class , [
+            'label' => false,
+            'empty_data' => "",
+          ])        
+          ->add('background', CKEditorType::class , [
           'label' => false,
           'empty_data' => "",
-        ]);
+        ])
+        ;
       }
   }
 

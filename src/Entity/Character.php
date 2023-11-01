@@ -77,6 +77,9 @@ class Character
   #[ORM\Column(type: Types::TEXT)]
   protected string $background = "";
 
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $description = "";
+
   /** @var array<string, int> */
   #[ORM\Column(type: Types::JSON, nullable: true)]
   protected array $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
@@ -941,6 +944,18 @@ class Character
   {
     $converter = new HtmlConverter();
     $this->background = $converter->convert($background);
+
+    return $this;
+  }
+
+  public function getDescription(): ?string
+  {
+    return $this->description;
+  }
+
+  public function setDescription(string $description): static
+  {
+    $this->description = $description;
 
     return $this;
   }

@@ -5,11 +5,13 @@
     <div class="modal-content block-solid">
       <form data-action="character--avatar#update" name="avatar" data-character--avatar-target="form" method="post">
         <div class="modal-header">
-          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
+          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.modal'|trans }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <img class="block col-12" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
         <div class="modal-body">
-            <input class="form-control" type="file" name="avatar[upload]"/>
+          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
+          <input class="form-control" type="file" name="avatar[upload]"/>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">

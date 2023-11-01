@@ -396,15 +396,19 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('/{id<\d+>}/background', name: 'character_background', methods: ['GET', 'POST'])]
-  public function background(Request $request, Character $character): Response
+  #[Route('/{id<\d+>}/infos/{type}', name: 'character_infos_edit', methods: ['GET', 'POST'])]
+  public function infosEdit(Request $request, Character $character, string $type): Response
   {
+    $name = ucfirst($type);
+    $get = "get".$name;
+    $set = "set".$name;
+
     $converter = new LeagueMarkdown();
     $form = $this->createFormBuilder()
-      ->add('background', CKEditorType::class, [
+      ->add($type, CKEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($character->getBackground()),
-        'label' => 'background.label',
+        'data' => $converter->convert($character->$get()),
+        'label' => "$type.label",
         'translation_domain' => 'character'
       ])
       ->add('save', SubmitType::class, [
@@ -415,18 +419,19 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $background = $form->get('background')->getData();
-      if ($background == null) {
-        $background = "";
+      $data = $form->get($type)->getData();
+      if ($data == null) {
+        $data = "";
       }
-      $character->setBackground($background);
+      $character->$set($data);
       $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character_sheet/edit/background.html.twig', [
+    return $this->render('character_sheet/edit/infos.html.twig', [
       'character' => $character,
       'form' => $form,
+      'type' => $type,
     ]);
   }
 

@@ -1,5 +1,4 @@
 Name: Name
-Age: Age
 Player: Player
 Concept: Concept
 virtue:
@@ -70,8 +69,9 @@ attributes:
   label: Attributes
 
 avatar:
-  change: Change character avatar
-  save: Save new avatar
+  modal: Character's Avatar
+  change: Change avatar
+  save: Save the new avatar
 
 characters: Characters
 npc: NPC
@@ -79,11 +79,14 @@ premade: Premade
 
 tab:
   background: Background
+  description: Description
   general: General
   human: Human
+  infos: Infos
   inventory: Possessions
   merits: Merits
   notes: Notes
+  picture: Picture
   powers: Powers
   relations: Relations
   traits: Traits
@@ -176,6 +179,7 @@ skill:
     mental: "-3 unskilled"
     physical: "-1 unskilled"
     social: "-1 unskilled"
+
   academics: Academics
   computer: Computer
   crafts: Crafts
@@ -215,10 +219,10 @@ power: >-
     other {Powers}
   }
 
-background:
-  edit: Edit background
-  label: Background
-  none: No background
+infos:
+  background: Background
+  description: Description
+  none: No information provided
 notes:
   edit: Edit notes
   label: Notes
