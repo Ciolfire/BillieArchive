@@ -51,6 +51,12 @@ class VampireController extends AbstractController
   #[Route('/{id<\d+>}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
   public function embrace(Request $request, Character $character): Response
   {
+    if ($character->getType() == "vampire") {
+      $this->addFlash('notice', "Character is already a vampire");
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+
     $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false]);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);
@@ -58,8 +64,11 @@ class VampireController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->service->embrace($character, $form);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+      if ($this->service->embrace($character, $form)) {
+
+        return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+      }
+      $this->addFlash('notice', "Couldn't set the character clan");
     }
     return $this->render('character_sheet/vampire/embrace/sheet.html.twig', [
       'character' => $character,

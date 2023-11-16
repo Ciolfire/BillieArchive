@@ -129,11 +129,16 @@ class VampireService
     return true;
   }
 
-  public function embrace(Character $character, FormInterface $form): void
+  public function embrace(Character $character, FormInterface $form): bool
   {
     $connection = $this->dataService->getConnection();
     $data = $form->getData();
     
+    if (!$data['clan'] instanceof Clan) {
+
+      return false;
+    }
+
     $ghoul = $character->findLesserTemplate("ghoul");
     $disciplines = $form->getExtraData()['disciplines'];
     // IF IT'S A GHOUL, NEED TO KEEP THE DISCIPLINES/DEVOTIONS/... Didn't work with entity, had to convert to array, but well, it works.
@@ -170,6 +175,8 @@ class VampireService
     }
     $vampire->cleanLesserTemplates();
     $this->dataService->save($vampire);
+
+    return true;
   }
 
   public function embraceFromGhoul(Ghoul $ghoul, array $disciplines) : array
