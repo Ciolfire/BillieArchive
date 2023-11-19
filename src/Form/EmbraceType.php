@@ -58,6 +58,7 @@ class EmbraceType extends AbstractType
       }
     ])
     ->add('attribute', RadiobuttonType::class, [
+      'required' => true,
       'choices' => $options['attributes'],
       'choice_label' => 'name',
       'choice_attr' => function(Attribute $attribute) {

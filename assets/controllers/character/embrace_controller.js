@@ -134,6 +134,8 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
-    document.forms['embrace'].submit();
+    if (document.forms['embrace'].checkValidity()) {
+      document.forms['embrace'].submit();
+    }
   }
 }
