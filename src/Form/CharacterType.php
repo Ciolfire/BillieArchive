@@ -87,22 +87,24 @@ class CharacterType extends AbstractType
           'required' => false,
           'mapped' => false,
           'label' => false,
-          ])
+        ])
         ->add('specialty2', CharacterSpecialtyType::class, [
           'required' => false,
           'mapped' => false,
           'label' => false,
-          ])
+        ])
         ->add('specialty3', CharacterSpecialtyType::class, [
           'required' => false,
           'mapped' => false,
           'label' => false,
-          ])
-          ->add('description', CKEditorType::class , [
-            'label' => false,
-            'empty_data' => "",
-          ])        
+        ])
+        ->add('description', CKEditorType::class , [
+          'required' => false,
+          'label' => false,
+          'empty_data' => "",
+        ])        
           ->add('background', CKEditorType::class , [
+          'required' => false,
           'label' => false,
           'empty_data' => "",
         ])
