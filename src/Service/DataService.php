@@ -177,17 +177,16 @@ class DataService
   public function getMeritTypes(Book $book = null) : array
   {
     $qb = $this->getConnection()->createQueryBuilder()
-    ->select('type')
-    ->from('merits')
-    ->groupBy('type')
-    ->andWhere("type != ''");
-    if (is_null($book)) {
-      $result = $qb->executeQuery()->fetchFirstColumn();
-    } else {
-      $result = $qb->andWhere('book_id = :id')
+    ->select('DISTINCT t.name')
+    ->from('merits', 'm')
+    ->innerJoin('m', 'content_type', 't', 'm.type_id = t.id')
+    ;
+    if (!is_null($book)) {
+      $qb->andWhere('book_id = :id')
       ->setParameter('id', $book->getId())
-      ->executeQuery()->fetchFirstColumn();
+      ;
     }
+    $result = $qb->executeQuery()->fetchFirstColumn();
     $result[] = "universal";
     
     return $result;

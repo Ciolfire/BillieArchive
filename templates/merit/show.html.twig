@@ -4,7 +4,7 @@
 
 {% block body %}
   <div class="container block py-3">
-    {% include "merit/_item.html.twig" %}
+    {% include "merit/_card.html.twig" %}
     {% if is_granted('ROLE_ST') %}
       <div class="row merit_{{ merit.id }}">
         <div class="col-12 text-center py-2 d-flex justify-content-around">

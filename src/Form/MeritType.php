@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\ContentType;
 use App\Entity\Merit;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
 class MeritType extends AbstractType
@@ -22,7 +26,20 @@ class MeritType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name"])
-      ->add('type', null, ['label' => "type.label", 'required' => false, 'empty_data' => ''])
+      ->add('type', EntityType::class, [
+        'label' => "type.label",
+        'class' => ContentType::class,
+        'choice_label' => function ($choice): string {
+          return 'type.'.$choice->getName();
+        },
+        'choice_translation_domain' => 'app',
+        'query_builder' => function (EntityRepository $er): QueryBuilder {
+          return $er->createQueryBuilder('ct')
+              ->orderBy('ct.name', 'ASC');
+        },
+        'required' => false,
+        'empty_data' => '',
+      ])
       ->add('category', ChoiceType::class, [
         'label' => "category.label",
         'choices' => [

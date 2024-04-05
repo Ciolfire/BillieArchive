@@ -61,11 +61,14 @@ class Merit implements Translatable
   private string $description;
 
   #[ORM\Column(type: Types::STRING, length: 20)]
-  private string $type;
+  private ?string $type2 = "";
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
+
+  #[ORM\ManyToOne(inversedBy: 'merits')]
+  private ?ContentType $type = null;
 
 
   public function __construct()
@@ -205,14 +208,26 @@ class Merit implements Translatable
     return $this;
   }
 
-  public function getType(): ?string
+  public function getType(): ?ContentType
   {
     return $this->type;
   }
 
-  public function setType(string $type): self
+  public function setType(ContentType $type): self
   {
     $this->type = $type;
+
+    return $this;
+  }
+
+  public function getOldType(): string
+  {
+    return $this->type2;
+  }
+
+  public function removeOldType(): self
+  {
+    $this->type2 = "";
 
     return $this;
   }

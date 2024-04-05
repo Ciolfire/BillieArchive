@@ -32,6 +32,14 @@
           <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
             <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
           </a>
+        {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
+          <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
+            <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+          </a>
+        {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
+          <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
+            <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+          </a>
         {% else %}
           <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
         {% endif %}
@@ -52,5 +60,5 @@
       {{ merit.effect|markdown_to_html }}
     </div>
   </div>
+  {% block actions%}{% endblock %}
 </div>
-{% block actions%}{% endblock %}
