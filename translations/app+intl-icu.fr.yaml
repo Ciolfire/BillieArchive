@@ -58,6 +58,7 @@ description:
     label: Résumé
 derangement:
   label: Dérangement
+  new: Nouveau dérangement
   count: >-
     {count, plural,
       =0 {Aucun Dérangement}

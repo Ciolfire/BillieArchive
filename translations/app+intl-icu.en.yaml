@@ -58,9 +58,10 @@ description:
     label: Short description
 derangement:
   label: Derangement
+  new: New derangement
   count: >-
     {count, plural,
-      =0 {Aucun Derangement}
+      =0 {No Derangement}
       =1 {1 Derangement}
       other {# Derangements}
     }
