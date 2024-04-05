@@ -60,9 +60,6 @@ class Merit implements Translatable
   #[ORM\Column(type: Types::TEXT)]
   private string $description;
 
-  #[ORM\Column(type: Types::STRING, length: 20)]
-  private ?string $type2 = "";
-
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
@@ -216,18 +213,6 @@ class Merit implements Translatable
   public function setType(ContentType $type): self
   {
     $this->type = $type;
-
-    return $this;
-  }
-
-  public function getOldType(): string
-  {
-    return $this->type2;
-  }
-
-  public function removeOldType(): self
-  {
-    $this->type2 = "";
 
     return $this;
   }
