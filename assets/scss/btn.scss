@@ -16,6 +16,26 @@
   }
 }
 
+.btn.btn-back {
+  background-color: $btnColor;
+  border-color: $borderColor;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  color: $btnTextColor;
+  font-weight: bold;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow: 0 0 0 0.25rem $main50pColor;
+    color: $textColor;
+    background-color: $btnHover;
+    border: 1px solid $mainDarkColor;
+  }
+}
+
 .btn.btn-warning {
   background-color: $warningColor;
   border-color: $wrongColor;
