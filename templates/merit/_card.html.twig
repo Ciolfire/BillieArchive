@@ -34,7 +34,7 @@
           </a>
         {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
           <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
-            <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+            <span>{{ prerequisite.entity.name }}</span>
           </a>
         {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
           <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
