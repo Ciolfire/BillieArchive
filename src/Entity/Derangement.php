@@ -40,10 +40,13 @@ class Derangement implements Translatable
   private ?self $previousAilment = null;
 
   #[ORM\OneToMany(mappedBy: "previousAilment", targetEntity: self::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $degenerations;
 
   #[ORM\Column]
   private bool $isExtreme = false;
+
+  private string $locale;
 
   public function __construct()
   {
@@ -122,5 +125,12 @@ class Derangement implements Translatable
   public function getDegenerations(): Collection
   {
     return $this->degenerations;
+  }
+
+  public function setTranslatableLocale(string $locale) : self
+  {
+    $this->locale = $locale;
+
+    return $this;
   }
 }

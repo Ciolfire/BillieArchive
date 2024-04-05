@@ -37,7 +37,13 @@ class DerangementType extends AbstractType
         'label' => 'derangement.previous',
         'choice_filter' => function (?Derangement $derangement) {
           return $derangement ? is_null($derangement->getPreviousAilment()) : true;
-        }
+        },
+        'choice_label' => function (?Derangement $derangement) {
+          if ($derangement->getType()) {
+            return "{$derangement->getName()} — {$derangement->getType()}";
+          }
+          return $derangement->getName();
+        },
       ])
       ->add('book', null, ['label' => 'book'])
       ->add('page', null, ['label' => 'page'])

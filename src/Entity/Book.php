@@ -47,7 +47,7 @@ class Book
   private ?string $cover;
 
   #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
-  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $derangements;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
@@ -64,7 +64,7 @@ class Book
   private Collection $disciplines;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'book')]
-  #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
+  #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "ASC"])]
   private Collection $rituals;
 
   #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'book')]
