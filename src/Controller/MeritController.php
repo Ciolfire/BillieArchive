@@ -74,16 +74,6 @@ class MeritController extends AbstractController
     }
     /** @var Merit $merit */
     foreach ($merits as $merit) {
-      $oldType = $merit->getOldType();
-      if ($oldType != "") {
-        $newType = $this->dataService->findOneBy(ContentType::class, ['name' => $oldType]);
-        $merit->setType($newType);
-        $merit->removeOldType();
-        // dd($oldType, $newType, $merit);
-      }
-      if (isset($newType)) {
-        $this->dataService->flush();
-      }
       $this->dataService->loadPrerequisites($merit);
     }
 
