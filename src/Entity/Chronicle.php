@@ -178,6 +178,23 @@ class Chronicle
   /**
    * @return array<Character>
    */
+  public function getPlayerCharacters(): array
+  {
+    $playerCharacters = [];
+    foreach ($this->characters as $character) {
+      /** @var Character $character */
+      if ($character->isNpc() == false) {
+        $playerCharacters[] = $character;
+      }
+    }
+
+    return $playerCharacters;
+  }
+
+
+  /**
+   * @return array<Character>
+   */
   public function getNpc(): array
   {
     $npc = [];

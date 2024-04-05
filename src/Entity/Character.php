@@ -138,6 +138,12 @@ class Character
   #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class)]
   private Collection $lesserTemplates;
 
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterInfo::class, orphanRemoval: true, cascade: ['persist'])]
+  private Collection $infos;
+
+  #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList')]
+  private Collection $access;
+
   public function __construct()
   {
     $this->setAttributes(new CharacterAttributes());
@@ -150,11 +156,18 @@ class Character
     $this->societies = new ArrayCollection();
     $this->derangements = new ArrayCollection();
     $this->lesserTemplates = new ArrayCollection();
+    $this->infos = new ArrayCollection();
+    $this->access = new ArrayCollection();
   }
 
   public function __toString()
   {
     return $this->getName();
+  }
+
+  public function getAvatar(): string
+  {
+    return "".$this->getId();
   }
 
   /**
@@ -1165,5 +1178,62 @@ class Character
     }
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterInfo>
+   */
+  public function getInfos(): Collection
+  {
+      return $this->infos;
+  }
+
+  public function addInfo(CharacterInfo $info): static
+  {
+      if (!$this->infos->contains($info)) {
+          $this->infos->add($info);
+          $info->setCharacter($this);
+      }
+
+      return $this;
+  }
+
+  public function removeInfo(CharacterInfo $info): static
+  {
+      if ($this->infos->removeElement($info)) {
+          // set the owning side to null (unless already changed)
+          if ($info->getCharacter() === $this) {
+              $info->setCharacter(null);
+          }
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterInfo>
+   */
+  public function getAccess(): Collection
+  {
+      return $this->access;
+  }
+
+  public function addAccess(CharacterInfo $access): static
+  {
+      if (!$this->access->contains($access)) {
+          $this->access->add($access);
+          $access->addAccessList($this);
+      }
+
+      return $this;
+  }
+
+  public function removeAccess(CharacterInfo $access): static
+  {
+      if ($this->access->removeElement($access)) {
+          $access->removeAccessList($this);
+      }
+
+      return $this;
   }
 }

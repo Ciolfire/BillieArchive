@@ -20,7 +20,7 @@
         {% block specialTab %}{% endblock %}
         {# {% include "_tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
         {# {% include "_tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %} #}
-        {% include "_tab.html.twig" with {'name': 'infos', 'domain': 'character'} only %}
+        {% include "_tab.html.twig" with {'name': 'details', 'domain': 'character'} only %}
         {% if app.user == character.player %}
           {% include "_tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
         {% endif %}
@@ -59,7 +59,7 @@
       <div id="inventory" class="tab-content" data-tabs-target="page">
         {% include "character_sheet/show/inventory.html.twig" %}
       </div>
-      <div id="infos" class="tab-content p-0" data-tabs-target="page">
+      <div id="details" class="tab-content p-0" data-tabs-target="page">
         {% include "character_sheet/show/infos.html.twig" %}
       </div>
       {% if app.user == character.player %}

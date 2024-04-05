@@ -4,7 +4,7 @@
 <div class="row block p-2 pb-4">
   {% block name %}
     <h1 class="text-center text">
-      {{ character.name }} 
+      {{ character.name }}
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% elseif character.isPremade == true %}

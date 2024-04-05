@@ -15,6 +15,7 @@ use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Roll;
 use App\Entity\Vampire;
+use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
 use App\Form\VampireType;
@@ -310,6 +311,7 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      // Need to check for the path
       $path = $this->getParameter('characters_directory');
       if (is_string($path)) {
         $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $path);
@@ -432,6 +434,23 @@ class CharacterController extends AbstractController
       'character' => $character,
       'form' => $form,
       'type' => $type,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/info_access', name: 'character_infos_access', methods: ['GET', 'POST'])]
+  public function access(Request $request, Character $character): Response
+  {
+    $form = $this->createForm(CharacterInfoAccessType::class, $character, ['path' => $this->getParameter('characters_direct_directory')]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+    return $this->render('character_sheet/access/edit.html.twig', [
+      'character' => $character,
+      'form' => $form,
     ]);
   }
 

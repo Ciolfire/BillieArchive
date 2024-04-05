@@ -16,6 +16,7 @@ luckThrow: Luck
 
 all: All
 creation: Creation only
+details: Details
 folder: Folder
 premade: Premade
 hide: Hide

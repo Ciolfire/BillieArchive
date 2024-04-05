@@ -19,6 +19,7 @@ full: Plein
 
 all: Tous
 creation: Création uniquement
+details: Détails
 folder: Dossier
 premade: Prétiré
 hide: Cacher

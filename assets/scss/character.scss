@@ -217,6 +217,16 @@ $avatar-size: 200px * (1 + 0.05 * 2);
   }
 }
 
+.info-card {
+  background-color: $lightBlockColor;
+  .card-header, .card-footer {
+    background-color: $tabColor;
+  }
+  .card-body {
+    background-color: $lightBlock30pColor;
+  }
+}
+
 .morality-derangement {
   border-bottom: 1px solid $backAccentColor;
 }

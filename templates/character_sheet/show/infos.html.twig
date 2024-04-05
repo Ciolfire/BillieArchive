@@ -5,23 +5,26 @@
     {% include "_tab.html.twig" with {'name': 'picture', 'domain': 'character'} only %}
     {% include "_tab.html.twig" with {'name': 'description', 'domain': 'character'} only %}
     {% include "_tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
+    {% include "_tab.html.twig" with {'name': 'informations', 'domain': 'character'} only %}
   </ul>
   <div class="block position-relative overflow-y-hidden">
     <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     <div id="picture" class="tab-content d-flex justify-content-center" data-tabs-target="page">
       <img class="vh-50" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     </div>
-    <div id="description" class="tab-content row justify-content-center" data-tabs-target="page">
-      <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'description'}) }}">
-        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
-        {{ "infos.description"|trans }}
-      </a>
-      <div class="col-6">
-        {% if character.description != "" %}
-          {{ character.description|markdown_to_html }}
-        {% else %}
-          <p>{{ "infos.none"|trans }}</p>
-        {% endif %}
+    <div id="description" class="tab-content" data-tabs-target="page">
+      <div class="row justify-content-center">
+        <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'description'}) }}">
+          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+          {{ "infos.description"|trans }}
+        </a>
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+          {% if character.description != "" %}
+            {{ character.description|markdown_to_html }}
+          {% else %}
+            <p>{{ "infos.none"|trans }}</p>
+          {% endif %}
+        </div>
       </div>
     </div>
     <div id="background" class="tab-content" data-tabs-target="page">
@@ -31,6 +34,33 @@
       </a>
       {% if character.background != "" %}
         {{ character.background|markdown_to_html }}
+      {% else %}
+        <p>{{ "infos.none"|trans }}</p>
+      {% endif %}
+    </div>
+    <div id="informations" class="tab-content" data-tabs-target="page">
+      <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_access', {'id': character.id}) }}">
+        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+        {{ "infos.details.edit"|trans }}
+      </a>
+      {% if character.infos is not empty %}
+        <div class="row">
+        {% for info in character.infos %}
+          <div class="col-12 col-md-6 pt-2">
+            <div class="card info-card">
+              <div class="card-header"><h4 class="text-center text">{{ info.title }}</h4></div>
+              <div class="card-body">{{ info.data|markdown_to_html }}</div>
+              <div class="card-footer">
+                {% for character in info.accessList %}
+                  {# {{ character.name }} #}
+                  <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+        {# {{ character.infos|markdown_to_html }} #}
       {% else %}
         <p>{{ "infos.none"|trans }}</p>
       {% endif %}

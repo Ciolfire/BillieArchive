@@ -82,7 +82,8 @@ tab:
   description: Description
   general: General
   human: Human
-  infos: Infos
+  details: Details
+  informations: Informations
   inventory: Possessions
   merits: Merits
   notes: Notes
@@ -222,7 +223,15 @@ power: >-
 infos:
   background: Background
   description: Description
+  details:
+    accessList: Share
+    add: Add information
+    data: Text
+    edit: Edit informations
+    title: Title
   none: No information provided
+
+
 notes:
   edit: Edit notes
   label: Notes
