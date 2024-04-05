@@ -85,6 +85,9 @@ footer.footer {
   &-dark {
     background-color: $blockColor;
   }
+  &-neutral {
+    background-color: #151515eb;
+  }
 }
 
 .bdr {
@@ -154,7 +157,9 @@ blockquote {
   font-family     : $textFont;
   font-size       : 1.2rem;
   background-color: $darkBlockColor;
-  color           : $textBrightColor;
+  &-bright {
+    color           : $textBrightColor;
+  }
   padding         : 0.5rem;
   border-radius   : 0.5em;
 
