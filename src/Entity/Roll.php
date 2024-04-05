@@ -10,12 +10,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RollRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\RollTranslation")]
-class Roll
+class Roll implements Translatable
 {
   public const Type = [
     0 => 'roll.action.instant',
@@ -57,6 +58,8 @@ class Roll
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
+
+  private string $locale;
 
   public function __construct()
   {
