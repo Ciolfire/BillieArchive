@@ -24,9 +24,8 @@ class RegistrationController extends AbstractController
     $this->emailVerifier = $emailVerifier;
   }
 
-  /**
-   * @Route("/{_locale<%supported_locales%>?%default_locale%}/register", name="app_register")
-   */
+
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/register', name: 'app_register')]
   public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
   {
     $user = new User();
@@ -65,9 +64,7 @@ class RegistrationController extends AbstractController
     ]);
   }
 
-  /**
-   * @Route("/{_locale<%supported_locales%>?%default_locale%}/verify/email", name="app_verify_email")
-   */
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/email', name: 'app_verify_email')]
   public function verifyUserEmail(Request $request): Response
   {
     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
