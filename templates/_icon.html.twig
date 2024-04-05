@@ -40,6 +40,10 @@
     <i class="fa-solid fa-eye"></i>
   {% elseif icon == 'open-tab' %}
     {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
+  {% elseif icon == 'password' %}
+    {{ source('@icons/' ~ 'key.svg') }}
+  {% elseif icon == 'user' %}
+    {{ source('@icons/' ~ 'bust.svg') }}
   {% elseif icon == 'users' %}
     <i class="fa-solid fa-users-rectangle"></i>
   {% elseif icon == 'gm' or icon == 'ROLE_GM' %}

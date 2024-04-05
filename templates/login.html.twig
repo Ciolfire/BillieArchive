@@ -10,25 +10,24 @@
         {% if error %}
           <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-        <h1>
+        <h1 class="user-select-none">
           <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" />
             Billie's Archive
           <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" />
         </h1>
-        <h2>{{ "login"|trans }}</h2>
-        
+
         <form action="{{ path('login') }}" method="post">
-          <div class="mb-3 row">
-            <label class="col-form-label col-sm-auto required" for="username">{{ "username"|trans }}</label>
-            <div class="col-sm">
+          <div class="mb-1 row">
+            <label class="col-form-label col-xs-auto required user-select-none" for="username">{% include "_icon.html.twig" with {'icon': 'user', 'hasTips': 0} %}</label>
+            <div class="col-xs">
               <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-form-label col-sm-auto required" for="password">{{ "password"|trans }}</label>
-            <div class="col-sm">
+            <label class="col-form-label col-xs-auto required user-select-none" for="password">{% include "_icon.html.twig" with {'icon': 'password', 'hasTips': 0} %}</label>
+            <div class="col-xs">
               <input type="password" id="password" name="_password" class="form-control"/>
-              <label class="form-check form-switch"><input class="form-check-input" type="checkbox" name="_remember_me"/>{{ "remember"|trans }}</label>
+              <label class="form-check form-switch text-start user-select-none"><input class="form-check-input" type="checkbox" name="_remember_me"/>{{ "remember"|trans }}</label>
             </div>
           </div>
           <div class="mb-3 row">
