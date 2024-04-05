@@ -3,24 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Chronicle;
-use App\Entity\Note;
-use App\Entity\NoteCategory;
 use App\Entity\Society;
-use App\Entity\User;
-use App\Form\ChronicleType;
-use App\Form\NoteCategoryType;
 use App\Form\SocietyType;
-use App\Repository\UserRepository;
-use App\Service\CharacterService;
 use App\Service\DataService;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route("/{_locale<%supported_locales%>?%default_locale%}/society/")]
 class SocietyController extends AbstractController
@@ -136,7 +125,7 @@ class SocietyController extends AbstractController
   #[Route("{id<\d+>}/add/character", name: "society_add_character", methods: ["GET", "POST"])]
   public function characterAdd(Request $request, Society $society) : Response
   {
-    $form = $this->createForm(SocietyType::class, $society, ['add_character' => true]);
+    $form = $this->createForm(SocietyType::class, $society, ['add_character' => true, 'path' => $this->getParameter('characters_direct_directory')]);
     
     $form->handleRequest($request);
     

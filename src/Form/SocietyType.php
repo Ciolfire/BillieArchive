@@ -18,6 +18,7 @@ class SocietyType extends AbstractType
     if ($options['add_character']) {
       /** @var Society $society */
       $society = $options['data'];
+      $path = $options['path'];
       $builder
         ->add('characters', null, [
           'expanded' => true,
@@ -26,7 +27,11 @@ class SocietyType extends AbstractType
           'query_builder' => function (EntityRepository $er) use ($society) {
             return $er->createQueryBuilder('c')->where('c.chronicle = ?1')->orderBy('c.firstName', 'ASC')->setParameter('1', $society->getChronicle()->getId());
           },
-          ])
+          'choice_label' => function ($choice, string $key, mixed $value) use ($path): string {
+            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getId()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
+          },
+          'label_html' => true,
+        ])
       ;
     } else {
       $builder
@@ -59,6 +64,7 @@ class SocietyType extends AbstractType
     $resolver->setDefaults([
       'data_class' => Society::class,
       'translation_domain' => 'app',
+      'path' => null,
       'add_character' => false,
     ]);
   }
