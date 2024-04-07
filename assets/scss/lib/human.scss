@@ -2,7 +2,7 @@ $fonts: "../../fonts";
 
 $pageColor         : rgb(37, 37, 37);
 $footerColor       : #131828db;
-$blockColor        : #1a2139f5; //#131828db;
+$blockColor        : #1a1b24cc;//#1a2139f5; //#131828db;
 $blockNeutralColor : #151515eb;
 $darkBlockColor    : #0b0b0b85;
 $lightBlockColor   : #FFFFFF80;
@@ -52,12 +52,12 @@ $outlineColor       : $main30pColor;
 $mainFont           : "goudy";
 $h1Font             : "escalidogothico"; //"PlasticMan";
 $h2Font             : "escalidogothico"; //"PlasticMan";
-$h3Font             : "escalidogothico";
-$h4Font             : "escalidogothico";
-$h5Font             : "escalidogothico";
+$h3Font             : "goudy";
+$h4Font             : "goudy";
+$h5Font             : "goudy";
 $textFont           : "goudy";
 $subTextFont        : "goudy";
-$labelFont          : "escalidogothico";
+$labelFont          : "goudy";
 $inputFont          : "goudy";
 
 @font-face {

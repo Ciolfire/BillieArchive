@@ -27,6 +27,25 @@ input[type=number] {
   border: none;
 }
 
+.form-check {
+  input {
+    border-color: $btnBorderColor;
+    background-color: $main50pColor;
+    height: 2em;
+    width: 2em;
+    &:checked {
+      background-color: $btnActiveColor;
+      border-color: $btnBorderColor;
+    }
+  }
+  label {
+    height: 2em;
+    line-height: 2em;
+    padding-left: 0.5em;
+    margin-top: 0.25em;
+  }
+}
+
 .form-choice-width {
   width: 150px;
 }

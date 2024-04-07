@@ -9,6 +9,7 @@
 .character {
   &-background-avatar {
     filter: grayscale(100%);
+    opacity: 60%;
   }
   &-card {
     &-name {

@@ -14,18 +14,23 @@
       background-color: $tabColor;
       color           : $subtextColor;
       border-color    : $borderColor;
-      border-width    : 0 0 1px 0;
+      border-width    : 0 1px 1px 0;
       border-radius   : 0%;
       border-style    : solid;
 
       &.active,
-      &:active,
-      &:focus,
+      &:focus ,
       &:hover {
         color           : $titleColor;
         background-color: transparent;
-        border-color    : $borderColor;
-        border-width    : 1px 1px 0 1px;
+        border          : 1px solid $borderColor;
+        border-bottom-color: transparent;
+        &:not(.active) {
+          color           : $titleColor;
+          background-color: $darkBlockColor;
+          border-color    : $borderColor;
+          border-width    : 1px;
+        }
       }
 
       .active {
