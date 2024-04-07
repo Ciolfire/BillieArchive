@@ -28,7 +28,7 @@ class CharacterService
     $this->vampireService = $vampireService;
   }
 
-  public function editCharacter(Character $character, array $extraData)
+  public function editCharacter(Character $character, array $extraData): int
   {
     if (is_null($character->getLookAge()) && !is_null($character->getAge())) {
       $character->setLookAge($character->getAge());
@@ -57,13 +57,17 @@ class CharacterService
         break;
     }
     if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
+      $xp = (int)$extraData['xp']['spend'];
       $character->spendXp((int)$extraData['xp']['spend']);
       $isFree = false;
     } else {
       $isFree = true;
+      $xp = 0;
     }
     $this->updateLogs($character, $extraData['xpLogs'], $isFree);
     $this->dataService->flush();
+
+    return $xp;
   }
 
   public function sortCharacters(Character ...$characters)

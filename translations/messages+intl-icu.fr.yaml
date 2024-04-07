@@ -1,0 +1,35 @@
+notice: Message
+success: Succès
+error: Erreur
+warning: Attention
+
+character:
+  delete:
+    success: "The character {name} was successfully deleted."
+  edit:
+    denied:
+    success: >-
+      {count, plural,
+        =0 {Your changes have been saved.}
+        other {Your changes have been saved, # experience points used.}
+      }
+  morality:
+    increase: "{name} gained Morality."
+    decrease: "{name} lost Morality."
+  peek:
+    declined: "You are not allowed to look at this character."
+    unavailable: "This character is not part of a story."
+    self: "This is yours, redirected to the character sheet."
+  template.lesser:
+    add: >-
+      {type, select,
+          ghoul {{name} is now a Ghoul.}
+          other {{name} is now a(n) {type}.}
+      }
+    remove: >-
+      {type, select,
+          ghoul {{name} is no longer a Ghoul.}
+          other {{name} is no longer a(n) {type}.}
+      }
+    deactivated: "{name} is no longer a(n) {old}."
+    same: "{name} is already a(n) {type}, no change."

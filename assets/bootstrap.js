@@ -2,9 +2,9 @@ import { startStimulusApp } from '@symfony/stimulus-bridge';
 
 // Registers Stimulus controllers from controllers.json and in the controllers/ directory
 export const app = startStimulusApp(require.context(
-    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
-    true,
-    /\.(j|t)sx?$/
+  '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
+  true,
+  /\.(j|t)sx?$/
 ));
 
 // register any custom, 3rd party controllers here
@@ -19,10 +19,11 @@ import '@fortawesome/fontawesome-free/js/all.js';
 var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
 
-// const toastElList = document.querySelectorAll('.toast')
-// const toastList = [...toastElList].map(toastEl => new Toast(toastEl))
+// Activate toasts
+const toastElList = document.querySelectorAll('.toast')
+const toastList = [...toastElList].map(toastEl => new Toast(toastEl))
 
-// toastElList.forEach(toast => {
-//   const toastBootstrap = Toast.getOrCreateInstance(toast);
-//   toastBootstrap.show();
-// });
+toastElList.forEach(toast => {
+  const toastBootstrap = Toast.getOrCreateInstance(toast);
+  toastBootstrap.show();
+});

@@ -23,11 +23,26 @@
     {% if app.user %}
       {% include "header.html.twig" %}
     {% endif %}
-    {% for message in app.flashes('notice') %}
-      <div class="flash-notice mt-5">
-        {{ message }}
-      </div>
-    {% endfor %}
+    <div class="toast-container top-0 end-0 p-3">
+      {% for label, messages in app.flashes(['notice', 'success','warning', 'error']) %}
+        {% for message in messages %}
+          <div class="toast toast-{{ label }}" role="alert" aria-live="assertive" aria-atomic="true" {#data-bs-autohide="false"#}>
+            <div class="toast-header">
+              <img src={{ asset('rabbit_move.gif', 'images') }} height="20" class="rounded me-2" alt="...">
+              <strong class="me-auto">{{ label|trans }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              {% if message is iterable %}
+                {{ message[0]|trans(message[1]) }}
+              {% else %}
+                {{ message|trans }}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
     {% block body %}{% endblock %}
     {% if footer|default(false) == true %}
       {% block footer %}

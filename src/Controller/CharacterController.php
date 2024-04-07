@@ -245,7 +245,7 @@ class CharacterController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $character);
 
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-      $this->addFlash('notice', 'You are not allowed to see this character');
+      $this->addFlash('notice', 'character.edit.denied');
       return $this->redirectToRoute('character_index');
     }
 
@@ -261,8 +261,9 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->service->editCharacter($character, $form->getExtraData());
+      $spent = $this->service->editCharacter($character, $form->getExtraData());
 
+      $this->addFlash('success', ["character.edit.success", ['%count%' => $spent]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
@@ -285,6 +286,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('delete', $character);
     // if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
+      $this->addFlash('success', ["character.delete.success", ['%name%' => $character->getName()]]);
     $this->dataService->remove($character);
     // }
 
@@ -294,18 +296,22 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET', 'POST'])]
   public function peek(Character $character): Response
   {
-    $peeker = $character->getChronicle()->getCharacter($this->getUser());
-    if ($peeker === $character) {
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
-    }
-    $access = $peeker->getSpecificPeekingRights($character);
-
-    if (is_null($access)) {
-      $this->addFlash('notice', 'You are not allowed to see this character');
+    if (is_null($character->getChronicle())) {
+      $this->addFlash('warning', 'character.peek.unavailable');
 
       return $this->redirectToRoute('character_index');
     }
+    $peeker = $character->getChronicle()->getCharacter($this->getUser());
+    if ($peeker === $character) {
+
+      $this->addFlash('notice', 'character.peek.self');
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character))) {
+      
+      $this->addFlash('notice', 'character.peek.declined');
+      return $this->redirectToRoute('index');
+    }
+    $access = $peeker->getSpecificPeekingRights($character);
 
     return $this->render('character_sheet/' . $character->getType() . '/peek.html.twig', [
       'peeker' => $peeker,
@@ -363,12 +369,20 @@ class CharacterController extends AbstractController
       if (!is_null($oldTemplate)) {
         if ($oldTemplate->getType() == $form->getData()['template']) {
           // No change in template, shouldn't happen, return
+          $this->addFlash('error', 'character.template.lesser.same', [
+            'name' => $character->getName(),
+            'type' => $oldTemplate->getType(),
+          ]);
           return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
         }
         // We deactivate the old template
         $oldTemplate->setIsActive(false);
+        $this->addFlash('notice', 'character.template.lesser.deactivated', [
+          'name' => $character->getName(),
+          'old' => $oldTemplate->getType(),
+        ]);
       }
-      
+
       return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character/lesser/add.html.twig', [
@@ -380,9 +394,11 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/lesser/remove', name: 'character_lesser_remove', methods: ['GET'])]
   public function removeLesserTemplate(Character $character): Response
   {
+    $type = $character->getLesserTemplate()->getType();
     $character->getLesserTemplate()->setIsActive(false);
     $this->dataService->save($character);
 
+    $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
@@ -391,6 +407,7 @@ class CharacterController extends AbstractController
   {
     $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
 
+    $this->addFlash('notice', ["character.morality.increase", ['name' => $character]]);
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
@@ -399,6 +416,7 @@ class CharacterController extends AbstractController
   {
     $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
 
+    $this->addFlash('notice', ["character.morality.decrease", ['name' => $character]]);
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 

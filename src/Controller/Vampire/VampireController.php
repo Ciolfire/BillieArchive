@@ -90,6 +90,7 @@ class VampireController extends AbstractController
     // if ($form->isSubmitted() && $form->isValid()) {
       // if ($this->)
       $this->service->ghoulify($character);
+      $this->addFlash('success', ["character.template.lesser.add", ['name' => $character, 'type' => $character->getLesserTemplate()->getType()]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     // }
     // return $this->render('character_sheet/vampire/embrace/sheet.html.twig', [
