@@ -7,7 +7,7 @@
 
 <div class="col-12 col-md-6">
   <div class="block user-select-none p-2">
-    <h4 class="text-center pt-1">
+    <h4 class="pt-1">
       {% include "_icon.html.twig" with {'icon': 'clan', 'hasTips': 0} %}
       {{ 'clan.weakness'|trans }}
       {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}
@@ -16,7 +16,7 @@
       {{ clan.weakness|markdown_to_html }}
     </div>
     {% if bloodline is defined %}
-      <h4 class="text-center pt-1 bdr-t">
+      <h4 class="pt-1 bdr-t">
         {% include "_icon.html.twig" with {'icon': 'bloodline', 'hasTips': 0} %}
         {{ 'clan.bloodline.weakness'|trans }}
         {% include "_icon.html.twig" with {'icon': 'weakness', 'hasTips': 0} %}

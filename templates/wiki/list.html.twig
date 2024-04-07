@@ -15,8 +15,8 @@
 
 {% block body %}
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
-  <div class="container">
-    <div class="row block py-3">
+  <div class="container block-neutral">
+    <div class="row py-3">
       <h1>{% include "_icon.html.twig" with {'icon': entity, 'hasTips': 0, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ setting)|trans }}</h1>
       <div class="col-auto">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
@@ -60,7 +60,7 @@
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search|default(null) %}
-      <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
+      <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}

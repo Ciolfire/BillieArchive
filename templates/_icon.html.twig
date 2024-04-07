@@ -37,7 +37,8 @@
   {% elseif icon == 'create' or icon == 'new' %}
     {{ source('@icons/' ~ 'save.svg') }}
   {% elseif icon == 'show' or icon == 'view' %}
-    <i class="fa-solid fa-eye"></i>
+    {{ source('@icons/' ~ 'magnifying-glass.svg') }}
+    {# <i class="fa-solid fa-eye"></i> #}
   {% elseif icon == 'open-tab' %}
     {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
   {% elseif icon == 'password' %}

@@ -81,9 +81,9 @@
   <div class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search %}
       {% if key != 'clan' %}
-        <h5 class="text-center pe-none">{{ (key ~ ".label")|trans }}</h5>
+        <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% else %}
-        <h5 class="text-center pe-none">{{ ('ghoul.family.clan.label')|trans }}</h5>
+        <h5 class="pe-none">{{ ('ghoul.family.clan.label')|trans }}</h5>
       {% endif %}
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-parent data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
