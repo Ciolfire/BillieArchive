@@ -301,6 +301,12 @@ class CharacterController extends AbstractController
     }
     $access = $peeker->getSpecificPeekingRights($character);
 
+    if (is_null($access)) {
+      $this->addFlash('notice', 'You are not allowed to see this character');
+
+      return $this->redirectToRoute('character_index');
+    }
+
     return $this->render('character_sheet/' . $character->getType() . '/peek.html.twig', [
       'peeker' => $peeker,
       'access' => $access,
