@@ -14,7 +14,7 @@
     </div>
     <div id="description" class="tab-content" data-tabs-target="page">
       <div class="row justify-content-center">
-        <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'description'}) }}">
+        <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'description'}) }}">
           {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
           {{ "infos.description"|trans }}
         </a>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div id="background" class="tab-content" data-tabs-target="page">
-      <a class="d-block text-end" href="{{ path('character_infos_edit', {'id': character.id, 'type': 'background'}) }}">
+      <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'background'}) }}">
         {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
         {{ "infos.background"|trans }}
       </a>
@@ -39,7 +39,29 @@
       {% endif %}
     </div>
     <div id="informations" class="tab-content" data-tabs-target="page">
-      <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_access', {'id': character.id}) }}">
+      <h3 class="text-light">{{ "infos.access.standard"|trans }}</h3>
+      <a class="btn btn-primary w-100 mb-2" href="{{ path('character_access_add', {'id': character.id}) }}">
+        {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+        {{ "infos.access.add"|trans }}
+      </a>
+      {% for access in character.characterAccesses %}
+        <div class="row my-2">
+          <a class="btn btn-primary" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
+            <div class="col-12 justify-content-center">
+              <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+            </div>
+            <div class="col">
+              {% for right in access.rights %}
+                {% if right != access.rights|first %} | {% endif %}
+                {{ ('right.' ~ right)|trans }}
+              {% endfor %}
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+      <hr>
+      <h3 class="text-light">{{ "infos.access.other"|trans }}</h3>
+      <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_edit', {'id': character.id}) }}">
         {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
         {{ "infos.details.edit"|trans }}
       </a>
@@ -48,11 +70,10 @@
         {% for info in character.infos %}
           <div class="col-12 col-md-6 pt-2">
             <div class="card info-card">
-              <div class="card-header"><h4 class="text-center text">{{ info.title }}</h4></div>
+              <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
               <div class="card-body">{{ info.data|markdown_to_html }}</div>
               <div class="card-footer">
                 {% for character in info.accessList %}
-                  {# {{ character.name }} #}
                   <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
                 {% endfor %}
               </div>
@@ -60,7 +81,6 @@
           </div>
         {% endfor %}
         </div>
-        {# {{ character.infos|markdown_to_html }} #}
       {% else %}
         <p>{{ "infos.none"|trans }}</p>
       {% endif %}

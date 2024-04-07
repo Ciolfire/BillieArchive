@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}{{ "peek.label"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="block"><h1>{{ peeker }}'s informations on this character</h1></div>
+  <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}">
+    {% block menu %}
+      {# Maybe show menu to switch between available peek characters #}
+    {% endblock %}
+    {% block header %}
+      {% include "character_sheet/peek/header.html.twig" %}
+    {% endblock %}
+    <div class="row block">
+      {% if access.hasRight('avatar')|default(false) %}
+        <div class="col-12 p-2">
+          <div id="collapseAvatar" class="collapse">
+            <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+          </div>
+          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture', 'hasTips': 0} %}</button>
+        </div>
+      {% endif %}
+      {% if access.hasRight('description')|default(false) %}
+      <div class="col-12 col-md-6 py-2">
+        <div class="card info-card">
+          <div class="card-header">
+            <h3 class="text text-light">
+              {% include "_icon.html.twig" with {'icon': 'description', 'hasTips': 0, 'class': 'icon-lg'} %}
+              {{ "infos.description"|trans }}
+            </h3>
+          </div>
+          <div class="card-body">
+            {% if character.description != "" %}
+              {{ character.description|markdown_to_html }}
+            {% else %}
+              <p>{{ "infos.none"|trans }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if access.hasRight('background')|default(false) %}
+      <div class="col-12 col-md-6 py-2">
+        <div class="card info-card">
+          <div class="card-header">
+            <h3 class="text text-light">
+              {% include "_icon.html.twig" with {'icon': 'background', 'hasTips': 0, 'class': 'icon-lg'} %}
+              {{ "infos.background"|trans }}
+            </h3>
+          </div>
+          <div class="card-body">
+            {% if character.background != "" %}
+              {{ character.background|markdown_to_html }}
+            {% else %}
+              <p>{{ "infos.none"|trans }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <div class="col-12 py-2">
+      <hr>
+      <h2 class="text text-light pt-2">
+        {% include "_icon.html.twig" with {'icon': 'informations', 'hasTips': 0, 'class': 'icon-lg'} %}
+        {{ "infos.details.label"|trans }}
+      </h2>
+      <div class="row">
+        {% for info in character.infos %}
+          {% if info.hasAccess(peeker) %}
+            <div class="col-12 col-md-6 pt-2">
+              <div class="card info-card">
+                <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
+                <div class="card-body">{{ info.data|markdown_to_html }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}

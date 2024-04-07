@@ -165,7 +165,7 @@ class Chronicle
 
   public function getCharacter(User $user): ?Character
   {
-    foreach ($this->characters as $character) {
+    foreach ($this->getPlayerCharacters() as $character) {
       /** @var Character $character */
       if ($character->getPlayer() == $user) {
         return $character;

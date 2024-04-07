@@ -1,0 +1,103 @@
+{% trans_default_domain 'character' %}
+
+{% block header %}
+<div class="row block p-2 pb-4">
+  {% block name %}
+    <h1 class="text-center text">
+    {% if access is null or (not access.hasRight('firstname') and not access.hasRight('nickname') and not access.hasRight('lastname')) %}
+      {{ "name.unknown"|trans }}
+    {% endif %}
+    {% if access.hasRight('firstname')|default(false) %}
+      {{ character.firstname }}
+    {% endif %}
+    {% if access.hasRight('nickname')|default(false) %}
+      “{{ character.nickname }}”
+    {% endif %}
+    {% if access.hasRight('lastname')|default(false) %}
+      {{ character.lastname }}
+    {% endif %}
+      {% if character.player is not null and app.user != character.player %}
+        ({{ character.player }})
+      {% endif %}
+    </h1>
+  {% endblock %}
+  <div class="order-2 order-md-1 col-6 col-md text-center">
+    {% block leftCol %}
+      <div class="row">
+        <div class="col-12">
+          {% block age %}
+            {% if access.hasRight('description')|default(false) %}
+              {% if character.lookAge is defined and character.lookAge != character.age %}
+                {% if access.hasRight('age')|default(false) %}
+                  {{ "age.normal"|trans({"%age%": character.age|default(0)}, 'character') }}
+                {% endif %}
+                ({{ "age.looks.value"|trans({"%looks%": character.lookAge}, 'character') }})
+              {% endif %}
+              {% elseif access.hasRight('age')|default(false) and character.age is defined %}
+                {# ({{ "age.looks.value"|trans({"%looks%": character.age}, 'character') }}) #}
+                {{ "age.normal"|trans({"%age%": character.age}, 'character') }}
+              {% else %}
+                {{ "age.normal"|trans({"%age%": 0}, 'character') }}
+              {% endif %}
+          {% endblock %}
+        </div>
+        {% block virtue %}
+          <div class="col-12">
+            {% include "_icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
+            {% if access.hasRight('virtue')|default(false) %}
+              {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+            {% else %}
+              {{ "virtue.unknown"|trans }}
+            {% endif %}
+          </div>
+        {% endblock %}
+        {% block vice %}
+          <div class="col-12">
+            {% include "_icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
+            {% if access.hasRight('vice')|default(false) %}
+              {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+            {% else %}
+              {{ "vice.unknown"|trans }}
+            {% endif %}
+          </div>
+        {% endblock %}
+      </div>
+    {% endblock %}
+  </div>
+  {% block midCol %}
+    <div class="order-1 order-md-2 col-12 col-md">
+      <div class="row text-center">
+        <div class="col-12">
+          {{ "Chronicle"|trans }}: {{ character.chronicle }}
+        </div>
+        {% block details %}{% endblock %}
+        <div class="col-12 d-flex my-2">
+          <div role="button" class="character-frame character-frame-avatar position-relative">
+            {% if access.hasRight('avatar')|default(false) %}
+              <img class="p-1" src="{{ asset(character.id , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+            {% else %}
+              <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="100">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+  {% block right %}
+    <div class="order-3 order-md-3 col-6 col-md text-center">
+      <div class="row">
+        <div class="col-12">
+          {% if access.hasRight('faction')|default(false) %}
+            {{ "faction"|trans }}: {{ character.faction }}
+          {% endif %}
+        </div>
+        <div class="col-12">
+          {% if access.hasRight('group')|default(false) %}
+            {{ "group"|trans }}: {{ character.groupName }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+</div>
+{% endblock %}

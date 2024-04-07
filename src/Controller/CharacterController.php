@@ -6,15 +6,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Character;
-use App\Entity\CharacterDerangement;
-use App\Entity\CharacterLesserTemplate;
-use App\Entity\CharacterMerit;
+use App\Entity\CharacterAccess;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Roll;
-use App\Entity\Vampire;
+use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
@@ -23,11 +21,9 @@ use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
 use App\Service\DataService;
-use App\Service\VampireService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -213,8 +209,10 @@ class CharacterController extends AbstractController
   public function show(Character $character): Response
   {
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-      $this->addFlash('notice', 'You are not allowed to see this character');
-      return $this->redirectToRoute('character_index');
+      // TODO => SHOULD ADD A CHECK FOR WHEN THE PLAYER HAS NO CHARACTER IN THE CHRONICLE FOR TOTAL DENIAL OF ACCESS
+      // $this->addFlash('notice', 'You are not allowed to see this character');
+      // return $this->redirectToRoute('character_index');
+      return $this->redirectToRoute('character_peek', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
     $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
@@ -291,6 +289,24 @@ class CharacterController extends AbstractController
     // }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET', 'POST'])]
+  public function peek(Character $character): Response
+  {
+    $peeker = $character->getChronicle()->getCharacter($this->getUser());
+    if ($peeker === $character) {
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+    $access = $peeker->getSpecificPeekingRights($character);
+
+    return $this->render('character_sheet/' . $character->getType() . '/peek.html.twig', [
+      'peeker' => $peeker,
+      'access' => $access,
+      'character' => $character,
+      'setting' => $character->getSetting()
+    ]);
   }
 
   #[Route('/{id<\d+>}/duplicate', name: 'character_duplicate', methods: ['GET', 'POST'])]
@@ -398,8 +414,47 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('/{id<\d+>}/infos/{type}', name: 'character_infos_edit', methods: ['GET', 'POST'])]
-  public function infosEdit(Request $request, Character $character, string $type): Response
+  #[Route('/{id<\d+>}/access/add', name: 'character_access_add', methods: ['GET', 'POST'])]
+  public function addAccess(Request $request, Character $character): Response
+  {
+    $access = new CharacterAccess();
+
+    $access->setTarget($character);
+    $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($access);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+    return $this->render('character_sheet/edit/access.html.twig', [
+      'character' => $character,
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/access/{accessor<\d+>}', name: 'character_access_edit', methods: ['GET', 'POST'])]
+  public function editAccess(Request $request, Character $character, Character $accessor): Response
+  {
+    $access = $this->dataService->findOneBy(CharacterAccess::class, ['target' => $character, 'accessor' => $accessor]);
+
+    $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    }
+    return $this->render('character_sheet/edit/access.html.twig', [
+      'character' => $character,
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/infos/basic/{type}', name: 'character_basic_infos_edit', methods: ['GET', 'POST'])]
+  public function basicInfosEdit(Request $request, Character $character, string $type): Response
   {
     $name = ucfirst($type);
     $get = "get".$name;
@@ -430,25 +485,25 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character_sheet/edit/infos.html.twig', [
+    return $this->render('character_sheet/edit/basic_infos.html.twig', [
       'character' => $character,
       'form' => $form,
       'type' => $type,
     ]);
   }
 
-  #[Route('/{id<\d+>}/info_access', name: 'character_infos_access', methods: ['GET', 'POST'])]
-  public function access(Request $request, Character $character): Response
+  #[Route('/{id<\d+>}/infos/edit', name: 'character_infos_edit', methods: ['GET', 'POST'])]
+  public function editInfos(Request $request, Character $character): Response
   {
-    $form = $this->createForm(CharacterInfoAccessType::class, $character, ['path' => $this->getParameter('characters_direct_directory')]);
+    $form = $this->createForm(CharacterInfoAccessType::class, $character, ['path' => $this->getParameter('characters_direct_directory'),]);
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
+
       $this->dataService->flush();
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('character_sheet/access/edit.html.twig', [
+    return $this->render('character_sheet/edit/infos.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);
@@ -484,7 +539,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/notes/{note}/edit', name: 'character_note_edit', methods: ['GET', 'POST'])]
-  public function EditNote(Request $request, Character $character, CharacterNote $note): Response
+  public function editNote(Request $request, Character $character, CharacterNote $note): Response
   {
     $options = [];
     $form = $this->createForm(CharacterNoteType::class, $note, $options);

@@ -142,7 +142,13 @@ class Character
   private Collection $infos;
 
   #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList')]
-  private Collection $access;
+  private Collection $infoAccesses;
+
+  #[ORM\OneToMany(mappedBy: 'target', targetEntity: CharacterAccess::class, orphanRemoval: true)]
+  private Collection $characterAccesses;
+
+  #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true)]
+  private Collection $peekingRights;
 
   public function __construct()
   {
@@ -157,7 +163,9 @@ class Character
     $this->derangements = new ArrayCollection();
     $this->lesserTemplates = new ArrayCollection();
     $this->infos = new ArrayCollection();
-    $this->access = new ArrayCollection();
+    $this->infoAccesses = new ArrayCollection();
+    $this->characterAccesses = new ArrayCollection();
+    $this->peekingRights = new ArrayCollection();
   }
 
   public function __toString()
@@ -1200,10 +1208,62 @@ class Character
 
   public function removeInfo(CharacterInfo $info): static
   {
-      if ($this->infos->removeElement($info)) {
+    $this->infos->removeElement($info);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterInfo>
+   */
+  public function getInfoAccess(): Collection
+  {
+      return $this->infoAccesses;
+  }
+
+  public function addInfoAccess(CharacterInfo $info): static
+  {
+      if (!$this->infoAccesses->contains($info)) {
+          $this->infoAccesses->add($info);
+          $info->addAccessList($this);
+      }
+
+      return $this;
+  }
+
+  public function removeInfoAccess(CharacterInfo $info): static
+  {
+      if ($this->infoAccesses->removeElement($info)) {
+          $info->removeAccessList($this);
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, CharacterAccess>
+   */
+  public function getCharacterAccesses(): Collection
+  {
+      return $this->characterAccesses;
+  }
+
+  public function addCharacterAccess(CharacterAccess $characterAccess): static
+  {
+      if (!$this->characterAccesses->contains($characterAccess)) {
+          $this->characterAccesses->add($characterAccess);
+          $characterAccess->setTarget($this);
+      }
+
+      return $this;
+  }
+
+  public function removeCharacterAccess(CharacterAccess $characterAccess): static
+  {
+      if ($this->characterAccesses->removeElement($characterAccess)) {
           // set the owning side to null (unless already changed)
-          if ($info->getCharacter() === $this) {
-              $info->setCharacter(null);
+          if ($characterAccess->getTarget() === $this) {
+              $characterAccess->setTarget(null);
           }
       }
 
@@ -1211,27 +1271,42 @@ class Character
   }
 
   /**
-   * @return Collection<int, CharacterInfo>
+   * @return Collection<int, CharacterAccess>
    */
-  public function getAccess(): Collection
+  public function getPeekingRights(): Collection
   {
-      return $this->access;
+      return $this->peekingRights;
   }
 
-  public function addAccess(CharacterInfo $access): static
+  public function getSpecificPeekingRights(Character $character): ?CharacterAccess {
+
+    return $this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
+      if ($access->getTarget() === $character) {
+
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  public function addPeekingRight(CharacterAccess $peekingRight): static
   {
-      if (!$this->access->contains($access)) {
-          $this->access->add($access);
-          $access->addAccessList($this);
+      if (!$this->peekingRights->contains($peekingRight)) {
+          $this->peekingRights->add($peekingRight);
+          $peekingRight->setAccessor($this);
       }
 
       return $this;
   }
 
-  public function removeAccess(CharacterInfo $access): static
+  public function removePeekingRight(CharacterAccess $peekingRight): static
   {
-      if ($this->access->removeElement($access)) {
-          $access->removeAccessList($this);
+      if ($this->peekingRights->removeElement($peekingRight)) {
+          // set the owning side to null (unless already changed)
+          if ($peekingRight->getAccessor() === $this) {
+              $peekingRight->setAccessor(null);
+          }
       }
 
       return $this;

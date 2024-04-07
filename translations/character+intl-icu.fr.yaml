@@ -4,9 +4,11 @@ Concept: Concept
 virtue:
   name: Vertu
   detail: Autre Nom
+  unknown: Vertue inconnue
 vice:
   name: Vice
   detail: Autre Nom
+  unknown: Vice inconnu
 Chronicle: Chronique
 Faction: Faction
 Group name: Nom du groupe
@@ -69,6 +71,7 @@ attributes:
   label: Attributs
 
 avatar:
+  label: Avatar
   modal: Avatar du personnage
   change: Changer l'avatar
   save: Sauvegarder le nouvel avatar
@@ -118,7 +121,6 @@ derangement:
   add: Ajouter un dérangement
   new: Le Conteur peut décider qu'une scène ou des circonstances auxquelles le personnage est exposé sont trop dures à supporter et qu'il craque sous la pression. Le Conteur décide s'il s'agit d'une situation temporaire ou permanente.
 
-
 health: Santé
 wound:
   penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
@@ -151,13 +153,15 @@ morality:
     pay: Payer
     free: Gratuit
   human: Moralité
+  ghoul: Moralité
   vampire: Humanité
 
 name:
   label: Name
   first: Prénom
-  nick: Surnom
   last: Nom
+  nick: Surnom
+  unknown: Nom inconnu
 
 new:
   character: Nouveau Personnage
@@ -220,10 +224,32 @@ power: >-
     other {Pouvoirs}
   }
 
+peek:
+  label: Résumé du personnage
+
+right:
+  age: Age
+  avatar: Avatar
+  background: Historique
+  description: Age apparent et description
+  faction: Faction
+  group: Groupe
+  firstname: Prénom
+  lastname: Nom de famille
+  nickname: Surnom
+  virtue: Vertue
+  vice: Vice
+
 infos:
+  access:
+    accessor: Personnage
+    add: Nouvel accès
+    standard: Accès aux informations standard
+    other: Accès aux autres informations
   background: Historique
   description: Description
   details:
+    label: Informations
     accessList: Partage
     add: Ajouter une information
     data: Texte

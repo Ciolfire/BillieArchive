@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block body %}
+{{ include('_back.html.twig') }}
+<div class="row mt-5 justify-content-center">
+  <h2 class="text-center mt-5">{{ ('infos.' ~ type)|trans }}</h2>
+  <div class="col col-md-6 m-5">
+    {{ form_start(form) }}
+    {{ form_widget(attribute(form, type)) }}
+    <div class="text-center">{{ form_widget(form.save, {'attr': {'class': 'btn-primary w-100'}}) }}</div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}

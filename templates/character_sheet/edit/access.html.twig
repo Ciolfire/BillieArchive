@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block body %}
+	{% include "_back.html.twig" with {'link': path('character_show', {'id': character.id}) } %}
+	<div class="container-fluid container-lg py-3">
+		<div class="row justify-content-center">
+			<h1 class="text-center mt-5">{{ ('infos.details.edit')|trans }}</h1>
+        <div class="col block p-5">
+				{{ form_start(form) }}
+        {{ form_row(form.rights)}}
+        {{ form_rest(form) }}
+      <div class="text-center">
+        <button class="btn btn-primary w-100">
+          {% include "_icon.html.twig" with {'icon': 'save', 'hasTips': 0} %}
+          {{ ('action.save')|trans({}, 'app') }}
+        </button>
+      </div>
+  {{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

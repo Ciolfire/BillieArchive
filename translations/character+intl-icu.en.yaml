@@ -4,12 +4,14 @@ Concept: Concept
 virtue:
   name: Virtue
   detail: Other name
+  unknown: Virtue not known
 vice:
   name: Vice
   detail: Other name
+  unknown: Vice not known
 Chronicle: Chronicle
-Faction: Faction
-Group name: Group Name
+faction: Faction
+group: Group Name
 mental: Mental
 physical: Physical
 social: Social
@@ -69,6 +71,7 @@ attributes:
   label: Attributes
 
 avatar:
+  label: Avatar
   modal: Character's Avatar
   change: Change avatar
   save: Save the new avatar
@@ -139,12 +142,6 @@ merit:
 merits:
   label: Merits
 
-name:
-  label: Name
-  first: First name
-  nick: Middle name/Nickname
-  last: Last name
-
 morality:
   derangement:
     new:  Roll your character's new Morality trait as a dice pool. Manifests a derangement in case of failure. Does NOT apply over 7.
@@ -158,6 +155,13 @@ morality:
   human: Morality
   ghoul: Morality
   vampire: Humanity
+
+name:
+  label: Name
+  first: First name
+  last: Last name
+  nick: Middle name/Nickname
+  unknown: Name unknown
 
 new:
   character: New character
@@ -220,17 +224,38 @@ power: >-
     other {Powers}
   }
 
+peek:
+  label: Character's summary
+
+right:
+  age: Age
+  avatar: Avatar
+  background: Background
+  description: Apparent age & description
+  faction: Faction
+  group: Group
+  firstname: First name
+  lastname: Last name
+  nickname: Nickname
+  virtue: Virtue
+  vice: Vice
+
 infos:
+  access:
+    accessor: Character
+    add: New access
+    standard: Standard informations access
+    other: Other informations access
   background: Background
   description: Description
   details:
+    label: Informations
     accessList: Share
     add: Add information
     data: Text
     edit: Edit informations
     title: Title
   none: No information provided
-
 
 notes:
   edit: Edit notes
