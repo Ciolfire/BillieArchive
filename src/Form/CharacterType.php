@@ -74,8 +74,8 @@ class CharacterType extends AbstractType
         'choices' => $chronicles,
         'required' => false,
       ])
-      ->add('faction')
-      ->add('groupName')
+      ->add('faction', null, ['label' => 'faction'])
+      ->add('groupName', null, ['label' => 'group'])
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
