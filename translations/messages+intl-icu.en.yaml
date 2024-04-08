@@ -11,8 +11,8 @@ character:
           other {{type} — {element} removed.}
       }
   access:
-  new: "Informations shared with {name}."
-  edit: "Updated informations shared with {name}."
+    new: "Informations shared with {name}."
+    edit: "Updated informations shared with {name}."
   delete:
     success: "The character {name} was successfully deleted."
   edit:

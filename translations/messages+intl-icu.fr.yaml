@@ -11,8 +11,8 @@ character:
           other {{type} — {element} supprimé(e).}
       }
   access:
-  new: "Informations partagées à {name}."
-  edit: "Mise à jour des informations partagées à {name}."
+    new: "Informations partagées à {name}."
+    edit: "Mise à jour des informations partagées à {name}."
   delete:
     success: "Le personnage {name} a été supprimé avec succès."
   edit:
