@@ -1,7 +1,7 @@
 {% trans_default_domain 'vampire' %}
 
 <div class="block user-select-none h-100 p-3">
-  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'hasTips': 0, 'class': 'icon-lg' } only %} {{ 'vitae'|trans }}</h3>
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'class': 'icon-lg' } only %} {{ 'vitae'|trans }}</h3>
   <h4>{{ "vitae.per.turn"|trans({'%value%': character.maxVitaePerTurn})|raw }}</h4>
   {% set vitae = character.vitae %}
   <div class="d-flex flex-column align-items-start">

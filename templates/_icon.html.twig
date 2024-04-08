@@ -1,6 +1,6 @@
 {% trans_default_domain domain|default('icon') %}
 
-<span class="icon {{ class|default("")}}" {% if hasTips|default(true) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
+<span class="icon {{ class|default("")}}" {% if hasTips|default(false) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
   {% if icon == 'add' %}
     {{ source('@icons/' ~ 'plus-solid.svg') }}
   {% elseif icon == 'back' %}

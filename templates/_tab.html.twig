@@ -3,7 +3,7 @@
 <li class="nav-item col text-center">
   <a id="{{ name }}Tab" type="button" class="nav-link h-100" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">
     <span class="pe-none">
-      {% include "_icon.html.twig" with {'icon': name, 'hasTips': 0} only %}
+      {% include "_icon.html.twig" with {'icon': name} only %}
       <span class="d-none d-lg-inline">{{ ('tab.' ~ name)|trans }}</span>
     </span>
   </a>

@@ -4,7 +4,7 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 <button class="btn btn-primary w-25">
-  {% include "_icon.html.twig" with {'icon' : action, 'hasTips': 0} only %}
+  {% include "_icon.html.twig" with {'icon' : action} only %}
   {{ ("action." ~ button_label|default('action.save'))|trans }}
 </button>
 {{ form_end(form) }}

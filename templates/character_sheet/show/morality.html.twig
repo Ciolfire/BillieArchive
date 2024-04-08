@@ -4,26 +4,26 @@
 
 {% block morality %}
   <div class="block user-select-none p-1">
-    <h4 class="pt-1">{% include "_icon.html.twig" with {'icon' : 'morality', 'hasTips': 0, 'class': 'icon-lg'} only %}
+    <h4 class="pt-1">{% include "_icon.html.twig" with {'icon' : 'morality', 'class': 'icon-lg'} only %}
       {{ 'morality.name'|trans([], setting) }}</h4>
     <div class="col-12 text-center">
       <div class="morality">
         <span role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDerangementModal">
           <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "derangement.add"|trans }}">
-            {% include "_icon.html.twig" with {'icon': 'add', 'hasTips': 0} only %}
-            {% include "_icon.html.twig" with {'icon': 'derangement', 'hasTips': 0} only %}
+            {% include "_icon.html.twig" with {'icon': 'add'} only %}
+            {% include "_icon.html.twig" with {'icon': 'derangement'} only %}
           </span>
         </span>
         <div class="row">
           {% for charDerangement in character.standardDerangements %}
             <div class="col-6 px-1 px-md-3 py-2">
               <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
-                {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'icon-sm'} %}{% endif %}
+                {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'icon-sm', 'hasTips': true} %}{% endif %}
                 {{ charDerangement }}
                 {% if charDerangement.details %}
                   ({{ charDerangement.details }})
                 {% endif %}
-                {% include "_icon.html.twig" with {'icon': charDerangement.derangement.type|default(''), 'class': 'icon-sm', 'hasTips': 0} %}
+                {% include "_icon.html.twig" with {'icon': charDerangement.derangement.type|default(''), 'class': 'icon-sm'} %}
               </span>
             </div>
           {% endfor %}
@@ -33,9 +33,9 @@
             <div class="col-12">
               <div id="character-derangement-{{ characterDerangement.id }}" class="bdr-b px-5 collapse" data-bs-parent="#accordionCharacterDerangements">
                 <h4>
-                  {% if characterDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent'} %}{% endif %}
+                  {% if characterDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {'icon': 'extreme', 'class': 'accent', 'hasTips': true} %}{% endif %}
                   {{ characterDerangement.derangement.name }}{% if not characterDerangement.derangement.isMild %} ({{ characterDerangement.derangement.previousAilment.name }} - {{ "derangement.severe"|trans([], 'app') }}){% endif %}
-                  {% include "_icon.html.twig" with {'icon': characterDerangement.derangement.type|default(''), 'hasTips': 0} %}
+                  {% include "_icon.html.twig" with {'icon': characterDerangement.derangement.type|default('')} %}
                 </h4>
                 {{ characterDerangement.derangement.details|markdown_to_html }}
               </div>
@@ -48,7 +48,7 @@
             <div class="col-1">{{ i }}</div>
             <div class="col-10 morality-derangement{% if i == morality and i > character.maxMorality %} bg-danger{% endif %}">
               {% if i == morality and i < character.maxMorality %}
-                <span role="button" data-bs-toggle="modal" data-bs-target="#moralityIncreaseModal">{% include "_icon.html.twig" with {'icon': 'up', 'class': 'accent'} only %}</span>
+                <span role="button" data-bs-toggle="modal" data-bs-target="#moralityIncreaseModal">{% include "_icon.html.twig" with {'icon': 'up', 'class': 'accent', 'hasTips': true} only %}</span>
               {% endif %}
               {% if charDerangement is not null %}
                 <span role="button" class="{% if i >= morality %}warning{% else %}text-muted fst-italic{% endif %}" {% if charDerangement is not null %} role="button" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}" {% endif %}>
@@ -59,7 +59,7 @@
                 </span>
               {% endif %}
               {% if i == morality and i > 0 %}
-                <span role="button" data-bs-toggle="modal" data-bs-target="#moralityDecreaseModal">{% include "_icon.html.twig" with {'icon': 'down', 'class': 'warning'} only %}</span>
+                <span role="button" data-bs-toggle="modal" data-bs-target="#moralityDecreaseModal">{% include "_icon.html.twig" with {'icon': 'down', 'class': 'warning', 'hasTips': true} only %}</span>
               {% endif %}
             </div>
             <div class="col-1">

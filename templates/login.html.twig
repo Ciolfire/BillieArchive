@@ -18,13 +18,13 @@
 
         <form action="{{ path('login') }}" method="post">
           <div class="mb-1 row">
-            <label class="col-form-label col-xs-auto required user-select-none" for="username">{% include "_icon.html.twig" with {'icon': 'user', 'hasTips': 0} %}</label>
+            <label class="col-form-label col-xs-auto required user-select-none" for="username">{% include "_icon.html.twig" with {'icon': 'user'} %}</label>
             <div class="col-xs">
               <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-form-label col-xs-auto required user-select-none" for="password">{% include "_icon.html.twig" with {'icon': 'password', 'hasTips': 0} %}</label>
+            <label class="col-form-label col-xs-auto required user-select-none" for="password">{% include "_icon.html.twig" with {'icon': 'password'} %}</label>
             <div class="col-xs">
               <input type="password" id="password" name="_password" class="form-control"/>
               <label class="form-check form-switch text-start user-select-none"><input class="form-check-input" type="checkbox" name="_remember_me"/>{{ "remember"|trans }}</label>
@@ -42,7 +42,7 @@
             <div class="col text-center">
               <a href="{{path('wiki_index')}}">
                 {{ "wiki"|trans }}
-                {% include "_icon.html.twig" with {'icon': 'wiki', 'hasTips': 0} %}
+                {% include "_icon.html.twig" with {'icon': 'wiki'} %}
               </a>
             </div>
             <div class="col text-end">
@@ -56,7 +56,7 @@
           <input type="hidden" name="_target_path" value="/account"/> #}
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
           <button class="btn btn-primary w-100 mb-2" type="submit">
-            {% include "_icon.html.twig" with {'icon': 'login', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'login'} %}
             {{ "login"|trans }}
           </button>
         </form>

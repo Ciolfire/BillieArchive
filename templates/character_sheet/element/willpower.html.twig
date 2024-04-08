@@ -7,7 +7,7 @@
 {% set current = character.currentWillpower %}
 {% set value = 0 %}
 <div class="block user-select-none h-100">
-  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : trait, 'hasTips': 0, 'class': 'icon-lg'} only %} {{ 'willpower.label'|trans }}</h3>
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : trait, 'class': 'icon-lg'} only %} {{ 'willpower.label'|trans }}</h3>
   <div class="col-12 text-center">
     <div class="pb-2">
       <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>

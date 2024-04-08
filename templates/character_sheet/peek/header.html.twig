@@ -43,7 +43,7 @@
         </div>
         {% block virtue %}
           <div class="col-12">
-            {% include "_icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'virtue'} %}
             {% if access.hasRight('virtue')|default(false) %}
               {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
             {% else %}
@@ -53,7 +53,7 @@
         {% endblock %}
         {% block vice %}
           <div class="col-12">
-            {% include "_icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'vice'} %}
             {% if access.hasRight('vice')|default(false) %}
               {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
             {% else %}

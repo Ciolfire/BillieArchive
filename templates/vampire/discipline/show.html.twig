@@ -9,7 +9,7 @@
 {% block body %}
   <div class="container block py-3 mt-5">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('discipline_edit', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+      <a class="float-end" href="{{ path('discipline_edit', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
     {% endif %}
     <h1 class="py-4">{{ discipline.name }}</h1>
     <div class="row">

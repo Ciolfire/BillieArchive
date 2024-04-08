@@ -19,7 +19,7 @@
   
   <div class="container block-neutral py-3">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': "merits", 'hasTips': 0, 'class': 'icon-lg' } only %} {{ "merits"|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {'icon': "merits", 'class': 'icon-lg' } only %} {{ "merits"|trans }}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -47,7 +47,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': true } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
@@ -55,13 +55,13 @@
       <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element, 'hasTips': 1 } only %}
+          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element, 'hasTips': true } only %}
         </a>
       {% endfor %}
     {% endfor %}
     <div class="col-auto py-3 footer-collapse collapse">
       <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
-        <span class="d-none d-md-inline">{{ "merit.style"|trans([], 'character') }}</span>{% include "_icon.html.twig" with {'icon' : "style", 'hasTips': 0 } only %}
+        <span class="d-none d-md-inline">{{ "merit.style"|trans([], 'character') }}</span>{% include "_icon.html.twig" with {'icon' : "style" } only %}
       </a>
     </div>
   </div>

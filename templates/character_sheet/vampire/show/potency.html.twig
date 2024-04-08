@@ -10,16 +10,16 @@
           <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.animal'|trans }}">
             <i class="fa-solid fa-xs fa-paw"></i>
             <i class="fa-solid fa-person"></i>
-            {% include "_icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}
+            {% include "_icon.html.twig" with {'icon' : 'vampire' } only %}
           </div>
         {% elseif character.potency < 7 %}
           <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.human'|trans }}">
             <i class="fa-solid fa-person"></i>
-            {% include "_icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}
+            {% include "_icon.html.twig" with {'icon' : 'vampire' } only %}
           </div>
         {% else %}
           <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.vampire'|trans }}">
-            <span class="ko">{% include "_icon.html.twig" with {'icon' : 'vampire', 'hasTips': 0 } only %}</span>
+            <span class="ko">{% include "_icon.html.twig" with {'icon' : 'vampire' } only %}</span>
           </div>
         {% endif %}
       </div>

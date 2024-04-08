@@ -19,10 +19,10 @@
 {% block actions %}
 <div class="row merit_{{ merit.id }} collapse">
   <div class="col-12 text-center py-2 d-flex justify-content-around">
-    <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'view', 'hasTips': 1} %}</a>
+    <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'view', 'hasTips': true} %}</a>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 1} %}</a>
-      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {'icon': 'delete', 'hasTips': 1} only %}</button>
+      <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': true} %}</a>
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {'icon': 'delete', 'hasTips': true} only %}</button>
     {% endif %}
   </div>
 </div>

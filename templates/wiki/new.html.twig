@@ -7,7 +7,7 @@
 
 {% block body %}
   <h1>
-    {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class': 'icon-lg' } only %}
+    {% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg' } only %}
     {{ action|default('new')|trans }} {{ entity|trans }}
   </h1>
 

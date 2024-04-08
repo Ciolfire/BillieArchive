@@ -19,7 +19,7 @@
           <div id="collapseAvatar" class="collapse">
             <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
           </div>
-          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture', 'hasTips': 0} %}</button>
+          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture'} %}</button>
         </div>
       {% endif %}
       {% if access.hasRight('description')|default(false) %}
@@ -27,7 +27,7 @@
         <div class="card info-card">
           <div class="card-header">
             <h3 class="text text-light">
-              {% include "_icon.html.twig" with {'icon': 'description', 'hasTips': 0, 'class': 'icon-lg'} %}
+              {% include "_icon.html.twig" with {'icon': 'description', 'class': 'icon-lg'} %}
               {{ "infos.description"|trans }}
             </h3>
           </div>
@@ -46,7 +46,7 @@
         <div class="card info-card">
           <div class="card-header">
             <h3 class="text text-light">
-              {% include "_icon.html.twig" with {'icon': 'background', 'hasTips': 0, 'class': 'icon-lg'} %}
+              {% include "_icon.html.twig" with {'icon': 'background', 'class': 'icon-lg'} %}
               {{ "infos.background"|trans }}
             </h3>
           </div>
@@ -63,7 +63,7 @@
     <div class="col-12 py-2">
       <hr>
       <h2 class="text text-light pt-2">
-        {% include "_icon.html.twig" with {'icon': 'informations', 'hasTips': 0, 'class': 'icon-lg'} %}
+        {% include "_icon.html.twig" with {'icon': 'informations', 'class': 'icon-lg'} %}
         {{ "infos.details.label"|trans }}
       </h2>
       <div class="row">

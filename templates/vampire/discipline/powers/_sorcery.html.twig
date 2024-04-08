@@ -6,7 +6,7 @@
   {% endif %}
   {% set ritual = discipline.ritual %}
   {% if ritual is not null %}
-      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}</h2>
+      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}</h2>
       {{ ritual.details|markdown_to_html }}
   {% endif %}
   
@@ -18,7 +18,7 @@
       {% endif %}
         <div class="col-12 col-md-6 my-3">
           <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
-            {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>{% endif %}
+            {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}
             <h4>{{ ritual.name }}</h4>
             <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
             <div class="ritual-text--{{ discipline.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ discipline.id }}">

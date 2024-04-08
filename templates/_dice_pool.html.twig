@@ -7,13 +7,13 @@
       {% if contested|default(null) is not null %}
         <span class="warning">{% include "_icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}</span>
       {% endif %}
-      {% include "_icon.html.twig" with {'icon': "dice", 'hasTips': 0} only %}
+      {% include "_icon.html.twig" with {'icon': "dice"} only %}
     {% else %}
       <span class="warning">{{ "luckThrow"|trans([], 'icon') }}</span>
       {% if contested|default(null) is not null %}
         {% include "_icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}
       {% endif %}
-      {% include "_icon.html.twig" with {'icon': "luckThrow", 'hasTips': 0} only %}
+      {% include "_icon.html.twig" with {'icon': "luckThrow"} only %}
     {% endif %}
   </span>
 </span>

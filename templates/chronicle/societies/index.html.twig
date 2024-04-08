@@ -11,7 +11,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="block py-3">
-      <h1>{% include "_icon.html.twig" with {'icon' : "group", 'hasTips': 0, "class": 'icon-lg' } only %}{{ "societies.label"|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {'icon' : "group", "class": 'icon-lg' } only %}{{ "societies.label"|trans }}</h1>
       <h2>{{ chronicle.name }}</h2>
       <div class="row">
         {% for society in chronicle.societies %}
@@ -21,11 +21,11 @@
                 {{ society.name }}
               </h4>
               {% if society.type %}
-                <span class="accent">{% include "_icon.html.twig" with {'icon' : society.type, 'hasTips': 0 } only %}</span>
+                <span class="accent">{% include "_icon.html.twig" with {'icon' : society.type } only %}</span>
                 {{ ('society.type.' ~ society.type)|trans }}
               {% endif %}
               (
-                {% include "_icon_setting.html.twig" with {'setting' : society.setting, 'hasTips': 0, 'size': 1 } only %}
+                {% include "_icon_setting.html.twig" with {'setting' : society.setting, 'size': 1 } only %}
                 {{ society.characters|length }}
               )
             </a>
@@ -40,8 +40,8 @@
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center justify-content-center position-relative">
     <a class="btn btn-primary " href="{{ path('society_chronicle_new', {'chronicle': chronicle.id }) }}">
-      {% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}
-      {% include "_icon.html.twig" with {'icon' : 'group', 'hasTips': 0 } only %}
+      {% include "_icon.html.twig" with {'icon' : 'add' } only %}
+      {% include "_icon.html.twig" with {'icon' : 'group' } only %}
     </a>
   </div>
 {% endblock %}

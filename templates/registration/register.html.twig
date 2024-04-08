@@ -14,7 +14,7 @@
           {% endfor %}
 
           <h1>
-            {% include "_icon.html.twig" with {'icon': 'register', 'class': 'icon-lg', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'register', 'class': 'icon-lg'} %}
             Register
           </h1>
 
@@ -27,13 +27,13 @@
           <div class="row">
             <div class="col-8">
               <button type="submit" class="btn btn-primary w-100 mb-2">
-                {% include "_icon.html.twig" with {'icon': 'login', 'hasTips': 0} %}
+                {% include "_icon.html.twig" with {'icon': 'login'} %}
                 {{ "continue"|trans }}
               </button>
             </div>
             <div class="col-4">
               <a href="{{app.request.headers.get('referer')}}" class="btn btn-primary w-100 mb-2">
-                {% include "_icon.html.twig" with {'icon': 'back'} %}
+                {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': true } %}
                 {{ "back"|trans }}
               </a>
             </div>

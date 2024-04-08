@@ -20,7 +20,7 @@
       <div class="col-12">
         <div class="block p-2">
           <h1 class="user-select-none">
-            {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
+            {% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-xl" } only %}
             {{ "ghoul.families.label"|trans }}
           </h1>
           <div class="col-auto">
@@ -72,8 +72,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('ghoul_family_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : 'ghoul_family', 'hasTips': 1 } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : 'ghoul_family', 'hasTips': true } only %}
         </a>
       </div>
     {% endif %}
@@ -88,7 +88,7 @@
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-parent data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           <span class="d-none d-md-inline">{% if key != 'clan' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-          {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+          {% include "_icon.html.twig" with {'icon' : element } only %}
         </a>
       {% endfor %}
     {% endfor %}

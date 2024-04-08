@@ -10,7 +10,7 @@
 
 {% block specialty %}
   {% if specialties|length > 0 %}
-    {% include "_icon.html.twig" with {'icon': 'specialties', 'class': 'icon-sm accent' } only %}
+    {% include "_icon.html.twig" with {'icon': 'specialties', 'class': 'icon-sm accent', 'hasTips': true } only %}
   {% endif %}
 {% endblock %}
 
@@ -23,7 +23,7 @@
   <div id="{{ skill ~ "specialties" }}" class="collapse ps-3">
     <ul class="list-unstyled mb-1">
       {% for specialty in specialties %}
-          <li>{% include "_icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm', 'hasTips': 0 } %} {{ specialty.name }}</li>
+          <li>{% include "_icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm' } %} {{ specialty.name }}</li>
       {% endfor %}
     </ul>
   </div>

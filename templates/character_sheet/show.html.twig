@@ -4,6 +4,15 @@
 
 {% block title %}{{ character.name }}{% endblock %}
 
+{% set tab = "general" %}
+{% set subTab = 'description' %}
+
+{% if referer == 'access'%}
+  {% set tab = 'details' %}
+  {% set subTab = 'informations' %}
+{% endif %}
+
+
 {% block body %}
   <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
     {% block menu %}
@@ -12,7 +21,7 @@
     {% block header %}
       {% include "character_sheet/show/header.html.twig" %}
     {% endblock %}
-    <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="general">
+    <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       {% block background %}{% endblock %}
       <ul class="nav tabs row g-0">
         {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}

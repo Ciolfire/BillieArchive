@@ -11,7 +11,7 @@
         {% if character.player is not null and app.user != character.player %}
           ({{ character.player }})
         {% elseif character.isPremade == true %}
-          {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5'} %}
+          {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5', 'hasTips': true} %}
         {% endif %}
       </h1>
     </div>
@@ -33,7 +33,7 @@
         {{ "ghoul.regent.info"|trans({'regent': ghoulCharacter.regent|default("?"), 'clan': ghoulCharacter.clan.name }) }}
     </div>
     <div class="col-12">
-      {% block age %}{{ parent() }}{% endblock %}      
+      {% block age %}{{ parent() }}{% endblock %}
     </div>
     <div class="col-12">
       {% block virtue %}{{ parent() }}{% endblock %}

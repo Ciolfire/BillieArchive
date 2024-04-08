@@ -8,7 +8,7 @@
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% elseif character.isPremade == true %}
-        {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5'} %}
+        {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5', 'hasTips': true} %}
       {% endif %}
     </h1>
   {% endblock %}
@@ -27,13 +27,13 @@
         </div>
         <div class="col-12">
           {% block virtue %}
-            {% include "_icon.html.twig" with {'icon': 'virtue', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'virtue'} %}
             {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
           {% endblock %}
         </div>
         <div class="col-12">
           {% block vice %}
-            {% include "_icon.html.twig" with {'icon': 'vice', 'hasTips': 0} %}
+            {% include "_icon.html.twig" with {'icon': 'vice'} %}
             {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
           {% endblock %}
         </div>

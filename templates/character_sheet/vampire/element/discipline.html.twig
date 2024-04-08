@@ -6,7 +6,7 @@
       <div class="col-12 discipline-header text-center p-2">
         <h3>{{ discipline.name }}
           {% if discipline.homebrewFor is not null %}
-            {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+            {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}
           {% endif %}
         </h3>
       </div>

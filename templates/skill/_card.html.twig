@@ -1,6 +1,6 @@
 <div id="{{ skill.identifier }}" class="col-12 col-lg-4 block block-wiki">
   {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+    <a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
   {% endif %}
   <h3>{{ skill.name }}</h3>
   <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>

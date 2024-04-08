@@ -20,7 +20,7 @@
 			<div class="col-12">
 				<div class="block p-2">
 					<h1 class="user-select-none">
-						{% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
+						{% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-xl" } only %}
 						{% if clans is defined and clans is not empty %}
 							{{ "clans.label"|trans }}
 						{% else %}
@@ -77,7 +77,7 @@
 			<div class="row">
 				{% if clans is defined and clans is not empty %}
 					<h1 class="mb-5 pt-3">
-						{% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 0, 'class' : "icon-xl" } only %}
+						{% include "_icon.html.twig" with {'icon' : 'bloodline', 'class' : "icon-xl" } only %}
 						{{ "clan.bloodlines.label"|trans([], 'vampire') }}
 					</h1>
 				{% endif %}
@@ -109,12 +109,12 @@
 		{% if is_granted('ROLE_ST') %}
 			<div class="ms-auto">
 				<a class="btn btn-primary" href="{{ path('clan_new') }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'clan', 'hasTips': 1 } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
+					{% include "_icon.html.twig" with {'icon' : 'clan', 'hasTips': true } only %}
 				</a>
 				<a class="btn btn-primary" href="{{ path('clan_new', {'bloodline': true}) }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': 1 } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
+					{% include "_icon.html.twig" with {'icon' : 'bloodline', 'hasTips': true } only %}
 				</a>
 			</div>
 		{% endif %}
@@ -135,7 +135,7 @@
 							{{ element }}
 						{% endif %}
 					</span>
-					{% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+					{% include "_icon.html.twig" with {'icon' : element } only %}
 				</a>
 			{% endfor %}
 		{% endfor %}

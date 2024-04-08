@@ -7,15 +7,15 @@
     <div class="card-header">
       <div class="row align-items-center">
         <div class="col-auto" type="button" aria-expanded="false" aria-controls="merit-{{ id }}-text">
-          {% include "_icon.html.twig" with {'icon' : merit.category } only %}
+          {% include "_icon.html.twig" with {'icon' : merit.category, 'hasTips': true } only %}
           <span class="merit-name">{{ merit.name }}</span>
-          <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type } only %}</span>
+          <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type, 'hasTips': true } only %}</span>
         </div>
         <div class="col text-end">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
-            {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
-            {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
-            {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
+            {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}{% endif %}
+            {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style', 'hasTips': true } only %}{% endif %}
+            {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation', 'hasTips': true } only %}{% endif %}
               {% block input %}{% endblock %}
               <div class="dots">
               {% for value in 1..merit.max %}
@@ -37,11 +37,11 @@
     <div id="merit-{{ id }}-body" class="card-body text-center text py-0 d-flex flex-column accordion">
       <div id="merit-{{ id }}-short" class="card-text card-short collapse show flex-grow-1" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-effect" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.description }}
-        <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-down', 'hasTips': 0} only %}</div>
+        <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-down'} only %}</div>
       </div>
       <div id="merit-{{ id }}-effect" class="card-text card-effect collapse mb-2" data-bs-toggle="collapse" data-bs-target="#merit-{{ id }}-short" data-bs-parent="#merit-{{ id }}-body" type="button">
         {{ merit.effect|default("")|markdown_to_html }}
-        <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-up', 'hasTips': 0} only %}</div>
+        <div class="w-100 text-center">{% include "_icon.html.twig" with {'icon': 'caret-up'} only %}</div>
       </div>
     </div>
     <div class="card-footer text py-1">

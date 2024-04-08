@@ -28,8 +28,8 @@
       
     </div>
     <div class="col-4 text-end pe-3">
-      <button type="button" class="btn btn-primary" data-bs-target=".action-{{ roll.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details', 'hasTips': 0} only %} Details</button>
-      <a type="button" href="{{ path('roll_edit', {'id': roll.id }) }}" class="btn btn-primary">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+      <button type="button" class="btn btn-primary" data-bs-target=".action-{{ roll.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details'} only %} Details</button>
+      <a type="button" href="{{ path('roll_edit', {'id': roll.id }) }}" class="btn btn-primary">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
     </div>
   </div>
   <div class="row">

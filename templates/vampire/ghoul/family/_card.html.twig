@@ -9,13 +9,13 @@
 <div id="{{ family.name }}" class="col-12" data-search-target="item" data-name="{{ family.name }}" data-clan="{{ family.clan.name|default("") }}">
   <div class="clan-card position-relative">
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} only %}</a>
+      <a class="position-absolute end-0" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
     {% endif %}
     <blockquote class="text-center mb-2 clan-card-header">
       <h3>
         {{ family.name }} {% if family.clan %}({{ family.clan.name }}){% endif %}
         
-        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
+        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg', 'hasTips': true } only %}{% endif %}
       </h3>
       <h5>{{ family.nickname }}</h5>
       {{ family.quote }}

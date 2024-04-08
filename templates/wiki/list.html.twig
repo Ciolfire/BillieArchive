@@ -17,7 +17,7 @@
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block-neutral">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': entity, 'hasTips': 0, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ setting)|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {'icon': entity, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ setting)|trans }}</h1>
       <div class="col-auto">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
         {% if description is defined and description is not null and description.value is not empty %}
@@ -55,7 +55,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') and isFixed|default(false) != true %}
-      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 1 } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': true } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
@@ -63,7 +63,7 @@
       <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element } only %}
         </a>
       {% endfor %}
     {% endfor %}

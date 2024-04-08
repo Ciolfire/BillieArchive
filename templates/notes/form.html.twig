@@ -17,14 +17,14 @@
     <div class="row mb-3 justify-content-end">
       <div class="col-2">
         <a href="{{ path('chronicle_notes', {'id': note.chronicle.id, 'category': note.category.id|default(8) } ) }}" class="btn btn-sm btn-menu btn-primary w-100">
-          {% include "_icon.html.twig" with {'icon': 'back', 'hasTips': 0} only %}
+          {% include "_icon.html.twig" with {'icon': 'back'} only %}
         </a>
       </div>
     </div>
     <div class="row block">
       <h1 class="text-center mt-3">
         {{ title }}
-        {% include "_icon.html.twig" with {'icon': 'note', 'hasTips': 0} only %}
+        {% include "_icon.html.twig" with {'icon': 'note'} only %}
       </h1>
       <div class="col">
         {{ form(form) }}

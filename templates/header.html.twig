@@ -20,16 +20,16 @@
     <div class="collapse navbar-collapse" id="navbarMenuContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('wiki_index') }}">{% include "_icon.html.twig" with {'icon': 'wiki', 'hasTips': 0 } only %} {{ "wiki"|trans }}</a>
+          <a class="nav-link" href="{{ path('wiki_index') }}">{% include "_icon.html.twig" with {'icon': 'wiki' } only %} {{ "wiki"|trans }}</a>
         </li>
         <li class="nav-item border-end">
           <a class="nav-link" href="{{ path('wiki_index') }}" target="_blank">
-            {% include "_icon.html.twig" with {'icon': 'open-tab', 'class': 'icon-sm', 'hasTips': 0 } only %}
+            {% include "_icon.html.twig" with {'icon': 'open-tab', 'class': 'icon-sm' } only %}
             {# {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }} #}
           </a>
         </li>
         <li class="nav-item border-end">
-          <a class="nav-link" href="{{ path('character_index') }}">{% include "_icon.html.twig" with {'icon': 'characters', 'hasTips': 0 } only %} {{ "characters.label"|trans }}</a>
+          <a class="nav-link" href="{{ path('character_index') }}">{% include "_icon.html.twig" with {'icon': 'characters' } only %} {{ "characters.label"|trans }}</a>
         </li>
         {% if app.user.stories is not empty %}
           <li class="nav-item dropstart border-end">
@@ -38,7 +38,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               {% for story in app.user.stories %}
-                <li><a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {'id': story.id }) }}"><img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {'chronicle': story, 'hasTips': 0 } only %}/> {{ story.name }}</a></li>
+                <li><a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {'id': story.id }) }}"><img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {'chronicle': story } only %}/> {{ story.name }}</a></li>
               {% endfor %}
             </ul>
           </li>
@@ -50,14 +50,14 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               {% for chronicle in app.user.chronicles %}
-                <li><a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {'id': chronicle.id }) }}"><img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {'chronicle': chronicle, 'hasTips': 0 } only %}/> {{ chronicle.name }}</a></li>
+                <li><a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {'id': chronicle.id }) }}"><img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {'chronicle': chronicle } only %}/> {{ chronicle.name }}</a></li>
               {% endfor %}
             </ul>
           </li>
         {% endif %}
         <li class="nav-item dropstart border-end">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% include "_icon.html.twig" with {'icon': 'language', 'hasTips': 0 } only %}
+            {% include "_icon.html.twig" with {'icon': 'language' } only %}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'fr'}) )}}">fr</a></li>
@@ -66,7 +66,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('logout') }}">
-            {% include "_icon.html.twig" with {'icon': 'exit', 'hasTips': 0 } only %}
+            {% include "_icon.html.twig" with {'icon': 'exit' } only %}
             {{ "logout"|trans }}
           </a>
         </li>

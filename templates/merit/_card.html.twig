@@ -3,16 +3,16 @@
 {% set type = merit.type|default('universal') %}
 <div class="row justify-content-md-center merit merit-{{ type }} merit-{{ merit.category }}" type="button" {% block data %}{% endblock %}>
   <div class="col-12 col-md-3 text-center text-md-start fw-bold">
-    {% include "_icon.html.twig" with {'icon': type} only %}
+    {% include "_icon.html.twig" with {'icon': type, 'hasTips': true } only %}
     {{ merit.name }}
   </div>
   <div class="col-3 col-md-2">
-    {% include "_icon.html.twig" with {'icon': merit.category} only %}
-    {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}{% endif %}
-    {% if not merit.isUnique %}{% include "_icon.html.twig" with {'icon': 'merit.not.unique'} %}{% else %}{% include "_icon.html.twig" with {'icon': 'merit.unique'} %}{% endif %}
-    {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation' } only %}{% endif %}
-    {% if merit.isExpanded %}{% include "_icon.html.twig" with {'icon': 'expanded'} %}{% endif %}
-    {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style' } only %}{% endif %}
+    {% include "_icon.html.twig" with {'icon': merit.category, 'hasTips': true } only %}
+    {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}{% endif %}
+    {% if not merit.isUnique %}{% include "_icon.html.twig" with {'icon': 'merit.not.unique'} %}{% else %}{% include "_icon.html.twig" with {'icon': 'merit.unique', 'hasTips': true } %}{% endif %}
+    {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation', 'hasTips': true } only %}{% endif %}
+    {% if merit.isExpanded %}{% include "_icon.html.twig" with {'icon': 'expanded', 'hasTips': true } %}{% endif %}
+    {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style', 'hasTips': true } only %}{% endif %}
   </div>
   <div class="col-3 col-md-1">
     {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}

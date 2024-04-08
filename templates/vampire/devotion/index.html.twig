@@ -21,7 +21,7 @@
       <div class="col-12">
         <div class="p-2">
           <h1 class="user-select-none">
-            {% include "_icon.html.twig" with {'icon' : entity, 'hasTips': 0, 'class' : "icon-xl" } only %}
+            {% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-xl" } only %}
             {{ "devotions.label"|trans }}
           </h1>
           <div class="col-auto">
@@ -66,7 +66,7 @@
           <div class="col-12 col-md col-lg-3">
             <h4 class="text-strong">{{ devotion.name }}
               {% if devotion.homebrewFor is not null %}
-                {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+                {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}
               {% endif %}
             </h4>
           </div>
@@ -88,9 +88,9 @@
               xp</span>
           </div>
           <div class="col col-lg-2 bdr-s">
-            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'show', 'hasTips': 0} %}</a>
+            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'show'} %}</a>
             {% if is_granted('ROLE_ST') %}
-              <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': 0} %}</a>
+              <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit'} %}</a>
             {% endif %}
           </div>
         </div>
@@ -117,8 +117,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('vampire_devotion_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': 0 } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : 'devotion', 'hasTips': 0 } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
+          {% include "_icon.html.twig" with {'icon' : 'devotion' } only %}
         </a>
       </div>
     {% endif %}
@@ -133,7 +133,7 @@
             {% for element in devotions %}
               <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
                 <span class="d-none d-md-inline">{% if key != 'parent' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-                {% include "_icon.html.twig" with {'icon' : element, 'hasTips': 0 } only %}
+                {% include "_icon.html.twig" with {'icon' : element } only %}
               </a>
             {% endfor %}
           {% endfor %} #}

@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <form method="post" action="{{ path(element ~ '_delete', {'id': entity.id}) }}">
           <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
-          <button class="btn btn-warning">{% include "_icon.html.twig" with {'icon': 'delete'} %} {{ "action.delete"|trans }}</button>
+          <button class="btn btn-warning">{% include "_icon.html.twig" with {'icon': 'delete', 'hasTips': true } %} {{ "action.delete"|trans }}</button>
         </form>
       </div>
     </div>

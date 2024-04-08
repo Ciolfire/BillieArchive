@@ -1,6 +1,6 @@
 {% trans_default_domain 'app' %}
 
-<h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon': 'dice', 'hasTips': 0, 'class': 'icon-lg'} %}{{ 'rolls'|trans([], 'app') }}</h3>
+<h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon': 'dice', 'class': 'icon-lg'} %}{{ 'rolls'|trans([], 'app') }}</h3>
 {% for roll in rolls %}
   {% if roll.type == character.type or roll.type == null %}
     <div class="col-6">
