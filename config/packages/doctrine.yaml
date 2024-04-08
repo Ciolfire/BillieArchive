@@ -15,9 +15,10 @@ doctrine:
                 append_only:
                     lifetime: 864000
                     cache_driver: { type: service, id: cache.app }
-        auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
+        enable_lazy_ghost_objects: true
+        auto_generate_proxy_classes: false
+        auto_mapping: false
         mappings:
             App:
                 type: attribute
