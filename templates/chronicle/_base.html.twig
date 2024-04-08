@@ -1,4 +1,4 @@
-é{% trans_default_domain 'app' %}
+{% trans_default_domain 'app' %}
 
 {% set character = chronicle.character(app.user) %}
 {% if character is not null %}
@@ -20,27 +20,27 @@
     </a>
   </div>
 {% endif %}
-<div class="col-6 col-lg-4">
+<div class="col-6 col-xl-3">
   <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_notes', {'id': chronicle.id })}}">
     {% include "_icon.html.twig" with {'icon': 'notes' } only %}
     {{ "notes"|trans }}
   </a>
 </div>
-<div class="col-6 col-lg-4">
+<div class="col-6 col-xl-3">
   <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">
     {% include "_icon.html.twig" with {'icon': 'party' } only %}
     {{ "party.name"|trans }}
   </a>
 </div>
-<div class="col-6 col-lg-4">
-  <a class="btn btn-primary w-100 m-2" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
-    {% include "_icon.html.twig" with {'icon': 'homebrew' } only %}
-    {{ "homebrew"|trans }}
+<div class="col-6 col-xl-3">
+  <a class="btn btn-primary w-100 m-2" href="{{ path('chronicle_infos_index', {'id': chronicle.id}) }}">
+    {% include "_icon.html.twig" with {'icon': 'details' } only %}
+    {{ "infos"|trans }}
   </a>
 </div>
-<div class="col-6 col-lg-4">
+<div class="col-6 col-xl-3">
   <a class="btn btn-primary w-100 m-2" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
-    {% include "_icon.html.twig" with {'icon': 'details' } only %}
+    {% include "_icon.html.twig" with {'icon': 'homebrew' } only %}
     {{ "homebrew"|trans }}
   </a>
 </div>

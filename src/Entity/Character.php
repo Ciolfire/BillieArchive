@@ -1216,7 +1216,7 @@ class Character
   /**
    * @return Collection<int, CharacterInfo>
    */
-  public function getInfoAccess(): Collection
+  public function getInfoAccesses(): Collection
   {
       return $this->infoAccesses;
   }

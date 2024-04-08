@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'app' %}
+
+{% block body %}
+{% include "_back.html.twig" %}
+<div class="container">
+  <h1 class="text strong">{% include "_icon.html.twig" with {'icon': 'details', 'class': 'icon-xl'} %} {{ "infos"|trans }}</h1>
+  <div class="row justify-content-center">
+    {% include "chronicle/infos/characters.html.twig" %}
+  </div>
+</div>
+{% endblock %}
