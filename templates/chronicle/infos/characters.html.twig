@@ -4,13 +4,14 @@
   <div class="block p-3">
     <h2>{% include "_icon.html.twig" with {'icon': 'characters', 'class': 'icon-lg'} %}{{ "characters.label"|trans}}</h2>
     <div class="row">
-      {% for peeking in character.peekingRights|default(null) %}
-        {% if peeking.rights is not empty %}
-          {% include "character/_peeking_card.html.twig" with {'character': peeking.target, 'access': peeking} %}
-        {% endif %}
-      {% endfor %}
-      {% if character.peekingRights is empty %}
+      {% if character.peekingRights|default(null) is empty %}
         {{ "empty"|trans }}
+      {% else %}
+        {% for peeking in character.peekingRights %}
+          {% if peeking.rights is not empty %}
+            {% include "character/_peeking_card.html.twig" with {'character': peeking.target, 'access': peeking} %}
+          {% endif %}
+        {% endfor %}
       {% endif %}
     </div>
   </div>
