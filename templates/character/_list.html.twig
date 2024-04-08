@@ -1,26 +1,21 @@
 {% trans_default_domain 'app' %}
 
-<h1>
-  {% include "_icon.html.twig" with {'icon' : icon, 'class': 'icon-lg'} only %}
-  {{ title|trans }}
-</h1>
-<div class="container">
-  <div class="col-4 offset-4">
-    <a class="btn btn-sm btn-primary w-100 text-center" href=
-      {% if type == "premade" %}"{{ path('character_new_premade') }}"
-      {% elseif type == "npc" %}"{{ path('character_new', {'isNpc': true }) }}"
-      {% else %}{{ path('character_new', {'isNpc': 0 }) }}
-      {% endif %}
-    >
-      {{ "new"|trans }}{% include "_icon.html.twig" with {'icon' : icon} only %}
-    </a>
-  </div>
-  <div class="row pt-3">
-    {% for type,items in characters %}
-    <h2>{{ ('type.' ~ type)|trans() }}</h2>
-    {% for character in items %}
-      {% include "character/_card.html.twig" %}
-    {% endfor %}
-    {% endfor %}
+<div class="block my-2 pt-2">
+  <div class="col">
+    <h1>
+      {% include '_icon.html.twig' with { icon: icon, class: 'icon-lg' } only %}
+      {{ title|trans }}
+    </h1>
+    <div class="col-4 offset-4">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ type == 'premade' ? path('character_new_premade') : type == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'new'|trans }}{% include '_icon.html.twig' with { icon: icon } only %}</a>
+    </div>
+    <div class="row pt-3">
+      {% for type, items in characters %}
+        <h2>{{ ('type.' ~ type)|trans }}</h2>
+        {% for character in items %}
+          {% include 'character/_card.html.twig' %}
+        {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 </div>
