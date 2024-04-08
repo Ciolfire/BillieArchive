@@ -231,8 +231,18 @@ class ChronicleController extends AbstractController
     return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId()], Response::HTTP_SEE_OTHER);
   }
 
+  #[Route('/{id<\d+>}/infos', name: 'chronicle_infos_index', methods: ['GET'])]
+  public function infos(Request $request, Chronicle $chronicle)
+  {
+    return $this->render('chronicle/infos/index.html.twig', [
+      'character' => $chronicle->getCharacter($this->getUser()),
+      'chronicle' => $chronicle,
+      'type' => $chronicle->getType(),
+    ]);
+  }
+
   #[Route('/{id<\d+>}/rules/{type<\w+>}', name: 'chronicle_rules_set', methods: ['GET', 'POST'])]
-  public function setChronicleRules(Request $request, Chronicle $chronicle, string $type)
+  public function setRules(Request $request, Chronicle $chronicle, string $type)
   {
     // Security, only the storyteller can change these settings, but everyone can see it
     $user = $this->getUser();
@@ -267,7 +277,7 @@ class ChronicleController extends AbstractController
     }
 
     return $this->render('chronicle/homebrew/rules.html.twig', [
-      'type' => 'vampire',
+      'type' => $type,
       'disabled' => $disabled,
       'chronicle' => $chronicle,
       'form' => $form,

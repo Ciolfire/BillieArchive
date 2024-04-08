@@ -7,11 +7,24 @@
 {% set tab = "general" %}
 {% set subTab = 'description' %}
 
+{% if referer == 'notes' %}
+  {% set tab = 'notes' %}
+{% endif %}
+
+{% if referer == 'description' %}
+  {% set tab = 'details' %}
+  {% set subTab = 'description' %}
+{% endif %}
+
+{% if referer == 'background' %}
+  {% set tab = 'details' %}
+  {% set subTab = 'background' %}
+{% endif %}
+
 {% if referer == 'access'%}
   {% set tab = 'details' %}
   {% set subTab = 'informations' %}
 {% endif %}
-
 
 {% block body %}
   <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">

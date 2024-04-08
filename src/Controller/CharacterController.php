@@ -206,12 +206,13 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}', name: 'character_show', methods: ['GET'])]
-  public function show(Character $character): Response
+  public function show(Request $request, Character $character, string $referer=""): Response
   {
+    if ($request->query->get('referer')) {
+      $referer = $request->query->get('referer');
+    }
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-      // TODO => SHOULD ADD A CHECK FOR WHEN THE PLAYER HAS NO CHARACTER IN THE CHRONICLE FOR TOTAL DENIAL OF ACCESS
-      // $this->addFlash('notice', 'You are not allowed to see this character');
-      // return $this->redirectToRoute('character_index');
+
       return $this->redirectToRoute('character_peek', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
@@ -236,6 +237,7 @@ class CharacterController extends AbstractController
       'setting' => $character->getSetting(),
       'removables' => $removables,
       'derangements' => $derangements,
+      'referer' => $referer,
     ]);
   }
 
@@ -306,18 +308,18 @@ class CharacterController extends AbstractController
 
       $this->addFlash('notice', 'character.peek.self');
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
-    } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character))) {
+    } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character)) || empty($peeker->getSpecificPeekingRights($character)->getRights())) {
       
       $this->addFlash('notice', 'character.peek.declined');
       return $this->redirectToRoute('index');
     }
     $access = $peeker->getSpecificPeekingRights($character);
 
-    return $this->render('character_sheet/' . $character->getType() . '/peek.html.twig', [
+    return $this->render('character_sheet/peek.html.twig', [
       'peeker' => $peeker,
       'access' => $access,
       'character' => $character,
-      'setting' => $character->getSetting()
+      'setting' => $character->getChronicle()->getType(),
     ]);
   }
 
@@ -431,9 +433,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
   public function abilityRemoval(Request $request, Character $character): Response
   {
-    // dd($character, $data->get('type'), $data->get('element'), $data->get('method'));
     if ($this->service->removeAbility($character, $request->request->all())) {
-      $this->addFlash("info", "{$request->request->get('element')}: {$request->request->get('method')}");
+      $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $request->request->get('element'), 'method' => $request->request->get('method')]]);
     }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
@@ -450,7 +451,8 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($access);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      $this->addFlash('success', ["character.access.new", ['name' => $access->getAccessor()->getName()]]);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/edit/access.html.twig', [
       'character' => $character,
@@ -469,7 +471,8 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      $this->addFlash('success', ["character.access.edit", ['name' => $accessor->getName()]]);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/edit/access.html.twig', [
       'character' => $character,
@@ -507,7 +510,7 @@ class CharacterController extends AbstractController
       $character->$set($data);
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => $type], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/edit/basic_infos.html.twig', [
       'character' => $character,
@@ -525,7 +528,7 @@ class CharacterController extends AbstractController
 
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/edit/infos.html.twig', [
       'character' => $character,
@@ -554,7 +557,7 @@ class CharacterController extends AbstractController
       $character->addNote($note);
       $this->dataService->save($note);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'notes'], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/notes/new.html.twig', [
       'note' => $note,
@@ -572,7 +575,7 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => "notes"], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'notes'], Response::HTTP_SEE_OTHER);
     }
     return $this->render('character_sheet/notes/edit.html.twig', [
       'note' => $note,

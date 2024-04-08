@@ -4,32 +4,41 @@ error: Erreur
 warning: Attention
 
 character:
+  ability:
+    remove:  >-
+      {method, select,
+          reduce {{type} — {element} réduit(e) de un.}
+          other {{type} — {element} supprimé(e).}
+      }
+  access:
+  new: "Informations partagées à {name}."
+  edit: "Mise à jour des informations partagées à {name}."
   delete:
-    success: "The character {name} was successfully deleted."
+    success: "Le personnage {name} a été supprimé avec succès."
   edit:
     denied:
     success: >-
       {count, plural,
-        =0 {Your changes have been saved.}
-        other {Your changes have been saved, # experience points used.}
+        =0 {Vos modifications ont été enregistrées.}
+        other {Vos modifications ont été enregistrées, # points d'experience utilisés.}
       }
   morality:
-    increase: "{name} gained Morality."
-    decrease: "{name} lost Morality."
+    increase: "{name} a gagné de la Moralité."
+    decrease: "{name} a perdu de la Moralité."
   peek:
-    declined: "You are not allowed to look at this character."
-    unavailable: "This character is not part of a story."
-    self: "This is yours, redirected to the character sheet."
+    declined: "Vous n'êtes pas autorisé à regarder les informations sur ce personnage."
+    unavailable: "Ce personnage ne fait pas partie d'une chronique."
+    self: "Ce personnage vous appartient, affichage de sa feuille."
   template.lesser:
     add: >-
       {type, select,
-          ghoul {{name} is now a Ghoul.}
-          other {{name} is now a(n) {type}.}
+          ghoul {{name} est maintenant une Goule.}
+          other {{name} est maintenant un(e) {type}.}
       }
     remove: >-
       {type, select,
-          ghoul {{name} is no longer a Ghoul.}
-          other {{name} is no longer a(n) {type}.}
+          ghoul {{name} n'est plus une Goule.}
+          other {{name} n'est plus un(e) {type}.}
       }
-    deactivated: "{name} is no longer a(n) {old}."
-    same: "{name} is already a(n) {type}, no change."
+    deactivated: "{name} n'est plus un(e) {old}."
+    same: "{name} est déjà un(e) {type}, pas de modification."
