@@ -9,6 +9,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+  #[Route('/')]
+  public function indexNoLocale(): Response
+  {
+    return $this->redirectToRoute('index');
+  }
+
   #[Route("/{_locale<%supported_locales%>?%default_locale%}/login", name:"login")]
   public function login(AuthenticationUtils $authenticationUtils): Response
   {
@@ -27,7 +33,7 @@ class LoginController extends AbstractController
   #[Route("/logout", name:"logout", methods:["GET"])]
   public function logout(): void
   {
-      // controller can be blank: it will never be called!
-      throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    // controller can be blank: it will never be called!
+    throw new \Exception('Don\'t forget to activate logout in security.yaml');
   }
 }
