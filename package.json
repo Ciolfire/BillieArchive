@@ -28,6 +28,6 @@
         "@fortawesome/fontawesome-free": "^6.4.2",
         "@popperjs/core": "^2.11.8",
         "ckeditor4": "^4.22.1",
-        "npm": "^10.2.0"
+        "npm": "^10.5.2"
     }
 }
