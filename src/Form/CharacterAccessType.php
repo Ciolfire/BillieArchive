@@ -38,7 +38,9 @@ class CharacterAccessType extends AbstractType
       $character = $data->getTarget();
       if ($character instanceof Character && $character->getChronicle() instanceof Chronicle) {
         $characters = $character->getChronicle()->getPlayerCharacters();
-        unset($characters[array_search($character, $characters)]);
+        if (false !== array_search($character, $characters)) {
+          unset($characters[array_search($character, $characters)]);
+        }
         foreach ($characters as $check) {
           if (!is_null($check->getSpecificPeekingRights($character))) {
             unset($characters[array_search($check, $characters)]);
