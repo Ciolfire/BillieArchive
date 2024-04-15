@@ -301,7 +301,7 @@ class CharacterService
   public function loadMerits(Character $character): array
   {
     $merits = $this->filterMerits($character, false);
-    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
+    $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $this->dataService->loadMeritsPrerequisites($merits);
 
     return $merits;
@@ -320,8 +320,8 @@ class CharacterService
       if (
         ($merit->isUnique() && !is_null($character->hasMerit($merit->getId()))) || // Character already has this merit
         (!$isCreation && $merit->isCreationOnly()) || // Creation merit
-        ($merit->getType() != "" && $character->getType() != $merit->getType()) || // Template of the character does not match the merit
-        (!is_null($merit->getHomebrewFor()) && $merit->getHomebrewFor() !== $chronicle) // Homebrew merit, only show for the chronicle 
+        ($merit->getType() != "" && $merit->getType() != $character->getType()) || // Template of the character does not match the merit
+        (!is_null($merit->getHomebrewFor()) && $merit->getHomebrewFor() !== $chronicle) // Homebrew merit, only show for the chronicle
       ) {
         unset($merits[$key]);
       }

@@ -10,10 +10,9 @@ use App\Entity\Devotion;
 use App\Entity\Merit;
 use App\Entity\Note;
 use App\Entity\User;
-use App\Entity\Vice;
-use App\Entity\Virtue;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
@@ -246,26 +245,22 @@ class DataService
     }
   }
 
-  public function loadMeritsPrerequisites(mixed $merits, string $type=null) : void
+  public function loadMeritsPrerequisites(mixed $merits) : void
   {
-    switch ($type) {
-      case 'character':
-        /** @var CharacterMerit $charMerit */
-        foreach ($merits as $charMerit) {
-          if ($charMerit->getMerit() instanceof Merit) {
-            $this->loadPrerequisites($charMerit->getMerit());
-          }
+    if ($merits instanceof PersistentCollection && $merits->current() instanceof CharacterMerit) {
+      /** @var CharacterMerit $charMerit */
+      foreach ($merits as $charMerit) {
+        if ($charMerit->getMerit() instanceof Merit) {
+          $this->loadPrerequisites($charMerit->getMerit());
         }
-        break;
-
-      default:
-        /** @var Merit $merit */
-        foreach ($merits as $merit) {
-          if ($merit instanceof Merit) {
-            $this->loadPrerequisites($merit);
-          }
+      }
+    } else {
+      /** @var Merit $merit */
+      foreach ($merits as $merit) {
+        if ($merit instanceof Merit) {
+          $this->loadPrerequisites($merit);
         }
-        break;
+      }
     }
   }
 

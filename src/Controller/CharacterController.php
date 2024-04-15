@@ -216,7 +216,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_peek', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $this->dataService->loadMeritsPrerequisites($character->getMerits(), 'character');
+    $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
