@@ -27,7 +27,21 @@ input[type=number] {
   border: none;
 }
 
-.form-check {
+.form-switch {
+  cursor: ew-resize;
+  .form-check-input {
+    background-color: darkgray;
+    border: 1px solid black;
+    &:focus {
+      box-shadow: none;
+    }
+    &:checked {
+      background-color: $btnActiveColor;
+    }
+  }
+}
+
+.form-check:not(.form-switch) {
   input {
     border-color: $btnBorderColor;
     background-color: $main50pColor;
