@@ -16,7 +16,7 @@ character:
   delete:
     success: "Le personnage {name} a été supprimé avec succès."
   edit:
-    denied:
+    denied: "Vous n'êtes pas autorisé à modifier ce personnage."
     success: >-
       {count, plural,
         =0 {Vos modifications ont été enregistrées.}
