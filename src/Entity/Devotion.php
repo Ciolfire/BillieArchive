@@ -15,6 +15,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\DevotionTranslation")]
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Devotion implements Translatable
 {

@@ -12,6 +12,7 @@ use Gedmo\Translatable\Translatable;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "ghoulFamilies"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "ghoulFamilies")])]
 #[ORM\Entity(repositoryClass: GhoulFamilyRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\GhoulFamilyTranslation")]
 class GhoulFamily implements Translatable
 {
   use Sourcable;

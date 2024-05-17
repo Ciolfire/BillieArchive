@@ -6,20 +6,21 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 use Doctrine\DBAL\Types\Types;
-
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-class Book
+class Book implements Translatable
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
   private ?int $id = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 255)]
   private string $name ="";
 
@@ -43,6 +44,7 @@ class Book
   #[ORM\Column(type: Types::STRING, length: 50)]
   private string $setting = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   private ?string $cover;
 

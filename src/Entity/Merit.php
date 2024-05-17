@@ -16,6 +16,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 #[ORM\Table(name: "merits")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\MeritTranslation")]
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Merit implements Translatable
 {

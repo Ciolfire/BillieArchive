@@ -16,6 +16,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "rituals"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "rituals")])]
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\DisciplinePowerTranslation")]
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class DisciplinePower implements Translatable
 {

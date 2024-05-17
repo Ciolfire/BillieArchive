@@ -15,6 +15,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RuleRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\RuleTranslation")]
 class Rule implements Translatable
 {
   use Typed;

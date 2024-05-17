@@ -5,10 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 
-#[ORM\Table(name: "merit_translation")]
-#[ORM\Index(name: "merit_translation_idx", columns: ["locale", "field", "foreign_key"])]
+
+#[ORM\Table(name: "ghoul_family_translation")]
+#[ORM\Index(name: "ghoul_family_translation_idx", columns: ["locale", 'object_class', "field", "foreign_key"])]
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
-class MeritTranslation extends AbstractTranslation
+class GhoulFamilyTranslation extends AbstractTranslation
 {
   /**
    * All required columns are mapped through inherited superclass
