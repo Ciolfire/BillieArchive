@@ -16,6 +16,7 @@ class CharacterAccessType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $choices = [
+      'type',
       'firstname',
       'lastname',
       'nickname',
@@ -23,6 +24,7 @@ class CharacterAccessType extends AbstractType
       'age',
       'virtue',
       'vice',
+      'morality',
       'description',
       'background',
       'faction',
@@ -34,6 +36,34 @@ class CharacterAccessType extends AbstractType
     $characters = [];
     $path = $options['path'];
     $data = $options['data'];
+    $type = $builder->getData()->getTarget()->getType();
+
+    switch ($type) {
+      case 'vampire':
+        $typeChoices = [
+          'clan',
+          'bloodline',
+          'sire',
+          'embrace',
+          'potency',
+        ];
+        $choices = [
+          'base' => $choices,
+          'vampire' => $typeChoices
+        ];
+        break;
+      case 'ghoul':
+        $typeChoices = [
+          'regent',
+          'family',
+        ];
+        $choices = [
+          'base' => $choices,
+          'ghoul' => $typeChoices
+        ];
+      default:
+        break;
+    }
     if ($data instanceof CharacterAccess) {
       $character = $data->getTarget();
       if ($character instanceof Character && $character->getChronicle() instanceof Chronicle) {
@@ -50,8 +80,12 @@ class CharacterAccessType extends AbstractType
       $builder
         ->add('rights', ChoiceType::class, [
           'choices' => $choices,
+          'label' => false,
           'choice_label' => function ($choice, string $key, mixed $value) {
             return "right.{$choice}";
+          },
+          'choice_attr' => function ($choice, string $key, mixed $value) {
+            return ['data-character--access-target' => 'right'];
           },
           'multiple' => true,
           'expanded' => true,

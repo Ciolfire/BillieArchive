@@ -5,6 +5,7 @@ namespace App\Security\Voter;
 use App\Entity\Character;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -13,12 +14,11 @@ class CharacterVoter extends Voter
   public const VIEW = 'view';
   public const EDIT = 'edit';
   public const DELETE = 'delete';
-  private Security $security;
 
-  public function __construct(Security $security)
+  public function __construct(private Security $security, private RequestStack $requestStack)
   {
-      $this->security = $security;
   }
+
   protected function supports(string $attribute, mixed $subject): bool
   {
     // if the attribute isn't one we support, return false

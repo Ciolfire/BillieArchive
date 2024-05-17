@@ -4,50 +4,57 @@
 <div class="row block p-2 pb-4">
   {% block name %}
     <h1 class="text-center text">
-    {% if access is null or (not access.hasRight('firstname') and not access.hasRight('nickname') and not access.hasRight('lastname')) %}
-      {{ "name.unknown"|trans }}
-    {% endif %}
-    {% if access.hasRight('firstname')|default(false) %}
-      {{ character.firstname }}
-    {% endif %}
-    {% if access.hasRight('nickname')|default(false) %}
-      “{{ character.nickname }}”
-    {% endif %}
-    {% if access.hasRight('lastname')|default(false) %}
-      {{ character.lastname }}
-    {% endif %}
+      {% if access.hasRight('type') %}
+        {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+      {% endif %}
+      {% if access is null or (not access.hasRight('firstname') and not access.hasRight('nickname') and not access.hasRight('lastname')) %}
+        <span class="warning">{{ "name.unknown"|trans }}</warning>
+      {% endif %}
+      {% if access.hasRight('firstname')|default(false) %}
+        {{ character.firstname }}
+      {% endif %}
+      {% if access.hasRight('nickname')|default(false) and character.nickname is not empty %}
+        “{{ character.nickname }}”
+      {% endif %}
+      {% if access.hasRight('lastname')|default(false) %}
+        {{ character.lastname }}
+      {% endif %}
+      {% if access.hasRight('type') %}
+        {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+      {% endif %}
+    </h1>
+    <h2 class="text">
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% endif %}
-    </h1>
+    </h2>
   {% endblock %}
   <div class="order-2 order-md-1 col-6 col-md text-center">
     {% block leftCol %}
       <div class="row">
         <div class="col-12">
           {% block age %}
-            {% if access.hasRight('description')|default(false) %}
-              {% if character.lookAge is defined and character.lookAge != character.age %}
-                {% if access.hasRight('age')|default(false) %}
-                  {{ "age.normal"|trans({"%age%": character.age|default(0)}, 'character') }}
+            <span>
+              {% if access.hasRight('age')|default(false) %}
+                <span class="strong">{{ "age.normal"|trans({"%age%": character.age|default(0)}) }}</span>
+                {% if character.lookAge is defined and character.lookAge != character.age %}
+                  ({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})
                 {% endif %}
-                ({{ "age.looks.value"|trans({"%looks%": character.lookAge}, 'character') }})
-              {% endif %}
-              {% elseif access.hasRight('age')|default(false) and character.age is defined %}
-                {# ({{ "age.looks.value"|trans({"%looks%": character.age}, 'character') }}) #}
-                {{ "age.normal"|trans({"%age%": character.age}, 'character') }}
+              {% elseif access.hasRight('avatar')|default(false) %}
+                <span class="accent">({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})</span>
               {% else %}
-                {{ "age.normal"|trans({"%age%": 0}, 'character') }}
+                <span class="warning">{{ "age.normal"|trans({"%age%": 0}) }}</span>
               {% endif %}
+            </span>
           {% endblock %}
         </div>
         {% block virtue %}
           <div class="col-12">
             {% include "_icon.html.twig" with {'icon': 'virtue'} %}
             {% if access.hasRight('virtue')|default(false) %}
-              {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+              <span class="strong">{{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}</span>
             {% else %}
-              {{ "virtue.unknown"|trans }}
+              <span class="warning">{{ "virtue.unknown"|trans }}</span>
             {% endif %}
           </div>
         {% endblock %}
@@ -55,9 +62,39 @@
           <div class="col-12">
             {% include "_icon.html.twig" with {'icon': 'vice'} %}
             {% if access.hasRight('vice')|default(false) %}
-              {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+              <span class="strong">{{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}</span>
             {% else %}
-              {{ "vice.unknown"|trans }}
+              <span class="warning">{{ "vice.unknown"|trans }}</span>
+            {% endif %}
+          </div>
+        {% endblock %}
+        {% block morality %}
+          <div class="col-12">
+            {% include "_icon.html.twig" with {'icon': 'morality'} %}
+            {% if access.hasRight('morality')|default(false) %}
+              <span class="strong">
+                {{ ("morality." ~ character.type)|trans }}:
+                {% set moralDif = character.moral - peeker.moral %}
+                {% if character.moral == 0 %}
+                  {{ "morality.relative.lowest"|trans }}
+                {% elseif character.moral == 10 or  moralDif > 5 %}
+                  {{ "morality.relative.highest"|trans }}
+                {% elseif moralDif > 3 %}
+                  {{ "morality.relative.higher"|trans }}
+                {% elseif moralDif > 1 %}
+                  {{ "morality.relative.high"|trans }}
+                {% elseif moralDif > -2 %}
+                  {{ "morality.relative.similar"|trans }}
+                {% elseif moralDif > -4 %}
+                  {{ "morality.relative.low"|trans }}
+                {% elseif moralDif > -6 %}
+                  {{ "morality.relative.lower"|trans }}
+                {% elseif moralDif > -8 %}
+                  {{ "morality.relative.lowest"|trans }}
+                {% endif %}
+              </span>
+            {% else %}
+              <span class="warning">{{ "morality.unknown"|trans }}</span>
             {% endif %}
           </div>
         {% endblock %}
@@ -70,7 +107,6 @@
         <div class="col-12">
           {{ "Chronicle"|trans }}: {{ character.chronicle }}
         </div>
-        {% block details %}{% endblock %}
         <div class="col-12 d-flex my-2">
           <div role="button" class="character-frame character-frame-avatar position-relative">
             {% if access.hasRight('avatar')|default(false) %}
@@ -80,6 +116,7 @@
             {% endif %}
           </div>
         </div>
+        {% block underAvatar %}{% endblock %}
       </div>
     </div>
   {% endblock %}
@@ -87,12 +124,12 @@
     <div class="order-3 order-md-3 col-6 col-md text-center">
       <div class="row">
         <div class="col-12">
-          {% if access.hasRight('faction')|default(false) %}
+          {% if access.hasRight('faction')|default(false) and character.faction is not empty %}
             {{ "faction"|trans }}: {{ character.faction }}
           {% endif %}
         </div>
         <div class="col-12">
-          {% if access.hasRight('group')|default(false) %}
+          {% if access.hasRight('group')|default(false) and character.groupName is not empty %}
             {{ "group"|trans }}: {{ character.groupName }}
           {% endif %}
         </div>

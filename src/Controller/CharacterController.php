@@ -34,6 +34,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
@@ -242,14 +243,10 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
+  #[IsGranted('edit', 'character')]
   public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-      $this->addFlash('notice', 'character.edit.denied');
-      return $this->redirectToRoute('character_index');
-    }
+    // $this->addFlash('notice', 'character.edit.denied');
 
     switch ($character->getType()) {
       case 'vampire':
@@ -314,8 +311,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('index');
     }
     $access = $peeker->getSpecificPeekingRights($character);
-
-    return $this->render('character_sheet/peek.html.twig', [
+    return $this->render("character_sheet/{$character->getType()}/peek.html.twig", [
       'peeker' => $peeker,
       'access' => $access,
       'character' => $character,
@@ -357,6 +353,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/lesser/add', name: 'character_lesser_add', methods: ['GET', 'POST'])]
   public function applyLesserTemplate(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $oldTemplate = $character->getLesserTemplate();
     $templates = $this->service->getAllAvailableLesserTemplates($oldTemplate);
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])

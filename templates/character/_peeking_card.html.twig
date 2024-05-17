@@ -16,9 +16,9 @@
       <div class="d-flex flex-column justify-content-end h-100">
         {# <p>{{ character.concept}}</p> #}
         <p class="accent">
-          {% if access.hasRight('faction')|default(false) %}{{ character.faction|default("—") }}{% else %}?{% endif %}
+          {% if access.hasRight('faction')|default(false) %}{{ character.faction|default("—") }}{% else %}&nbsp;{% endif %}
           <br>
-          {% if access.hasRight('group')|default(false) %}{{ character.groupName|default("—") }}{% else %}?{% endif %}
+          {% if access.hasRight('group')|default(false) %}{{ character.groupName|default("—") }}{% else %}&nbsp;{% endif %}
         </p>
       </div>
     </div>

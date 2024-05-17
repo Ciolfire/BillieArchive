@@ -277,10 +277,9 @@ class Character
     if (!empty($this->nickname)) {
 
       return "{$this->firstName} “{$this->nickname}” {$this->lastName}";
-    } else {
-
-      return "{$this->firstName} {$this->lastName}";
     }
+
+    return trim("{$this->firstName} {$this->lastName}");
   }
 
   public function setName(string $firstName, ?string $lastName, ?string $nickname): self
