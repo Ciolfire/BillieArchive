@@ -5,19 +5,24 @@ namespace App\Entity;
 use App\Repository\ViceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 #[ORM\Entity(repositoryClass: ViceRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
-class Vice
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\ViceTranslation")]
+class Vice implements Translatable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: Types::STRING, length: 8)]
+    #[Gedmo\Translatable]
+    #[ORM\Column(type: Types::STRING, length: 12)]
     private string $name;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private string $details;
 

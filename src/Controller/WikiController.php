@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Attribute;
 use App\Entity\Description;
 use App\Entity\Skill;
+use App\Entity\Vice;
+use App\Entity\Virtue;
 use App\Form\AttributeType;
 use App\Form\SkillType;
+use App\Form\ViceType;
+use App\Form\VirtueType;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,6 +97,74 @@ class WikiController extends AbstractController
     return $this->render('wiki/edit.html.twig', [
       'action' => 'edit',
       'entity' => 'skill',
+      'form' => $form,
+      'footer' => false,
+    ]);
+  }
+
+  #[Route('/virtues', name: 'virtue_index', methods: ['GET'])]
+  public function virtues(): Response
+  {
+    return $this->render('wiki/list.html.twig', [
+      'elements' => $this->dataService->findAll(Virtue::class),
+      'entity' => 'virtue',
+      'category' => 'character',
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'virtue']),
+      'isFixed' => true
+    ]);
+  }
+
+  #[Route('/virtue/{id<\d+>}/edit', name: 'virtue_edit', methods: ['GET', 'POST'])]
+  public function virtueEdit(Request $request, Virtue $virtue): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
+    $form = $this->createForm(VirtueType::class, $virtue);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+
+      return $this->redirectToRoute('virtue_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('wiki/edit.html.twig', [
+      'action' => 'edit',
+      'entity' => 'virtue',
+      'form' => $form,
+      'footer' => false,
+    ]);
+  }
+
+  #[Route('/vices', name: 'vice_index', methods: ['GET'])]
+  public function vices(): Response
+  {
+    return $this->render('wiki/list.html.twig', [
+      'elements' => $this->dataService->findAll(Vice::class),
+      'entity' => 'vice',
+      'category' => 'character',
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vice']),
+      'isFixed' => true
+    ]);
+  }
+
+  #[Route('/vice/{id<\d+>}/edit', name: 'vice_edit', methods: ['GET', 'POST'])]
+  public function viceEdit(Request $request, Vice $vice): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+    
+    $form = $this->createForm(ViceType::class, $vice);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+
+      return $this->redirectToRoute('vice_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('wiki/edit.html.twig', [
+      'action' => 'edit',
+      'entity' => 'vice',
       'form' => $form,
       'footer' => false,
     ]);
