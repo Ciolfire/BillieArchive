@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block body %}
-  <h1>
-    {% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg' } only %}
-    {{ (entity ~ '.edit')|trans }}
-  </h1>
+  <div class="container block-neutral">
+    <h1 class="py-3">
+      {% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg' } only %}
+      {{ (entity ~ '.edit')|trans({"element": form.vars.data.name}) }}
+    </h1>
 
-  <div class="container py-3 mt-5 g-0">
     <div class="row block">
       <div class="col p-3">
         {{ include('wiki/_form.html.twig', {'button_label': action|default(null)}) }}

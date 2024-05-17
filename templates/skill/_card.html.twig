@@ -1,8 +1,13 @@
-<div id="{{ skill.identifier }}" class="col-12 col-lg-4 block block-wiki">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
-  {% endif %}
-  <h3>{{ skill.name }}</h3>
-  <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
-  <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+<div id="{{ skill.identifier }}" class="col-12 col-lg-6 mb-4">
+	<div class="block block-wiki p-2">
+		{% if is_granted('ROLE_ST') %}
+			<a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
+		{% endif %}
+		<h2>
+      {% include "_icon.html.twig" with {'icon': skill.category } %}
+      {{ skill.name }}
+    </h2>
+		<div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
+		<p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+	</div>
 </div>

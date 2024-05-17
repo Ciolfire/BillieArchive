@@ -17,7 +17,7 @@
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <div class="container block-neutral">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': entity, 'class': 'icon-xl' } only %} {{ (entity ~ "s")|trans({}, 'app') }}: {{ ("type." ~ setting)|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {'icon': entity, 'class': 'icon-xl' } only %} {{ (entity ~ "s.label")|trans({}, 'app') }}</h1>
       <div class="col-auto">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
         {% if description is defined and description is not null and description.value is not empty %}

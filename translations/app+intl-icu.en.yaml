@@ -184,8 +184,9 @@ shortname: Acronym
 setting: Setting
 skill:
   new: New Skill
-  edit: Edit Skill
-skills: Skills
+  edit: "Edit skill — {element}"
+skills:
+  label: Skills
 society:
   label: Group
   add:
@@ -240,6 +241,17 @@ type:
   possessed: Possessed
 
   werewolf: Werewolf
+
+vice:
+  label: Vice
+  edit: Edit Vice — {element}
+vices:
+  label: Vices
+virtue:
+  label: Virtue
+  edit: Edit Virtue — {element}
+virtues:
+  label: Virtues
 
 email: Email Address
 username: Username

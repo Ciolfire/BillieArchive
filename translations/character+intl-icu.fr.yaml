@@ -152,6 +152,14 @@ morality:
     info: La Moralité peut être regagnée en dépensant des points d'experience, ou gratuitement si le Conteur considère que les actes du personnage le mérite.
     pay: Payer
     free: Gratuit
+  relative:
+    highest: Saint
+    higer: Exemplaire
+    high: Bon
+    similar: Similaire
+    low: Antipathique
+    lower: Cruel
+    lowest: Monstre
   human: Moralité
   ghoul: Moralité
   vampire: Humanité
@@ -229,16 +237,27 @@ peek:
 
 right:
   age: Age
-  avatar: Avatar
+  avatar: Avatar & age apparent
   background: Historique
-  description: Age apparent et description
+  description: Description
   faction: Faction
   group: Groupe
   firstname: Prénom
   lastname: Nom de famille
+  morality: Moralité
   nickname: Surnom
+  type: Type
   virtue: Vertue
   vice: Vice
+  # Ghoul
+  family: Famille
+  regent: Régent
+  # Vampire
+  bloodline: Lignée
+  clan: Clan
+  embrace: Étreinte
+  potency: Puissance de sang
+  sire: Sir
 
 infos:
   access:
@@ -249,7 +268,7 @@ infos:
   background: Historique
   description: Description
   details:
-    label: Informations
+    label: Informations Clés
     accessList: Partage
     add: Ajouter une information
     data: Texte

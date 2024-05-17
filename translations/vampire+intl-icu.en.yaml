@@ -84,6 +84,7 @@ ghoul:
   regent:
     label: Regent
     info: "Regent: {regent} ({clan})"
+    unknown: Unknown
   vitae:
     info: Vitae usage by Ghouls
     usage: |
@@ -171,6 +172,9 @@ embrace:
 sire: Sire
 potency:
   name: Blood Potency
+  hidden: Invisible
+  stronger: Superior
+  weaker: Inferior
 feeding:
   animal: The Vampire can feed on animal, Human and Kindred alike
   human: The Vampire must find sustenance from Human or Kindred

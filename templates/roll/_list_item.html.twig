@@ -5,7 +5,7 @@
 <div class="block {{ roll.type }} m-3">
   <div class="row mb-2">
     <h3>{{ roll.name }}</h2>
-    <div class="col-4 text-center">
+    <div class="col-5 text-center">
       <strong>Dice Pool:</strong>
     {% for attribute in roll.attributes %}
       {% if not first %}+{% else %}{% set first = false %}{% endif %}
@@ -22,15 +22,17 @@
       None
     {% endif %}
     </div>
-    <div class="col-4">
+    <div class="col-5">
       <strong>{{ "action.label"|trans }}:</strong>
       {{ roll.actionName|trans }}{% if roll.isContested %}, {{ "roll.action.contested"|trans}}{% endif %}
       
     </div>
-    <div class="col-4 text-end pe-3">
-      <button type="button" class="btn btn-primary" data-bs-target=".action-{{ roll.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details'} only %} Details</button>
+    <div class="col-2 text-end pe-3">
       <a type="button" href="{{ path('roll_edit', {'id': roll.id }) }}" class="btn btn-primary">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
     </div>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ roll.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {'icon': 'details'} only %} Details</button>
   </div>
   <div class="row">
     <div class="col-12">

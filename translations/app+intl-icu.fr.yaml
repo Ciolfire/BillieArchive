@@ -183,8 +183,9 @@ setting: Gamme
 shortname: Sigle
 skill:
   new: Nouvelle Compétence
-  edit: Modifier une Compétence
-skills: Compétences
+  edit: Modifier une Compétence — {element}
+skills: 
+  label: Compétences
 society:
   label: Groupe
   add:
@@ -239,6 +240,17 @@ type:
   possessed: Possedé
 
   werewolf: Loup-Garou
+
+vice:
+  label: Vice
+  edit: Modifier un Vice — {vice}
+vices:
+  label: Vices
+virtue:
+  label: Vertu
+  edit: Modifier une Vertu — {element}
+virtues:
+  label: Vertus
 
 email: Adresse Mail
 username: Identifiant

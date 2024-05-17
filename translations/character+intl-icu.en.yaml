@@ -152,6 +152,14 @@ morality:
     info: Morality can be regained by spending experience points, or for free if the Storyteller consider it is deserved.
     pay: Pay
     free: Free
+  relative:
+    highest: Saint
+    higer: Benevolant
+    high: Nice
+    similar: Similar
+    low: Mean
+    lower: Cruel
+    lowest: Monster
   human: Morality
   ghoul: Morality
   vampire: Humanity
@@ -229,16 +237,27 @@ peek:
 
 right:
   age: Age
-  avatar: Avatar
+  avatar: Avatar & apparent age
   background: Background
-  description: Apparent age & description
+  description: Description
   faction: Faction
   group: Group
   firstname: First name
   lastname: Last name
+  morality: Morality
   nickname: Nickname
+  type: Type
   virtue: Virtue
   vice: Vice
+  # Ghoul
+  family: Family
+  regent: Regent
+  # Vampire
+  bloodline: Bloodline
+  clan: Clan
+  embrace: Embrace
+  potency: Potency
+  sire: Sire
 
 infos:
   access:
@@ -249,7 +268,7 @@ infos:
   background: Background
   description: Description
   details:
-    label: Informations
+    label: Key Informations
     accessList: Share
     add: Add information
     data: Text

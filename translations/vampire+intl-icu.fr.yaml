@@ -81,7 +81,10 @@ ghoul:
         =1 {1 Famille goule}
         other {# Familles goule}
       }
-  regent: "Régent: {regent} ({clan})"
+  regent:
+    label: Regent
+    info: "Régent: {regent} ({clan})"
+    unknown: Inconnu
   vitae:
     info: Utilisation de la Vitae par les Goules
     usage: |
@@ -168,6 +171,9 @@ embrace:
 sire: Sire
 potency:
   name: Puissance du Sang
+  hidden: Invisible
+  stronger: Supérieure
+  weaker: Inférieure
 feeding:
   animal: Le Vampire peut tout aussi bien se nourrir sur des animaux, des Humains et des Vampires
   human: Le vampire doit se nourrir d'Humains ou de Vampires
