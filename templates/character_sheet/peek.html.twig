@@ -4,7 +4,9 @@
 
 {% block title %}{{ "peek.label"|trans }}{% endblock %}
 
+
 {% block body %}
+  {% include "_back.html.twig" %}
   <div class="block py-3"><h1 class="text user-select-none"><strong>{{ peeker }}</strong>'s informations on this character</h1></div>
   <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}">
     {% block menu %}
