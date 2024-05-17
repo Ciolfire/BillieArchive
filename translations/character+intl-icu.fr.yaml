@@ -160,6 +160,7 @@ morality:
     low: Antipathique
     lower: Cruel
     lowest: Monstre
+  unknown: Moralité inconnue
   human: Moralité
   ghoul: Moralité
   vampire: Humanité
