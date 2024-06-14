@@ -2,7 +2,7 @@
 
 <div class="row block generic pt-2">
   <h2 class="pe-none"><img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" /> World of Darkness <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" /></h2>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'human'})}}">{% include "_icon.html.twig" with {'icon': 'book' } only %} {{ "books"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'human'})}}">{% include "_icon.html.twig" with {'icon': 'book' } only %} {{ "books.label"|trans}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('rule_index')}}">{% include "_icon.html.twig" with {'icon': 'rules' } only %} {{ "rules"|trans}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('attribute_index')}}">{% include "_icon.html.twig" with {'icon': 'general' } only %} {{ "attributes.label"|trans({}, 'character')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('skill_index')}}">{% include "_icon.html.twig" with {'icon': 'general' } only %} {{ "skills.label"|trans({}, 'character')}}</a></div>
@@ -17,7 +17,7 @@
 
 <div class="row block vampire mt-3 pt-2">
   <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /> Vampire: The Requiem <img src={{ asset('SkullVTR.png', 'images') }} style="height:2em;" /></h2>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'vampire'})}}">{% include "_icon.html.twig" with {'icon': 'book' } only %}{{ "books"|trans}}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('book_index', {'setting': 'vampire'})}}">{% include "_icon.html.twig" with {'icon': 'book' } only %}{{ "books.label"|trans}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('rule_index', {'setting': 'vampire'})}}">{% include "_icon.html.twig" with {'icon': 'rules' } only %} {{ "rules"|trans}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('clan_index')}}">{% include "_icon.html.twig" with {'icon': 'clan' } only %}{{ "clans.label"|trans({}, 'vampire')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 m-2" href="{{path('bloodline_index')}}">{% include "_icon.html.twig" with {'icon': 'bloodline' } only %}<span class="d-none d-sm-inline">{{ "clan.bloodlines.label"|trans({}, 'vampire')}}</span></a></div>
