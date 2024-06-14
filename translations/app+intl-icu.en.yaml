@@ -17,10 +17,10 @@ advantages: Advantages
 attribute:
   new: New Attribute
   edit: Edit Attribute
-attributes: Attributes
+attributes.label: Attributes
 back: Back
 book: Book
-books: Books
+books.label: Books
 category:
   label: Category
   mental: Mental
