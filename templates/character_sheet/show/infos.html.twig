@@ -41,23 +41,33 @@
     <div id="informations" class="tab-content" data-tabs-target="page">
       {% if character.chronicle is not null or character.characterAccesses is not empty %}
         <h3 class="text-light">{{ "infos.access.standard"|trans }}</h3>
-        <a class="btn btn-primary w-100 mb-2" href="{{ path('character_access_add', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
-          {{ "infos.access.add"|trans }}
-        </a>
+        <div class="row justify-content-center">
+          <a class="btn btn-primary w-50 mb-2" href="{{ path('character_access_add', {'id': character.id}) }}">
+            {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+            {{ "infos.access.add"|trans }}
+          </a>
+        </div>
         {% for access in character.characterAccesses %}
           <div class="row my-2">
-            <a class="btn btn-primary" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
-              <div class="col-12 justify-content-center">
-                <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
-              </div>
-              <div class="col">
-                {% for right in access.rights %}
-                  {% if right != access.rights|first %} | {% endif %}
-                  {{ ('right.' ~ right)|trans }}
-                {% endfor %}
-              </div>
-            </a>
+            <div class="col-1 d-flex align-items-center justify-content-center">
+              <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
+                {% include "_icon.html.twig" with {'icon' : "impersonate", 'hasTips' : 0} only %}
+              </a>
+            </div>
+            <div class="col-11">
+              <a class="btn btn-primary w-100" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
+                <div class="col justify-content-center">
+                  <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+                </div>
+                <div class="col">
+                  {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+                  {% for right in access.rights %}
+                    {% if right != access.rights|first %} | {% endif %}
+                    {{ ('right.' ~ right)|trans }}
+                  {% endfor %}
+                </div>
+              </a>
+            </div>
           </div>
         {% endfor %}
         <hr>

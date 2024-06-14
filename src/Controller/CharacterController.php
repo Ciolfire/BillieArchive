@@ -292,17 +292,22 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET', 'POST'])]
+  #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
   public function peek(Character $character): Response
+  {
+    return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $character->getChronicle()->getCharacter($this->getUser())->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/peek/{peeker}', name: 'character_peek_as', methods: ['GET'])]
+  public function peekAs(Character $character, Character $peeker): Response
   {
     if (is_null($character->getChronicle())) {
       $this->addFlash('warning', 'character.peek.unavailable');
 
       return $this->redirectToRoute('character_index');
     }
-    $peeker = $character->getChronicle()->getCharacter($this->getUser());
-    if ($peeker === $character) {
 
+    if ($peeker === $character) {
       $this->addFlash('notice', 'character.peek.self');
       return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
     } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character)) || empty($peeker->getSpecificPeekingRights($character)->getRights())) {

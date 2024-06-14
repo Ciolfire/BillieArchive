@@ -38,7 +38,8 @@
     {{ source('@icons/' ~ 'save.svg') }}
   {% elseif icon == 'show' or icon == 'view' %}
     {{ source('@icons/' ~ 'magnifying-glass.svg') }}
-    {# <i class="fa-solid fa-eye"></i> #}
+  {% elseif icon == 'see' %}
+    <i class="fa-solid fa-eye"></i>
   {% elseif icon == 'open-tab' %}
     {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
   {% elseif icon == 'password' %}
@@ -338,7 +339,7 @@
   {% elseif icon == 'translation' %}
     <i class="fa-solid fa-arrow-right-arrow-left"></i>
 {# Templates #}
-  {% elseif icon == 'body_thief' %}
+  {% elseif icon == 'body_thief' or icon == 'impersonate' %}
     {{ source('@icons/' ~ 'body-swapping.svg') }}
   {% elseif icon == 'purified' %}
     {{ source('@icons/' ~ 'ankh.svg') }}
