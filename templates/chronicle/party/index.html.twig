@@ -2,60 +2,69 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}Party - {{ chronicle.name }}{% endblock %}
+{% block title %}Party -
+	{{ chronicle.name }}
+{% endblock %}
 
 {% block body %}
-{% include "_back.html.twig" %}
-<h1 class="pt-5">
-  {% include "_icon_setting.html.twig" with {'setting': chronicle.type, 'hasTips': true } only %}
-  {{ chronicle.name }}
-</h1>
-<h2 class="pb-5">
-  {% include "_icon.html.twig" with {'icon': 'party', 'class': 'icon-xl' } only %}
-  {{ 'party.name'|trans }}
-</h1>
-<div class="container">
-  <div class="row block">
-    <h2 class="py-4 bdr-b">Players</h2>
-    {% for player in chronicle.players %}
-      {% set character = chronicle.character(player) %}
-      {% if character %}
-        {% include "character/_card.html.twig" with {'showPlayer' : true, 'showChronicle' : 0} %}
-      {% else %}
-        <div class="col-6 col-lg-2 mb-3">
-          <a class="btn btn-primary w-100 h-100 {% if app.user.id != player.id %} disabled{% endif %}" {% if app.user.id == player.id %}href="{{path('character_new', {'chronicle': chronicle.id })}}"{% endif %} href="#">
-            <div class="character-frame character-frame-list position-relative text-center mb-2">
-              <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
-            </div>
-            {% if app.user.id == player.id %}
-              Create Character
+	{% include "_back.html.twig" %}
+	<div class="container-fluid container-lg py-3">
+		<div class="row">
+			<div class="block">
+				<h1 class="strong pt-2">
+					{% include "_icon_setting.html.twig" with {'setting': chronicle.type, 'hasTips': true } only %}
+					{{ chronicle.name }}
+				</h1>
+				<h2 class="pb-5">
+					{% include "_icon.html.twig" with {'icon': 'party', 'class': 'icon-xl' } only %}
+					{{ 'party.name'|trans }}
+				</h1>
+				<h2 class="py-4 bdr-b">Players</h2>
+        <div class="row justify-content-center">
+          {% for player in chronicle.players %}
+            {% set character = chronicle.character(player) %}
+            {% if character %}
+              {% include "character/_card.html.twig" with {'showPlayer' : true, 'showChronicle' : 0} %}
             {% else %}
-              {{ player.username }} - No Character
+              <div class="col-6 col-lg-2 mb-3">
+                <a class="btn btn-primary w-100 h-100 {% if app.user.id != player.id %} disabled{% endif %}" {% if app.user.id == player.id %} href="{{path('character_new', {'chronicle': chronicle.id })}}" {% endif %} href="#">
+                  <div class="character-frame character-frame-list position-relative text-center mb-2">
+                    <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
+                  </div>
+                  {% if app.user.id == player.id %}
+                    Create Character
+                  {% else %}
+                    {{ player.username }}
+                    - No Character
+                  {% endif %}
+                </a>
+              </div>
             {% endif %}
-          </a>
+          {% endfor %}
         </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-  <div class="row">
-    {% if app.user.id == chronicle.storyteller.id|default(0) %}
-      <div class="col-6">
-        <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_add_player', {'id': chronicle.id })}}">
-          <div class="character-frame character-frame-list position-relative text-center mb-2">
-            <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
-          </div>
-          <i class="fa-solid fa-user-plus"></i> Add a Player
-        </a>
-      </div>
-      <div class="col-6">
-        <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_remove_player', {'id': chronicle.id })}}">
-          <div class="character-frame character-frame-list position-relative text-center mb-2">
-            <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
-          </div>
-          <i class="fa-solid fa-user-minus"></i> Remove a Player
-        </a>
-      </div>
-    {% endif %}
-  </div>
-</div>
+        <div class="row">
+          {% if app.user.id == chronicle.storyteller.id|default(0) %}
+            <div class="col-6">
+              <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_add_player', {'id': chronicle.id })}}">
+                <div class="character-frame character-frame-list position-relative text-center mb-2">
+                  <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
+                </div>
+                <i class="fa-solid fa-user-plus"></i>
+                Add a Player
+              </a>
+            </div>
+            <div class="col-6">
+              <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_remove_player', {'id': chronicle.id })}}">
+                <div class="character-frame character-frame-list position-relative text-center mb-2">
+                  <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="50">
+                </div>
+                <i class="fa-solid fa-user-minus"></i>
+                Remove a Player
+              </a>
+            </div>
+          {% endif %}
+        </div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
