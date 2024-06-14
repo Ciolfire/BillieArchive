@@ -61,8 +61,11 @@ class MeritController extends AbstractController
       case 'type':
         switch ($id) {
           case 'vampire':
+            $contentTypes = $this->dataService->findBy(ContentType::class, ['name' => ['vampire']]);
+            $setting = 'vampire';
+            break;
           case 'ghoul':
-            $contentTypes = $this->dataService->findBy(ContentType::class, ['name' => ['vampire', 'ghoul']]);
+            $contentTypes = $this->dataService->findBy(ContentType::class, ['name' => ['ghoul']]);
             $setting = 'vampire';
             break;
 
