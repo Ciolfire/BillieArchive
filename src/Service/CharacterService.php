@@ -165,42 +165,19 @@ class CharacterService
     }
   }
 
-  public function updateTrait(Character $character, \stdClass $data): void
+  public function updateTrait(Character $character, \stdClass $data, bool $isLesser = false): void
   {
+    if ($isLesser) {
+      $character = $character->getLesserTemplate();
+    }
+
     switch ($data->trait) {
       case 'willpower':
-        if ($data->value == 1) {
-          $character->setCurrentWillpower(min($character->getWillpower(), $character->getCurrentWillpower() + 1));
-        } else if ($data->value == 0) {
-          $character->setCurrentWillpower(max(0, $character->getCurrentWillpower() - 1));
-        }
+          $character->setCurrentWillpower(min($character->getWillpower(), $data->value));
         break;
       default:
-        $getTrait = "get" . ucfirst($data->trait);
         $setTrait = "set" . ucfirst($data->trait);
-        if ($data->value == 1) {
-          $character->$setTrait($character->$getTrait() + 1);
-        } else {
-          $character->$setTrait(max(0, $character->$getTrait() - 1));
-        }
-        break;
-    }
-    $this->dataService->flush();
-  }
-
-  public function updateLesserTrait(Character $character, \stdClass $data): void
-  {
-    $character = $character->getLesserTemplate();
-
-    switch ($data->trait) {
-      default:
-        $getTrait = "get" . ucfirst($data->trait);
-        $setTrait = "set" . ucfirst($data->trait);
-        if ($data->value == 1) {
-          $character->$setTrait($character->$getTrait() + 1);
-        } else {
-          $character->$setTrait(max(0, $character->$getTrait() - 1));
-        }
+        $character->$setTrait($data->value);
         break;
     }
     $this->dataService->flush();

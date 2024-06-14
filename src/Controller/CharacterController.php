@@ -616,7 +616,7 @@ class CharacterController extends AbstractController
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
-      $this->service->updateLesserTrait($character, $data);
+      $this->service->updateTrait($character, $data, true);
       return new JsonResponse('ok');
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);

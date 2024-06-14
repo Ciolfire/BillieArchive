@@ -20,7 +20,7 @@ class MeritRepository extends ServiceEntityRepository
     parent::__construct($registry, Merit::class);
   }
 
-  public function findAll() : ?array
+  public function findAll() : array
   {
     return $this->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
   }

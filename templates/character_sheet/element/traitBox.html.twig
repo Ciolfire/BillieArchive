@@ -8,7 +8,11 @@
     </span>
   </div>
   <div>
-    <svg class="trait-box{% if current > max %} disabled{% endif %}" viewBox="0 0 100 100" role="button" data-controller="trait" data-trait-target="input" data-trait-id-value="{{ character.id }}" data-trait-type-value="{{ trait }}" data-trait-current-value="{{ value }}" data-action="click->trait#switch" class="text-center">
+    <svg class="trait-box{% if current > max %} disabled{% endif %}" viewBox="0 0 100 100" role="button" class="text-center"
+    data-trait-target="input" data-action="click->trait#switch"
+    data-count="{{ index }}"
+    data-value="{{ value }}"
+    >
       {# <line class="trait-fill d-none on" x1="10" y1="90" x2="90" y2="10"/>
       <line class="trait-fill d-none on" x1="10" y1="10" x2="90" y2="90"/> #}
       <rect class="trait-fill d-none on" x="10" y="10" width="85" height="85"/>
