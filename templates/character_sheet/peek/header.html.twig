@@ -7,7 +7,7 @@
       {% if access.hasRight('type') %}
         {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
       {% endif %}
-      {% if access is null or (not access.hasRight('firstname') and not access.hasRight('nickname') and not access.hasRight('lastname')) %}
+      {% if access is null or (not access.hasRight('firstname') and not access.hasRight('lastname')) and (not access.hasRight('nickname') or character.nickname == "") %}
         <span class="warning">{{ "name.unknown"|trans }}</warning>
       {% endif %}
       {% if access.hasRight('firstname')|default(false) %}

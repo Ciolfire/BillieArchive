@@ -4,9 +4,9 @@
   <a class="text-center p-0 {% if access.hasRight('type')|default(false) %}{{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100" href="{{ path('character_peek', {'id': character.id}) }}">
     <div class="character-card-name">
       {% if access.hasRight('firstname')|default(false) %}{{ character.firstname }}{% endif %}
-      {% if access.hasRight('nickname')|default(false) %}“{{ character.nickname }}”{% endif %}
+      {% if access.hasRight('nickname')|default(false) and character.nickname != "" %}“{{ character.nickname }}”{% endif %}
       {% if access.hasRight('lastname')|default(false) %}{{ character.lastname }}{% endif %}
-      {% if not access.hasRight('firstname') and not access.hasRight('nickname') and not access.hasRight('lastname') %}<span class="warning">?</span>{% endif %}
+      {% if not access.hasRight('firstname') and not access.hasRight('lastname') and (not access.hasRight('nickname') or character.nickname == "") %}<span class="warning">?</span>{% endif %}
       <p class="strong">{% if character.isNpc %}{{ "character.npc"|trans }}{% else %}({{ character.player }}){% endif %}</p>
     </div>
     <div class="character-card-avatar position-relative text-center">
