@@ -2091,9 +2091,9 @@ cidr-regex@^4.0.4:
     ip-regex "^5.0.0"
 
 ckeditor4@^4.22.1:
-  version "4.24.0"
-  resolved "https://registry.npmjs.org/ckeditor4/-/ckeditor4-4.24.0.tgz"
-  integrity sha512-ShtIqZMMNmP5r8AhZqnysSaONsx+qKjI/zf5AkU9wKxl0yHVw2/CSxWYmdd40u3dMjJR2kOthQ6USahz528lbw==
+  version "4.22.1"
+  resolved "https://registry.npmjs.org/ckeditor4/-/ckeditor4-4.22.1.tgz"
+  integrity sha512-Yj4vTHX5YxHwc48gNqUqTm+KLkRr9tuyb4O2VIABu4oKHWRNVIdLdy6vUNe/XNx+RiTavMejfA1MVOU/MxLjqQ==
 
 clean-stack@^2.0.0:
   version "2.2.0"

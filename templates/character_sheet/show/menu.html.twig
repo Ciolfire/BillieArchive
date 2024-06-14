@@ -27,9 +27,21 @@
       </div>
     {% endif %}
     <div class="col-2">
-      <a href="{% if character.isPremade %}{{ path('character_premade_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
-        {% include "_icon.html.twig" with {'icon': 'back'} only %}
-      </a>
+      {% if character.chronicle != null %}
+        {% if character.isNpc %}
+          <a href="{{ path('chronicle_npc_index', {'id':  character.chronicle.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
+            {% include "_icon.html.twig" with {'icon': 'back'} only %}
+          </a>
+        {% else %}
+          <a href="{{ path('chronicle_party_index', {'id': character.chronicle.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
+            {% include "_icon.html.twig" with {'icon': 'back'} only %}
+          </a>
+        {% endif %}
+      {% else %}
+        <a href="{% if character.isPremade %}{{ path('character_premade_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
+          {% include "_icon.html.twig" with {'icon': 'back'} only %}
+        </a>
+      {% endif %}
     </div>
   </div>
   <div class="row justify-content-center g-0">
