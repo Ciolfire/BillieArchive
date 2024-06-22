@@ -281,13 +281,15 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['GET'])]
-  public function delete(Request $request, Character $character): Response
+  public function delete(Character $character): Response
   {
     $this->denyAccessUnlessGranted('delete', $character);
-    // if ($this->isCsrfTokenValid('delete' . $character->getId(), $request->request->get('_token'))) {
+    try {
+      $this->dataService->remove($character);
       $this->addFlash('success', ["character.delete.success", ['%name%' => $character->getName()]]);
-    $this->dataService->remove($character);
-    // }
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["character.delete.error", ['%name%' => $character->getName()]]);
+    }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
@@ -345,8 +347,21 @@ class CharacterController extends AbstractController
       // Need to check for the path
       $path = $this->getParameter('characters_directory');
       if (is_string($path)) {
-        $this->dataService->duplicateCharacter($character, $form->get('story')->getData(), $user, $path);
-        return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+        $chronicle = $form->get('story')->getData();
+        if ($chronicle instanceof Chronicle) {
+          $newCharacter = $this->dataService->duplicateCharacter($character, $chronicle, $user, $path);
+          if ($character) {
+            // Success
+            $this->addFlash('success', ['character.duplicate.success', ['name' => $newCharacter->getName(), 'chronicle' => $chronicle->getName()]]);
+            return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()], Response::HTTP_SEE_OTHER);
+          } else {
+            // Failed
+            $this->addFlash('warning', ['character.duplicate.failed', ['name' => $character->getName()]]);
+          }
+        } else {
+          // Failed
+          // $this->addFlash('warning', ['character.duplicate.error', ['name' => $character->getName()]]);
+        }
       }
     }
     return $this->render('character/duplicate.html.twig', [
@@ -647,10 +662,12 @@ class CharacterController extends AbstractController
       $avatar = $request->files->get('avatar')['upload'];
       $path = $this->getParameter('characters_directory');
       if (!is_null($avatar) && is_string($path)) {
-        $file = $this->dataService->upload($avatar, $path, (string)$character->getId());
+        $filename = $this->dataService->upload($avatar, $path);
 
-        if (!is_null($file)) {
-          return new JsonResponse($file);
+        if (!is_null($filename)) {
+          $character->setAvatar($filename);
+          $this->dataService->flush();
+          return new JsonResponse($filename);
         }
       }
 
