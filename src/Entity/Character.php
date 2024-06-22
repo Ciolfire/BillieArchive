@@ -1354,4 +1354,22 @@ class Character
 
       return $this;
   }
+
+  public function getPublicName(Character $peeker): string
+  {
+    $name = "";
+    $rights = $peeker->getSpecificPeekingRights($this)->getRights();
+
+    if (in_array('firstname', $rights)) {
+      $name .= "{$this->firstName} ";
+    }
+    if (in_array('nickname', $rights) && $this->nickname) {
+      $name .= "“{$this->nickname}” ";
+    }
+    if (in_array('lastname', $rights)) {
+      $name .= "{$this->lastName}";
+    }
+
+    return trim($name);
+  }
 }

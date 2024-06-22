@@ -266,6 +266,7 @@ infos:
     add: Nouvel accès
     standard: Accès aux informations standard
     other: Accès aux autres informations
+    targets: Accès aux informations des personnages suivants
   background: Historique
   description: Description
   details:

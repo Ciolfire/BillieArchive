@@ -7,17 +7,11 @@
       {% if access.hasRight('type') %}
         {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
       {% endif %}
-      {% if access is null or (not access.hasRight('firstname') and not access.hasRight('lastname')) and (not access.hasRight('nickname') or character.nickname == "") %}
+      {% set publicName = character.publicName(peeker) %}
+      {% if publicName == "" %}
         <span class="warning">{{ "name.unknown"|trans }}</warning>
-      {% endif %}
-      {% if access.hasRight('firstname')|default(false) %}
-        {{ character.firstname }}
-      {% endif %}
-      {% if access.hasRight('nickname')|default(false) and character.nickname is not empty %}
-        “{{ character.nickname }}”
-      {% endif %}
-      {% if access.hasRight('lastname')|default(false) %}
-        {{ character.lastname }}
+      {% else %}
+        <span class="accent">{{ publicName }}</span>
       {% endif %}
       {% if access.hasRight('type') %}
         {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}

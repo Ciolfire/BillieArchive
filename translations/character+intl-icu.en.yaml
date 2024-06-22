@@ -264,8 +264,9 @@ infos:
   access:
     accessor: Character
     add: New access
-    standard: Standard informations access
     other: Other informations access
+    standard: Standard informations access
+    targets: Access to informations for the following characters
   background: Background
   description: Description
   details:

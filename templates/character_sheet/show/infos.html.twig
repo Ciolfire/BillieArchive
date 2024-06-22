@@ -97,6 +97,30 @@
       {% else %}
         <p>{{ "infos.none"|trans }}</p>
       {% endif %}
+      <hr>
+      <h3 class="text-light">{{ "infos.access.targets"|trans }}</h3>
+      <div class="row my-2">
+        {% for peekingRight in character.peekingRights %}
+          {% set publicName = peekingRight.target.publicName(character) %}
+          <div class="col col-md-6 col-lg-4">
+            <a class="btn btn-primary w-100 h-100" href="{{ path('character_peek', {'id': peekingRight.target.id, 'accessor': character.id}) }}">
+              <div class="d-flex h-100 align-items-center">
+                <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset(peekingRight.target.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+                <div class="d-flex flex-column">
+                  <span class="accent">{{ publicName|default("name.unknown"|trans) }}</span>
+                  <span>
+                    {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+                    {% for right in peekingRight.rights %}
+                      {% if right != peekingRight.rights|first %} | {% endif %}
+                      {{ ('right.' ~ right)|trans }}
+                    {% endfor %}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
