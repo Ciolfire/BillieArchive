@@ -284,14 +284,25 @@ class CharacterController extends AbstractController
   public function delete(Character $character): Response
   {
     $this->denyAccessUnlessGranted('delete', $character);
+    $chronicle = $character->getChronicle();
     try {
       $this->dataService->remove($character);
       $this->addFlash('success', ["character.delete.success", ['%name%' => $character->getName()]]);
+      if ($chronicle && $character->isNpc()) {
+        return $this->render('character/npc/index.html.twig', [
+          'chronicle' => $chronicle,
+          'setting' => $chronicle->getType(),
+          'back' => ['path' => 'chronicle_show', 'id' => $chronicle->getId()],
+        ]);
+      } else {
+        return $this->redirectToRoute('character_index');
+      }
     } catch (\Throwable $th) {
       $this->addFlash('error', ["character.delete.error", ['%name%' => $character->getName()]]);
     }
 
-    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
