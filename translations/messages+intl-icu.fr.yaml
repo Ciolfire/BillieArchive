@@ -15,6 +15,9 @@ character:
     edit: "Mise à jour des informations partagées à {name}."
   delete:
     success: "Le personnage {name} a été supprimé avec succès."
+  duplicate:
+    success: "{name} a été ajouté à la chronique {chronicle}."
+    failed: "Une erreur s'est produite, {name} n'a pas été dupliqué."
   edit:
     denied: "Vous n'êtes pas autorisé à modifier ce personnage."
     success: >-

@@ -6,7 +6,7 @@ action:
   delete: Supprimer
   duplicate: Duplicate
   edit: Modifier
-  new: Sauvegarder
+  new: Nouveau
   reduce: Réduire de 1
   remove: Retirer
   save: Sauvegarder
@@ -213,6 +213,7 @@ tab:
   mental: Mental
   physical: Physique
   social: Social
+tools.label: Outils
 type:
   label: Type
   alternate_setting: Univers Alternatif

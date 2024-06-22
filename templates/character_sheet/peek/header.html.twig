@@ -40,7 +40,7 @@
                 {% if character.lookAge is defined and character.lookAge != character.age %}
                   ({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})
                 {% endif %}
-              {% elseif access.hasRight('avatar')|default(false) %}
+              {% elseif access.hasRight('avatar')|default(false) and character.lookAge %}
                 <span class="accent">({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})</span>
               {% else %}
                 <span class="warning">{{ "age.normal"|trans({"%age%": 0}) }}</span>
@@ -110,7 +110,7 @@
         <div class="col-12 d-flex my-2">
           <div role="button" class="character-frame character-frame-avatar position-relative">
             {% if access.hasRight('avatar')|default(false) %}
-              <img class="p-1" src="{{ asset(character.id , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+              <img class="p-1" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
             {% else %}
               <img class="p-1" src="{{ asset('default.jpg', 'characters') }}" height="100">
             {% endif %}

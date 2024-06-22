@@ -14,7 +14,7 @@
 <h1>{{ "npc"|trans }}</h1>
 <div class="container">
   <div class="col-4 offset-4">
-    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('chronicle_npc_add', {'id': chronicle.id}) }}">Create new</a>
+    <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('chronicle_npc_add', {'id': chronicle.id}) }}">{% include "_icon.html.twig" with {'icon': 'character' } only %} {{ "action.new"|trans([], "app") }}</a>
   </div>
   <div class="row pt-3">
     {% for character in chronicle.npc %}

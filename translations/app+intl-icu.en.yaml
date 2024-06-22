@@ -6,7 +6,7 @@ action:
   delete: Delete
   duplicate: Duplicate
   edit: Update
-  new: Save
+  new: New
   reduce: Reduce by 1
   remove: Remove
   save: Save
@@ -214,6 +214,7 @@ tab:
   mental: Mental
   physical: Physical
   social: Social
+tools.label: Tools
 type:
   label: Type
   alternate_setting: Alternate Setting

@@ -8,8 +8,23 @@
 {% block body %}
   {% include "_back.html.twig" %}
   <div class="block py-3"><h1 class="text user-select-none"><strong>{{ peeker }}</strong>'s informations on this character</h1></div>
-  <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}">
+  <div class="container-fluid container-lg">
     {% block menu %}
+      {% if character.player == app.user %}
+        <div class="row my-2">
+          {% for access in character.characterAccesses %}
+            {% if access.accessor != peeker %}
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                  <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
+                    <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+                    {% include "_icon.html.twig" with {'icon' : "impersonate", 'hasTips' : 0} only %}
+                    {% include "_icon.html.twig" with {'icon' : "infos", 'hasTips' : 0} only %}
+                  </a>
+                </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
       {# Maybe show menu to switch between available peek characters #}
     {% endblock %}
     {% block header %}
@@ -19,7 +34,7 @@
       {% if access.hasRight('avatar')|default(false) %}
         <div class="col-12 p-2">
           <div id="collapseAvatar" class="collapse">
-            <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+            <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
           </div>
           <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture'} %}</button>
         </div>

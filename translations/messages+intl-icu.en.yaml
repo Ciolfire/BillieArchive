@@ -15,6 +15,9 @@ character:
     edit: "Updated informations shared with {name}."
   delete:
     success: "The character {name} was successfully deleted."
+  duplicate:
+    success: "{name} was added to the chronicle {chronicle}."
+    failed: "Something went wrong, {name} was not duplicated."
   edit:
     denied: "You are not allowed to edit this character."
     success: >-
