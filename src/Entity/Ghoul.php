@@ -25,13 +25,13 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\Column(type: Types::SMALLINT)]
   private int $vitae = 1;
 
-  #[ORM\OneToMany(targetEntity: GhoulDiscipline::class, mappedBy: "character", orphanRemoval: true)]
+  #[ORM\OneToMany(targetEntity: GhoulDiscipline::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   private Collection $disciplines;
 
-  #[ORM\ManyToMany(targetEntity: Devotion::class)]
+  #[ORM\ManyToMany(targetEntity: Devotion::class, cascade: ["persist"])]
   private Collection $devotions;
 
-  #[ORM\ManyToMany(targetEntity: DisciplinePower::class)]
+  #[ORM\ManyToMany(targetEntity: DisciplinePower::class, cascade: ["persist"])]
   private Collection $rituals;
 
   #[ORM\ManyToOne]
@@ -43,14 +43,14 @@ class Ghoul extends CharacterLesserTemplate
       $this->clan = $clan;
     }
     $this->disciplines = new ArrayCollection();
-    // if (is_object($ghoul)) {
-    //   // Initializing class properties
-    //   foreach ($ghoul->getProperties() as $property => $value) {
-    //     $this->$property = $value;
-    //   }
-    // }
     $this->devotions = new ArrayCollection();
     $this->rituals = new ArrayCollection();
+  }
+
+  public function __clone()
+  {
+    parent::__clone();
+    $this->disciplines = $this->cloneCollection($this->disciplines);
   }
 
   public function getType(): string
@@ -161,23 +161,11 @@ class Ghoul extends CharacterLesserTemplate
   {
     if (!$this->disciplines->contains($discipline)) {
       $this->disciplines[] = $discipline;
-      $discipline->setGhoul($this);
+      $discipline->setCharacter($this);
     }
 
     return $this;
   }
-
-  // public function removeDiscipline(VampireDiscipline $discipline): self
-  // {
-  //   if ($this->disciplines->removeElement($discipline)) {
-  //     // set the owning side to null (unless already changed)
-  //     if ($discipline->getVampire() === $this) {
-  //       $discipline->setVampire(null);
-  //     }
-  //   }
-
-  //   return $this;
-  // }
 
   public function getDiscipline(int $id): ?GhoulDiscipline
   {

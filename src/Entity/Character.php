@@ -80,6 +80,9 @@ class Character
   #[ORM\Column(type: Types::TEXT)]
   private ?string $description = "";
 
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  protected ?string $avatar = "";
+
   /** @var array<string, int> */
   #[ORM\Column(type: Types::JSON, nullable: true)]
   protected array $wounds = ['B' => 0, 'L' => 0, 'A' => 0];
@@ -89,13 +92,13 @@ class Character
   protected array $experienceLogs = [];
 
 
-  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
   protected CharacterAttributes $attributes;
 
-  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", cascade: ["persist", "remove"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
   protected CharacterSkills $skills;
 
-  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
+  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected Collection $specialties;
 
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
@@ -108,7 +111,7 @@ class Character
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $viceDetail;
 
-  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
+  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   #[ORM\OrderBy(["level" => "DESC", "merit" => "ASC"])]
   protected Collection $merits;
 
@@ -118,7 +121,7 @@ class Character
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
   protected ?Chronicle $chronicle = null;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true)]
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true, cascade: ["persist"])]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
   protected Collection $notes;
 
@@ -132,22 +135,22 @@ class Character
   #[ORM\ManyToMany(targetEntity: Society::class, mappedBy: 'characters')]
   private Collection $societies;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true)]
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $derangements;
 
-  #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class)]
+  #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $lesserTemplates;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterInfo::class, orphanRemoval: true, cascade: ['persist'])]
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterInfo::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $infos;
 
-  #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList')]
+  #[ORM\ManyToMany(mappedBy: 'accessList', targetEntity: CharacterInfo::class, cascade: ["persist"])]
   private Collection $infoAccesses;
 
-  #[ORM\OneToMany(mappedBy: 'target', targetEntity: CharacterAccess::class, orphanRemoval: true)]
+  #[ORM\OneToMany(mappedBy: 'target', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $characterAccesses;
 
-  #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true)]
+  #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $peekingRights;
 
   public function __construct()
@@ -168,14 +171,43 @@ class Character
     $this->peekingRights = new ArrayCollection();
   }
 
+  public function __clone()
+  {
+    if ($this->id) {
+      $this->id = null;
+      $this->attributes = clone $this->attributes;
+      $this->skills = clone $this->skills;
+      // Collections/Arrays
+      $this->specialties = $this->cloneCollection($this->specialties);
+      $this->merits = $this->cloneCollection($this->merits);
+      $this->derangements = $this->cloneCollection($this->derangements);
+      // TO-DO Need more work on this
+      $this->lesserTemplates = $this->cloneCollection($this->lesserTemplates, 'template');
+    }
+  }
+
+  // cloning a relation which is a OneToMany
+  protected function cloneCollection($collection, $method='default')
+  {
+    $collectionClone = new ArrayCollection();
+    foreach ($collection as $item) {
+        $itemClone = clone $item;
+        switch ($method) {
+          case 'template':
+            $itemClone->setSourceCharacter($this);
+            break;
+          default:
+            $itemClone->setCharacter($this);
+            break;
+        }
+        $collectionClone->add($itemClone);
+    }
+    return $collectionClone;
+  }
+
   public function __toString()
   {
     return $this->getName();
-  }
-
-  public function getAvatar(): string
-  {
-    return "".$this->getId();
   }
 
   /**
@@ -323,6 +355,18 @@ class Character
   public function setNickname(string $nickname): self
   {
     $this->nickname = $nickname;
+
+    return $this;
+  }
+
+  public function getAvatar(): string
+  {
+    return $this->avatar;
+  }
+
+  public function setAvatar(string $avatar = ""): self
+  {
+    $this->avatar = $avatar;
 
     return $this;
   }

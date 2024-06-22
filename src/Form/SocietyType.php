@@ -28,7 +28,7 @@ class SocietyType extends AbstractType
             return $er->createQueryBuilder('c')->where('c.chronicle = ?1')->orderBy('c.firstName', 'ASC')->setParameter('1', $society->getChronicle()->getId());
           },
           'choice_label' => function ($choice, string $key, mixed $value) use ($path): string {
-            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getId()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
+            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
           },
           'label_html' => true,
         ])

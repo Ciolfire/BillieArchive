@@ -58,6 +58,12 @@ class CharacterAttributes
     }
   }
 
+  public function __clone() {
+    if ($this->id) {
+      $this->id = null;
+    }
+  }
+
   public function getId(): ?int
   {
     return $this->id;

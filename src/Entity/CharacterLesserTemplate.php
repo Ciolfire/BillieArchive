@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CharacterLesserTemplateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\InheritanceType;
@@ -26,6 +27,23 @@ class CharacterLesserTemplate
   #[ORM\ManyToOne(inversedBy: 'lesserTemplates')]
   #[ORM\JoinColumn(nullable: false)]
   private ?Character $sourceCharacter = null;
+
+  public function __clone()
+  {
+    $this->id = null;
+  }
+
+  // cloning a relation which is a OneToMany
+  protected function cloneCollection($collection)
+  {
+    $collectionClone = new ArrayCollection();
+    foreach ($collection as $item) {
+        $itemClone = clone $item;
+        $itemClone->setCharacter($this);
+        $collectionClone->add($itemClone);
+    }
+    return $collectionClone;
+  }
 
   public function getId(): ?int
   {

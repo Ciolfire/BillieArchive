@@ -54,12 +54,12 @@ class GhoulDiscipline
     return $this;
   }
 
-  public function getGhoul(): ?Ghoul
+  public function getCharacter(): ?Ghoul
   {
     return $this->character;
   }
 
-  public function setGhoul(Ghoul $Ghoul): self
+  public function setCharacter(Ghoul $Ghoul): self
   {
     $this->character = $Ghoul;
 

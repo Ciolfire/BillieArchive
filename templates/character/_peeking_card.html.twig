@@ -10,7 +10,7 @@
       <p class="strong">{% if character.isNpc %}{{ "character.npc"|trans }}{% else %}({{ character.player }}){% endif %}</p>
     </div>
     <div class="character-card-avatar position-relative text-center">
-      <img src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
+      <img src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
     </div>
     <div class="position-relative">
       <div class="d-flex flex-column justify-content-end h-100">

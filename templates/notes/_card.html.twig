@@ -13,7 +13,7 @@
         <div class="col-12 pb-3">
           {% if note.character %}
             <a class="btn btn-primary" href="{{ path('character_show', {'id': note.character.id}) }}">
-              <img src="{{ asset(note.character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
+              <img src="{{ asset(note.character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
               {% include "_icon.html.twig" with {'icon' : note.character.type } %} 
               {{ note.character.name }}
               </a>

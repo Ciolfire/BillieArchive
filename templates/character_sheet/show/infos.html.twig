@@ -8,9 +8,9 @@
     {% include "_tab.html.twig" with {'name': 'informations', 'domain': 'character'} only %}
   </ul>
   <div class="block position-relative overflow-y-hidden">
-    <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+    <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     <div id="picture" class="tab-content d-flex justify-content-center" data-tabs-target="page">
-      <img class="vh-50" src="{{ asset(character.id, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+      <img class="vh-50" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     </div>
     <div id="description" class="tab-content" data-tabs-target="page">
       <div class="row justify-content-center">
@@ -52,6 +52,7 @@
             <div class="col-1 d-flex align-items-center justify-content-center">
               <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
                 {% include "_icon.html.twig" with {'icon' : "impersonate", 'hasTips' : 0} only %}
+                {% include "_icon.html.twig" with {'icon' : "infos", 'hasTips' : 0} only %}
               </a>
             </div>
             <div class="col-11">

@@ -54,12 +54,12 @@ class VampireDiscipline
     return $this;
   }
 
-  public function getVampire(): ?Vampire
+  public function getCharacter(): ?Vampire
   {
     return $this->character;
   }
 
-  public function setVampire(Vampire $vampire): self
+  public function setCharacter(Vampire $vampire): self
   {
     $this->character = $vampire;
 

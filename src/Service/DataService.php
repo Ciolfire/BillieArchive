@@ -283,26 +283,26 @@ class DataService
     }
   }
 
-  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user, string $path) : void
+  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user) : ?Character
   {
-    $oldId = $character->getId();
-    // $vice = $character->getVirtue();
-    // $virtue = $character->getVice();
-    $this->doctrine->resetManager();
-    $character->setId(null);
-    $character->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
-    $character->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
-    $character->setIsPremade(false);
-    $character->setIsNpc(true);
+    $newCharacter = clone $character;
+    // Updating specific info for the clone
+    $newCharacter->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
+    $newCharacter->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
+    $newCharacter->setIsPremade(false);
+    if ($chronicle->getStoryteller() === $user) {
+      $newCharacter->setIsNpc(true);
+    }
 
-    // $vice = $this->findOneBy(Vice::class, ['id' => $vice]);
+    try {
+      $this->manager->persist($newCharacter);
+      // dd($newCharacter);
+      $this->manager->flush();
+    } catch (\Throwable $th) {
+      // dd($th);
+      return null;
+    }
 
-    // $character->setVice($vice);
-    // $character->setVirtue($this->findOneBy(Virtue::class, ['id' => $virtue]));
-    $this->manager->persist($character);
-    $this->manager->flush();
-    // Need to check how to properly import the avatar
-    // $filesystem = new Filesystem();
-    // $filesystem->copy("{$path}/{$oldId}", "{$path}/{$character->getId()}", true);
+    return $newCharacter;
   }
 }

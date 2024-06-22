@@ -29,17 +29,17 @@ class Vampire extends Character
   #[ORM\Column(type: Types::SMALLINT)]
   private int $vitae = 1;
 
-  #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true)]
+  #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
   #[ORM\OrderBy(["level" => "DESC", "discipline" => "ASC"])]
   private Collection $disciplines;
 
   protected int $limit = 5;
 
-  #[ORM\ManyToMany(targetEntity: Devotion::class)]
+  #[ORM\ManyToMany(targetEntity: Devotion::class, orphanRemoval: true, cascade: ["persist"])]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $devotions;
 
-  #[ORM\ManyToMany(targetEntity: DisciplinePower::class)]
+  #[ORM\ManyToMany(targetEntity: DisciplinePower::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $rituals;
 
   public function __construct(Character $character = null)
@@ -53,6 +53,15 @@ class Vampire extends Character
     }
     $this->devotions = new ArrayCollection();
     $this->rituals = new ArrayCollection();
+  }
+
+  public function __clone()
+  {
+    if ($this->id) {
+      parent::__clone();
+      // Collections/Arrays, OneToMany
+      $this->disciplines = $this->cloneCollection($this->disciplines);
+    }
   }
 
   public function getType(): string
@@ -268,7 +277,7 @@ class Vampire extends Character
   {
     if (!$this->disciplines->contains($discipline)) {
       $this->disciplines[] = $discipline;
-      $discipline->setVampire($this);
+      $discipline->setCharacter($this);
     }
 
     return $this;
@@ -278,8 +287,8 @@ class Vampire extends Character
   // {
   //   if ($this->disciplines->removeElement($discipline)) {
   //     // set the owning side to null (unless already changed)
-  //     if ($discipline->getVampire() === $this) {
-  //       $discipline->setVampire(null);
+  //     if ($discipline->getCharacter() === $this) {
+  //       $discipline->setCharacter(null);
   //     }
   //   }
 
