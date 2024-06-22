@@ -105,7 +105,11 @@
           <div class="col col-md-6 col-lg-4">
             <a class="btn btn-primary w-100 h-100" href="{{ path('character_peek', {'id': peekingRight.target.id, 'accessor': character.id}) }}">
               <div class="d-flex h-100 align-items-center">
-                <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset(peekingRight.target.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+                {% if peekingRight.hasRight('avatar')|default(false) %}
+                  <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset(peekingRight.target.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+                {% else %}
+                  <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset('default.jpg', 'characters') }}" height="100">
+                {% endif %}
                 <div class="d-flex flex-column">
                   <span class="accent">{{ publicName|default("name.unknown"|trans) }}</span>
                   <span>
