@@ -8,10 +8,10 @@
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('skill_index')}}">{% include "_icon.html.twig" with {'icon': 'general' } only %} {{ "skills.label"|trans({}, 'character')}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('virtue_index')}}">{% include "_icon.html.twig" with {'icon': 'virtue' } only %} {{ "virtues.label"|trans }}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('vice_index')}}">{% include "_icon.html.twig" with {'icon': 'vice' } only %} {{ "vices.label"|trans }}</a></div>
-  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('roll_list')}}">{% include "_icon.html.twig" with {'icon': 'dice' } only %} {{ "rolls"|trans }}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('merit_list')}}">{% include "_icon.html.twig" with {'icon': 'merits' } only %} {{ "merits"|trans}}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'flaw' } only %} {{ "flaws.label"|trans }}</a></div>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('derangement_list')}}">{% include "_icon.html.twig" with {'icon': 'derangement' } only %} {{ "derangements.label"|trans }}</a></div>
+  <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('roll_list')}}">{% include "_icon.html.twig" with {'icon': 'dice' } only %} {{ "rolls"|trans }}</a></div>
   {# <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="#">{{ "advantages"|trans}}</a></div> #}
   <h3 class="pe-none">{% include "_icon.html.twig" with {'icon': 'tools' } only %} {{ "tools.label"|trans }}</h2>
   <div class="col-6 col-lg-3"><a class="btn btn-primary w-100 mb-2" href="{{path('character_premade_index')}}">{% include "_icon.html.twig" with {'icon': 'npc' } only %}{{ "characters.premade"|trans}}</a></div>
