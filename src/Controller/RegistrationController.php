@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,22 +42,26 @@ class RegistrationController extends AbstractController
         )
       );
 
-      $entityManager->persist($user);
-      $entityManager->flush();
-
-      // generate a signed url and email it to the user
-      $this->emailVerifier->sendEmailConfirmation(
-        'app_verify_email',
-        $user,
-        (new TemplatedEmail())
+      try {
+        $entityManager->persist($user);
+        $entityManager->flush();
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation(
+          'app_verify_email',
+          $user,
+          (new TemplatedEmail())
           ->from(new Address('billie@ciolfi.re', '"The Billie"'))
           ->to($user->getEmail())
           ->subject('Please Confirm your Email')
           ->htmlTemplate('registration/confirmation_email.html.twig')
-      );
-      // do anything else you need here, like send an email
+        );
+        $this->addFlash('success', 'registration.validate');
+        // do anything else you need here, like send an email
 
-      return $this->redirectToRoute('index');
+        return $this->redirectToRoute('index');
+      } catch (UniqueConstraintViolationException  $e) {
+        $this->addFlash('error', 'registration.duplicate');
+      }
     }
 
     return $this->render('registration/register.html.twig', [

@@ -3,6 +3,10 @@ success: Success
 error: Error
 warning: Warning
 
+registration:
+  duplicate: This Email address is not available.
+  validation: Your account has been created, you will receive an email to activate it.
+
 character:
   ability:
     remove:  >-

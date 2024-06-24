@@ -3,6 +3,10 @@ success: Succès
 error: Erreur
 warning: Attention
 
+registration:
+  duplicate: Cette adresse email n'est pas disponible.
+  validation: Votre compte a été créé, vous allez recevoir un email afin de l'activer.
+
 character:
   ability:
     remove:  >-
