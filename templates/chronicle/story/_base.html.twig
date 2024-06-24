@@ -24,7 +24,7 @@
   </a>
 </div>
 <div class="col-6">
-  <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'homebrew' } only %}{{ "homebrew"|trans }}</a>
+  <a class="btn btn-primary w-100 m-2 text-truncate" href="{{path('homebrew_index', {'id': chronicle.id })}}">{% include "_icon.html.twig" with {'icon': 'homebrew' } only %}{{ "homebrew"|trans }}</a>
 </div>
 <h4>{% include "_icon.html.twig" with {'icon': 'party' } only %}{{ "party.name"|trans }}</h4>
 {% for character in chronicle.characters %}
