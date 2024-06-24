@@ -33,10 +33,11 @@
     <div class="row block">
       {% if access.hasRight('avatar')|default(false) %}
         <div class="col-12 p-2">
-          <div id="collapseAvatar" class="collapse">
-            <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-          </div>
-          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture'} %}</button>
+          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture'} %}
+            <div id="collapseAvatar" class="collapse">
+              <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+            </div>
+          </button>
         </div>
       {% endif %}
       {% if access.hasRight('description')|default(false) %}
