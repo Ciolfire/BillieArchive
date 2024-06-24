@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,14 +71,21 @@ class RegistrationController extends AbstractController
   }
 
   #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/email', name: 'app_verify_email')]
-  public function verifyUserEmail(Request $request): Response
+  public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
   {
-    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
     // validate email confirmation link, sets User::isVerified=true and persists
+    $id = $request->query->get('id'); // retrieve the user id from the url
+    // Verify the user id exists and is not null
+    if (null === $id) {
+      return $this->redirectToRoute('app_register');
+    }
+    $user = $userRepository->find($id);
+    // Ensure the user exists in persistence
+    if (null === $user) {
+      return $this->redirectToRoute('app_register');
+    }
+    
     try {
-      /** @var User $user */
-      $user = $this->getUser();
       $this->emailVerifier->handleEmailConfirmation($request, $user);
     } catch (VerifyEmailExceptionInterface $exception) {
       $this->addFlash('verify_email_error', $exception->getReason());
