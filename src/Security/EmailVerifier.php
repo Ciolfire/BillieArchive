@@ -40,7 +40,7 @@ class EmailVerifier
 
     $email->context($context);
 
-    // $this->mailer->send($email);
+    $this->mailer->send($email);
   }
 
   /**
