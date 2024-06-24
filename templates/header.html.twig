@@ -12,7 +12,19 @@
 <nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('index') }}">Billie's Archive <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
-    <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}">
+    <ul class="navbar-nav mb-2 mb-lg-0 flex-row">
+      {% if app.user.chronicles is not empty %}
+        {% for chronicle in app.user.chronicles %}
+          {% set character = chronicle.character(app.user) %}
+          <li class="nav-item">
+            <a class="nav-link px-1" href="{{ path('character_show', {'id': character.id}) }}" style="padding:1px;">
+              <img class="nav-link {{ character.type }} btn p-0" src="/images/characters/{{ character.avatar }}" height="40" width="40">
+            </a>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+    {# <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}"> #}
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
