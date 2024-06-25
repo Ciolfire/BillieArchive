@@ -359,23 +359,26 @@ class CharacterService
         break;
       case 'merit':
         $merit = $this->dataService->find(CharacterMerit::class, $element);
-        $element = $merit->getName();
         if ($merit instanceof CharacterMerit) {
+          $element = $merit->$merit->getMeritName();
           $level = $merit->getLevel();
           $infos['base'] = $level;
-          $infos['name'] = $merit->getMeritName();
+          $infos['name'] = $element;
           if ($method == 'reduce' && $level > 1) {
             $merit->setLevel($level - 1);
           } else {
             $character->removeMerit($merit);
           }
+        } else {
+
+          return null;
         }
         break;
       case 'specialty':
         $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
-        $element = $specialty->getName();
-        $infos['name'] = "{$specialty->getName()} ({$specialty->getSkill()->getName()})";
         if ($specialty instanceof CharacterSpecialty) {
+          $element = $specialty->getName();
+          $infos['name'] = "{$element} ({$specialty->getSkill()->getName()})";
           $character->removeSpecialty($specialty);
         } else {
 
@@ -394,16 +397,22 @@ class CharacterService
         break;
       case 'derangement':
         $derangement = $this->dataService->find(CharacterDerangement::class, $element);
-        $element = $derangement->getName();
-        if ($method == 'reduce' && !is_null($derangement->getDerangement()->getPreviousAilment())) {
-          $data['method'] = "derangement-reduce";
-          $infos['name'] = $derangement->getName();
-          $derangement->setDerangement($derangement->getDerangement()->getPreviousAilment());
-          $infos['replace'] = $derangement->getName();
+        if ($derangement instanceof CharacterDerangement) {
+          $element = $derangement->getName();
+          if ($method == 'reduce' && $derangement->getDerangement()->getPreviousAilment() instanceof Derangement) {
+            $data['method'] = "derangement-reduce";
+            $infos['name'] = $element;
+            $derangement->setDerangement($derangement->getDerangement()->getPreviousAilment());
+            $infos['replace'] = $element;
+          } else {
+            $data['method'] = "derangement-remove";
+            $infos['name'] = $element;
+            $this->dataService->delete($derangement);
+            // $derangement->getCharacter()->removeDerangement($derangement);
+          }
         } else {
-          $data['method'] = "derangement-remove";
-          $infos['name'] = $derangement->getName();
-          $derangement->getCharacter()->removeDerangement($derangement);
+
+          return null;
         }
         break;
       default:
