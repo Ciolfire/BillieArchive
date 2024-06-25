@@ -177,7 +177,7 @@ class CharacterController extends AbstractController
   public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
   {
     $character = new Human();
-
+    
     $character->setIsNpc(false);
     $character->setIsPremade(true);
 
@@ -246,7 +246,7 @@ class CharacterController extends AbstractController
   #[IsGranted('edit', 'character')]
   public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
-    // $this->addFlash('notice', 'character.edit.denied');
+    $this->denyAccessUnlessGranted('edit', $character);
 
     switch ($character->getType()) {
       case 'vampire':
@@ -284,6 +284,7 @@ class CharacterController extends AbstractController
   public function delete(Character $character): Response
   {
     $this->denyAccessUnlessGranted('delete', $character);
+
     $chronicle = $character->getChronicle();
     try {
       $this->dataService->remove($character);
@@ -425,6 +426,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/lesser/remove', name: 'character_lesser_remove', methods: ['GET'])]
   public function removeLesserTemplate(Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $type = $character->getLesserTemplate()->getType();
     $character->getLesserTemplate()->setIsActive(false);
     $this->dataService->save($character);
@@ -436,6 +439,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]
   public function moralityIncrease(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
 
     $this->addFlash('notice', ["character.morality.increase", ['name' => $character]]);
@@ -445,6 +450,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/morality/decrease', name: 'character_morality_decrease', methods: ['POST'])]
   public function moralityDecrease(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
 
     $this->addFlash('notice', ["character.morality.decrease", ['name' => $character]]);
@@ -454,6 +461,7 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/derangement/new', name: 'character_derangement_new', methods: ['POST'])]
   public function derangementNew(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
     $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
 
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
@@ -462,6 +470,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
   public function abilityRemoval(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $element = $this->service->removeAbility($character, $request->request->all());
     if ($element) {
       $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
@@ -472,6 +482,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/access/add', name: 'character_access_add', methods: ['GET', 'POST'])]
   public function addAccess(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $access = new CharacterAccess();
 
     $access->setTarget($character);
@@ -493,6 +505,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/access/{accessor<\d+>}', name: 'character_access_edit', methods: ['GET', 'POST'])]
   public function editAccess(Request $request, Character $character, Character $accessor): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $access = $this->dataService->findOneBy(CharacterAccess::class, ['target' => $character, 'accessor' => $accessor]);
 
     $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
@@ -513,6 +527,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/infos/basic/{type}', name: 'character_basic_infos_edit', methods: ['GET', 'POST'])]
   public function basicInfosEdit(Request $request, Character $character, string $type): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $name = ucfirst($type);
     $get = "get".$name;
     $set = "set".$name;
@@ -552,6 +568,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/infos/edit', name: 'character_infos_edit', methods: ['GET', 'POST'])]
   public function editInfos(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $form = $this->createForm(CharacterInfoAccessType::class, $character, ['path' => $this->getParameter('characters_direct_directory'),]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -569,6 +587,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Character $character): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $note = new CharacterNote();
     /** @var User $user */
     $user = $this->getUser();
@@ -598,6 +618,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/notes/{note}/edit', name: 'character_note_edit', methods: ['GET', 'POST'])]
   public function editNote(Request $request, Character $character, CharacterNote $note): Response
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     $options = [];
     $form = $this->createForm(CharacterNoteType::class, $note, $options);
     $form->handleRequest($request);
@@ -616,6 +638,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
   public function updateWounds(Request $request, Character $character): JsonResponse|RedirectResponse
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       if ($data->action == "take") {
@@ -634,6 +658,7 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/trait/update', name: 'character_trait_update', methods: ['POST'])]
   public function updateTrait(Request $request, Character $character): JsonResponse|RedirectResponse
   {
+    $this->denyAccessUnlessGranted('edit', $character);
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       $this->service->updateTrait($character, $data);
@@ -646,6 +671,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/lesser/trait/update', name: 'character_lesser_trait_update', methods: ['POST'])]
   public function updateLesserTrait(Request $request, Character $character): JsonResponse|RedirectResponse
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       $this->service->updateTrait($character, $data, true);
@@ -658,6 +685,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/experience/update', name: 'character_experience_update', methods: ['POST'])]
   public function updateExperience(Request $request, Character $character): JsonResponse|RedirectResponse
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
       $this->service->updateExperience($character, $data);
@@ -670,6 +699,8 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/avatar/update', name: 'character_avatar_update', methods: ['POST'])]
   public function updateAvatar(Request $request, Character $character): JsonResponse|RedirectResponse
   {
+    $this->denyAccessUnlessGranted('edit', $character);
+
     if ($request->isXmlHttpRequest()) {
       $avatar = $request->files->get('avatar')['upload'];
       $path = $this->getParameter('characters_directory');
