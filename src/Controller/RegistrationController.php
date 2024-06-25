@@ -85,7 +85,7 @@ class RegistrationController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $email = $form->get('email')->getData();
-      $user = $entityManager->getRepository(User::class)->findByEmail($email);
+      $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
       if ($user instanceof User && !$user->isVerified()) {
         $this->emailVerifier->sendEmailConfirmation(
           'app_verify_email',
