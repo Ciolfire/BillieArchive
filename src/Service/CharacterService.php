@@ -408,7 +408,6 @@ class CharacterService
             $data['method'] = "derangement-remove";
             $infos['name'] = $element;
             $this->dataService->delete($derangement);
-            // $derangement->getCharacter()->removeDerangement($derangement);
           }
         } else {
 
