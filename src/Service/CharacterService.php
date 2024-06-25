@@ -360,7 +360,7 @@ class CharacterService
       case 'merit':
         $merit = $this->dataService->find(CharacterMerit::class, $element);
         if ($merit instanceof CharacterMerit) {
-          $element = $merit->$merit->getMeritName();
+          $element = $merit->getMeritName();
           $level = $merit->getLevel();
           $infos['base'] = $level;
           $infos['name'] = $element;
