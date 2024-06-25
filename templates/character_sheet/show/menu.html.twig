@@ -2,12 +2,11 @@
 
 <div id="menu" class="container">
   <div class="row justify-content-center g-0">
+    {% if not character.isPremade or is_granted('ROLE_GM') %}
     <div class="col-2">
-      {% if not character.isPremade or is_granted('ROLE_GM') %}
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
           {% include "_icon.html.twig" with {'icon': 'edit'} only %}
         </a>
-      {% endif %}
     </div>
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
@@ -19,6 +18,7 @@
         {% include "_icon.html.twig" with {'icon': 'destroy'} only %}
       </div>
     </div>
+    {% endif %}
     {% if character.isPremade %}
       <div class="col-2">
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_duplicate', {'id': character.id}) }}">
