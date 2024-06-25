@@ -157,7 +157,7 @@ prerequisites: Prérequis
 quote: Citation
 register:
   label: Inscription
-  resend: Obtenir un lien de validation
+  resend: Renvoyer l'email d'activation
 release: Parution
 remember: Rester connecté
 roll:

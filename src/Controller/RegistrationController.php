@@ -75,36 +75,6 @@ class RegistrationController extends AbstractController
     ]);
   }
 
-  #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/refresh', name: 'app_refresh_email')]
-  public function refreshVerifyEmail(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-  {
-    $form = $this->createFormBuilder()
-    ->add('email', EmailType::class)
-    ->getForm();
-
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      $email = $form->get('email')->getData();
-      $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
-      if ($user instanceof User && !$user->isVerified()) {
-        $this->emailVerifier->sendEmailConfirmation(
-          'app_verify_email',
-          $user,
-          (new TemplatedEmail())
-            ->from(new Address('billie@ciolfi.re', '"The Billie"'))
-            ->to($user->getEmail())
-            ->subject('Billie Archive — Please Confirm your Email')
-            ->htmlTemplate('registration/confirmation_email.html.twig')
-        );
-      }
-      $this->addFlash('notice', 'registration.validate.restart');
-      return $this->redirectToRoute('index');
-    }
-    return $this->render('registration/refresh.html.twig', [
-      'form' => $form->createView(),
-    ]);
-  }
-
   // validate email confirmation link, sets User::isVerified=true and persists
   #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/email', name: 'app_verify_email')]
   public function verifyUserEmail(Request $request, UserRepository $userRepository, Security $security): Response
@@ -130,6 +100,25 @@ class RegistrationController extends AbstractController
       }
     }
     $this->addFlash('error', "registration.validate.not");
+    return $this->redirectToRoute('index');
+  }
+
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/{email}/refresh', name: 'app_refresh_email')]
+  public function refreshVerifyEmail(string $email, EntityManagerInterface $entityManager): Response
+  {
+      $user = $entityManager->getRepository(User::class)->findOneByUsername($email);
+      if ($user instanceof User && !$user->isVerified()) {
+        $this->emailVerifier->sendEmailConfirmation(
+          'app_verify_email',
+          $user,
+          (new TemplatedEmail())
+            ->from(new Address('billie@ciolfi.re', '"The Billie"'))
+            ->to($user->getEmail())
+            ->subject('Billie Archive — Please Confirm your Email')
+            ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+      }
+    $this->addFlash('notice', 'registration.validate.restart');
     return $this->redirectToRoute('index');
   }
 }

@@ -158,7 +158,7 @@ prerequisites: Prerequisites
 quote: Quote
 register:
   label: Register
-  resend: Get verification link
+  resend: Resend activation Email
 release: Release date
 remember: Stay connected
 roll:
