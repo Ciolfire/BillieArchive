@@ -128,8 +128,8 @@ class RegistrationController extends AbstractController
           return $this->redirectToRoute('app_register');
         }
       }
-      $this->addFlash('error', "registration.validate.not");
-      return $this->redirectToRoute('index');
     }
+    $this->addFlash('error', "registration.validate.not");
+    return $this->redirectToRoute('index');
   }
 }
