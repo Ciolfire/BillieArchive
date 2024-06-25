@@ -7,7 +7,7 @@ registration:
   duplicate: Cette adresse email n'est pas disponible.
   validate:
     start: Votre compte a été créé, vous allez recevoir un email afin de l'activer.
-    restart: Si ce compte existe, vous recevrez un lien par email.
+    restart: L'email a été renvoyé, si vous ne le trouvez pas, vérifiez vos messages indésirables.
     success: Votre adresse email a été validée.
     login: Vous avez été automatiquement connecté, bienvenue !
     not: Ce lien d'activation n'est pas valide.
