@@ -7,7 +7,9 @@
       {{ title|trans }}
     </h1>
     <div class="col-4 offset-4">
-      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ type == 'premade' ? path('character_new_premade') : type == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'new'|trans }}{% include '_icon.html.twig' with { icon: icon } only %}</a>
+      {% if type != 'premade' or is_granted('ROLE_GM') %}
+        <a class="btn btn-sm btn-primary w-100 text-center" href="{{ type == 'premade' ? path('character_new_premade') : type == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'new'|trans }}{% include '_icon.html.twig' with { icon: icon } only %}</a>
+      {% endif %}
     </div>
     <div class="row pt-3">
       {% for type, items in characters %}
