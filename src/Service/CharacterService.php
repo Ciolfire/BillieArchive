@@ -408,7 +408,7 @@ class CharacterService
         break;
       default:
 
-        return $element;
+        return null;
     }
 
     $logs = [$data['method'] => [
@@ -418,7 +418,7 @@ class CharacterService
     $this->updateLogs($character, json_encode($logs));
     $this->dataService->flush();
 
-    return true;
+    return $element;
   }
 
   public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree): void
