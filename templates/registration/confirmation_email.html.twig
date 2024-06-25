@@ -1,11 +1,36 @@
-<h1>Hi! Please confirm your email!</h1>
+{% trans_default_domain 'mail' %}
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+<style>
+  .container {
+    background-color: #2c2950;
+    color: silver;
+    width: fit-content;
+    padding: 1em;
+    border-radius: 0.5em;
+    border: 0.2em solid black;
+  }
+  h1, h2 {
+    width: 100%;
+    text-align:center;
+    color: white;
+    }
+  a {
+    color: yellow;
+  }
+</style>
 
-<p>
-    Cheers!
-</p>
+<div class="container">
+  {# <img href="{{ email.image('@images/rabbit_move_slow.gif', 'images') }}"/> #}
+  <h1>{{ "registration.greeting"|trans({'name': app.user}) }}</h1>
+  <p>
+    {{ "registration.process"|trans }}
+  </p>
+  <h2><a href="{{ signedUrl }}">{{ "registration.confirm"|trans }}</a></h2>
+  <p>
+    {{ "registration.expire"|trans }} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+  </p>
+
+  <p>
+    {{ "registration.farewell"|trans([app.user])|nl2br }}
+  </p>
+</div>

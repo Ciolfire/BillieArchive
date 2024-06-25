@@ -5,7 +5,9 @@ warning: Attention
 
 registration:
   duplicate: Cette adresse email n'est pas disponible.
-  validate: Votre compte a été créé, vous allez recevoir un email afin de l'activer.
+  validate:
+    start: Votre compte a été créé, vous allez recevoir un email afin de l'activer.
+    success: Votre adresse email a été validée.
 
 character:
   ability:

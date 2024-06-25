@@ -5,7 +5,9 @@ warning: Warning
 
 registration:
   duplicate: This Email address is not available.
-  validate: Your account has been created, you will receive an email to activate it.
+  validate:
+    start: Your account has been created, you will receive an email to activate it.
+    success: Your email address has been verified.
 
 character:
   ability:
