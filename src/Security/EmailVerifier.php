@@ -33,7 +33,7 @@ class EmailVerifier
       $user->getEmail(),
       ['id' => $user->getId()], // add the user's id as an extra query param
     );
-    dd($signatureComponents->getSignedUrl());
+    dd($signatureComponents);
     $context = $email->getContext();
     $context['signedUrl'] = $signatureComponents->getSignedUrl();
     $context['user'] = $user;
