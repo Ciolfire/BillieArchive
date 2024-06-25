@@ -11,7 +11,7 @@
 {% endif %}
 
 
-{% if choices|length > 1 and hasEmpty %}
+{% if choices|length > 0 and hasEmpty %}
   <option value="">---</option>
 {% endif %}
 {% for choice in choices %}
