@@ -462,8 +462,9 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
   public function abilityRemoval(Request $request, Character $character): Response
   {
-    if ($this->service->removeAbility($character, $request->request->all())) {
-      $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $request->request->get('element'), 'method' => $request->request->get('method')]]);
+    $element = $this->service->removeAbility($character, $request->request->all());
+    if ($element) {
+      $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
     }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
   }

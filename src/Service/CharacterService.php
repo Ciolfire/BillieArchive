@@ -325,7 +325,7 @@ class CharacterService
     }
   }
 
-  public function removeAbility(Character $character, array $data): bool
+  public function removeAbility(Character $character, array $data): ?string
   {
     $infos = [];
     if (isset($data['element'])) {
@@ -359,7 +359,7 @@ class CharacterService
         break;
       case 'merit':
         $merit = $this->dataService->find(CharacterMerit::class, $element);
-
+        $element = $merit->getName();
         if ($merit instanceof CharacterMerit) {
           $level = $merit->getLevel();
           $infos['base'] = $level;
@@ -373,12 +373,13 @@ class CharacterService
         break;
       case 'specialty':
         $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
+        $element = $specialty->getName();
         $infos['name'] = "{$specialty->getName()} ({$specialty->getSkill()->getName()})";
         if ($specialty instanceof CharacterSpecialty) {
           $character->removeSpecialty($specialty);
         } else {
 
-          return false;
+          return null;
         }
         break;
       case 'willpower':
@@ -388,11 +389,12 @@ class CharacterService
           $character->setWillpower($willpower - 1);
         } else {
 
-          return false;
+          return null;
         }
         break;
       case 'derangement':
         $derangement = $this->dataService->find(CharacterDerangement::class, $element);
+        $element = $derangement->getName();
         if ($method == 'reduce' && !is_null($derangement->getDerangement()->getPreviousAilment())) {
           $data['method'] = "derangement-reduce";
           $infos['name'] = $derangement->getName();
@@ -406,7 +408,7 @@ class CharacterService
         break;
       default:
 
-        return false;
+        return $element;
     }
 
     $logs = [$data['method'] => [
