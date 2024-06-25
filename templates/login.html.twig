@@ -8,7 +8,10 @@
     <div class="row justify-content-center">
       <div class="col-12 col-lg-5 block text-center pt-2">
         {% if error %}
-          <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+          <div class="warning fw-bold">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        {% if link %}
+          <a class="accent" href={{ link.href }}>{{link.text|trans }}</a>
         {% endif %}
         <h1 class="user-select-none">
           <img src={{ asset('SkullWOD.webp', 'images') }} style="height:2em;" />
@@ -47,7 +50,7 @@
             </div>
             <div class="col text-end">
               <a href="{{path('app_register')}}">
-                {{ "register"|trans }}
+                {{ "register.label"|trans }}
                 <img class="float-end ps-2" height="22" src="{{ asset('rabbit_idle.gif', 'images') }}">
               </a>
             </div>

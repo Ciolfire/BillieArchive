@@ -1,5 +1,21 @@
 {% trans_default_domain 'mail' %}
 
+<div class="container">
+  {# <img href="{{ email.image('@images/rabbit_move_slow.gif', 'images') }}"/> #}
+  <h1>{{ "registration.greeting"|trans({'name': user}) }}</h1>
+  <p>
+    {{ "registration.process"|trans }}
+  </p>
+  <h2><a href="{{ signedUrl }}">{{ "registration.confirm"|trans }}</a></h2>
+  <p>
+    {{ "registration.expire"|trans }} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+  </p>
+
+  <p>
+    {{ "registration.farewell"|trans|nl2br }}
+  </p>
+</div>
+
 <style>
   .container {
     background-color: #2c2950;
@@ -18,19 +34,3 @@
     color: yellow;
   }
 </style>
-
-<div class="container">
-  {# <img href="{{ email.image('@images/rabbit_move_slow.gif', 'images') }}"/> #}
-  <h1>{{ "registration.greeting"|trans({'name': app.user}) }}</h1>
-  <p>
-    {{ "registration.process"|trans }}
-  </p>
-  <h2><a href="{{ signedUrl }}">{{ "registration.confirm"|trans }}</a></h2>
-  <p>
-    {{ "registration.expire"|trans }} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-  </p>
-
-  <p>
-    {{ "registration.farewell"|trans([app.user])|nl2br }}
-  </p>
-</div>

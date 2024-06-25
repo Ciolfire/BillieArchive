@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ "register.label"|trans }}{% endblock %}
+{% block title %}{{ "register.resend"|trans }}{% endblock %}
 
 {% block body %}
   <div class="d-flex align-items-center vh-100">
@@ -15,20 +15,16 @@
 
           <h1>
             {% include "_icon.html.twig" with {'icon': 'register', 'class': 'icon-lg'} %}
-            {{ "register.label"|trans }}
+            {{ "register.resend"|trans }}
           </h1>
 
-          {{ form_start(registrationForm) }}
-          {{ form_row(registrationForm.email) }}
-          {{ form_row(registrationForm.username) }}
-          {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
+          {{ form_start(form) }}
+          {{ form_row(form.email) }}
           <div class="row">
             <div class="col-8">
               <button type="submit" class="btn btn-primary w-100 mb-2">
-                {% include "_icon.html.twig" with {'icon': 'login'} %}
-                {{ "continue"|trans }}
+                {% include "_icon.html.twig" with {'icon': 'send'} %}
+                {{ "send"|trans }}
               </button>
             </div>
             <div class="col-4">
@@ -38,7 +34,7 @@
               </a>
             </div>
           </div>
-          {{ form_end(registrationForm) }}
+          {{ form_end(form) }}
         </div>
       </div>
     </div>

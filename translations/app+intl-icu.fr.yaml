@@ -155,7 +155,9 @@ prerequisite:
   group: Index de choix (X ou Y ou ...)
 prerequisites: Prérequis
 quote: Citation
-register: Inscription
+register:
+  label: Inscription
+  resend: Obtenir un lien de validation
 release: Parution
 remember: Rester connecté
 roll:

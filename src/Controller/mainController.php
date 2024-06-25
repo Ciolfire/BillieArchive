@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\DataService;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,4 +62,14 @@ class mainController extends AbstractController
 
     return $this->redirectToRoute('users');
   }
+
+  // #[Route('/check/template', name: 'check_template')]
+  // public function seeTemplate(): Response
+  // {
+  //   return $this->render('registration/confirmation_email.html.twig', [
+  //     'signedUrl' => "",
+  //     'expiresAtMessageKey' => "",
+  //     'expiresAtMessageData' => [],
+  //   ]);
+  // }
 }

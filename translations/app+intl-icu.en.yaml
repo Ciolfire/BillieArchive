@@ -156,7 +156,9 @@ prerequisite:
   group: Choice index (X or Y or ...)
 prerequisites: Prerequisites
 quote: Quote
-register: Register
+register:
+  label: Register
+  resend: Get verification link
 release: Release date
 remember: Stay connected
 roll:
