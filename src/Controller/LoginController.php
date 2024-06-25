@@ -28,7 +28,7 @@ class LoginController extends AbstractController
     if ($error instanceof CustomUserMessageAccountStatusException) {
       if ($error->getMessage() == "exception.verified") {
         $link = [
-          "href" => $this->generateUrl("app_refresh_email", ['user' => $lastUsername]),
+          "href" => $this->generateUrl("app_refresh_email", ['username' => $lastUsername]),
           "text" => "register.resend",
         ];
       }

@@ -103,10 +103,10 @@ class RegistrationController extends AbstractController
     return $this->redirectToRoute('index');
   }
 
-  #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/{email}/refresh', name: 'app_refresh_email')]
-  public function refreshVerifyEmail(string $email, EntityManagerInterface $entityManager): Response
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/verify/{username}/refresh', name: 'app_refresh_email')]
+  public function refreshVerifyEmail(string $username, EntityManagerInterface $entityManager): Response
   {
-      $user = $entityManager->getRepository(User::class)->findOneByUsername($email);
+      $user = $entityManager->getRepository(User::class)->findOneByUsername($username);
       if ($user instanceof User && !$user->isVerified()) {
         $this->emailVerifier->sendEmailConfirmation(
           'app_verify_email',
