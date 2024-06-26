@@ -19,11 +19,11 @@
           <li class="nav-item">
             {% if character %}
               <a class="nav-link px-1" href="{{ path('character_show', {'id': character.id}) }}" style="padding:1px;">
-                <img class="nav-link {{ character.type }} btn p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
+                <img class="nav-link {{ character.type }} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
               </a>
             {% else %}
               <a class="nav-link px-1" href="{{path('character_new', {'chronicle': chronicle.id })}}" style="padding:1px;">
-                <img class="nav-link {{ chronicle.type }} btn thumbnail" src="{{ asset('add.svg', 'images') }}" height="40" width="40"/>
+                <img class="nav-link {{ chronicle.type }} btn  btn-primary thumbnail" src="{{ asset('add.svg', 'images') }}" height="40" width="40"/>
               </a>
             {% endif %}
           </li>
