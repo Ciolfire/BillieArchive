@@ -3,6 +3,8 @@ success: Succès
 error: Erreur
 warning: Attention
 
+denied: Vous n'avez pas les accréditations nécessaires.
+
 registration:
   duplicate: Cette adresse email n'est pas disponible.
   validate:
@@ -11,6 +13,7 @@ registration:
     success: Votre adresse email a été validée.
     login: Vous avez été automatiquement connecté, bienvenue !
     not: Ce lien d'activation n'est pas valide.
+
 character:
   ability:
     remove:  >-
@@ -24,7 +27,9 @@ character:
   delete:
     success: "Le personnage {name} a été supprimé avec succès."
   duplicate:
-    success: "{name} a été ajouté à la chronique {chronicle}."
+    success:
+      chronicle: "{name} a été ajouté à la chronique {chronicle}."
+      list: "{name} a été ajouté à vos personnages."
     failed: "Une erreur s'est produite, {name} n'a pas été dupliqué."
   edit:
     denied: "Vous n'êtes pas autorisé à modifier ce personnage."

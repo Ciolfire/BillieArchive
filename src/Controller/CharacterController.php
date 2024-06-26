@@ -344,9 +344,17 @@ class CharacterController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     $stories = $user->getStories();
+    $chronicles = $user->getChronicles();
+    foreach ($chronicles as $chronicle) {
+      /** @var Chronicle $chronicle */
+      if (is_null($chronicle->getCharacter($this->getUser()))) {
+        $stories[] = $chronicle;
+      }
+    }
 
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
       ->add('story', ChoiceType::class, [
+        'required' => false,
         'choices' => $stories,
         'choice_label' => 'name',
         'choice_value' => 'id',
@@ -360,19 +368,18 @@ class CharacterController extends AbstractController
       $path = $this->getParameter('characters_directory');
       if (is_string($path)) {
         $chronicle = $form->get('story')->getData();
-        if ($chronicle instanceof Chronicle) {
-          $newCharacter = $this->dataService->duplicateCharacter($character, $chronicle, $user, $path);
-          if ($character) {
-            // Success
-            $this->addFlash('success', ['character.duplicate.success', ['name' => $newCharacter->getName(), 'chronicle' => $chronicle->getName()]]);
-            return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()], Response::HTTP_SEE_OTHER);
+        $newCharacter = $this->dataService->duplicateCharacter($character, $chronicle, $user, $path);
+        if ($character) {
+          // Success
+          if ($chronicle) {
+            $this->addFlash('success', ['character.duplicate.success.chronicle', ['name' => $newCharacter, 'chronicle' => $chronicle]]);
           } else {
-            // Failed
-            $this->addFlash('warning', ['character.duplicate.failed', ['name' => $character->getName()]]);
+            $this->addFlash('success', ['character.duplicate.success.list', ['name' => $newCharacter]]);
           }
+          return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()], Response::HTTP_SEE_OTHER);
         } else {
           // Failed
-          // $this->addFlash('warning', ['character.duplicate.error', ['name' => $character->getName()]]);
+          $this->addFlash('warning', ['character.duplicate.failed', ['name' => $character]]);
         }
       }
     }

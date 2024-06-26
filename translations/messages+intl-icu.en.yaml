@@ -3,6 +3,8 @@ success: Success
 error: Error
 warning: Warning
 
+denied: You are not allowed to access this ressource.
+
 registration:
   duplicate: This Email address is not available.
   validate:
@@ -25,7 +27,9 @@ character:
   delete:
     success: "The character {name} was successfully deleted."
   duplicate:
-    success: "{name} was added to the chronicle {chronicle}."
+    success:
+      chronicle: "{name} was added to the chronicle {chronicle}."
+      list: "{name} was added to your characters."
     failed: "Something went wrong, {name} was not duplicated."
   edit:
     denied: "You are not allowed to edit this character."

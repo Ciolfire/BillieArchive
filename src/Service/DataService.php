@@ -283,14 +283,14 @@ class DataService
     }
   }
 
-  public function duplicateCharacter(Character $character, Chronicle $chronicle, User $user) : ?Character
+  public function duplicateCharacter(Character $character, ?Chronicle $chronicle, User $user) : ?Character
   {
     $newCharacter = clone $character;
     // Updating specific info for the clone
-    $newCharacter->setChronicle($this->findOneBy(Chronicle::class, ['id' => $chronicle->getId()]));
+    $newCharacter->setChronicle($chronicle);
     $newCharacter->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
     $newCharacter->setIsPremade(false);
-    if ($chronicle->getStoryteller() === $user) {
+    if ($chronicle instanceof Chronicle && $chronicle->getStoryteller() === $user) {
       $newCharacter->setIsNpc(true);
     }
 

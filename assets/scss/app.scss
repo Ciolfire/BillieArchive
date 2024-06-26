@@ -38,6 +38,11 @@ body {
 
 .header-navbar {
   min-height: 3.8em;
+  .thumbnail {
+    object-fit: cover;
+    object-position: top;
+    aspect-ratio: 1/1;
+  }
 }
 
 footer.footer {
