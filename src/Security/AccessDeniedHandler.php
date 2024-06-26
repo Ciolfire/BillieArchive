@@ -15,10 +15,13 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
   public function handle(Request $request, AccessDeniedException $accessDeniedException): ?Response
   {
-    // ...
-    // dd($request->getSession()->getFlashBag());
+    // dd($request->headers->get('referer'));
     $request->getSession()->getFlashBag()->add('error', 'denied');
-    return new RedirectResponse($this->urlGenerator->generate('index'));
-    // return new Response('', 403);
+    // redirect to the previous page
+    if ($request->headers->get('referer')) {
+      return new RedirectResponse($request->headers->get('referer'));
+    } else {
+      return new RedirectResponse($this->urlGenerator->generate('index'));
+    }
   }
 }
