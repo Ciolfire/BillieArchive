@@ -62,6 +62,8 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/", name: "chronicle_show", methods: ["GET"])]
   public function show(Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
+
     return $this->render('chronicle/show.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
@@ -71,6 +73,8 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/homebrew", name: "homebrew_index", methods: ["GET"])]
   public function homebrew(Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
+    
     return $this->render('chronicle/homebrew/index.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
@@ -80,6 +84,8 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/party", name: "chronicle_party_index", methods: ["GET"])]
   public function party(Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
+    
     return $this->render('chronicle/party/index.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
@@ -87,8 +93,10 @@ class ChronicleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/npc", name: "chronicle_npc_index", methods: ["GET"])]
-  public function npc(Request $request, Chronicle $chronicle) : Response
+  public function npc(Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
+
     return $this->render('character/npc/index.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
@@ -99,6 +107,7 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/npc/add", name: "chronicle_npc_add", methods: ["GET"])]
   public function addNpc(Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
 
     return $this->redirectToRoute('character_new', ['chronicle' => $chronicle->getId(), 'isNpc' => true]);
   }
@@ -106,6 +115,7 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/party/add", name: "chronicle_add_player")]
   public function addPlayer(Request $request, Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
     /** @var UserRepository */
     $userRepository = $this->doctrine->getRepository(User::class);
     $availablePlayers = $userRepository->getAvailablePlayersForChronicle($chronicle->getStoryteller(), $chronicle->getPlayers());
@@ -144,6 +154,7 @@ class ChronicleController extends AbstractController
   #[Route("/{id<\d+>}/party/remove/player", name: "chronicle_remove_player")]
   public function removePlayer(Request $request, Chronicle $chronicle) : Response
   {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
     $availablePlayers = $chronicle->getPlayers();
     if (count($availablePlayers) > 0) {
       $form = $this->createFormBuilder()
@@ -180,6 +191,7 @@ class ChronicleController extends AbstractController
   #[Route('/{id<\d+>}/note/category/new', name: 'chronicle_note_category_new', methods: ['GET', 'POST'])]
   public function addNoteCategory(Request $request, Chronicle $chronicle): Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
     /** @var User $user */
     $user = $this->getUser();
     $category = new NoteCategory();
@@ -204,6 +216,7 @@ class ChronicleController extends AbstractController
   #[Route('/{id<\d+>}/note/category/{category<\d+>}/edit', name: 'chronicle_note_category_edit', methods: ['GET', 'POST'])]
   public function editNoteCategory(Request $request, Chronicle $chronicle, NoteCategory $category): Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
     /** @var User $user */
     $user = $this->getUser();
     // Set up date based on chronicle date
@@ -224,6 +237,7 @@ class ChronicleController extends AbstractController
   #[Route('/{id<\d+>}/note/category/{category<\d+>}/delete', name: 'chronicle_note_category_delete', methods: ['GET', 'DELETE'])]
   public function deleteCategory(Chronicle $chronicle, NoteCategory $category): Response
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
     /** @var User $user */
     $user = $this->getUser();
     $this->dataService->remove($category);
@@ -232,8 +246,9 @@ class ChronicleController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/infos', name: 'chronicle_infos_index', methods: ['GET'])]
-  public function infos(Request $request, Chronicle $chronicle)
+  public function infos(Chronicle $chronicle)
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
     return $this->render('chronicle/infos/index.html.twig', [
       'character' => $chronicle->getCharacter($this->getUser()),
       'chronicle' => $chronicle,
@@ -244,6 +259,7 @@ class ChronicleController extends AbstractController
   #[Route('/{id<\d+>}/rules/{type<\w+>}', name: 'chronicle_rules_set', methods: ['GET', 'POST'])]
   public function setRules(Request $request, Chronicle $chronicle, string $type)
   {
+    $this->denyAccessUnlessGranted('view', $chronicle);
     // Security, only the storyteller can change these settings, but everyone can see it
     $user = $this->getUser();
     $disabled = true;
