@@ -94,13 +94,15 @@
       {% include "character_sheet/show/rolls.html.twig" %}
     </div>
     {% block modals %}
-      {% include "character_sheet/modal/avatar_update.html.twig" %}
-      {% include "character_sheet/modal/xp_add.html.twig" %}
-      {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
-      {% include "character_sheet/modal/ability_removal.html.twig" %}
-      {% include "character_sheet/modal/morality_decrease.html.twig" %}
-      {% include "character_sheet/modal/morality_increase.html.twig" %}
-      {% include "character_sheet/modal/new_derangement.html.twig" %}
+      {% if is_granted('edit', character) %}
+        {% include "character_sheet/modal/avatar_update.html.twig" %}
+        {% include "character_sheet/modal/xp_add.html.twig" %}
+        {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
+        {% include "character_sheet/modal/ability_removal.html.twig" %}
+        {% include "character_sheet/modal/morality_decrease.html.twig" %}
+        {% include "character_sheet/modal/morality_increase.html.twig" %}
+        {% include "character_sheet/modal/new_derangement.html.twig" %}
+      {% endif %}
     {% endblock %}
   </div>
 {% endblock %}

@@ -14,10 +14,12 @@
     </div>
     <div id="description" class="tab-content" data-tabs-target="page">
       <div class="row justify-content-center">
-        <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'description'}) }}">
-          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
-          {{ "infos.description"|trans }}
-        </a>
+        {% if is_granted('edit', character) %}
+          <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'description'}) }}">
+            {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+            {{ "infos.description"|trans }}
+          </a>
+        {% endif %}
         <div class="col-12 col-md-8 col-lg-6 col-xl-4">
           {% if character.description != "" %}
             {{ character.description|markdown_to_html }}
@@ -28,10 +30,12 @@
       </div>
     </div>
     <div id="background" class="tab-content" data-tabs-target="page">
-      <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'background'}) }}">
-        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
-        {{ "infos.background"|trans }}
-      </a>
+      {% if is_granted('edit', character) %}
+        <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'background'}) }}">
+          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+          {{ "infos.background"|trans }}
+        </a>
+      {% endif %}
       {% if character.background != "" %}
         {{ character.background|markdown_to_html }}
       {% else %}
@@ -56,28 +60,32 @@
               </a>
             </div>
             <div class="col-11">
-              <a class="btn btn-primary w-100" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
-                <div class="col justify-content-center">
-                  <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-                </div>
-                <div class="col">
-                  {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
-                  {% for right in access.rights %}
-                    {% if right != access.rights|first %} | {% endif %}
-                    {{ ('right.' ~ right)|trans }}
-                  {% endfor %}
-                </div>
-              </a>
+              {% if is_granted('edit', character) %}
+                <a class="btn btn-primary w-100" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
+                  <div class="col justify-content-center">
+                    <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+                  </div>
+                  <div class="col">
+                    {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+                    {% for right in access.rights %}
+                      {% if right != access.rights|first %} | {% endif %}
+                      {{ ('right.' ~ right)|trans }}
+                    {% endfor %}
+                  </div>
+                </a>
+              {% endif %}
             </div>
           </div>
         {% endfor %}
         <hr>
       {% endif %}
       <h3 class="text-light">{{ "infos.access.other"|trans }}</h3>
-      <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_edit', {'id': character.id}) }}">
-        {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
-        {{ "infos.details.edit"|trans }}
-      </a>
+      {% if is_granted('edit', character) %}
+        <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_edit', {'id': character.id}) }}">
+          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+          {{ "infos.details.edit"|trans }}
+        </a>
+      {% endif %}
       {% if character.infos is not empty %}
         <div class="row">
         {% for info in character.infos %}

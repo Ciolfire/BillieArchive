@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Security\Voter;
 
 use App\Entity\Character;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -15,48 +16,42 @@ class CharacterVoter extends Voter
   public const EDIT = 'edit';
   public const DELETE = 'delete';
 
-  public function __construct(private Security $security, private RequestStack $requestStack)
-  {
-  }
+  public function __construct(private Security $security) {}
 
   protected function supports(string $attribute, mixed $subject): bool
   {
-    // if the attribute isn't one we support, return false
-    if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])) {
-      return false;
-    }
-
-    // only vote on `Character` objects
-    if (!$subject instanceof Character) {
-      return false;
-    }
-
-    return true;
+    return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
+      && $subject instanceof Character;
   }
 
   protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
   {
+    /** @var Character $subject */
     $user = $token->getUser();
-
-    if (!$user instanceof User) {
-      // the user must be logged in; if not, deny access
-      return false;
-    }
-
     if ($this->security->isGranted('ROLE_GM')) {
       return true;
     }
 
-    // you know $subject is a Character object, thanks to `supports()`
-    /** @var Character $character */
-    $character = $subject;
+    if (!$user instanceof User && !$subject->isPremade()) {
+      // if the user is anonymous, do not grant access
+      return false;
+    }
 
-    return match($attribute) {
-      self::VIEW => $this->canView($character, $user),
-      self::EDIT => $this->canEdit($character, $user),
-      self::DELETE => $this->canDelete($character, $user),
-      default => throw new \LogicException('This code should not be reached!')
-    };
+    switch ($attribute) {
+      case self::DELETE:
+        return $this->canDelete($subject, $user);
+        break;
+      case self::EDIT:
+        return $this->canEdit($subject, $user);
+        break;
+      case self::VIEW:
+        return $this->canView($subject, $user);
+        break;
+      default:
+        throw new \LogicException('This code should not be reached!');
+    }
+
+    return false;
   }
 
   private function canView(Character $character, User $user): bool
@@ -74,10 +69,12 @@ class CharacterVoter extends Voter
 
   private function canEdit(Character $character, User $user): bool
   {
+    // The player own the character
     if ($user === $character->getPlayer()) {
 
       return true;
     }
+    // The storyteller can edit the character
     if (!is_null($character->getChronicle()) && $user === $character->getChronicle()->getStoryteller()) {
 
       return true;

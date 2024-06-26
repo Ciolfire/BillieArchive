@@ -8,12 +8,14 @@
       {{ 'morality.name'|trans([], setting) }}</h4>
     <div class="col-12 text-center">
       <div class="morality">
-        <span role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDerangementModal">
-          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "derangement.add"|trans }}">
-            {% include "_icon.html.twig" with {'icon': 'add'} only %}
-            {% include "_icon.html.twig" with {'icon': 'derangement'} only %}
+        {% if is_granted('edit', character) %}
+          <span role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDerangementModal">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "derangement.add"|trans }}">
+              {% include "_icon.html.twig" with {'icon': 'add'} only %}
+              {% include "_icon.html.twig" with {'icon': 'derangement'} only %}
+            </span>
           </span>
-        </span>
+        {% endif %}
         <div class="row">
           {% for charDerangement in character.standardDerangements %}
             <div class="col-6 px-1 px-md-3 py-2">
@@ -47,7 +49,7 @@
           <div class="row g-0 {% if i == morality %}accent{% endif %}">
             <div class="col-1">{{ i }}</div>
             <div class="col-10 morality-derangement{% if i == morality and i > character.maxMorality %} bg-danger{% endif %}">
-              {% if i == morality and i < character.maxMorality %}
+              {% if (i == morality and i < character.maxMorality) and is_granted('edit', character) %}
                 <span role="button" data-bs-toggle="modal" data-bs-target="#moralityIncreaseModal">{% include "_icon.html.twig" with {'icon': 'up', 'class': 'accent', 'hasTips': true} only %}</span>
               {% endif %}
               {% if charDerangement is not null %}
@@ -58,7 +60,7 @@
                   {% endif %}
                 </span>
               {% endif %}
-              {% if i == morality and i > 0 %}
+              {% if (i == morality and i > 0) and is_granted('edit', character) %}
                 <span role="button" data-bs-toggle="modal" data-bs-target="#moralityDecreaseModal">{% include "_icon.html.twig" with {'icon': 'down', 'class': 'warning', 'hasTips': true} only %}</span>
               {% endif %}
             </div>

@@ -177,6 +177,7 @@ class CharacterController extends AbstractController
   public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
   {
     $character = new Human();
+    $this->denyAccessUnlessGranted('ROLE_GM');
     
     $character->setIsNpc(false);
     $character->setIsPremade(true);
