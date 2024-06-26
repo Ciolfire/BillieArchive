@@ -1,7 +1,8 @@
 {% trans_default_domain 'app' %}
 
 <label class="accent" for="derangement">{{ "derangement.label"|trans }}</label>
-<select class="form-control" name="derangement" autocomplete="off">
+<select class="form-control" name="derangement" autocomplete="off" {% if required|default(false) %}required{% endif %}
+>
   <option value=""></option>
   {% for derangement in derangements %}
     <option value="{{ derangement.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#derangement-{{ derangement.id }}-{{ tag|default('new') }}">
