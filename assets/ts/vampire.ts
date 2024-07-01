@@ -1,6 +1,3 @@
-// any CSS you import will output into a single css file (app.css in this case)
-import '../scss/vampire.scss';
+// generic scripts used no matter the setting
 
-// start the Stimulus application
-import '../bootstrap';
-import './wrabbit';
+import '../scss/vampire.scss';

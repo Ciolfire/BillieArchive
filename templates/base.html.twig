@@ -13,10 +13,12 @@
     {% endif %}
     {% block stylesheets %}
       {{ encore_entry_link_tags(setting) }}
+      {{ encore_entry_link_tags('main') }}
     {% endblock %}
 
     {% block javascripts %}
     {{ encore_entry_script_tags(setting) }}
+    {{ encore_entry_script_tags('main') }}
     {% endblock %}
   </head>
   <body {% block bodyData %}class="position-relative"{% endblock %}>
@@ -53,6 +55,8 @@
         </footer>
       {% endblock %}
     {% endif %}
-    <div id="rabbit"></div>
+    <div id="rabbitBurrow">
+      <div id="rabbit" class="rabbit"></div>
+    </div>
   </body>
 </html>

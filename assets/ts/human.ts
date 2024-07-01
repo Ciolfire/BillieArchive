@@ -1,4 +1,3 @@
-import '../scss/human.scss';
+// generic scripts used no matter the setting
 
-import '../bootstrap';
-import './wrabbit';
+import '../scss/human.scss';

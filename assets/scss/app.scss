@@ -12,11 +12,7 @@ $tooltip-max-width: 400px;
 @import "tab";
 @import "text";
 
-@import "default/general.scss";
-@import "default/vampire.scss";
-@import "default/mage.scss";
-@import "default/werewolf.scss";
-@import "header.scss";
+@import "header";
 
 $fonts: "../fonts";
 

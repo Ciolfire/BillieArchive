@@ -44,4 +44,4 @@ rabbit.style.setProperty('cursor', 'grab');
 rabbit.addEventListener("click", (event) => {
   let burrow = document.querySelector('#rabbitBurrow') as HTMLElement;
   burrow.style.visibility = 'hidden';
-})
+});
