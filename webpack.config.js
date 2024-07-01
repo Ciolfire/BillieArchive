@@ -20,10 +20,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('vampire', './assets/js/vampire.js')
-    .addEntry('human', './assets/js/human.js')
-    .addEntry('mage', './assets/js/human.js')
-    .addEntry('werewolf', './assets/js/human.js')
+    .addEntry('vampire', './assets/ts/vampire.ts')
+    .addEntry('human', './assets/ts/human.ts')
+    .addEntry('mage', './assets/ts/human.ts')
+    .addEntry('werewolf', './assets/ts/human.ts')
     // .addEntry('character_new', './assets/js/character/new.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
@@ -67,7 +67,7 @@ Encore
     // .enableLessLoader()
 
     // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+    .enableTypeScriptLoader()
 
     // uncomment if you use React
     //.enableReactPreset()
