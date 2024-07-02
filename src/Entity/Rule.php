@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Entity\Traits\Typed;
 use App\Repository\RuleRepository;
@@ -20,6 +21,7 @@ class Rule implements Translatable
 {
   use Typed;
   use Sourcable;
+  use Homebrewable;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
