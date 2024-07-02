@@ -44,19 +44,18 @@ class DerangementController extends AbstractController
         $list = $item->getDerangements();
         $derangements = [];
         foreach ($list as $derangement) {
+          // We only get the mild derangements, we can get all the severe from them
           /** @var Derangement $derangement */
           if (!is_null($derangement->getPreviousAilment())) {
-            $id = $derangement->getPreviousAilment()->getId();
-            $derangements[$id] = $derangement->getPreviousAilment();
+            $prevId = $derangement->getPreviousAilment()->getId();
+            $derangements[$prevId] = $derangement->getPreviousAilment();
           } else {
             $derangements[$derangement->getId()] = $derangement;
           }
         }
-        $setting = $item->getSetting();
         break;
       default:
         $derangements = $repo->findMild();
-        $setting = "human";
         break;
     }
 
@@ -68,7 +67,7 @@ class DerangementController extends AbstractController
   }
 
   #[Route("/new", name:"derangement_new", methods:["GET", "POST"])]
-  public function new(Request $request, EntityManagerInterface $entityManager): Response
+  public function new(Request $request): Response
   {
     $derangement = new Derangement();
 
@@ -76,8 +75,7 @@ class DerangementController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($derangement);
-      $entityManager->flush();
+      $this->dataService->save($derangement);
 
       return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
     }
