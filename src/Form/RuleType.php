@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Rule;
 use App\Entity\Types\SettingType;
+use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,8 +50,10 @@ class RuleType extends AbstractType
           return $er->createQueryBuilder('r')->where('r.parentRule IS NULL')->orderBy('r.title', 'ASC');
         }
       ],)
-      ->add('book', null, ['label' => 'book'])
-      ->add('page', null, ['label' => 'page'])
+      ->add('source', SourceableType::class, [
+        'data_class' => Rule::class,
+        'label' => 'source.label',
+      ])
       ;
   }
 

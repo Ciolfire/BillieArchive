@@ -7,18 +7,16 @@
 {% block title %}{{ discipline.name }}{% endblock %}
 
 {% block body %}
-  <div class="container block py-3 mt-5">
+  <div class="container block-light py-2 mt-2 rounded">
     {% if is_granted('ROLE_ST') %}
       <a class="float-end" href="{{ path('discipline_edit', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
     {% endif %}
-    <h1 class="py-4">{{ discipline.name }}</h1>
+    <h1 class="text-stylized py-4">{{ discipline.name }}</h1>
     <div class="row">
       <div class="col">
         <p class="fluff">{{ discipline.description }}</p>
-        <p>{{ discipline.rules|markdown_to_html }}</p>
-        {% if discipline.book is not null %}
-          <p>{{ "source"|trans({"%book%": discipline.book, "%page%": discipline.page}, "app") }}</p>
-        {% endif %}
+        <span class="text-dark">{{ discipline.rules|markdown_to_html }}</span>
+        {% include "_source_block.html.twig" with {'element': discipline, 'class': 'text-muted text-end fst-italic' } only %}
         {% if discipline.isSorcery %}
           {% include "vampire/discipline/powers/_sorcery.html.twig" with {'rituals': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_sorcery_index')} %}
@@ -32,6 +30,7 @@
         {% else %}
           {% include "vampire/discipline/powers/_default.html.twig" with {'powers': discipline.powers} %}
           {% include "_back.html.twig" with {'link': path('vampire_discipline_index')} %}
+          {% include "_top.html.twig" %}
         {% endif %}
       </div>
     </div>

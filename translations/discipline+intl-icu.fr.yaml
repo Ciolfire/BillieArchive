@@ -1,0 +1,10 @@
+name: Nom
+description: Description
+short: Résumé
+rules: Règles
+
+restricted: Est limitée
+
+help:
+  short: Une phrase courte décrivant la discipline
+  restricted: Une discipline limitée ne sera disponible qu'aux vampires d'un clan ou d'une lignée qui possède celle-ci

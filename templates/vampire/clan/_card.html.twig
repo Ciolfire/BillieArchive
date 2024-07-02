@@ -25,15 +25,15 @@
     {% if clan.emblem is not null %}
       <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
     {% endif %}
-    <div class="text-center mb-2">
+    <div class="text-center mb-2 fst-italic">
       {{ clan.keywords }}
       <br>
       {% if clan.parentClan is null %}
         {% for attribute in clan.attributes %}
           {% if not loop.first %}
-            |
+            <span class="text-strong">|</span>
           {% endif %}
-          <span class="strong">
+          <span class="text-strong">
             {{ attribute.name }}
           </span>
         {% endfor %}
@@ -47,7 +47,7 @@
         {% elseif not loop.first %}
           ,
         {% endif %}
-        <a href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+        <a class="text-strong" href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
       {% endfor %}
       {% include "_icon.html.twig" with {'icon': 'discipline', 'hasTips': true } %}
       {% if clan.devotions is not empty %}
@@ -59,7 +59,7 @@
           {% elseif not loop.first %}
             ,
           {% endif %}
-          <a href="{{ path('vampire_devotion_show', {'id': devotion.id}) }}">{{ devotion.name }}</a>
+          <a class="text-strong" href="{{ path('vampire_devotion_show', {'id': devotion.id}) }}">{{ devotion.name }}</a>
         {% endfor %}
         {% include "_icon.html.twig" with {'icon': 'devotion', 'hasTips': true } %}
       {% endif %}

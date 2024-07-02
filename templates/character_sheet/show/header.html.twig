@@ -3,7 +3,7 @@
 {% block header %}
 <div class="row block p-2 pb-4">
   {% block name %}
-    <h1 class="text-center text">
+    <h1 class="text-center text-stylized">
       {{ character.name }}
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})

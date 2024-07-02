@@ -1,0 +1,16 @@
+human:
+  label: World of Darkness
+  short: WoD
+  element: "{element} — WoD"
+mage:
+  label: Mage the Awakening
+  short: MtA
+  element: "{element} — MtA"
+vampire:
+  label: Vampire the Requiem
+  short: VtR
+  element: "{element} — VtR"
+werewolf:
+  label: Werewolves the Forsaken
+  short: WtF
+  element: "{element} — WtF"

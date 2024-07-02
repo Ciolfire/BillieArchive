@@ -1,0 +1,16 @@
+human:
+  label: Monde des Ténèbres
+  short: MdT
+  element: "{element} — MdT"
+mage:
+  label: "Mage: l'Éveil"
+  short: Mag
+  element: "{element} — Mag"
+vampire:
+  label: "Vampire: le Requiem"
+  short: Vam
+  element: "{element} — Vam"
+werewolf:
+  label: "Loup-Garou: les Déchus"
+  short: Lou
+  element: "{element} — Lou"

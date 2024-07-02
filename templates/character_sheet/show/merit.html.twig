@@ -7,6 +7,4 @@
 <label class="btn dot" for="{{ merit.id ~ '-' ~ value }}"></label>
 {% endblock %}
 
-{% block expanded %}<h3 class="text-sub">{{ chMerit.choice }}</h3>{% endblock %}
-
 {% block owned %}{% if chMerit is defined %} merit-owned{% endif %}{% endblock %}

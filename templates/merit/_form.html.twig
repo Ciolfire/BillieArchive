@@ -13,9 +13,7 @@
   {{ form_row(form.isUnique) }}
   {{ form_row(form.isFighting) }}
   {% include "forms/_prerequisite_field.html.twig" %}
-  {{ form_row(form.book) }}
-  {{ form_row(form.page) }}
-  {{ form_row(form.homebrewFor) }}
+  {{ form_row(form.source) }}
   <button class="btn btn-primary">
     {% include "_icon.html.twig" with {'icon': 'save'} only %}
     {{ button_label|default('save')|trans }}

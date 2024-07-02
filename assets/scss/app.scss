@@ -178,6 +178,16 @@ blockquote {
   filter: invert(0.8);
 }
 
+strong {
+  color: $mainBrightColor;
+}
+
+.icon {
+  &-strong {
+    filter: drop-shadow(-2px 2px 0 #ffffff8f) drop-shadow(-2px -2px 0 #ffffff8f) drop-shadow(2px -2px 0 #ffffff8f) drop-shadow(2px 2px 0 #ffffff8f);
+  }
+}
+
 .toast {
   background-color: #212529;
   border: solid #727272;

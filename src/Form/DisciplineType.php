@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Discipline;
+use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,20 +23,23 @@ class DisciplineType extends AbstractType
     }
 
     $builder
-      ->add('name')
-      ->add('homebrewFor')
-      ->add('description')
-      ->add('short')
-      ->add('rules', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($rules)])
-      ->add('isRestricted')
-      ->add('book')
-      ->add('page');
+      ->add('name', null, ['label' => 'name'])
+      ->add('short', null, ['label' => 'short', 'help' => 'help.short'])
+      ->add('description', null, ['label' => 'description'])
+      ->add('rules', CKEditorType::class, ['label' => 'rules', 'empty_data' => '', 'data' => $converter->convert($rules)])
+      ->add('isRestricted', null, ['label' => 'restricted', 'help' => 'help.restricted'])
+      ->add('source', SourceableType::class, [
+        'data_class' => Discipline::class,
+        'label' => 'source.label',
+      ])
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Discipline::class,
+      'translation_domain' => 'discipline',
     ]);
   }
 }

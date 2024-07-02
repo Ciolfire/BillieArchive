@@ -1,0 +1,16 @@
+{% trans_default_domain 'book' %}
+
+{% if class is not defined %}
+  {% set class = 'text-end' %}
+{% endif %}
+
+{% if element.book and element.book != parent.book %}
+  {% include "_source_block.html.twig" with {'element': element, 'class': class } only %}
+{% elseif parent.book and element.book == parent.book %}
+  <div class="{{ class }} fst-italic">
+    {{ "source.page"|trans({'%page%': element.page}, 'book') }}
+    {% include "_icon.html.twig" with {'icon' : 'book'} only %}
+  </div>
+{% elseif element.homebrewFor != parent.homebrewFor %}
+  <div class="{{ class}} fst-italic">{{ element.homebrewFor}}</div>
+{% endif %}

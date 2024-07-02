@@ -6,7 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Skill;
-
+use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,13 +38,11 @@ class DisciplinePowerType extends AbstractType
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short', 'translation_domain' => "app"])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
-      ->add('level', null, ['label' => 'level', 'translation_domain' => "app"]);
-    if (!$discipline->isSimple()) {
-      $builder
-        ->add('book')
-        ->add('page')
-        ->add('homebrewFor');
-    }
+      ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
+      ->add('source', SourceableType::class, [
+        'data_class' => DisciplinePower::class,
+        'label' => 'source',
+      ]);
     if (!($discipline->isSorcery() && $power->getLevel() > 0) && !$discipline->isCoil()) {
       $builder
         ->add('attributes', null, [

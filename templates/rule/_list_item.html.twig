@@ -12,7 +12,8 @@
       {% for subrule in rule.subrules %}
         <div class="col-4 mt-3 text-center {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
           <h5><span class="text-default">{{ subrule.title }}</span></h5>
-          <p>{{ "source"|trans({'page': subrule.page, 'book': subrule.book.short }) }}</p>
+          {% include "_source.html.twig" with {'element': subrule, 'hasLink': 0 } only %}
+          {# <p>{{ "source"|trans({'page': subrule.page, 'book': subrule.book.short }) }}</p> #}
         </div>
       {% endfor %}
     </div>

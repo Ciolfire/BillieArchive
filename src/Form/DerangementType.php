@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Derangement;
+use App\Form\Type\ContentTypeType;
+use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Twig\Extra\Markdown\LeagueMarkdown;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DerangementType extends AbstractType
@@ -29,12 +32,16 @@ class DerangementType extends AbstractType
     $element = $options['data'];
 
     $builder
-      ->add('name', null, ['label' => 'name'])
+      ->add('name', null, ['label' => 'label.single'])
+      ->add('type', ContentTypeType::class, [
+        'data_class' => Derangement::class,
+        'label' => false,
+      ])
       ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])
-      ->add('type', null, ['label' => 'type'])
-      ->add('isExtreme', null, ['label' => 'derangement.extreme'])
+      ->add('isExtreme', null, ['label' => 'extreme', 'help' => 'help.extreme'])
       ->add('previousAilment', null, [
-        'label' => 'derangement.previous',
+        'label' => 'previous',
+        'help' => 'help.previous',
         'choice_filter' => function (?Derangement $derangement) {
           return $derangement ? is_null($derangement->getPreviousAilment()) : true;
         },
@@ -45,8 +52,10 @@ class DerangementType extends AbstractType
           return $derangement->getName();
         },
       ])
-      ->add('book', null, ['label' => 'book'])
-      ->add('page', null, ['label' => 'page'])
+      ->add('source', SourceableType::class, [
+        'data_class' => Derangement::class,
+        'label' => 'source.label',
+      ])
       ;
   }
 
@@ -54,7 +63,7 @@ class DerangementType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Derangement::class,
-      'translation_domain' => "app",
+      'translation_domain' => "derangement",
     ]);
   }
 }

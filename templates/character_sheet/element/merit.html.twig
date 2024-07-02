@@ -5,31 +5,29 @@
 <div class="col py-2">
   <div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
-      <div class="row align-items-center">
-        <div class="col-auto" type="button" aria-expanded="false" aria-controls="merit-{{ id }}-text">
-          {% include "_icon.html.twig" with {'icon' : merit.category, 'hasTips': true } only %}
-          <span class="merit-name">{{ merit.name }}</span>
-          <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type, 'hasTips': true } only %}</span>
+      <div class="d-flex justify-content-between">
+        <div>{% include "_icon.html.twig" with {'icon' : merit.category, 'hasTips': true } only %}</div>
+        <div class="flex-grow-1 text-center">
+          <span class="merit-name fw-bold text-strong fs-5">{{ merit.name }}</span>
         </div>
-        <div class="col text-end">
+        <div class="">
           <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
-            {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}{% endif %}
-            {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style', 'hasTips': true } only %}{% endif %}
-            {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation', 'hasTips': true } only %}{% endif %}
-              {% block input %}{% endblock %}
-              <div class="dots">
-              {% for value in 1..merit.max %}
-                {% if value >= 5 and value % 5 == 1 %}
-                  <span class="ms-1"></span>
-                {% endif %}
-                {% block dot %}{% endblock %}
-              {% endfor %}
-            </div>
+            {% block input %}{% endblock %}
+            <div class="dots">
+            {% for value in 1..merit.max %}
+              {% if value >= 5 and value % 5 == 1 %}
+                <span class="ms-1"></span>
+              {% endif %}
+              {% block dot %}{% endblock %}
+            {% endfor %}
           </div>
         </div>
+      </div>
+      </div>
+      <div class="row">
         <div class="col-12">
           {% if merit.isExpanded %}
-            {% block expanded %}{% endblock %}
+            {% block expanded %}<div class="border-top w-100 mt-1 text-strong accent">{{ chMerit.choice }}</div>{% endblock %}
           {% endif %}
         </div>
       </div>
@@ -45,18 +43,15 @@
       </div>
     </div>
     <div class="card-footer text py-1">
-      <span class="pe-3">
-      {% if merit.book is not null %}
-        <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ merit.book.name }}">
-          <span class="accent">{{ merit.book.short }} {{ merit.page }}</span>
-        </span>
-      {% elseif merit.homebrewFor is defined and merit.homebrewFor is not null %}
-        <span class="accent">{{ merit.homebrewFor.name }}</span>
-      {% else %}
-        <span class="warning">{{ 'source.not.found'|trans([], 'app') }}</span>
-      {% endif %}
-      </span>
-      {% include "character_sheet/element/meritPrerequisites.html.twig" %}
+      <div>{% include "character_sheet/element/meritPrerequisites.html.twig" %}</div>
+      <div class="d-flex justify-content-between">
+        <div>
+          {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'style', 'hasTips': true } only %}{% endif %}
+          {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation', 'hasTips': true } only %}{% endif %}
+          <span class="accent">{% include "_icon.html.twig" with {'icon' : merit.type, 'hasTips': true } only %}</span>
+        </div>
+        {% include "_source_block.html.twig" with {'element': merit, 'class': 'fst-italic', 'isShort': true } only %}
+      </div>
     </div>
   </div>
 </div>

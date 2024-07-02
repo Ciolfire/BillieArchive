@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Attribute;
 use App\Entity\Clan;
+use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -34,8 +34,10 @@ class ClanType extends AbstractType
     $builder
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
       ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
-      ->add('book', null, ['label' => "book", 'translation_domain' => "app"])
-      ->add('page', null, ['label' => "page", 'translation_domain' => "app"])
+      ->add('source', SourceableType::class, [
+        'data_class' => Clan::class,
+        'label' => 'source',
+      ])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
         'mapped' => false,
@@ -69,7 +71,7 @@ class ClanType extends AbstractType
         $builder->add('attributes', null, [
           'expanded' => true,
           'translation_domain' => "app",
-          'label' => 'attributes',
+          'label' => 'attributes.label',
           'group_by' => function($choice) use ($translator) {
             /** @var Attribute $choice */
             return $translator->trans($choice->getCategory(), [], 'character');
@@ -93,7 +95,6 @@ class ClanType extends AbstractType
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
       ])
-      ->add('homebrewFor', null, ['label' => "chronicle.label", 'translation_domain' => 'app'])
       ->add('keywords', null, ['label' => 'keywords', 'translation_domain' => 'app'])
     ;
   }

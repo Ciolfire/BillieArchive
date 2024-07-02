@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Clan;
 use App\Entity\GhoulFamily;
+use App\Form\Type\SourceableType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,9 +31,11 @@ class GhoulFamilyType extends AbstractType
     $translator = $this->translator;
 
     $builder
-      ->add('book', null, ['label' => "book", 'translation_domain' => "app"])
-      ->add('page', null, ['label' => "page", 'translation_domain' => "app"])
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
+      ->add('source', SourceableType::class, [
+        'data_class' => GhoulFamily::class,
+        'label' => 'source.label',
+      ])
       ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
@@ -75,7 +78,7 @@ class GhoulFamilyType extends AbstractType
         'empty_data' => '',
         'data' => $converter->convert($family->getWeakness())
       ])
-      ->add('homebrewFor', null, ['label' => "chronicle.label", 'translation_domain' => 'app']);
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

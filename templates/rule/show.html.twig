@@ -25,7 +25,7 @@
                 <h2>
                   {{ subrule.title }}
                   <span class="text-sub fs-6">
-                    ({{ subrule.book.short}} {{ subrule.page }})
+                    {% include "_source_block.html.twig" with {'element': subrule} %}
                   </span>
                 </h2>
                 {{ subrule.details|markdown_to_html }}

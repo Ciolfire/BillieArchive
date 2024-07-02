@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\ContentType;
 use App\Entity\Merit;
+use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -63,9 +63,10 @@ class MeritType extends AbstractType
         'allow_add' => true,
         'allow_delete' => true,
       ])
-      ->add('book', null, ['label' => "book"])
-      ->add('page', null, ['label' => "page"])
-      ->add('homebrewFor', null, ['label' => "homebrewFor"])
+      ->add('source', SourceableType::class, [
+        'data_class' => Merit::class,
+        'label' => 'source.label',
+      ])
       ;
   }
 

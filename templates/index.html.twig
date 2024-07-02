@@ -6,10 +6,9 @@
 
 {% block body %}
 <div class="container">
-  <h1>{{ "dashboard"|trans }}</h1>
+  <h1 class="text-stylized my-2">{{ "dashboard"|trans }}</h1>
   <div class="row">
     <div class="col-12 col-lg-8">
-      <h2><span>{{ "personal"|trans }}</span></h2>
       <div class="row block mx-1">
         <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "_icon.html.twig" with {'icon': 'characters' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "characters.label"|trans }}</span></a></div>
         <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'notes' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "notes"|trans }}</span></a></div>
@@ -20,7 +19,6 @@
       </div>
     </div>
     <div class="col-12 col-lg-4">
-      <h2>&nbsp;</h2>
       <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
         <h2>{% include "_icon.html.twig" with {'icon': 'wiki' , 'class': 'icon-lg pe-2'} only %}{{ "wiki"|trans }}</h2>
       </button>

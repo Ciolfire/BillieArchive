@@ -1,0 +1,11 @@
+label:
+  single: Livre
+  multiple: Livres
+
+source:
+  label: Source
+  long: "{book}, page {page}"
+  not.found: Source Inconnue
+  short: "{book}, p.{page}"
+  page: "page {page}"
+page: Page

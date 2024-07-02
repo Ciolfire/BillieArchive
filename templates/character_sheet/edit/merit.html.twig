@@ -35,9 +35,9 @@
 
 {% block expanded %}
   {% if chMerit is defined %}
-    <div class="card-text"><input name="character[meritsUp][{{ chMerit.id }}][details]" type="text" class="form-control merit-detail" value="{{ chMerit.choice }}"/></div>
+    <div><input name="character[meritsUp][{{ chMerit.id }}][details]" type="text" class="form-control merit-detail" value="{{ chMerit.choice }}"/></div>
   {% else %}
-    <div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
+    <div><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
   {% endif %}
 {% endblock %}
 

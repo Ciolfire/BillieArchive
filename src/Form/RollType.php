@@ -6,6 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Derangement;
 use App\Entity\Roll;
 use App\Entity\Skill;
+use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -72,8 +73,10 @@ class RollType extends AbstractType
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
-      ->add('book', null, ['label' => "book"])
-      ->add('page', null, ['label' => "page"])
+      ->add('source', SourceableType::class, [
+        'data_class' => Roll::class,
+        'label' => 'source.label',
+      ])
       ;
   }
 

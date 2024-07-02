@@ -1,0 +1,18 @@
+label:
+  single: Dérangement
+  multiple: Dérangements
+count: >-
+  {count, plural,
+    =0 {Aucun Dérangement}
+    =1 {1 Dérangement}
+    other {# Dérangements}
+  }
+
+mild: Bénin
+extreme: Extrême
+previous: Version grave de
+severe: Grave
+
+help:
+  extreme: Character must experience a life-altering trauma or supernatural tragedy to acquire one of these extreme derangements. They cannot normally be acquired by failing a Morality roll unless the sin performed is truly gut wrenching or horrific, such as murdering one’s own children.
+  previous: Can apply if a previously mild condition intensifies with more irreconcilable behavior or spectacles, or if a single act or scene is so mind numbing that only full-blown insanity and dysfunction can result.

@@ -1,17 +1,21 @@
 {% trans_default_domain 'vampire' %}
 
-<div>
-  <h2 class="pb-2">{{ 'power'|trans({'%count%': powers|length}, "character") }}</h2>
-  <div class="block p-2">
-    {% for power in powers %}
-      <div class="{% if not loop.last %}bdr-b{% endif %} py-2">
-        {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}
-        <h3>{{ power.levelDots }} {{ power.name }}</h3>
-        <p>{{ power.details|markdown_to_html }}</p>
-      </div>
-    {% endfor %}
+<h2 class="pb-2">{{ 'power'|trans({'%count%': powers|length}, "character") }}</h2>
+{% for power in powers %}
+  <a href="#{{discipline.id ~ '-' ~ power.id}}" class="btn btn-primary">{{ power.levelDots }} {{ power.name }}</a>
+{% endfor %}
+{% if is_granted('ROLE_ST') %}
+  <a class="btn btn-primary" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'class': 'icon-sm'} only %}</a>
+{% endif %}
+{% for power in powers %}
+  <div id="{{ discipline.id ~ '-' ~ power.id }}" class="block m-2 p-2 rounded">
+    {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}
+    {# TODO {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_remove', {'id': power.id}) }}">{% include "_icon.html.twig" with {'icon': 'remove'} only %}</a>{% endif %} #}
+    <h3>{{ power.levelDots }} {{ power.name }}</h3>
+    {{ power.details|markdown_to_html }}
+    <span>{% include "_source_child.html.twig" with {'element': power, 'parent': discipline } only %}</span>
   </div>
-  {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary w-100" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'discipline.power.add'|trans }}</a>
-  {% endif %}
-</div>
+{% endfor %}
+{% if is_granted('ROLE_ST') %}
+  <a class="btn btn-primary btn-lg w-100" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'discipline.power.add'|trans }}</a>
+{% endif %}

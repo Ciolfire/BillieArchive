@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Entity\Traits\Typed;
 use App\Repository\RollRepository;
@@ -14,7 +15,7 @@ use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RollRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\RollTranslation")]
 class Roll implements Translatable
 {
@@ -26,6 +27,7 @@ class Roll implements Translatable
 
   use Typed;
   use Sourcable;
+  use Homebrewable;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]

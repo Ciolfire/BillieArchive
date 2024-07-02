@@ -4,11 +4,9 @@
   <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block{% endif %} w-100 container g-1">
     <div class="row align-items-center px-2 user-select-none">
       <div class="col-12 discipline-header text-center p-2">
-        <h3>{{ discipline.name }}
-          {% if discipline.homebrewFor is not null %}
-            {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}
-          {% endif %}
-        </h3>
+        <div class="fw-bold text-strong fs-5">
+          {{ discipline.name }}
+        </div>
       </div>
       <div class="col-12 text-center">
         <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
@@ -24,7 +22,8 @@
         </div>
       </div>
       <div class="col-12 text-sub text-center">
-        <p>{{ discipline.short }}</p>
+        <div>{{ discipline.short }}</div>
+        {% include "_source_block.html.twig" with {'element': discipline, 'class': 'text-muted text-end fst-italic' } only %}
       </div>
     </div>
 
@@ -92,6 +91,7 @@
                   </div>
                 </div>
                 <div id="discipline-{{ discipline.id }}-power-{{ power.id }}" class="accordion-collapse collapse py-2" data-bs-parent="#discipline-{{ discipline.id }}-powers">
+                  {% include "_source_child.html.twig" with {'element': power, 'parent': discipline, 'class': 'text-muted text-end fst-italic' } only %}
                   {{ power.details|markdown_to_html }}
                 </div>
               {% endif %}

@@ -17,3 +17,6 @@
 	</span>
 	{% set group = prerequisite.choiceGroup %}
 {% endfor %}
+{% if merit.prerequisites is empty %}
+	&nbsp;
+{% endif %}

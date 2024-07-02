@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\Attribute;
 use App\Entity\Devotion;
-use App\Entity\Discipline;
 use App\Entity\Skill;
+use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +27,6 @@ class DevotionType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $converter = new LeagueMarkdown();
-    $translator = $this->translator;
     /** @var Devotion $devotion */
     $devotion = $options['data'];
     $builder
@@ -58,9 +57,9 @@ class DevotionType extends AbstractType
         'label' => 'attributes.label',
         'expanded' => true,
         'translation_domain' => "character",
-        'group_by' => function($choice) use ($translator) {
+        'group_by' => function($choice) {
           /** @var Attribute $choice */
-          return $translator->trans($choice->getCategory(), [], 'character');
+          return $this->translator->trans($choice->getCategory(), [], 'character');
         },
       ])
       ->add('skills', null, [
@@ -68,14 +67,17 @@ class DevotionType extends AbstractType
         'expanded' => true,
         'translation_domain' => "character",
         'choice_attr' => ['class' =>'text-sub'],
-        'group_by' => function($choice) use ($translator) {
+        'group_by' => function($choice) {
           /** @var Skill $choice */
-          return $translator->trans($choice->getCategory(), [], 'character');
+          return $this->translator->trans($choice->getCategory(), [], 'character');
         },
       ])
       ->add('contestedText', null, ['label' => 'contested.text', 'translation_domain' => 'app'])
-      ->add('homebrewFor', null, ['label' => 'homebrewFor', 'translation_domain' => 'app'])
-      ->add('book', null, ['label' => 'book', 'translation_domain' => 'app']);
+      ->add('source', SourceableType::class, [
+        'data_class' => Devotion::class,
+        'label' => 'source',
+      ])
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void
