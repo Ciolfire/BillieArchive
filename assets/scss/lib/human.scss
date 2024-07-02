@@ -50,8 +50,8 @@ $strongColor        : $mainBrightColor;
 $outlineColor       : $main30pColor;
 // Font
 $mainFont           : "goudy";
-$h1Font             : "CaslonAntique"; //"PlasticMan";
-$h2Font             : "CaslonAntique"; //"PlasticMan";
+$h1Font             : "goudy";
+$h2Font             : "goudy";
 $h3Font             : "goudy";
 $h4Font             : "goudy";
 $h5Font             : "goudy";
@@ -59,6 +59,8 @@ $textFont           : "goudy";
 $subTextFont        : "goudy";
 $labelFont          : "goudy";
 $inputFont          : "goudy";
+$stylizedFont       : "CaslonAntique";
+// $stylizedFont       : "PlasticMan";
 
 @font-face {
   font-family: 'CaslonAntique';

@@ -16,6 +16,10 @@ $tooltip-max-width: 400px;
 
 $fonts: "../fonts";
 
+// This CSS line enable smooth scroll for all the links in whole page.
+// It’s OK, because it’s useful for most situations.
+:root { scroll-behavior: smooth; }
+
 html {
   scroll-padding-top: 60px;
 }
@@ -146,6 +150,7 @@ footer.footer {
 blockquote {
   font-style: italic;
   background-color: #000000a1;
+  color: silver;
   padding: 0.5rem;
   border-radius: 0.5em;
 

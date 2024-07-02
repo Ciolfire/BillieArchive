@@ -10,7 +10,6 @@
   color: $warningColor;
 }
 
-
 .text {
   font-family: $textFont;
   &-strong {
@@ -28,4 +27,12 @@
   &-default {
     color: $textColor;
   }
+
+  &-stylized {
+    font-family: $stylizedFont;
+  }
+}
+
+strong {
+  color: $mainBrightColor;
 }
