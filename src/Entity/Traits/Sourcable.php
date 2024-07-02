@@ -7,7 +7,6 @@ use App\Entity\Book;
 
 trait Sourcable {
   #[ORM\ManyToOne(targetEntity: Book::class)]
-  #[ORM\OrderBy(["name" => "ASC"])]
   protected ?Book $book;
 
   #[ORM\Column(type: "smallint", nullable: true)]

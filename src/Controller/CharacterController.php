@@ -40,17 +40,17 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CharacterController extends AbstractController
 {
   private DataService $dataService;
-  private CreationService $create;
+  private CreationService $creationService;
   private CharacterService $service;
   /** @var array<string, array<string, array<string, string|null>>> */
   private array $attributes;
   /** @var array<string, array<string, string|null>> */
   private array $skills;
 
-  public function __construct(DataService $dataService, CreationService $create, CharacterService $service)
+  public function __construct(DataService $dataService, CreationService $creationService, CharacterService $service)
   {
     $this->dataService = $dataService;
-    $this->create = $create;
+    $this->creationService = $creationService;
     $this->service = $service;
     $this->attributes = $this->service->getSortedAttributes();
     $this->skills = $this->service->getSortedSkills();
@@ -152,9 +152,9 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
-        $this->create->addMerits($character, $form->getExtraData()['merits']);
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
       }
-      $this->create->getSpecialties($character, $form);
+      $this->creationService->getSpecialties($character, $form);
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
 
@@ -187,9 +187,9 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
-        $this->create->addMerits($character, $form->getExtraData()['merits']);
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
       }
-      $this->create->getSpecialties($character, $form);
+      $this->creationService->getSpecialties($character, $form);
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
       $this->dataService->save($character);

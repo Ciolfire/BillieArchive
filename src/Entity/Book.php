@@ -97,6 +97,11 @@ class Book implements Translatable
     return $this->id;
   }
 
+  public function getDisplayName(): ?string
+  {
+    return $this->name;
+  }
+
   public function getName(): ?string
   {
     return $this->name;

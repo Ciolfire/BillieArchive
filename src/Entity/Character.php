@@ -80,7 +80,7 @@ class Character
   #[ORM\Column(type: Types::TEXT)]
   private ?string $description = "";
 
-  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   protected ?string $avatar = "";
 
   /** @var array<string, int> */
