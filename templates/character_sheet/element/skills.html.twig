@@ -13,7 +13,7 @@
     <div class="block">
       <h3 class="d-md-none d-block text-center pt-1">{{ category|trans }}</h3>
         <p class="text-center text-sub mb-0">({{("skill.unskilled." ~ category)|trans }})</p>
-      {% for skill, name in skills %}
+      {% for skill, name in skills|sort((a, b) => a <=> b) %}
         {% block skill %}{% endblock %}
       {% endfor %}
     </div>
