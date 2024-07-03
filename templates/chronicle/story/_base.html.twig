@@ -31,9 +31,9 @@
   {% if character.isNpc == false %}
     <div class="col-6">
       <div class="w-100 h-100 py-1">
-        <a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
-          <div class="character-frame character-frame-list position-relative text-center mb-2">
-            <img class="p-1" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+        <a class="{{ character.type }} btn btn-primary btn-{{ character.type }} human-btn w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
+          <div class="character-frame character-frame-list position-relative text-center mb-2 rounded">
+            <img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
           </div>
           {{ character.name }}
         </a>

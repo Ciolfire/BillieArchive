@@ -1,3 +1,4 @@
+// TODO check if still needed
 .vampire-btn,
 .mage-btn,
 .werewolf-btn,
@@ -17,6 +18,30 @@
   font-size       : 1rem;
   border-radius   : 0.25rem;
   transition      : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.human {
+  &.btn,
+  &.btn.btn-primary,
+  &.btn.btn-primary.btn-human,
+  & .btn,
+  & .btn.btn-primary {
+    color           : #6f80c5;
+    background-color: #1a2139f5;
+    border          : 1px solid #6f80c5;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color           : #6f80c5;
+      background-color: #283971f5;
+      box-shadow      : 0 0 0 0.25rem rgba(0, 40, 125, 0.578);
+    }
+
+    &:focus-visible {
+      outline: 2px solid red;
+    }
+  }
 }
 
 $tooltip-max-width: 400px;

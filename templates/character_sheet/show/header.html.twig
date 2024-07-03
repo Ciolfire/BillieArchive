@@ -5,12 +5,14 @@
   {% block name %}
     <h1 class="text-center text-stylized">
       {{ character.name }}
+    </h1>
+    <h2>
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% elseif character.isPremade == true %}
-        {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl ms-5', 'hasTips': true} %}
+        {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl', 'hasTips': true} %}
       {% endif %}
-    </h1>
+    </h2>
   {% endblock %}
   <div class="order-2 order-md-1 col-6 col-md text-center">
     {% block leftCol %}
@@ -45,8 +47,8 @@
       <div class="row text-center">
         {% block details %}{% endblock %}
         <div class="col-12 d-flex my-2" data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
-          <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative">
-            <img class="p-1" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+          <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative rounded">
+            <img class="p-1 rounded" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
           </div>
         </div>
       </div>

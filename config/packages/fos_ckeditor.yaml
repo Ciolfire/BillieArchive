@@ -11,6 +11,7 @@ fos_ck_editor:
             toolbar: "default_toolbar"
             # extraPlugins: "markdown"
             language: '%default_locale%'
+            versionCheck: false
     toolbars:
         configs:
             default_toolbar: ["@links", "@format", "@paragraph", "@editing", "@tools", "About"]
