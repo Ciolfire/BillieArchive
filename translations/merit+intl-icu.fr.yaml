@@ -1,0 +1,24 @@
+label:
+  single: Atout
+  multiple: Atouts
+
+category:
+  label: Catégorie
+  mental: Mental
+  physical: Physique
+  social: Social
+description: Description
+effect: Effet
+min: Min
+max: Max
+creation: Creation Uniquement
+expanded: Choix ou Détails requis
+fighting: Style de Combat
+unique: Unique
+
+help:
+  description: Un court texte résumant le fonctionnement de l'atout.
+  creation: Cet atout ne peut être choisi que par un nouveau personnage.
+  expanded: Cet atout necessite des informations qui doivent être définies lors de sa sélection.
+  fighting: Un style de combat donne accès à une nouvelle maneuvre à chaque niveau.
+  unique:   Cet atout ne peut être sélectionné qu'une seule fois.

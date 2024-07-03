@@ -2,7 +2,8 @@
 
 {{ form_start(form) }}
   {{ form_row(form.name) }}
-  {{ form_row(form.type) }}
+  {{ form_row(form.source) }}
+  {{ form_widget(form.type) }}
   {{ form_row(form.category) }}
   {{ form_row(form.description) }}
   {{ form_row(form.effect) }}
@@ -13,7 +14,6 @@
   {{ form_row(form.isUnique) }}
   {{ form_row(form.isFighting) }}
   {% include "forms/_prerequisite_field.html.twig" %}
-  {{ form_row(form.source) }}
   <button class="btn btn-primary">
     {% include "_icon.html.twig" with {'icon': 'save'} only %}
     {{ button_label|default('save')|trans }}

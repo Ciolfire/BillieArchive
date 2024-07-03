@@ -8,11 +8,11 @@ use App\Entity;
 
 final class ChoicesMeritPrerequisite
 {
-    public const Attribute = Entity\Attribute::class;
-    public const Skill = Entity\Skill::class;
-    public const Merit = Entity\Merit::class;
-    public const Discipline = Entity\Discipline::class;
-    public const Clan = Entity\Clan::class;
+    public const attribute = Entity\Attribute::class;
+    public const skill = Entity\Skill::class;
+    public const merit = Entity\Merit::class;
+    public const discipline = Entity\Discipline::class;
+    public const clan = Entity\Clan::class;
     //   public const Devotion = Entity\Devotion::class;
     //   public const Race = Entity\Race::class;
 }

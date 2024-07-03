@@ -2,18 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\ContentType;
 use App\Entity\Merit;
+use App\Form\Type\ContentTypeType;
 use App\Form\Type\SourceableType;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
 class MeritType extends AbstractType
@@ -25,20 +22,14 @@ class MeritType extends AbstractType
     $merit = $options['data'];
 
     $builder
-      ->add('name', null, ['label' => "name"])
-      ->add('type', EntityType::class, [
-        'label' => "type.label",
-        'class' => ContentType::class,
-        'choice_label' => function ($choice): string {
-          return 'type.'.$choice->getName();
-        },
-        'choice_translation_domain' => 'app',
-        'query_builder' => function (EntityRepository $er): QueryBuilder {
-          return $er->createQueryBuilder('ct')
-              ->orderBy('ct.name', 'ASC');
-        },
-        'required' => false,
-        'empty_data' => '',
+      ->add('name', null, ['label' => "label.single"])
+      ->add('source', SourceableType::class, [
+        'data_class' => Merit::class,
+        'label' => 'source.label',
+      ])
+      ->add('type', ContentTypeType::class, [
+        'data_class' => Merit::class,
+        'label' => false,
       ])
       ->add('category', ChoiceType::class, [
         'label' => "category.label",
@@ -48,24 +39,20 @@ class MeritType extends AbstractType
           'category.social' => 'social',
         ],
       ])
-      ->add('description', null, ['label' => "description.label"])
+      ->add('description', null, ['label' => 'description', 'help' => 'help.description'])
       ->add('effect', CKEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
       ->add('min', null, ['label' => "min"])
       ->add('max', null, ['label' => "max"])
-      ->add('isCreationOnly', null, ['label' => "merit.creation"])
-      ->add('isUnique', null, ['label' => "merit.unique"])
-      ->add('isExpanded', null, ['label' => "merit.expanded"])
-      ->add('isFighting', null, ['label' => "merit.fighting"])
+      ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])
+      ->add('isUnique', null, ['label' => "unique", 'help' => "help.unique"])
+      ->add('isExpanded', null, ['label' => "expanded", 'help' => "help.expanded"])
+      ->add('isFighting', null, ['label' => "fighting", 'help' => "help.fighting"])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
         'entry_options' => ['label' => false, 'type' => 'merit'],
         'allow_add' => true,
         'allow_delete' => true,
-      ])
-      ->add('source', SourceableType::class, [
-        'data_class' => Merit::class,
-        'label' => 'source.label',
       ])
       ;
   }
@@ -74,7 +61,7 @@ class MeritType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Merit::class,
-      'translation_domain' => 'app',
+      'translation_domain' => 'merit',
     ]);
   }
 }

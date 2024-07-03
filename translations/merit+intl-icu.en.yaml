@@ -1,0 +1,24 @@
+label:
+  single: Merit
+  multiple: Merits
+
+category:
+  label: Category
+  mental: Mental
+  physical: Physical
+  social: Social
+description: Description
+effect: Effect
+min: Min
+max: Max
+creation: Creation Only
+expanded: Choice or details needed
+fighting: Fighting Style
+unique: Unique
+
+help:
+  creation: This merit can only be selected when the character is created.
+  expanded: This merit has some variable parameter than can or need to be specified when selected.
+  fighting: A fighting style open access to a new maneuver at each level.
+  unique:   This merit can only be selected once.
+  description: A short text to explain what the merit does.

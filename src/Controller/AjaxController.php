@@ -34,7 +34,7 @@ class AjaxController extends AbstractController
   }
 
 
-  #[Route('/load/prerequisites', name: 'a_load_prerequisites', methods: ['GET', 'POST'])]
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/load/prerequisites', name: 'a_load_prerequisites', methods: ['GET', 'POST'])]
   public function loadPrerequisites(Request $request): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {

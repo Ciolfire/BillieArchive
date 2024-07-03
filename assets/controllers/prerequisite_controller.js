@@ -38,7 +38,7 @@ export default class extends Controller {
       }
 
     };
-    xhttp.open("POST", `/ajax/load/prerequisites`, true);
+    xhttp.open("POST", `/ajax/${document.location.pathname.split('/')[1]}/load/prerequisites`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -54,13 +54,13 @@ export default class extends Controller {
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok
-        //console.log(xhttp.responseText);
+        // console.log(xhttp.responseText);
         target.innerHTML = JSON.parse(xhttp.responseText).choices;
         target.value = id.value;
       }
 
     };
-    xhttp.open("POST", `/ajax/load/prerequisites`, true);
+    xhttp.open("POST", `/ajax/${document.location.pathname.split('/')[1]}/load/prerequisites`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
 

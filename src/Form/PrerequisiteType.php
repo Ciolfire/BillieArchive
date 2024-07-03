@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class PrerequisiteType extends AbstractType
 {
@@ -36,8 +37,8 @@ class PrerequisiteType extends AbstractType
     ->add('type', ChoiceType::class, [
       'label' => 'type.label',
       'choices' => $types->getConstants(),
-      'choice_label' => function ($choice, $key, $value) {
-        return $key;
+      'choice_label' => function ($choice, string $key): TranslatableMessage|string {
+        return new TranslatableMessage($key, [], 'prerequisite');
       },
       'attr' => [
         'data-prerequisite-target' => 'type',

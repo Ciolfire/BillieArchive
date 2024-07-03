@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route("{_locale<%supported_locales%>?%default_locale%}/wiki/merit")]
 class MeritController extends AbstractController
@@ -98,7 +99,7 @@ class MeritController extends AbstractController
   }
 
   #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
-  public function new(Request $request, EntityManagerInterface $entityManager): Response
+  public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
   {
     $merit = new Merit();
 
