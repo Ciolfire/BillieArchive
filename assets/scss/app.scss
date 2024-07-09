@@ -43,6 +43,14 @@ body {
     object-position: top;
     aspect-ratio: 1/1;
   }
+  .nav-item {
+    min-width: 4em;
+    text-align: center;
+    border-color: rgba(255, 255, 255, 0.25)!important;
+    & .nav-link:hover {
+      color: $mainColor;
+    }
+  }
 }
 
 footer.footer {
@@ -185,6 +193,9 @@ strong {
 .icon {
   &-strong {
     filter: drop-shadow(-2px 2px 0 #ffffff8f) drop-shadow(-2px -2px 0 #ffffff8f) drop-shadow(2px -2px 0 #ffffff8f) drop-shadow(2px 2px 0 #ffffff8f);
+  }
+  &-accent {
+    color: $accentColor;
   }
 }
 

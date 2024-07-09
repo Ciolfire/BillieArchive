@@ -22,14 +22,12 @@ h5 {
 
   .icon {
     color: $mainColor;
-  }
-  
-  .icon.accent {
-    color: $accentColor;
-  }
-
-  .icon.warning {
-    color: $warningColor;
+    &.accent {
+      color: $accentColor!important;
+    }
+    &.warning {
+      color: $warningColor;
+    }
   }
 }
 
