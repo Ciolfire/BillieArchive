@@ -33,9 +33,8 @@ class DevotionType extends AbstractType
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('cost', null, ['label' => 'cost', 'translation_domain' => 'app'])
       ->add('description', CKEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $converter->convert($devotion->getDescription())])
-      ->add('short', null, ['label' => 'description.short.label', 'translation_domain' => 'app'])
-      ->add('page', null, ['label' => 'page', 'translation_domain' => 'app'])
-      ->add('bloodline', null, ['label' => 'clan.bloodline.label'])
+      ->add('short', null, ['label' => 'short'])
+      ->add('bloodline', null, ['label' => 'bloodline.label.single', 'translation_domain' => 'clan'])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
@@ -54,28 +53,28 @@ class DevotionType extends AbstractType
         },
       ])
       ->add('attributes', null, [
-        'label' => 'attributes.label',
+        'label' => 'label.multi',
         'expanded' => true,
-        'translation_domain' => "character",
+        'translation_domain' => "attribute",
         'group_by' => function($choice) {
           /** @var Attribute $choice */
-          return $this->translator->trans($choice->getCategory(), [], 'character');
+          return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
         },
       ])
       ->add('skills', null, [
-        'label' => 'skills.label',
+        'label' => 'label.multi',
         'expanded' => true,
-        'translation_domain' => "character",
+        'translation_domain' => "skill",
         'choice_attr' => ['class' =>'text-sub'],
         'group_by' => function($choice) {
           /** @var Skill $choice */
-          return $this->translator->trans($choice->getCategory(), [], 'character');
+          return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
         },
       ])
-      ->add('contestedText', null, ['label' => 'contested.text', 'translation_domain' => 'app'])
+      ->add('contestedText', null, ['label' => 'contested.text', 'attr' => ['placeholder' => 'contested.placeholder']])
       ->add('source', SourceableType::class, [
         'data_class' => Devotion::class,
-        'label' => 'source',
+        'label' => 'source.label',
       ])
     ;
   }
@@ -84,7 +83,7 @@ class DevotionType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Devotion::class,
-      'translation_domain' => 'vampire',
+      'translation_domain' => 'discipline',
     ]);
   }
 }

@@ -5,7 +5,7 @@
   {% block name %}
     <h1 class="text-center text">
       {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: character.type, 'hasTips': true, 'class': 'icon-lg' } %}
       {% endif %}
       {% set publicName = character.publicName(peeker) %}
       {% if publicName == "" %}
@@ -14,7 +14,7 @@
         <span class="accent">{{ publicName }}</span>
       {% endif %}
       {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {'icon': character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: character.type, 'hasTips': true, 'class': 'icon-lg' } %}
       {% endif %}
     </h1>
     <h2 class="text">
@@ -23,7 +23,7 @@
       {% endif %}
     </h2>
   {% endblock %}
-  <div class="order-2 order-md-1 col-6 col-md text-center">
+  <div class="order-2 order-md-1 col-6 col-md text-center text-strong">
     {% block leftCol %}
       <div class="row">
         <div class="col-12">
@@ -44,9 +44,9 @@
         </div>
         {% block virtue %}
           <div class="col-12">
-            {% include "_icon.html.twig" with {'icon': 'virtue'} %}
+            {% include "_icon.html.twig" with {icon: 'virtue'} %}
             {% if access.hasRight('virtue')|default(false) %}
-              <span class="strong">{{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}</span>
+              <span class="strong">{{ "virtue.label.single"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}</span>
             {% else %}
               <span class="warning">{{ "virtue.unknown"|trans }}</span>
             {% endif %}
@@ -54,9 +54,9 @@
         {% endblock %}
         {% block vice %}
           <div class="col-12">
-            {% include "_icon.html.twig" with {'icon': 'vice'} %}
+            {% include "_icon.html.twig" with {icon: 'vice'} %}
             {% if access.hasRight('vice')|default(false) %}
-              <span class="strong">{{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}</span>
+              <span class="strong">{{ "vice.label.single"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}</span>
             {% else %}
               <span class="warning">{{ "vice.unknown"|trans }}</span>
             {% endif %}
@@ -64,7 +64,7 @@
         {% endblock %}
         {% block morality %}
           <div class="col-12">
-            {% include "_icon.html.twig" with {'icon': 'morality'} %}
+            {% include "_icon.html.twig" with {icon: 'morality'} %}
             {% if access.hasRight('morality')|default(false) %}
               <span class="strong">
                 {{ ("morality." ~ character.type)|trans }}:
@@ -115,7 +115,7 @@
     </div>
   {% endblock %}
   {% block right %}
-    <div class="order-3 order-md-3 col-6 col-md text-center">
+    <div class="order-3 order-md-3 col-6 col-md text-center text-strong">
       <div class="row">
         <div class="col-12">
           {% if access.hasRight('faction')|default(false) and character.faction is not empty %}

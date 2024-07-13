@@ -1,0 +1,8 @@
+{% trans_default_domain 'ghoul' %}
+
+<div class="block user-select-none h-100 p-3">
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'class': 'icon-lg' } only %} {{ "vitae.info"|trans }}</h3>
+  <div class="d-flex flex-column align-items-start">
+    <p>{{ "vitae.usage"|trans|markdown_to_html }}</p>
+  </div>
+</div>

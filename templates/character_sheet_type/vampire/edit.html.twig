@@ -1,0 +1,30 @@
+{% extends "character_sheet/edit.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% set clan = character.clan %}
+
+{% block header %}
+  {% include "character_sheet_type/vampire/edit/header.html.twig" %}
+{% endblock %}
+
+{% block form_start %}
+  {% set form_attributes = {
+      'data-controller': 'character--merits character--edit',
+      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
+      'data-character--edit-total-value': character.xpTotal,
+      'data-character--edit-used-value': character.xpUsed,
+      'data-character--edit-coils-value': character.coilsLevel
+  } %}
+  {{ form_start(form, {'attr': form_attributes}) }}
+{% endblock %}
+
+{% block special %}
+  <div id="vampire" class="g-0" data-tabs-target="page">
+    {% include "character_sheet_type/vampire/edit/special.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'vampire', label: 'vampire'|trans({}, 'content-type'), icon: 'type/vampire'} only %}
+{% endblock %}

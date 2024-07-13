@@ -2,9 +2,9 @@
 
 {% set footer = true %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'society' %}
 
-{% block title %}{{ "society.label"|trans }}{% endblock %}
+{% block title %}{{ "label.single"|trans }}{% endblock %}
 
 {% block body %}
   {% if society.chronicle is defined %}
@@ -15,7 +15,7 @@
 
   <h1>
     {% include "_icon.html.twig" with {'icon' : 'group', 'class': 'icon-xl' } only %}
-    {{ "society.label"|trans }}
+    {{ "label.single"|trans }}
   </h1>
   <div class="container block py-3">
     <h1>{{ society.name }}</h1>
@@ -23,7 +23,7 @@
       <h2>
         <span class="accent">
           {% include "_icon.html.twig" with {'icon' : society.type, 'class': 'icon-lg accent' } only %}
-          {{ ('society.type.' ~ society.type)|trans }}
+          {{ ('type.' ~ society.type)|trans }}
         </span>
       </h2>
     {% endif %}
@@ -40,13 +40,13 @@
 {% block footerContent %}
   <div class="col-12 d-flex justify-content-between position-relative">
     <a class="btn btn-primary" href="{{ path('society_edit', {'id': society.id }) }}">
-      {% include "_icon.html.twig" with {'icon' : 'edit' } only %}
-      {% include "_icon.html.twig" with {'icon' : 'group' } only %}
+      {% include "_icon.html.twig" with {icon : 'edit' } only %}
+      {% include "_icon.html.twig" with {icon : 'group' } only %}
     </a>
     <a class="btn btn-primary" href="{{ path('society_add_character', {'id': society.id }) }}">
-      {% include "_icon.html.twig" with {'icon' : 'options' } only %}
-      {% include "_icon.html.twig" with {'icon' : 'character' } only %}
+      {% include "_icon.html.twig" with {icon : 'gears' } only %}
+      {% include "_icon.html.twig" with {icon : 'character' } only %}
     </a>
-    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-society-{{ society.id }}">{% include "_icon.html.twig" with {'icon': 'delete'} only %}</button>
+    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-society-{{ society.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
   </div>
 {% endblock %}

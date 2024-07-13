@@ -1,7 +1,6 @@
 {% trans_default_domain 'app' %}
 
-<div class="col-12">
-  <h2>{% include '_icon.html.twig' with { icon: 'characters', class: 'icon-lg' } %}{{ 'characters.label'|trans }}</h2>
+  <h2>{% include "_icon.html.twig" with { icon: 'characters', class: 'icon-lg' } only %}{{ "label.multi"|trans({}, 'character') }}</h2>
   <div class="row">
     {% if character.peekingRights|default(null) is empty %}
       {{ 'empty'|trans }}

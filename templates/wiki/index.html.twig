@@ -1,12 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'wiki' %}
 
 {% block body %}
 <div class="container-fluid container-lg py-3">
   <div class="row">
     <div class="block">
-      <h1 class="py-2">{% include "_icon.html.twig" with {'icon': 'wiki', 'class': 'icon-lg' } only %}{{ "wiki"|trans }}</h1>
+      <h1 class="py-2">
+        {% include "_icon.html.twig" with {icon: 'wiki', class: 'icon-lg text-strong' } only %}
+        <span class="text-strong">{{ "label"|trans }}</span>
+      </h1>
       {% include "wiki/base.html.twig" %}
     </div>
   </div>

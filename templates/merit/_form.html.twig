@@ -15,11 +15,11 @@
   {{ form_row(form.isFighting) }}
   {% include "forms/_prerequisite_field.html.twig" %}
   <button class="btn btn-primary">
-    {% include "_icon.html.twig" with {'icon': 'save'} only %}
+    {% include "_icon.html.twig" with {icon: 'save'} only %}
     {{ button_label|default('save')|trans }}
   </button>
   {% if merit.id is not null %}
     <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ merit.id) }}">
-    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{ merit.id }}">{% include "_icon.html.twig" with {'icon': 'delete'} only %}</button>
+    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{ merit.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
   {% endif %}
 {{ form_end(form) }}

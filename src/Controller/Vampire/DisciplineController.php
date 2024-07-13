@@ -54,6 +54,8 @@ class DisciplineController extends AbstractController
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'sorcery',
+      'icon' => 'pentacle',
+      'label' => 'sorcery.label.multi',
     ]);
   }
 
@@ -67,6 +69,7 @@ class DisciplineController extends AbstractController
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'coils',
+      'label' => 'coil.label.multi',
     ]);
   }
 
@@ -271,6 +274,8 @@ class DisciplineController extends AbstractController
       'entity' => 'discipline',
       'back' => $data['back'],
       'type' => $data['type'],
+      'icon' => $data['icon'],
+      'label' => $data['label'],
     ]);
   }
 }

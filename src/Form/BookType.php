@@ -49,7 +49,7 @@ class BookType extends AbstractType
             'mimeTypes' => [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image Invalid',
+            'mimeTypesMessage' => 'image.invalid',
           ])
         ],
       ])

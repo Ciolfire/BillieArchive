@@ -132,7 +132,7 @@ class ClanController extends AbstractController
 
     return $this->render('vampire/clan/form.html.twig', [
       'action' => 'new',
-      'entity' => 'clan',
+      'entity' => 'bloodline',
       'trans' => 'clan.bloodline.',
       'form' => $form,
     ]);

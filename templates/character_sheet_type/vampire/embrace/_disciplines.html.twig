@@ -1,0 +1,20 @@
+{% trans_default_domain 'vampire' %}
+
+<div class="row mb-4 justify-content-center">
+  <div class="col-12 text-center block-solid mt-2">
+    <span class="text-sub fw-bold">{{ "embrace.discipline.creation.info"|trans|raw }}</span>
+    ({% trans %}embrace.discipline.creation.favored{% endtrans %}: <span data-character--embrace-target="disciplinesFavored">0</span>)
+    <br>
+    {% trans %}embrace.discipline.creation.all{% endtrans %}
+    <span data-character--embrace-target="disciplinesTotal">0</span>/<span class="ok">3</span>
+  </div>
+  {% for discipline in disciplines %}
+    <div class="col-4 discipline-block d-none order-2">
+      {% set max = 3 %}
+      {% set min = 0 %}
+      {% set base = 0 %}
+      {% include "character_sheet_type/vampire/embrace/_discipline.html.twig" %}
+    </div>
+  {% endfor %}
+  <div class="col-12 order-1"></div>
+</div>

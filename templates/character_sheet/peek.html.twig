@@ -6,7 +6,7 @@
 
 
 {% block body %}
-  {% include "_back.html.twig" %}
+  {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id}) ~ "?referer=access"} %}
   <div class="block py-3"><h1 class="text user-select-none"><strong>{{ peeker }}</strong>'s informations on this character</h1></div>
   <div class="container-fluid container-lg">
     {% block menu %}
@@ -17,8 +17,8 @@
                 <div class="col-1 d-flex align-items-center justify-content-center">
                   <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
                     <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-                    {% include "_icon.html.twig" with {'icon' : "impersonate", 'hasTips' : 0} only %}
-                    {% include "_icon.html.twig" with {'icon' : "infos", 'hasTips' : 0} only %}
+                    {% include "_icon.html.twig" with {icon : "impersonate"} only %}
+                    {% include "_icon.html.twig" with {icon : "infos"} only %}
                   </a>
                 </div>
             {% endif %}
@@ -28,12 +28,12 @@
       {# Maybe show menu to switch between available peek characters #}
     {% endblock %}
     {% block header %}
-      {% include "character_sheet/" ~ character.type ~ "/peek/header.html.twig" %}
+      {% include "character_sheet_type/" ~ character.type ~ "/peek/header.html.twig" %}
     {% endblock %}
     <div class="row block">
       {% if access.hasRight('avatar')|default(false) %}
         <div class="col-12 p-2">
-          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {'icon': 'picture'} %}
+          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {icon: 'picture'} %}
             <div id="collapseAvatar" class="collapse">
               <img class="mw-100 d-block bdr m-auto" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
             </div>
@@ -45,7 +45,7 @@
         <div class="card info-card">
           <div class="card-header">
             <h3 class="text text-light user-select-none">
-              {% include "_icon.html.twig" with {'icon': 'description', 'class': 'icon-lg'} %}
+              {% include "_icon.html.twig" with {icon: 'description', class: 'icon-lg'} %}
               {{ "infos.description"|trans }}
             </h3>
           </div>
@@ -64,7 +64,7 @@
         <div class="card info-card">
           <div class="card-header">
             <h3 class="text text-light user-select-none">
-              {% include "_icon.html.twig" with {'icon': 'background', 'class': 'icon-lg'} %}
+              {% include "_icon.html.twig" with {icon: 'background', class: 'icon-lg'} %}
               {{ "infos.background"|trans }}
             </h3>
           </div>
@@ -81,7 +81,7 @@
     <div class="col-12 py-2">
       <hr>
       <h2 class="text text-light pt-2 user-select-none">
-        {% include "_icon.html.twig" with {'icon': 'informations', 'class': 'icon-lg'} %}
+        {% include "_icon.html.twig" with {icon: 'spy', class: 'icon-lg'} %}
         {{ "infos.details.label"|trans }}
       </h2>
       <div class="row">

@@ -1,27 +1,29 @@
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'character' %}
 
-<div class="col-6 col-lg-2 mb-3">
-  <a class="text-center p-0 {% if access.hasRight('type')|default(false) %}{{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100" href="{{ path('character_peek', {'id': character.id}) }}">
+<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+  <a class="text-center p-0 {% if access.hasRight('type')|default(false) %}{{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100" href="{{ link|default(path('character_peek', {'id': character.id})) }}">
+    <div class="character-card-header">
+      {% if access.hasRight('type')|default(false) %}
+        <img class="character-icon" src={% include "character/_icon.html.twig" %} />
+        <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
+        <img class="character-icon" src={% include "character/_icon_special.html.twig" %} />
+      {% else %}
+        <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
+        <div class="w-100 text-center text-strong">{{ "type.unknown"|trans }}</div>
+        <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
+      {% endif %}
+    </div>
     <div class="character-card-name">
       {% set publicName = character.publicName(access.accessor) %}
       {% if publicName == "" %}
-        <span class="warning">{{ "name.unknown"|trans([], 'character') }}</span>
+        <span class="warning">{{ "name.unknown"|trans }}</span>
       {% else %}
         <span class="accent">{{ publicName }}</span>
       {% endif %}
-      <p class="strong">{% if character.isNpc %}{{ "character.npc"|trans }}{% else %}({{ character.player }}){% endif %}</p>
+      <p class="strong">{% if character.isNpc %}{{ "npc.label.short"|trans }}{% else %}({{ character.player }}){% endif %}</p>
     </div>
-    <div class="character-card-avatar position-relative text-center">
-      <img src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
-    </div>
-    <div class="position-relative">
-      <div class="d-flex flex-column justify-content-end h-100">
-        <p class="accent">
-          {% if access.hasRight('faction')|default(false) %}{{ character.faction|default("—") }}{% else %}&nbsp;{% endif %}
-          <br>
-          {% if access.hasRight('group')|default(false) %}{{ character.groupName|default("—") }}{% else %}&nbsp;{% endif %}
-        </p>
-      </div>
+    <div class="character-card-avatar position-relative text-center m-1 rounded border border-secondary">
+      <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
     </div>
   </a>
 </div>

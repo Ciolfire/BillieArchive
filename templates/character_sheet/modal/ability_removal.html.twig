@@ -15,8 +15,8 @@
             <div class="col-6 mb-3">
               <select class="form-control" name="type" data-character--ability-removal-target="type" data-action="change->character--ability-removal#load">
                 <option value=""></option>
-                {% for removable in removables %}
-                  <option value="{{removable}}">{{ (removable ~ '.label')|trans }}</option>
+                {% for removable, options in removables %}
+                  <option value="{{removable}}">{{ options['label']|default('label.single')|trans({}, options['domain']|default(removable)) }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-12">
             <button class="btn btn-warning w-100 disabled" data-character--ability-removal-target="submit">
-              {% include "_icon.html.twig" with {'icon': 'destroy'} %}
+              {% include "_icon.html.twig" with {icon: 'destroy'} %}
               {{ 'action.confirm'|trans([], 'app') }}
             </button>
           </div>

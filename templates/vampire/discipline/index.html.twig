@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% set setting = 'vampire' %}
 {% set footer = true %}
 
 {% block title %}
-	{{ (type ~ ".label")|trans }}
+	{{ label|default('label.multi')|trans }}
 {% endblock %}
 
 {% block bodyData %}
@@ -20,8 +20,8 @@
 			<div class="col-12">
 				<div class="p-2">
 					<h1 class="user-select-none">
-						{% include "_icon.html.twig" with {'icon' : type, 'class' : "icon-xl" } only %}
-						{{ (type ~ ".label")|trans }}
+						{% include "_icon.html.twig" with {'icon' : icon|default(type), 'class' : "icon-xl" } only %}
+						{{ label|default('label.multi')|trans }}
 					</h1>
 					<div class="col-auto">
 						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">

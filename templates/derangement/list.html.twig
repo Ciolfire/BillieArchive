@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'derangement' %}
 
 {% set footer = true %}
 
-{% block title %}{{ "derangements.label"|trans }}{% endblock %}
+{% block title %}{{ "label.multi"|trans }}{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="derangement"
@@ -15,8 +15,8 @@
   <div class="container block py-3">
     <div class="row">
       <h1>
-        {% include "_icon.html.twig" with {'icon': "derangement", 'class': 'icon-lg' } only %}
-        <span>{{ "derangements.label"|trans }}</span>
+        {% include "_icon.html.twig" with {icon: "derangement", 'class': 'icon-lg' } only %}
+        <span>{{ "label.multi"|trans }}</span>
       </h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
@@ -29,10 +29,10 @@
     </div>
     <div class="row mt-2 text-center">
       <div class="col-6">
-        <h2>{{ "derangement.mild"|trans }}</h2>
+        <h2>{{ "mild"|trans }}</h2>
       </div>
       <div class="col-6">
-        <h2>{{ "derangement.severe"|trans }}</h2>
+        <h2>{{ "severe"|trans }}</h2>
       </div>
     </div>
     {% for derangement in derangements %}

@@ -222,16 +222,9 @@ class CharacterController extends AbstractController
     $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
-    $removables = [
-      'attribute',
-      'skill',
-      'merit',
-      'specialty',
-      'willpower',
-      'derangement',
-    ];
+    $removables = $this->service->getRemovableAttributes($character);
 
-    return $this->render('character_sheet/' . $character->getType() . '/show.html.twig', [
+    return $this->render("character_sheet_type/{$character->getType()}/show.html.twig", [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,
@@ -269,7 +262,7 @@ class CharacterController extends AbstractController
 
     $merits = $this->service->loadMerits($character, false);
 
-    return $this->render('character_sheet/' . $character->getType() . '/edit.html.twig', [
+    return $this->render("character_sheet_type/{$character->getType()}/edit.html.twig", [
       'character' => $character,
       'setting' => $character->getSetting(),
       'form' => $form,
@@ -331,7 +324,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('index');
     }
     $access = $peeker->getSpecificPeekingRights($character);
-    return $this->render("character_sheet/{$character->getType()}/peek.html.twig", [
+    return $this->render("character_sheet_type/{$character->getType()}/peek.html.twig", [
       'peeker' => $peeker,
       'access' => $access,
       'character' => $character,

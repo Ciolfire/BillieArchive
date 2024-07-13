@@ -110,7 +110,8 @@ class WikiController extends AbstractController
       'entity' => 'virtue',
       'category' => 'character',
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'virtue']),
-      'isFixed' => true
+      'isFixed' => true,
+      'domain' => 'character',
     ]);
   }
 
@@ -144,7 +145,8 @@ class WikiController extends AbstractController
       'entity' => 'vice',
       'category' => 'character',
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vice']),
-      'isFixed' => true
+      'isFixed' => true,
+      'domain' => 'character',
     ]);
   }
 

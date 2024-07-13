@@ -1,6 +1,6 @@
 {% block choice_widget_expanded -%}
   <div {{ block('widget_container_attributes') }}>
-    {% if form.vars.choices|length != form.children|length %}
+    {% if (form.vars.choices|length != form.children|length and form.vars.multiple == true) %}
       {% if form.children['placeholder'] is defined %}
         {{- form_widget(form.children['placeholder'], {
           parent_label_class: label_attr.class|default(''),
@@ -10,11 +10,11 @@
       {% endif %}
       <div class="row">
         {% for name, choices in form.vars.choices %}
-          <div class="col">
-            <div class='choice_category'>
-              <strong class="accent">{{ name }}</strong>
-            </div>
-            <div class="my-radio-group">
+          <div class="col-12 col-md-4 col-xl-3">
+              <div class='choice_category'>
+                <strong class="accent">{{ name }}</strong>
+              </div>
+            <div class="radio-group">
               {% for key,choice in choices %}
                 {{- form_widget(form[key],{parent_label_class: 'text text-option'} ) -}}
                 {{- form_label(form[key]) -}}

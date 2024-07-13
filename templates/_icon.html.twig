@@ -1,366 +1,42 @@
 {% trans_default_domain domain|default('icon') %}
 
-<span class="icon {{ class|default("")}}" {% if hasTips|default(false) == true %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon|trans }}"{% endif %}>
-  {% if icon == 'add' %}
-    {{ source('@icons/' ~ 'plus-solid.svg') }}
-  {% elseif icon == 'back' %}
-    {{ source('@icons/' ~ 'return-arrow.svg') }}
-  {% elseif icon == 'copy' or icon == 'duplicate' %}
-    {{ source('@icons/' ~ 'clone.svg') }}
-  {% elseif icon == 'delete' %}
-    {{ source('@icons/' ~ 'trash-can.svg') }}
-  {% elseif icon == 'cancel' %}
-    {# {{ source('@icons/' ~ 'cancel.svg') }}   #}
-    {{ source('@icons/' ~ 'split-cross.svg') }}
-  {% elseif icon == 'destroy' %}
-    {{ source('@icons/' ~ 'mushroom-cloud.svg') }}
-  {% elseif icon == 'edit' %}
-    {{ source('@icons/' ~ 'fountain-pen.svg') }}
-  {% elseif icon == 'exit' %}
-    {{ source('@icons/' ~ 'right-from-bracket-solid.svg') }}
-  {% elseif icon == 'send' %}
-    {{ source('@icons/' ~ 'envelope.svg') }}
-  {% elseif icon == 'top' %}
-    {{ source('@icons/' ~ 'underhand.svg') }}
-  {% elseif icon == 'caret-up' %}
-    {{ source('@icons/' ~ 'caret-up.svg') }}
-  {% elseif icon == 'caret-down' %}
-    {{ source('@icons/' ~ 'caret-down.svg') }}
-  {% elseif icon == 'register' %}
-    {{ source('@icons/' ~ 'crime-scene-tape.svg') }}
-  {% elseif icon == 'login' %}
-    {{ source('@icons/' ~ 'exit-door.svg') }}
-  {% elseif icon == 'folder' %}
-    {{ source('@icons/' ~ 'open-folder.svg') }}
-  {% elseif icon == 'hide' %}
-    <i class="fa-solid fa-eye-slash"></i>
-  {% elseif icon == 'language' %}
-    {{ source('@icons/' ~ 'language-solid.svg') }}
-  {% elseif icon == 'save' %}
-    {{ source('@icons/' ~ 'save.svg') }}
-  {% elseif icon == 'create' or icon == 'new' %}
-    {{ source('@icons/' ~ 'save.svg') }}
-  {% elseif icon == 'show' or icon == 'view' %}
-    {{ source('@icons/' ~ 'magnifying-glass.svg') }}
-  {% elseif icon == 'see' %}
-    <i class="fa-solid fa-eye"></i>
-  {% elseif icon == 'open-tab' %}
-    {{ source('@icons/' ~ 'up-right-from-square-solid.svg') }}
-  {% elseif icon == 'password' %}
-    {{ source('@icons/' ~ 'key.svg') }}
-  {% elseif icon == 'user' %}
-    {{ source('@icons/' ~ 'bust.svg') }}
-  {% elseif icon == 'users' %}
-    <i class="fa-solid fa-users-rectangle"></i>
-  {% elseif icon == 'gm' or icon == 'ROLE_GM' %}
-    {{ source('@icons/' ~ 'gm.svg') }}
-  {% elseif icon == 'st' or icon == 'ROLE_ST' %}
-    {{ source('@icons/' ~ 'st.svg') }}
-  {% elseif icon == 'player' or icon == 'ROLE_PLAYER' %}
-    {{ source('@icons/' ~ 'player.svg') }}
-  {% elseif icon == 'free' or icon == 'pass' %}
-    {{ source('@icons/' ~ 'ticket.svg') }}
-  {% elseif icon == 'general' or icon == 'skill' or icon == 'attribute' or icon == "traits" %}
-    {{ source('@icons/' ~ 'skills.svg') }}
-  {% elseif icon == 'options' %}
-    {{ source('@icons/' ~ 'gears.svg') }}
-  {% elseif icon == 'book' %}
-    {{ source('@icons/' ~ 'book-pile.svg') }}
-  {% elseif icon == 'rule' or icon == 'rules' %}
-    {{ source('@icons/' ~ 'bookmarklet.svg') }}
-  {% elseif icon == 'notes' or icon == 'note' %}
-    {{ source('@icons/' ~ 'notebook.svg') }}
-  {% elseif icon == 'expanded' %}
-    {{ source('@icons/' ~ 'notebook.svg') }}
-  {% elseif icon == 'merit.unique' %}
-    {{ source('@icons/' ~ 'inverted-dice-1.svg') }}
-  {% elseif icon == 'merit.not.unique' %}
-    {{ source('@icons/' ~ 'infinity.svg') }}
-  {% elseif icon == 'relations' %}
-    <i class="fa-solid fa-users"></i>
-  {% elseif icon == 'description' %}
-    {{ source('@icons/' ~ 'id-card.svg') }}
-  {% elseif icon == 'infos' %}
-    {{ source('@icons/' ~ 'id-card.svg') }}
-  {% elseif icon == 'informations' %}
-    {{ source('@icons/' ~ 'spy.svg') }}
-  {% elseif icon == 'picture' %}
-    {{ source('@icons/' ~ 'photo-camera.svg') }}
-  {% elseif icon == 'background' %}
-    {{ source('@icons/' ~ 'newspaper.svg') }}
-  {% elseif icon == 'details' %}
-    {{ source('@icons/' ~ 'details.svg') }}
-    {# <i class="fa-solid fa-list"></i> #}
-  {% elseif icon == 'empty' %}
-    {{ source('@icons/' ~ 'battery-0.svg') }}
-  {% elseif icon == 'full' %}
-    {{ source('@icons/' ~ 'battery-100.svg') }}
-  {% elseif icon == 'up' %}
-    {{ source('@icons/' ~ 'underhand.svg') }}
-  {% elseif icon == 'down' %}
-    {{ source('@icons/' ~ 'overhead.svg') }}
-  {% elseif icon == 'xp' %}
-    {{ source('@icons/' ~ 'upgrade.svg') }}
-  {% elseif icon == 'logs' %}
-    {{ source('@icons/' ~ 'backward-time.svg') }}
-  {% elseif icon == 'tools' %}
-    {{ source('@icons/' ~ 'tinker.svg') }}
-  {% elseif icon == 'wiki' %}
-    {{ source('@icons/' ~ 'wiki.svg') }}
-  {% elseif icon == 'dice' or icon == "roll" %}
-    {{ source('@icons/' ~ 'd10.svg') }}
-  {% elseif icon == 'luckThrow' %}
-    {{ source('@icons/' ~ 'coinflip.svg') }}
-  {% elseif icon == 'clash' %}
-    {{ source('@icons/' ~ 'sword-clash.svg') }}
-  {% elseif icon == 'party' %}
-    {{ source('@icons/' ~ 'three-friends.svg') }}
-  {% elseif icon == 'group' or icon == 'npc' %}
-    {{ source('@icons/' ~ 'minions.svg') }}
-  {% elseif icon == 'homebrew' %}
-    {{ source('@icons/' ~ 'homebrew.svg') }}
-  {# Character #}
-  {% elseif icon == 'character' %}
-    {{ source('@icons/' ~ 'person.svg') }}
-  {% elseif icon == 'characters' %}
-    {{ source('@icons/' ~ 'backup.svg') }}
-  {% elseif icon == 'premade' %}
-    {{ source('@icons/' ~ 'gm.svg') }}
-  {% elseif icon == 'power' %}
-    {{ source('@icons/' ~ 'flow-tornado.svg') }}
-  {% elseif icon == 'finesse' %}
-    {{ source('@icons/' ~ 'flow-gentle.svg') }}
-  {% elseif icon == 'resistance' %}
-    {{ source('@icons/' ~ 'flow-crossed.svg') }}
-  {% elseif icon == 'mental' %}
-    {{ source('@icons/' ~ 'brain.svg') }}
-  {% elseif icon == 'physical' %}
-    {{ source('@icons/' ~ 'stone-bust.svg') }}
-  {% elseif icon == 'social' %}
-    {{ source('@icons/' ~ 'conversation.svg') }}
-  {% elseif icon == 'health' %}
+<span class="icon {{ class|default("")}}"{% if label is defined %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ label }}"{% endif %} data-icon-ref="{{ icon }}">
+  {# health #}
+  {% if icon == 'health' %}
     {% if setting == 'vampire' %}
-      {{ source('@icons/' ~ 'heart-organ.svg') }}
+      {% set icon = 'health-vampire' %}
     {% else %}
-      {{ source('@icons/' ~ 'health-normal.svg') }}
+      {% set icon = 'health-normal' %}
     {% endif %}
-  {% elseif icon == 'inventory' %}
-    {{ source('@icons/' ~ 'backpack.svg') }}
-  {% elseif icon == 'item' %}
-    {{ source('@icons/' ~ 'cube.svg') }}
-  {% elseif icon == 'flaw' %}
-    {{ source('@icons/' ~ 'flaw.svg') }}
-  {% elseif icon == 'virtue' %}
-    {{ source('@icons/' ~ 'virtue.svg') }}
-  {% elseif icon == 'vice' %}
-    {{ source('@icons/' ~ 'vice.svg') }}
+  {# morality #}
   {% elseif icon == 'morality' %}
-    {{ source('@icons/' ~ 'heart-wings.svg') }}
-  {% elseif icon == 'derangement' %}
-    {{ source('@icons/' ~ 'derangement.svg') }}
-  {% elseif icon == 'extreme' %}
-    {{ source('@icons/' ~ 'pyromaniac.svg') }}
-  {% elseif icon == 'willpower' %}
-    {{ source('@icons/' ~ 'suspicious.svg') }}
-  {# Merits #}
-  {% elseif icon == 'merits' %}
-    {# {{ source('@icons/' ~ 'checkbox-tree.svg') }} #}
-    {{ source('@icons/' ~ 'skimmer-hat.svg') }}
-    {# {{ source('@icons/' ~ 'achievement.svg') }} #}
-    {# {{ source('@icons/' ~ 'suits.svg') }} #}
-    {# {{ source('@icons/' ~ 'laurels.svg') }} #}
-  {% elseif icon == 'creation' %}
-    {{ source('@icons/' ~ 'padlock-open.svg') }}
-  {% elseif icon == 'style' %}
-    {{ source('@icons/' ~ 'high-kick.svg') }}
-  {# Skills #}
-  {# mental #}
-  {% elseif icon == 'academics' %}
-    {{ source('@icons/' ~ 'book-pile.svg') }}
-  {% elseif icon == 'computer' %}
-    {{ source('@icons/' ~ 'laptop.svg') }}
-  {% elseif icon == 'crafts' %}
-    {{ source('@icons/' ~ 'tinker.svg') }}
-  {% elseif icon == 'investigation' %}
-    {{ source('@icons/' ~ 'magnifying-glass.svg') }}
-  {% elseif icon == 'search' %}
-    {{ source('@icons/' ~ 'magnifying-glass.svg') }}
-  {% elseif icon == 'medicine' %}
-    {{ source('@icons/' ~ 'caduceus.svg') }}
-  {% elseif icon == 'occult' %}
-    {{ source('@icons/' ~ 'pentacle.svg') }}
-  {% elseif icon == 'politics' %}
-    {{ source('@icons/' ~ 'congress.svg') }}
-  {% elseif icon == 'science' %}
-    {{ source('@icons/' ~ 'materials-science.svg') }}
-  {# physical #}
-  {% elseif icon == 'athletics' %}
-    {{ source('@icons/' ~ 'body-balance.svg') }}
-    {# {{ source('@icons/' ~ 'jumping-rope.svg') }} #}
-  {% elseif icon == 'brawl' %}
-    {{ source('@icons/' ~ 'punch.svg') }}
-  {% elseif icon == 'drive' %}
-    {{ source('@icons/' ~ 'car-key.svg') }}
-    {# {{ source('@icons/' ~ 'steering-wheel.svg') }} #}
-  {% elseif icon == 'firearms' %}
-    {{ source('@icons/' ~ 'gun.svg') }}
-  {% elseif icon == 'larceny' %}
-    {{ source('@icons/' ~ 'strongbox.svg') }}
-  {% elseif icon == 'stealth' %}
-    {{ source('@icons/' ~ 'spy.svg') }}
-  {% elseif icon == 'survival' %}
-    {{ source('@icons/' ~ 'compass.svg') }}
-  {% elseif icon == 'weaponry' %}
-    {{ source('@icons/' ~ 'bowie-knife.svg') }}
-  {# social #}
-  {% elseif icon == 'animalKen' %}
-    {{ source('@icons/' ~ 'flat-paw-print.svg') }}
-  {% elseif icon == 'empathy' %}
-    {{ source('@icons/' ~ 'heart-beats.svg') }}
-  {% elseif icon == 'expression' %}
-    {# {{ source('@icons/' ~ 'saxophone.svg') }} #}
-    {# {{ source('@icons/' ~ 'ballerina-shoes.svg') }} #}
-    {# {{ source('@icons/' ~ 'public-speaker.svg') }} #}
-    {{ source('@icons/' ~ 'drama-masks.svg') }}
-  {% elseif icon == 'intimidation' %}
-    {{ source('@icons/' ~ 'enrage.svg') }}
-  {% elseif icon == 'persuasion' %}
-    {{ source('@icons/' ~ 'shaking-hands.svg') }}
-  {% elseif icon == 'socialize' %}
-    {{ source('@icons/' ~ 'glass-celebration.svg') }}
-  {% elseif icon == 'streetwise' %}
-    {{ source('@icons/' ~ 'double-street-lights.svg') }}
-    {# {{ source('@icons/' ~ 'modern-city.svg') }} #}
-    {# {{ source('@icons/' ~ 'hoodie.svg') }} #}
-  {% elseif icon == 'subterfuge' %}
-    {# {{ source('@icons/' ~ 'drama-masks.svg') }} #}
-    {{ source('@icons/' ~ 'sand-snake.svg') }}
-  {% elseif icon == 'specialties' %}
-    {{ source('@icons/' ~ 'round-star.svg') }}
-  {% elseif icon == 'specialty-item' %}
-    {{ source('@icons/' ~ '3d-arrow.svg') }}
-  {% elseif icon == 'specialty.add' %}
-    <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">
-      <i class="fa-solid fa-star fa-stack-2x"></i>
-      <i class="fa-solid fa-lg fa-circle-plus fa-stack-1x" style="color:black;padding-top:1px;"></i>
-      <i class="fa-solid fa-lg fa-plus fa-stack-1x" style="color:white;padding-top:1px;"></i>
-    </span>
-  {% elseif icon == 'specialty.remove' %}
-    <span class="fa-stack fa-2xs" style="font-size: 0.45rem;">
-      <i class="fa-solid fa-star fa-stack-2x"></i>
-      <i class="fa-solid fa-lg fa-circle-minus fa-stack-1x" style="color:black;padding-top:1px;"></i>
-      <i class="fa-solid fa-lg fa-minus fa-stack-1x" style="color:white;padding-top:1px;"></i>
-    </span>
-  {# advantages #}
-  {% elseif icon == 'speed' %}
-    {{ source('@icons/' ~ 'running-shoe.svg') }}
-  {% elseif icon == 'size' %}
-    {{ source('@icons/' ~ 'body-height.svg') }}
-  {% elseif icon == 'initiative' %}
-    {{ source('@icons/' ~ 'thunderball.svg') }}
-  {% elseif icon == 'defense' %}
-    {{ source('@icons/' ~ 'dodging.svg') }}
-  {% elseif icon == 'armor' %}
-    {{ source('@icons/' ~ 'kevlar-vest.svg') }}
-  {% elseif icon == 'universal' %}
-    <i class="fa-solid fa-universal-access fa-fw"></i>
-  {% elseif icon == 'human' %}
-    {{ source('@icons/' ~ 'person.svg') }}
-{# Societies #}
-  {% elseif icon == 'religious' %}
-    {{ source('@icons/' ~ 'crucifix.svg') }}
-  {% elseif icon == 'allies' %}
-    {{ source('@icons/' ~ 'three-friends.svg') }}
-  {% elseif icon == 'interest' %}
-    {{ source('@icons/' ~ 'conversation.svg') }}
-  {% elseif icon == 'military' %}
-    {{ source('@icons/' ~ 'stahlhelm.svg') }}
-  {% elseif icon == 'political' %}
-    {{ source('@icons/' ~ 'shaking-hands.svg') }}
-    {# {{ source('@icons/' ~ 'congress.svg') }} #}
-    {# {{ source('@icons/' ~ 'public-speaker.svg') }} #}
-{# Other #}
-  {% elseif icon == 'all' %}
-    {{ source('@icons/' ~ 'earth-africa-europe.svg') }}
-  {% elseif icon == 'lesser_template' %}
-    {{ source('@icons/' ~ 'inner-self.svg') }}
-{# mage #}
-  {% elseif icon == 'mage' %}
-    {{ source('@icons/' ~ 'fire-silhouette.svg') }}
-{# vampire #}
-  {% elseif icon == 'vampire' %}
-    {{ source('@icons/' ~ 'fangs.svg') }}
-    {# <i class="fa-solid fa-droplet"></i> #}
-  {% elseif icon == 'weakness' %}
-    {{ source('@icons/' ~ 'manacles.svg') }}
-  {% elseif icon == 'Daeva' %}
-    <img height="20" src="{{ asset('LogoDaeva.webp', 'clans') }}">
-  {% elseif icon == 'Gangrel' %}
-    <img height="20" src="{{ asset('LogoGangrel.webp', 'clans') }}">
-  {% elseif icon == 'Mekhet' %}
-    <img height="20" src="{{ asset('LogoMekhet.webp', 'clans') }}">
-  {% elseif icon == 'Nosferatu' %}
-    <img height="20" src="{{ asset('LogoNosferatu.webp', 'clans') }}">
-  {% elseif icon == 'Ventrue' %}
-    <img height="20" src="{{ asset('LogoVentrue.webp', 'clans') }}">
-  {% elseif icon == 'ghoul' %}
-    {{ source('@icons/' ~ 'ankh-solid.svg') }}
-  {% elseif icon == 'ghoul_family' %}
-    {{ source('@icons/' ~ 'minions.svg') }}
-  {% elseif icon == 'bloodline' or icon == 'bloodlines' %}
-    {{ source('@icons/' ~ 'wavy-itinerary.svg') }}
-  {% elseif icon == 'potency' %}
-    {{ source('@icons/' ~ 'blood-bolt.svg') }}
-    {# {{ source('@icons/' ~ 'hand-holding-droplet.svg') }} #}
-  {% elseif icon == 'vitae' %}
-    {{ source('@icons/' ~ 'goo-spurt.svg') }}
-  {% elseif icon == 'discipline' or icon == 'disciplines' %}
-    {{ source('@icons/' ~ 'fangs-circle.svg') }}
-  {% elseif icon == 'sorcery' %}
-    {{ source('@icons/' ~ 'pentacle.svg') }}
-  {% elseif icon == 'thaumaturgy'%}
-    {{ source('@icons/' ~ 'magic-swirl.svg') }}
-  {% elseif icon == 'coil' or icon == 'coils' %}
-    {{ source('@icons/' ~ 'dragon-spiral.svg') }}
-  {% elseif icon == 'devotion' or icon == 'devotions' %}
-    {{ source('@icons/' ~ 'dagger-rose.svg') }}
-    {# <i class="ok fa-solid fa-droplet"></i> #}
-{# werewolf #}
-  {% elseif icon == 'werewolf' %}
-    {{ source('@icons/' ~ 'wolf-howl.svg') }}
-{# books #}
+    {% if setting|default('human') == 'vampire' %}
+      {% set icon = 'heart-wings' %}
+    {% else %}
+      {% set icon = 'heart-wings' %}
+    {% endif %}
+  {# minions #}
+  {% elseif icon == 'ghoul_family' or icon == 'npc' or icon == 'group' %}
+    {% set icon = 'minions' %}
+  {# skills #}
+  {% elseif icon == 'general' or icon == 'skill' or icon == "traits" %}
+    {% set icon = 'skills' %}
+  {# id-card #}
+  {% elseif icon == 'description' or icon == 'infos' %}
+    {% set icon = 'id-card' %}
+  {# human #}
+  {% elseif icon == 'mortal' %}
+    {% set icon = 'person' %}
+  {# portal #}
   {% elseif icon == 'alternate_setting' %}
-    {{ source('@icons/' ~ 'earth-asia-oceania.svg') }}
-  {% elseif icon == 'antagonist' or icon == 'antagonists' %}
-    {{ source('@icons/' ~ 'pyromaniac.svg') }}
-  {% elseif icon == 'chronicle' %}
-    <i class="fa-solid fa-book-open"></i>
-  {% elseif icon == 'core' %}
-    <i class="fa-solid fa-arrows-to-dot"></i>
-  {% elseif icon == 'equipment' %}
-    <i class="fa-solid fa-gun"></i>
-  {% elseif icon == 'location' %}
-    {# <i class="fa-solid fa-map-location-dot"></i> #}
-    {{ source('@icons/' ~ 'modern-city.svg') }}
-  {% elseif icon == 'joke' %}
-    <i class="fa-regular fa-face-grin-tears"></i>
-  {% elseif icon == 'clan' %}
-    {{ source('@icons/' ~ 'self-love.svg') }}
-  {% elseif icon == 'covenant' %}
-    <i class="fa-solid fa-landmark"></i>
-  {% elseif icon == 'translation' %}
-    <i class="fa-solid fa-arrow-right-arrow-left"></i>
-{# Templates #}
-  {% elseif icon == 'body_thief' or icon == 'impersonate' %}
-    {{ source('@icons/' ~ 'look-at.svg') }}
-  {% elseif icon == 'purified' %}
-    {{ source('@icons/' ~ 'ankh.svg') }}
-  {% elseif icon == 'innocents' %}
-    {{ source('@icons/' ~ 'baby-face.svg') }}
-  {% elseif icon == 'possessed' %}
-    {{ source('@icons/' ~ 'spark-spirit.svg') }}
-{# Not found #}
+    {% set icon = 'portal' %}
+  {% endif %}
+
+
+  {# {{ source('@icons/' ~ icon ~ '.svg') }} #}
+  {% if source('@icons/' ~ icon|default('missing') ~ '.svg', ignore_missing = true) == null %}
+    <span class="warning text-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon }}">{{ source('@icons/missing.svg', ignore_missing = true) }}</span>
   {% else %}
-    {{ icon }}
+    {{ source('@icons/' ~ icon|default('missing') ~ '.svg', ignore_missing = true) }}
   {% endif %}
 </span>

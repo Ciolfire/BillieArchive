@@ -92,10 +92,10 @@ class Character
   protected array $experienceLogs = [];
 
 
-  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "LAZY")]
   protected CharacterAttributes $attributes;
 
-  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "LAZY")]
   protected CharacterSkills $skills;
 
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]

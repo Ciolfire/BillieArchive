@@ -1,7 +1,11 @@
-{% if character.type == "vampire" %}
-  "{{ asset(character.clan.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullVTR.png', 'images') }}';this.onerror=null;"
-{% elseif character.type == "ghoul" %}
-  {{ asset('ghoul.svg', 'images') }}
-{% elseif character.type == "human" %}
-  {{ asset('SkullWOD.webp', 'images') }}
+{% if isShared|default(true) == true %}
+  {% if character.type == "vampire" %}
+    "{{ asset(character.clan.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullVTR.png', 'images') }}';this.onerror=null;"
+  {% elseif character.type == "ghoul" %}
+    {{ asset('ghoul.svg', 'images') }}
+  {% elseif character.type == "human" %}
+    {{ asset('SkullWOD.webp', 'images') }}
+  {% endif %}
+{% else %}
+  {{ asset('rabbit_move_slow.gif', 'images') }}
 {% endif %}

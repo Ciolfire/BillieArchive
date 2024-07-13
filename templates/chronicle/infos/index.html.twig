@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'chronicle' %}
 
 {% block body %}
   {% include '_back.html.twig' %}
   <div class="container-fluid container-lg py-3">
     <div class="row">
       <div class="block">
-        <h1 class="strong">{% include '_icon.html.twig' with { icon: 'details', class: 'icon-xl' } %} {{ 'infos'|trans }}</h1>
-        <div class="row justify-content-center">
+        <h1 class="strong">{% include "_icon.html.twig" with { icon: 'details', class: 'icon-xl' } %} {{ 'infos'|trans }}</h1>
           {% include 'chronicle/infos/characters.html.twig' %}
-        </div>
       </div>
     </div>
   </div>

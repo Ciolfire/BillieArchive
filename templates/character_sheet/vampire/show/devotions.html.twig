@@ -1,9 +1,0 @@
-{% extends "character_sheet/vampire/element/devotions.html.twig" %}
-
-{% trans_default_domain 'vampire' %}
-
-{% block list %}
-  {% for devotion in devotions %}
-    {% include "character_sheet/vampire/show/devotion.html.twig" %}
-  {% endfor %}
-{% endblock %}

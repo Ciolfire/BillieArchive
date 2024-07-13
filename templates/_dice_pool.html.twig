@@ -5,15 +5,15 @@
         {{ pool.total }}
       </span>
       {% if contested|default(null) is not null %}
-        <span class="warning">{% include "_icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}</span>
+        <span class="warning">{% include "_icon.html.twig" with {icon : "clash", 'class' : 'icon-xs'} only %}</span>
       {% endif %}
-      {% include "_icon.html.twig" with {'icon': "dice"} only %}
+      {% include "_icon.html.twig" with {icon: 'd10'} only %}
     {% else %}
-      <span class="warning">{{ "luckThrow"|trans([], 'icon') }}</span>
+      <span class="warning">{{ "roll.luck.short"|trans({}, 'app') }}</span>
       {% if contested|default(null) is not null %}
-        {% include "_icon.html.twig" with {'icon' : "clash", 'hasTips' : 0, 'class' : 'icon-xs'} only %}
+        {% include "_icon.html.twig" with {icon : "clash", class: 'icon-xs'} only %}
       {% endif %}
-      {% include "_icon.html.twig" with {'icon': "luckThrow"} only %}
+      {% include "_icon.html.twig" with {icon: 'luck-throw'} only %}
     {% endif %}
   </span>
 </span>

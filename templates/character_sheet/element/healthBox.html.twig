@@ -13,7 +13,7 @@
     </svg>
   </div>
   <div class="malus-box">
-    <span class="text-sub">
+    <span class="text-strong">
       {% if current > floor and current <= health %}
         <span role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'wound.penalty'|trans }}">{{ health - current - character.woundMalus }}</span>
       {% else %}

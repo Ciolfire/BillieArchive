@@ -2,13 +2,13 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ "merit.new"|trans }}{% endblock %}
+{% block title %}{{ "action.new"|trans }}{% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
   <h1>
-    {% include "_icon.html.twig" with {'icon' : 'merits', 'class': 'icon-xl' } only %}
-    {{ "merit.new"|trans }}
+    {% include "_icon.html.twig" with {icon: 'merit', class: 'icon-xl' } only %}
+    {{ "action.new"|trans }}
   </h1>
   <div class="container block py-3">
     {% include "merit/_form.html.twig" %}

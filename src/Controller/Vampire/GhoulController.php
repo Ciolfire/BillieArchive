@@ -78,7 +78,7 @@ class GhoulController extends AbstractController
     return $this->render('vampire/ghoul/family/form.html.twig', [
       'action' => 'new',
       'entity' => 'ghoul_family',
-      'trans' => 'ghoul.family.',
+      'trans' => 'family.',
       'form' => $form,
     ]);
   }

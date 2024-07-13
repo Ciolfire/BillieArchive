@@ -1,11 +1,11 @@
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% set power = discipline.power %}
 
 <div class="container collapse discipline-{{ discipline.id }} p-2" data-bs-parent="#disciplinesTable">
   <div class="row">
     <div class="col-2 offset-md-2"><span class="text-strong">{{ ("level")|trans({}, 'app') }}</span></div>
-    <div class="col-10 col-md-8"><span class="text-strong">{{ ("effect")|trans({}, 'app') }}</span></div>
+    <div class="col-10 col-md-8"><span class="text-strong">{{ ("effect")|trans }}</span></div>
   </div>
   <div class="row">
     <div class="col-2 offset-md-2">{{ power.getLevelDots }}</div>

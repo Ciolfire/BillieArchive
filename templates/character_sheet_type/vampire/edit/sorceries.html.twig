@@ -1,0 +1,28 @@
+{% extends "character_sheet_type/vampire/element/sorceries.html.twig" %}
+
+{% trans_default_domain 'discipline' %}
+
+{% block list %}
+  {% set maxPower = 5 %}
+  {% for characterDiscipline in characterDisciplines %}
+    {% set min = characterDiscipline.level %}
+    {% set base = characterDiscipline.level %}
+    {% set max = characterDiscipline.discipline.maxLevel %}
+    {% if max == 0 %}{% set max = 5 %}{% endif %}
+    <div class="col-12 justify-content-center">
+      <div class="w-100 container g-0">
+        {% include "character_sheet_type/vampire/edit/sorcery.html.twig" with { 'characterDiscipline': characterDiscipline, 'sorcery': characterDiscipline.discipline } %}
+      </div>
+    </div>
+  {% endfor %}
+  <h2 class="text-center py-3 mt-5 bdr-t user-select-none">{{ "sorcery.learn"|trans }}</h2>
+  {% for discipline in disciplines %}
+    <div class="col-12 justify-content-center">
+      {% set min = 0 %}
+      {% set base = 0 %}
+      {% set max = discipline.maxLevel %}
+      {% if max == 0 %}{% set max = 5 %}{% endif %}
+      {% include "character_sheet_type/vampire/edit/sorcery.html.twig" with {'sorcery' : discipline } %}
+    </div>
+  {% endfor %}
+{% endblock %}

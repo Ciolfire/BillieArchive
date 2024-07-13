@@ -11,7 +11,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
-#[UniqueEntity(fields: ['title', 'chronicle', 'user'], errorPath: 'port', message: 'This name is already in use on that chronicle.',)]
+#[UniqueEntity(fields: ['title', 'chronicle', 'user'], errorPath: 'port', message: 'note.chronicle.duplicate',)]
 #[ORM\UniqueConstraint(columns: ['title', 'user_id', 'chronicle_id'])]
 class Note
 {

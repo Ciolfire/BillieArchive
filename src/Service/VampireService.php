@@ -362,6 +362,8 @@ class VampireService
       $criteria['homebrewFor'] = null;
     }
 
+    $icon = null;
+    $label = null;
     switch ($type) {
       case 'all':
         $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_discipline']);
@@ -370,14 +372,18 @@ class VampireService
       case 'sorcery':
         $criteria['isSorcery'] = true;
         $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_sorcery']);
+        $icon = "pentacle";
+        $label = "sorcery.label.multi";
         break;
       case 'thaumaturgy':
         $criteria['isThaumaturgy'] = true;
         $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_thaumaturgy']);
+        $label = "thaumaturgy.label";
         break;
       case 'coils':
         $criteria['isCoil'] = true;
         $description = $this->dataService->findOneBy(Description::class, ['name' => 'vampire_coils']);
+        $label = "coil.label.multi";
         break;
       case 'discipline':
       default:
@@ -396,6 +402,8 @@ class VampireService
       'entity' => 'discipline',
       'type' => $type,
       'back' => $back,
+      'label' => $label,
+      'icon' => $icon,
     ];
   }
 
@@ -472,5 +480,17 @@ class VampireService
     }
 
     return $rules;
+  }
+
+  public function getRemovableAttributes()
+  {
+    $removables = [
+      'potency' => ['label' => 'potency.label', 'domain' => 'vampire'],
+      // 'merit' => [],
+      // 'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
+      // 'derangement' => [],
+    ];
+
+    return $removables;
   }
 }

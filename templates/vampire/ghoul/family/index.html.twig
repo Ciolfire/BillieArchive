@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'ghoul' %}
 
 {% set setting = "vampire" %}
 {% set footer = true %}
 
 {% block title %}
-	{{ "ghoul.families.label"|trans([], 'vampire') }}
+	{{ "family.label.multi"|trans }}
 {% endblock %}
 
 {% block bodyData %}
@@ -21,7 +21,7 @@
         <div class="block p-2">
           <h1 class="user-select-none">
             {% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-xl" } only %}
-            {{ "ghoul.families.label"|trans }}
+            {{ "family.label.multi"|trans }}
           </h1>
           <div class="col-auto">
             <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
@@ -33,7 +33,7 @@
     <div class="row mb-3">
       <div id="collapseToc" class="col-auto collapse">
         <ul class="toc block">
-          <p class="mt-2">{{ "ghoul.families.label"|trans([], 'vampire') }}</p>
+          <p class="mt-2">{{ "families.label" }}</p>
           {% for family in families %}
             <li>
               <a href="#{{ family.name }}">{{ family.name }}</a>
@@ -83,7 +83,7 @@
       {% if key != 'clan' %}
         <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
       {% else %}
-        <h5 class="pe-none">{{ ('ghoul.family.clan.label')|trans }}</h5>
+        <h5 class="pe-none">{{ ('family.clan.label')|trans }}</h5>
       {% endif %}
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-parent data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">

@@ -1,0 +1,29 @@
+{% trans_default_domain 'clan' %}
+
+{% if clan is not defined %}
+  {% set c = value %}
+{% endif %}
+
+
+<div class="col-12 col-md-6">
+  <div class="block user-select-none p-2">
+    <h4 class="pt-1">
+      {% include "_icon.html.twig" with {icon: 'clan'} %}
+      {{ 'weakness'|trans }}
+      {% include "_icon.html.twig" with {icon: 'manacles'} %}
+    </h4>
+    <div class="clan-weakness">
+      {{ clan.weakness|markdown_to_html }}
+    </div>
+    {% if bloodline is defined %}
+      <h4 class="pt-1 bdr-t">
+        {% include "_icon.html.twig" with {icon: 'bloodline'} %}
+        {{ 'bloodline.weakness'|trans }}
+        {% include "_icon.html.twig" with {icon: 'manacles'} %}
+      </h4>
+      <div class="bloodline-weakness">
+        {{ bloodline.weakness|markdown_to_html }}
+      </div>
+    {% endif %}
+  </div>
+</div>

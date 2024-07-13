@@ -10,7 +10,7 @@
 
 {% block body %}
 	<h1 class="pt-4">
-		Rules — {{ ('type.' ~ type)|trans }}
+		{{ 'label.multi'|trans({}, 'rules')}} — {{ type|trans({}, 'content-type') }}
 	</h1>
 	<div class="container block block-light py-3 mt-5">
 		<div class="row">

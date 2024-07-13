@@ -11,7 +11,7 @@
 {% block body %}
   <div class="container block py-3 mt-5">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit'} %}</a>
+      <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
     {% endif %}
     <h1 class="pb-4 user-select-none">{{ devotion.name }}
       {% if devotion.homebrewFor is not null %}
@@ -20,7 +20,7 @@
     </h1>
     {% if devotion.bloodline %}
       <p class="text-center fs-5 text-strong accent">
-        {{ "clan.bloodline.devotion"|trans({'bloodline': devotion.bloodline.name}) }}
+        {{ "bloodline.devotion.single"|trans({'bloodline': devotion.bloodline.name}, 'clan') }}
       </p>
     {% endif %}
     <div
@@ -51,13 +51,7 @@
       </div>
     </div>
     <div class="row justify-content-end pe-2 mt-2">
-      {% if devotion.book is not null %}
-        {{ "source"|trans({'book': devotion.book, 'page': devotion.page}, 'app' ) }}
-      {% elseif devotion.homebrewFor is not null %}
-        Chronicle:
-        {{ devotion.homebrewFor.name }}
-        {# TEMP #}
-      {% endif %}
+        {% include "_source_block.html.twig" with { 'element': devotion, class: 'text-strong text-end' } only %}
     </div>
   </div>
 

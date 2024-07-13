@@ -3,22 +3,22 @@
 {% trans_default_domain 'character' %}
 
 {% if character.isNpc %}
-  {% set title = "new.npc"|trans %}
+  {% set type = 'npc' %}
 {% elseif character.isPremade %}
-  {% set title =  "new.premade"|trans %}
+  {% set type = "premade" %}
 {% else %}
-  {% set title =  "new.character"|trans %}
+  {% set type = "pc" %}
 {% endif %}
 
 {% block title %}
-  {{ title }}
+  {{ (type ~ ".new")|trans({}, 'character') }}
 {% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
   {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
     <div class="container block py-3 g-0">
-      <h1>{{ title }} {{ character.chronicle.name|default('') }}</h1>
+      <h1>{% include "_icon.html.twig" with {icon: type, class: 'icon-lg'} %}{{ (type ~ ".new")|trans({}, 'character') }} {{ character.chronicle.name|default('') }}</h1>
       {% include "character_sheet/edit/header.html.twig" %}
       <hr>
       <div class="row g-0">
@@ -36,8 +36,8 @@
       {% include "character_sheet/new/merits.html.twig" %}
       <div class="d-grid gap-2">
         <button class="btn btn-primary" type="submit">
-          {% include "_icon.html.twig" with {'icon': 'create'} %}
-          {{ "create"|trans([], 'app') }}
+          {% include "_icon.html.twig" with {icon: 'save'} %}
+          {{ "action.create"|trans([], 'app') }}
         </button>
       </div>
     </div>

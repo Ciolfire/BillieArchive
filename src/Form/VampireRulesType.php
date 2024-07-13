@@ -18,11 +18,13 @@ class VampireRulesType extends AbstractType
         'label' => false,
         'entry_type' => IntegerType::class,
         'data' => $rules['maxVitae'],
+        'translation_domain' => false,
       ])
       ->add('maxVitaePerTurn', CollectionType::class, [
           'label' => false,
           'entry_type' => IntegerType::class,
           'data' => $rules['maxVitaePerTurn'],
+          'translation_domain' => false,
       ])
       ;
   }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'clan' %}
 
 {% set setting = "vampire" %}
 
 {% block title %}
-  {{ "clan.bloodline.join"|trans }}
+  {{ "bloodline.join"|trans }}
 {% endblock %}
 
 {% block body %}
@@ -26,7 +26,7 @@
         {% endfor %}
       </div>
       <div class="row">
-        <h2 class="py-3">{{ "description.label"|trans({}, 'app')}}</h2>
+        <h2 class="py-3">{{ "description"|trans({}, 'app')}}</h2>
         <div id="accordionBloodlines" class="accordion">
           {% for bloodline in bloodlines %}
             <div class="description-{{ bloodline.id }} collapse" data-bs-parent="#accordionBloodlines">
@@ -37,7 +37,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary w-100" type="submit">{{ "clan.bloodline.join"|trans }}</button>
+          <button class="btn btn-primary w-100" type="submit">{{ "bloodline.join"|trans }}</button>
         </div>
       </div>
     </form>

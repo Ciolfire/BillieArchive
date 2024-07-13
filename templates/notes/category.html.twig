@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'note' %}
 
 {% if title is not defined and category.id is null %}
-  {% set title = 'note.category.new'|trans %}
+  {% set title = 'folder.new'|trans %}
 {% elseif title is not defined %}
-  {% set title = 'note.category.edit'|trans %}
+  {% set title = 'folder.edit'|trans %}
 {% endif %}
 
 {% block title %}{{ title }}{% endblock %}
@@ -15,14 +15,14 @@
   <div class="row mb-3 justify-content-end">
     <div class="col-2">
       <a href="{{ path('chronicle_notes', {'id': category.chronicle.id, 'category': category.id|default(0)} ) }}" class="btn btn-sm btn-menu btn-primary w-100">
-        {% include "_icon.html.twig" with {'icon': 'back'} only %}
+        {% include "_icon.html.twig" with {icon: 'back'} only %}
       </a>
     </div>
   </div>
   <div class="row block">
     <h1 class="text-center mt-3">
       {{ title }}
-      {% include "_icon.html.twig" with {'icon': 'folder'} only %}
+      {% include "_icon.html.twig" with {icon: 'folder'} only %}
     </h1>
     <div class="col">
       {{ form(form) }}

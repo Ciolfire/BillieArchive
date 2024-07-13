@@ -1,0 +1,33 @@
+{% extends "character_sheet_type/vampire/element/potency.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block feeding %}
+<div>
+    <div class="d-inline-block text-center text-strong">
+      <div>
+        {% if character.potency < 3 %}
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.animal'|trans }}">
+            {% include "_icon.html.twig" with {'icon' : 'animal' } only %}
+            {% include "_icon.html.twig" with {'icon' : 'person' } only %}
+            {% include "_icon.html.twig" with {'icon' : 'type/vampire' } only %}
+          </div>
+        {% elseif character.potency < 7 %}
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.human'|trans }}">
+            {% include "_icon.html.twig" with {'icon' : 'person' } only %}
+            {% include "_icon.html.twig" with {'icon' : 'type/vampire' } only %}
+          </div>
+        {% else %}
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'feeding.vampire'|trans }}">
+            <span class="ko">{% include "_icon.html.twig" with {'icon' : 'type/vampire' } only %}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block dot %}
+<input type="checkbox" class="btn-check" id="{{ trait ~ '-' ~ index }}" value="{{ index }}" autocomplete="off" {% if index <= current %}checked{% endif %} disabled>
+<label class="btn dot" for="{{ trait ~ '-' ~ index }}"></label>
+{% endblock %}

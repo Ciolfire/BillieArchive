@@ -14,11 +14,11 @@ class GhoulType extends AbstractType
   {
     $builder
       ->add('regent', null, [
-        'label' => 'ghoul.regent.label',
+        'label' => 'regent.label',
         'empty_data' => '',
       ])
       ->add('clan', null, [
-        'label' => 'ghoul.family.clan.label',
+        'label' => 'family.clan.label',
         'choice_filter' => function (?Clan $clan) {
           return $clan ? !$clan->isBloodline() : false;
         }
@@ -31,7 +31,7 @@ class GhoulType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Ghoul::class,
-      "translation_domain" => 'vampire',
+      "translation_domain" => 'ghoul',
     ]);
   }
 }

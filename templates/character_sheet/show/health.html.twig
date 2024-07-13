@@ -1,7 +1,7 @@
 {% trans_default_domain 'character' %}
 
 <div class="block user-select-none h-100">
-  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon': 'health', 'class': 'icon-lg'} %} {{ 'health'|trans }}</h3>
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {icon: 'health', 'class': 'icon-lg'} %} {{ 'health'|trans }}</h3>
   <div class="col-12 text-center">
     {% set floor = character.health - character.woundMalus %}
     {% set wounds = character.wounds %}

@@ -1,0 +1,17 @@
+{% trans_default_domain 'discipline' %}
+
+  <ul class="nav tabs row g-0">
+    {% include "_tab.html.twig" with {name: 'disciplines', icon:'discipline', label: 'label.multi'|trans} only %}
+    {% if sorcery is not empty %}
+      {% include "_tab.html.twig" with {name: 'sorcery', icon: 'pentacle', label: 'sorcery.label.multi'|trans} only %}
+    {% endif %}
+    {% if coils is not empty %}
+      {% include "_tab.html.twig" with {name: 'coils', label: 'coil.label.multi'|trans} only %}
+    {% endif %}
+    {% if thaumaturgy is not empty %}
+      {% include "_tab.html.twig" with {name: 'thaumaturgy', label: 'thaumaturgy.label'|trans} only %}
+    {% endif %}
+    {% if devotions is not empty %}
+      {% include "_tab.html.twig" with {name: 'devotions', icon: 'devotion', label: 'devotion.label.multi'|trans} only %}
+    {% endif %}
+  </ul>

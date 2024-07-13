@@ -36,7 +36,7 @@ class RollType extends AbstractType
     $builder
       ->add('name', null, ['label' => "name"])
       ->add('action', ChoiceType::class, [
-        'label' => 'action.label',
+        'label' => 'action.label.single',
         'choices' => [
           'roll.action.instant' => 0,
           'roll.action.extended' => 1,
@@ -55,18 +55,18 @@ class RollType extends AbstractType
         ],
       ])
       ->add('attributes', null, [
-        'label' => 'attributes.label',
+        'label' => 'label.single',
         'expanded' => true,
-        'translation_domain' => "character",
+        'translation_domain' => "attribute",
         'group_by' => function ($choice) use ($translator) {
           /** @var Attribute $choice */
           return $translator->trans($choice->getCategory(), [], 'character');
         },
       ])
       ->add('skills', null, [
-        'label' => 'skills.label',
+        'label' => 'label.multi',
         'expanded' => true,
-        'translation_domain' => "character",
+        'translation_domain' => "skill",
         'choice_attr' => ['class' => 'text-sub'],
         'group_by' => function ($choice) use ($translator) {
           /** @var Skill $choice */

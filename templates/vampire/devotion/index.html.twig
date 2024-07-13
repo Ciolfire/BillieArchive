@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% set setting = "vampire" %}
 {% set footer = true %}
 
 {% block title %}
-  {{ "devotions.label"|trans }}
+  {{ "devotion.label.multi"|trans }}
 {% endblock %}
 
 {% block bodyData %}
@@ -22,7 +22,7 @@
         <div class="p-2">
           <h1 class="user-select-none">
             {% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-xl" } only %}
-            {{ "devotions.label"|trans }}
+            {{ "devotion.label.multi"|trans }}
           </h1>
           <div class="col-auto">
             <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
@@ -48,16 +48,16 @@
           <h4>{{ "name"|trans({}, 'app') }}</h4>
         </div>
         <div class="col-12 col-md col-lg-4">
-          <h4>{{ "effect"|trans({}, 'app') }}</h4>
+          <h4>{{ "effect"|trans }}</h4>
         </div>
         <div class="col col-lg-2">
-          <h4>{{ "prerequisite.label"|trans({}, 'app') }}</h4>
+          <h4>{{ "devotion.prerequisite"|trans }}</h4>
         </div>
         <div class="col col-lg-1">
           <h4>{{ "cost"|trans({}, 'app') }}</h4>
         </div>
         <div class="col col-lg-2">
-          <h4>{{ "actions"|trans({}, 'app') }}</h4>
+          <h4>{{ "action.label.multi"|trans({}, 'app') }}</h4>
         </div>
       </div>
 
@@ -88,9 +88,9 @@
               xp</span>
           </div>
           <div class="col col-lg-2 bdr-s">
-            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'show'} %}</a>
+            <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'show'} %}</a>
             {% if is_granted('ROLE_ST') %}
-              <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {'icon': 'edit'} %}</a>
+              <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
             {% endif %}
           </div>
         </div>

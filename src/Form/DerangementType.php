@@ -47,7 +47,8 @@ class DerangementType extends AbstractType
         },
         'choice_label' => function (?Derangement $derangement) {
           if ($derangement->getType()) {
-            return "{$derangement->getName()} — {$derangement->getType()}";
+            $type = $this->translator->trans($derangement->getType(), [], 'content-type');
+            return "{$derangement->getName()} — {$type}";
           }
           return $derangement->getName();
         },

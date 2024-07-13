@@ -41,40 +41,37 @@ class GhoulFamilyType extends AbstractType
         'label' => 'emblem',
         'mapped' => false,
         'required' => false,
-        'translation_domain' => "app",
+        'translation_domain' => 'app',
         'constraints' => [
           new File([
             'mimeTypes' => [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image Invalid',
+            'mimeTypesMessage' => 'image.invalid',
           ])
         ],
       ])
-      ->add('short', null, ['label' => "description.short.label", 'translation_domain' => 'app'])
+      ->add('short', null, ['label' => "family.short"])
       ->add('clan', null, [
-        'label' => 'clan.parent.label',
-        'translation_domain' => 'vampire',
+        'label' => 'family.clan.label',
         'choice_filter' => function (?Clan $clan) {
           return $clan ? !$clan->isBloodline() : false;
         }
       ])
-      ->add('nickname', null, ['label' => "nickname", 'translation_domain' => 'app'])
+      ->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
       ->add('description', CKEditorType::class, [
         'empty_data' => '',
         'data' => $converter->convert($family->getDescription()),
-        'label' => "description.label",
-        'translation_domain' => "app",
+        'label' => "description",
+        'translation_domain' => 'app',
       ])
       ->add('strength', CKEditorType::class, [
-        'label' => 'ghoul.family.strength',
-        'translation_domain' => 'vampire',
+        'label' => 'family.strength',
         'empty_data' => '',
         'data' => $converter->convert($family->getWeakness())
       ])
       ->add('weakness', CKEditorType::class, [
-        'label' => 'ghoul.family.weakness',
-        'translation_domain' => 'vampire',
+        'label' => 'family.weakness',
         'empty_data' => '',
         'data' => $converter->convert($family->getWeakness())
       ])
@@ -85,7 +82,7 @@ class GhoulFamilyType extends AbstractType
   {
     $resolver->setDefaults([
       "data_class" => GhoulFamily::class,
-      "translation_domain" => 'vampire',
+      "translation_domain" => 'ghoul',
       "allow_extra_fields" => true,
       "is_edit" => false,
     ]);

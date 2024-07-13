@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}{{ 'preferences'|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container block-neutral">
+    <h1 class="py-3">
+      {% include "_icon.html.twig" with {'icon' : 'gears', 'class': 'icon-lg' } only %}
+      {{ 'preferences'|trans }}
+    </h1>
+
+    <div class="row block">
+      <div class="col p-3">
+        {{ form(form) }}
+        {% include("_back.html.twig") with { link: path('index') } %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

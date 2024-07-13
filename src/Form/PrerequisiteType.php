@@ -35,8 +35,9 @@ class PrerequisiteType extends AbstractType
     }
     $builder
     ->add('type', ChoiceType::class, [
-      'label' => 'type.label',
+      'label' => 'type',
       'choices' => $types->getConstants(),
+      'choice_translation_domain' => false,
       'choice_label' => function ($choice, string $key): TranslatableMessage|string {
         return new TranslatableMessage($key, [], 'prerequisite');
       },
@@ -69,7 +70,8 @@ class PrerequisiteType extends AbstractType
       ->add('remove', ButtonType::class, [
         'attr' => [
           'data-action' => 'form-collection#removeCollectionElement',
-        ]
+        ],
+        'label' => 'action.remove',
       ])
       ;
   }

@@ -33,7 +33,10 @@
     {% endfor %}
   </div>
   <div class="row g-0 mb-3">
-    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': true } only %}{% include "_icon.html.twig" with {'icon': 'note', 'hasTips': true} only %}</a>
+    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">
+      {% include "_icon.html.twig" with {icon : 'add', label: 'action.add'|trans({}, 'app') } only %}
+      {% include "_icon.html.twig" with {icon: 'note', label: 'label.single'|trans({}, 'note')} only %}
+    </a>
   </div>
   <div class="row g-0 mb-3 justify-content-center">
     <div class="col text-center">
@@ -45,7 +48,7 @@
     {% for note in character.notes %}
       <div class="col-12 col-md-6">
         <div id="note-{{ note.id }}" class="note note-{{ note.typeName }}" data-character--notes-target="note" data-text="{{ note.content }}">
-          <a class="float-end" href="{{ path('character_note_edit', {'id': character.id, 'note': note.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit', 'hasTips': true} only %}</a>
+          <a class="float-end" href="{{ path('character_note_edit', {'id': character.id, 'note': note.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', 'hasTips': true} only %}</a>
           <h3 class="pt-2">{{note.title|default('—') }}</h3>
           <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
           <p>{{ note.content|markdown_to_html }}</p>
@@ -61,6 +64,6 @@
       <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
     </div>
   {% else %}
-    <p>{{ "notes.none"|trans }}</p>
+    <p>{{ "none"|trans({}, 'note') }}</p>
   {% endif %}
 </div>

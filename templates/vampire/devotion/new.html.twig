@@ -1,6 +1,6 @@
 {% extends 'vampire/form.html.twig' %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% block title %}{{ "devotion.new"|trans }}{% endblock %}
 {% block header %}{{ "devotion.new"|trans }}{% endblock %}
@@ -10,8 +10,7 @@
 {{ form_start(form) }}
   {{ form_row(form.name) }}
   {{ form_row(form.bloodline) }}
-  {{ form_row(form.book) }}
-  {{ form_row(form.page) }}
+  {{ form_row(form.source) }}
   {{ form_row(form.short) }}
   {{ form_row(form.description) }}
   {{ form_row(form.contestedText) }}
@@ -21,7 +20,6 @@
   {{ form_row(form.attributes) }}
   {{ form_row(form.skills) }}
   {{ form_row(form.disciplines) }}
-  {{ form_row(form.homebrewFor) }}
   <div class="row justify-content-center">
     <div class="col col-md-6">
       <button class="btn btn-primary w-100">

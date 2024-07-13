@@ -24,6 +24,7 @@ class CharacterSpecialtyType extends AbstractType
     $translator = $this->translator;
     $builder
       ->add('name', null, [
+        'label' => 'specialty.label.single',
         'attr' => [
           'data-character--creation-target' => 'specialties',
           'data-action' => 'character--creation#specialtyUpdate'
@@ -31,9 +32,9 @@ class CharacterSpecialtyType extends AbstractType
       ])
       ->add('skill', null, [
         'required' => true,
-        'label' => 'skill.label',
+        'label' => 'label.single',
         'group_by' => function($choice) use ($translator) {
-          return $translator->trans($choice->getCategory(), [], 'character');
+          return $translator->trans("category.{$choice->getCategory()}", [], 'app');
         },
       ]);
   }
@@ -42,6 +43,7 @@ class CharacterSpecialtyType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => CharacterSpecialty::class,
+      'translation_domain' => 'skill',
     ]);
   }
 }

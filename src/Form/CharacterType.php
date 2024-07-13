@@ -64,9 +64,9 @@ class CharacterType extends AbstractType
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
       ])
-      ->add('virtue', null, ['label' => 'virtue.name'])
+      ->add('virtue', null, ['label' => 'virtue.label.single'])
       ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
-      ->add('vice', null, ['label' => 'vice.name'])
+      ->add('vice', null, ['label' => 'vice.label.single'])
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
       ->add('chronicle', EntityType::class, [

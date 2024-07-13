@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% set setting = 'vampire' %}
 {# {% set footer = true %} #}
 
 {% block title %}
-  {{ "sorcery.label"|trans }}
+  {{ "sorcery.power.label.multi"|trans }}
 {% endblock %}
 
 {# {% block bodyData %}
@@ -21,8 +21,8 @@
       <div class="col-12">
         <div class="p-2">
           <h1 class="user-select-none">
-            {% include "_icon.html.twig" with {'icon' : 'sorcery', 'class' : "icon-xl" } only %}
-            {{ "sorcery.label"|trans }}
+            {% include "_icon.html.twig" with {icon : 'pentacle', class : "icon-xl" } only %}
+            {{ "sorcery.power.label.multi"|trans }}
           </h1>
           <div class="col-auto">
             <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
@@ -48,10 +48,10 @@
           <div class="col-12 col-md-6 my-3">
             <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
               {% if is_granted('ROLE_ST') %}
-                <a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
+                <a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
               {% endif %}
               <h4>{{ ritual.name }}</h4>
-              <h5>{{ 'sorcery.powers.level'|trans({'%level%': ritual.level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h5>
+              <h5>{{ 'sorcery.power.level.single'|trans({'%level%': ritual.level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h5>
               <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
               <div class="ritual-text--{{ discipline.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ discipline.id }}">
                 {{ ritual.details|markdown_to_html }}

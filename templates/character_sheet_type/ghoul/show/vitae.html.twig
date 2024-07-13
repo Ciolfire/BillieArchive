@@ -1,0 +1,34 @@
+{% trans_default_domain 'ghoul' %}
+
+<div class="block user-select-none h-100 p-3" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ ghoulCharacter.vitae }}" data-trait-is-lesser-value="true">
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'class': 'icon-lg' } only %} {{ 'vitae.label'|trans({}, 'vampire') }}</h3>
+  <h4>{{ "vitae.per.turn"|trans({'%value%': 1}, 'vampire')|raw }} (<span class="accent" data-trait-target="value">{{ ghoulCharacter.vitae }}</span>)</h4>
+  <div class="d-flex flex-column align-items-start">
+    <div class="text-start">
+      <span class="d-inline-block malus-box text-center text-sub">
+        {% if ghoulCharacter.vitae == 0 %}
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'empty'|trans }}">{% include "_icon.html.twig" with {'icon' : 'empty', 'class': 'icon-sm warning' } only %}</div>
+        {% else %}
+          <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'empty'|trans }}">{% include "_icon.html.twig" with {'icon' : 'empty', 'class': 'icon-sm' } only %}</div>
+        {% endif %}
+      </span>
+    </div>
+    <div class="text-start">
+      {% for index in 1..character.attributes.stamina %}
+        {% if index <= ghoulCharacter.vitae %}
+          {% set value = 1 %}
+        {% else %}
+          {% set value = 0 %}
+        {% endif %}
+        <svg class="trait-box" viewBox="0 0 100 100" role="button" 
+          data-trait-target="input"
+          data-action="click->trait#switch"
+          data-count="{{ index }}"
+          data-value="{{ value }}"
+        >
+          <rect class="trait-fill d-none on" x="10" y="10" width="85" height="85"/>
+        </svg>
+      {% endfor %}
+    </div>
+  </div>
+</div>

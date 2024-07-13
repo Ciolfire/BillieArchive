@@ -9,16 +9,16 @@
 {% block body %}
   {% include "_back.html.twig" %}
   <h1>
-    {% include "_icon.html.twig" with {'icon' : 'merits', 'class': 'icon-xl' } only %}
-    {{ "merit.edit"|trans }}
+    {% include "_icon.html.twig" with {icon : 'merit', class: 'icon-xl' } only %}
+    {{ "action.edit"|trans }}
   </h1>
 
   <div class="container py-3 mt-5 g-0">
     <div class="row block">
       <div class="col p-3">
-        {% include "merit/_form.html.twig" with {'button_label': 'edit'} %}
+        {% include "merit/_form.html.twig" with {button_label: 'edit'} %}
       </div>
     </div>
   </div>
-  {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
+  {% include "element/_delete.html.twig" with {element: 'merit', entity: merit} %}
 {% endblock %}

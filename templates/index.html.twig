@@ -2,64 +2,84 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ "dashboard"|trans }}{% endblock %}
+{% block title %}
+	{{ "dashboard"|trans }}
+{% endblock %}
 
 {% block body %}
-<div class="container">
-  <h1 class="text-stylized my-2">{{ "dashboard"|trans }}</h1>
-  <div class="row">
-    <div class="col-12 col-lg-8">
-      <div class="row block mx-1">
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('character_index')}}">{% include "_icon.html.twig" with {'icon': 'characters' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "characters.label"|trans }}</span></a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'notes' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "notes"|trans }}</span></a></div>
-        <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2 disabled" href="#">{% include "_icon.html.twig" with {'icon': 'options' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span></a></div>
-        {% if is_granted('ROLE_GM') %}
-          <div class="col-6 col-lg"><a class="btn btn-primary w-100 m-2" href="{{path('users')}}">{% include "_icon.html.twig" with {'icon': 'users' } only %} <span class="d-inline d-lg-none d-xl-inline">{{ "users"|trans }}</span></a></div>
-        {% endif %}
-      </div>
-    </div>
-    <div class="col-12 col-lg-4">
-      <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
-        <h2>{% include "_icon.html.twig" with {'icon': 'wiki' , 'class': 'icon-lg pe-2'} only %}{{ "wiki"|trans }}</h2>
-      </button>
-    </div>
-    <div class="col-12 container collapseWiki collapse mb-3">
-      <div class="row m-1">
-        <div class="block container">
-          {% include "wiki/base.html.twig" %}
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-lg-6">
-      <h2>{{ "chronicles.title"|trans }}</h2>
-      {% if app.user.chronicles is not empty %}
-        {% for chronicle in app.user.chronicles %}
-          <div class="row block {{ chronicle.type }} mx-1 mb-3">
-            <h3>{{ chronicle.name }}</h3>
-            {% include "chronicle/_base.html.twig" %}
-          </div>
-        {% endfor %}
-      {% else %}
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <h3 class="text-center block p-3">{{ "chronicles.none"|trans }}</h3>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-    <div class="col-12 col-lg-6">
-      <h2>{{ "stories.title"|trans }}</h2>
-      {% for chronicle in app.user.stories %}
-        <div class="row block {{ chronicle.type }} mx-1 mb-3">
-          <h3>{{ chronicle.name }}</h3>
-          <div class="row">
-            {% include "chronicle/story/_base.html.twig" %}
-          </div>
-        </div>
-      {% endfor %}
-      <div class="row mx-1">
-        <div class="col-12"><a class="btn btn-primary w-100 m-2" href="{{path('chronicle_new')}}">{{ "stories.new"|trans }}</a></div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
+	<div class="container">
+		<h1 class="text-stylized my-2 text-strong">{{ "dashboard"|trans }}</h1>
+		<div class="row">
+			<div class="col-12 col-lg-8">
+				<div class="row block rounded mx-1 align-items-center h-100">
+					<div class="col-6 col-lg">
+						<a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
+							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
+						</a>
+					</div>
+					<div class="col-6 col-lg">
+						<a class="btn btn-primary w-100 disabled" href="#">{% include "_icon.html.twig" with {icon: 'note' } only %}
+							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'note') }}</span>
+						</a>
+					</div>
+					<div class="col-6 col-lg">
+						<a class="btn btn-primary w-100" href="{{path('user_preferences')}}">{% include "_icon.html.twig" with {icon: 'gears' } only %}
+							<span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span>
+						</a>
+					</div>
+					{% if is_granted('ROLE_GM') %}
+						<div class="col-6 col-lg">
+							<a class="btn btn-primary w-100" href="{{path('users')}}">{% include "_icon.html.twig" with {icon: 'users' } only %}
+								<span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-12 col-lg-4">
+				<button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
+					<h2 class="text-strong">
+            {% include "_icon.html.twig" with {icon: 'wiki' , class: 'icon-lg pe-2'} only %}
+            {{ 'label'|trans({}, 'wiki') }}
+          </h2>
+				</button>
+			</div>
+			<div class="col-12 container collapseWiki collapse mb-3">
+				<div class="row m-1">
+					<div class="container block rounded">
+						{% include "wiki/base.html.twig" %}
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6">
+				<h2>{{ "owned.multi"|trans({}, 'chronicle') }}</h2>
+				{% if app.user.chronicles is not empty %}
+					{% for chronicle in app.user.chronicles %}
+						<div class="container block {{ chronicle.type }} mb-3 rounded">
+							<h3>{{ chronicle.name }}</h3>
+							{% include "chronicle/_base.html.twig" %}
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<h3 class="text-center block p-3">{{ "none"|trans({}, 'chronicle') }}</h3>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-12 col-lg-6">
+				<h2>{{ "story.owned.multi"|trans({}, 'chronicle') }}</h2>
+				{% for chronicle in app.user.stories %}
+					<div class="container block {{ chronicle.type }} mb-3 rounded">
+						<h3>{{ chronicle.name }}</h3>
+						{% include "chronicle/story/_base.html.twig" %}
+					</div>
+				{% endfor %}
+				<a class="btn btn-primary w-100" href="{{path('chronicle_new')}}">
+					{% include "_icon.html.twig" with {icon: 'chronicle'} only %}
+					<span class="text-strong">{{ 'story.new'|trans({}, 'chronicle') }}</span>
+				</a>
+			</div>
+		</div>
+	{% endblock %}

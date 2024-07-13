@@ -3,18 +3,18 @@
 {% block header %}
 <div class="row block p-2 pb-4">
   {% block name %}
-    <h1 class="text-center text-stylized">
+    <h1 class="text-center text-stylized text-strong">
       {{ character.name }}
     </h1>
     <h2>
       {% if character.player is not null and app.user != character.player %}
         ({{ character.player }})
       {% elseif character.isPremade == true %}
-        {% include "_icon.html.twig" with {'icon': 'premade', 'class': 'icon-xl', 'hasTips': true} %}
+        {% include "_icon.html.twig" with {icon: 'premade', class: 'icon-xl',  label: "premade.label.single"|trans} %}
       {% endif %}
     </h2>
   {% endblock %}
-  <div class="order-2 order-md-1 col-6 col-md text-center">
+  <div class="order-2 order-md-1 col-6 col-md text-center text-strong">
     {% block leftCol %}
       <div class="row">
         <div class="col-12">
@@ -29,14 +29,14 @@
         </div>
         <div class="col-12">
           {% block virtue %}
-            {% include "_icon.html.twig" with {'icon': 'virtue'} %}
-            {{ "virtue.name"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+            {% include "_icon.html.twig" with {icon: 'virtue'} %}
+            {{ "virtue.label.single"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
           {% endblock %}
         </div>
         <div class="col-12">
           {% block vice %}
-            {% include "_icon.html.twig" with {'icon': 'vice'} %}
-            {{ "vice.name"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+            {% include "_icon.html.twig" with {icon: 'vice'} %}
+            {{ "vice.label.single"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
           {% endblock %}
         </div>
       </div>
@@ -55,7 +55,7 @@
     </div>
   {% endblock %}
   {% block right %}
-    <div class="order-3 order-md-3 col-6 col-md text-center">
+    <div class="order-3 order-md-3 col-6 col-md text-center text-strong">
       <div class="row">
         <div class="col-12">
           {{ "Concept"|trans }}: {{ character.concept }}

@@ -1,0 +1,46 @@
+{% extends "character_sheet/show.html.twig" %}
+
+{% trans_default_domain 'ghoul' %}
+
+{% set ghoulCharacter = character.lesserTemplate %}
+
+{% block header %}
+  {% include "character_sheet_type/ghoul/show/header.html.twig" %}
+{% endblock %}
+
+{% block health %}
+    {%include "character_sheet/show/health.html.twig" with {setting : 'human'} %}
+{% endblock %}
+
+{% block traits %}
+  <div class="row pb-3">
+    <div class="col-12 col-md-6 mb-3">
+      {% include 'character_sheet_type/ghoul/show/vitae.html.twig'  %}
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      {% include 'character_sheet_type/ghoul/show/vitae-info.html.twig' %}
+    </div>
+  </div>
+{% endblock %}
+
+{# {% block subtraits %}
+  <div class="row justify-content-center">
+    {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
+    {% if character.clan.parentClan is not null %}
+      <div class="col-12">
+        {% include "character_sheet_type/ghoul/show/family.html.twig" with { 'clan': ghoul.family } %}
+      </div>
+    {% else %}
+    {% endif %}
+  </div>
+{% endblock %} #}
+
+{% block powers %}
+  <div id="ghoul" class="g-0" data-tabs-target="page">
+    {% include "character_sheet_type/ghoul/show/powers.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'ghoul', icon: 'type/ghoul' , label: 'label.single'|trans} only %}
+{% endblock %}

@@ -1,16 +1,16 @@
 {% extends "character_sheet/element/skill.html.twig" %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'skill' %}
 
 {% block wrapper%}
   {% if specialties|length > 0 %}role="button" data-bs-toggle="collapse" data-bs-target="#{{ skill ~ "specialties" }}"{% endif %}
 {% endblock %}
 
-{% block data %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'skill.value'|trans({'value': base}) }}"{% endblock %}
+{% block data %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'value'|trans({'value': base}) }}"{% endblock %}
 
 {% block specialty %}
   {% if specialties|length > 0 %}
-    {% include "_icon.html.twig" with {'icon': 'specialties', 'class': 'icon-sm accent', 'hasTips': true } only %}
+    {% include "_icon.html.twig" with {icon: 'specialties', 'class': 'icon-sm accent', 'hasTips': true } only %}
   {% endif %}
 {% endblock %}
 
@@ -21,9 +21,9 @@
 
 {% block specialties %}
   <div id="{{ skill ~ "specialties" }}" class="collapse ps-3">
-    <ul class="list-unstyled mb-1">
+    <ul class="list-unstyled mb-1 text-strong">
       {% for specialty in specialties %}
-          <li>{% include "_icon.html.twig" with {'icon': 'specialty-item', 'class': 'icon-sm' } %} {{ specialty.name }}</li>
+          <li>{% include "_icon.html.twig" with {icon: 'specialty-item', class: 'icon-sm' } %} {{ specialty.name }}</li>
       {% endfor %}
     </ul>
   </div>

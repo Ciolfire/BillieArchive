@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Twig\Extra\Markdown\LeagueMarkdown;
 
@@ -21,7 +18,7 @@ class NoteType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    // dd($options['notes']);
+    $path = $options['path'];
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
@@ -32,46 +29,56 @@ class NoteType extends AbstractType
     }
     $converter = new LeagueMarkdown();
     $builder
-      ->add('title', null, ['label' => 'note.title'])
+      ->add('title', null, ['label' => 'title'])
       ->add('assignedAt', DateType::class, array(
         'widget' => 'single_text',
         'input' => 'datetime_immutable',
         // 'data' => $date,
-        'label' => 'note.date',
+        'label' => 'date',
       ))
       ->add('content', CKEditorType::class, [
-        'label' => 'note.content',
+        'label' => 'content',
         'empty_data' => '',
         'data' => $converter->convert($note->getContent())]
         )
       ->add('category', ChoiceType::class, [
-        'label' => 'note.category.label',
+        'label' => 'folder.label',
         'choices' => $options['categories'],
-        'required' => false,
         'choice_label' => function ($choice) {
           return $choice->getName();
         },
         'choice_translation_domain' => false,
+        'required' => false,
       ])
       ->add('character', null, [
-        'label' => 'character.label',
+        'label' => false,
+        // 'label' => 'label.single',
+        'translation_domain' => 'character',
+        'expanded' => true,
         'choices' => $characters,
+        'choice_label' => function ($choice) use ($path): string {
+          return "<div class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
+        },
+        'label_html' => true,
       ])
       ->add('notes', ExpandedEntityType::class, [
         'class' => Note::class,
-        'label' => 'note.links',
+        'label' => 'links',
         'expanded' => true,
         'multiple' => true,
         'choices' => $options['notes'],
         'choice_label' => 'title',
         'choice_value' => 'id',
         'group_by' => function($choice, $key, $value) {
-          return $choice->getCategory();
+          if ($choice->getCategory()) {
+            return $choice->getCategory();
+          }
+          return "";
         },
         'data' => $note->getNotes(),
         // 'mapped' => false,
       ])
-      ->add('save', SubmitType::class, ['label' => 'action.save']);
+      ->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => 'app']);
     ;
   }
 
@@ -79,9 +86,10 @@ class NoteType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Note::class,
-      'translation_domain' => 'app',
+      'translation_domain' => 'note',
       'categories' => [],
       'notes' => [],
+      'path' => null,
     ]);
   }
 }

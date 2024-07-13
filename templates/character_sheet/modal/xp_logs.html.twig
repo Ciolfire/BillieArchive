@@ -9,31 +9,41 @@
       </div>
       <div class="modal-body">
         {% for timestamp, entry in logs|reverse(true) %}
-          <p>
-            <span class="ok">{{ timestamp|date()|format_datetime(pattern="d MMM y, hh:mm", locale=app.request.locale) }}</span>
+          <p class="text-strong">
+            <span class="text-strong">{{ timestamp|date()|format_datetime(pattern="d MMM y, hh:mm", locale=app.request.locale) }}</span>
             <br>
             {% for key, log in entry %}
             {% if key == 'reduce' %}
               <span class="warning">
-                {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
+                {% if log.type == 'willpower' %}
+                  {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
+                {% elseif log.type == 'potency' %}
+                  {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'vampire') }}
+                {% else %}
+                  {{ key|trans }} {{ 'label.single'|trans([], log.type) }}
+                {% endif %}
               </span> ―
               <span>
-                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.base - 1 }}</span>
+                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.info.name)|trans([], log.type) }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base }} ➔ <span class="warning fw-bold">{{ log.info.base - 1 }}</span>
               </span>
             {% elseif key == 'remove' %}
               <span class="warning">
-                {{ key|trans }} {{ (log.type ~ '.label')|trans([], 'character') }}
+                {% if log.type == 'specialty' %}
+                  {{ key|trans }} {{ (log.type ~ '.label.single')|trans([], 'skill') }}
+                {% else %}
+                  {{ key|trans }} {{ 'label.single'|trans([], log.type) }}
+                {% endif %}
               </span> ―
               <span>
-                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.type ~ '.' ~ log.info.name)|trans([], 'character') }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base|default('') }}
+                {% if log.type == 'attribute' or log.type == 'skill' %}{{ (log.info.name)|trans([], log.type) }}{% else %}{{ log.info.name|default('') }}{% endif %} {{ log.info.base|default('') }}
               </span>
             {% else %}
               {% if log.type == 'specialty' %}
-                <span class="accent">{{ (log.type ~ ".label")|trans }}</span> ― {{ log.info.name }} ({{ ("skill." ~ log.info.id)|trans([], 'character') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans }}</span> ― {{ log.info.name }} ({{ (log.info.id)|trans([], 'skill') }}) ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'merit' %}
                 <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} {% if log.info.details is defined %}({{ log.info.details }}){% endif %} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'skill' or log.type == 'attribute' %}
-                <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.type ~ '.' ~ log.info.id)|trans([], 'character') }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
+                <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.info.id)|trans([], log.type) }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' %}
                 <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
               {% elseif log.type == 'devotion' or log.type == 'ritual' %}

@@ -4,17 +4,17 @@
   <a class="text-center p-0 {{ character.type }} btn btn-primary d-block w-100 h-100" href="{{ path('character_show', {'id': character.id}) }}">
     <div class="character-card-header">
       <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-      <div class="w-100 text-center">{{ ('type.' ~ character.type)|trans }}</div>
+      <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
       <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
     </div>
-    <div class="character-card-name">
+    <div class="character-card-name text-strong">
       {{ character.name }}
     </div>
     <div class="character-card-avatar position-relative text-center">
       <img src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
     </div>
     <div class="position-relative">
-      <div class="d-flex flex-column justify-content-end h-100">
+      <div class="d-flex flex-column justify-content-end h-100 text-strong">
         <p>
           {{ character.concept}}
         </p>

@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ "merits"|trans }}{% endblock %}
+{% block title %}{{ 'label.multi'|trans({}, 'merit') }}{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="merit"
@@ -19,7 +19,7 @@
   
   <div class="container block-neutral py-3">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {'icon': "merits", 'class': 'icon-lg' } only %} {{ "merits"|trans }}</h1>
+      <h1>{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
@@ -52,16 +52,26 @@
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search %}
-      <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
+      {% if key == 'type' %}
+        <h5 class="pe-none text-strong">{{ ("label.multi")|trans({}, 'content-type') }}</h5>
+      {% else %}
+        <h5 class="pe-none text-strong">{{ (key ~ ".label.multi")|trans }}</h5>
+      {% endif %}
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>{% include "_icon.html.twig" with {'icon' : element, 'hasTips': true } only %}
+          {% if key == 'type' %}
+            <span class="d-none d-md-inline">{{ (element)|trans({}, 'content-type') }}</span>
+            {% include "_icon.html.twig" with {'icon' : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
+          {% else %}
+            <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>
+            {% include "_icon.html.twig" with {'icon' : element } only %}
+          {% endif %}
         </a>
       {% endfor %}
     {% endfor %}
     <div class="col-auto py-3 footer-collapse collapse">
       <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
-        <span class="d-none d-md-inline">{{ "merit.style"|trans([], 'character') }}</span>{% include "_icon.html.twig" with {'icon' : "style" } only %}
+        <span class="d-none d-md-inline">{{ "fighting"|trans([], 'merit') }}</span>{% include "_icon.html.twig" with {icon : 'fighting-style' } only %}
       </a>
     </div>
   </div>

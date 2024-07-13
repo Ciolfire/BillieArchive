@@ -1,0 +1,33 @@
+{% trans_default_domain 'vampire' %}
+
+<div class="block user-select-none h-100 p-3" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ character.vitae }}">
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'class': 'icon-lg' } only %} {{ 'vitae.label'|trans }}</h3>
+  <h4>{{ "vitae.per.turn"|trans({'%value%': character.maxVitaePerTurn})|raw }} (<span class="accent" data-trait-target="value">{{ character.vitae }}</span>/{{ character.maxVitae}})</h4>
+  {% set vitae = character.vitae %}
+  <div class="d-flex flex-column align-items-start">
+    <div class="text-start">
+    {% for index in 1..5 %}
+      <span class="d-inline-block malus-box text-center text-strong">
+        <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'feeding.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'feeding.hungry'|trans }}">-1{% endif %}</div>
+      </span>
+      {% endfor %}
+    </div>
+    <div class="text-start">
+      {% for index in 1..character.maxVitae %}
+        {% if index <= character.vitae %}
+          {% set value = 1 %}
+        {% else %}
+          {% set value = 0 %}
+        {% endif %}
+        <svg class="trait-box" viewBox="0 0 100 100" role="button"
+          data-trait-target="input"
+          data-action="click->trait#switch"
+          data-count="{{ index }}"
+          data-value="{{ value }}"
+        >
+          <rect class="trait-fill d-none on" x="10" y="10" width="85" height="85"/>
+        </svg>
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -2,10 +2,10 @@
 
 <div class="position-relative overflow-y-hidden" data-controller="tabs" data-tabs-initial-value="{{ subTab }}">
   <ul class="nav tabs row g-0">
-    {% include "_tab.html.twig" with {'name': 'picture', 'domain': 'character'} only %}
-    {% include "_tab.html.twig" with {'name': 'description', 'domain': 'character'} only %}
-    {% include "_tab.html.twig" with {'name': 'background', 'domain': 'character'} only %}
-    {% include "_tab.html.twig" with {'name': 'informations', 'domain': 'character'} only %}
+    {% include "_tab.html.twig" with {name: 'picture', label: 'infos.picture'|trans } only %}
+    {% include "_tab.html.twig" with {name: 'description', label: 'infos.description'|trans } only %}
+    {% include "_tab.html.twig" with {name: 'background', label: 'infos.background'|trans } only %}
+    {% include "_tab.html.twig" with {name: 'informations', icon: 'spy', label: 'infos.informations'|trans } only %}
   </ul>
   <div class="block position-relative overflow-y-hidden">
     <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
@@ -16,7 +16,7 @@
       <div class="row justify-content-center">
         {% if is_granted('edit', character) %}
           <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'description'}) }}">
-            {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+            {% include "_icon.html.twig" with {icon : "edit"} only %}
             {{ "infos.description"|trans }}
           </a>
         {% endif %}
@@ -32,7 +32,7 @@
     <div id="background" class="tab-content" data-tabs-target="page">
       {% if is_granted('edit', character) %}
         <a class="d-block text-end" href="{{ path('character_basic_infos_edit', {'id': character.id, 'type': 'background'}) }}">
-          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+          {% include "_icon.html.twig" with {icon : "edit"} only %}
           {{ "infos.background"|trans }}
         </a>
       {% endif %}
@@ -47,7 +47,7 @@
         <h3 class="text-light">{{ "infos.access.standard"|trans }}</h3>
         <div class="row justify-content-center">
           <a class="btn btn-primary w-50 mb-2" href="{{ path('character_access_add', {'id': character.id}) }}">
-            {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+            {% include "_icon.html.twig" with {icon : "key"} only %}
             {{ "infos.access.add"|trans }}
           </a>
         </div>
@@ -55,8 +55,8 @@
           <div class="row my-2">
             <div class="col-1 d-flex align-items-center justify-content-center">
               <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
-                {% include "_icon.html.twig" with {'icon' : "impersonate", 'hasTips' : 0} only %}
-                {% include "_icon.html.twig" with {'icon' : "infos", 'hasTips' : 0} only %}
+                {% include "_icon.html.twig" with {icon : "impersonate"} only %}
+                {% include "_icon.html.twig" with {icon : "infos"} only %}
               </a>
             </div>
             <div class="col-11">
@@ -66,7 +66,7 @@
                     <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
                   </div>
                   <div class="col">
-                    {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
+                    {% include "_icon.html.twig" with {icon : "key"} only %}
                     {% for right in access.rights %}
                       {% if right != access.rights|first %} | {% endif %}
                       {{ ('right.' ~ right)|trans }}
@@ -82,7 +82,7 @@
       <h3 class="text-light">{{ "infos.access.other"|trans }}</h3>
       {% if is_granted('edit', character) %}
         <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_edit', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {'icon' : "edit", 'hasTips' : 0} only %}
+          {% include "_icon.html.twig" with {icon : "edit"} only %}
           {{ "infos.details.edit"|trans }}
         </a>
       {% endif %}
@@ -105,34 +105,6 @@
       {% else %}
         <p>{{ "infos.none"|trans }}</p>
       {% endif %}
-      <hr>
-      <h3 class="text-light">{{ "infos.access.targets"|trans }}</h3>
-      <div class="row my-2">
-        {% for peekingRight in character.peekingRights %}
-          {% set publicName = peekingRight.target.publicName(character) %}
-          <div class="col col-md-6 col-lg-4 my-1">
-            <a class="btn btn-primary w-100 h-100" href="{{ path('character_peek', {'id': peekingRight.target.id, 'accessor': character.id}) }}">
-              <div class="d-flex h-100 align-items-center">
-                {% if peekingRight.hasRight('avatar')|default(false) %}
-                  <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset(peekingRight.target.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
-                {% else %}
-                  <img class="d-block align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ publicName }}" src="{{ asset('default.jpg', 'characters') }}" height="100">
-                {% endif %}
-                <div class="d-flex flex-column">
-                  <span class="accent">{{ publicName|default("name.unknown"|trans) }}</span>
-                  <span>
-                    {% include "_icon.html.twig" with {'icon' : "password", 'hasTips' : 0} only %}
-                    {% for right in peekingRight.rights %}
-                      {% if right != peekingRight.rights|first %} | {% endif %}
-                      {{ ('right.' ~ right)|trans }}
-                    {% endfor %}
-                  </span>
-                </div>
-              </div>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
     </div>
   </div>
 </div>

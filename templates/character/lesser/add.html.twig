@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'character' %}
 
 {% block stylesheets %}
   {{ parent() }}
 {% endblock %}
 
-{% block title %}{{ 'lesser.template.apply'|trans }}{{ "character.premade"|trans }}{% endblock %}
+{% block title %}{{ 'template.apply'|trans }}{{ "premade.label.single"|trans }}{% endblock %}
 
 
 {% block body %}
   <h1 class="py-3">
-    {% include "_icon.html.twig" with {'icon': 'lesser_template', 'class': 'icon-xl'} %}
-    {{ 'lesser.template.apply'|trans }}
+    {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'icon-xl'} %}
+    {{ 'template.apply'|trans }}
   </h1>
   <div class="container block py-3">
     <h2>{{ character.name }}</h2>

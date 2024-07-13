@@ -1,12 +1,12 @@
 {% extends 'vampire/form.html.twig' %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
-{% block title %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
-{% block header %}{{ "#{power.discipline.name} - #{power.name}" }}{% endblock %}
+{% block title %}{{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}{% endblock %}
+{% block header %}{{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}{% endblock %}
 
 {% block form %}{{ form(form) }}{% endblock %}
 
 {% block actions %}
-  <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'back'|trans({}, "app") }}</a>
+  <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'action.back'|trans({}, "app") }}</a>
 {% endblock %}

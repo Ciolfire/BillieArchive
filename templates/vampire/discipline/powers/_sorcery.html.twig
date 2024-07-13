@@ -1,4 +1,4 @@
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 <div>
   {% if is_granted('ROLE_ST') %}
@@ -6,7 +6,7 @@
   {% endif %}
   {% set ritual = discipline.ritual %}
   {% if ritual is not null %}
-      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}</h2>
+      <h2 class="pb-2">{{ 'power'|trans({'%count%': 1}, "character") }}{% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}</h2>
       <div class="block p-2 rounded">{{ ritual.details|markdown_to_html }}</div>
   {% endif %}
   
@@ -14,11 +14,11 @@
     {% for ritual in rituals[1:] %}
       {% if ritual.level != level|default(0) %}
         {% set level = ritual.level %}
-        <h3 class="mt-3 py-2 bdr-t">{{ 'sorcery.powers.level'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h3>
+        <h3 class="mt-3 py-2 bdr-t">{{ 'sorcery.power.level.multi'|trans({'%level%': level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h3>
       {% endif %}
         <div class="col-12 col-md-6 my-3">
           <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
-            {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}
+            {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
             <h4>{{ ritual.name }}</h4>
             {% include "_source_block.html.twig" with {'element': ritual } only %}
             <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>

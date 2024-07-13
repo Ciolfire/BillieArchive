@@ -1,10 +1,10 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'derangement' %}
 
 <div class="modal fade" id="newDerangementModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark">
       <div class="modal-header">
-        <h4 class="modal-title text-sub">{{ "derangement.new"|trans }}</h4>
+        <h4 class="modal-title text-sub">{{ "add"|trans }}</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -22,7 +22,7 @@
             </div>
             <div class="col-12">
               <button class="btn btn-warning w-100 mt-5">
-                {% include "_icon.html.twig" with {'icon': 'derangement'} %}
+                {% include "_icon.html.twig" with {icon: 'derangement'} %}
                 {{ 'action.confirm'|trans([], 'app') }}
               </button>
             </div>

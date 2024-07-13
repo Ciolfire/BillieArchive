@@ -70,7 +70,7 @@ class VampireController extends AbstractController
       }
       $this->addFlash('notice', "Couldn't set the character clan");
     }
-    return $this->render('character_sheet/vampire/embrace/sheet.html.twig', [
+    return $this->render('character_sheet_type/vampire/embrace/sheet.html.twig', [
       'character' => $character,
       'clans' => $clans,
       'disciplines' => $disciplines,
@@ -93,7 +93,7 @@ class VampireController extends AbstractController
       $this->addFlash('success', ["character.template.lesser.add", ['name' => $character, 'type' => $character->getLesserTemplate()->getType()]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     // }
-    // return $this->render('character_sheet/vampire/embrace/sheet.html.twig', [
+    // return $this->render('character_sheet_type/vampire/embrace/sheet.html.twig', [
     //   'character' => $character,
     //   'clans' => $clans,
     //   'disciplines' => $disciplines,

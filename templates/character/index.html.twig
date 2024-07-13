@@ -3,20 +3,20 @@
 {% trans_default_domain 'character' %}
 
 {% block title %}
-  {{ 'characters'|trans }}
+  {{ 'pc.label.multi'|trans }}
 {% endblock %}
 
 {% block body %}
   <div class="container-fluid container-lg py-3">
     <div class="row my-3">
       {% if characters is defined %}
-        {% include 'character/_list.html.twig' with { title: 'characters.pc', characters: characters, type: 'character', icon: 'character' } %}
+        {% include 'character/_list.html.twig' with { characters: characters, type: 'pc', title: 'pc.label.multi', icon: 'character' } %}
       {% endif %}
       {% if npc is defined %}
-        {% include 'character/_list.html.twig' with { title: 'characters.npc', characters: npc, type: 'npc', icon: 'npc' } %}
+        {% include 'character/_list.html.twig' with { characters: npc, type: 'npc', title: 'npc.label.multi' } %}
       {% endif %}
       {% if premade is defined %}
-        {% include 'character/_list.html.twig' with { title: 'characters.premade', characters: premade, type: 'premade', icon: 'premade' } %}
+        {% include 'character/_list.html.twig' with { title: 'premade.label.multi', characters: premade, type: 'premade' } %}
       {% endif %}
     </div>
   </div>

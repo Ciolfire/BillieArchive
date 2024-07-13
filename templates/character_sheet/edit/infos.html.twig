@@ -22,14 +22,14 @@
             </ul>
             <div class="d-flex flex-row-reverse">
               <button type="button" class="btn btn-primary w-25 btn-lg mb-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
-                {% include "_icon.html.twig" with {'icon': 'details'} %}
+                {% include "_icon.html.twig" with {icon: 'details'} %}
                 {{ "infos.details.add"|trans }}
               </button>
             </div>
           </div>
           <div class="text-center fixed-bottom">
             <button class="btn btn-primary btn-lg w-100">
-              {% include "_icon.html.twig" with {'icon': 'save'} %}
+              {% include "_icon.html.twig" with {icon: 'save'} %}
               {{ ('action.save')|trans({}, 'app') }}
             </button>
           </div>

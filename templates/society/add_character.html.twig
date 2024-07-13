@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'society' %}
 
-{% block title %}{{ "society.add.character"|trans }}{% endblock %}
+{% block title %}{{ form.vars.value.name }}{% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
   <h1>
     {% include "_icon.html.twig" with {'icon' : 'group', 'class': 'icon-xl' } only %}
-    {{ "society.add.character"|trans }}
+    {{ "add.character"|trans }}
   </h1>
   <div class="container block py-3">
-    <h2>{{ form.vars.value.name }}</h2>
+    <h2 class="text-strong">{{ form.vars.value.name }}</h2>
     {% include "element/forms/_form.html.twig" with {'action': 'save'} %}
   </div>
 {% endblock %}

@@ -36,32 +36,32 @@ class ClanType extends AbstractType
       ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
       ->add('source', SourceableType::class, [
         'data_class' => Clan::class,
-        'label' => 'source',
+        'label' => 'source.label',
+        'translation_domain' => "book"
       ])
       ->add('emblem', FileType::class, [
         'label' => 'emblem',
         'mapped' => false,
         'required' => false,
-        'translation_domain' => "app",
+        'translation_domain' => 'app',
         'constraints' => [
           new File([
             'mimeTypes' => [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image Invalid',
+            'mimeTypesMessage' => 'image.invalid',
           ])
         ],
       ])
       ->add('description', CKEditorType::class, [
         'empty_data' => '',
         'data' => $converter->convert($clan->getDescription()), 
-        'label' => "description.label",
-        'translation_domain' => "app",
+        'label' => "description",
+        'translation_domain' => 'app',
       ]);
       if ($clan->isBloodline()) {
         $builder->add('parentClan', null, [
-            'label' => 'clan.parent.label',
-            'translation_domain' => 'vampire',
+            'label' => 'bloodline.parent.label',
             'choice_filter' => function (?Clan $clan) {
               return $clan ? !$clan->isBloodline() : false;
             }
@@ -70,24 +70,24 @@ class ClanType extends AbstractType
       } else {
         $builder->add('attributes', null, [
           'expanded' => true,
-          'translation_domain' => "app",
-          'label' => 'attributes.label',
+          'translation_domain' => "attribute",
+          'label' => 'label.multi',
           'group_by' => function($choice) use ($translator) {
             /** @var Attribute $choice */
-            return $translator->trans($choice->getCategory(), [], 'character');
+            return $translator->trans("category.{$choice->getCategory()}", [], 'app');
           },
         ]);
       }
-      $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => 'app'])
-      ->add('short', null, ['label' => "description.short.label", 'translation_domain' => 'app'])
+      $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
+      ->add('short', null, ['label' => "short"])
       ->add('weakness', CKEditorType::class, [
-        'label' => 'clan.weakness',
-        'translation_domain' => 'vampire',
+        'label' => 'weakness',
         'empty_data' => '',
         'data' => $converter->convert($clan->getWeakness())
       ])
       ->add('disciplines', null, [
-        'label' => 'disciplines.label',
+        'label' => 'label.multi',
+        "translation_domain" => 'discipline',
         'expanded' => true,
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'label_attr' => ['class' => 'text pe-2 form-choice-width'],
@@ -95,7 +95,7 @@ class ClanType extends AbstractType
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
       ])
-      ->add('keywords', null, ['label' => 'keywords', 'translation_domain' => 'app'])
+      ->add('keywords', null, ['label' => 'keywords'])
     ;
   }
 
@@ -103,7 +103,7 @@ class ClanType extends AbstractType
   {
     $resolver->setDefaults([
       "data_class" => Clan::class,
-      "translation_domain" => 'vampire',
+      "translation_domain" => 'clan',
       "allow_extra_fields" => true,
       "is_edit" => false,
     ]);

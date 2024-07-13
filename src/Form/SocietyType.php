@@ -27,31 +27,33 @@ class SocietyType extends AbstractType
           'query_builder' => function (EntityRepository $er) use ($society) {
             return $er->createQueryBuilder('c')->where('c.chronicle = ?1')->orderBy('c.firstName', 'ASC')->setParameter('1', $society->getChronicle()->getId());
           },
-          'choice_label' => function ($choice, string $key, mixed $value) use ($path): string {
-            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
+          'choice_label' => function ($choice) use ($path): string {
+            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div><span class=\"text-strong\">{$choice->getName()}</span>";
           },
           'label_html' => true,
         ])
       ;
     } else {
       $builder
-        ->add('name', null, ['label' => 'name'])
-        ->add('description', null, ['label' => 'description.label'])
+        ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
+        ->add('description', null, ['label' => 'description', 'translation_domain' => 'app'])
         // ->add('characters', null, ['expanded' => true])
         ->add('setting', ChoiceType::class, [
-          'label' => 'setting',
+          'label' => 'label',
+          'translation_domain' => 'setting',
           'required' => false,
           'choices' => get_class_vars(SettingType::class),
           'choice_label' => function ($choice, $key, $value) {
-            return "type.{$key}";
-          }
+            return "{$key}.label";
+          },
+          'choice_translation_domain' => 'setting',
         ])
         ->add('type', ChoiceType::class, [
           'label' => 'type.label',
           'required' => false,
           'choices' => get_class_vars(SocietyCategory::class),
           'choice_label' => function ($choice, $key, $value) {
-            return "society.type.{$key}";
+            return "type.{$key}";
           }
         ])
       ;
@@ -63,7 +65,7 @@ class SocietyType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Society::class,
-      'translation_domain' => 'app',
+      'translation_domain' => 'society',
       'path' => null,
       'add_character' => false,
     ]);

@@ -1,4 +1,4 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'app' %}
 
 {% set max = character.limit %}
 {% set min = 1 %}
@@ -10,7 +10,7 @@
   {% for category, attributes in attributes %}
     <div class="col-4 d-lg-flex justify-content-center">
       <div class="block attribute-block h-100">
-        <h3 class="text-center pt-1">{{ category|trans }}</h3>
+        <h3 class="text-center pt-1">{{ ("category." ~ category)|trans }}</h3>
         {% for type, attribute in attributes %}
           {% block attribute %}{% endblock %}
         {% endfor %}

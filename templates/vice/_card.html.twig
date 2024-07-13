@@ -1,7 +1,7 @@
 <div id="{{ vice.id }}" class="col-12 col-lg-6 mb-4">
   <div class="block block-wiki p-2">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path(entity ~ '_edit', {'id': vice.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
+      <a class="float-end" href="{{ path(entity ~ '_edit', {'id': vice.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     <h2>{{ vice.name }}</h2>
     <p class="text">{{ vice.details|default("")|markdown_to_html }}</p>

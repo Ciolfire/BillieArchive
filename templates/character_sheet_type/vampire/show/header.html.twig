@@ -1,0 +1,53 @@
+{% trans_default_domain 'vampire' %}
+
+{% extends "character_sheet/show/header.html.twig" %}
+
+{% block name %}
+<div class="col-12">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <h1 class="py-2 text-stylized">
+        <img class="icon-strong pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:2.6em;"/>
+        <span class="text-strong">{{ character.name }}</span>
+        <img class="icon-strong ps-4" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/>
+      </h1>
+      <h2>
+        {% if character.player is not null and app.user != character.player %}
+          ({{ character.player }})
+        {% elseif character.isPremade == true %}
+          {% include "_icon.html.twig" with {icon: 'premade', class: 'icon-xl', label: 'premade.label.single'|trans({}, 'character') } %}
+        {% endif %}
+      </h2>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+        <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
+        {% if character.clan.isBloodline %}
+          {{ character.clan.name }}
+          ({{ character.clan.parentClan.name }})
+        {% else %}
+          {{ character.clan.name }}
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {{ "death.age"|trans({"%gender%": "male", "%death%": character.deathAge|default(0) }) }}
+      {{ "death.sire"|trans({"%sire%": character.sire|default('unknown') }) }}
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

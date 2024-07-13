@@ -5,8 +5,8 @@
 <div class="{{ class }} fst-italic">
   {% include "_source.html.twig" with {'element': element, 'isShort': isShort|default(false) } only %}
   {% if element.book is not null %}
-    {% include "_icon.html.twig" with {'icon' : 'book'} only %}
+    {% include "_icon.html.twig" with {icon : 'book-pile'} only %}
   {% elseif element.homebrewFor is not null %}
-    {% include "_icon.html.twig" with {'icon' : 'homebrew'} only %}
+    {% include "_icon.html.twig" with {icon : 'homebrew'} only %}
   {% endif %}
 </div>

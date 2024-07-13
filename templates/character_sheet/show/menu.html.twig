@@ -5,24 +5,24 @@
     {% if is_granted('edit', character) %}
     <div class="col-2">
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_edit', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {'icon': 'edit'} only %}
+          {% include "_icon.html.twig" with {icon: 'edit', class:'text-strong'} only %}
         </a>
     </div>
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#xpLogsModal">
-        {% include "_icon.html.twig" with {'icon': 'logs', 'hasTips': true} only %}
+        {% include "_icon.html.twig" with {icon: 'logs', class:'text-strong'} only %}
       </div>
     </div>
     <div class="col-2">
       <div class="btn btn-sm btn-menu btn-primary w-100" data-bs-toggle="modal" data-bs-target="#abilityRemovalModal">
-        {% include "_icon.html.twig" with {'icon': 'destroy'} only %}
+        {% include "_icon.html.twig" with {icon: 'destroy', label: "ability.removal"|trans, class:'text-strong'} only %}
       </div>
     </div>
     {% endif %}
     {% if character.isPremade %}
       <div class="col-2">
         <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_duplicate', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {'icon': 'duplicate', 'hasTips': true} only %}
+          {% include "_icon.html.twig" with {icon: 'clone', label: "action.duplicate"|trans({}, 'app')} only %}
         </a>
       </div>
     {% endif %}
@@ -30,16 +30,16 @@
       {% if character.chronicle != null %}
         {% if character.isNpc %}
           <a href="{{ path('chronicle_npc_index', {'id':  character.chronicle.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
-            {% include "_icon.html.twig" with {'icon': 'back'} only %}
+            {% include "_icon.html.twig" with {icon: 'back', class:'text-strong'} only %}
           </a>
         {% else %}
           <a href="{{ path('chronicle_party_index', {'id': character.chronicle.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
-            {% include "_icon.html.twig" with {'icon': 'back'} only %}
+            {% include "_icon.html.twig" with {icon: 'back', class:'text-strong'} only %}
           </a>
         {% endif %}
       {% else %}
         <a href="{% if character.isPremade %}{{ path('character_premade_index') }}{% else %}{{ path('character_index') }}{% endif %}" class="btn btn-sm btn-menu btn-primary w-100">
-          {% include "_icon.html.twig" with {'icon': 'back'} only %}
+          {% include "_icon.html.twig" with {icon: 'back', class:'text-strong'} only %}
         </a>
       {% endif %}
     </div>
@@ -49,8 +49,8 @@
     {% if character.lesserTemplate is not null %}
       <div class="col-1">
         <a href="{{ path('character_lesser_remove', {'id': character.id}) }}" class="btn btn-sm btn-menu btn-secondary w-100" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ "template.lesser.remove"|trans }}">
-          {% include "_icon.html.twig" with {'icon': 'cancel', 'class': 'menu-cancel'} only %}
-          {% include "_icon.html.twig" with {'icon': 'lesser_template'} only %}
+          {% include "_icon.html.twig" with {icon: 'cancel', class: 'menu-cancel', class:'text-strong'} only %}
+          {% include "_icon.html.twig" with {icon: 'lesser-template', class:'text-strong'} only %}
         </a>
       </div>
     {% endif %}

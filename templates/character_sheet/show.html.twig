@@ -37,27 +37,30 @@
     <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       {% block background %}{% endblock %}
       <ul class="nav tabs row g-0">
-        {% include "_tab.html.twig" with {'name': 'general', 'domain': 'character'} only %}
-        {% include "_tab.html.twig" with {'name': 'merits', 'domain': 'character'} only %}
+        {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
+        {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}
-        {# {% include "_tab.html.twig" with {'name': 'relations', 'domain': 'character'} only %} #}
+        {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
         {# {% include "_tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %} #}
-        {% include "_tab.html.twig" with {'name': 'details', 'domain': 'character'} only %}
+        {% include "_tab.html.twig" with {name: 'details', label: 'details'|trans} only %}
         {% if app.user == character.player %}
-          {% include "_tab.html.twig" with {'name': 'notes', 'domain': 'character'} only %}
+          {% include "_tab.html.twig" with {name: 'notes', icon: 'note', label: 'label.multi'|trans({}, 'note')} only %}
         {% endif %}
       </ul>
       <div id="general" class="tab-content" data-tabs-target="page">
-        <div class="row pb-3">
-          <div class="col-12 col-md-6 mb-3">
+        <div class="row pb-1">
+          <div class="col-12 col-md-6">
             {% block health %}{%include "character_sheet/show/health.html.twig" %}{% endblock %}
           </div>
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-6">
             {% include "character_sheet/show/willpower.html.twig" %}
           </div>
         </div>
         {% block traits %}
         {% endblock %}
+        <div class="row mb-3">
+          {% include "character_sheet/show/advantages.html.twig" %}
+        </div>
         <div class="row g-0 mb-3">
           {% include "character_sheet/show/attributes.html.twig" %}
         </div>
@@ -69,9 +72,6 @@
             {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
           </div>
         {% endblock %}
-        <div class="row py-2">
-          {% include "character_sheet/show/advantages.html.twig" %}
-        </div>
       </div>
       <div id="merits" class="tab-content p-0" data-tabs-target="page">
         {% include "character_sheet/show/merits.html.twig" %}
@@ -80,6 +80,9 @@
       {% endblock %}
       <div id="inventory" class="tab-content" data-tabs-target="page">
         {% include "character_sheet/show/inventory.html.twig" %}
+      </div>
+      <div id="relation" class="tab-content p-0" data-tabs-target="page">
+        {% include "character_sheet/show/relations.html.twig" %}
       </div>
       <div id="details" class="tab-content p-0" data-tabs-target="page">
         {% include "character_sheet/show/infos.html.twig" %}

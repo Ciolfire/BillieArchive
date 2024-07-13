@@ -1,11 +1,10 @@
 {% extends 'vampire/form.html.twig' %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
-{% block title %}
-  {{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}
-{% endblock %}
-{% block header %}{{ "discipline.power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
+{% block title %}{{ "power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
+
+{% block header %}{{ "power.new"|trans({'%discipline%': power.discipline.name}) }}{% endblock %}
 
 {% block form %}
   {{ form_start(form) }}

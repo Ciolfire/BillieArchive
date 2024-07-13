@@ -1,4 +1,4 @@
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 <h2 class="pb-2">{{ 'power'|trans({'%count%': powers|length}, "character") }}</h2>
 {% for power in powers %}
@@ -9,13 +9,13 @@
 {% endif %}
 {% for power in powers %}
   <div id="{{ discipline.id ~ '-' ~ power.id }}" class="block m-2 p-2 rounded">
-    {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>{% endif %}
-    {# TODO {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_remove', {'id': power.id}) }}">{% include "_icon.html.twig" with {'icon': 'remove'} only %}</a>{% endif %} #}
+    {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_edit', {'id': power.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
+    {# TODO {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('discipline_power_remove', {'id': power.id}) }}">{% include "_icon.html.twig" with {icon: 'remove'} only %}</a>{% endif %} #}
     <h3>{{ power.levelDots }} {{ power.name }}</h3>
     {{ power.details|markdown_to_html }}
     <span>{% include "_source_child.html.twig" with {'element': power, 'parent': discipline } only %}</span>
   </div>
 {% endfor %}
 {% if is_granted('ROLE_ST') %}
-  <a class="btn btn-primary btn-lg w-100" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'discipline.power.add'|trans }}</a>
+  <a class="btn btn-primary btn-lg w-100" href="{{ path('discipline_power_add', {'id': discipline.id}) }}">{{ 'power.add'|trans }}</a>
 {% endif %}

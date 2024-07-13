@@ -5,9 +5,10 @@
 {% block body %}
   <div class="container block py-3 mt-5 text-center">
       {% for user in users %}
+        {% set role = user.role|replace({'ROLE_': ''})|lower %}
         <div class="row pb-5">
           <div class="col-6 col-xl-2 text-end">
-            {% include "_icon.html.twig" with {'icon': user.role, 'hasTips': true, 'domain': 'user'} %}
+            {% include "_icon.html.twig" with {icon: role, domain: 'user', label: user.role|trans } %}
             {{ user.username }}
             ({{ user.id }})
           </div>
@@ -26,7 +27,7 @@
           {% if user.role != "ROLE_GM" and user != "Ciol" %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_GM'})}}">
-                <div>{% include "_icon.html.twig" with {'icon': user.role} %} → {% include "_icon.html.twig" with {'icon': 'gm'} %}</div>
+                <div>{% include "_icon.html.twig" with {icon: role} %} → {% include "_icon.html.twig" with {icon: 'gm'} %}</div>
                 {{ "switch.gm"|trans }}
               </a>
             </div>
@@ -34,7 +35,7 @@
           {% if user.role != "ROLE_ST" and user != "Ciol"  %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_ST'})}}">
-                <div>{% include "_icon.html.twig" with {'icon': user.role} %} → {% include "_icon.html.twig" with {'icon': 'st'} %}</div>
+                <div>{% include "_icon.html.twig" with {icon: role} %} → {% include "_icon.html.twig" with {icon: 'st'} %}</div>
                 {{ "switch.st"|trans }}
               </a>
             </div>
@@ -42,7 +43,7 @@
           {% if user.role != "ROLE_PLAYER" and user != "Ciol" %}
             <div class="col">
               <a href="{{path('user_switch_role', {'id' : user.id, 'role': 'ROLE_PLAYER'})}}">
-                <div>{% include "_icon.html.twig" with {'icon': user.role} %} → {% include "_icon.html.twig" with {'icon': 'player'} %}</div>
+                <div>{% include "_icon.html.twig" with {icon: role} %} → {% include "_icon.html.twig" with {icon: 'player'} %}</div>
                 {{ "switch.player"|trans }}
               </a>
             </div>

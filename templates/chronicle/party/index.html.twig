@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'chronicle' %}
 
 {% block title %}Party -
 	{{ chronicle.name }}
@@ -16,8 +16,8 @@
 					{{ chronicle.name }}
 				</h1>
 				<h2 class="pb-5">
-					{% include "_icon.html.twig" with {'icon': 'party', 'class': 'icon-xl' } only %}
-					{{ 'party.name'|trans }}
+					{% include "_icon.html.twig" with {icon: 'party', 'class': 'icon-xl' } only %}
+					{{ 'party.label'|trans }}
 				</h1>
 				<h2 class="py-4 bdr-b">Players</h2>
         <div class="row justify-content-center">

@@ -1,4 +1,4 @@
-{% trans_default_domain 'app' %}
+{% trans_default_domain 'note' %}
 
 <div class="{% if currentNote is  defined and currentNote is same as(note) %}show{% endif %} collapse note" id="note-{{ note.id }}" data-bs-parent="#note-list">
   <div class="note-content position-relative">
@@ -25,12 +25,12 @@
           <div class="col-12 col-md-6 col-lg-4">
             {% if linkedNote.category == note.category %}
               <button type="button" class="btn btn-primary w-100" data-bs-toggle="collapse" data-bs-target="#note-{{ linkedNote.id }}">
-                {% include "_icon.html.twig" with {'icon' : 'note' } %}
+                {% include "_icon.html.twig" with {icon : 'note' } %}
                 {{ linkedNote.title }}
               </button>
             {% else %}
               <a type="button" class="btn btn-primary w-100" href="{{ path('chronicle_note_view', {'id': linkedNote.id}) }}">
-                {% include "_icon.html.twig" with {'icon' : 'note' } %}
+                {% include "_icon.html.twig" with {icon : 'note' } %}
                 {{ linkedNote.title }} [ {{ linkedNote.category|default('/') }} ]
               </a>
             {% endif %}
@@ -38,7 +38,7 @@
         {% endfor %}
       </div>
     </div>
-      <a class="btn btn-primary position-absolute end-0 top-0" href="{{ path('note_edit', {'id': note.id}) }}">{% include "_icon.html.twig" with {'icon': 'edit'} only %}</a>
-      <a class="position-absolute bottom-0 end-0" href="{{ path('note_delete', {'id': note.id}) }}" onclick="return confirm('{{ 'note.delete.confirm'|trans }}');">{% include "_icon.html.twig" with {'icon': 'delete'} only %}</a>
+      <a class="btn btn-primary position-absolute end-0 top-0" href="{{ path('note_edit', {id: note.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="position-absolute bottom-0 end-0" href="{{ path('note_delete', {id: note.id}) }}" onclick="return confirm('{{ 'delete.confirm'|trans }}');">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
   </div>
 </div>
