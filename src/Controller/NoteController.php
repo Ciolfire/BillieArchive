@@ -43,6 +43,7 @@ class NoteController extends AbstractController
     $form = $this->createForm(NoteType::class, $note, [
       'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $chronicle, 'user' => $user]),
       'notes' => [$linkableNotes],
+      'path' => $this->getParameter('characters_direct_directory'),
     ]);
     $form->handleRequest($request);
     
@@ -78,6 +79,7 @@ class NoteController extends AbstractController
     $form = $this->createForm(NoteType::class, $note, [
       'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $note->getChronicle(), 'user' => $user]),
       'notes' => [$linkableNotes],
+      'path' => $this->getParameter('characters_direct_directory'),
     ]);
     $form->handleRequest($request);
     

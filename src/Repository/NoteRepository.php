@@ -63,7 +63,12 @@ class NoteRepository extends ServiceEntityRepository
   public function findByLinkable(User $user, Note $note): array
   {
     $chronicle = $note->getChronicle();
-    if (!is_null($note->getId()) && $chronicle instanceof $chronicle && !is_null($chronicle->getId()) ) {
+    if ($chronicle instanceof $chronicle && !is_null($chronicle->getId()) ) {
+      if (is_null($note->getId())) {
+        $id = 0;
+      } else {
+        $id = $note->getId();
+      }
 
     return $this->createQueryBuilder('n')
       ->andWhere('n.chronicle = :chronicle')
@@ -71,7 +76,7 @@ class NoteRepository extends ServiceEntityRepository
       ->andWhere('n.id != :id')
       ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
       ->setParameter('user', $user->getId(), Types::INTEGER)
-      ->setParameter('id', $note->getId(), Types::INTEGER)
+      ->setParameter('id', $id, Types::INTEGER)
       ->orderBy('n.category', 'ASC')
       ->getQuery()
       ->getResult();
