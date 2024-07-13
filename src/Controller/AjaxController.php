@@ -105,10 +105,10 @@ class AjaxController extends AbstractController
           unset($methods[0]);
           break;
         case "willpower":
+        case "potency":
           unset($methods[1]);
           break;
         case "derangement":
-          // $choices = $this->dataService->findBy(CharacterMerit::class, ['character' => $character]);
           $choices = $this->dataService->findBy(CharacterDerangement::class, ['character' => $character, 'moralityLink' => null]);
           $identifier = 'id';
           $label = 'derangement';

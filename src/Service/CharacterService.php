@@ -336,87 +336,34 @@ class CharacterService
 
     switch ($data['type']) {
       case 'attribute':
-        $attributes = $character->getAttributes();
-        $value = $attributes->get($element);
-        $infos['base'] = $value;
-        if ($method == 'reduce' && $value > 0) {
-          $newValue = $value - 1;
-        } else {
-          $newValue = 0;
-        }
-        $attributes->set($element, $newValue);
+        $isDone = $this->removeAttribute($character, $method, $element, $infos);
         break;
       case 'skill':
-        $skills = $character->getSkills();
-        $value = $skills->get($element);
-        $infos['base'] = $value;
-        if ($method == 'reduce' && $skills->get($element) > 0) {
-          $newValue = $value - 1;
-        } else {
-          $newValue = 0;
-        }
-        $skills->set($element, $newValue);
+        $isDone = $this->removeSkill($character, $method, $element, $infos);
         break;
       case 'merit':
-        $merit = $this->dataService->find(CharacterMerit::class, $element);
-        if ($merit instanceof CharacterMerit) {
-          $element = $merit->getMeritName();
-          $level = $merit->getLevel();
-          $infos['base'] = $level;
-          $infos['name'] = $element;
-          if ($method == 'reduce' && $level > 1) {
-            $merit->setLevel($level - 1);
-          } else {
-            $character->removeMerit($merit);
-          }
-        } else {
-
-          return null;
-        }
+        $isDone = $this->removeMerit($character, $method, $element, $infos);
         break;
       case 'specialty':
-        $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
-        if ($specialty instanceof CharacterSpecialty) {
-          $element = $specialty->getName();
-          $infos['name'] = "{$element} ({$specialty->getSkill()->getName()})";
-          $character->removeSpecialty($specialty);
-        } else {
-
-          return null;
-        }
+        $isDone = $this->removeSpecialty($character, $element, $infos);
         break;
       case 'willpower':
-        $willpower = $character->getWillpower();
-        if ($willpower > 1) {
-          $infos['base'] = $willpower;
-          $character->setWillpower($willpower - 1);
-        } else {
-
-          return null;
-        }
+        $isDone = $this->reduceWillpower($character, $element, $infos);
         break;
       case 'derangement':
-        $derangement = $this->dataService->find(CharacterDerangement::class, $element);
-        if ($derangement instanceof CharacterDerangement) {
-          $element = $derangement->getName();
-          if ($method == 'reduce' && $derangement->getDerangement()->getPreviousAilment() instanceof Derangement) {
-            $data['method'] = "derangement-reduce";
-            $infos['name'] = $element;
-            $derangement->setDerangement($derangement->getDerangement()->getPreviousAilment());
-            $infos['replace'] = $element;
-          } else {
-            $data['method'] = "derangement-remove";
-            $infos['name'] = $element;
-            $this->dataService->delete($derangement);
-          }
-        } else {
-
-          return null;
-        }
+        $isDone = $this->removeDerangement($method, $element, $data, $infos);
+        break;
+      // Vampire
+      case 'potency':
+        $isDone = $this->reducePotency($character, $element, $infos);
         break;
       default:
+        $isDone = false;
+    }
 
-        return null;
+    if (!$isDone) {
+
+      return null;
     }
 
     $logs = [$data['method'] => [
@@ -427,6 +374,118 @@ class CharacterService
     $this->dataService->flush();
 
     return $element;
+  }
+
+  private function removeAttribute(Character $character, string $method, &$element, &$infos) : bool
+  {
+    $attributes = $character->getAttributes();
+    $value = $attributes->get($element);
+    $infos['base'] = $value;
+    if ($method == 'reduce' && $value > 0) {
+      $newValue = $value - 1;
+    } else {
+      $newValue = 0;
+    }
+    $attributes->set($element, $newValue);
+
+    return true;
+  }
+
+  private function removeSkill(Character $character, string $method, &$element, &$infos) : bool
+  {
+    $skills = $character->getSkills();
+    $value = $skills->get($element);
+    $infos['base'] = $value;
+    if ($method == 'reduce' && $skills->get($element) > 0) {
+      $newValue = $value - 1;
+    } else {
+      $newValue = 0;
+    }
+    $skills->set($element, $newValue);
+
+    return true;
+  }
+
+  private function removeMerit(Character $character, string $method, &$element, &$infos) : bool
+  {
+    $merit = $this->dataService->find(CharacterMerit::class, $element);
+    if ($merit instanceof CharacterMerit) {
+      $element = $merit->getMeritName();
+      $level = $merit->getLevel();
+      $infos['base'] = $level;
+      $infos['name'] = $element;
+      if ($method == 'reduce' && $level > 1) {
+        $merit->setLevel($level - 1);
+      } else {
+        $character->removeMerit($merit);
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  private function removeSpecialty(Character $character, &$element, &$infos) : bool
+  {
+    $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
+    if ($specialty instanceof CharacterSpecialty) {
+      $element = $specialty->getName();
+      $infos['name'] = "{$element} ({$specialty->getSkill()->getName()})";
+      $character->removeSpecialty($specialty);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private function reduceWillpower(Character $character, &$element, &$infos) : bool
+  {
+    $willpower = $character->getWillpower();
+    if ($willpower > 1) {
+      $infos['base'] = $willpower;
+      $character->setWillpower($willpower - 1);
+      $element = "willpower";
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private function removeDerangement(string $method, &$element, &$data, &$infos) : bool
+  {
+    $derangement = $this->dataService->find(CharacterDerangement::class, $element);
+    if ($derangement instanceof CharacterDerangement) {
+      $element = $derangement->getName();
+      if ($method == 'reduce' && $derangement->getDerangement()->getPreviousAilment() instanceof Derangement) {
+        $data['method'] = "derangement-reduce";
+        $infos['name'] = $element;
+        $derangement->setDerangement($derangement->getDerangement()->getPreviousAilment());
+        $infos['replace'] = $derangement->getName();
+      } else {
+        $data['method'] = "derangement-remove";
+        $infos['name'] = $element;
+        $this->dataService->delete($derangement);
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  private function reducePotency(Vampire $character, &$element, &$infos) : bool
+  {
+    $potency = $character->getPotency();
+    if ($potency > 1) {
+      $infos['base'] = $potency;
+      $character->setPotency($potency - 1);
+      $element = "potency";
+
+      return true;
+    }
+
+    return false;
   }
 
   public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree): void
@@ -513,5 +572,22 @@ class CharacterService
       $this->updateLogs($character, json_encode($logs));
     }
     $this->dataService->flush();
+  }
+
+  public function getRemovableAttributes(Character $character)
+  {
+    $removables = [
+      'attribute' => [],
+      'skill' => [],
+      'specialty' => ['label' => 'specialty.label.single', 'domain' => 'skill'],
+      'merit' => [],
+      'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
+      'derangement' => [],
+    ];
+    if ($character instanceof Vampire) {
+      $removables = array_merge($removables, $this->vampireService->getRemovableAttributes());
+    }
+
+    return $removables;
   }
 }
