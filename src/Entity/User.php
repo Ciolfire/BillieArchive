@@ -55,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   #[ORM\OrderBy(["chronicle" => "DESC", "id" => "DESC"])]
   private Collection $notes;
 
+  #[ORM\Column(nullable: true)]
+  private ?array $preferences = null;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -353,5 +356,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     return $notes;
+  }
+
+  public function getPreferences(): ?array
+  {
+      return $this->preferences;
+  }
+
+  public function setPreferences(?array $preferences): static
+  {
+      $this->preferences = $preferences;
+
+      return $this;
   }
 }
