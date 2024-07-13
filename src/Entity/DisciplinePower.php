@@ -43,6 +43,9 @@ class DisciplinePower implements Translatable
   #[ORM\Column(type: Types::SMALLINT, nullable: true)]
   private ?int $level;
 
+  #[ORM\Column(type: Types::BOOLEAN)]
+  private bool $isRitual = false;
+
   #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: "powers")]
   #[ORM\JoinColumn(nullable: false)]
   private ?Discipline $discipline = null;
@@ -139,6 +142,18 @@ class DisciplinePower implements Translatable
   public function setLevel(?int $level): self
   {
     $this->level = $level;
+
+    return $this;
+  }
+
+  public function isRitual(): bool
+  {
+    return $this->isRitual;
+  }
+
+  public function setIsRitual(bool $isRitual): self
+  {
+    $this->isRitual = $isRitual;
 
     return $this;
   }

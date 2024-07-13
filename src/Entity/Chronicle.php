@@ -357,9 +357,16 @@ class Chronicle
     return $disciplines;
   }
 
-  public function getRituals(): Collection
+  public function getRituals(): array
   {
-    return $this->rituals;
+    $rituals = [];
+    foreach ($this->rituals as $ritual) {
+      if ($ritual->isRitual()) {
+        $rituals[] = $ritual;
+      }
+    }
+
+    return $rituals;
   }
 
   public function getCoils()
