@@ -1,6 +1,13 @@
 label:
   single: Derangement
-  multiple: Derangements
+  multi: Derangements
+
+add: Add Derangement
+details: Details
+extreme: Extreme
+mild: Mild
+previous: Severe version of
+severe: Severe
 
 count: >-
   {count, plural,
@@ -9,10 +16,6 @@ count: >-
     other {# Derangements}
   }
 
-mild: Mild
-extreme: Extreme
-previous: Severe version of
-severe: Severe
 
 help:
   extreme: Character must experience a life-altering trauma or supernatural tragedy to acquire one of these extreme derangements. They cannot normally be acquired by failing a Morality roll unless the sin performed is truly gut wrenching or horrific, such as murdering one’s own children.

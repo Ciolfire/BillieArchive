@@ -1,3 +1,5 @@
+preferences: Preferences
+options: Options
 switch:
   gm: Switch to God Machine Accreditation
   st: Switch to Storyteller Accreditation

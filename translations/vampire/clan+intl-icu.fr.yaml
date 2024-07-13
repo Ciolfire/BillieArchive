@@ -1,0 +1,42 @@
+label:
+  single: Clan
+  multi: Clans
+
+edit: Modifier un Clan
+keywords: Keywords
+new: Nouveau Clan
+short: Short
+weakness: Faiblesse de Clan
+
+count: >-
+  {count, plural,
+    =0 {Aucun Clan}
+    =1 {1 Clan}
+    other {# Clans}
+  }
+
+bloodline:
+  label:
+    single: Lignée
+    multi: Lignées
+
+  join: Rejoindre une lignée
+  devotion:
+    single: >-
+      {bloodline, select,
+        A {Dévotion d' {bloodline}}
+        other {Dévotion de {bloodline}}
+      }
+    multi: Dévotions de {bloodline}
+  count: >-
+    {count, plural,
+      =0 {Aucune Lignée}
+      =1 {1 Lignée}
+      other {# Lignées}
+    }
+  edit: Modifier une lignée
+  new: Nouvelle lignée
+  weakness: Faiblesse de Lignée
+  parent:
+    label: Clan Parent
+    any: Libre

@@ -1,0 +1,11 @@
+registration:
+  greeting: "Bienvenue dans nos Archive, {name}"
+  process: "Veuillez confirmer votre adresse mail en cliquant sur le lien suivant:"
+  confirm: Lien de Validation
+  expire: Ce lien expirera dans 
+  farewell: |
+    Nous somme ravi que vous rejoignez notre famille. Installez-vous confortablement et n'hésitez pas à nous demander de l'aide si vous en éprouvez le besoin.
+
+    Amicalement,
+
+    Billie, Morgan & Mlle Sanders

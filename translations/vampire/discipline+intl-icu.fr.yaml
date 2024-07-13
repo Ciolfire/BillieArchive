@@ -1,0 +1,91 @@
+label:
+  single: Discipline
+  multi: Disciplines
+
+contested:
+  placeholder: vs ...
+  text: Resistance
+effect: Effect
+level:
+  single: • à •••••
+new: Nouvelle discipline
+
+count: >-
+  {count, plural,
+    =0 {Aucune Discipline}
+    =1 {1 Discipline}
+    other {# Disciplines}
+  }
+
+power:
+  new: "Nouveau Pouvoir — {discipline}"
+  edit: "Modifier: {power} — {discipline}"
+  add: "Nouveau Pouvoir"
+
+coil:
+  label:
+    single: Anneau du Dragon
+    multi: Anneaux du Dragon
+  new: Nouvel Anneau
+  power:
+    label: Tier
+    level: >-
+      {level, selectordinal,
+        one   {premier}
+        two   {second}
+        few   {#ème}
+        other {#ème}
+      } Tier: {name}
+    new: Nouveau Tier
+
+sorcery:
+  label:
+    single: Sorcellerie du Sang
+    multi: Sorcelleries du Sang
+  learn: Apprendre une Nouvelle Sorcellerie
+  new: Nouvelles Sorcelleries
+  power:
+    label:
+      single: Rituel
+      multi: Rituels
+    level:
+      single: "Rituel de niveau {level} de {sorcery}"
+      multi: "Rituels de niveau {level} de {sorcery}"
+    new: Nouveau Rituel
+    count: >-
+      {count, plural,
+        =0 {Aucun Rituel}
+        =1 {1 Rituel}
+        other {# Rituels}
+      }
+
+thaumaturgy:
+  label: Thaumaturgie
+  new: Nouvelle voie
+  power:
+    label: Pouvoir
+    new: Nouveau Pouvoir
+
+# Devotion
+devotion:
+  label:
+    single: Dévotion
+    multi: Dévotions
+  new: Nouvelle dévotion
+  count: >-
+    {count, plural,
+      =0 {Aucune Dévotion}
+      =1 {1 Dévotion}
+      other {# Dévotions}
+    }
+  prerequisite: Prérequis
+
+# form
+short: Résumé
+rules: Règles
+
+restricted: Est limitée
+
+help:
+  short: Une phrase courte décrivant la discipline
+  restricted: Une discipline limitée ne sera disponible qu'aux vampires d'un clan ou d'une lignée qui possède celle-ci

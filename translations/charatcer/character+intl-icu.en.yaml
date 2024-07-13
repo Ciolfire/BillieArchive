@@ -1,21 +1,15 @@
+label:
+  single: Character
+  multi: Characters
+
 Name: Name
 Player: Player
 Concept: Concept
-virtue:
-  name: Virtue
-  detail: Other name
-  unknown: Virtue not known
-vice:
-  name: Vice
-  detail: Other name
-  unknown: Vice not known
 Chronicle: Chronicle
 faction: Faction
 group: Group
-mental: Mental
-physical: Physical
-social: Social
 details: Details
+traits: Traits
 
 ability:
   removal: Remove/Reduce an ability for this character
@@ -46,54 +40,30 @@ advantage:
     tooltip: "{base} + Strength {strength} + Dexterity {dexterity} + Bonus {bonus}"
     value: "{speed}yd/tn"
 
-attribute:
-  label: Attribute
-  value: >-
-    {value, plural,
-      =0 {0 - Absolute vacancy.}
-      =1 {1 - Poor. Unexercised, unpracticed or inept.}
-      =2 {2 - Average. The result of occasional effort or application.}
-      =3 {3 - Good. Regular practice or effort, or naturally talented.}
-      =4 {4 - Exceptional. Frequently applied, tested and honed, or naturally gifted.}
-      =5 {5 - Outstanding. The peak of normal human capability. Continuously exercised or naturally blessed.}
-      other {# - Surnatural}
-    }
-  intelligence: Intelligence
-  wits: Wits
-  resolve: Resolve
-  strength: Strength
-  dexterity: Dexterity
-  stamina: Stamina
-  presence: Presence
-  manipulation: Manipulation
-  composure: Composure
-attributes:
-  label: Attributes
-
 avatar:
   label: Avatar
   modal: Character's Avatar
   change: Change avatar
   save: Save the new avatar
 
-characters: Characters
-npc: NPC
-premade: Premade
+pc:
+  label:
+    single: Character
+    multi: Characters
+  short: PC
+  new: New character
+npc:
+  label:
+    single: Non-player Character
+    multi: Non-player Characters
+    short: NPC
+  new: New Non-player Character
 
-tab:
-  background: Background
-  description: Description
-  general: General
-  human: Human
-  details: Details
-  informations: Informations
-  inventory: Possessions
-  merits: Merits
-  notes: Notes
-  picture: Picture
-  powers: Powers
-  relations: Relations
-  traits: Traits
+premade:
+  label:
+    single: Premade
+    multi: Premade Characters
+  new: New Premade Character
 
 dot:
   fifth: Fifth dot cost two
@@ -125,45 +95,27 @@ health: Health
 wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
 
-template.lesser.remove: Remove the current Lesser template
-
-merit:
-  label: Merit
-  count: >-
-    {count, plural,
-      =0 {No Merit}
-      one {1 Merit}
-      other {# Merits}
-    }
-  creation: Spend 7 dots
-  improve: Improve an owned Merit
-  new: Buy a new Merit
-  style: Combat Style
-merits:
-  label: Merits
-
 morality:
   derangement:
+    keep: Keep
     new:  Roll your character's new Morality trait as a dice pool. Manifests a derangement in case of failure. Does NOT apply over 7.
     overcome: When a derangement is overcome by rising to a higher Morality, that ailment can be erased from your character sheet or ignored for the time being.
-    keep: Keep
     remove: Remove
   cost:
+    free: Free
     info: Morality can be regained by spending experience points, or for free if the Storyteller consider it is deserved.
     pay: Pay
-    free: Free
   relative:
     highest: Saint
-    higer: Benevolant
+    higher: Benevolant
     high: Nice
     similar: Similar
     low: Mean
     lower: Cruel
     lowest: Monster
+  up: Increase
+  down: Decrease
   unknown: Morality unknown
-  human: Morality
-  ghoul: Morality
-  vampire: Humanity
 
 name:
   label: Name
@@ -171,60 +123,6 @@ name:
   last: Last name
   nick: Middle name/Nickname
   unknown: Name unknown
-
-new:
-  character: New character
-  npc: New NPC
-  premade: New Premade Character
-
-skill:
-  label: Skill
-  value: >-
-    {value, plural,
-      =0 {0 - Unskilled}
-      =1 {1 - Novice. Basic knowledge and/or techniques.}
-      =2 {2 - Practitioner. Solid working knowledge and/or techniques.}
-      =3 {3 - Professional. Broad, detailed knowledge and/or techniques.}
-      =4 {4 - Expert. Exceptional depth of knowledge and/or techniques.}
-      =5 {5 - Master. Unsurpassed depth of knowledge and/or techniques. A leader in the field.}
-      other {# - Surnatural}
-    }
-  unskilled:
-    mental: "-3 unskilled"
-    physical: "-1 unskilled"
-    social: "-1 unskilled"
-
-  academics: Academics
-  computer: Computer
-  crafts: Crafts
-  investigation: Investigation
-  medicine: Medicine
-  occult: Occult
-  politics: Politics
-  science: Science
-  athletics: Athletics
-  brawl: Brawl
-  drive: Drive
-  firearms: Firearms
-  larceny: Larceny
-  stealth: Stealth
-  survival: Survival
-  weaponry: Weaponry
-  animalKen: Animal Ken
-  empathy: Empathy
-  expression: Expression
-  intimidation: Intimidation
-  persuasion: Persuasion
-  socialize: Socialize
-  streetwise: Streetwise
-  subterfuge: Subterfuge
-skills:
-  label: Skills
-specialty:
-  label: Specialty
-  creation: Take three Skill Specialties of your choice.
-specialties:
-  label: Specialties
 
 power: >-
   {count, plural,
@@ -260,13 +158,20 @@ right:
   potency: Potency
   sire: Sire
 
+template:
+  apply: Apply Template
+  lesser:
+    label: Lesser Template
+    remove: Remove the current Lesser template
+
+relation: Relations
+
 infos:
   access:
     accessor: Character
     add: New access
     other: Other informations access
     standard: Standard informations access
-    targets: Access to informations for the following characters
   background: Background
   description: Description
   details:
@@ -276,12 +181,25 @@ infos:
     data: Text
     edit: Edit informations
     title: Title
+  informations: Informations
   none: No information provided
+  picture: Picture
 
-notes:
-  edit: Edit notes
-  label: Notes
-  none: No notes
+type:
+  unknown: Unknown
+
+vice:
+  label:
+    single: Vice
+    multi: Vices
+  detail: Other name
+  unknown: Vice not known
+virtue:
+  label:
+    single: Virtue
+    multi: Virtues
+  detail: Other name
+  unknown: Virtue not known
 
 xp:
   label: XP

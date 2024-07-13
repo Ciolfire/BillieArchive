@@ -45,16 +45,17 @@ character:
     declined: "You are not allowed to look at this character informations."
     unavailable: "This character is not part of a chronicle."
     self: "This is yours, redirected to the character sheet."
-  template.lesser:
-    add: >-
-      {type, select,
-          ghoul {{name} is now a Ghoul.}
-          other {{name} is now a(n) {type}.}
-      }
-    remove: >-
-      {type, select,
-          ghoul {{name} is no longer a Ghoul.}
-          other {{name} is no longer a(n) {type}.}
-      }
-    deactivated: "{name} is no longer a(n) {old}."
-    same: "{name} is already a(n) {type}, no change."
+  template:
+    lesser:
+      add: >-
+        {type, select,
+            ghoul {{name} is now a Ghoul.}
+            other {{name} is now a(n) {type}.}
+        }
+      remove: >-
+        {type, select,
+            ghoul {{name} is no longer a Ghoul.}
+            other {{name} is no longer a(n) {type}.}
+        }
+      deactivated: "{name} is no longer a(n) {old}."
+      same: "{name} is already a(n) {type}, no change."

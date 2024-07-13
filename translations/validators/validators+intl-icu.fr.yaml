@@ -1,0 +1,6 @@
+image.invalid: Image Invalide
+password:
+  missing: Veuillez choisir un mot de passe
+  short: Votre mot de passe doit contenir au moins {{ limit }} caractères
+
+note.chronicle.duplicate: Ce nom est déjà utilisé pour cette Chronique

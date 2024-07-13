@@ -1,0 +1,44 @@
+label:
+  single: Note
+  multi: Notes
+
+# Entity
+content: Content
+date: Date
+title: Title
+
+# Actions
+edit: Edit note
+links: Linked notes
+new: New note
+none: No note
+
+type:
+  label: Appearance
+  default: Default
+  paper: Print
+  terminal: Terminal
+  handwritting: Post-it
+
+delete:
+  confirm: This action is definitive, the note will be permanently destroyed, confirm ?
+
+search:
+  label: Search notes
+  result: >-
+    {value, plural,
+      =0 {These notes are probably on another server ...}
+      =1 {Look at this note I found for you !}
+      other {Look at these <strong>#</strong> notes I found for you !}
+    }
+  tips: |
+    You can use the following wildcards in your searchs:
+    _ : Replace a single character
+    % : replace any number of characters
+    \_ or \% : Allow to search for these specifics characters
+
+folder:
+  label: Folder
+  delete: Delete folder
+  edit: Rename folder
+  new: New Folder

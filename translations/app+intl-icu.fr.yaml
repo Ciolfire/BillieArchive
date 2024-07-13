@@ -1,267 +1,83 @@
 action:
-  label: Action
+  label:
+    single: Action
+    multi: Actions
   add: Ajouter
+  back: Retour
   confirm: Confirmer
   continue: Continue
+  create: Créer
   delete: Supprimer
-  duplicate: Duplicate
+  duplicate: Dupliquer
   edit: Modifier
   new: Nouveau
-  reduce: Réduire de 1
+  reduce: Reduire d'1
   remove: Retirer
   save: Sauvegarder
-  search: Search
+  send: Envoyer
+  search: Rechercher
   view: Voir
-actions: Actions
-advantages: Avantages
-attribute:
-  new: Nouvel Attribut
-  edit: Modifier un Attribut
-attributes: Attributs
-back: Retour
-book: Livre
-books: Livres
-category:
-  label: Categorie
-  mental: Mental
-  physical: Physique
-  social: Social
-character:
-  pc: Personnage
-  label: Personnage
-  npc: PNJ
-  premade: Prétiré
-characters:
-  pc: Personnages
-  label: Personnages
-  groups: Groupes
-  npc: PNJs
-  premade: Prétirés
-chronicle:
-  label: Chronique
-chronicles:
-  title: Mes Chroniques
-  name: Chroniques
-  none: Vous n'avez pas encore rejoint de chronique ...
-confirm: Êtes-vous sûr ?
-contested:
-  label: Contestée
-  text: Texte de resistance
+
+all: Tout
+language: Langue
 cost: Coût
-cover: Couverture
-create: Créer
 dashboard: Tableau de bord
-description:
-  label: Description
-  fluff: Texte d'ambiance
-  short:
-    label: Résumé
-derangement:
-  label: Dérangement
-  new: Nouveau dérangement
-  count: >-
-    {count, plural,
-      =0 {Aucun Dérangement}
-      =1 {1 Dérangement}
-      other {# Dérangements}
-    }
-  extreme: Extrême
-  mild: Bénin
-  previous: Version grave de
-  severe: Grave
-derangements:
-  label: Dérangements
-edit: Modifier
-effect: Effect
+description: Description
 emblem: Emblème
-empty: Rien ici, pour le moment ...
-flaw.label: Désavantage
-flaws.label: Désavantages
-homebrew: Règles maison
-homebrewFor: Contenu spécial pour
-identifier: Identifiant
-important: Important
-infos: Infos
-keyword: Mot-clef
-keywords: Mots-clefs
-lesser.template.label: Mineur
+empty: Rien ici, pour le moment...
+general: Général
+homebrew: Règles Maison
 level: Niveau
 login: Connexion
 logout: Déconnexion
-max: Max
-min: Min
-merit:
-  new: Nouvel Atout
-  edit: Modifier l'Atout
-  creation: Creation Uniquement
-  expanded: Necessite un choix/des détails, ...
-  fighting: Style de combat
-  unique: Ne peut être pris plusieurs fois
-  count: >-
-    {count, plural,
-      =0 {Aucun Atout}
-      =1 {1 Atout}
-      other {# Atouts}
-    }
-merits: Atouts
 name: Nom
-new: Nouveau
 nickname: Surnom
-note:
-  label: Note
-  category:
-    label: Dossier
-    delete: Supprimer le dossier
-    edit: Renommer le dossier
-    new: Nouveau dossier
-  content: Contenu
-  date: Date
-  delete:
-    confirm: Cette action est irreversible, la note sera supprimé définitivement, confirmer ?
-  edit: Modifier la note
-  links: Notes liées
-  new: Créer une note
-  search:
-    label: Rechercher des notes
-    result: >-
-      {value, plural,
-        =0 {Ces notes sont surement sur un autre serveur ...}
-        =1 {J'ai trouvé cette note pour toi !}
-        other {J'ai trouvé <strong>#</strong> notes pour toi !}
-      }
-    tips: |
-      Vous pouvez utiliser les symboles génériques suivants dans vos recherches:
-      _ : Permet de remplacer un unique caractère
-      % : Permet de remplacer n'importe quel nombre de caractères
-      \_ ou \% : Permet de rechercher ces caractères précisement
-  title: Titre
-  type:
-    label: Apparence
-    default: Par défaut
-    paper: Imprimé
-    terminal: Terminal
-    handwritting: Post-it
-notes: Notes
 options: Options
-page: Page
-party:
-  name: Équipe
-  manage: Gérer l'Équipe
-personal: Personnel
-prerequisite:
-  label: Prérequis
-  add: Nouveau Prérequis
-  choice: Selection
-  group: Index de choix (X ou Y ou ...)
-prerequisites: Prérequis
 quote: Citation
+type: Type
+universal: Universel
+value: Valeur
+
+category:
+  label:
+    single: Categorie
+    multi: Categories
+  mental: Mental
+  physical: Physique
+  social: Social
+
+user:
+  label:
+    single: Utilisateur
+    multi: Utilisateurs
+email: Adresse Email
+username: Identifiant
+password: Mot de passe
+repeat.password: Confirmer le mot de passe
+
 register:
   label: Inscription
   resend: Renvoyer l'email d'activation
-release: Parution
 remember: Rester connecté
+
 roll:
-  label: Lancer
-  edit: Modification de Lancer
-  new: Nouveau Lancer
+  label:
+    single: Lancer
+    multi: Lancers
   action:
     label: Action
     contested: Contestée
     extended: Étendue
     instant: Instantanée
     reflexive: Reflexe
-rolls: Lancers
-rule:
-  edit: Modifier la Règle
-  new: Nouvelle Règle
-  parent: Règle Parente
-rules: Règles
-ruleset:
-  label: Version des Règles
-  first: Première Édition
-  second: Seconde Édition
-save: Sauvegarder
-setting: Gamme
-shortname: Sigle
-skill:
-  new: Nouvelle Compétence
-  edit: Modifier une Compétence — {element}
-skills: 
-  label: Compétences
-society:
-  label: Groupe
-  add:
-    character: Assigner des Personnages au groupe
-  new: Nouveau Groupe
-  edit: Modifier le Groupe
-  type:
-    allies: Alliés
-    antagonists: Opposants
-    interest: Intérêt
-    religious: Religieux
-    political: Politique
-    military: Militaire
-    location: Lieu
-societies:
-  label: Groupes
-source: "{book} page {page}"
-source.not.found: Source Inconnue
-src: "{book} p.{page}"
-stories:
-  new: Nouvelle histoire
-  name: Histoires
-  title: Mes Histoires
-tab:
-  mental: Mental
-  physical: Physique
-  social: Social
-tools.label: Outils
-type:
-  label: Type
-  alternate_setting: Univers Alternatif
-  antagonist: Antagoniste
-  chronicle: Chronique
-  core: Core
-  equipment: Equipement
-  human: Mortel
-  joke: Blague
-  location: Lieux
-  universal: Universel
-  translation: Traduction
-  
-  mage: Mage
+  luck:
+    label: Jet de chance
+    short: Cha
 
-  vampire: Vampire
-  bloodlines: Lignées
-  clan: Clan
-  covenant: Ligue
-  ghoul: Goule
-
-  body_thief: Voleur de Corps
-  purified: Purifié
-  innocents: Innocents
-  possessed: Possedé
-
-  werewolf: Loup-Garou
-
-vice:
-  label: Vice
-  edit: Modifier un Vice — {vice}
-vices:
-  label: Vices
-virtue:
-  label: Vertu
-  edit: Modifier une Vertu — {element}
-virtues:
-  label: Vertus
-
-email: Adresse Mail
-username: Identifiant
-password: Mot de passe
-repeat.password: Confirmer le mot de passe
-
-title: Title
-toc: Table des matières
-users: Utilisateurs
-value: Valeur
-wiki: Encyclopédie
+prerequisite:
+  label:
+    single: Prérequis
+    multi: Prérequis
+  add: Nouveau Prérequis
+  choice: Selection
+  group: Groupe de choix (X ou Y ou ...)

@@ -1,0 +1,44 @@
+label:
+  single: Note
+  multi: Notes
+
+# Entity
+content: Contenu
+date: Date
+title: Titre
+
+# Actions
+edit: Modifier la note
+links: Notes liées
+new: Nouveau dossier
+none: Aucune note
+
+type:
+  label: Appearance
+  default: Basique
+  paper: Imrpimé
+  terminal: Terminal
+  handwritting: Post-it
+
+delete:
+  confirm: Cette action est irreversible, la note sera supprimé définitivement, confirmer ?
+
+search:
+  label: Rechercher des notes
+  result: >-
+    {value, plural,
+        =0 {Ces notes sont surement sur un autre serveur ...}
+        =1 {J'ai trouvé cette note pour toi !}
+        other {J'ai trouvé <strong>#</strong> notes pour toi !}
+      }
+  tips: |
+    Vous pouvez utiliser les symboles génériques suivants dans vos recherches:
+      _ : Permet de remplacer un unique caractère
+      % : Permet de remplacer n'importe quel nombre de caractères
+      \_ ou \% : Permet de rechercher ces caractères précisement
+
+folder:
+  label: Dossier
+  delete: Supprimer le dossier
+  edit: Renommer le dossier
+  new: Nouveau dossier

@@ -45,16 +45,17 @@ character:
     declined: "Vous n'êtes pas autorisé à regarder les informations sur ce personnage."
     unavailable: "Ce personnage ne fait pas partie d'une chronique."
     self: "Ce personnage vous appartient, affichage de sa feuille."
-  template.lesser:
-    add: >-
-      {type, select,
-          ghoul {{name} est maintenant une Goule.}
-          other {{name} est maintenant un(e) {type}.}
-      }
-    remove: >-
-      {type, select,
-          ghoul {{name} n'est plus une Goule.}
-          other {{name} n'est plus un(e) {type}.}
-      }
-    deactivated: "{name} n'est plus un(e) {old}."
-    same: "{name} est déjà un(e) {type}, pas de modification."
+  template:
+    lesser:
+      add: >-
+        {type, select,
+            ghoul {{name} est maintenant une Goule.}
+            other {{name} est maintenant un(e) {type}.}
+        }
+      remove: >-
+        {type, select,
+            ghoul {{name} n'est plus une Goule.}
+            other {{name} n'est plus un(e) {type}.}
+        }
+      deactivated: "{name} n'est plus un(e) {old}."
+      same: "{name} est déjà un(e) {type}, pas de modification."

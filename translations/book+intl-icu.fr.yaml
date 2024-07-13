@@ -1,6 +1,6 @@
 label:
   single: Livre
-  multiple: Livres
+  multi: Livres
 
 source:
   label: Source
@@ -9,3 +9,25 @@ source:
   short: "{book}, p.{page}"
   page: "page {page}"
 page: Page
+
+type:
+  label: Type
+
+  alternate_setting: Univers Alternatif
+  antagonist: Antagoniste
+  chronicle: Chronique
+  core: Core
+  equipment: Equipement
+  human: Mortel
+  joke: Blague
+  location: Lieux
+  universal: Universel
+  translation: Translation
+
+  # Mage
+
+  # vampire
+  bloodline: Bloodline
+  clan: Clan
+  covenant: Covenant
+  ghoul: Ghoul

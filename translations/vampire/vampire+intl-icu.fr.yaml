@@ -1,0 +1,61 @@
+label:
+  single: Vampire
+  multi: Vampires
+
+death:
+  age: >-
+    {gender, select,
+      other {{death, plural,
+        other {Etreint à #}
+        =0 {Etreint à un age inconnu}
+      }}
+      male {{death, plural,
+        other {Etreint à #}
+        =0 {Etreint à un age inconnu}
+      }}
+      female {{death, plural,
+        other {Etreinte à #}
+        =0 {Etreinte à un age inconnu}
+      }}
+    }
+  sire: >-
+    {sire, select,
+      unknown {par un Kindred inconnu}
+      other {par {sire}}
+    }
+
+homebrew:
+  label: Paramètres des Vampires
+
+# Disciplines
+
+embrace:
+  label: Étreinte
+  at: Âge lors de l'étreinte
+  by: par
+  save: Commencez mon Requiem
+  discipline:
+    creation:
+      info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
+      favored: Actuellement
+      all: Total
+  title: Vous avez été Étreint...
+
+sire: Sire
+potency:
+  name: Puissance du Sang
+  hidden: Invisible
+  stronger: Supérieure
+  weaker: Inférieure
+feeding:
+  animal: Le Vampire peut tout aussi bien se nourrir sur des animaux, des Humains et des Vampires
+  human: Le vampire doit se nourrir d'Humains ou de Vampires
+  vampire: Seule la Vitae pure issue d'un Vampire permet à ce Vampire de se sustancer.
+  hungry: Le Vampire a 4 Vitae ou moins, il a faim et souffre d'un -1 pour résister à la Frénésie
+  starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
+vitae:
+  label: Vitae
+  per.turn: Max <span class="accent">{value}</span> par Tour
+
+morality:
+  name: Humanité

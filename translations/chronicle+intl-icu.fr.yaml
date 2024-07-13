@@ -1,0 +1,24 @@
+label:
+  single: Chronique
+  multi: Chroniques
+owned:
+  single: Ma Chronique
+  multi: Mes Chroniques
+
+infos: Infos
+homebrew: Règles maison
+
+party:
+  label: Équipe
+  manage: Gérer l'équipe
+
+story:
+  label:
+    single: Histoire
+    multi: Histoires
+  new: Démarrer une nouvelle Chronique
+  owned:
+    single: Mon Histoire
+    multi: Mes Histoires
+
+none: Vous n'avez pas encore rejoint de Chronique ...

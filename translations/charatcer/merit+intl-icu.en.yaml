@@ -1,19 +1,23 @@
 label:
   single: Merit
-  multiple: Merits
+  multi: Merits
 
-category:
-  label: Category
-  mental: Mental
-  physical: Physical
-  social: Social
+count: >-
+  {count, plural,
+    =0 {No Merit}
+    =1 {1 Merit}
+    other {# Merits}
+  }
+
+improve: Improve an owned Merit
+new: Buy a new Merit
 description: Description
 effect: Effect
-min: Min
-max: Max
 creation: Creation Only
 expanded: Choice or details needed
 fighting: Fighting Style
+min: Min
+max: Max
 unique: Unique
 
 help:

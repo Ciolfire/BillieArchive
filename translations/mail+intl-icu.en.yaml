@@ -1,8 +1,8 @@
 registration:
   greeting: "Welcome to our Archive, {name}"
-  process: Please confirm your email address by clicking the following link:
+  process: "Please confirm your email address by clicking the following link:"
   confirm: Validation Link
-  expire: This link will expire in 
+  expire: This link will expire in
   farewell: |
     We are tremendously glad to have you join our family. Please get comfortable and don't hesitate to reach to us if the need arise.
     

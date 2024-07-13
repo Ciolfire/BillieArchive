@@ -1,0 +1,38 @@
+label:
+  single: Clan
+  multi: Clans
+
+edit: Edit Clan
+keywords: Keywords
+new: New Clan
+short: Short
+weakness: Clan Weakness
+
+count: >-
+  {count, plural,
+    =0 {No Clan}
+    =1 {1 Clan}
+    other {# Clans}
+  }
+
+bloodline:
+  label:
+    single: Bloodline
+    multi: Bloodlines
+
+  join: Join Bloodline
+  devotion:
+    single: "{bloodline}'s devotion"
+    multi: "{bloodline}'s devotions"
+  count: >-
+    {count, plural,
+      =0 {No Bloodline}
+      =1 {1 Bloodline}
+      other {# Bloodlines}
+    }
+  edit: Edit Bloodline
+  new: New Bloodline
+  weakness: Bloodline Weakness
+  parent:
+    label: Parent Clan
+    any: Any

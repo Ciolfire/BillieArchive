@@ -1,0 +1,24 @@
+label:
+  single: Attribut
+  multi: Attributs
+
+intelligence: Intelligence
+wits: Astuce
+resolve: Résolution
+strength: Force
+dexterity: Dextérité
+stamina: Vigueur
+presence: Présence
+manipulation: Manipulation
+composure: Calme
+
+value: >-
+  {value, plural,
+    =0 {0 - Absence totale.}
+    =1 {1 - Pauvre. Unexercised, unpracticed or inept.}
+    =2 {2 - Moyen. The result of occasional effort or application.}
+    =3 {3 - Bon. Regular practice or effort, or naturally talented.}
+    =4 {4 - Exceptionnel. Frequently applied, tested and honed, or naturally gifted.}
+    =5 {5 - Incroyable. The peak of normal human capability. Continuously exercised or naturally blessed.}
+    other {# - Surnaturelle}
+  }

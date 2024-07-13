@@ -1,0 +1,91 @@
+label:
+  single: Discipline
+  multi: Disciplines
+
+contested:
+  placeholder: vs ...
+  text: Resistance
+effect: Effect
+level:
+  single: • to •••••
+new: New discipline
+
+count: >-
+  {count, plural,
+    =0 {No Discipline}
+    =1 {1 Discipline}
+    other {# Disciplines}
+  }
+
+power:
+  new: "New Power — {discipline}"
+  edit: "Edit: {power} — {discipline}"
+  add: "New Power"
+
+coil:
+  label:
+    single: Coil of the Dragon
+    multi: Coils of the Dragon
+  new: New Coil
+  power:
+    label: Tier
+    level: >-
+      {level, selectordinal,
+        one   {#st}
+        two   {#nd}
+        few   {#rd}
+        other {#th}
+      } Tier: {name}
+    new: New Tier
+
+sorcery:
+  label:
+    single: Blood Sorcery
+    multi: Blood Sorceries
+  learn: Learn New Sorcery
+  new: New Sorcery
+  power:
+    label:
+      single: Ritual
+      multi: Rituals
+    level:
+      single: "Level-{level} {sorcery} Ritual"
+      multi: "Level-{level} {sorcery} Rituals"
+    new: New Ritual
+    count: >-
+      {count, plural,
+        =0 {No Ritual}
+        =1 {1 Ritual}
+        other {# Rituals}
+      }
+
+thaumaturgy:
+  label: Thaumaturgy
+  new: New path
+  power:
+    label: Power
+    new: New Power
+
+# Devotion
+devotion:
+  label:
+    single: Devotion
+    multi: Devotions
+  new: New devotion
+  count: >-
+    {count, plural,
+      =0 {No Devotion}
+      =1 {1 Devotion}
+      other {# Devotions}
+    }
+  prerequisite: Prerequisite
+
+# form
+short: Short
+rules: Rules
+
+restricted: Is restricted
+
+help:
+  short: A short sentence to describe the discipline.
+  restricted: A restricted discipline will only be accessible to vampire for whom it's in-clan or in-bloodline.

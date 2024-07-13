@@ -1,4 +1,9 @@
-label: Type
+label:
+  single: Type
+  multi: Types
+
+# Not a real type !
+universal: Universal
 
 body_thief: Body Thief
 human: Human

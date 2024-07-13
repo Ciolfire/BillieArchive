@@ -1,8 +1,12 @@
 action:
-  label: Action
+  label:
+    single: Action
+    multi: Actions
   add: Add
+  back: Back
   confirm: Confirm
-  continue: Continuer
+  continue: Continue
+  create: Create
   delete: Delete
   duplicate: Duplicate
   edit: Update
@@ -10,259 +14,70 @@ action:
   reduce: Reduce by 1
   remove: Remove
   save: Save
+  send: Send
   search: Search
   view: View
-actions: Actions
-advantages: Advantages
-attribute:
-  new: New Attribute
-  edit: Edit Attribute
-attributes.label: Attributes
-back: Back
-book: Book
-books.label: Books
-category:
-  label: Category
-  mental: Mental
-  physical: Physical
-  social: Social
-character:
-  pc: Character
-  label: Character
-  npc: NPC
-  premade: Premade Character
-characters:
-  pc : Characters
-  label: Characters
-  groups: Groups
-  npc: NPCs
-  premade: Premade Characters
-chronicle:
-  label: Chronicle
-chronicles:
-  title: My Chronicles
-  name: Chronicles
-  none: You haven't joined any Chronicle yet ...
-confirm: Are you sure ?
-contested:
-  label: Contested
-  text: Resistance Text (vs ...)
+
+all: All
+language: Language
 cost: Cost
-cover: Cover
-create: Create
 dashboard: Dashboard
-description:
-  fluff: Fluff
-  label: Description
-  short:
-    label: Short description
-derangement:
-  label: Derangement
-  new: New derangement
-  count: >-
-    {count, plural,
-      =0 {No Derangement}
-      =1 {1 Derangement}
-      other {# Derangements}
-    }
-  mild: Mild
-  extreme: Extreme
-  previous: Severe version of
-  severe: Severe
-derangements:
-  label: Derangements
-edit: Edit
-effect: Effect
+description: Description
 emblem: Emblem
 empty: Nothing there, yet...
-flaw.label: Flaw
-flaws.label: Flaws
+general: General
 homebrew: Homebrew
-homebrewFor: Homebrew for
-identifier: Identifier
-important: Important
-infos: Infos
-keyword: Keyword
-keywords: Keywords
-lesser.template.label: Lesser
-lesser.template.apply: Apply lesser Template
 level: Level
 login: Login
 logout: Logout
-max: Max
-min: Min
-merit:
-  new: New Merit
-  edit: Edit Merit
-  creation: Creation Only
-  expanded: Choice or details needed
-  fighting: Fighting Style
-  unique: Can only be taken once
-  count: >-
-    {count, plural,
-      =0 {No Merit}
-      =1 {1 Merit}
-      other {# Merits}
-    }
-merits: Merits
 name: Name
-new: New
 nickname: Nickname
-note:
-  label: Note
-  category:
-    label: Folder
-    delete: Delete folder
-    edit: Rename folder
-    new: New folder
-  content: Content
-  date: Date
-  delete:
-    confirm: This action is definitive, the note will be permanently destroyed, confirm ?
-  edit: Edit note
-  links: Linked notes
-  new: New note
-  search:
-    label: Search notes
-    result: >-
-      {value, plural,
-        =0 {These notes are probably on another server ...}
-        =1 {Look at this note I found for you !}
-        other {Look at these <strong>#</strong> notes I found for you !}
-      }
-    tips: |
-      You can use the following wildcards in your searchs:
-      _ : Replace a single character
-      % : replace any number of characters
-      \_ or \% : Allow to search for these specifics characters
-  title: Title
-  type:
-    label: Appearance
-    default: Default
-    paper: Print
-    terminal: Terminal
-    handwritting: Post-it
-notes: Notes
 options: Options
-page: Page
-party:
-  name: Party
-  manage: Manage Party
-personal: Personal
-prerequisite:
-  label: Prerequisite
-  add: New Prerequisite
-  choice: Selection
-  group: Choice index (X or Y or ...)
-prerequisites: Prerequisites
 quote: Quote
+type: Type
+universal: Universal
+value: Value
+
+category:
+  label:
+    single: Category
+    multi: Categories
+  mental: Mental
+  physical: Physical
+  social: Social
+
+user:
+  label:
+    single: User
+    multi: Users
+email: Email Address
+username: Username
+password: Password
+repeat.password: Repeat Password
+
 register:
   label: Register
   resend: Resend activation Email
-release: Release date
 remember: Stay connected
+
 roll:
-  label: Roll
-  edit: Edit Roll
-  new: New Roll
+  label:
+    single: Roll
+    multi: Rolls
   action:
     label: Action
     contested: Contested
     extended: Extended
     instant: Instant
     reflexive: Reflexive
-rolls: Rolls
-rule:
-  edit: Edit Rule
-  new: New Rule
-  parent: Parent Rule
-rules: Rules
-ruleset:
-  label: Rule version
-  first: First Edition
-  second: Second Edition
-save: Save
-shortname: Acronym
-setting: Setting
-skill:
-  new: New Skill
-  edit: "Edit skill — {element}"
-skills:
-  label: Skills
-society:
-  label: Group
-  add:
-    character: Assign Characters to this Group
-  new: New Group
-  edit: Edit group
-  type:
-    allies: Allies
-    antagonists: Antagonists
-    interest: Interest
-    religious: Religious
-    political: Political
-    military: Military
-    location: Location
-societies:
-  label: Groups
-source: "{book} page {page}"
-source.not.found: Unknown Source
-src: "{book} p.{page}"
-stories:
-  new: New story
-  name: Stories
-  title: My Stories
-tab:
-  mental: Mental
-  physical: Physical
-  social: Social
-tools.label: Tools
-type:
-  label: Type
-  alternate_setting: Alternate Setting
-  antagonist: Antagonist
-  chronicle: Chronicle
-  core: Core
-  equipment: Equipment
-  human: Mortal
-  joke: Joke
-  location: Location
-  universal: Universal
-  translation: Translation
-  
-  mage: Mage
+  luck:
+    label: Luck Throw
+    short: Lu
 
-  vampire: Vampire
-  bloodlines: Bloodlines
-  clan: Clan
-  covenant: Covenant
-  ghoul: Ghoul
-
-  body_thief: Body Thief
-  purified: Purified
-  innocents: Innocents
-  possessed: Possessed
-
-  werewolf: Werewolf
-
-vice:
-  label: Vice
-  edit: Edit Vice — {element}
-vices:
-  label: Vices
-virtue:
-  label: Virtue
-  edit: Edit Virtue — {element}
-virtues:
-  label: Virtues
-
-email: Email Address
-username: Username
-password: Password
-repeat.password: Repeat Password
-
-title: Title
-toc: Table of Content
-users: Users
-value: Value
-wiki: Wiki
+prerequisite:
+  label:
+    single: Prerequisite
+    multi: Prerequisites
+  add: New Prerequisite
+  choice: Selection
+  group: Choice index (X or Y or ...)

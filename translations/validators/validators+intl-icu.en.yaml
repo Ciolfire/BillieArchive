@@ -1,0 +1,6 @@
+image.invalid: Image Invalid
+password:
+  missing: Please enter a password
+  short: Your password should be at least {{ limit }} characters
+
+note.chronicle.duplicate: This name is already in use on that chronicle

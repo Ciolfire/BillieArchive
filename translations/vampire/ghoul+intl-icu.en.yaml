@@ -1,0 +1,35 @@
+label:
+  single: Ghoul
+  multi: Ghouls
+
+empty: Cannot use disciplines and might express derangement if behind monthly dose of vitae and has no vitae in her system
+
+regent:
+  label: Regent
+  info: "Regent: {regent} ({clan})"
+  unknown: Unknown
+
+vitae:
+  info: Vitae usage by Ghouls
+  usage: |
+    - Activate Disciplines
+    - Augment physical Attributes
+    - Heal wound: 1/2B, 1/1L or 5/1A (over 2 days)
+
+family:
+  label:
+    single: Ghoul Family
+    multi: Ghoul Families
+  clan:
+    label: Regent's Clan
+  emblem: Emblem
+  new: New Ghoul Family
+  short: Short
+  strength: Strengths
+  weakness: Weaknesses
+  count: >-
+    {count, plural,
+      =0 {No Family}
+      =1 {1 Ghoul Family}
+      other {# Ghoul Families}
+    }

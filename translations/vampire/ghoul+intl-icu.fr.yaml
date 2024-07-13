@@ -1,0 +1,35 @@
+label:
+  single: Goule
+  multi: Goules
+
+empty: Si la goule n'a pas sa dose mensuelle de vitae et n'a plus de reserve, elle ne peut plus utiliser ses discipline, et peut exprimer un dérangement
+
+regent:
+  label: Régent
+  info: "Régent: {regent} ({clan})"
+  unknown: Inconnu
+
+vitae:
+  info: Utilisation de la Vitae par les Goules
+  usage: |
+    - Activer des Disciplines
+    - Augmenter les Attributs physiques
+    - Soigner les blessures: 1/2C, 1/1L ou 5/1A (sur 2 jours)
+
+family:
+  label:
+    single: Famille de Goules
+    multi: Familles de Goules
+  clan:
+    label: Clan Parent
+  emblem: Emblème
+  new: Nouvelle Famille de Goules
+  short: Short
+  strength: Forces
+  weakness: Faiblesses
+  count: >-
+    {count, plural,
+      =0 {Aucune famille de goule}
+      =1 {1 Famille de goule}
+      other {# Familles de goule}
+    }

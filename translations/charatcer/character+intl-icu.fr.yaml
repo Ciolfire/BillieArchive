@@ -1,0 +1,208 @@
+label:
+  single: Personnage
+  multi: Personnages
+
+Name: Nom
+Player: Joueur
+Concept: Concept
+Chronicle: Chronique
+faction: Faction
+group: Group
+details: Details
+traits: Traits
+
+ability:
+  removal: Retire/réduit une capacité du personnage
+
+age:
+  label: Age
+  normal: >-
+    {age, plural,
+      =0 {Age inconnu}
+      =1 {Age: 1 an}
+      other {Age: # ans}
+    }
+  looks:
+    label: Age apparent
+    value: "En fait {looks}"
+
+advantage:
+  armor: Armure
+  defense:
+    label: Defense
+    tooltip: "le plus petit entre Dexterité ({dexterity}) et Astuce ({wits})"
+  initiative: 
+    label: Initiative
+    tooltip: "Dexterité {dexterity} + Calme {composure}"
+  size: Taille
+  speed:
+    label: Vitesse
+    tooltip: "{base} + Force {strength} + Dexterité {dexterity}"
+    value: "{speed}m/tr"
+
+avatar:
+  label: Avatar
+  modal: Avatar du personnage
+  change: Changer l'avatar
+  save: Sauvegarder le nouvel avatar
+
+pc:
+  label:
+    single: Personnage
+    multi: Personnages
+  short: PJ
+  new: Nouveau Personnage
+npc:
+  label:
+    single: Personnage Non-Joueur
+    multi: Personnages Non-Joueur
+    short: PNJ
+  new: Nouveau Personnage Non-Joueur
+
+premade:
+  label:
+    single: Personnage Prétiré
+    multi: Personnages Prétiré
+  new: Nouveau Personnage Prétiré
+
+dot:
+  fifth: Le cinquième point coûte double
+
+willpower:
+  label: Volonté
+  value: >-
+    {value, plural,
+      =0 {0 - Épuisé}
+      =1 {1 - Mou}
+      =2 {2 - Faible}
+      =3 {3 - Timide}
+      =4 {4 - Certain}
+      =5 {5 - Confident}
+      =6 {6 - Résolu}
+      =7 {7 - Passionné}
+      =8 {8 - Determiné}
+      =9 {9 - Volonté de fer}
+      =10 {10 - Implacable}
+      other {# - Surnaturelle}
+    }
+
+derangement:
+  label: Dérangement
+  add: Ajouter un dérangement
+  new: Le Conteur peut décider qu'une scène ou des circonstances auxquelles le personnage est exposé sont trop dures à supporter et qu'il craque sous la pression. Le Conteur décide s'il s'agit d'une situation temporaire ou permanente.
+
+health: Santé
+wound:
+  penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
+
+morality:
+  derangement:
+    keep: Garder
+    new:  Lancez un nombre de dés égal à la nouvelle valeur d'humanité, en cas d'echec le personnage développe un dérangement. Ne s'applique PAS à 8+.
+    overcome: Quand un dérangement devrait être vaincu en remontant en Moralité, cette maladie peut être supprimée ou au choix ignorée.
+    remove: Retirer
+  cost:
+    free: Gratuit
+    info: La Moralité peut être regagnée en dépensant des points d'experience, ou gratuitement si le Conteur considère que les actes du personnage le mérite.
+    pay: Payer
+  relative:
+    highest: Saint
+    higer: Exemplaire
+    high: Bon
+    similar: Similaire
+    low: Antipathique
+    lower: Cruel
+    lowest: Monstre
+  up: Augmenter
+  down: Réduire
+  unknown: Moralité inconnue
+
+name:
+  label: Name
+  first: Prénom
+  last: Nom
+  nick: Surnom
+  unknown: Nom inconnu
+
+power: >-
+  {count, plural,
+    =0 {Aucun pouvoir}
+    one {Pouvoir}
+    other {Pouvoirs}
+  }
+
+peek:
+  label: Résumé du personnage
+
+right:
+  age: Age
+  avatar: Avatar & age apparent
+  background: Historique
+  description: Description
+  faction: Faction
+  group: Groupe
+  firstname: Prénom
+  lastname: Nom de famille
+  morality: Moralité
+  nickname: Surnom
+  type: Type
+  virtue: Vertue
+  vice: Vice
+  # Ghoul
+  family: Famille
+  regent: Régent
+  # Vampire
+  bloodline: Lignée
+  clan: Clan
+  embrace: Étreinte
+  potency: Puissance de sang
+  sire: Sir
+
+template:
+  apply: Appliquer le Template
+  lesser:
+    label: template Mineur
+    remove: Retirer le template Mineur actuel
+
+relation: Relations
+
+infos:
+  access:
+    accessor: Personnage
+    add: Nouvel accès
+    other: Accès aux autres informations
+    standard: Accès aux informations standard
+  background: Historique
+  description: Description
+  details:
+    label: Informations Clés
+    accessList: Partage
+    add: Ajouter une information
+    data: Texte
+    edit: Modifer les informations
+    title: Titre
+  informations: Informations
+  none: Aucune information fournie
+  picture: Photo
+
+type:
+  unknown: Unknown
+
+vice:
+  label:
+    single: Vice
+    multi: Vices
+  detail: Autre Nom
+  unknown: Vice inconnu
+virtue:
+  label:
+    single: Vertu
+    multi: Vertus
+  detail: Autre Nom
+  unknown: Vertue inconnue
+
+xp:
+  label: XP
+  free: Gratuit
+  details:
+    none: Aucun changement

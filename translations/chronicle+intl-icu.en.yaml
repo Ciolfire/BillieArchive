@@ -1,0 +1,24 @@
+label:
+  single: Chronicle
+  multi: Chronicles
+owned:
+  single: My Chronicle
+  multi: My Chronicles
+
+infos: Infos
+homebrew: Homebrew
+
+party:
+  label: Party
+  manage: Manage Party
+
+story:
+  label:
+    single: Story
+    multi: Stories
+  new: Start a new Chronicle
+  owned:
+    single: My Story
+    multi: My Stories
+
+none: You haven't joined any Chronicle yet ...

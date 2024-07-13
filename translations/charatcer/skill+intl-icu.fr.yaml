@@ -1,0 +1,51 @@
+label:
+  single: Compétence
+  multi: Compétences
+
+academics: Érudition
+computer: Informatique
+crafts: Artisanats
+investigation: Investigation
+medicine: Médecine
+occult: Occulte
+politics: Politique
+science: Science
+athletics: Sports
+brawl: Bagarre
+drive: Conduite
+firearms: Armes à feu
+larceny: Larcin
+stealth: Discrétion
+survival: Survie
+weaponry: Armes blanches
+animalKen: Animaux
+empathy: Empathie
+expression: Expression
+intimidation: Intimidation
+persuasion: Persuasion
+socialize: Entregent
+streetwise: Expérience de la rue
+subterfuge: Subterfuge
+
+value: >-
+  {value, plural,
+    =0 {0 - Incompétent}
+    =1 {1 - Novice. Basic knowledge and/or techniques.}
+    =2 {2 - Amateur. Solid working knowledge and/or techniques.}
+    =3 {3 - Professionel. Broad, detailed knowledge and/or techniques.}
+    =4 {4 - Expert. Exceptional depth of knowledge and/or techniques.}
+    =5 {5 - Maitre. Unsurpassed depth of knowledge and/or techniques. A leader in the field.}
+    other {# - Maitrise Surnaturelle}
+  }
+
+unskilled:
+  mental: "-3 si incompétent"
+  physical: "-1 si incompétent"
+  social: "-1 si incompétent"
+
+specialty:
+  label:
+    single: Specialité
+    multi: Specialisations
+  new: Nouvelle specialité
+  creation: Choisissez trois spécialités de votre choix.
