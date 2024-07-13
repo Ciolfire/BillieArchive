@@ -90,10 +90,16 @@ textarea {
   background-color: $inputBackColor;
   color           : $mainBrightColor;
   border-color    : $mainColor;
-
+  
   option {
     // background-color: $inputBackColor;
   }
+}
+
+.form-select-item-avatar {
+  height: 40px;
+  max-width: 40px;
+  object-fit: cover;
 }
 
 .radio-button {

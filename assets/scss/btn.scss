@@ -1,3 +1,9 @@
+.btn {
+  span {
+    filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
+  }
+}
+
 .btn.btn-primary,
 .human-btn.btn-primary {
   background-color: $btnColor;
@@ -39,7 +45,7 @@
 .btn.btn-warning {
   background-color: $warningColor;
   border-color: $wrongColor;
-  color: $textDarkColor;
+  color: $mainColor;
   font-weight: bold;
 
   &:focus,

@@ -143,6 +143,10 @@ footer.footer {
   color: $warningColor;
 }
 
+.flip {
+  transform: scaleX(-1);
+}
+
 .back-img {
   background-position: center;
   background-size: contain;

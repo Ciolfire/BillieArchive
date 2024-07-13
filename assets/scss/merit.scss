@@ -18,7 +18,6 @@
   &-card {
     border: none;
     color: $textColor;
-
     .card-header,
     .card-footer {
       background: $darkBlockColor; //#1c1c1c;
@@ -42,6 +41,13 @@
     z-index: 1;
     position: sticky;
     top: 8em;
+  }
+
+  &-body {
+    height: 250px;
+    overflow: scroll;
+  }
+  &-short {
   }
 }
 
