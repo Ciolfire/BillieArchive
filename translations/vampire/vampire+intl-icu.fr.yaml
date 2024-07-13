@@ -43,7 +43,7 @@ embrace:
 
 sire: Sire
 potency:
-  name: Puissance du Sang
+  label: Puissance du Sang
   hidden: Invisible
   stronger: Supérieure
   weaker: Inférieure
@@ -58,4 +58,4 @@ vitae:
   per.turn: Max <span class="accent">{value}</span> par Tour
 
 morality:
-  name: Humanité
+  label: Humanité

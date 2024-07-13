@@ -9,57 +9,68 @@
     <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {'setting': 'human'})}}">
       {% include "_icon.html.twig" with {icon: 'book-pile' } only %}
       <span>{{ 'label.multi'|trans({}, 'book')}}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('rule_index')}}">
       {% include "_icon.html.twig" with {icon: 'rule' } only %}
       <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('attribute_index')}}">
       {% include "_icon.html.twig" with {icon: 'attribute' } only %}
       <span>{{ 'label.multi'|trans({}, 'attribute')}}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('skill_index')}}">
       {% include "_icon.html.twig" with {icon: 'skill' } only %}
       <span>{{ 'label.multi'|trans({}, 'skill')}}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('virtue_index')}}">
       {% include "_icon.html.twig" with {icon: 'virtue' } only %}
       <span>{{ 'virtue.label.multi'|trans({}, 'character') }}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vice_index')}}">
       {% include "_icon.html.twig" with {icon: 'vice' } only %}
       <span>{{ 'vice.label.multi'|trans({}, 'character') }}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list')}}">
       {% include "_icon.html.twig" with {icon: 'merit' } only %}
       <span>{{ 'label.multi'|trans({}, 'merit') }}</span>
-    </a></div>
+    </a>
+  </div>
   {# <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2 disabled" href="#">
       {% include "_icon.html.twig" with {icon: 'flaw' } only %}
       <span>{{ "flaws.label"|trans }}</span>
-    </a></div> #}
+    </a>
+  </div> #}
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('derangement_list')}}">
       {% include "_icon.html.twig" with {icon: 'derangement' } only %}
       <span>{{ "label.multi"|trans({}, 'derangement') }}</span>
-    </a></div>
+    </a>
+  </div>
   <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('roll_list')}}">
       {% include "_icon.html.twig" with {icon: 'd10' } only %}
       <span>{{ "roll.label.multi"|trans }}</span>
-    </a></div>
-  <div class="col-6 col-lg-3">
+    </a>
+  </div>
+  {# <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('item_index')}}">
       {% include "_icon.html.twig" with {icon: 'cube' } only %}
       <span>{{ "label.multi"|trans({}, 'item') }}</span>
-    </a></div>
+    </a>
+  </div> #}
   {# <div class="col-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="#">{{ "advantages"|trans}}
     </a></div> #}
