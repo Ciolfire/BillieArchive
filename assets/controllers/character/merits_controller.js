@@ -61,8 +61,8 @@ export default class extends Controller {
     let rand = valueInput.dataset.id + "-" +  Math.random().toString(36).substring(2, 6);
     
     // This is used for the collapsable elements
-    let body = newCard.getElementsByClassName(`card-body`)[0];
-    let short = newCard.getElementsByClassName(`card-short`)[0];
+    let body = newCard.getElementsByClassName(`merit-body`)[0];
+    let short = newCard.getElementsByClassName(`merit-short`)[0];
     let effect = newCard.getElementsByClassName(`card-effect`)[0];
 
     body.id = `merit-${rand}-body`;
