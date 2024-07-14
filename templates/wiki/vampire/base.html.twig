@@ -3,61 +3,61 @@
 <div class="row vampire mt-3 pt-2">
   <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:1.5em;" /> <span class="text-strong">{{ "vampire.label"|trans({}, 'setting')}}</span></h2>
 
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {setting: 'vampire'})}}">
       {% include "_icon.html.twig" with {icon: 'book-pile' } only %}
       <span>{{ "label.multi"|trans({}, 'book') }}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('rule_index', {setting: 'vampire'})}}">
       {% include "_icon.html.twig" with {icon: 'rule' } only %}
       <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('clan_index')}}">
       {% include "_icon.html.twig" with {icon: 'clan' } only %}
       <span>{{ "label.multi"|trans({}, 'clan')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('bloodline_index')}}">
       {% include "_icon.html.twig" with {icon: 'bloodline' } only %}
       <span class="d-none d-sm-inline">{{ "bloodline.label.multi"|trans({}, 'clan')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_discipline_index')}}">
       {% include "_icon.html.twig" with {icon: 'discipline' } only %}
       <span>{{ "label.multi"|trans({}, 'discipline')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_sorcery_index')}}">
       {% include "_icon.html.twig" with {icon: 'pentacle' } only %}
       <span>{{ "sorcery.label.multi"|trans({}, 'discipline')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_coils_index')}}">
       {% include "_icon.html.twig" with {icon: 'coils' } only %}
       <span>{{ "coil.label.multi"|trans({}, 'discipline')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_thaumaturgy_index')}}">
       {% include "_icon.html.twig" with {icon: 'thaumaturgy' } only %}
       <span>{{ "thaumaturgy.label"|trans({}, 'discipline')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_devotion_index')}}">
       {% include "_icon.html.twig" with {icon: 'devotion' } only %}
       <span>{{ "devotion.label.multi"|trans({}, 'discipline')}}</span>
     </a>
   </div>
-  <div class="col-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {'type': 'type', 'id': 'vampire'})}}">
       {% include "_icon.html.twig" with {icon: 'merit' } only %}
       <span>{{ "label.multi"|trans({}, 'merit') }}</span>
@@ -66,13 +66,13 @@
   {# Ghoul #}
   <h3 class="text-strong">{% include "_icon.html.twig" with {icon: 'type/ghoul' } only %}
   <span>Ghoul</h3></span>
-    <div class="col-6 col-lg-3">
+    <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('ghoul_families_index')}}">
         {% include "_icon.html.twig" with {icon: 'ghoul_family' } only %}
         <span>{{ "family.label.multi"|trans({}, 'ghoul')}}</span>
       </a>
     </div>
-    <div class="col-6 col-lg-3">
+    <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {type: 'type', id: 'ghoul'})}}">
         {% include "_icon.html.twig" with {icon: 'merit' } only %}
         <span>{{ "label.multi"|trans({}, 'merit') }}</span>

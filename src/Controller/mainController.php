@@ -78,7 +78,14 @@ class mainController extends AbstractController
         'label' => 'language',
         'choices' => $this->getParameter('locales'),
         'choice_label' => function ($choice): string {
-          return Languages::getName($choice, $choice);
+          $flag = strtoupper($choice);
+          if ($flag == 'EN') {
+            $flag = 'GB';
+          }
+          $regionalOffset = 0x1F1A5;
+
+          return mb_chr($regionalOffset + mb_ord(strtoupper($flag[0]), 'UTF-8'), 'UTF-8') .mb_chr($regionalOffset + mb_ord(strtoupper($flag[1]), 'UTF-8'), 'UTF-8') . ' ' . Languages::getName($choice, $choice);
+          // return mb_chr(0x1F1A5 + mb_ord($choice[0], 'UTF-8'), 'UTF-8') .mb_chr(0x1F1A5 + mb_ord($choice[1], 'UTF-8'), 'UTF-8') . Languages::getName($choice, $choice);
         },
         'data' => $user->getLocale(),
         'expanded' => true,

@@ -11,7 +11,7 @@
 
 <nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path('index') }}">Billie's Archive
+		<a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">Billie's Archive
 			<img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
 		<ul class="navbar-nav mb-2 mb-lg-0 flex-row">
 			{% if app.user.chronicles is not empty %}
@@ -39,22 +39,24 @@
 		<div class="collapse navbar-collapse" id="navbarMenuContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item border-end">
-					<a class="nav-link d-inline-block" href="{{ path('wiki_index') }}">
+					<a class="nav-link d-inline-block text-strong" href="{{ path('wiki_index') }}">
 						{% include "_icon.html.twig" with {icon: 'wiki' } only %}
 						{{ "label"|trans({}, 'wiki') }}
 					</a>
 					<a class="d-inline-block me-2" href="{{ path('wiki_index') }}" target="_blank">
-						{% include "_icon.html.twig" with {icon: 'open-tab', 'class': 'icon-sm' } only %}
+						{% include "_icon.html.twig" with {icon: 'open-tab', class: 'icon-sm text-strong' } only %}
 					</a>
 				</li>
 				<li class="nav-item border-end">
-					<a class="nav-link" href="{{ path('character_index') }}">
+					<a class="nav-link text-strong" href="{{ path('character_index') }}">
 						{% include "_icon.html.twig" with {icon: 'characters', label: "label.multi"|trans({}, 'character') } only %}
+						<span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'character') }}</span>
 					</a>
 				</li>
 				<li class="nav-item dropstart border-end">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						{% include "_icon.html.twig" with {icon: 'chronicle', label: "label.multi"|trans({}, 'chronicle') } only %}
+						<span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'chronicle') }}</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 						{% if app.user.stories is not empty %}
@@ -81,26 +83,29 @@
 					</ul>
 				</li>
 				<li class="nav-item dropstart border-end">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						{% include "_icon.html.twig" with {icon: 'language' } only %}
+						<span class="d-inline d-lg-none">{{ "language"|trans }}</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 						{% for locale in locales %}
 							<li>
-								<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: locale}) )}}">{{ locale|language_name(locale) }}</a>
+								<a class="dropdown-item text-strong" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: locale}) )}}">
+									{% if locale == 'fr' %}
+										🇫🇷 
+									{% elseif locale == 'en' %}
+										🇬🇧
+									{% endif %}
+									{{ locale|language_name(locale) }}
+								</a>
 							</li>
 						{% endfor %}
-						{# <li>
-							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'fr'}) )}}">fr||language_name('fr')</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: 'en'}) )}}">en</a>
-						</li> #}
 					</ul>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('logout') }}">
+					<a class="nav-link text-strong" href="{{ path('logout') }}">
 						{% include "_icon.html.twig" with {icon: 'exit' } only %}
+						<span class="d-inline d-lg-none">{{ "logout"|trans }}</span>
 					</a>
 				</li>
 			</ul>
