@@ -38,6 +38,7 @@ body {
 
 .header-navbar {
   min-height: 3.8em;
+
   .thumbnail {
     object-fit: cover;
     object-position: top;
@@ -175,11 +176,12 @@ blockquote {
   font-family: $textFont;
   font-size: 1.2rem;
   background-color: $darkBlockColor;
+  padding: 0.5rem;
+  border-radius: 0.5em;
+
   &-bright {
     color: $textBrightColor;
   }
-  padding: 0.5rem;
-  border-radius: 0.5em;
 
   p {
     margin-bottom: 0.5rem;
@@ -209,6 +211,7 @@ strong {
   border-width: 0px 4px 4px 1px;
   border-right-color: #3f3f3f;
   color: #c0c0c0;
+
   &-header {
     strong {
       color: #212529;

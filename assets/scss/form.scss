@@ -80,7 +80,6 @@ legend {
 input,
 textarea {
   font-family   : "arial";
-  // font-family: $inputFont;
   &:focus-visible {
     outline: 2px solid $outlineColor;
   }
@@ -90,21 +89,12 @@ textarea {
   background-color: $inputBackColor;
   color           : $mainBrightColor;
   border-color    : $mainColor;
-  
-  option {
-    // background-color: $inputBackColor;
-  }
 }
 
 .form-select-item-avatar {
   height: 40px;
   max-width: 40px;
   object-fit: cover;
-}
-
-.radio-button {
-  // color: $mainColor;
-  // border: $mainColor;
 }
 
 .form-control:disabled,

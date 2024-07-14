@@ -11,7 +11,7 @@
 		<h1 class="text-stylized my-2 text-strong">{{ "dashboard"|trans }}</h1>
 		<div class="row">
 			<div class="col-12 col-lg-8">
-				<div class="row block rounded mx-1 align-items-center h-100">
+				<div class="row block rounded mx-1 align-items-center h-100 g-1">
 					<div class="col-6 col-lg">
 						<a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
 							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
@@ -22,13 +22,13 @@
 							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'note') }}</span>
 						</a>
 					</div>
-					<div class="col-6 col-lg">
+					<div class="col-6 col-lg mb-1">
 						<a class="btn btn-primary w-100" href="{{path('user_preferences')}}">{% include "_icon.html.twig" with {icon: 'gears' } only %}
 							<span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span>
 						</a>
 					</div>
 					{% if is_granted('ROLE_GM') %}
-						<div class="col-6 col-lg">
+						<div class="col-6 col-lg mb-1">
 							<a class="btn btn-primary w-100" href="{{path('users')}}">{% include "_icon.html.twig" with {icon: 'users' } only %}
 								<span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
 							</a>
@@ -36,7 +36,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="col-12 col-lg-4">
+			<div class="col-12 col-lg-4 mb-1">
 				<button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
 					<h2 class="text-strong">
             {% include "_icon.html.twig" with {icon: 'wiki' , class: 'icon-lg pe-2'} only %}

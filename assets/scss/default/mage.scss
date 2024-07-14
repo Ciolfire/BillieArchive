@@ -1,4 +1,8 @@
 .mage {
+  color           : #07cac7;
+  border          : 1px solid #008886;
+  background-color: #96ba949a;
+
   &.block {
     background-color: rgba(0, 135, 133, 0.36);
     box-shadow      : rgb(0, 135, 133) 0 0 7px 3px;
@@ -43,9 +47,4 @@
   h5 {
     color: #07cac7;
   }
-
-  color           : #07cac7;
-  border          : 1px solid #008886;
-  // box-shadow      : #4cafaa 0px 0px 7px 3px;
-  background-color: #96ba949a;
 }

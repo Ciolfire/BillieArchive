@@ -1,7 +1,8 @@
 .vampire,.ghoul {
+  color           : white;
+
   &.block {
     background-color: #151515b5;
-    // border          : 1px solid #7d0000;
     box-shadow      : #7d0000 0px 0px 7px 3px;
 
     &-solid {
@@ -50,8 +51,4 @@
       color: #7d0000;
     }
   }
-
-  color           : white;
-  // box-shadow      : #7d0000 0px 0px 7px 3px;
-  // background-color: #151515b5;
 }

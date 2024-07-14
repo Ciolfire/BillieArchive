@@ -18,13 +18,13 @@
   &-card {
     border: none;
     color: $textColor;
+    min-height: 220px;
     .card-header,
     .card-footer {
       background: $darkBlockColor; //#1c1c1c;
       color: $textColor;
     }
 
-    min-height: 220px;
 
     &.merit-owned {
       background-color: $lightBlockColor;
@@ -47,14 +47,9 @@
     height: 250px;
     overflow: scroll;
   }
-  &-short {
-  }
 }
 
 #merit-hide {
-  &.collapsed {
-    color: $subtextColor;
-  }
   position: absolute;
   top: 0;
   left: 12px;
@@ -66,4 +61,7 @@
   border-left: none;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+  &.collapsed {
+    color: $subtextColor;
+  }
 }
