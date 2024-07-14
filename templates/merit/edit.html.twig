@@ -3,8 +3,7 @@
 {% trans_default_domain 'app' %}
 
 
-{% block title %}Edit Merit
-{% endblock %}
+{% block title %}{{ 'action.edit'|trans}}{% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
@@ -16,7 +15,7 @@
   <div class="container py-3 mt-5 g-0">
     <div class="row block">
       <div class="col p-3">
-        {% include "merit/_form.html.twig" with {button_label: 'edit'} %}
+        {% include "merit/_form.html.twig" with {button_label: 'action.edit'} %}
       </div>
     </div>
   </div>

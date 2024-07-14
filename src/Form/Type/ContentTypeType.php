@@ -24,7 +24,7 @@ class ContentTypeType extends AbstractType
   {
     $builder
       ->add('type', EntityType::class, [
-        'label' => "label",
+        'label' => "label.single",
         'class' => ContentType::class,
         'choice_label' => function ($choice): string {
           return $choice->getName();

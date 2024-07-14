@@ -29,10 +29,10 @@ class MeritType extends AbstractType
       ])
       ->add('type', ContentTypeType::class, [
         'data_class' => Merit::class,
-        'label' => false,
       ])
       ->add('category', ChoiceType::class, [
-        'label' => "category.label",
+        'label' => "category.label.single",
+        'translation_domain' => 'app',
         'choices' => [
           'category.mental' => 'mental',
           'category.physical' => 'physical',
