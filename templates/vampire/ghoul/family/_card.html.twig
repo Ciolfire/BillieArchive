@@ -15,7 +15,7 @@
       <h3>
         {{ family.name }} {% if family.clan %}({{ family.clan.name }}){% endif %}
         
-        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg', 'hasTips': true } only %}{% endif %}
+        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
       </h3>
       <h5>{{ family.nickname }}</h5>
       {{ family.quote }}

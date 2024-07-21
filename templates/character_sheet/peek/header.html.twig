@@ -5,7 +5,7 @@
   {% block name %}
     <h1 class="text-center text">
       {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {icon: character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, 'class': 'icon-lg' } %}
       {% endif %}
       {% set publicName = character.publicName(peeker) %}
       {% if publicName == "" %}
@@ -14,7 +14,7 @@
         <span class="accent">{{ publicName }}</span>
       {% endif %}
       {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {icon: character.type, 'hasTips': true, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, 'class': 'icon-lg' } %}
       {% endif %}
     </h1>
     <h2 class="text">
@@ -67,7 +67,7 @@
             {% include "_icon.html.twig" with {icon: 'morality'} %}
             {% if access.hasRight('morality')|default(false) %}
               <span class="strong">
-                {{ ("morality." ~ character.type)|trans }}:
+                {{ "morality.label"|trans({}, character.type) }}:
                 {% set moralDif = character.moral - peeker.moral %}
                 {% if character.moral == 0 %}
                   {{ "morality.relative.lowest"|trans }}

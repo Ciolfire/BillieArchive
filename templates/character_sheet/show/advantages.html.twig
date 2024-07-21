@@ -6,7 +6,7 @@
 {% set speed = character.speedDetails %}
 <div class="col-4 col-lg-2 text-strong">
   <span class="d-none d-md-inline">{{ "advantage.size"|trans }}</span>
-  {% include "_icon.html.twig" with {icon: 'size', 'hasTips': true} only %}
+  {% include "_icon.html.twig" with {icon: 'size'} only %}
   <span id="size">{{ character.size }}</span>
 </div>
 <div class="col-4 col-lg-2 text-strong" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.speed.tooltip"|trans(speed.details) }}">
@@ -26,12 +26,12 @@
 </div>
 <div class="col-4 col-lg-2 text-strong">
   <span class="d-none d-md-inline">{{ "advantage.armor"|trans }}</span>
-  {% include "_icon.html.twig" with {icon: 'armor', 'hasTips': true} only %}
+  {% include "_icon.html.twig" with {icon: 'armor'} only %}
   <span id="armor">0</span>
 </div>
 <div class="col-4 col-lg-2 text-strong fw-bold">
-  {% include "_icon.html.twig" with {icon: 'xp', 'hasTips': true} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>
+  {% include "_icon.html.twig" with {icon: 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>
   <span id="xp-used" data-character--experience-target="used">{{ character.xpTotal - character.xpUsed }}</span>/<span id="xp-total" data-character--experience-target="total">{{ character.xpTotal }}</span>
-  <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "_icon.html.twig" with {icon: 'add', 'hasTips': true} only %}</span>
+  <span role="button" data-bs-toggle="modal" data-bs-target="#xpAddModal">{% include "_icon.html.twig" with {icon: 'add'} only %}</span>
 </div>
 {% endblock %}

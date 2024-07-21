@@ -8,7 +8,7 @@
     {% if is_granted('ROLE_ST') %}
       <div class="row merit_{{ merit.id }}">
         <div class="col-12 text-center py-2 d-flex justify-content-around">
-          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', 'hasTips': true } %}</a>
+          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit' } %}</a>
           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{ merit.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
         </div>
       </div>

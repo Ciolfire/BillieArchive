@@ -2,7 +2,7 @@
 
 {% if element.book is not null %}
   {% if isShort|default(false) == true %}
-    <span {% if hasTip|default(false) == true %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ element.book.name }}"{% endif %}>
+    <span {% if hasTooltip|default(false) == true %}data-bs-toggle="tooltip" data-bs-placement="top" title="{{ element.book.name }}"{% endif %}>
       {{ "source.short"|trans({'%book%': element.book.short, '%page%': element.page|default("?")}) }}
     </span>
   {% else %}

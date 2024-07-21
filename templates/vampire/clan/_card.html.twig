@@ -14,7 +14,7 @@
     <blockquote class="text-center mb-2 clan-card-header">
       <h3>
         {{ clan.name }}
-        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg', 'hasTips': true } only %}{% endif %}
+        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
       </h3>
       <h4>
         {% if clan.isBloodline is same as(true) %}({{ clan.parentClan.name|default("bloodline.parent.any"|trans) }}){% endif %}
@@ -40,7 +40,7 @@
         <br>
       {% endif %}
         
-      {% include "_icon.html.twig" with {icon: 'discipline', 'hasTips': true } %}
+      {% include "_icon.html.twig" with {icon: 'discipline' } %}
       {% for discipline in clan.disciplines %}
         {% if loop.last %}
           &
@@ -49,10 +49,10 @@
         {% endif %}
         <a class="text-strong" href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
       {% endfor %}
-      {% include "_icon.html.twig" with {icon: 'discipline', 'hasTips': true } %}
+      {% include "_icon.html.twig" with {icon: 'discipline' } %}
       {% if clan.devotions is not empty %}
         <br>
-        {% include "_icon.html.twig" with {icon: 'devotion', 'hasTips': true } %}
+        {% include "_icon.html.twig" with {icon: 'devotion' } %}
         {% for devotion in clan.devotions %}
           {% if loop.last and not loop.first %}
             &
@@ -61,7 +61,7 @@
           {% endif %}
           <a class="text-strong" href="{{ path('vampire_devotion_show', {'id': devotion.id}) }}">{{ devotion.name }}</a>
         {% endfor %}
-        {% include "_icon.html.twig" with {icon: 'devotion', 'hasTips': true } %}
+        {% include "_icon.html.twig" with {icon: 'devotion' } %}
       {% endif %}
     </div>
     <div class="clan-{{ clan.id }} clan-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">

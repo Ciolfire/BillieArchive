@@ -15,26 +15,24 @@
     </div>
     <div class="position-relative">
       <div class="d-flex flex-column justify-content-end h-100 text-strong">
-        <p>
-          {{ character.concept}}
-        </p>
+        <div>
+          {{ character.concept|default(' - ') }}
+        </div>
         {% if showPlayer|default(0) %}
-          <p>
+          <div>
             {{ character.player }}
-        </p>
+        </div>
         {% endif %}
-        {% if showChronicle|default(1) %}
-          <p class="accent">
-            {{ character.chronicle }}
-          </p>
-        {% else %}
-          <p class="accent">
+        <div class="accent">
+          {% if showChronicle|default(1) %}
+            &nbsp; {{ character.chronicle }} &nbsp;
+          {% else %}
             {{ character.groupName|default('-') }}
-          </p>
-        {% endif %}
-          <p>
-            PR: {{ character.powerRating }}
-          </p>
+          {% endif %}
+        </div>
+        <div>
+          PR: {{ character.powerRating }}
+        </div>
       </div>
     </div>
   </a>

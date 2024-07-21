@@ -62,7 +62,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') and isFixed|default(false) != true %}
-      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add', 'hasTips': true } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">

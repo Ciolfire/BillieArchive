@@ -46,7 +46,7 @@
 					<div class="col-12 col-md-5" data-bs-toggle="collapse" data-bs-target=".discipline-{{ discipline.id }}">
 						<h4 class="text-strong">{{ discipline.name }}
 							{% if discipline.homebrewFor is not null %}
-								{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', 'hasTips': true } only %}
+								{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
 							{% endif %}
 						</h4>
 					</div>
@@ -54,7 +54,7 @@
 						{{ discipline.short }}
 					</div>
 					<div class="col-2 col-md-1 text-center">
-						<a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'show', 'hasTips': true } only %}</a>
+						<a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {'icon' : 'show' } only %}</a>
 					</div>
 				</div>
 				{% if discipline.maxLevel > 1 %}

@@ -40,13 +40,13 @@
         {% endfor %}
       </div>
       <div class="row g-0 mb-3">
-        <a class="btn btn-primary" href="{{ path('chronicle_note_new', {'id': chronicle.id}) }}">{% include "_icon.html.twig" with {'icon' : 'new', 'hasTips': true } only %}{% include "_icon.html.twig" with {icon: 'note', 'hasTips': true } only %}</a>
+        <a class="btn btn-primary" href="{{ path('chronicle_note_new', {'id': chronicle.id}) }}">{% include "_icon.html.twig" with {'icon' : 'new' } only %}{% include "_icon.html.twig" with {icon: 'note' } only %}</a>
       </div>
       <div class="row mt-5">
         {% for note in notes %}
           <div class="col-12 col-md-6">
             <div id="note-{{ note.id }}" class="note note-{{ note.typeName|default('default') }}">
-              <a class="float-end" href="{{ path('note_edit', {'id': note.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', 'hasTips': true } only %}</a>
+              <a class="float-end" href="{{ path('note_edit', {'id': note.id}) }}">{% include "_icon.html.twig" with {icon: 'edit' } only %}</a>
               <h3 class="pt-2">{{note.title|default('—') }}</h3>
               <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
               <p>{{ note.content|markdown_to_html }}</p>
