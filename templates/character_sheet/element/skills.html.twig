@@ -4,15 +4,15 @@
 {% set min = 0 %}
 {% set base = 0 %}
 
-<h2 class="text-center">{{ "label.multi"|trans }}</h2>
+<h2 class="user-select-none text-center">{{ "label.multi"|trans }}</h2>
 
 {% block creation %}{% endblock %}
 
 {% for category, skills in skills %}
   <div class="col-md-4 d-md-flex justify-content-center">
     <div class="block">
-      <h3 class="d-md-none d-block text-center pt-1">{{ ('category.' ~ category)|trans({}, 'app') }}</h3>
-        <p class="text-center text-sub mb-0">({{("unskilled." ~ category)|trans }})</p>
+      <h3 class="user-select-none d-md-none d-block text-center pt-1">{{ ('category.' ~ category)|trans({}, 'app') }}</h3>
+        <p class="user-select-none text-center text-sub mb-0">({{("unskilled." ~ category)|trans }})</p>
       {% for skill, name in skills|sort((a, b) => a|replace({'É': 'E'}) <=> b|replace({'É': 'E'})) %}
         {% block skill %}{% endblock %}
       {% endfor %}
