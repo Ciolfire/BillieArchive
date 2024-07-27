@@ -8,7 +8,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libicu-dev \
     ## libcurl4-openssl-dev \
     ## libxml2-dev \
-    ## libpng-dev \
+    libpng-dev \
+    libwebp-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    # freetype-dev \
     libzip-dev \
     zip \
     curl
@@ -20,12 +24,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN mkdir -p /usr/src/php/ext/apcu && curl -fsSL        https://pecl.php.net/get/apcu | tar xvz -C "/usr/src/php/ext/apcu" --strip 1 && docker-php-ext-install apcu
 
-RUN docker-php-ext-install \
+RUN docker-php-ext-configure gd --with-jpeg --with-webp && docker-php-ext-install \
     # ctype \
     # curl \
     # dom \
     # fileinfo \
-    # gd \
+    gd \
     #iconv \
     #imap \
     intl \
