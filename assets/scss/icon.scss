@@ -5,6 +5,14 @@
   &.accent {
     color: $accentColor;
   }
+
+  &.icon-secondary {
+    color: $secondaryColor;
+    &:hover {
+      color: $accentColor;
+    }
+  }
+
   &.icon-xs {
     svg {
       height: 0.5em;
