@@ -16,6 +16,7 @@ use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -153,23 +154,36 @@ class DataService
     return  $this->getRepository($class)->findAll();
   }
 
-  public function upload(UploadedFile $file, string $target, string $fileName=null) : ?string
+  public function upload(UploadedFile $file, string $target, string $filename=null) : ?string
   {
-    if (is_null($fileName)) {
+    if (is_null($filename)) {
       $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
       $safeFilename = $this->slugger->slug($originalFilename);
-      $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+      $filename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
     }
 
     try {
-      $file->move($target, $fileName);
+      $file->move($target, $filename);
     } catch (FileException $e) {
 
       return null;
       // ... handle exception if something happens during file upload
     }
 
-    return $fileName;
+    return $filename;
+  }
+
+  public function removeFile(string $filename): bool
+  {
+    $filesystem = new Filesystem();
+    try {
+      $filesystem->remove($filename);
+    } catch (\Throwable $th) {
+
+      return false;
+    }
+
+    return true;
   }
 
   /** @return array<string> */
