@@ -42,9 +42,12 @@ advantage:
 
 avatar:
   label: Avatar
-  modal: Avatar du personnage
   change: Changer l'avatar
+  crop: Redimensionner
+  modal: Avatar du personnage
   save: Sauvegarder le nouvel avatar
+  upload: Glisser-déposer ou parcourir
+
 
 pc:
   label:

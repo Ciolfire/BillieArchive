@@ -26,6 +26,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Extra\Markdown\LeagueMarkdown;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\UX\Cropperjs\Factory\CropperInterface;
+use Symfony\UX\Cropperjs\Form\CropperType;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/character')]
 class CharacterController extends AbstractController
@@ -208,7 +212,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}', name: 'character_show', methods: ['GET'])]
-  public function show(Request $request, Character $character, string $referer=""): Response
+  public function show(Request $request, Character $character, FormFactoryInterface $formFactory, string $referer=""): Response
   {
     if ($request->query->get('referer')) {
       $referer = $request->query->get('referer');
@@ -224,6 +228,23 @@ class CharacterController extends AbstractController
 
     $removables = $this->service->getRemovableAttributes($character);
 
+    
+    $avatarForm = $formFactory->createNamedBuilder("avatar", FormType::class, null, [
+      'translation_domain' => 'character',
+      'attr' => [
+        'name' => 'avatar',
+        'data-action' => 'character--avatar#update',
+        'data-character--avatar-target' => 'form',
+        'method' => 'post',
+      ],
+    ])
+      ->add('upload', DropzoneType::class, [
+        'label' => "false",
+        'attr' => ['placeholder' => 'avatar.upload'],
+      ])
+      ->getForm();
+
+    $avatarForm->handleRequest($request);
     return $this->render("character_sheet_type/{$character->getType()}/show.html.twig", [
       'character' => $character,
       'attributes' => $this->attributes,
@@ -233,6 +254,7 @@ class CharacterController extends AbstractController
       'removables' => $removables,
       'derangements' => $derangements,
       'referer' => $referer,
+      'avatarForm' => $avatarForm->createView(),
     ]);
   }
 
@@ -709,8 +731,10 @@ class CharacterController extends AbstractController
         $filename = $this->dataService->upload($avatar, $path);
 
         if (!is_null($filename)) {
+          $old = $character->getAvatar();
           $character->setAvatar($filename);
           $this->dataService->flush();
+          $this->dataService->removeFile("$path/$old");
           return new JsonResponse($filename);
         }
       }
@@ -720,5 +744,37 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }
+  }
+
+  #[Route('/{id<\d+>}/avatar/crop', name: 'character_avatar_crop')]
+  public function cropAvatar(Request $request, Character $character, CropperInterface $cropper)
+  {
+    $filename = addslashes($this->getParameter('characters_directory')."/{$character->getAvatar()}");
+    $crop = $cropper->createCrop($filename);
+
+    $form = $this->createFormBuilder(['crop' => $crop])
+      ->add('crop', CropperType::class, [
+        'public_url' => $this->getParameter('characters_direct_directory')."/{$character->getAvatar()}",
+        'cropper_options' => [
+          'dragMode' => 'move',
+          'aspectRatio' => null,
+          'initialAspectRatio' => 1/1
+        ],
+      ])
+      ->getForm()
+    ;
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $avatar = $crop->getCroppedImage(pathinfo($filename, PATHINFO_EXTENSION), 100);
+      file_put_contents($filename, $avatar);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+
+    return $this->render('character_sheet/edit/avatar/crop.html.twig', [
+      'form' => $form->createView(),
+    ]);
   }
 }

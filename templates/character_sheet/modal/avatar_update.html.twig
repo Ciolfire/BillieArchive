@@ -3,21 +3,27 @@
 <div class="modal fade" id="avatarModal" aria-labelledby="avatarModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content block-solid">
+      {{ form_start(avatarForm) }}
       <form data-action="character--avatar#update" name="avatar" data-character--avatar-target="form" method="post">
         <div class="modal-header">
           <h5 class="modal-title" id="avatarModalLabel">{{'avatar.modal'|trans }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <img class="block col-12" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
+        <div class="block position-relative">
+          <a role="button" class="position-absolute end-0" href="{{ path('character_avatar_crop', {'id': character.id}) }}">{% include "_icon.html.twig" with {icon: 'crop', 'class': 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
+          <img class="w-100" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
+        </div>
         <div class="modal-body">
           <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
-          <input class="form-control" type="file" name="avatar[upload]"/>
+          {{ form_widget(avatarForm.upload) }}
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            {% include "_icon.html.twig" with {icon: 'save'} only %}
             {{ 'avatar.save'|trans }}
           </button>
         </div>
+      {{ form_end(avatarForm) }}
       </form>
     </div>
   </div>

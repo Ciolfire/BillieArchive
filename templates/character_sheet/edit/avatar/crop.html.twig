@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}{{ "avatar.crop"|trans }}{% endblock %}
+{% block header %}{{ "avatar.crop"|trans }}{% endblock %}
+
+{% block body %}
+{% include "_back.html.twig" %}
+<div class="container">
+  <div class="row block">
+    <div class="col-12 p-5">
+      {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+          {% include "_icon.html.twig" with {icon: 'save'} only %}
+            {{ 'avatar.crop'|trans }}
+        </button>
+      {{ form_end(form) }}
+    </div>
+  </div>
+</div>
+{% endblock %}

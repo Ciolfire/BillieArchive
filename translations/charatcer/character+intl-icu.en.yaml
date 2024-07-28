@@ -42,9 +42,11 @@ advantage:
 
 avatar:
   label: Avatar
-  modal: Character's Avatar
   change: Change avatar
+  crop: Crop Avatar
+  modal: Character's Avatar
   save: Save the new avatar
+  upload: Drag and drop or browse
 
 pc:
   label:
