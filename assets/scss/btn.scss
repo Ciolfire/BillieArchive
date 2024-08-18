@@ -1,15 +1,10 @@
-.btn {
-  span {
-    filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
-  }
-}
-
 .btn.btn-primary,
 .human-btn.btn-primary {
   background-color: $btnColor;
   border-color: $borderColor;
   color: $btnTextColor;
   font-weight: bold;
+  text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
 
   &:focus,
   &:hover,
@@ -19,6 +14,9 @@
     color: $textColor;
     background-color: $btnHover;
     border: 1px solid $mainDarkColor;
+  }
+  svg, img {
+    filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
   }
 }
 
@@ -44,8 +42,8 @@
 
 .btn.btn-warning {
   background-color: $warningColor;
-  border-color: $wrongColor;
-  color: $mainColor;
+  border-color: $textDarkColor;
+  color: $textDarkColor;
   font-weight: bold;
 
   &:focus,
@@ -53,9 +51,9 @@
   &:active,
   &.active {
     box-shadow: 0 0 0 0.25rem $main50pColor;
-    color: $textColor;
-    background-color: $btnHover;
-    border: 1px solid $mainDarkColor;
+    color: $warningColor;
+    background-color: $textDarkColor;
+    border: 1px solid $warningColor;
   }
 }
 

@@ -1,6 +1,6 @@
 .icon {
   display  : inline-block;
-  font-size: large;
+  font-size: inherit;
 
   &.accent {
     color: $accentColor;
@@ -8,6 +8,7 @@
 
   &.icon-secondary {
     color: $secondaryColor;
+
     &:hover {
       color: $accentColor;
     }
@@ -46,8 +47,20 @@
     }
   }
 
+  &.icon-100 {
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
   svg {
     height: 1.4em;
     width : 1.4em;
+
+    // stroke: black;
+    // stroke-width: 4em;
+    // paint-order: stroke;
+    // filter: none;
   }
 }
