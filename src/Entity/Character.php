@@ -153,6 +153,10 @@ class Character
   #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
   private Collection $peekingRights;
 
+  #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'owner')]
+  #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
+  private Collection $items;
+
   public function __construct()
   {
     $this->setAttributes(new CharacterAttributes());
@@ -169,6 +173,7 @@ class Character
     $this->infoAccesses = new ArrayCollection();
     $this->characterAccesses = new ArrayCollection();
     $this->peekingRights = new ArrayCollection();
+    $this->items = new ArrayCollection();
   }
 
   public function __clone()
@@ -1371,5 +1376,48 @@ class Character
     }
 
     return trim($name);
+  }
+
+  /**
+   * @return Collection<int, Item>
+   */
+  public function getItems(): Collection
+  {
+      return $this->items;
+  }
+
+  public function getItemContainers(): array
+  {
+    $containers = [];
+    foreach ($this->items as $item) {
+      /** @var Item $item */
+      if ($item->isContainer()) {
+        $containers[] = $item;
+      }
+    }
+
+    return $containers;
+  }
+
+  public function addItem(Item $item): static
+  {
+      if (!$this->items->contains($item)) {
+          $this->items->add($item);
+          $item->setOwner($this);
+      }
+
+      return $this;
+  }
+
+  public function removeItem(Item $item): static
+  {
+      if ($this->items->removeElement($item)) {
+          // set the owning side to null (unless already changed)
+          if ($item->getOwner() === $this) {
+              $item->setOwner(null);
+          }
+      }
+
+      return $this;
   }
 }

@@ -10,13 +10,11 @@ use App\Entity\Merit;
 use App\Form\MeritType;
 
 use App\Service\DataService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route("{_locale<%supported_locales%>?%default_locale%}/wiki/merit")]
 class MeritController extends AbstractController
@@ -99,7 +97,7 @@ class MeritController extends AbstractController
   }
 
   #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
-  public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
+  public function new(Request $request): Response
   {
     $merit = new Merit();
 
@@ -107,8 +105,8 @@ class MeritController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($merit);
-      $entityManager->flush();
+      $this->dataService->add($merit);
+      $this->dataService->flush();
 
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
@@ -131,13 +129,13 @@ class MeritController extends AbstractController
 
   #[IsGranted('ROLE_ST')]
   #[Route("/{id<\d+>}/edit", name: "merit_edit", methods: ["GET", "POST"])]
-  public function edit(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
+  public function edit(Request $request, Merit $merit): Response
   {
     $form = $this->createForm(MeritType::class, $merit);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->flush();
 
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
@@ -150,14 +148,14 @@ class MeritController extends AbstractController
 
   #[IsGranted('ROLE_ST')]
   #[Route("/{id<\d+>}/delete", name: "merit_delete", methods: ["POST"])]
-  public function delete(Request $request, Merit $merit, EntityManagerInterface $entityManager): Response
+  public function delete(Request $request, Merit $merit): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $token = $request->request->get('_token');
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $merit->getId(), $token)) {
-      $entityManager->remove($merit);
-      $entityManager->flush();
+      $this->dataService->remove($merit);
+      $this->dataService->flush();
     }
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);

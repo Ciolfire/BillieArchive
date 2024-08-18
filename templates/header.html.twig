@@ -24,7 +24,7 @@
 							</a>
 						{% else %}
 							<a class="nav-link px-1" href="{{path('character_new', {chronicle: chronicle.id })}}" style="padding:1px;">
-								<img class="nav-link {{ chronicle.type }} btn  btn-primary thumbnail" src="{{ asset('add.svg', 'images') }}" height="40" width="40"/>
+								<img class="nav-link {{ chronicle.type }} btn btn-primary thumbnail" src="{{ asset('add.svg', 'images') }}" height="40" width="40"/>
 							</a>
 						{% endif %}
 					</li>
@@ -36,7 +36,7 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarMenuContent">
+		<div id="navbarMenuContent" class="collapse navbar-collapse bg-dark">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item border-end">
 					<a class="nav-link d-inline-block text-strong" href="{{ path('wiki_index') }}">

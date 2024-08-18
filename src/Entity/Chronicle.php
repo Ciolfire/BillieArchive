@@ -39,6 +39,10 @@ class Chronicle
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $merits;
 
+  #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'homebrewFor')]
+  private Collection $items;
+
+  // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $clans;
@@ -70,6 +74,7 @@ class Chronicle
     $this->characters = new ArrayCollection();
     $this->players = new ArrayCollection();
     $this->merits = new ArrayCollection();
+    $this->items = new ArrayCollection();
 
     // Vampire
     $this->clans = new ArrayCollection();
@@ -292,6 +297,33 @@ class Chronicle
     }
 
     return $clans;
+  }
+
+  public function getItems(): Collection
+  {
+    return $this->items;
+  }
+
+  public function addItem(Item $item): self
+  {
+    if (!$this->items->contains($item)) {
+      $this->items[] = $item;
+      $item->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeItem(Item $item): self
+  {
+    if ($this->items->removeElement($item)) {
+      // set the owning side to null (unless already changed)
+      if ($item->getBook() === $this) {
+        $item->setBook(null);
+      }
+    }
+
+    return $this;
   }
 
   // VAMPIRE

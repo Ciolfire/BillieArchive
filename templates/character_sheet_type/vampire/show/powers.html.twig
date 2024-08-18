@@ -6,7 +6,7 @@
 {% set thaumaturgy = character.getFilteredDisciplines('thaumaturgy') %}
 {% set devotions = character.devotions %}
 
-<div data-controller="tabs" data-tabs-initial-value="disciplines">
+<div data-controller="tabs" data-tabs-initial-value="disciplines" data-tabs-parent-value="vampire">
   {% include "character_sheet_type/vampire/show/_powerTabs.html.twig" %}
   <div id="disciplines" class="tab-content" data-tabs-target="page">
     {% include 'character_sheet_type/vampire/show/disciplines.html.twig' with {'characterDisciplines': disciplines} %}

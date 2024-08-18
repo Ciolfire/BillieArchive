@@ -54,7 +54,11 @@ class Book implements Translatable
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
   private Collection $merits;
-  
+
+  #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'book')]
+  private Collection $items;
+
+  // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
   private Collection $clans;
 
@@ -80,6 +84,7 @@ class Book implements Translatable
     $this->setting = $setting;
     $this->derangements = new ArrayCollection();
     $this->merits = new ArrayCollection();
+    $this->items = new ArrayCollection();
     // vampire
     // $this->clans = new ArrayCollection();
     // $this->devotions = new ArrayCollection();
@@ -242,8 +247,34 @@ class Book implements Translatable
 
     return $this;
   }
-  
-  
+
+  public function getItems(): Collection
+  {
+    return $this->items;
+  }
+
+  public function addItem(Item $item): self
+  {
+    if (!$this->items->contains($item)) {
+      $this->items[] = $item;
+      $item->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeItem(Item $item): self
+  {
+    if ($this->items->removeElement($item)) {
+      // set the owning side to null (unless already changed)
+      if ($item->getBook() === $this) {
+        $item->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
   // VAMPIRE
 
   /**

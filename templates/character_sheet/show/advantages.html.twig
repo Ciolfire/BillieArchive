@@ -6,7 +6,7 @@
 {% set speed = character.speedDetails %}
 <div class="col-4 col-lg-2 text-strong">
   <span class="d-none d-md-inline">{{ "advantage.size"|trans }}</span>
-  {% include "_icon.html.twig" with {icon: 'size'} only %}
+  {% include "_icon.html.twig" with {icon: 'size-person'} only %}
   <span id="size">{{ character.size }}</span>
 </div>
 <div class="col-4 col-lg-2 text-strong" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.speed.tooltip"|trans(speed.details) }}">

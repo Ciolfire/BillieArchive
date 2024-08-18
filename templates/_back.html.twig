@@ -7,5 +7,5 @@
 
 <a href="{{ link }}" class="btn btn-back position-fixed sticky-top end-0" style="top:100px;">
   {% include "_icon.html.twig" with {icon: 'back'} %}
-  <span class="text-strong">{{ 'action.back'|trans({}, 'app')}}</span>
+  {{ 'action.back'|trans({}, 'app')}}
 </a>

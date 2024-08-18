@@ -1,6 +1,7 @@
-let form = document.querySelector('form');
-if (form) {
-  let book = form.querySelector('[id$="_book"]') as HTMLInputElement;
+let forms = Array.from(document.getElementsByTagName('form'));
+
+forms.forEach(form => {
+  const book = form.querySelector('[id$="_book"]') as HTMLInputElement;
   if (book) {
     // We get the elements
     let page = form.querySelector('[id$="_page"]') as HTMLInputElement;
@@ -30,4 +31,4 @@ if (form) {
     book.dispatchEvent( new Event('change'));
     homebrew.dispatchEvent( new Event('change'));
   }
-}
+});

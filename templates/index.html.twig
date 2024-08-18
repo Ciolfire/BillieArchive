@@ -78,7 +78,7 @@
 				{% endfor %}
 				<a class="btn btn-primary w-100" href="{{path('chronicle_new')}}">
 					{% include "_icon.html.twig" with {icon: 'chronicle'} only %}
-					<span class="text-strong">{{ 'story.new'|trans({}, 'chronicle') }}</span>
+					{{ 'story.new'|trans({}, 'chronicle') }}
 				</a>
 			</div>
 		</div>

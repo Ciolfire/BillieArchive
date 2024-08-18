@@ -9,7 +9,7 @@
         <div class="character-frame character-frame-list position-relative text-center mb-2 rounded">
           <img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
         </div>
-        <span class="text-strong">{{ character.name }}</span>
+        {{ character.name }}
       </a>
     </div>
   </div>
@@ -17,7 +17,7 @@
   <div class="col-12">
     <a class="btn btn-primary w-100" href="{{path('character_new', {'chronicle': chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'add' } only %}
-      <span class="text-strong">{{ "pc.new"|trans({}, 'character') }}</span>
+      {{ "pc.new"|trans({}, 'character') }}
     </a>
   </div>
 {% endif %}
@@ -26,25 +26,25 @@
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'party' } only %}
-      <span class="text-strong">{{ 'party.label'|trans }}</span>
+      {{ 'party.label'|trans }}
     </a>
   </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_notes', {'id': chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'note' } only %}
-      <span class="text-strong">{{ "label.multi"|trans({}, 'note') }}</span>
+      {{ "label.multi"|trans({}, 'note') }}
     </a>
   </div>
   <div class="col-6">
     <a class="btn btn-primary w-100 text-truncate" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
       {% include "_icon.html.twig" with {icon: 'homebrew' } only %}
-      <span class="text-strong">{{ "homebrew"|trans }}</span>
+      {{ "homebrew"|trans }}
     </a>
   </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{ path('chronicle_infos_index', {'id': chronicle.id}) }}">
       {% include "_icon.html.twig" with {icon: 'details' } only %}
-      <span class="text-strong">{{ "infos"|trans }}</span>
+      {{ "infos"|trans }}
     </a>
   </div>
 </div>

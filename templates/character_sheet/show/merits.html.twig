@@ -12,7 +12,7 @@
   {% set activeTab = "social" %}
 {% endif %}
 
-<div data-controller="tabs" data-tabs-initial-value={{activeTab}}>
+<div data-controller="tabs" data-tabs-initial-value={{activeTab}} data-tabs-parent-value="merits">
   <ul class="nav tabs row g-0">
     {% if mental is not empty %}
       {% include "_tab.html.twig" with {name: 'mental', label: 'category.mental'|trans({}, 'app')} only %}

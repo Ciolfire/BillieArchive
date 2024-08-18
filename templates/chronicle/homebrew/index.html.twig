@@ -9,15 +9,15 @@
   <div class="row justify-content-center">
     <h1 class="pt-5">
       {% include "_icon_setting.html.twig" with {'setting': chronicle.type } only %}
-      {% include "_icon.html.twig" with {icon: 'homebrew', 'class': 'icon-xl' } only %} {{ "homebrew"|trans }} - {{ chronicle.name }}
+      {% include "_icon.html.twig" with {icon: 'homebrew'} only %} {{ "homebrew"|trans }} - {{ chronicle.name }}
     </h1>
     <div class="block row mt-5">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'human' } %} {{ "human.label"|trans({}, 'setting') }}</h2>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary human-btn w-100 m-2" href="{{path('merit_list', {'type': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'merit' } only %}
-          <span class="accent text-strong">{{ chronicle.merits|length }}</span>
-          <span class="text-strong">{{ 'label.multi'|trans({}, 'merit') }}</span>
+          <span class="accent">{{ chronicle.merits|length }}</span>
+          <span>{{ 'label.multi'|trans({}, 'merit') }}</span>
         </a>
       </div>
       {# <div class="col-6 col-lg">
@@ -33,65 +33,65 @@
       <div class="col-12">
         <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {'type': 'vampire', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'type/vampire' } only %}
-          <span class="text-strong">{{ "homebrew.label"|trans({}, 'vampire')}}</span>
+          <span>{{ "homebrew.label"|trans({}, 'vampire')}}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('clan_list', {'filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'clan' } only %}
-          <span class="accent text-strong">{{ chronicle.clans|length }}</span>
-          <span class="text-strong">{{ "label.multi"|trans({}, 'clan')}}</span><span class="d-none d-sm-inline">, {{ "bloodline.label.multi"|trans({}, 'clan')}}</span>
-          <span class="accent text-strong">{{ chronicle.bloodlines|length }}</span>
+          <span class="accent">{{ chronicle.clans|length }}</span>
+          <span>{{ "label.multi"|trans({}, 'clan')}}</span><span class="d-none d-sm-inline">, {{ "bloodline.label.multi"|trans({}, 'clan')}}</span>
+          <span class="accent">{{ chronicle.bloodlines|length }}</span>
           {% include "_icon.html.twig" with {icon: 'bloodline' } only %}
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('discipline_filter', {'type': 'discipline','filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'discipline' } only %}
-          <span class="accent text-strong">{{ chronicle.disciplinesFromCategory|length }}</span>
-          <span class="text-strong">{{ "label.multi"|trans([], "discipline") }}</span>
+          <span class="accent">{{ chronicle.disciplinesFromCategory|length }}</span>
+          <span>{{ "label.multi"|trans([], "discipline") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('discipline_filter', {'type': 'sorcery','filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'pentacle' } only %}
-          <span class="accent text-strong">{{ chronicle.disciplinesFromCategory('sorcery')|length }}</span>
+          <span class="accent">{{ chronicle.disciplinesFromCategory('sorcery')|length }}</span>
           {{ "sorcery.label.multi"|trans([], "discipline") }}
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('ritual_list', {'filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'pentacle' } only %}
-          <span class="accent text-strong">{{ chronicle.rituals|length }}</span>
-          <span class="text-strong">{{ "sorcery.power.label.multi"|trans([], "discipline") }}</span>
+          <span class="accent">{{ chronicle.rituals|length }}</span>
+          <span>{{ "sorcery.power.label.multi"|trans([], "discipline") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('discipline_filter', {'type': 'coils','filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'coils' } only %}
-          <span class="accent text-strong">{{ chronicle.disciplinesFromCategory('coil')|length }}</span>
-          <span class="text-strong">{{ "coil.label.multi"|trans([], "discipline") }}</span>
+          <span class="accent">{{ chronicle.disciplinesFromCategory('coil')|length }}</span>
+          <span>{{ "coil.label.multi"|trans([], "discipline") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('discipline_filter', {'type': 'thaumaturgy','filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'thaumaturgy' } only %}
-          <span class="accent text-strong">{{ chronicle.disciplinesFromCategory('thaumaturgy')|length }}</span>
-          <span class="text-strong">{{ "thaumaturgy.label"|trans([], "discipline") }}</span>
+          <span class="accent">{{ chronicle.disciplinesFromCategory('thaumaturgy')|length }}</span>
+          <span>{{ "thaumaturgy.label"|trans([], "discipline") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('devotion_list', {'filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'devotion' } only %}
-          <span class="accent text-strong">{{ chronicle.devotions|length }}</span>
-          <span class="text-strong">{{ "devotion.label.multi"|trans([], "discipline") }}</span>
+          <span class="accent">{{ chronicle.devotions|length }}</span>
+          <span>{{ "devotion.label.multi"|trans([], "discipline") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('ghoul_family_list', {'filter': 'chronicle', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'ghoul_family' } only %}
-          <span class="accent text-strong">{{ chronicle.ghoulFamilies|length }}</span>
-          <span class="text-strong">{{ "family.label.multi"|trans([], "ghoul") }}</span>
+          <span class="accent">{{ chronicle.ghoulFamilies|length }}</span>
+          <span>{{ "family.label.multi"|trans([], "ghoul") }}</span>
         </a>
       </div>
     </div>

@@ -54,7 +54,7 @@ class BookController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $cover = $form->get('cover')->getData();
       $path = $this->getParameter('books_cover_directory');
-      if ($cover instanceof UploadedFile  && is_string($path)) {
+      if ($cover instanceof UploadedFile && is_string($path)) {
         $book->setCover($this->dataService->upload($cover, $path));
       }
       $this->dataService->save($book);

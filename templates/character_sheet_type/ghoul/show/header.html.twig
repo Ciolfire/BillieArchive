@@ -13,7 +13,7 @@
         {% if character.player is not null and app.user != character.player %}
           ({{ character.player }})
         {% elseif character.isPremade == true %}
-          {% include "_icon.html.twig" with {icon: 'premade', class: 'icon-xl ms-5', label: "premade.label.single"|trans({}, 'character')} %}
+          {% include "_icon.html.twig" with {icon: 'premade', class: 'ms-5', label: "premade.label.single"|trans({}, 'character')} %}
         {% endif %}
       </h2>
     </div>

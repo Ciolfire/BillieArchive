@@ -23,7 +23,7 @@ class AttributeType extends AbstractType
       // ->add('type')
       ->add('name')
       ->add('description', CKEditorType::class, [
-        'empty_data' => '', 
+        'empty_data' => '',
         'data' => $converter->convert($attribute->getDescription())
       ])
       ->add('fluff', CKEditorType::class, ['data' => $converter->convert($attribute->getFluff())]);
