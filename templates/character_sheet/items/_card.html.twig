@@ -1,0 +1,25 @@
+{% extends "item/_card.html.twig" %}
+
+{% block actions %}
+  <div class="row g-0 text-center">
+    <div class="col-4">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{item.id}}Modal">{% include "_icon.html.twig" with {icon: 'show', class:'text-strong'} only %}</button>
+    </div>
+    <div class="col-4">
+      <button type="button" class="btn btn-primary position-relative"
+        data-bs-toggle="modal" data-bs-target="#itemMoveModal"
+        data-action="click->character--item#prepare" data-character--item-id-param="{{ item.id }}" data-character--item-container-param="{{ item.container.id|default(0) }}"
+      >
+        {% include "_icon.html.twig" with {icon: 'right', class:'text-strong'} only %}
+      </button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-primary" 
+        data-bs-toggle="modal" data-bs-target="#itemDropModal"
+        data-action="click->character--item#prepare" data-character--item-id-param="{{ item.id }}"
+      >
+        {% include "_icon.html.twig" with {icon: 'delete', class:'text-strong'} only %}
+      </button>
+    </div>
+  </div>
+{% endblock %}

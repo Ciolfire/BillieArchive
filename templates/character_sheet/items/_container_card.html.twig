@@ -1,0 +1,16 @@
+{% extends "item/_card.html.twig" %}
+
+{% block actions %}
+  <div class="row g-0 text-center">
+    <div class="col-6">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{item.id}}Modal">{% include "_icon.html.twig" with {icon: 'show', class:'text-strong'} only %}</button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-primary" 
+        data-bs-toggle="modal" data-bs-target="#itemDropModal"
+      >
+        {% include "_icon.html.twig" with {icon: 'delete', class:'text-strong'} only %}
+      </button>
+    </div>
+  </div>
+{% endblock %}

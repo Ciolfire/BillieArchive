@@ -1,0 +1,9 @@
+
+<div class="col-12 col-md-6 col-lg-4 mb-2">
+  {% include "item/_card.html.twig" %}
+  <a href="{{ path('character_item_add', {'character': character.id, 'template': item.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
+    {% include "_icon.html.twig" with {icon: item.typeName, class:'text-strong'} only %}
+    {% include "_icon.html.twig" with {icon: 'right', class:'text-strong'} only %}
+    {% include "_icon.html.twig" with {icon: 'character', class:'text-strong'} only %}
+  </a>
+</div>

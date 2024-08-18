@@ -11,6 +11,7 @@ use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\Derangement;
 use App\Entity\Human;
+use App\Entity\Item;
 use App\Entity\Roll;
 use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
@@ -21,6 +22,7 @@ use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
 use App\Service\DataService;
+use App\Service\ItemService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -46,16 +48,18 @@ class CharacterController extends AbstractController
   private DataService $dataService;
   private CreationService $creationService;
   private CharacterService $service;
+  private ItemService $itemService;
   /** @var array<string, array<string, array<string, string|null>>> */
   private array $attributes;
   /** @var array<string, array<string, string|null>> */
   private array $skills;
 
-  public function __construct(DataService $dataService, CreationService $creationService, CharacterService $service)
+  public function __construct(DataService $dataService, CreationService $creationService, CharacterService $service, ItemService $itemService)
   {
     $this->dataService = $dataService;
     $this->creationService = $creationService;
     $this->service = $service;
+    $this->itemService = $itemService;
     $this->attributes = $this->service->getSortedAttributes();
     $this->skills = $this->service->getSortedSkills();
   }
@@ -164,7 +168,7 @@ class CharacterController extends AbstractController
 
       $this->dataService->save($character);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($merits);
 
@@ -198,7 +202,7 @@ class CharacterController extends AbstractController
       $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
       $this->dataService->save($character);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($merits);
 
@@ -212,14 +216,11 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}', name: 'character_show', methods: ['GET'])]
-  public function show(Request $request, Character $character, FormFactoryInterface $formFactory, string $referer=""): Response
+  public function show(Request $request, Character $character, FormFactoryInterface $formFactory): Response
   {
-    if ($request->query->get('referer')) {
-      $referer = $request->query->get('referer');
-    }
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
 
-      return $this->redirectToRoute('character_peek', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
     }
 
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
@@ -253,7 +254,6 @@ class CharacterController extends AbstractController
       'setting' => $character->getSetting(),
       'removables' => $removables,
       'derangements' => $derangements,
-      'referer' => $referer,
       'avatarForm' => $avatarForm->createView(),
     ]);
   }
@@ -279,7 +279,7 @@ class CharacterController extends AbstractController
       $spent = $this->service->editCharacter($character, $form->getExtraData());
 
       $this->addFlash('success', ["character.edit.success", ['%count%' => $spent]]);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
     $merits = $this->service->loadMerits($character, false);
@@ -319,7 +319,7 @@ class CharacterController extends AbstractController
     }
 
 
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
@@ -339,7 +339,7 @@ class CharacterController extends AbstractController
 
     if ($peeker === $character) {
       $this->addFlash('notice', 'character.peek.self');
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character)) || empty($peeker->getSpecificPeekingRights($character)->getRights())) {
       
       $this->addFlash('notice', 'character.peek.declined');
@@ -392,7 +392,7 @@ class CharacterController extends AbstractController
           } else {
             $this->addFlash('success', ['character.duplicate.success.list', ['name' => $newCharacter]]);
           }
-          return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()], Response::HTTP_SEE_OTHER);
+          return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()]);
         } else {
           // Failed
           $this->addFlash('warning', ['character.duplicate.failed', ['name' => $character]]);
@@ -428,7 +428,7 @@ class CharacterController extends AbstractController
             'name' => $character->getName(),
             'type' => $oldTemplate->getType(),
           ]);
-          return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+          return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
         }
         // We deactivate the old template
         $oldTemplate->setIsActive(false);
@@ -438,7 +438,7 @@ class CharacterController extends AbstractController
         ]);
       }
 
-      return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()]);
     }
     return $this->render('character/lesser/add.html.twig', [
       'form' => $form,
@@ -456,7 +456,7 @@ class CharacterController extends AbstractController
     $this->dataService->save($character);
 
     $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]
@@ -467,7 +467,7 @@ class CharacterController extends AbstractController
     $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
 
     $this->addFlash('notice', ["character.morality.increase", ['name' => $character]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/morality/decrease', name: 'character_morality_decrease', methods: ['POST'])]
@@ -478,7 +478,7 @@ class CharacterController extends AbstractController
     $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
 
     $this->addFlash('notice', ["character.morality.decrease", ['name' => $character]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/derangement/new', name: 'character_derangement_new', methods: ['POST'])]
@@ -487,7 +487,7 @@ class CharacterController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $character);
     $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
 
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
@@ -499,7 +499,7 @@ class CharacterController extends AbstractController
     if ($element) {
       $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
     }
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/access/add', name: 'character_access_add', methods: ['GET', 'POST'])]
@@ -517,7 +517,7 @@ class CharacterController extends AbstractController
       $this->dataService->save($access);
 
       $this->addFlash('success', ["character.access.new", ['name' => $access->getAccessor()->getName()]]);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
     return $this->render('character_sheet/edit/access.html.twig', [
       'character' => $character,
@@ -539,7 +539,7 @@ class CharacterController extends AbstractController
       $this->dataService->flush();
 
       $this->addFlash('success', ["character.access.edit", ['name' => $accessor->getName()]]);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
     return $this->render('character_sheet/edit/access.html.twig', [
       'character' => $character,
@@ -579,7 +579,7 @@ class CharacterController extends AbstractController
       $character->$set($data);
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => $type], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => $type]);
     }
     return $this->render('character_sheet/edit/basic_infos.html.twig', [
       'character' => $character,
@@ -599,10 +599,101 @@ class CharacterController extends AbstractController
 
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'access'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
     return $this->render('character_sheet/edit/infos.html.twig', [
       'character' => $character,
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/item/list', name: 'character_item_list')]
+  public function listItem(Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $templates = $this->dataService->findBy(Item::class, ['owner' => null], ['name' => 'ASC']);
+
+    return $this->render('character_sheet/items/list.html.twig', [
+      'character' => $character,
+      'templates' => $templates,
+    ]);
+  }
+
+  #[Route('/{character<\d+>}/item/container/add', name: 'character_container_add', methods: ['GET', 'POST'])]
+  public function addContainer(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $item = new Item();
+    $item->setIsContainer(true);
+    $item->setOwner($character);
+
+    $form = $this->createForm($item->getForm(), $item);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->itemService->save($form->getData(), $form->get('img')->getData());
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'inventory']);
+    }
+
+    return $this->render('character_sheet/items/add.html.twig', [
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/{character<\d+>}/item/new', name: 'character_item_new', methods: ['GET', 'POST'])]
+  public function newItem(Request $request, Character $character): Response
+  {
+    $types = $this->itemService->getTypes();
+
+    $forms = [];
+    foreach ($types as $type) {
+      $item = new $type[0]();
+      $forms[] = $this->createForm($type[1], $item);
+    }
+    if ($request->isMethod('POST')) {
+      foreach ($forms as $form) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+          $form->getData()->setOwner($character);
+          $this->itemService->save($form->getData(), $form->get('img')->getData());
+        }
+      }
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'inventory']);
+    }
+
+    $formViews = [];
+    foreach ($forms as $form) {
+      $formViews[] = $form->createView();
+    }
+    return $this->render('item/new.html.twig', [
+      'items' => $types,
+      'forms' => $formViews,
+    ]);
+  }
+
+  #[Route('/{character<\d+>}/item/{template<\d+>}/add', name: 'character_item_add', methods: ['GET', 'POST'])]
+  public function addItem(Request $request, Character $character, Item $template): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $item = clone($template);
+    $character->addItem($item);
+    $form = $this->createForm($item->getForm(), $item);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($item);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'inventory']);
+    }
+
+    return $this->render('character_sheet/items/add.html.twig', [
       'form' => $form,
     ]);
   }
@@ -630,7 +721,7 @@ class CharacterController extends AbstractController
       $character->addNote($note);
       $this->dataService->save($note);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'notes'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes']);
     }
     return $this->render('character_sheet/notes/new.html.twig', [
       'note' => $note,
@@ -650,7 +741,7 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->flush();
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 'referer' => 'notes'], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes']);
     }
     return $this->render('character_sheet/notes/edit.html.twig', [
       'note' => $note,
@@ -674,7 +765,7 @@ class CharacterController extends AbstractController
       return new JsonResponse($data);
     } else {
 
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_index', []);
     }
   }
 
@@ -687,7 +778,7 @@ class CharacterController extends AbstractController
       $this->service->updateTrait($character, $data);
       return new JsonResponse('ok');
     } else {
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_index', []);
     }
   }
 
@@ -701,7 +792,7 @@ class CharacterController extends AbstractController
       $this->service->updateTrait($character, $data, true);
       return new JsonResponse('ok');
     } else {
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_index', []);
     }
   }
 
@@ -715,7 +806,7 @@ class CharacterController extends AbstractController
       $this->service->updateExperience($character, $data);
       return new JsonResponse(['used' => $character->getXpUsed(), 'total' => $character->getXpTotal()]);
     } else {
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_index', []);
     }
   }
 
@@ -742,7 +833,7 @@ class CharacterController extends AbstractController
       return new JsonResponse(null, 204);
     } else {
 
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('character_index', []);
     }
   }
 

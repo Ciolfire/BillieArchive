@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'item' %}
+
+{% block title %}
+{{ ('new')|trans }}
+{% endblock %}
+
+
+{% block body %}
+  <h1 class="py-3 user-select-none">{% include "_icon.html.twig" with {icon: 'item'} %} {{ 'new'|trans }} {% include "_icon.html.twig" with {icon: 'new'} %}</h1>
+  <div class="container block py-3">
+    <div data-controller="tabs" data-tabs-initial-value="item">
+      <ul class="nav tabs row g-0 my-2">
+        {% for key, item in items %}
+          {% include "_tab.html.twig" with {name: key, label: ('type.' ~ key)|trans({}, 'item')} only %}
+        {% endfor %}
+      </ul>
+      {% for form in forms %}
+        {% set name = form.vars.name %}
+        <div id="{{ name }}" data-tabs-target="page">
+          {{ form_start(form) }}
+          {{ form_parent(form) }}
+          <hr>
+          {{ form_rest(form) }}
+          <button class="btn btn-primary w-100">
+            {% include "_icon.html.twig" with {icon: 'new'} %}
+            {{ 'action.new'|trans({}, 'app') }}
+          </button>
+          {{ form_end(form) }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "_back.html.twig" %}
+{% endblock %}

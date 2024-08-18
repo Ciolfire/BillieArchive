@@ -1,0 +1,33 @@
+{% trans_default_domain 'item' %}
+
+{% set standard = {
+  size: 'size',
+  durability: 'durability',
+  structure: 'structure',
+} %}
+
+{% set cost = {'cost': 'cost'} %}
+
+<div id="Item{{ item.id }}" class="item-card"
+  data-character--item-target="item" data-search-target="item" data-id="{{ item.id }}" data-name="{{ item.name }}" data-type="{{ item.typeName }}"
+>
+  <div class="block p-1">
+    <h5 class="text-strong">
+      {{ item.name }}
+      {% include "_icon.html.twig" with {icon: item.typeName} %}
+    </h5>
+    <div class="item-preview text-strong text-center">
+      {% if item.img is not null %}
+        <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
+      {% elseif item.isContainer %}
+        {% include "_icon.html.twig" with {icon: 'container', class: 'mx-auto d-block icon-100'} %}
+      {% else %}
+        {% include "_icon.html.twig" with {icon: item.typeName, class: 'mx-auto d-block icon-100'} %}
+      {% endif %}
+    </div>
+    <div>
+      {% include "item/card/" ~ item.typeName ~".html.twig" ignore missing %}
+      {% block actions %}{% endblock %}
+    </div>
+  </div>
+</div>

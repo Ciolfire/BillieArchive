@@ -1,6 +1,6 @@
 {% trans_default_domain 'character' %}
 
-<div class="position-relative overflow-y-hidden" data-controller="tabs" data-tabs-initial-value="{{ subTab }}">
+<div class="position-relative overflow-y-hidden" data-controller="tabs" data-tabs-initial-value="{{ subTab }}" data-tabs-parent-value="details">
   <ul class="nav tabs row g-0">
     {% include "_tab.html.twig" with {name: 'picture', label: 'infos.picture'|trans } only %}
     {% include "_tab.html.twig" with {name: 'description', label: 'infos.description'|trans } only %}

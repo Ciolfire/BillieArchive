@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="block-light container">
+  {% include "_back.html.twig" %}
+  <div class="row p-1">
+    {% for item in templates %}
+      {% include "character_sheet/items/list_item.html.twig" %}
+    {% endfor %}
+    <div class="col-12 col-md-6 col-lg-4 mb-2">
+      <a href="{{ path('character_item_new', {'character': character.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 h-100">
+      {% include "_icon.html.twig" with {icon: 'add', class: 'icon-100'} %}
+      Create a new Item
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -4,12 +4,16 @@ action:
     multi: Actions
   add: Add
   back: Back
+  close: Close
   confirm: Confirm
   continue: Continue
   create: Create
   delete: Delete
+  destroy: Destroy
+  drop: Drop
   duplicate: Duplicate
-  edit: Update
+  edit: Edit
+  move: Move
   new: New
   reduce: Reduce by 1
   remove: Remove

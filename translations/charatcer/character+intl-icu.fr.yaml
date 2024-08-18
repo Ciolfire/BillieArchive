@@ -6,9 +6,10 @@ Name: Nom
 Player: Joueur
 Concept: Concept
 Chronicle: Chronique
+details: Détails
 faction: Faction
 group: Group
-details: Details
+inventory: Inventaire
 traits: Traits
 
 ability:
@@ -47,7 +48,6 @@ avatar:
   modal: Avatar du personnage
   save: Sauvegarder le nouvel avatar
   upload: Glisser-déposer ou parcourir
-
 
 pc:
   label:

@@ -4,12 +4,16 @@ action:
     multi: Actions
   add: Ajouter
   back: Retour
+  close: Fermer
   confirm: Confirmer
   continue: Continue
   create: Créer
   delete: Supprimer
+  destroy: Détruire
+  drop: Retirer
   duplicate: Dupliquer
   edit: Modifier
+  move: Déplacer
   new: Nouveau
   reduce: Reduire d'1
   remove: Retirer

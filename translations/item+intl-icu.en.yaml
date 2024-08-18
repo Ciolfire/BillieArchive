@@ -1,0 +1,93 @@
+label:
+  single: Object
+  multi: Objects
+
+is:
+  container: This is a container
+name: Name
+new: New Object
+
+container:
+  label: Container
+
+cost:
+  label: Cost
+  none: n/a
+
+durability:
+  label: Durability
+size:
+  label: Size
+structure:
+  label: Structure
+  variable: Variable
+
+move: Change this item container
+
+type:
+  label: Type
+  item: Generic
+  generic: Generic
+  equipment: Equipment
+  melee_weapon: Melee Weapon
+  ranged_weapon: Ranged Weapon
+  vehicle: Vehicle
+  weapon: Weapon
+
+quality:
+  label: Quality
+  variable: ~ / 0
+  normal: Typical
+  surnatural: Surnatural
+
+picture.upload: (optional) upload your item picture
+
+# Equipement
+functionality:
+  label: Functionality
+
+# Vehicle
+handling:
+  label: Handling
+acceleration:
+  label: Acceleration
+safeSpeed:
+  label: Safe Speed
+maxSpeed:
+  label: Max Speed
+
+# Weapon
+damage:
+  label: Damage
+ranges:
+  label: Ranges
+clip:
+  label: Clip Size
+strength:
+  label: Strength
+special:
+  label: Special
+
+help:
+  img: ""
+  container: Check this box if your item can contains others items
+  quality: |
+    Gear is typically rated 1 to 5 in terms of quality, and that number of dice is added to your dice pools when pertinent actions are performed.
+    Generally speaking, useful but simple items and tools offer a +1 bonus.
+    Most specially made gear that's designed and fabricated for a particular purpose is rated +2. Say, a slimjim for auto theft.
+    Tools at +3 are reliable and precise.
+    Tools rated +4 and +5 are top-of-the-line, craftsman-made and probably expensive devices.
+    Equipment created or altered by supernatural or advanced means can be rated +4 or +5 (or higher!).
+
+modal:
+  move:
+    title: Move this item to another container
+    container: Select a container
+    empty: No container
+  drop:
+    title: Drop / Destroy
+    help: |
+      Drop: Item is no longer in the inventory, including its content.
+      Destroy: The item is destroyed, permanently.
+
+      Warning: If the character is not part of a Chronicle, drop will result in the item destruction.

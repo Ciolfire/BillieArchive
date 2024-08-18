@@ -1,0 +1,23 @@
+.item {
+  &-card .block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+  }
+
+  &-preview img, &-preview svg {
+    object-fit: contain;
+    max-height: 200px;
+  }
+
+  &-detail {
+    margin: 1px;
+    background-color: $lightBlockColor;
+
+    &-header {
+      margin: 1px;
+      background-color: $lightBlock30pColor;
+    }
+  }
+}

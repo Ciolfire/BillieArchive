@@ -8,7 +8,7 @@
     <div class="block">
       <h1 class="py-2">
         {% include "_icon.html.twig" with {icon: 'wiki', class: 'icon-lg text-strong' } only %}
-        <span class="text-strong">{{ "label"|trans }}</span>
+        {{ "label"|trans }}
       </h1>
       {% include "wiki/base.html.twig" %}
     </div>

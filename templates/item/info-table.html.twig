@@ -1,0 +1,40 @@
+{% trans_default_domain 'item' %}
+
+<div class="text-center p-1">
+  <div class="row g-0">
+    {% for key, col in cols|default([]) %}
+      <div class="col">
+        <div class="item-detail-header p-1">
+        {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans, class: 'text-strong'} %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="row g-0">
+    {% for key, col in cols|default([]) %}
+      {% set value = attribute(item, key) %}
+      <div class="col">
+        <div class="item-detail">
+          <span class="text-strong">
+            {% if key in special|default([])|keys %}
+              {% if special[key] == 0 and value == 0 %}
+                {{ (key ~ '.variable')|trans }}
+              {% elseif special[key] == 'dot' %}
+                {% if item.cost is empty %}
+                  {{ "cost.none"|trans }}
+                {% else %}
+                  {% include "_cost.html.twig" with {costs: item.cost} %}
+                {% endif %}
+              {% else %}
+                {{ value }}
+              {% endif %}
+            {% else %}
+              {{ value }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+    {% block extra %}{% endblock %}
+  </div>
+</div>

@@ -1,0 +1,15 @@
+{% extends "item/info-table.html.twig" %}
+
+{% set cols = {
+  'quality': 'quality',
+}|merge(cols) %}
+
+{% set special = {
+  'quality': 0,
+}|merge(special) %}
+
+{% block extra %}
+  <div class="col-12">
+    <div class="item-detail text-dark">{{ item.functionality|markdown_to_html }}</div>
+  </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "item/info-table.html.twig" %}
+
+{% set cols = {
+  'handling': 'vehicle',
+  'acceleration': 'acceleration',
+  'safeSpeed': 'speed-low',
+  'maxSpeed': 'speed-high'
+}|merge(cols) %}
+
+{# {% set special = {
+}|merge(special) %} #}
+
+{% block extra %}
+  <div class="col-12">
+    <div class="item-detail text-dark">{{ item.description|markdown_to_html }}</div>
+  </div>
+{% endblock %}

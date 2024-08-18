@@ -1,0 +1,15 @@
+{% set cols = {
+  size: 'size',
+  durability: 'durability',
+  structure: 'structure',
+} %}
+
+{% set special = {
+  structure: 0,
+} %}
+
+{% set cost = {'cost': 'cost'} %}
+
+{% include ["item/list/" ~ item.typeName ~".html.twig", "item/info-table.html.twig"] ignore missing %}
+
+{% include "item/info-table.html.twig" with {cols: cost, special: {cost: 'dot'}} %}

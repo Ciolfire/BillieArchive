@@ -1,0 +1,29 @@
+<div class="modal fade" id="{{ item.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{item.id}}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h4 class="modal-title text-strong" id="{{item.id}}ModalLabel">
+          {{ item.name }}
+          {% include "_icon.html.twig" with {icon: item.typeName} %}
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-strong text-center">
+          {% if item.img is not null %}
+            <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
+          {% elseif item.isContainer %}
+            {% include "_icon.html.twig" with {icon: 'container', class: 'mx-auto d-block icon-100'} %}
+          {% else %}
+            {% include "_icon.html.twig" with {icon: item.typeName, class: 'mx-auto d-block icon-100'} %}
+          {% endif %}
+        </div>
+        {% include "item/list/_item.html.twig" ignore missing %}
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary d-block" href="{{ path('item_edit', { 'id' : item.id }) }}">{% include "_icon.html.twig" with {icon: 'edit', class:'text-strong'} only %}</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

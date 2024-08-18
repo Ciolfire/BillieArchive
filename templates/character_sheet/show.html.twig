@@ -7,27 +7,14 @@
 {% set tab = "general" %}
 {% set subTab = 'description' %}
 
-{% if referer == 'notes' %}
-  {% set tab = 'notes' %}
-{% endif %}
-
-{% if referer == 'description' %}
-  {% set tab = 'details' %}
-  {% set subTab = 'description' %}
-{% endif %}
-
-{% if referer == 'background' %}
-  {% set tab = 'details' %}
-  {% set subTab = 'background' %}
-{% endif %}
-
-{% if referer == 'access'%}
-  {% set tab = 'details' %}
-  {% set subTab = 'informations' %}
-{% endif %}
-
 {% block body %}
-  <div class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}" data-controller="character--experience character--avatar" data-character--experience-id-value="{{ character.id }}" data-character--avatar-id-value="{{ character.id }}">
+  <div
+    class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}"
+    data-controller="character--experience character--avatar character--item"
+    data-character--experience-id-value="{{ character.id }}"
+    data-character--avatar-id-value="{{ character.id }}"
+    data-character--item-character-value="{{ character.id }}"
+  >
     {% block menu %}
       {% include "character_sheet/show/menu.html.twig" %}
     {% endblock %}
@@ -41,7 +28,7 @@
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}
         {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
-        {# {% include "_tab.html.twig" with {'name': 'inventory', 'domain': 'character'} only %} #}
+        {% include "_tab.html.twig" with {name: 'inventory', label: 'inventory'|trans, icon: 'equipment'} only %}
         {% include "_tab.html.twig" with {name: 'details', label: 'details'|trans} only %}
         {% if app.user == character.player %}
           {% include "_tab.html.twig" with {name: 'notes', icon: 'note', label: 'label.multi'|trans({}, 'note')} only %}
@@ -78,7 +65,7 @@
       </div>
       {% block powers %}
       {% endblock %}
-      <div id="inventory" class="tab-content" data-tabs-target="page">
+      <div id="inventory" class="tab-content p-0" data-tabs-target="page">
         {% include "character_sheet/show/inventory.html.twig" %}
       </div>
       <div id="relation" class="tab-content p-0" data-tabs-target="page">
@@ -102,9 +89,16 @@
         {% include "character_sheet/modal/xp_add.html.twig" %}
         {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
         {% include "character_sheet/modal/ability_removal.html.twig" %}
+        {# Morality #}
         {% include "character_sheet/modal/morality_decrease.html.twig" %}
         {% include "character_sheet/modal/morality_increase.html.twig" %}
         {% include "character_sheet/modal/new_derangement.html.twig" %}
+        {# Items #}
+        {% include "character_sheet/modal/item/move.html.twig" %}
+        {% include "character_sheet/modal/item/drop.html.twig" %}
+        {% for item in character.items %}
+          {% include "character_sheet/modal/item/infos.html.twig" %}
+        {% endfor %}
       {% endif %}
     {% endblock %}
   </div>

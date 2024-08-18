@@ -1,0 +1,26 @@
+{% trans_default_domain 'item' %}
+
+<div id="{{ item.id }}" class="col-12" data-search-target="item" data-name="{{ item.name }}" data-type="{{ item.typeName }}">
+  <div class="block my-1">
+    {# <div class="row">
+      <div class="col-4">
+        <div class="item-preview text-strong">
+          {% if item.img is not null %}
+            <img class="mx-auto rounded" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
+          {% else %}
+            {% include "_icon.html.twig" with {icon: item.typeName, class: 'icon-100'} %}
+          {% endif %}
+        </div>
+      </div>
+    </div> #}
+    <a class="float-end text-end text-strong" href="{{ path('item_edit', {'id': item.id }) }}">{% include "_icon.html.twig" with {icon : 'edit'} only %}</a>
+    <h2 class="text-strong">
+      {% if item.img is not null %}
+        <img class="mx-auto rounded" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}" height="40"/>
+      {% endif %}
+      {{ item.name }}
+      {% include "_icon.html.twig" with {icon: item.typeName} %}
+    </h2>
+    {% include "item/list/_item.html.twig" ignore missing %}
+  </div>
+</div>

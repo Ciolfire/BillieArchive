@@ -1,0 +1,93 @@
+label:
+  single: Objet
+  multi: Objets
+
+is:
+  container: Ceci est un contenant
+name: Nom
+new: Nouvel objet
+
+container:
+  label: Contenant
+
+cost:
+  label: Coût
+  none: n/a
+
+durability:
+  label: Durabilité
+size:
+  label: Taille
+structure:
+  label: Structure
+  variable: Variable
+
+move: Changer le contenant de cet objet
+
+type:
+  label: Type
+  item: Generique
+  generic: Generique
+  equipment: Équipment
+  melee_weapon: Arme de mêlée
+  ranged_weapon: Arme à distance
+  vehicle: Véhicule
+  weapon: Arme
+
+quality:
+  label: Qualité
+  variable: ~ / 0
+  normal: Habituel
+  surnatural: Surnaturel
+
+picture.upload: (optionnel) Chargez l'image de votre objet
+
+# Equipement
+functionality:
+  label: Fonctionnalité
+
+# Vehicle
+handling:
+  label: Maniement
+acceleration:
+  label: Accélération
+safeSpeed:
+  label: Vitesse sûre
+maxSpeed:
+  label: Vitesse max
+
+# Weapon
+damage:
+  label: Dégâts
+ranges:
+  label: Portées
+clip:
+  label: Chargeur
+strength:
+  label: Force
+special:
+  label: Spécial
+
+help:
+  img: ""
+  container: Cochez cette case si votre objet peut en contenir d'autres.
+  quality: |
+    Les outils possèdent habituellement un score de 1 à 5 en terme de qualité, et indique le nombre de dés à ajouter au lancer quand des actions pertinentes sont entreprises.
+    De façon générale, des objets et outils utiles mais simple offrent un bonus de +1.
+    La plupart du matériel qui est conçu et fabriqué pour une tâche précise ont un score de +2. Par exemple un slim jim pour forcer une portière de voiture.
+    Des outils à +3 sont fiable et précis.
+    Ceux à +4 ou +5 sont haut de gamme, fait sur mesure et probablement onéreux.
+    Les équipements créés ou modifiés de façon surnaturelle ou d'autre moyens avancé peuvent atteindre un score de +4 ou +5 (ou plus !).
+
+modal:
+  move:
+    title: Déplacer cet objet dans un autre contenant
+    container: Selectionnez un contenant
+    empty: Aucun contenant
+  drop:
+    title: Retirer / Detruire
+    help: |
+      Retirer: L'objet sera retiré de l'inventaire, ce qui inclus sont éventuel contenu.
+      Detruire: L'objet sera détruit, de façon permanente.
+
+      Attention: Si le personnage ne fait pas parti d'une chronique, retirer l'objet aura le même effet que de le supprimer.

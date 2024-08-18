@@ -9,12 +9,20 @@
 {% endif %}
 
 {% block title %}
-{{ (element ~ '.' ~ action)|trans }}
+  {{ ("label.single")|trans([], element) }}
+  —
+  {{ ("action." ~ action)|trans }}
 {% endblock %}
 
 
 {% block body %}
-  <h1 class="py-3">{% include "_icon.html.twig" with {icon: element, 'class': 'icon-xl'} %} {{ (element ~ '.' ~ action)|trans }}</h1>
+  <h1 class="py-3">
+    {% include "_icon.html.twig" with {icon: element} %}
+    {{ ("label.single")|trans([], element) }}
+    —
+    {{ ("action." ~ action)|trans }}
+    {% include "_icon.html.twig" with {icon: action} %}
+  </h1>
   <div class="container block py-3">
     {{ include('element/forms/_form.html.twig') }}
   </div>

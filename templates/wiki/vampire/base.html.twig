@@ -1,7 +1,7 @@
 {% trans_default_domain 'vampire' %}
 
 <div class="row vampire mt-3 pt-2">
-  <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:1.5em;" /> <span class="text-strong">{{ "vampire.label"|trans({}, 'setting')}}</span></h2>
+  <h2 class="pe-none"><img src={{ asset('SkullVTR.png', 'images') }} style="height:1.5em;" /> {{ "vampire.label"|trans({}, 'setting')}}</h2>
 
   <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {setting: 'vampire'})}}">
@@ -24,7 +24,7 @@
   <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('bloodline_index')}}">
       {% include "_icon.html.twig" with {icon: 'bloodline' } only %}
-      <span class="d-none d-sm-inline">{{ "bloodline.label.multi"|trans({}, 'clan')}}</span>
+      <span>{{ "bloodline.label.multi"|trans({}, 'clan')}}</span>
     </a>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">

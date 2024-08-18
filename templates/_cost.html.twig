@@ -1,0 +1,22 @@
+{% set last = null %}
+{% set isRange = false %}
+{% set ranges = [] %}
+
+<span>
+{% for cost in costs %}
+  {% if last + 1 == cost %}
+    {% set isRange = true %}
+  {% else %}
+    {% set isRange = false %}
+  {% endif %}
+  {% set last = cost %}
+{% endfor %}
+
+{% if isRange and costs|length > 1 %}
+  {% for i in 1..costs|first %}•{% endfor %}
+  —
+  {% for i in 0..(costs|last - costs|first) %}•{% endfor %}
+{% else %}
+  {% for cost in costs %}{% if cost != costs|first %}/{% endif %}{% for i in 1..cost %}•{% endfor %}{% endfor %}
+{% endif %}
+</span>

@@ -13,6 +13,7 @@ parameters:
   clans_emblems_directory: '%kernel.project_dir%/public/images/clans/emblems'
   ghoul_family_emblems_directory: '%kernel.project_dir%/public/images/ghoul/emblems'
   books_cover_directory: '%kernel.project_dir%/public/images/books'
+  item_img_directory: '%kernel.project_dir%/public/images/items'
 
 services:
   # default configuration for services in *this* file

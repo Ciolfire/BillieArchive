@@ -6,9 +6,10 @@ Name: Name
 Player: Player
 Concept: Concept
 Chronicle: Chronicle
+details: Details
 faction: Faction
 group: Group
-details: Details
+inventory: Inventory
 traits: Traits
 
 ability:

@@ -3,7 +3,7 @@
 <div class="row generic pt-2">
   <h2 class="pe-none">
     <img src={{ asset('SkullWOD.webp', 'images') }} style="height:1.5em;" />
-    <span class="text-strong">World of Darkness</span>
+    World of Darkness
   </h2>
   <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {'setting': 'human'})}}">
@@ -65,12 +65,12 @@
       <span>{{ "roll.label.multi"|trans }}</span>
     </a>
   </div>
-  {# <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('item_index')}}">
-      {% include "_icon.html.twig" with {icon: 'cube' } only %}
+      {% include "_icon.html.twig" with {icon: 'item' } only %}
       <span>{{ "label.multi"|trans({}, 'item') }}</span>
     </a>
-  </div> #}
+  </div>
   {# <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="#">{{ "advantages"|trans}}
     </a></div> #}
