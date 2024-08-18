@@ -70,7 +70,8 @@ special:
 
 help:
   img: ""
-  container: Cochez cette case si votre objet peut en contenir d'autres.
+  container: Vous pouvez choisir un contenant pour cet objet.
+  is.container: Cochez cette case si votre objet peut en contenir d'autres.
   quality: |
     Les outils possèdent habituellement un score de 1 à 5 en terme de qualité, et indique le nombre de dés à ajouter au lancer quand des actions pertinentes sont entreprises.
     De façon générale, des objets et outils utiles mais simple offrent un bonus de +1.

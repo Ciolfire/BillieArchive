@@ -37,7 +37,7 @@ class ItemType extends AbstractType
       ])
       ->add('isContainer', null, [
         'label' => 'is.container',
-        'help' => 'help.container',
+        'help' => 'help.is.container',
       ]);
       if ($item->getOwner()) {
         $builder->add('container', null, [

@@ -70,7 +70,8 @@ special:
 
 help:
   img: ""
-  container: Check this box if your item can contains others items
+  container: You can select a container for this item
+  is.container: Check this box if your item can contains others items
   quality: |
     Gear is typically rated 1 to 5 in terms of quality, and that number of dice is added to your dice pools when pertinent actions are performed.
     Generally speaking, useful but simple items and tools offer a +1 bonus.
