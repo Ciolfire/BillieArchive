@@ -19,8 +19,8 @@ class Weapon extends Item
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $strength = null;
 
-  #[ORM\Column(nullable: true)]
-  private ?array $special = null;
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $special = "";
 
   // #[ORM\Column]
   // private ?bool $isTwoHanded = false;
@@ -57,15 +57,15 @@ class Weapon extends Item
       return $this;
   }
 
-  public function getSpecial(): ?array
+  public function getSpecial(): ?string
   {
-      return $this->special;
+    return $this->special;
   }
 
-  public function setSpecial(?array $special): static
+  public function setSpecial(string $special): static
   {
-      $this->special = $special;
+    $this->special = $special;
 
-      return $this;
+    return $this;
   }
 }
