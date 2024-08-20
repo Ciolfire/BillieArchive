@@ -222,7 +222,6 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
     }
-
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
@@ -825,7 +824,9 @@ class CharacterController extends AbstractController
           $old = $character->getAvatar();
           $character->setAvatar($filename);
           $this->dataService->flush();
-          $this->dataService->removeFile("$path/$old");
+          if (!empty($old)) {
+            $this->dataService->removeFile("$path/$old");
+          }
           return new JsonResponse($filename);
         }
       }

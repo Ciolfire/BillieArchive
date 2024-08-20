@@ -13,8 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -38,8 +36,7 @@ class RegistrationController extends AbstractController
     $user = new User();
     $form = $this->createForm(RegistrationFormType::class, $user);
     $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid() && is_null($form->get('verificationCode')->getData())) {
       // encode the plain password
       $user->setPassword(
         $userPasswordHasher->hashPassword(
@@ -47,7 +44,6 @@ class RegistrationController extends AbstractController
           $form->get('plainPassword')->getData()
         )
       );
-
       try {
         $entityManager->persist($user);
         $entityManager->flush();
