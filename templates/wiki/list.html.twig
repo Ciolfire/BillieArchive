@@ -52,8 +52,10 @@
 
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
-    <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
     <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
       <span class="fa-layers fa-fw">
         <i class="fa-solid fa-circle"></i>

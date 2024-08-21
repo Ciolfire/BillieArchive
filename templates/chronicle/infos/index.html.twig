@@ -2,6 +2,11 @@
 
 {% trans_default_domain 'chronicle' %}
 
+{% set footer = true %}
+{% block bodyData %}
+  data-controller="search" data-search-type-value="merit"
+{% endblock %}
+
 {% block body %}
   {% include '_back.html.twig' %}
   <div class="container-fluid container-lg py-3">

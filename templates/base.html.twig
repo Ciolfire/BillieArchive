@@ -52,8 +52,10 @@
           <div class="row mb-0">
             {% block footerContent %}
               <div class="col-12 d-flex align-items-center position-relative justify-content-center">
-                <span class="search-icon"><i class="fa-solid fa-magnifying-glass fa-fw"></i></span>
-                <input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+                <span class="search-icon">
+                  {% include "_icon.html.twig" with  {icon: 'search'} %}
+                </span>
+                <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
               </div>
             {% endblock %}
           </div>

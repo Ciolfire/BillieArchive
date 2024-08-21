@@ -69,10 +69,10 @@
 
 {% block footerContent %}
 	<div class="col-12 d-flex align-items-center position-relative">
-		<span class="search-icon">
-			<i class="fa-solid fa-magnifying-glass fa-fw"></i>
-		</span>
-		<input class="search-field" type="text" data-search-target="query" data-action="search#getResults">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
 		{% if is_granted('ROLE_ST') %}
 			<div class="ms-auto">
 				<a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
