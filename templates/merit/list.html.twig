@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% set footer = true %}
-
 {% trans_default_domain 'app' %}
 
 {% block title %}{{ 'label.multi'|trans({}, 'merit') }}{% endblock %}
 
+{% set footer = true %}
 {% block bodyData %}
   data-controller="search" data-search-type-value="merit"
 {% endblock %}

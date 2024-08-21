@@ -6,6 +6,11 @@
   {% set showChronicle = 0 %}
 {% endif %}
 
+{% set footer = true %}
+{% block bodyData %}
+  data-controller="search" data-search-type-value="character"
+{% endblock %}
+
 
 {% block title %}{{ "npc.label.multi"|trans }}{% endblock %}
 

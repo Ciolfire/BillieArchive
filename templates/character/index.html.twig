@@ -2,8 +2,11 @@
 
 {% trans_default_domain 'character' %}
 
-{% block title %}
-  {{ 'pc.label.multi'|trans }}
+{% block title %}{{ 'pc.label.multi'|trans }}{% endblock %}
+
+{% set footer = true %}
+{% block bodyData %}
+  data-controller="search" data-search-type-value="character"
 {% endblock %}
 
 {% block body %}
