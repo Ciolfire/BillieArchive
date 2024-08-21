@@ -15,14 +15,16 @@
   }
 
   &-handwritting {
-    background-color: rgb(247, 247, 120);
-    color           : black;
+    background-color: #fcedb4;
+    color           : #402ba4;
     font-family     : 'roustel';
     box-shadow      : 2px 8px 9px black;
 
     strong {
-      color           : black;
-      background-color: #00f7ffb6;
+      color: #3f2ba4d5;
+      background-color: rgb(233, 178, 73);
+      box-shadow: 0 0 5px 3px #e9b249;
+      text-shadow: none;
     }
 
     h3 {
