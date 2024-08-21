@@ -384,7 +384,7 @@ class CharacterController extends AbstractController
       if (is_string($path)) {
         $chronicle = $form->get('story')->getData();
         $newCharacter = $this->dataService->duplicateCharacter($character, $chronicle, $user, $path);
-        if ($character) {
+        if ($newCharacter) {
           // Success
           if ($chronicle) {
             $this->addFlash('success', ['character.duplicate.success.chronicle', ['name' => $newCharacter, 'chronicle' => $chronicle]]);
@@ -413,7 +413,9 @@ class CharacterController extends AbstractController
     $templates = $this->service->getAllAvailableLesserTemplates($oldTemplate);
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
       ->add('template', ChoiceType::class, [
+        'label' => 'label.single',
         'choices' => $templates,
+        'translation_domain' => 'content-type',
       ])
       ->add('submit', SubmitType::class, ['label' => 'Apply'])
       ->getForm();
@@ -497,6 +499,8 @@ class CharacterController extends AbstractController
     $element = $this->service->removeAbility($character, $request->request->all());
     if ($element) {
       $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
+    } else {
+      $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
     }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
@@ -509,8 +513,18 @@ class CharacterController extends AbstractController
     $access = new CharacterAccess();
 
     $access->setTarget($character);
-    $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+    try {
+      $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+    } catch (\Throwable $th) {
+      if ($th->getCode() == 847) {
+        $this->addFlash('warning', ["character.access.none", []]);
+        return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
+      }
+    }
     $form->handleRequest($request);
+
+    // if (is_null($access->getAccessor())) {
+    // }
 
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($access);
@@ -518,7 +532,7 @@ class CharacterController extends AbstractController
       $this->addFlash('success', ["character.access.new", ['name' => $access->getAccessor()->getName()]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
-    return $this->render('character_sheet/edit/access.html.twig', [
+    return $this->render('character_sheet/elements/access.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);
@@ -540,7 +554,7 @@ class CharacterController extends AbstractController
       $this->addFlash('success', ["character.access.edit", ['name' => $accessor->getName()]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
-    return $this->render('character_sheet/edit/access.html.twig', [
+    return $this->render('character_sheet/elements/access.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);
@@ -580,7 +594,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => $type]);
     }
-    return $this->render('character_sheet/edit/basic_infos.html.twig', [
+    return $this->render('character_sheet/infos/basic.html.twig', [
       'character' => $character,
       'form' => $form,
       'type' => $type,
@@ -600,7 +614,7 @@ class CharacterController extends AbstractController
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
     }
-    return $this->render('character_sheet/edit/infos.html.twig', [
+    return $this->render('character_sheet/infos/edit.html.twig', [
       'character' => $character,
       'form' => $form,
     ]);

@@ -1,0 +1,70 @@
+{% trans_default_domain 'character' %}
+
+<div class="col-12 my-2" data-controller="character--notes">
+  <div class="accordion" id="notesList">
+    {% for note in character.notes|reverse %}
+      {% set cYear = note.assignedAt|date('Y') %}
+      {% set cMonth = note.assignedAt|date('F') %}
+      {% if cYear != year|default(null) %}
+        {% if not loop.first %}
+          </div>
+        {% endif %}
+        <h5 class="btn btn-primary mt-0 mb-0 w-100" data-bs-toggle="collapse" data-bs-target=".list-{{ cYear }}" aria-expanded="false" aria-controls="list-{{ cYear }}">{{ cYear }}</h5>
+        <div class="row g-0 collapse list-{{ cYear }} mb-5" data-bs-parent="#notesList">
+      {% endif %}
+      {% if month is not defined or cMonth != month or cYear != year %}
+        <div class="col-12">
+          <h3 class="my-1">{{ cMonth }}</h3>
+        </div>
+      {% endif %}
+      <div class="col-6 col-md-4 col-lg-2">
+        <a class="btn btn-primary fs-sm w-100 h-100" href="#note-{{ note.id }}">
+          {{ note.assignedAt|format_datetime(pattern="E d") }}
+          <br>
+          {{ note.title|default('—') }}
+        </a>
+      </div>
+      {% if loop.last %}
+        </div>
+      {% else %}
+        {% set year = note.assignedAt|date('Y') %}
+        {% set month = note.assignedAt|date('F') %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="row g-0 mb-3">
+    <a class="btn btn-primary" href="{{ path('character_note_new', {'id': character.id}) }}">
+      {% include "_icon.html.twig" with {icon : 'add', label: 'action.add'|trans({}, 'app') } only %}
+      {% include "_icon.html.twig" with {icon: 'note', label: 'label.single'|trans({}, 'note')} only %}
+    </a>
+  </div>
+  <div class="row g-0 mb-3 justify-content-center">
+    <div class="col text-center">
+      {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+      <input type="text" class="search-field" data-character--notes-target="input" data-action="character--notes#update"/>
+    </div>
+  </div>
+  <div class="row mt-5">
+    {% for note in character.notes %}
+      <div class="col-12 col-md-6">
+        <div id="note-{{ note.id }}" class="note note-{{ note.typeName }}" data-character--notes-target="note" data-text="{{ note.content }}" data-title={{ note.title }}>
+          <a class="float-end" href="{{ path('character_note_edit', {'id': character.id, 'note': note.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+          <h3 class="pt-2">{{note.title|default('—') }}</h3>
+          <h5 class="text-end pe-2">{{ note.assignedAt|format_datetime('full', 'none') }}</h5>
+          <hr>
+          {{ note.content|markdown_to_html }}
+          {% if note.author != character.player %}
+            <p class="text-end">{{ note.author }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if character.notes is not empty %}
+    <div class="position-sticky bottom-0 text-center">
+      <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
+    </div>
+  {% else %}
+    <p>{{ "none"|trans({}, 'note') }}</p>
+  {% endif %}
+</div>

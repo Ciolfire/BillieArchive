@@ -6,7 +6,7 @@
 
 
 {% block body %}
-  {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id}) ~ "?referer=access"} %}
+  {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id, _fragment: "relation"})} %}
   <div class="block py-3"><h1 class="text user-select-none"><strong>{{ peeker }}</strong>'s informations on this character</h1></div>
   <div class="container-fluid container-lg">
     {% block menu %}

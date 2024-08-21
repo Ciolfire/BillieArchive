@@ -5,10 +5,17 @@
     {% for key, col in cols|default([]) %}
       <div class="col">
         <div class="item-detail-header p-1">
-        {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans, class: 'text-strong'} %}
+          {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans, class: 'text-strong'} %}
         </div>
       </div>
     {% endfor %}
+    {% if special['expand']|default(false) %}
+      <div class="col">
+        <div class="item-detail-header p-1">
+          {% include "_icon.html.twig" with {icon: 'info', label: (special['expand'] ~ '.label')|trans, class: 'text-strong'} %}
+        </div>
+      </div>
+    {% endif %}
   </div>
   <div class="row g-0">
     {% for key, col in cols|default([]) %}
@@ -35,6 +42,16 @@
         </div>
       </div>
     {% endfor %}
-    {% block extra %}{% endblock %}
+    {% if special['expand']|default(false) %}
+      <div class="col">
+        <div class="item-detail">
+          <span class="text-strong">
+            {% include "_icon.html.twig" with {icon: "search", class: 'text-strong'} %}
+          </span>
+        </div>
+      </div>
+    {% endif %}
+    {% block extra %}
+    {% endblock %}
   </div>
 </div>

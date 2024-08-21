@@ -1,0 +1,18 @@
+{% extends "character_sheet_type/vampire/disciplines/elements.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block list %}
+  {% for chDiscipline in characterDisciplines|sort((a, b) => a.name <=> b.name) %}
+    {% set max = 5 %}
+    {% if chDiscipline.discipline.isCoil %}
+      {% set max = chDiscipline.discipline.maxLevel %}
+    {% endif %}
+    
+    {% set maxPower = chDiscipline.level %}
+    {% set min = 0 %}
+    {% set base = chDiscipline.level %}
+    {% set discipline = chDiscipline.discipline %}
+    {% include "character_sheet_type/vampire/disciplines/show/element.html.twig" %}
+  {% endfor %}
+{% endblock %}

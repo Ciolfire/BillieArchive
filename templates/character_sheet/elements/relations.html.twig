@@ -1,0 +1,13 @@
+{% trans_default_domain 'character' %}
+
+<div class="row m-3" data-controller="search" data-search-type-value="merit">
+  <div class="col-12 text-center pb-3">
+    {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+    <input type="text" class="search-field" data-search-target="query" data-action="search#getResults"/>
+  </div>
+  {% for peekingRight in character.orderdPeekingRights %}
+    {% if peekingRight.rights is not empty %}
+      {% include 'character/_peeking_card.html.twig' with { character: peekingRight.target, access: peekingRight } %}
+    {% endif %}
+  {% endfor %}
+</div>

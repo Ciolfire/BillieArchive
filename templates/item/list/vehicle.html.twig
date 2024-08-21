@@ -11,7 +11,14 @@
 }|merge(special) %} #}
 
 {% block extra %}
-  <div class="col-12">
-    <div class="item-detail text-dark">{{ item.description|markdown_to_html }}</div>
-  </div>
+  {% if item.description is not empty %}
+    <div class="col-12">
+      <div class="item-detail-header p-1">
+        {% include "_icon.html.twig" with {icon: "image", label: "description"|trans([], 'app'), class: 'text-strong'} %}
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="item-detail text-dark">{{ item.description|markdown_to_html }}</div>
+    </div>
+  {% endif %}
 {% endblock %}

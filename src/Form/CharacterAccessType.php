@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Character;
 use App\Entity\CharacterAccess;
 use App\Entity\Chronicle;
+use Exception;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -76,6 +77,10 @@ class CharacterAccessType extends AbstractType
             unset($characters[array_search($check, $characters)]);
           }
         }
+      }
+
+      if (empty($characters)) {
+        throw new Exception("empty choice of characters for access", 847);
       }
       $builder
         ->add('rights', ChoiceType::class, [

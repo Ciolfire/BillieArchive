@@ -1,12 +1,12 @@
 {% if isShared|default(true) == true %}
-  {% if character.type == "human" %}
-    {{ asset('SkullWOD.webp', 'images') }}
-  {% elseif character.type == "vampire" %}
+  {% if character.type == "vampire" %}
     {{ asset('SkullVTR.png', 'images') }}
   {% elseif character.type == "mage" %}
     {{ asset('SkullMTAw.webp', 'images') }}
   {% elseif character.type == "werewolf" %}
     {{ asset('SkullWTF.png', 'images') }}
+  {% else %}
+    {{ asset('SkullWOD.webp', 'images') }}
   {% endif %}
 {% else %}
   {{ asset('rabbit_move_slow.gif', 'images') }}

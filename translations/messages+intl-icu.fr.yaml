@@ -24,6 +24,7 @@ character:
   access:
     new: "Informations partagées à {name}."
     edit: "Mise à jour des informations partagées à {name}."
+    none: "Aucun personnage disponible."
   delete:
     success: "Le personnage {name} a été supprimé avec succès."
   duplicate:

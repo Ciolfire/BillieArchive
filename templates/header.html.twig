@@ -13,23 +13,22 @@
 	<div class="container-fluid">
 		<a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">Billie's Archive
 			<img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
-		<ul class="navbar-nav mb-2 mb-lg-0 flex-row">
-			{% if app.user.chronicles is not empty %}
-				{% for chronicle in app.user.chronicles %}
-					{% set character = chronicle.character(app.user) %}
-					<li class="nav-item">
-						{% if character %}
+		<ul class="navbar-nav mb-2 mb-lg-0 flex-row justify-content-center">
+				{% for character in app.user.chroniclesCharacters %}
+					{% if character.id == app.user.preferences.favoriteCharacter %}
+						<li class="nav-item d-flex justify-content-center">
 							<a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
 								<img class="nav-link {{ character.type }} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
 							</a>
-						{% else %}
-							<a class="nav-link px-1" href="{{path('character_new', {chronicle: chronicle.id })}}" style="padding:1px;">
-								<img class="nav-link {{ chronicle.type }} btn btn-primary thumbnail" src="{{ asset('add.svg', 'images') }}" height="40" width="40"/>
+						</li>
+					{% else %}
+						<li class="nav-item justify-content-center d-none d-lg-flex">
+							<a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
+								<img class="nav-link {{ character.type }} btn btn-secondary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
 							</a>
-						{% endif %}
-					</li>
+						</li>
+					{% endif %}
 				{% endfor %}
-			{% endif %}
 		</ul>
 		{# <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}"> #}
 

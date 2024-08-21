@@ -1,0 +1,17 @@
+{% extends "character_sheet/merits/elements.html.twig" %}
+
+{% trans_default_domain 'merit' %}
+
+{% block list %}
+  <div class="w-100 user-select-none text-center"><h6><span class="title-block">{{ "improve"|trans }}</span></h6></div>
+  {% for chMerit in character.merits %}
+    {% if chMerit.level < chMerit.merit.max %}
+      {% include "character_sheet/merits/edit/element.html.twig" with {'id': chMerit.id, 'merit': chMerit.merit, 'isImproving': true} %}
+    {% endif %}
+  {% endfor %}
+  <div class="w-100"></div>
+  <div class="w-100 user-select-none text-center"><h6><span class="title-block">{{ "new"|trans }}</h6></div>
+  {% for merit in merits %}
+    {% include "character_sheet/merits/edit/element.html.twig" %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+<svg style="fill:currentColor;" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1080 1080">
+  <g transform="matrix(2.11 0 0 2.11 382.88 604.61)"  >
+    <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"  transform=" translate(-256.02, -269.15)" d="M 255 45.4 C 230.5 45.4 208 57.2 191.1 78.8 C 174.2 100.3 164 131.4 164 165.3 C 164 201.3 176.1 232.8 195 254.8 L 208.5 269.8 L 188.9 274.40000000000003 C 136.60000000000002 286.3 111.5 311.3 97.15 349.6 C 83.45 385.3 81.55000000000001 434.40000000000003 81.05000000000001 492.90000000000003 L 431 492.90000000000003 C 430.8 434.20000000000005 430.5 383.6 418 347.40000000000003 C 404.6 308.00000000000006 380.1 283.1 324 272 L 304.1 268.3 L 317 252.60000000000002 C 334.7 230.70000000000002 345.8 200.00000000000003 345.8 165.10000000000002 C 345.8 131.20000000000002 335.5 100.20000000000002 318.6 78.80000000000003 C 301.8 57.10000000000002 279.3 45.200000000000024 255.00000000000003 45.40000000000003 z" stroke-linecap="round" />
+  </g>
+  <g transform="matrix(8.3 0 0 8.3 778.13 312.26)" id="59e3d443-60f3-4b1a-afbc-a2bfb05a69ac"  >
+    <circle style="fill: rgb(152,0,0); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  cx="0" cy="0" r="35" />
+  </g>
+  <g transform="matrix(7.02 0 0 7.02 787.23 314.96)" id="d79fa4cb-36c9-4fdf-acc3-2348d2ffe6ab"  >
+    <polygon style="fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  points="0,36.77 15.28,20.24 30.55,3.71 11.79,3.71 11.79,-36.77 -12.82,-36.77 -12.82,3.71 -30.55,3.71 -15.28,20.24 " />
+  </g>
+</svg>

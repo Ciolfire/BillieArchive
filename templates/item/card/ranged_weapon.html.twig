@@ -1,18 +1,5 @@
 {% extends "item/info-table.html.twig" %}
 
-{# {% trans_default_domain 'item' %}
-
-<div class="text-strong">
-  {% include "_icon.html.twig" with {icon: 'quality'} %}
-  {{ item.quality }}
-  {% if item.quality == 0 %}
-    {{ "quality.variable"|trans }}
-  {% endif %}
-  {% include "_icon.html.twig" with {icon: 'details'} %}
-  {{ item.functionality|markdown_to_html }}
-</div> #}
-
-
 {% set cols = {
   'damage': 'damage',
   'ranges': 'ranges',
@@ -20,6 +7,8 @@
   'strength': 'strength',
 } %}
 
-{# {% set special = {
-  'quality': 0
-} %} #}
+{% if item.special is not empty %}
+  {% set special = {
+    'expand': 'special'
+  } %}
+{% endif %}

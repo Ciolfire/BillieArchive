@@ -1,0 +1,15 @@
+{% extends "character_sheet/attributes/element.html.twig" %}
+
+{% block controller %}data-controller="dot"{% endblock %}
+
+{% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"{% endblock %}
+
+{% block input %}{{ form_row(attribute(form.attributes, attribute.id), {'attr': {'data-dot-target': 'input', 'data-character--creation-target': category ~ "Attr"}}) }}{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" class="btn-check" id="{{ attribute.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+  <label class="btn dot {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ attribute.id ~ '-' ~ value }}" 
+    data-action="click->dot#activate click->character--creation#attributeUpdate"
+    data-dot-value-param="{{ value }}">
+  </label>
+{% endblock %}

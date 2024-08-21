@@ -1,0 +1,15 @@
+{% extends "item/info-table.html.twig" %}
+
+{% set cols = {
+  'damage': 'damage',
+  'strength': 'strength',
+} %}
+
+{# {% set cols = cols|merge({'expand': 'info'}) %} #}
+
+{% if item.special is not empty %}
+  {% set special = {
+    'expand': 'special'
+  } %}
+{% endif %}
+

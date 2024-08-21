@@ -11,9 +11,14 @@ use App\Entity\CharacterLesserTemplate;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Derangement;
+use App\Entity\Devotion;
+use App\Entity\Ghoul;
+use App\Entity\GhoulDiscipline;
+use App\Entity\Human;
 use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vampire;
+use App\Entity\VampireDiscipline;
 
 class CharacterService
 {
@@ -232,7 +237,7 @@ class CharacterService
       // We don't add the current template in the list
       if ($class !== $exception) {
         $class = new $class();
-        $templates["type.{$class->getType()}"] = $class->getType();
+        $templates["{$class->getType()}"] = $class->getType();
       }
     }
 
@@ -356,6 +361,12 @@ class CharacterService
       // Vampire
       case 'potency':
         $isDone = $this->reducePotency($character, $element, $infos);
+        break;
+      case 'discipline':
+        $isDone = $this->removeDiscipline($character, $method, $element, $infos);
+        break;
+      case 'devotion':
+        $isDone = $this->removeDevotion($character, $element, $infos);
         break;
       default:
         $isDone = false;
@@ -488,6 +499,65 @@ class CharacterService
     return false;
   }
 
+  /** Reduce/Remove a discipline for a Vampire or a Ghoul */
+  private function removeDiscipline(Character $character, string $method, &$element, &$infos) : bool
+  {
+    if ($character instanceof Vampire) {
+      $discipline = $this->dataService->find(VampireDiscipline::class, $element);
+      if ($discipline instanceof VampireDiscipline) {
+        $element = $discipline->getName();
+        $level = $discipline->getLevel();
+        $infos['base'] = $level;
+        $infos['name'] = $element;
+        if ($method == 'reduce' && $level > 1) {
+          $discipline->setLevel($level - 1);
+        } else {
+          $character->removeDiscipline($discipline);
+        }
+        return true;
+      }
+    } else {
+      $lesser = $character->getLesserTemplate();
+      if ($lesser instanceof Ghoul) {
+        $discipline = $this->dataService->find(GhoulDiscipline::class, $element);
+        if ($discipline instanceof GhoulDiscipline) {
+          $element = $discipline->getName();
+          $level = $discipline->getLevel();
+          $infos['base'] = $level;
+          $infos['name'] = $element;
+          if ($method == 'reduce' && $level > 1) {
+            $discipline->setLevel($level - 1);
+          } else {
+            $lesser->removeDiscipline($discipline);
+          }
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private function removeDevotion(Character $character, &$element, &$infos) : bool
+  {
+    $devotion = $this->dataService->find(Devotion::class, $element);
+    if ($devotion instanceof Devotion) {
+      $infos['name'] = $devotion->getName();
+      if ($character instanceof Vampire) {
+        $character->removeDevotion($devotion);
+      } else {
+        $lesser = $character->getLesserTemplate();
+        if ($lesser instanceof Ghoul) {
+          $lesser->removeDevotion($devotion);
+        }
+      }
+
+      return true;
+    }
+
+    return false;
+  }
+
   public function moralityIncrease(Character $character, bool $isDerangementRemoved, bool $isFree): void
   {
     $base = $character->getMoral();
@@ -584,8 +654,20 @@ class CharacterService
       'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
       'derangement' => [],
     ];
-    if ($character instanceof Vampire) {
-      $removables = array_merge($removables, $this->vampireService->getRemovableAttributes());
+    switch ($character::class) {
+      case Vampire::class:
+        $removables = array_merge($removables, $this->vampireService->getRemovableAttributes());
+        break;
+      case Human::class:
+        if ($character->getLesserTemplate()) {
+          switch ($character->getLesserTemplate()::class) {
+            case Ghoul::class:
+              // for ghoul
+              // $removables = array_merge($removables, $this->vampireService->getGhoulRemovableAttributes());
+              break;
+          }
+        }
+        break;
     }
 
     return $removables;

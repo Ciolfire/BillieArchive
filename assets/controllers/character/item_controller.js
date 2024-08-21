@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-  static targets = ["item", "container", "choice", "close"];
+  static targets = ["item", "container", "choice", "closeMove", "closeDrop"];
   static values = {
     character: 0,
     id: 0,
@@ -36,7 +36,7 @@ export default class extends Controller {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       let container = this.containerTargets.find(target => target.dataset.container == this.choiceTarget.value);
       container.appendChild(target.parentElement);
-      this.closeTarget.click();
+      this.closeMoveTarget.click();
     });
   }
 
@@ -58,6 +58,7 @@ export default class extends Controller {
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       target.parentElement.remove();
+      this.closeDropTarget.click();
     });
   }
 
@@ -79,51 +80,13 @@ export default class extends Controller {
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       target.parentElement.remove();
+      this.closeDropTarget.click();
     });
   }
 
-  // take() {
-  //   this.currentValue = this.currentValue + 1;
-  //   this.update();
-  //   this.save('take');
-  // }
-
-  // heal(event) {
-  //   event.preventDefault();
-
-  //   this.currentValue = this.currentValue - 1;
-  //   this.update();
-  //   this.save('heal');
-
-  //   return false;
-  // }
-
-  // show(type) {
-  //   for (const children of this.inputTarget.children) {
-  //     if (children.classList.contains(type)) {
-  //       children.classList.remove("d-none");
-  //     } else {
-  //       children.classList.add("d-none");
-  //     }
-  //   }
-  // }
-
-  // update() {
-  //   if (this.currentValue == 1) {
-  //     this.show("bashing");
-  //   } else if (this.currentValue == 2) {
-  //     this.show("lethal");
-  //   } else if (this.currentValue == 3) {
-  //     this.show("aggravated");
-  //   } else {
-  //     this.currentValue = 0;
-  //     this.show("none");
-  //   }
-  // }
-
   save(action) {
     let xhttp = new XMLHttpRequest();
-    
+
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
         //ok

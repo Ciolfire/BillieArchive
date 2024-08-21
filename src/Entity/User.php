@@ -213,6 +213,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->characters;
   }
 
+  public function getChroniclesCharacters(): Array
+  {
+    $chroniclesCharacters = [];
+    foreach ($this->characters as $character) {
+      /** @var Character $character */
+      if ($character->getChronicle() && !$character->isNpc()) {
+        $chroniclesCharacters[] = $character;
+      }
+    }
+
+    return $chroniclesCharacters;
+  }
+
   public function addCharacter(Character $character): self
   {
     if (!$this->characters->contains($character)) {
@@ -360,13 +373,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
   public function getPreferences(): ?array
   {
-      return $this->preferences;
+    return $this->preferences;
   }
 
   public function setPreferences(?array $preferences): static
   {
+    // dd($preferences);
+    if (is_array($this->preferences)) {
+      $this->preferences = array_merge($this->preferences, $preferences);
+    } else {
       $this->preferences = $preferences;
+    }
 
-      return $this;
+    return $this;
   }
 }

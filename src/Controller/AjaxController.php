@@ -8,7 +8,9 @@ use App\Entity\CharacterDerangement;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Clan;
+use App\Entity\Ghoul;
 use App\Entity\Skill;
+use App\Entity\Vampire;
 use App\Repository\AttributeRepository;
 use App\Repository\SkillRepository;
 use App\Service\DataService;
@@ -65,6 +67,9 @@ class AjaxController extends AbstractController
       $data = json_decode($request->getContent());
       $character = $this->dataService->find(Character::class, $data->character);
 
+      if (!$character instanceof Character) {
+        return null;
+      }
       $methods = [
         0 => [
           'id' => 'reduce',
@@ -94,12 +99,12 @@ class AjaxController extends AbstractController
           $label = 'name';
           break;
         case "merit":
-          $choices = $this->dataService->findBy(CharacterMerit::class, ['character' => $character]);
+          $choices = $character->getMerits();
           $identifier = 'id';
           $label = 'name';
           break;
         case "specialty":
-          $choices = $this->dataService->findBy(CharacterSpecialty::class, ['character' => $character]);
+          $choices = $character->getSpecialties();
           $identifier = 'id';
           $label = 'name';
           unset($methods[0]);
@@ -112,6 +117,34 @@ class AjaxController extends AbstractController
           $choices = $this->dataService->findBy(CharacterDerangement::class, ['character' => $character, 'moralityLink' => null]);
           $identifier = 'id';
           $label = 'derangement';
+          break;
+        case "devotion":
+          if ($character instanceof Vampire) {
+            $choices = $character->getDevotions();
+          } else {
+            $lesser = $character->getLesserTemplate();
+            if ($lesser instanceof Ghoul) {
+              $choices = $lesser->getDevotions();
+            }
+          }
+          unset($methods[0]);
+          $identifier = 'id';
+          $label = 'name';
+          break;
+        case "discipline":
+          if ($character instanceof Vampire) {
+            $choices = $character->getDisciplines();
+          } else {
+            $lesser = $character->getLesserTemplate();
+            if ($lesser instanceof Ghoul) {
+              $choices = $lesser->getDisciplines();
+            }
+          }
+          $identifier = 'id';
+          $label = 'name';
+          break;
+          break;
+        case "ritual":
           break;
         default:
           $choices = [];

@@ -299,6 +299,9 @@ class DataService
 
   public function duplicateCharacter(Character $character, ?Chronicle $chronicle, User $user) : ?Character
   {
+    // Tried this to bypass the fetch: EAGER, no luck, maybe try other stuff
+    // $character->getAttributes();
+    // $character->getSkills();
     $newCharacter = clone $character;
     // Updating specific info for the clone
     $newCharacter->setChronicle($chronicle);
@@ -310,10 +313,9 @@ class DataService
 
     try {
       $this->manager->persist($newCharacter);
-      // dd($newCharacter);
       $this->manager->flush();
     } catch (\Throwable $th) {
-      // dd($th);
+      // dd($th, $newCharacter->getAttributes(), $character->getAttributes());
       return null;
     }
 

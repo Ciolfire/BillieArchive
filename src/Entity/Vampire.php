@@ -35,11 +35,11 @@ class Vampire extends Character
 
   protected int $limit = 5;
 
-  #[ORM\ManyToMany(targetEntity: Devotion::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\ManyToMany(targetEntity: Devotion::class, orphanRemoval: false, cascade: ["persist"])]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $devotions;
 
-  #[ORM\ManyToMany(targetEntity: DisciplinePower::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\ManyToMany(targetEntity: DisciplinePower::class, orphanRemoval: false, cascade: ["persist"])]
   private Collection $rituals;
 
   public function __construct(Character $character = null)
@@ -283,17 +283,17 @@ class Vampire extends Character
     return $this;
   }
 
-  // public function removeDiscipline(VampireDiscipline $discipline): self
-  // {
-  //   if ($this->disciplines->removeElement($discipline)) {
-  //     // set the owning side to null (unless already changed)
-  //     if ($discipline->getCharacter() === $this) {
-  //       $discipline->setCharacter(null);
-  //     }
-  //   }
+  public function removeDiscipline(VampireDiscipline $discipline): self
+  {
+    if ($this->disciplines->removeElement($discipline)) {
+      // set the owning side to null (unless already changed)
+      if ($discipline->getCharacter() === $this) {
+        $discipline->setCharacter(null);
+      }
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
   public function getDiscipline(int $id): ?VampireDiscipline
   {

@@ -1,0 +1,26 @@
+{% trans_default_domain 'vampire' %}
+
+{% set disciplines = character.getFilteredDisciplines('discipline') %}
+{% set sorcery = character.getFilteredDisciplines('sorcery') %}
+{% set coils = character.getFilteredDisciplines('coils') %}
+{% set thaumaturgy = character.getFilteredDisciplines('thaumaturgy') %}
+{% set devotions = character.devotions %}
+
+<div data-controller="tabs" data-tabs-initial-value="disciplines" data-tabs-parent-value="vampire">
+  {% include "character_sheet_type/vampire/powers/_tabs.html.twig" %}
+  <div id="disciplines" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/vampire/disciplines/show/elements.html.twig' with {'characterDisciplines': disciplines} %}
+  </div>
+  <div id="sorcery" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/vampire/disciplines/show/sorceries.html.twig' with {'characterDisciplines': sorcery} %}
+  </div>
+  <div id="coils" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/vampire/disciplines/show/elements.html.twig' with {'characterDisciplines': coils} %}
+  </div>
+  <div id="thaumaturgy" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/vampire/disciplines/show/elements.html.twig' with {'characterDisciplines': thaumaturgy} %}
+  </div>
+  <div id="devotions" class="tab-content d-none" data-tabs-target="page">
+    {% include "character_sheet_type/vampire/devotions/show/elements.html.twig" %}
+  </div>
+</div>

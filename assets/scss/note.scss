@@ -3,8 +3,10 @@
   padding: 0.5em;
 
   &-default {
-    background-color: $blockColor;
-    box-shadow      : $mainColor 0px 0px 7px 3px;
+    color           : $textDarkColor;
+    background-color: $lightBlockColor;
+    box-shadow      : $mainBrightColor 0px 0px 10px 3px;
+    border-radius   : 0.2em;
     margin-bottom   : 1rem !important;
 
     &-solid {

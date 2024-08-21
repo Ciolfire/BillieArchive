@@ -16,7 +16,7 @@ export default class extends Controller {
     const regex =  new RegExp(".*" + this.inputTarget.value + ".*", "i");
     
     this.noteTargets.forEach(note => {
-      if (regex.test(note.dataset.text)) {
+      if (regex.test(note.dataset.text) || regex.test(note.dataset.title)) {
         note.parentElement.classList.remove("collapse");
       } else {
         note.parentElement.classList.add("collapse");

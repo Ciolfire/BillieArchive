@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Character;
 use App\Entity\User;
 use App\Service\DataService;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,7 +38,10 @@ class mainController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_GM');
 
-    $users = $this->dataService->findBy(User::class, [], ['username' => 'ASC']);
+    $users = $this->dataService->findBy(User::class, [], [
+      'roles' => 'DESC',
+      'username' => 'ASC',
+    ]);
 
     return $this->render('user/index.html.twig', [
       'users' => $users,
@@ -74,6 +80,10 @@ class mainController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
+      ->add('favoriteCharacter', EntityType::class, [
+        'class' => Character::class,
+        'choices' => $user->getChroniclesCharacters(),
+      ])
       ->add('language', ChoiceType::class, [
         'label' => 'language',
         'choices' => $this->getParameter('locales'),
@@ -97,6 +107,7 @@ class mainController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $user->setLocale($form->getData()['language']);
+      $user->setPreferences(['favoriteCharacter' => $form->getData()['favoriteCharacter']->getId()]);
       $this->dataService->flush();
       return $this->redirectToRoute('user_preferences', [
         '_locale' => $user->getLocale(),

@@ -486,6 +486,8 @@ class VampireService
   {
     $removables = [
       'potency' => ['label' => 'potency.label', 'domain' => 'vampire'],
+      'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
+      'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
       // 'merit' => [],
       // 'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
       // 'derangement' => [],

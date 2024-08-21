@@ -3,34 +3,34 @@
 {% trans_default_domain 'character' %}
 
 {% block header %}
-  {% include "character_sheet_type/vampire/show/header.html.twig" %}
+  {% include "character_sheet_type/vampire/header/show.html.twig" %}
 {% endblock %}
 
 {% block traits %}
   <div class="row mt-2 mb-1">
     <div class="col-12 col-md-6">
-      {% include 'character_sheet_type/vampire/show/vitae.html.twig' %}
+      {% include 'character_sheet_type/vampire/elements/vitae.html.twig' %}
     </div>
     <div class="col-12 col-md-6">
-      {% include 'character_sheet_type/vampire/show/potency.html.twig' %}
+      {% include 'character_sheet_type/vampire/potency/show.html.twig' %}
     </div>
   </div>
 {% endblock %}
 
 {% block subtraits %}
   <div class="row justify-content-center">
-    {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
+    {% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}
     {% if character.clan.parentClan is not null %}
-      {% include "character_sheet_type/vampire/show/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
+      {% include "character_sheet_type/vampire/elements/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
     {% else %}
-      {% include "character_sheet_type/vampire/show/weakness.html.twig" with { 'clan': character.clan } %}
+      {% include "character_sheet_type/vampire/elements/weakness.html.twig" with { 'clan': character.clan } %}
     {% endif %}
   </div>
 {% endblock %}
 
 {% block powers %}
-  <div id="vampire" class="g-0" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/show/powers.html.twig" %}
+  <div id="vampire" class="g-0 d-none" data-tabs-target="page">
+    {% include "character_sheet_type/vampire/powers/show.html.twig" %}
   </div>
 {% endblock %}
 

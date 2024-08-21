@@ -21,9 +21,11 @@ character:
           reduce {{type} — {element} reduced by one.}
           other {{type} — {element} removed.}
       }
+    not.removed: "{method} {type} — {element} failed."
   access:
     new: "Informations shared with {name}."
     edit: "Updated informations shared with {name}."
+    none: "No character available."
   delete:
     success: "The character {name} was successfully deleted."
   duplicate:

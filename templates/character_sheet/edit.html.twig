@@ -2,49 +2,51 @@
 
 {% trans_default_domain 'character' %}
 
-{% block title %}{{ character.name }}{% endblock %}
+{% block title %}
+	{{ character.name }}
+{% endblock %}
 
 {% block body %}
 
-{% block form_start %}
-  {% set form_attributes = {
+	{% block form_start %}
+		{% set form_attributes = {
     'data-controller': 'character--merits character--edit',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
     'data-character--edit-used-value': character.xpUsed,
-  } %}
-  {{ form_start(form, {'attr': form_attributes}) }}
-{% endblock %}
-  <input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">
-  <div class="container py-3 mt-5 g-0">
-    {% block menu %}
-      {% include "character_sheet/edit/menu.html.twig" %}
-    {% endblock %}
-    <div class="block">
-      {% block header %}
-        {% include "character_sheet/edit/header.html.twig" %}
-      {% endblock %}
-      <div data-controller="tabs" data-tabs-initial-value="general">
-        <ul class="nav tabs row g-0 my-2">
-          {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
-          {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
-          {% block specialTab %}{% endblock %}
-        </ul>
-        <div id="general" data-tabs-target="page">
-          <div class="row g-0">
-            {% include "character_sheet/edit/attributes.html.twig" %}
-          </div>
-          <div class="row my-2">
-            {% include "character_sheet/edit/skills.html.twig" %}
-          </div>
-        </div>
-        <div id="merits" data-tabs-target="page">
-          {% include "character_sheet/edit/merits.html.twig" %}
-        </div>
-        {% block special %}
-        {% endblock %}
-      </div>
-    </div>
-  </div>
-{{ form_end(form) }}
+    } %}
+		{{ form_start(form, {'attr': form_attributes}) }}
+	{% endblock %}
+
+	<input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">
+	<div class="container py-3 mt-5 g-0">
+		{% block menu %}
+			{% include "character_sheet/menu/edit.html.twig" %}
+		{% endblock %}
+		<div class="block">
+			{% block header %}
+				{% include "character_sheet/header/edit.html.twig" %}
+			{% endblock %}
+			<div data-controller="tabs" data-tabs-initial-value="general">
+				<ul class="nav tabs row g-0 my-2">
+					{% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
+					{% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
+					{% block specialTab %}{% endblock %}
+				</ul>
+				<div id="general" class="tab-content d-none" data-tabs-target="page">
+					<div class="row g-0">
+						{% include "character_sheet/attributes/edit/elements.html.twig" %}
+					</div>
+					<div class="row my-2">
+						{% include "character_sheet/skills/edit/elements.html.twig" %}
+					</div>
+				</div>
+				<div id="merits" class="tab-content d-none" data-tabs-target="page">
+					{% include "character_sheet/merits/edit/elements.html.twig" %}
+				</div>
+				{% block special %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	{{ form_end(form) }}
 {% endblock %}

@@ -51,10 +51,6 @@ body {
     min-width: 4em;
     text-align: center;
     border-color: rgba(255, 255, 255, 0.25)!important;
-
-    & .nav-link:hover {
-      color: $mainColor;
-    }
   }
 }
 
@@ -223,7 +219,7 @@ strong {
 
   &-header {
     strong {
-      color: #212529;
+      color: #c0c0c0;
     }
     background-color: #c6c6c6;
   }

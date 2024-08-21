@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Description;
 use App\Entity\Item;
 use App\Form\EquipmentType;
 use App\Form\ItemType;
+use App\Repository\ItemRepository;
 use App\Service\DataService;
 use App\Service\ItemService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +37,34 @@ class ItemController extends AbstractController
     return $this->render('item/index.html.twig', [
       'items' => $this->service->getItemList(),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'items']),
+    ]);
+  }
+
+  #[Route("/list/{type}/{id<\d+>}", name: "item_list", methods: ["GET"])]
+  public function list(string $type = null, int $id = null) : Response
+  {
+    /** @var ItemRepository $repo */
+    $repo = $this->dataService->getRepository(Item::class);
+
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+        $list = $item->getItems();
+        $items = [];
+        foreach ($list as $item) {
+          /** @var Item $derangement */
+          $items[$item->getId()] = $item;
+        }
+        break;
+      default:
+        $items = $repo->findAll();
+        break;
+    }
+
+    return $this->render('item/index.html.twig', [
+      'items' => $items,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'item']),
     ]);
   }
 

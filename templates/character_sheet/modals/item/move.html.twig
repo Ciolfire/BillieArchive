@@ -1,0 +1,42 @@
+{% trans_default_domain 'item' %}
+
+<div class="modal fade" id="itemMoveModal" tabindex="-1" role="dialog" aria-labelledby="itemMoveModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h4 class="modal-title text-strong" id="itemMoveModalLabel">
+          {{ "modal.move.title"|trans }}
+          {% include "_icon.html.twig" with {icon: "right"} %}
+          {% include "_icon.html.twig" with {icon: "container"} %}
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 mb-3">
+          </div>
+        </div>
+        <div class="row">
+          <label class="accent mb-2" for="container">{{ "modal.move.container"|trans }}</label>
+          <div class="col-auto">
+            <select class="form-control" name="container" data-character--item-target="choice">
+              <option value="0">{{ "modal.move.empty"|trans }}</option>
+              {% for item in character.itemContainers %}
+                <option value="{{ item.id }}">{{ item.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-primary" data-action="click->character--item#move">
+              {{ 'action.move'|trans([], 'app') }}
+              {% include "_icon.html.twig" with {icon: 'right'} %}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-character--item-target="closeMove">{{ 'action.close'|trans([], 'app') }}</button>
+      </div>
+    </div>
+  </div>
+</div>

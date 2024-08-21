@@ -1,0 +1,45 @@
+{% trans_default_domain 'merit' %}
+
+{% set categories = ['mental', 'physical', 'social'] %}
+
+{% block creation %}{% endblock %}
+<div class="position-relative row mb-2 ps-4">
+  <div id="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
+    <div class="position-sticky top-50 my-2">
+      <span >{% include "_icon.html.twig" with {icon : 'show' } only %}</span>
+    </div>
+  </div>
+  <div id="meritsWrapper" class="collapse show">
+    <p class="merit-filters mb-1 ms-5">
+      <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="">
+        <span class="d-none d-md-inline">{{ "all"|trans({}, 'app') }}</span>
+        {% include "_icon.html.twig" with {icon : 'earth-africa-europe' } only %}
+      </span>
+
+      {% for category in categories %}
+        <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="{{ category }}">
+          <span class="d-none d-md-inline">{{ ("category." ~ category)|trans({}, 'app') }}</span>
+          {% include "_icon.html.twig" with {icon : category } only %}
+        </span>
+      {% endfor %}
+
+      <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-fighting-param="fighting">
+        <span class="d-none d-md-inline">{{ "fighting"|trans({}, 'merit') }}</span>
+        {% include "_icon.html.twig" with {icon : 'fighting-style' } only %}
+      </span>
+      <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-race-param="{{ character.type }}">
+        <span class="d-none d-md-inline">{{ character.type|trans({}, 'content-type') }}</span>
+        {% include "_icon.html.twig" with {icon : 'type/' ~ character.type } only %}
+      </span>
+      {% if character.id == null %}
+      <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-creation-param="creation">
+        <span class="d-none d-md-inline">{{ "creation"|trans }}</span>
+        {% include "_icon.html.twig" with {icon : 'creation' } only %}
+      </span>
+      {% endif %}
+    </p>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 ps-5 pe-3 mt-0 g-4">
+      {% block list %}{% endblock %}
+    </div>
+  </div>
+</div>

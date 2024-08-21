@@ -14,6 +14,13 @@ cost:
   label: Coût
   none: n/a
 
+count: >-
+  {count, plural,
+    =0 {Aucun Objet}
+    =1 {1 Objet}
+    other {# Objets}
+  }
+
 durability:
   label: Durabilité
 size:

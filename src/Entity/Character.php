@@ -91,11 +91,12 @@ class Character
   #[ORM\Column(type: Types::JSON)]
   protected array $experienceLogs = [];
 
-
-  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "LAZY")]
+  // EAGER is needed for cloning the entity
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
   protected CharacterAttributes $attributes;
 
-  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "LAZY")]
+  // EAGER is needed for cloning the entity
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
   protected CharacterSkills $skills;
 
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
@@ -192,20 +193,20 @@ class Character
   }
 
   // cloning a relation which is a OneToMany
-  protected function cloneCollection($collection, $method='default')
+  protected function cloneCollection($collection, $method = 'default')
   {
     $collectionClone = new ArrayCollection();
     foreach ($collection as $item) {
-        $itemClone = clone $item;
-        switch ($method) {
-          case 'template':
-            $itemClone->setSourceCharacter($this);
-            break;
-          default:
-            $itemClone->setCharacter($this);
-            break;
-        }
-        $collectionClone->add($itemClone);
+      $itemClone = clone $item;
+      switch ($method) {
+        case 'template':
+          $itemClone->setSourceCharacter($this);
+          break;
+        default:
+          $itemClone->setCharacter($this);
+          break;
+      }
+      $collectionClone->add($itemClone);
     }
     return $collectionClone;
   }
@@ -785,7 +786,7 @@ class Character
 
     foreach ($this->merits as $merit) {
       if ($merit instanceof CharacterMerit && $merit->getMerit()->getCategory() == $filter) {
-        $key = $merit->getMerit()->getName().(10-$merit->getLevel().$merit->getId());
+        $key = $merit->getMerit()->getName() . (10 - $merit->getLevel() . $merit->getId());
         $merits[$key] = $merit;
       }
     }
@@ -1176,6 +1177,7 @@ class Character
     return 10;
   }
 
+  /** Get the current active lesser template */
   public function getLesserTemplate(): ?CharacterLesserTemplate
   {
     foreach ($this->lesserTemplates as $template) {
@@ -1213,7 +1215,7 @@ class Character
     return $this;
   }
 
-  public function findLesserTemplate(string $type) : ?CharacterLesserTemplate
+  public function findLesserTemplate(string $type): ?CharacterLesserTemplate
   {
     foreach ($this->lesserTemplates as $template) {
       /** @var CharacterLesserTemplate $template */
@@ -1226,11 +1228,11 @@ class Character
     return null;
   }
 
-  public function cleanLesserTemplates() : static
+  public function cleanLesserTemplates(): static
   {
     foreach ($this->lesserTemplates as $lesserTemplate) {
       if ($lesserTemplate instanceof CharacterLesserTemplate)
-      $lesserTemplate->setSourceCharacter(null);
+        $lesserTemplate->setSourceCharacter(null);
     }
 
     return $this;
@@ -1241,17 +1243,17 @@ class Character
    */
   public function getInfos(): Collection
   {
-      return $this->infos;
+    return $this->infos;
   }
 
   public function addInfo(CharacterInfo $info): static
   {
-      if (!$this->infos->contains($info)) {
-          $this->infos->add($info);
-          $info->setCharacter($this);
-      }
+    if (!$this->infos->contains($info)) {
+      $this->infos->add($info);
+      $info->setCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeInfo(CharacterInfo $info): static
@@ -1266,26 +1268,26 @@ class Character
    */
   public function getInfoAccesses(): Collection
   {
-      return $this->infoAccesses;
+    return $this->infoAccesses;
   }
 
   public function addInfoAccess(CharacterInfo $info): static
   {
-      if (!$this->infoAccesses->contains($info)) {
-          $this->infoAccesses->add($info);
-          $info->addAccessList($this);
-      }
+    if (!$this->infoAccesses->contains($info)) {
+      $this->infoAccesses->add($info);
+      $info->addAccessList($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeInfoAccess(CharacterInfo $info): static
   {
-      if ($this->infoAccesses->removeElement($info)) {
-          $info->removeAccessList($this);
-      }
+    if ($this->infoAccesses->removeElement($info)) {
+      $info->removeAccessList($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -1293,29 +1295,29 @@ class Character
    */
   public function getCharacterAccesses(): Collection
   {
-      return $this->characterAccesses;
+    return $this->characterAccesses;
   }
 
   public function addCharacterAccess(CharacterAccess $characterAccess): static
   {
-      if (!$this->characterAccesses->contains($characterAccess)) {
-          $this->characterAccesses->add($characterAccess);
-          $characterAccess->setTarget($this);
-      }
+    if (!$this->characterAccesses->contains($characterAccess)) {
+      $this->characterAccesses->add($characterAccess);
+      $characterAccess->setTarget($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeCharacterAccess(CharacterAccess $characterAccess): static
   {
-      if ($this->characterAccesses->removeElement($characterAccess)) {
-          // set the owning side to null (unless already changed)
-          if ($characterAccess->getTarget() === $this) {
-              $characterAccess->setTarget(null);
-          }
+    if ($this->characterAccesses->removeElement($characterAccess)) {
+      // set the owning side to null (unless already changed)
+      if ($characterAccess->getTarget() === $this) {
+        $characterAccess->setTarget(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -1323,10 +1325,28 @@ class Character
    */
   public function getPeekingRights(): Collection
   {
-      return $this->peekingRights;
+    return $this->peekingRights;
   }
 
-  public function getSpecificPeekingRights(Character $character): ?CharacterAccess {
+  /**
+   * @return Collection<int, CharacterAccess>
+   */
+  public function getOrderdPeekingRights(): Array
+  {
+    $list = $this->peekingRights->toArray();
+
+    usort($list, function(CharacterAccess $a, CharacterAccess $b) {
+      $nameA = $a->getTarget()->getPublicName($this);
+      $nameB = $b->getTarget()->getPublicName($this);
+
+      return strcasecmp($nameA, $nameB);
+    });
+
+    return $list;
+  }
+
+  public function getSpecificPeekingRights(Character $character): ?CharacterAccess
+  {
 
     return $this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
       if ($access->getTarget() === $character) {
@@ -1340,24 +1360,24 @@ class Character
 
   public function addPeekingRight(CharacterAccess $peekingRight): static
   {
-      if (!$this->peekingRights->contains($peekingRight)) {
-          $this->peekingRights->add($peekingRight);
-          $peekingRight->setAccessor($this);
-      }
+    if (!$this->peekingRights->contains($peekingRight)) {
+      $this->peekingRights->add($peekingRight);
+      $peekingRight->setAccessor($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removePeekingRight(CharacterAccess $peekingRight): static
   {
-      if ($this->peekingRights->removeElement($peekingRight)) {
-          // set the owning side to null (unless already changed)
-          if ($peekingRight->getAccessor() === $this) {
-              $peekingRight->setAccessor(null);
-          }
+    if ($this->peekingRights->removeElement($peekingRight)) {
+      // set the owning side to null (unless already changed)
+      if ($peekingRight->getAccessor() === $this) {
+        $peekingRight->setAccessor(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   public function getPublicName(Character $peeker): string
@@ -1383,7 +1403,7 @@ class Character
    */
   public function getItems(): Collection
   {
-      return $this->items;
+    return $this->items;
   }
 
   public function getItemContainers(): array
@@ -1401,23 +1421,23 @@ class Character
 
   public function addItem(Item $item): static
   {
-      if (!$this->items->contains($item)) {
-          $this->items->add($item);
-          $item->setOwner($this);
-      }
+    if (!$this->items->contains($item)) {
+      $this->items->add($item);
+      $item->setOwner($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeItem(Item $item): static
   {
-      if ($this->items->removeElement($item)) {
-          // set the owning side to null (unless already changed)
-          if ($item->getOwner() === $this) {
-              $item->setOwner(null);
-          }
+    if ($this->items->removeElement($item)) {
+      // set the owning side to null (unless already changed)
+      if ($item->getOwner() === $this) {
+        $item->setOwner(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 }

@@ -1,0 +1,16 @@
+{% extends "character_sheet/skills/elements.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block creation %}
+  <p class="text-center text-sub">
+    <span data-character--creation-target="creationSkill">0</span>/11 |
+    <span data-character--creation-target="creationSkill">0</span>/7 |
+    <span data-character--creation-target="creationSkill">0</span>/4 |
+    {% trans %}dot.fifth{% endtrans %}
+  </p>
+{% endblock %}
+
+{% block skill %}
+  {% include "character_sheet/skills/new/element.html.twig" %}
+{% endblock %}

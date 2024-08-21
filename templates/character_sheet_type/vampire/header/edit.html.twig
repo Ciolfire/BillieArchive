@@ -1,0 +1,13 @@
+{% extends "character_sheet/header/edit.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block age %}
+  {{ parent() }}
+  <div class="col-4">
+    {{ form_row(form.deathAge) }}
+  </div>
+  <div class="col-8">
+    {{ form_row(form.sire) }}
+  </div>
+{% endblock %}

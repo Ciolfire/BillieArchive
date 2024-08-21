@@ -5,20 +5,20 @@
 {% set ghoulCharacter = character.lesserTemplate %}
 
 {% block header %}
-  {% include "character_sheet_type/ghoul/show/header.html.twig" %}
+  {% include "character_sheet_type/ghoul/header/show.html.twig" %}
 {% endblock %}
 
 {% block health %}
-    {%include "character_sheet/show/health.html.twig" with {setting : 'human'} %}
+    {%include "character_sheet/traits/health.html.twig" with {setting : 'human'} %}
 {% endblock %}
 
 {% block traits %}
   <div class="row pb-3">
     <div class="col-12 col-md-6 mb-3">
-      {% include 'character_sheet_type/ghoul/show/vitae.html.twig'  %}
+      {% include 'character_sheet_type/ghoul/elements/vitae.html.twig'  %}
     </div>
     <div class="col-12 col-md-6 mb-3">
-      {% include 'character_sheet_type/ghoul/show/vitae-info.html.twig' %}
+      {% include 'character_sheet_type/ghoul/elements/vitae-info.html.twig' %}
     </div>
   </div>
 {% endblock %}
@@ -37,7 +37,7 @@
 
 {% block powers %}
   <div id="ghoul" class="g-0" data-tabs-target="page">
-    {% include "character_sheet_type/ghoul/show/powers.html.twig" %}
+    {% include "character_sheet_type/ghoul/powers/show.html.twig" %}
   </div>
 {% endblock %}
 

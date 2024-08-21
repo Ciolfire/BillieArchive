@@ -20,7 +20,7 @@ class VampireDiscipline
 
   #[ORM\ManyToOne(targetEntity: Vampire::class, inversedBy: "disciplines",cascade: ["persist"])]
   #[ORM\JoinColumn(nullable: false)]
-  private Vampire $character;
+  private ?Vampire $character;
 
   #[ORM\Column(type: "smallint")]
   private int $level = 1;
@@ -59,7 +59,7 @@ class VampireDiscipline
     return $this->character;
   }
 
-  public function setCharacter(Vampire $vampire): self
+  public function setCharacter(?Vampire $vampire): self
   {
     $this->character = $vampire;
 

@@ -16,10 +16,10 @@
     data-character--item-character-value="{{ character.id }}"
   >
     {% block menu %}
-      {% include "character_sheet/show/menu.html.twig" %}
+      {% include "character_sheet/menu/show.html.twig" %}
     {% endblock %}
     {% block header %}
-      {% include "character_sheet/show/header.html.twig" %}
+      {% include "character_sheet/header/show.html.twig" %}
     {% endblock %}
     <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       {% block background %}{% endblock %}
@@ -27,77 +27,77 @@
         {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}
-        {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
         {% include "_tab.html.twig" with {name: 'inventory', label: 'inventory'|trans, icon: 'equipment'} only %}
         {% include "_tab.html.twig" with {name: 'details', label: 'details'|trans} only %}
+        {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
         {% if app.user == character.player %}
           {% include "_tab.html.twig" with {name: 'notes', icon: 'note', label: 'label.multi'|trans({}, 'note')} only %}
         {% endif %}
       </ul>
-      <div id="general" class="tab-content" data-tabs-target="page">
+      <div id="general" class="tab-content d-none" data-tabs-target="page">
         <div class="row pb-1">
           <div class="col-12 col-md-6">
-            {% block health %}{%include "character_sheet/show/health.html.twig" %}{% endblock %}
+            {% block health %}{%include "character_sheet/traits/health.html.twig" %}{% endblock %}
           </div>
           <div class="col-12 col-md-6">
-            {% include "character_sheet/show/willpower.html.twig" %}
+            {% include "character_sheet/traits/show/willpower.html.twig" %}
           </div>
         </div>
         {% block traits %}
         {% endblock %}
         <div class="row mb-3">
-          {% include "character_sheet/show/advantages.html.twig" %}
+          {% include "character_sheet/elements/advantages.html.twig" %}
         </div>
         <div class="row g-0 mb-3">
-          {% include "character_sheet/show/attributes.html.twig" %}
+          {% include "character_sheet/attributes/show/elements.html.twig" %}
         </div>
         <div class="row g-0 my-3">
-          {% include "character_sheet/show/skills.html.twig" %}
+          {% include "character_sheet/skills/show/elements.html.twig" %}
         </div>
         {% block subtraits %}
           <div class="row justify-content-center">
-            {% include "character_sheet/show/morality.html.twig" with { 'morality': character.moral } %}
+            {% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}
           </div>
         {% endblock %}
       </div>
-      <div id="merits" class="tab-content p-0" data-tabs-target="page">
-        {% include "character_sheet/show/merits.html.twig" %}
+      <div id="merits" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include "character_sheet/merits/show/elements.html.twig" %}
       </div>
       {% block powers %}
       {% endblock %}
-      <div id="inventory" class="tab-content p-0" data-tabs-target="page">
-        {% include "character_sheet/show/inventory.html.twig" %}
+      <div id="inventory" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include "character_sheet/items/inventory.html.twig" %}
       </div>
-      <div id="relation" class="tab-content p-0" data-tabs-target="page">
-        {% include "character_sheet/show/relations.html.twig" %}
+      <div id="details" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include "character_sheet/infos/show.html.twig" %}
       </div>
-      <div id="details" class="tab-content p-0" data-tabs-target="page">
-        {% include "character_sheet/show/infos.html.twig" %}
+      <div id="relation" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include "character_sheet/elements/relations.html.twig" %}
       </div>
       {% if app.user == character.player %}
-        <div id="notes" class="tab-content" data-tabs-target="page">
-          {% include "character_sheet/show/notes.html.twig" %}
+        <div id="notes" class="tab-content d-none" data-tabs-target="page">
+          {% include "character_sheet/elements/notes.html.twig" %}
         </div>
       {% endif %}
     </div>
     <div class="row block mt-3 p-2 user-select-none">
-      {% include "character_sheet/show/rolls.html.twig" %}
+      {% include "character_sheet/elements/rolls.html.twig" %}
     </div>
     {% block modals %}
       {% if is_granted('edit', character) %}
-        {% include "character_sheet/modal/avatar_update.html.twig" %}
-        {% include "character_sheet/modal/xp_add.html.twig" %}
-        {% include "character_sheet/modal/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
-        {% include "character_sheet/modal/ability_removal.html.twig" %}
+        {% include "character_sheet/modals/avatar_update.html.twig" %}
+        {% include "character_sheet/modals/xp_add.html.twig" %}
+        {% include "character_sheet/modals/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
+        {% include "character_sheet/modals/ability_removal.html.twig" %}
         {# Morality #}
-        {% include "character_sheet/modal/morality_decrease.html.twig" %}
-        {% include "character_sheet/modal/morality_increase.html.twig" %}
-        {% include "character_sheet/modal/new_derangement.html.twig" %}
+        {% include "character_sheet/modals/morality_decrease.html.twig" %}
+        {% include "character_sheet/modals/morality_increase.html.twig" %}
+        {% include "character_sheet/modals/new_derangement.html.twig" %}
         {# Items #}
-        {% include "character_sheet/modal/item/move.html.twig" %}
-        {% include "character_sheet/modal/item/drop.html.twig" %}
+        {% include "character_sheet/modals/item/move.html.twig" %}
+        {% include "character_sheet/modals/item/drop.html.twig" %}
         {% for item in character.items %}
-          {% include "character_sheet/modal/item/infos.html.twig" %}
+          {% include "character_sheet/modals/item/infos.html.twig" %}
         {% endfor %}
       {% endif %}
     {% endblock %}

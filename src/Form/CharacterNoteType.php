@@ -27,26 +27,26 @@ class CharacterNoteType extends AbstractType
     }
 
     $builder
-    ->add('title', null, ['label' => 'note.title'])
+    ->add('title', null, ['label' => 'title'])
     ->add('assignedAt', DateType::class, array(
       'widget' => 'single_text',
       'input' => 'datetime_immutable',
       'data' => $date,
-      'label' => 'note.date',
+      'label' => 'date',
     ))
     ->add('content', CKEditorType::class, [
-      'label' => 'note.content',
+      'label' => 'content',
       'empty_data' => '',
       'data' => $converter->convert($note->getContent())]
       )
     ->add('type', ChoiceType::class, [
       'choices' => TypeNote::typeChoices,
-      'label' => 'note.type.label',
+      'label' => 'type.label',
       'choice_label' => function ($choice, $key, $value) {
-        return 'note.type.'.$key;
+        return 'type.'.$key;
       }
     ])
-    ->add('save', SubmitType::class, ['label' => 'action.save']);
+    ->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => 'app']);
     ;
   }
 
@@ -55,7 +55,7 @@ class CharacterNoteType extends AbstractType
     $resolver->setDefaults([
       'data_class' => CharacterNote::class,
       'date' => '2005-02-01 00:00',
-      'translation_domain' => 'app',
+      'translation_domain' => 'note',
     ]);
   }
 }

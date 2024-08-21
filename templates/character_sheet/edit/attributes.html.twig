@@ -1,7 +1,0 @@
-{% extends "character_sheet/element/attributes.html.twig" %}
-
-{% trans_default_domain 'character' %}
-
-{% block attribute %}
-    {% include "character_sheet/edit/attribute.html.twig" with {'base': attribute(character.attributes, attribute.id), 'min': attribute(character.attributes, attribute.id) } %}
-{% endblock %}

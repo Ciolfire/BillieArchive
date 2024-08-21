@@ -19,21 +19,21 @@
   {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
     <div class="container block py-3 g-0">
       <h1>{% include "_icon.html.twig" with {icon: type, class: 'icon-lg'} %}{{ (type ~ ".new")|trans({}, 'character') }} {{ character.chronicle.name|default('') }}</h1>
-      {% include "character_sheet/edit/header.html.twig" %}
+      {% include "character_sheet/header/edit.html.twig" %}
       <hr>
       <div class="row g-0">
-        {% include "character_sheet/new/attributes.html.twig" %}
+        {% include "character_sheet/attributes/new/elements.html.twig" %}
       </div>
       <hr>
       <div class="row my-2">
-        {% include "character_sheet/new/skills.html.twig" %}
+        {% include "character_sheet/skills/new/elements.html.twig" %}
       </div>
-      {% include "character_sheet/new/specialties.html.twig" %}
+      {% include "character_sheet/skills/new/specialties.html.twig" %}
       <hr>
-      {% include "character_sheet/new/background.html.twig" %}
+      {# {% include "character_sheet/new/background.html.twig" %} #}
       <hr>
       {# {% include "character_sheet/new/advantages.html.twig" %} #}
-      {% include "character_sheet/new/merits.html.twig" %}
+      {% include "character_sheet/merits/new/elements.html.twig" %}
       <div class="d-grid gap-2">
         <button class="btn btn-primary" type="submit">
           {% include "_icon.html.twig" with {icon: 'save'} %}

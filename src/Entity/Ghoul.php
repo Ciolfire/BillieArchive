@@ -167,6 +167,18 @@ class Ghoul extends CharacterLesserTemplate
     return $this;
   }
 
+  public function removeDiscipline(GhoulDiscipline $discipline): self
+  {
+    if ($this->disciplines->removeElement($discipline)) {
+      // set the owning side to null (unless already changed)
+      if ($discipline->getCharacter() === $this) {
+        $discipline->setCharacter(null);
+      }
+    }
+
+    return $this;
+  }
+
   public function getDiscipline(int $id): ?GhoulDiscipline
   {
     foreach ($this->disciplines as $discipline) {

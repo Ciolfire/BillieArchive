@@ -20,3 +20,13 @@
     </a>
   </div>
 {% endif %}
+{% if book.items|length > 0 %}
+  <div class="col-4 text-end">
+    {% include "_icon.html.twig" with {icon: 'item'} %}
+  </div>
+  <div class="col-8">
+      <a href="{{ path('item_list', {'type': 'book', 'id': book.id}) }}">
+      {{ "count"|trans({'count': book.items|length}, 'item') }}
+    </a>
+  </div>
+{% endif %}

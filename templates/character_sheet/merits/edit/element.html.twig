@@ -1,0 +1,44 @@
+{% extends "character_sheet/merits/element.html.twig" %}
+
+{% block controller %}data-controller="dot"{% endblock %}
+
+{% block data %}data-name="{{ merit.name }}" data-id="{{ chMerit.id|default(merit.id) }}" data-type="merit" data-dot-base-value="{{ chMerit.level|default(0) }}" data-dot-min-value="{{ chMerit.level|default(0) }}"{% endblock %}
+
+{% block input %}
+  <input
+    class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" 
+    data-id="{{ chMerit.id|default(merit.id) }}"
+    data-name="{{ merit.name }}"
+    data-category="{{ merit.category }}"
+    data-fighting="{{ merit.isFighting }}"
+    data-creation="{{ merit.isCreationOnly }}"
+    data-race="{{ merit.type }}"
+    data-dot-target="input"
+    data-character--merits-target="merit"
+    data-character--edit-target="dot"
+  >
+{% endblock %}
+
+{% block dot %}
+  <input type="checkbox" {% if chMerit is defined and value <= chMerit.level %}checked{% endif %} class="btn-check" id="{{ merit.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+  <label class="btn dot{% if value < merit.min %} dot-disabled disabled{% else %} dot-selectable{% endif %}{% if chMerit is defined and value <= chMerit.level %} dot-locked{% endif %}" for="{{ merit.id ~ '-' ~ value }}"
+    data-action="click->dot#activate click->character--edit#payMerit {% if isImproving is not defined %}click->character--merits#add{% endif %}"
+    data-dot-value-param="{{ value }}"
+    data-character--edit-id-param="{{ chMerit.id|default(merit.id) }}"
+    data-character--edit-type-param="merit"
+    data-character--edit-name-param="{{ merit.name }}"
+    data-character--edit-value-param="{{ value }}"
+    data-character--edit-base-param="{{ chMerit.level|default(0) }}"
+  >
+  </label>
+{% endblock %}
+
+{% block expanded %}
+  {% if chMerit is defined %}
+    <div><input name="character[meritsUp][{{ chMerit.id }}][details]" type="text" class="form-control merit-detail" value="{{ chMerit.choice }}"/></div>
+  {% else %}
+    <div><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
+  {% endif %}
+{% endblock %}
+
+{% block owned %}{% if chMerit is defined %} merit-owned{% endif %}{% endblock %}
