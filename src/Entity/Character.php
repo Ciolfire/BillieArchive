@@ -1380,6 +1380,7 @@ class Character
     return $this;
   }
 
+  /** The name known for this character by another character */
   public function getPublicName(Character $peeker): string
   {
     $name = "";
@@ -1395,6 +1396,10 @@ class Character
       $name .= "{$this->lastName}";
     }
 
+    // If the first name is not known, we remove the quotation marks as the nickname is the "official name"
+    if (str_starts_with($name, "“")) {
+      $name = str_replace($name, "“”", "");
+    }
     return trim($name);
   }
 
