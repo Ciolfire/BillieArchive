@@ -1,0 +1,20 @@
+{% trans_default_domain 'chronicle' %}
+
+<div class="row my-2">
+	<div class="block py-2">
+		<h2>{% include "_icon.html.twig" with { icon: 'info', class: 'icon-strong' } only %}{{ "infos"|trans }}</h2>
+		<div class="row justify-content-center">
+      <div class="col-12 text-strong text-center">
+        {% include "_icon.html.twig" with { icon: 'rule', class: 'icon-strong' } only %}
+        {{ "date.start"|trans }}
+        {{ chronicle.startAt|format_date("full") }}
+        <br>
+        {% include "_icon.html.twig" with { icon: 'now', class: 'icon-strong' } only %}
+        {{ "date.current"|trans }}
+        {{ chronicle.currentlyAt|format_date("full") }}
+      </div>
+      <div class="col-6">
+      </div>
+		</div>
+	</div>
+</div>

@@ -69,6 +69,12 @@ class Chronicle
   #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'homebrewFor')]
   private Collection $ghoulFamilies;
 
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $startAt = null;
+
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $currentlyAt = null;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -442,5 +448,29 @@ class Chronicle
     }
 
     return $this;
+  }
+
+  public function getStartAt(): ?\DateTimeInterface
+  {
+      return $this->startAt;
+  }
+
+  public function setStartAt(?\DateTimeInterface $startAt): static
+  {
+      $this->startAt = $startAt;
+
+      return $this;
+  }
+
+  public function getCurrentlyAt(): ?\DateTimeInterface
+  {
+      return $this->currentlyAt;
+  }
+
+  public function setCurrentlyAt(?\DateTimeInterface $currentlyAt): static
+  {
+      $this->currentlyAt = $currentlyAt;
+
+      return $this;
   }
 }

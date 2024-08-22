@@ -12,7 +12,7 @@
         {% if book.cover is not null %}
           <img class="mx-auto d-block" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
         {% endif %}
-        <h5 class="">{{ book.releasedAt|date('M Y') }}</h5>
+        <h5 class="">{{ book.releasedAt|format_datetime(pattern="MMM y", locale=app.request.locale) }}</h5>
         <div class="book-content text-strong row">
           {% include "book/details/_details_human.html.twig" %}
           {% include "book/details/_details_vampire.html.twig" %}

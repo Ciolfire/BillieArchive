@@ -16,7 +16,13 @@
   {% endif %}
 {% endfor %}
 </div>
-<div class="row g-2 pb-1">
+<div class="row g-2 pb-1 justify-content-center">
+  <div class="col-6">
+    <a class="btn btn-primary w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}">
+      {% include "_icon.html.twig" with {icon: 'gears' } only %}
+      {{ 'settings'|trans }}
+    </a>
+  </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {id: chronicle.id })}}">{% include "_icon.html.twig" with {icon: 'party' } only %}
       {{ 'party.manage'|trans }}
@@ -31,14 +37,14 @@
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_npc_index', {id: chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'characters' } only %}
-      {{ chronicle.npc|length }}
+      <span class="accent">{{ chronicle.npc|length }}</span>
       {{ "npc.label.short"|trans({}, 'character') }}
     </a>
   </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_society_index', {id: chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'group' } only %}
-      {{ chronicle.societies|length }}
+      <span class="accent">{{ chronicle.societies|length }}</span>
       {{ "label.multi"|trans({}, 'society') }}
     </a>
   </div>

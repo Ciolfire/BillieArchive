@@ -17,6 +17,7 @@ ability:
 
 age:
   label: Age
+  birthday: Birthday
   normal: >-
     {age, plural,
       =0 {Age unknown}

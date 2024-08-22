@@ -299,4 +299,26 @@ class ChronicleController extends AbstractController
       'form' => $form,
     ]);
   }
+
+  #[Route('/{id<\d+>}/settings', name: 'chronicle_settings', methods: ['GET', 'POST'])]
+  public function settings(Request $request, Chronicle $chronicle)
+  {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
+    // Security, only the storyteller can change these settings
+
+    $form = $this->createForm(ChronicleType::class, $chronicle);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+  
+      return $this->redirectToRoute('chronicle_show', ['id' => $chronicle->getId()]);
+    }
+
+    return $this->render('chronicle/settings.html.twig', [
+      'type' => $chronicle->getType(),
+      'chronicle' => $chronicle,
+      'form' => $form,
+    ]);
+  }
 }

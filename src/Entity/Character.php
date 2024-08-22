@@ -158,6 +158,9 @@ class Character
   #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
   private Collection $items;
 
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $birthday = null;
+
   public function __construct()
   {
     $this->setAttributes(new CharacterAttributes());
@@ -391,6 +394,9 @@ class Character
 
   public function getAge(): ?int
   {
+    if ($this->chronicle->getCurrentlyAt() && $this->birthday) {
+      $this->age = $this->birthday->diff($this->chronicle->getCurrentlyAt())->y;
+    }
     return $this->age;
   }
 
@@ -1446,5 +1452,17 @@ class Character
     }
 
     return $this;
+  }
+
+  public function getBirthday(): ?\DateTimeInterface
+  {
+      return $this->birthday;
+  }
+
+  public function setBirthday(?\DateTimeInterface $birthday): static
+  {
+      $this->birthday = $birthday;
+
+      return $this;
   }
 }

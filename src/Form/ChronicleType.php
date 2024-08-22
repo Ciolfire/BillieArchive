@@ -25,7 +25,10 @@ class ChronicleType extends AbstractType
           'werewolf' => 'werewolf',
           'mage' => 'mage',
         ],
+        'choice_translation_domain' => 'content-type',
       ])
+      ->add('startAt')
+      ->add('currentlyAt')
       ->add('save', SubmitType::class);
   }
 

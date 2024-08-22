@@ -30,6 +30,7 @@
       <div class="row g-0">
         {% block header_left_col %}
           {% block age %}
+            {{ form_row(form.birthday) }}
             <div class="col-5">
               {{ form_row(form.age) }}
             </div>

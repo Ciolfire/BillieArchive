@@ -5,8 +5,13 @@ owned:
   single: My Chronicle
   multi: My Chronicles
 
-infos: Infos
+date:
+  start: "Started:"
+  current: "Current date:"
 homebrew: Homebrew
+infos: Infos
+settings: Settings
+
 
 party:
   label: Party

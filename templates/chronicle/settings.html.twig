@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'chronicle' %}
+
+{% block body %}
+	<h1 class="pt-4">
+		{% include "_icon.html.twig" with {icon: 'gears' } only %}
+    {{ 'settings'|trans }} — {{ chronicle.name }}
+	</h1>
+	<div class="container block py-3 mt-5">
+		<div class="row">
+			<div class="col">
+				{{ form_start(form) }}
+          {{ form_rest(form) }}
+				{{ form_end(form) }}
+        {% include "_back.html.twig" %}
+			</div>
+		</div>
+	</div>
+
+{% endblock body %}

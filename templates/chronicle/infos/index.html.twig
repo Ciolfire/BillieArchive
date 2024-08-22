@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% trans_default_domain 'chronicle' %}
+{% set setting = chronicle.type %}
 
 {% set footer = true %}
 {% block bodyData %}
@@ -10,11 +11,11 @@
 {% block body %}
   {% include '_back.html.twig' %}
   <div class="container-fluid container-lg py-3">
-    <div class="row">
-      <div class="block">
-        <h1 class="strong">{% include "_icon.html.twig" with { icon: 'details' } %} {{ 'infos'|trans }}</h1>
-          {% include 'chronicle/infos/characters.html.twig' %}
-      </div>
-    </div>
+    <h1 class="strong">
+      {% include "_icon_setting.html.twig" with {'setting': chronicle.type } only %}
+      {{ chronicle.name }}
+    </h1>
+    {% include 'chronicle/infos/basics.html.twig' %}
+    {% include 'chronicle/infos/characters.html.twig' %}
   </div>
 {% endblock %}

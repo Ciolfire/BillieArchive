@@ -25,6 +25,11 @@
             {% elseif character.age is defined %}
               {{ "age.normal"|trans({"%age%": character.age}, 'character') }}
             {% endif %}
+            <br>
+            {% if character.birthday is not null %}
+              {% include "_icon.html.twig" with {icon: 'birthday'} %}
+              {{ character.birthday|format_date("long") }}
+            {% endif %}
           {% endblock %}
         </div>
         <div class="col-12">

@@ -5,8 +5,12 @@ owned:
   single: Ma Chronique
   multi: Mes Chroniques
 
-infos: Infos
+date:
+  start: "Débuté:"
+  current: "Date actuelle:"
 homebrew: Règles maison
+infos: Infos
+settings: Options
 
 party:
   label: Équipe

@@ -9,11 +9,8 @@ use App\Form\CharacterSpecialtyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class CharacterType extends AbstractType
 {
@@ -60,6 +57,9 @@ class CharacterType extends AbstractType
       ])
       ->add('age', null, [
         'label' => 'age.label',
+      ])
+      ->add('birthday', null, [
+        'label' => 'age.birthday',
       ])
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
