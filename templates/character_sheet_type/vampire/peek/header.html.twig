@@ -20,12 +20,16 @@
 
 {% block underAvatar %}
   <div class="col-12 pt-3 text-strong">
-    {% if access.hasRight('bloodline')|default(false) and character.clan.isBloodline %}
+    {% if access.hasRight('bloodline')|default(false) and character.clan.isBloodline and access.hasRight('clan')|default(false) %}
       <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
         <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
-        {# <span class="icon link-icon"><img src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}"></span> #}
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})
+      </a>
+    {% elseif access.hasRight('bloodline')|default(false) %}
+      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+        <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
+        {{ character.clan.name }}
       </a>
     {% elseif access.hasRight('clan')|default(false) %}
       {% if character.clan.isBloodline %}

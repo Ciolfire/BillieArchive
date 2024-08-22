@@ -5,13 +5,11 @@
 <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 {% if publicName == "" %}order-2{% endif %}" data-search-target="item" data-name="{{ publicName }}">
   <a class="text-center p-0 {% if access.hasRight('type')|default(false) %}{{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100" href="{{ link|default(path('character_peek', {'id': character.id})) }}">
     <div class="character-card-header">
-      {% if access.hasRight('type')|default(false) %}
-        <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-        <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
-        <img class="character-icon" src={% include "character/_icon_special.html.twig" %} />
+      {% if access.hasRight('type')|default(false) and character.type != 'human' %}
+        {% include "character/peeking/header/" ~ character.type ~ ".html.twig" %}
       {% else %}
         <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
-        <div class="w-100 text-center text-strong">{{ "type.unknown"|trans }}</div>
+        <div class="w-100 text-center text-strong">{{ "human"|trans({}, 'content-type') }}</div>
         <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
       {% endif %}
     </div>
