@@ -23,6 +23,7 @@ class Society
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'societies')]
+    #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
     private Collection $characters;
 
     #[ORM\ManyToOne(inversedBy: 'societies')]
