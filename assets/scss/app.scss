@@ -197,15 +197,6 @@ strong {
   text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
 }
 
-.icon {
-  &-strong {
-    filter: drop-shadow(-2px 2px 0 #ffffff8f) drop-shadow(-2px -2px 0 #ffffff8f) drop-shadow(2px -2px 0 #ffffff8f) drop-shadow(2px 2px 0 #ffffff8f);
-  }
-  &-accent {
-    color: $accentColor;
-  }
-}
-
 .grayscale {
   filter: grayscale(1);
 }
