@@ -9,7 +9,7 @@
 			{% else %}
 				{% for peekingRight in character.orderdPeekingRights %}
 					{% if peekingRight.rights is not empty %}
-						{% include 'character/_peeking_card.html.twig' with { character: peeking.target, access: peekingRight } %}
+						{% include 'character/_peeking_card.html.twig' with { character: peekingRight.target, access: peekingRight } %}
 					{% endif %}
 				{% endfor %}
 			{% endif %}
