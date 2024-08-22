@@ -7,9 +7,9 @@
 			{% if character.peekingRights|default(null) is empty %}
 				{{ 'empty'|trans }}
 			{% else %}
-				{% for peeking in character.peekingRights %}
-					{% if peeking.rights is not empty %}
-						{% include 'character/_peeking_card.html.twig' with { character: peeking.target, access: peeking } %}
+				{% for peekingRight in character.orderdPeekingRights %}
+					{% if peekingRight.rights is not empty %}
+						{% include 'character/_peeking_card.html.twig' with { character: peeking.target, access: peekingRight } %}
 					{% endif %}
 				{% endfor %}
 			{% endif %}
