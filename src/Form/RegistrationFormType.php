@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -20,7 +21,7 @@ class RegistrationFormType extends AbstractType
     $builder
       ->add('username', null, ['label' => 'username'])
       ->add('email', EmailType::class, ['label' => 'email'])
-      ->add('verificationCode', HiddenType::class, ['label' => false, 'mapped' => false]) // This is here to block bots
+      ->add('phone', TextType::class, ['label' => false, 'mapped' => false, 'attr' => ['autocomplete' => 'off', 'class' => 'form-miel']]) // This is here to block bots
       ->add('plainPassword', RepeatedType::class, [
         // instead of being set onto the object directly,
         // this is read and encoded in the controller

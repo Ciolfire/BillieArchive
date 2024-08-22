@@ -27,6 +27,18 @@ input[type=number] {
   }
 }
 
+
+// honeypot for bots :)
+.form-miel {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
 .form-switch {
   cursor: ew-resize;
   .form-check-input {
