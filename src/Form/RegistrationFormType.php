@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
     $builder
       ->add('username', null, ['label' => 'username'])
       ->add('email', EmailType::class, ['label' => 'email'])
-      ->add('phone', TextType::class, ['label' => false, 'mapped' => false, 'attr' => ['autocomplete' => 'off', 'class' => 'form-miel']]) // This is here to block bots
+      ->add('phone', TextType::class, ['label' => false, 'required' => false, 'mapped' => false, 'attr' => ['autocomplete' => 'off', 'class' => 'form-miel']]) // This is here to block bots
       ->add('plainPassword', RepeatedType::class, [
         // instead of being set onto the object directly,
         // this is read and encoded in the controller
