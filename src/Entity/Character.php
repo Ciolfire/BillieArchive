@@ -394,7 +394,7 @@ class Character
 
   public function getAge(): ?int
   {
-    if ($this->chronicle->getCurrentlyAt() && $this->birthday) {
+    if ($this->chronicle instanceof Chronicle && $this->chronicle->getCurrentlyAt() && $this->birthday) {
       $this->age = $this->birthday->diff($this->chronicle->getCurrentlyAt())->y;
     }
     return $this->age;
