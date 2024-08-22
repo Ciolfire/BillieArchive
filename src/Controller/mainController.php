@@ -83,6 +83,7 @@ class mainController extends AbstractController
       ->add('favoriteCharacter', EntityType::class, [
         'class' => Character::class,
         'choices' => $user->getChroniclesCharacters(),
+        'data' => $this->dataService->find(Character::class, $user->getPreferences()['favoriteCharacter']),
       ])
       ->add('language', ChoiceType::class, [
         'label' => 'language',
