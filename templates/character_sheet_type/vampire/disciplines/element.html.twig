@@ -1,12 +1,12 @@
 {% trans_default_domain 'vampire' %}
 
 <div class="col-12 col-lg-6 justify-content-center">
-  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block{% endif %} w-100 container g-1">
+  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} w-100 container g-1">
     <div class="row align-items-center px-2 user-select-none">
       <div class="col-12 discipline-header text-center p-2">
-        <div class="fw-bold text-strong fs-5">
+        <h2 class="text-glow text-color">
           {{ discipline.name }}
-        </div>
+        </h2>
       </div>
       <div class="col-12 text-center">
         <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
@@ -23,7 +23,7 @@
       </div>
       <div class="col-12 text-sub text-center">
         <div>{{ discipline.short }}</div>
-        {% include "_source_block.html.twig" with {element: discipline, class: 'text-muted text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: discipline, class: 'text-end' } only %}
       </div>
     </div>
 
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-3 text-end">
                       {% if powerPool != null %}
-                        {% include "_dice_pool.html.twig" with {'pool' : powerPool, 'contested' : power.contestedText} %}
+                        {% include "_dice_pool.html.twig" with {pool : powerPool, contested : power.contestedText} %}
                       {% endif %}
                     </div>
                     <div class="col-12 text-sub text-center">
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <div id="discipline-{{ discipline.id }}-power-{{ power.id }}" class="accordion-collapse collapse py-2" data-bs-parent="#discipline-{{ discipline.id }}-powers">
-                  {% include "_source_child.html.twig" with {'element': power, 'parent': discipline, 'class': 'text-muted text-end fst-italic' } only %}
+                  {% include "_source_child.html.twig" with {element: power, parent: discipline, class: 'text-end' } only %}
                   {{ power.details|markdown_to_html }}
                 </div>
               {% endif %}

@@ -12,10 +12,52 @@
 
 .text {
   font-family: $textFont;
+
+  &-color {
+    color: $mainDarkColor;
+  }
+
   &-strong {
-    text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
+    text-shadow:
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px,
+      #000 0px 0px 3px;
     img {
-      filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
+      filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black)
+        drop-shadow(1px 1px 0 black);
+    }
+  }
+  &-glow {
+    text-shadow:
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px,
+      #ffffff99 0px 0px 3px;
+    svg {
+      filter: drop-shadow(-1px 1px 0 #ffffff99) drop-shadow(-1px -1px 0 #ffffff99) drop-shadow(1px -1px 0 #ffffff99)
+        drop-shadow(1px 1px 0 #ffffff99);
     }
   }
 
@@ -34,9 +76,15 @@
   &-stylized {
     font-family: $stylizedFont;
   }
+
+  &-muted {
+    color: $helpColor!important;
+    svg {
+      filter: none;
+    }
+  }
 }
 
 .help-text {
   color: $helpColor;
-  text-shadow: 1px 1px 1px black;
 }

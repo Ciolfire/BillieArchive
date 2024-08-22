@@ -23,9 +23,9 @@ class DisciplineType extends AbstractType
     }
 
     $builder
-      ->add('name', null, ['label' => 'name'])
+      ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('short', null, ['label' => 'short', 'help' => 'help.short'])
-      ->add('description', null, ['label' => 'description'])
+      ->add('description', null, ['label' => 'description', 'translation_domain' => 'app'])
       ->add('rules', CKEditorType::class, ['label' => 'rules', 'empty_data' => '', 'data' => $converter->convert($rules)])
       ->add('isRestricted', null, ['label' => 'restricted', 'help' => 'help.restricted'])
       ->add('source', SourceableType::class, [

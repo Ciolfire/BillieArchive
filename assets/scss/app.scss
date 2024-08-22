@@ -51,6 +51,10 @@ body {
     min-width: 4em;
     text-align: center;
     border-color: rgba(255, 255, 255, 0.25)!important;
+
+    .dropdown-item img {
+      filter: drop-shadow(-1px 1px 0 currentColor) drop-shadow(-1px -1px 0 currentColor) drop-shadow(1px -1px 0 currentColor) drop-shadow(1px 1px 0 currentColor);
+    }
   }
 }
 
@@ -82,7 +86,7 @@ footer.footer {
 
 .block {
   background-color: $blockColor;
-  box-shadow: 0px 0px 5px 0px #000;
+  box-shadow: 0px 0px 5px 0px $mainColor;
 
   &-backdrop {
     backdrop-filter: blur(2px);

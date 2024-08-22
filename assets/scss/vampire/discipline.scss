@@ -1,7 +1,6 @@
 .discipline {
   &-block {
     background-color: $lightBlockColor;
-    color: $mainDarkColor;
     margin: 0.5em 0;
     box-shadow: 0px 0px 5px 0px #000;
 
@@ -16,31 +15,6 @@
 
     .text {
       font-family: $textFont;
-
-      &-strong {
-        text-shadow: 
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px,
-        #FFFFFF99 0px 0px 3px;
-        svg {
-          filter:
-            drop-shadow(-1px 1px 0 #ffffff99)
-            drop-shadow(-1px -1px 0 #ffffff99)
-            drop-shadow(1px -1px 0 #ffffff99)
-            drop-shadow(1px 1px 0 #ffffff99);
-        }
-        // .accent {
-          // filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
-        // }
-
-      }
     }
 
     .fluff,
