@@ -3,23 +3,28 @@ h2,
 h3,
 h4,
 h5 {
-  color     : $titleColor;
+  color: $titleColor;
   text-align: center;
   text-shadow:
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px,
-  $titleShadow 0px 0px 3px;
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px,
+    $titleShadow 0px 0px 3px;
 
-  svg {
-    // stroke      : $titleShadow;
-    // stroke-width: 1rem;
+  .icon svg {
+    stroke      : $titleShadow;
+    stroke-width: 0.6rem;
+    filter: none;
+  }
+
+  img {
+    filter: drop-shadow(-1px 1px 0 $mainColor) drop-shadow(-1px -1px 0 $mainColor) drop-shadow(1px -1px 0 $mainColor) drop-shadow(1px 1px 0 $mainColor);
   }
 
   .icon {

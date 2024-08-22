@@ -36,9 +36,9 @@
             drop-shadow(1px -1px 0 #ffffff99)
             drop-shadow(1px 1px 0 #ffffff99);
         }
-        .accent {
+        // .accent {
           // filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
-        }
+        // }
 
       }
     }
@@ -69,13 +69,13 @@
       font-family: $textFont;
 
       &-strong {
+        filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black)
+        drop-shadow(1px 1px 0 black);
+
         .accent {
           filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black)
             drop-shadow(1px 1px 0 black);
         }
-
-        filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black)
-        drop-shadow(1px 1px 0 black);
       }
     }
 

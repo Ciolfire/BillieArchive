@@ -47,6 +47,20 @@
   h4,
   h5 {
     color: #7d0000;
+    text-shadow:
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px,
+    rgba(32, 0, 0, 0.8) 0px 0px 3px;
+    img {
+      filter: drop-shadow(-1px 1px 0 #7d0000) drop-shadow(-1px -1px 0 #7d0000) drop-shadow(1px -1px 0 #7d0000) drop-shadow(1px 1px 0 #7d0000);
+    }
     .icon {
       color: #7d0000;
     }

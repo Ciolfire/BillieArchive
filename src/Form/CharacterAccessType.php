@@ -78,8 +78,7 @@ class CharacterAccessType extends AbstractType
           }
         }
       }
-
-      if (empty($characters)) {
+      if (empty($characters) && !$data->getAccessor()) {
         throw new Exception("empty choice of characters for access", 847);
       }
       $builder
@@ -95,7 +94,7 @@ class CharacterAccessType extends AbstractType
           'multiple' => true,
           'expanded' => true,
         ]);
-      if (is_null($data->getAccessor())) {
+      if (!$data->getAccessor()) {
         $builder->add('accessor', EntityType::class, [
           'label' => 'infos.details.accessList',
           'class' => Character::class,

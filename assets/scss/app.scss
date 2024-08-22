@@ -218,36 +218,40 @@ strong {
   color: #c0c0c0;
 
   &-header {
+    background-color: #c6c6c6;
+
     strong {
       color: #c0c0c0;
     }
-    background-color: #c6c6c6;
   }
   &-success {
     color: greenyellow;
     .toast-header {
+      background-color: green;
+
       strong {
         color: #e5e5e5;
       }
-      background-color: green;
     }
   }
   &-warning {
     color: #ffa500;
     .toast-header {
+      background-color: #855600;
+
       strong {
         color: #e5e5e5;
       }
-      background-color: #855600;
     }
   }
   &-error {
     color: #ff0000;
     .toast-header {
+      background-color: #910000;
+
       strong {
         color: #e5e5e5;
       }
-      background-color: #910000;
     }
   }
 }
@@ -263,6 +267,10 @@ strong {
     margin-top: 0px;
     padding: 1px 3px;
     z-index: 2;
+
+    .icon svg {
+      filter: none;
+    }
   }
 
   &-field {

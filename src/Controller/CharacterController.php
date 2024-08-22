@@ -879,7 +879,7 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
-    return $this->render('character_sheet/edit/avatar/crop.html.twig', [
+    return $this->render('character_sheet/elements/avatar/crop.html.twig', [
       'form' => $form->createView(),
     ]);
   }

@@ -21,6 +21,7 @@ character:
           reduce {{type} — {element} réduit(e) de un.}
           other {{type} — {element} supprimé(e).}
       }
+  not.removed: "{method} {type} — {element} échec."
   access:
     new: "Informations partagées à {name}."
     edit: "Mise à jour des informations partagées à {name}."

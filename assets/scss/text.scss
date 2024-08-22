@@ -14,7 +14,7 @@
   font-family: $textFont;
   &-strong {
     text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
-    svg, img {
+    img {
       filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(1px 1px 0 black);
     }
   }
