@@ -79,11 +79,16 @@ class mainController extends AbstractController
   {
     /** @var User $user */
     $user = $this->getUser();
+    
+    $character = null;
+    if ($user->getPreferences()) {
+      $character = $this->dataService->find(Character::class, $user->getPreferences()['favoriteCharacter']);
+    }
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
       ->add('favoriteCharacter', EntityType::class, [
         'class' => Character::class,
         'choices' => $user->getChroniclesCharacters(),
-        'data' => $this->dataService->find(Character::class, $user->getPreferences()['favoriteCharacter']),
+        'data' => $character,
       ])
       ->add('language', ChoiceType::class, [
         'label' => 'language',

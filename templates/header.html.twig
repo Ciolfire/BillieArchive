@@ -15,7 +15,7 @@
 			<img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
 		<ul class="navbar-nav mb-2 mb-lg-0 flex-row justify-content-center">
 				{% for character in app.user.chroniclesCharacters %}
-					{% if character.id == app.user.preferences.favoriteCharacter %}
+					{% if character.id == app.user.preferences.favoriteCharacter|default(0) %}
 						<li class="nav-item d-flex justify-content-center">
 							<a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
 								<img class="nav-link {{ character.type }} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
