@@ -1396,11 +1396,14 @@ class Character
       $name .= "{$this->lastName}";
     }
 
+    $name = trim($name);
     // If the first name is not known, we remove the quotation marks as the nickname is the "official name"
     if (str_starts_with($name, "“")) {
-      $name = str_replace($name, "“”", "");
+
+      return str_replace($name, "“”", "");
     }
-    return trim($name);
+
+    return $name;
   }
 
   /**
