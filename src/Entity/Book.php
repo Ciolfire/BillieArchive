@@ -399,7 +399,9 @@ class Book implements Translatable
 
   public function getRituals(): Collection
   {
-    return $this->rituals;
+    return $this->rituals->filter(function(DisciplinePower $power) {
+      return $power->isRitual() ? true : false;
+    });
   }
 
   public function addRitual(DisciplinePower $ritual): self
