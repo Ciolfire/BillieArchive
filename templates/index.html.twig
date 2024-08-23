@@ -9,35 +9,38 @@
 {% block body %}
 	<div class="container">
 		<h1 class="text-stylized my-2 text-strong">{{ "dashboard"|trans }}</h1>
-		<div class="row">
+		<div class="row mb-2">
 			<div class="col-12 col-lg-8">
-				<div class="row block rounded align-items-center h-100 g-1">
-					<div class="col-6 col-lg">
-						<a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
-							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
-						</a>
-					</div>
-					<div class="col-6 col-lg">
-						<a class="btn btn-primary w-100 disabled" href="#">{% include "_icon.html.twig" with {icon: 'note' } only %}
-							<span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'note') }}</span>
-						</a>
-					</div>
-					<div class="col-6 col-lg">
-						<a class="btn btn-primary w-100" href="{{path('user_preferences')}}">{% include "_icon.html.twig" with {icon: 'gears' } only %}
-							<span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span>
-						</a>
-					</div>
-					{% if is_granted('ROLE_GM') %}
-						<div class="col-6 col-lg">
-							<a class="btn btn-primary w-100" href="{{path('users')}}">{% include "_icon.html.twig" with {icon: 'users' } only %}
-								<span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
-							</a>
-						</div>
-					{% endif %}
+        <div class="block rounded h-100">
+          <div class="row align-items-center p-1 h-100">
+            <div class="col-6 col-lg my-1">
+              <a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
+                <span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
+              </a>
+            </div>
+            <div class="col-6 col-lg my-1">
+              <a class="btn btn-primary w-100 disabled" href="#">{% include "_icon.html.twig" with {icon: 'note' } only %}
+                <span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'note') }}</span>
+              </a>
+            </div>
+            <div class="col-6 col-lg my-1">
+              <a class="btn btn-primary w-100" href="{{path('user_preferences')}}">{% include "_icon.html.twig" with {icon: 'gears' } only %}
+                <span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span>
+              </a>
+            </div>
+            {% if is_granted('ROLE_GM') %}
+              <div class="col-6 col-lg my-1">
+                <a class="btn btn-primary w-100" href="{{path('users')}}">{% include "_icon.html.twig" with {icon: 'users' } only %}
+                  <span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
+                </a>
+              </div>
+            {% endif %}
+          </div>
 				</div>
 			</div>
 			<div class="col-12 col-lg-4">
-        <div class="row block rounded h-100 g-1">
+        <div class="block rounded h-100">
+          <div class="row p-1">
           <div class="col-12">
             <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseExample">
               <h2 class="text-strong">
@@ -46,6 +49,7 @@
               </h2>
             </button>
           </div>
+          </div>
         </div>
 			</div>
 			<div class="col-12 collapseWiki collapse mb-3">
@@ -53,6 +57,8 @@
           {% include "wiki/base.html.twig" %}
 				</div>
 			</div>
+		</div>
+    <div class="row">
 			<div class="col-12 col-lg-6">
 				<h2>{{ "owned.multi"|trans({}, 'chronicle') }}</h2>
 				{% if app.user.chronicles is not empty %}
