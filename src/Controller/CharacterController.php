@@ -322,9 +322,17 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
-  public function peek(Character $character): Response
+  public function peek(Request $request, Character $character): Response
   {
-    return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $character->getChronicle()->getCharacter($this->getUser())->getId()]);
+    if ($character instanceof Character) {
+      $peeker = $character->getChronicle()->getCharacter($this->getUser());
+      if ($peeker instanceof Character) {
+        return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $peeker->getId()]);
+      }
+    }
+
+    $this->addFlash('notice', 'character.peek.declined');
+    return $this->redirect($request->headers->get('referer'));
   }
 
   #[Route('/{id<\d+>}/peek/{peeker}', name: 'character_peek_as', methods: ['GET'])]
