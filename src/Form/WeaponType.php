@@ -23,19 +23,17 @@ class WeaponType extends ItemType
     $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
 
+    /** @var Weapon $item */
     $item = $options['data'];
 
     $builder
       ->add('damage', null, [
         'label' => 'damage.label',
       ])
-      ->add('strength', null, [
-        'label' => 'strength.label',
-        ])
       ->add('special', CKEditorType::class, [
         'label' => 'special.label',
         'empty_data' => '',
-        'data' => $converter->convert($item->getDescription()),
+        'data' => $converter->convert($item->getSpecial()),
         ])
       ;
   }

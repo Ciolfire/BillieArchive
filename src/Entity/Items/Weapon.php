@@ -17,9 +17,6 @@ class Weapon extends Item
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $damage = 0;
 
-  #[ORM\Column(type: Types::SMALLINT)]
-  private ?int $strength = null;
-
   #[ORM\Column(type: Types::TEXT)]
   private ?string $special = "";
 
@@ -51,16 +48,9 @@ class Weapon extends Item
     return $this;
   }
 
-  public function getStrength(): ?int
+  public function getStrength(): mixed
   {
-      return $this->strength;
-  }
-
-  public function setStrength(int $strength): static
-  {
-      $this->strength = $strength;
-
-      return $this;
+      return $this->size;
   }
 
   public function getSpecial(): ?string

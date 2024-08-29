@@ -23,6 +23,7 @@ class RangedWeaponType extends WeaponType
     $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
 
+    /** @var RangedWeapon $item */
     $item = $options['data'];
 
     $builder
@@ -31,6 +32,9 @@ class RangedWeaponType extends WeaponType
         ])
       ->add('clip', null, [
         'label' => 'clip.label',
+        ])
+      ->add('strength', null, [
+        'label' => 'strength.label',
         ])
       ;
   }

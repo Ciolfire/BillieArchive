@@ -37,34 +37,34 @@ class Item
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column]
-  private ?int $id = null;
+  protected ?int $id = null;
 
   #[ORM\Column(length: 255)]
-  private ?string $name = null;
+  protected ?string $name = null;
 
   #[ORM\Column]
-  private ?bool $isContainer = false;
+  protected ?bool $isContainer = false;
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $description = "";
+  protected ?string $description = "";
 
   #[ORM\Column(length: 10, nullable: true)]
-  private ?string $durability = null;
+  protected ?string $durability = null;
 
   #[ORM\Column(length: 10, nullable: true)]
-  private ?string $size = null;
+  protected ?string $size = null;
 
   #[ORM\Column(length: 255, nullable: true)]
-  private ?string $img = null;
+  protected ?string $img = null;
 
   #[ORM\Column(nullable: true)]
-  private ?array $cost = null;
+  protected ?array $cost = null;
 
   #[ORM\ManyToOne(inversedBy: 'items')]
-  private ?Character $owner = null;
+  protected ?Character $owner = null;
 
   #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'containedItems')]
-  private ?self $container = null;
+  protected ?self $container = null;
 
   /**
    * @var Collection<int, self>

@@ -5,6 +5,10 @@
     {% for key, col in cols|default([]) %}
       <div class="col">
         <div class="item-detail-header p-1">
+          {% if key == 'size' and item.typeName == 'weapon' %}
+          {% include "_icon.html.twig" with {icon: 'strength', label: ('strength.label')|trans, class: 'text-strong'} %}
+          <span class="text-strong">/</span>
+          {% endif %}
           {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans, class: 'text-strong'} %}
         </div>
       </div>
