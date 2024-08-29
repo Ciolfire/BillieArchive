@@ -80,7 +80,7 @@
                     <div class="col-6 text-center">
                       <h3>{{ power.name }}</h3>
                     </div>
-                    <div class="col-3 text-end">
+                    <div class="col-3 text-end text-glow">
                       {% if powerPool != null %}
                         {% include "_dice_pool.html.twig" with {pool : powerPool, contested : power.contestedText} %}
                       {% endif %}
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <div id="discipline-{{ discipline.id }}-power-{{ power.id }}" class="accordion-collapse collapse py-2" data-bs-parent="#discipline-{{ discipline.id }}-powers">
-                  {% include "_source_child.html.twig" with {element: power, parent: discipline, class: 'text-end' } only %}
+                  {% include "_source_child.html.twig" with {element: power, parent: discipline, class: 'text-end text-muted' } only %}
                   {{ power.details|markdown_to_html }}
                 </div>
               {% endif %}

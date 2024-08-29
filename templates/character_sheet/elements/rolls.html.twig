@@ -18,7 +18,7 @@
           </span>
         </div>
         <div class="col-6 text-center">
-          <span class="">{% include "_dice_pool.html.twig" with {'pool': character.detailedDicePool(roll.attributes, roll.skills), 'contested': roll.contestedText } %}</span>
+          {% include "_dice_pool.html.twig" with {'pool': character.detailedDicePool(roll.attributes, roll.skills), 'contested': roll.contestedText } %}
         </div>
       </div>
     </div>

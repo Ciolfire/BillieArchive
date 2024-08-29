@@ -9,7 +9,7 @@
 {% elseif parent.book and element.book == parent.book %}
   <div class="{{ class }} fst-italic">
     {{ "source.page"|trans({'%page%': element.page}, 'book') }}
-    {% include "_icon.html.twig" with {icon : 'book-pile'} only %}
+    {% include "_icon.html.twig" with {icon : 'book'} only %}
   </div>
 {% elseif element.homebrewFor != parent.homebrewFor %}
   <div class="{{ class}} fst-italic">{{ element.homebrewFor}}</div>
