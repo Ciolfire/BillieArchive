@@ -6,17 +6,17 @@
       <div class="col">
         <div class="item-detail-header p-1">
           {% if key == 'size' and item.typeName == 'weapon' %}
-          {% include "_icon.html.twig" with {icon: 'strength', label: ('strength.label')|trans, class: 'text-strong'} %}
+          {% include "_icon.html.twig" with {icon: 'strength', label: ('strength.label')|trans} %}
           <span class="text-strong">/</span>
           {% endif %}
-          {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans, class: 'text-strong'} %}
+          {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans} %}
         </div>
       </div>
     {% endfor %}
     {% if special['expand']|default(false) %}
       <div class="col">
         <div class="item-detail-header p-1">
-          {% include "_icon.html.twig" with {icon: 'info', label: (special['expand'] ~ '.label')|trans, class: 'text-strong'} %}
+          {% include "_icon.html.twig" with {icon: 'info', label: (special['expand'] ~ '.label')|trans} %}
         </div>
       </div>
     {% endif %}
@@ -50,7 +50,7 @@
       <div class="col">
         <div class="item-detail">
           <span class="text-strong">
-            {% include "_icon.html.twig" with {icon: "search", class: 'text-strong'} %}
+            {% include "_icon.html.twig" with {icon: "search"} %}
           </span>
         </div>
       </div>

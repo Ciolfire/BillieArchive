@@ -21,7 +21,9 @@
         {% include "item/list/_item.html.twig" ignore missing %}
       </div>
       <div class="modal-footer">
-        <a class="btn btn-primary d-block" href="{{ path('item_edit', { 'id' : item.id }) }}">{% include "_icon.html.twig" with {icon: 'edit', class:'text-strong'} only %}</a>
+        {% if item.owner is not null %}
+          <a class="btn btn-primary d-block" href="{{ path('item_edit', { 'id' : item.id }) }}">{% include "_icon.html.twig" with {icon: 'edit', class:'text-strong'} only %}</a>
+        {% endif %}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

@@ -8,15 +8,21 @@
 
 {% set cost = {'cost': 'cost'} %}
 
-<div id="Item{{ item.id }}" class="item-card"
+<div id="Item{{ item.id }}" class="item-card {% block class %}{% endblock %}"
   data-character--item-target="item" data-search-target="item" data-id="{{ item.id }}" data-name="{{ item.name }}" data-type="{{ item.typeName }}"
 >
   <div class="block p-1">
     <h5 class="text-strong">
       {{ item.name }}
       {% include "_icon.html.twig" with {icon: item.typeName} %}
+      {% if item.isContainer %}
+        {% include "_icon.html.twig" with {icon: 'container', class: 'accent'} %}
+      {% endif %}
+      {% if item.homebrewFor is not null %}
+        {% include "_icon.html.twig" with {icon: 'homebrew', class: 'accent'} %}
+      {% endif %}
     </h5>
-    <div class="item-preview text-strong text-center">
+    <div class="item-preview text-strong text-center" data-bs-toggle="modal" data-bs-target="#{{item.id}}Modal" role="button">
       {% if item.img is not null %}
         <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
       {% elseif item.isContainer %}

@@ -30,7 +30,7 @@ class Item
     1 => 'equipment',
     2 => 'vehicle',
     3 => 'ranged_weapon',
-    4 => 'melee_weapon',
+    4 => 'weapon',
     5 => 'armor',
   ];
 

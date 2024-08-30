@@ -4,12 +4,12 @@
 
 {% set footer = true %}
 
-{% block title %}
-	{{ "label.multi"|trans }}
-{% endblock %}
-
 {% block bodyData %}
 	data-controller="search" data-search-type-value="item"
+{% endblock %}
+
+{% block title %}
+	{{ "label.multi"|trans }}
 {% endblock %}
 
 {% block body %}

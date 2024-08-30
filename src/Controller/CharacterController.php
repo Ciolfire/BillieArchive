@@ -633,7 +633,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $templates = $this->dataService->findBy(Item::class, ['owner' => null], ['name' => 'ASC']);
+    $templates = $this->dataService->findBy(Item::class, ['owner' => null, 'homebrewFor' => [null, $character->getChronicle()->getId()]], ['name' => 'ASC']);
 
     return $this->render('character_sheet/items/list.html.twig', [
       'character' => $character,

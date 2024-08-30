@@ -17,6 +17,7 @@ use App\Form\VehicleType;
 use App\Form\WeaponType;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Repository\ItemRepository;
 
 class ItemService
 {
@@ -50,7 +51,7 @@ class ItemService
         $items = $subject->getItems();
         break;
       default:
-        $items = $repo->findBy(['owner' => null]);
+        $items = $repo->findBy(['owner' => null, 'homebrewFor' => null], ['name' => 'ASC']);
         break;
     }
 
