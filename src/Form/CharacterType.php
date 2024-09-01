@@ -60,6 +60,7 @@ class CharacterType extends AbstractType
       ])
       ->add('birthday', null, [
         'label' => 'age.birthday',
+	'attr' => ['min' => "0000-01-01"],
       ])
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
