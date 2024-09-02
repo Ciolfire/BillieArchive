@@ -66,7 +66,7 @@ class NoteType extends AbstractType
           }
           $name = $choice->getPublicName($character);
           if ($name == "") {
-            $name = "<span class=\"warning\">unknown</span>";
+            $name = "<span class=\"warning\">?</span>";
           }
           return "<div class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"$avatar\">$name</div>";
         },
