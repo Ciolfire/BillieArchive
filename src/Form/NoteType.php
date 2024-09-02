@@ -59,7 +59,7 @@ class NoteType extends AbstractType
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
           $access = $character->getSpecificPeekingRights($choice);
-          if (!in_array('avatar', $access->getRights())) {
+          if (in_array('avatar', $access->getRights())) {
             $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";
           } else {
             $avatar = "{$path}/default.jpg";
