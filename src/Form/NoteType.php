@@ -23,7 +23,8 @@ class NoteType extends AbstractType
     $note = $options['data'];
     $chronicle = $note->getChronicle();
     if ($chronicle instanceof Chronicle) {
-      $characters = $chronicle->getCharacters();
+      $character = $chronicle->getCharacter($note->getUser());
+      $characters = $character->getKnownCharacters();
     } else {
       $characters = null;
     }
@@ -56,8 +57,18 @@ class NoteType extends AbstractType
         'translation_domain' => 'character',
         'expanded' => true,
         'choices' => $characters,
-        'choice_label' => function ($choice) use ($path): string {
-          return "<div class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div>".$choice->getName();
+        'choice_label' => function ($choice) use ($path, $character): string {
+          $access = $character->getSpecificPeekingRights($choice);
+          if (!in_array('avatar', $access->getRights())) {
+            $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";
+          } else {
+            $avatar = "{$path}/default.jpg";
+          }
+          $name = $choice->getPublicName($character);
+          if ($name == "") {
+            $name = "<span class=\"warning\">unknown</span>";
+          }
+          return "<div class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"$avatar\">$name</div>";
         },
         'label_html' => true,
       ])

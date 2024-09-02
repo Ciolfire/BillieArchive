@@ -1386,6 +1386,20 @@ class Character
     return $this;
   }
 
+  public function getKnownCharacters(): ?array
+  {
+    if ($this->chronicle) {
+      $characters = [];
+      foreach ($this->peekingRights as $peekingRight) {
+        $characters[] = $peekingRight->getTarget();
+      }
+
+      return $characters;
+    }
+
+    return null;
+  }
+
   /** The name known for this character by another character */
   public function getPublicName(Character $peeker): string
   {
