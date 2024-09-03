@@ -1,6 +1,6 @@
 .clan {
   &-card {
-    background-color: rgba(24, 32, 55, 0.88);
+    background-color: $secondaryColor;
     border          : 1px solid $mainColor;
     box-shadow      : $mainColor 0px 0px 7px 3px;
     margin-bottom   : 1em;
@@ -17,7 +17,7 @@
     }
 
     & .clan-card-body {
-      background-color: rgba(0, 0, 0, 0.23);
+      background-color: $blockColor;
       border-top      : 1px solid $mainColor;
     }
   }

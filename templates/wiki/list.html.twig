@@ -15,16 +15,16 @@
 
 {% block body %}
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
-  <div class="container block-neutral">
+  <h1 class="py-3">
+    {% include "_icon.html.twig" with {icon: entity, class: 'icon-lg' } only %}
+    {% if domain is defined %}
+      {{ (entity ~".label.multi")|trans({}, domain) }} — {{ (setting ~ ".label")|trans({}, "setting") }}
+    {% else %}
+      {{ "label.multi"|trans({}, entity) }} — {{ (setting ~ ".label")|trans({}, "setting") }}
+    {% endif %}
+  </h1>
+  <div class="container block">
     <div class="row py-3">
-      <h1>
-        {% include "_icon.html.twig" with {icon: entity, class: 'icon-xl' } only %}
-        {% if domain is defined %}
-          {{ (entity ~".label.multi")|trans({}, domain) }} — {{ (setting ~ ".label")|trans({}, "setting") }}
-        {% else %}
-          {{ "label.multi"|trans({}, entity) }} — {{ (setting ~ ".label")|trans({}, "setting") }}
-        {% endif %}
-      </h1>
       <div class="col-auto">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc"><h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4></a>
         {% if description is defined and description is not null and description.value is not empty %}

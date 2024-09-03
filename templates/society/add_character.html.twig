@@ -7,11 +7,11 @@
 {% block body %}
   {% include "_back.html.twig" %}
   <h1>
-    {% include "_icon.html.twig" with {'icon' : 'group', 'class': 'icon-xl' } only %}
+    {% include "_icon.html.twig" with {icon : 'society', class: 'icon-lg' } only %}
     {{ "add.character"|trans }}
   </h1>
   <div class="container block py-3">
     <h2 class="text-strong">{{ form.vars.value.name }}</h2>
-    {% include "element/forms/_form.html.twig" with {'action': 'save'} %}
+    {% include "element/forms/_form.html.twig" with {action: 'save'} %}
   </div>
 {% endblock %}

@@ -32,14 +32,17 @@ $textColor          : #a1a5b9;
 $textDarkColor      : #000000;
 $textBrightColor    : #c0c0c0;
 $titleColor         : #6f80c5;
-$titleShadow        : $mainDarkColor;//rgba(8, 4, 40, 0.888);
+$titleShadow        : $mainDarkColor;
+// btn
 $btnColor           : #1a2139f5;
 $btnTextColor       : $mainColor;
 $btnBorderColor     : $mainColor;
 $btnActiveColor     : #283971f5;
 $btnActiveTextColor : white;
-$btnActiveShadow    : rgba(0, 40, 125, 0.578);
+$btnActiveShadow    : $mainDarkColor;
+$btnWarningShadow   : #5c5c5c;
 $btnHover           : $mainBrightColor;
+//
 $labelColor         : $textColor;
 $subtextColor       : #a1a5b9a1;
 $strongColor        : $mainBrightColor;

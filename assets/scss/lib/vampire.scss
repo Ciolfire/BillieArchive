@@ -1,15 +1,5 @@
 $fonts: "../../fonts";
 
-$pageColor        : rgb(37, 37, 37);
-$footerColor      : #8e8e8eb5;
-$blockColor       : #151515c4;
-$blockNeutralColor : #303030a6;
-$darkBlockColor   : #000000cc;
-$lightBlockColor  : #FFFFFF80;
-$lightBlock30pColor: #ffffff4a;
-$solidBlockColor  : #6a6a6a;
-$tabColor         : #6a6a6a4f;
-$borderColor      : #7d0000;
 $mainColor        : #7d0000;
 $mainBrightColor  : #ca0000;
 $mainDark75pColor : #350000cc;
@@ -17,11 +7,25 @@ $mainDarkColor    : #350000;
 $main30pColor      : #7d00004f;
 $main50pColor     : #7d000080;
 $main75pColor     : #800000bf;
+
+$secondaryColor   : #6f592fe0;
+
+$blockColor       : #151515c4;
+$blockNeutralColor : #303030a6;
+$darkBlockColor   : #000000cc;
+$lightBlockColor  : #FFFFFF80;
+$lightBlock30pColor: #ffffff4a;
+$solidBlockColor  : #6a6a6a;
+
+$pageColor        : #252525;
+$footerColor      : #8e8e8eb5;
+$tabColor         : #6a6a6a4f;
+$borderColor      : #7d0000;
 $inputBackColor   : #00000033;
 $inputActiveBColor: #b5b5b5ed;
 $wrongColor       : #000968;
 $warningColor     : #fb9150;
-$secondaryColor    : rgb(191, 191, 191);
+// $secondaryColor    : #bfbfbf;
 $accentColor      : gold;
 $backAccentColor  : #1f1f1f;
 
@@ -34,13 +38,16 @@ $textDarkColor      : #000000;
 $textBrightColor    : #ff6161;
 $titleColor         : silver;
 $titleShadow        : rgb(43, 0, 0);
+// btn
 $btnColor           : rgba(32, 0, 0, 0.8);
 $btnTextColor       : silver;
 $btnBorderColor     : #7d0000;
 $btnActiveColor     : rgba(125, 0, 0, 0.8);
 $btnActiveTextColor : white;
 $btnActiveShadow    : rgba(125, 0, 0, 0.5);
+$btnWarningShadow   : #5c5c5c;
 $btnHover           : $main50pColor;
+//
 $labelColor         : $mainColor;
 $subtextColor       : #a1a5b9a1;
 $linkColor          : $mainBrightColor;

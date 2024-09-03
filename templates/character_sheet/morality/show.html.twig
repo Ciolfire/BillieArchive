@@ -16,17 +16,17 @@
             </span>
           </span>
         {% endif %}
-        <div class="row">
+        <div class="row g-0">
           {% for charDerangement in character.standardDerangements %}
             <div class="col-6 px-1 px-md-3 py-2">
               <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
-                {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', class: 'icon-sm', label: 'extreme'|trans } %}{% endif %}
+                {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', label: 'extreme'|trans } %}{% endif %}
                 {{ charDerangement }}
                 {% if charDerangement.details %}
                   ({{ charDerangement.details }})
                 {% endif %}
                 {% if charDerangement.derangement.type is not null %}
-                  {% include "_icon.html.twig" with {icon: "type/" ~ charDerangement.derangement.type, class: 'icon-sm'} %}
+                  {% include "_icon.html.twig" with {icon: "type/" ~ charDerangement.derangement.type} %}
                 {% endif %}
               </span>
             </div>

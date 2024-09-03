@@ -1,4 +1,7 @@
 .book {
+  box-shadow: 3px 2px 0px #c0c0c08a;
+  background-color: $blockNeutralColor;
+
   &-content {
     a {
       display: block;

@@ -3,13 +3,13 @@
 {% trans_default_domain 'wiki' %}
 
 {% block body %}
+<h1 class="py-3">
+  {% include "_icon.html.twig" with {icon: 'wiki', class: 'icon-lg' } only %}
+  {{ "label"|trans }}
+</h1>
 <div class="container-fluid container-lg py-3">
   <div class="row">
     <div class="block">
-      <h1 class="py-2">
-        {% include "_icon.html.twig" with {icon: 'wiki', class: 'icon-lg text-strong' } only %}
-        {{ "label"|trans }}
-      </h1>
       {% include "wiki/base.html.twig" %}
     </div>
   </div>

@@ -43,7 +43,7 @@
   </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_society_index', {id: chronicle.id })}}">
-      {% include "_icon.html.twig" with {icon: 'group' } only %}
+      {% include "_icon.html.twig" with {icon: 'society' } only %}
       <span class="accent">{{ chronicle.societies|length }}</span>
       {{ "label.multi"|trans({}, 'society') }}
     </a>
