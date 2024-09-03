@@ -78,8 +78,6 @@ export default class extends Controller {
 
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState == XMLHttpRequest.DONE) {
-        //ok
-        console.log(xhttp.responseText);
       }
     };
     if (this.isLesserValue) {
