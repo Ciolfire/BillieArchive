@@ -1,6 +1,6 @@
 {% trans_default_domain 'app' %}
 
-<div id="{{ book.name }}" class="col-12 col-lg-6 py-2" data-search-target="item" data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}">
+<div id="{{ book.id }}" class="col-12 col-lg-6 py-2" data-search-target="item" data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}">
   <div class="book rounded h-100">
     {% if is_granted('ROLE_ST') %}
       <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>

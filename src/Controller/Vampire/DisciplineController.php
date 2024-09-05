@@ -261,7 +261,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route("/{type<\w+>}/{filter<\w+>}/{id<\d+>}", name: "discipline_filter", methods: ["GET"])]
+  #[Route("/discipline/{type<\w+>}/{filter<\w+>}/{id<\d+>}", name: "discipline_filter", methods: ["GET"])]
   public function disciplineFilter(string $type, string $filter, int $id): Response
   {
     $data = $this->service->getDisciplines($type, $filter, $id);

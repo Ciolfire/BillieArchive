@@ -79,13 +79,18 @@ class ClanController extends AbstractController
       case 'chronicle':
         /** @var Chronicle */
         $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        $back = ['path' => 'homebrew_index', 'id' => $id];
+        $back = ['path' => 'homebrew_index', 'params' => [
+          'id' => $id,
+        ]];
         break;
       case 'book':
       default:
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $back = ['path' => 'book_index', 'id' => $id];
+        $back = ['path' => 'book_index', 'params' => [
+          'setting' => 'vampire',
+          '_fragment' => $id
+        ]];
     }
 
     return $this->render('vampire/clan/index.html.twig', [

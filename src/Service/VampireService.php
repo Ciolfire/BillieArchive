@@ -340,14 +340,15 @@ class VampireService
   {
     $template = 'vampire/discipline/index.html.twig';
     $criteria = [];
-
     if (!is_null($filter)) {
       switch ($filter) {
         case 'chronicle':
           /** @var Chronicle */
           $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
           $criteria['homebrewFor'] = $item;
-          $back = ['path' => 'homebrew_index', 'id' => $id];
+          $back = ['path' => 'homebrew_index', 'params' => [
+            'id' => $id,
+          ]];
 
           break;
         case 'book':
@@ -355,7 +356,10 @@ class VampireService
           /** @var Book */
           $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
           $criteria['book'] = $item;
-          $back = ['path' => 'book_index', 'id' => $id];
+          $back = ['path' => 'book_index', 'params' => [
+            'setting' => 'vampire',
+            '_fragment' => $id
+          ]];
       }
     } else {
       $back = null;

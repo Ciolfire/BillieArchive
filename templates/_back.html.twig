@@ -1,5 +1,5 @@
 {% if back is defined %}
-  {% set link = path(back.path, {'id': back.id}) %}
+    {% set link = path(back.path, back.params) %}
 {% else %}
   {% set link = link|default(app.request.headers.get('referer')) %}
 {% endif %}
