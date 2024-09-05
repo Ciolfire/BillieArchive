@@ -10,16 +10,14 @@
 
 {% block body %}
   {% include "_back.html.twig" %}
-<div class="container block">
-
-  <h1 class="user-select-none">
+  <h1 class="user-select-none py-3">
     {% include "_icon.html.twig" with {'icon' : 'arcanum', 'class' : "icon-lg" } only %}
     {{ "label.multi"|trans }}
   </h1>
-
-	{% for arcanum in arcana %}
-    <h2>{{ arcanum.name }}</h2>
-    {{ arcanum.purview|markdown_to_html }}
-  {% endfor %}
-</div>
+  <div class="container block">
+    {% for arcanum in arcana %}
+      <h2>{{ arcanum.name }}</h2>
+      {{ arcanum.purview|markdown_to_html }}
+    {% endfor %}
+  </div>
 {% endblock %}
