@@ -5,10 +5,17 @@
 <div class="container collapse discipline-{{ discipline.id }} p-2" data-bs-parent="#disciplinesTable">
   <div class="row">
     <div class="col-2 offset-md-2"><span class="text-strong">{{ ("level")|trans({}, 'app') }}</span></div>
-    <div class="col-10 col-md-8"><span class="text-strong">{{ ("effect")|trans }}</span></div>
+    <div class="col-2 col-lg-1 text-center"><span class="text-strong">{{ ("cost")|trans({}, 'app') }}</span></div>
+    <div class="col"><span class="text-strong">{{ ("effect")|trans }}</span></div>
   </div>
   <div class="row">
     <div class="col-2 offset-md-2">{{ power.getLevelDots }}</div>
-    <div class="col-10 col-md-8">{{ power.short }}</div>
+      <div class="col-2 col-lg-1 text-center">
+        {% if power.costs is empty %}
+          —
+        {% endif %}
+        {% include "vampire/discipline/powers/_cost.html.twig" %}
+      </div>
+    <div class="col">{{ power.short }}</div>
   </div>
 </div>

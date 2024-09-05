@@ -42,6 +42,18 @@ class Chronicle
   #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'homebrewFor')]
   private Collection $items;
 
+  #[ORM\OneToMany(mappedBy: 'chronicle', targetEntity: Society::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
+  private Collection $societies;
+
+  #[ORM\Column(type: Types::JSON,  nullable: true)]
+  private ?array $rules = null;
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $startAt = null;
+
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $currentlyAt = null;
+
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
@@ -59,21 +71,13 @@ class Chronicle
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "DESC"])]
   private Collection $rituals;
 
-  #[ORM\OneToMany(mappedBy: 'chronicle', targetEntity: Society::class)]
-  #[ORM\OrderBy(["name" => "ASC"])]
-  private Collection $societies;
-
-  #[ORM\Column(type: Types::JSON,  nullable: true)]
-  private ?array $rules = null;
-
   #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'homebrewFor')]
   private Collection $ghoulFamilies;
 
-  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-  private ?\DateTimeInterface $startAt = null;
-
-  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-  private ?\DateTimeInterface $currentlyAt = null;
+  // Mage
+  #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private Collection $paths;
 
   public function __construct()
   {
@@ -314,7 +318,7 @@ class Chronicle
   {
     if (!$this->items->contains($item)) {
       $this->items[] = $item;
-      $item->setBook($this);
+      $item->setHomebrewFor($this);
     }
 
     return $this;
@@ -325,7 +329,7 @@ class Chronicle
     if ($this->items->removeElement($item)) {
       // set the owning side to null (unless already changed)
       if ($item->getBook() === $this) {
-        $item->setBook(null);
+        $item->setHomebrewFor(null);
       }
     }
 
@@ -372,18 +376,18 @@ class Chronicle
             $disciplines[] = $discipline;
           }
           break;
-  
-          case 'thaumaturgy':
+
+        case 'thaumaturgy':
           if ($discipline instanceof Discipline && $discipline->isThaumaturgy()) {
             $disciplines[] = $discipline;
           }
           break;
-  
-          case 'coil':
-            if ($discipline instanceof Discipline && $discipline->isCoil()) {
-              $disciplines[] = $discipline;
-            }
-            break;
+
+        case 'coil':
+          if ($discipline instanceof Discipline && $discipline->isCoil()) {
+            $disciplines[] = $discipline;
+          }
+          break;
         default:
           if ($discipline instanceof Discipline && (!$discipline->isSorcery() && !$discipline->isThaumaturgy() && !$discipline->isCoil())) {
             $disciplines[] = $discipline;
@@ -413,7 +417,7 @@ class Chronicle
     return;
   }
 
-    /**
+  /**
    * @return array<GhoulFamily>
    */
   public function getGhoulFamilies(): array
@@ -452,25 +456,52 @@ class Chronicle
 
   public function getStartAt(): ?\DateTimeInterface
   {
-      return $this->startAt;
+    return $this->startAt;
   }
 
   public function setStartAt(?\DateTimeInterface $startAt): static
   {
-      $this->startAt = $startAt;
+    $this->startAt = $startAt;
 
-      return $this;
+    return $this;
   }
 
   public function getCurrentlyAt(): ?\DateTimeInterface
   {
-      return $this->currentlyAt;
+    return $this->currentlyAt;
   }
 
   public function setCurrentlyAt(?\DateTimeInterface $currentlyAt): static
   {
-      $this->currentlyAt = $currentlyAt;
+    $this->currentlyAt = $currentlyAt;
 
-      return $this;
+    return $this;
+  }
+
+  public function getPaths(): Collection
+  {
+    return $this->paths;
+  }
+
+  public function addPath(Path $path): self
+  {
+    if (!$this->paths->contains($path)) {
+      $this->paths[] = $path;
+      $path->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removePath(Path $path): self
+  {
+    if ($this->paths->removeElement($path)) {
+      // set the owning side to null (unless already changed)
+      if ($path->getBook() === $this) {
+        $path->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
   }
 }

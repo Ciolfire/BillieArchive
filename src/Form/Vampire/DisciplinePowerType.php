@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\Vampire;
 
 use App\Entity\Attribute;
 use App\Entity\Discipline;
@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Twig\Extra\Markdown\LeagueMarkdown;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DisciplinePowerType extends AbstractType
@@ -44,8 +45,12 @@ class DisciplinePowerType extends AbstractType
         'label' => 'source.label',
         'translation_domain' => "book",
       ]);
-    if (!($discipline->isSorcery() && $power->getLevel() > 0) && !$discipline->isCoil()) {
+    if (!$discipline->isCoil() && !($discipline->isSorcery() && $power->getLevel() > 0)) {
       $builder
+        // TODO parse the cost string ?
+        // ->add('costs', TextType::class, [
+        //   'mapped' => false,
+        // ])
         ->add('attributes', null, [
           'label' => 'label.multi',
           'expanded' => true,

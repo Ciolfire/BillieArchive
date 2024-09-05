@@ -1,10 +1,10 @@
 .mage {
-  color           : #07cac7;
-  border          : 1px solid #008886;
-  background-color: #96ba949a;
+  color           : #008886;
+  // border          : 1px solid #008886;
+  // background-color: #96ba949a;
 
   &.block {
-    background-color: rgba(0, 135, 133, 0.36);
+    background-color: #0087855c;
     box-shadow      : rgb(0, 135, 133) 0 0 7px 3px;
 
     &-solid {
@@ -13,12 +13,12 @@
   }
 
   &>.character-card-avatar {
-    border-top   : 1px solid rgb(0, 135, 133);
-    border-bottom: 1px solid rgb(0, 135, 133);
+    border-top   : 1px solid #008785;
+    border-bottom: 1px solid #008785;
   }
 
   &.character-frame-list {
-    color: rgb(0, 135, 133);
+    color: #008785;
   }
 
   &.btn,
@@ -46,5 +46,22 @@
   h4,
   h5 {
     color: #07cac7;
+    text-shadow:
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px,
+    #000035 0px 0px 3px;
+    img {
+      filter: drop-shadow(-1px 1px 0 #007d77) drop-shadow(-1px -1px 0 #007d77) drop-shadow(1px -1px 0 #007d77) drop-shadow(1px 1px 0 #007d77);
+    }
+    .icon {
+      color: #007d77;
+    }
   }
 }

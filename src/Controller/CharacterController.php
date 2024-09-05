@@ -17,7 +17,7 @@ use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
-use App\Form\VampireType;
+use App\Form\Vampire\VampireType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;

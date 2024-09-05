@@ -6,7 +6,7 @@
 {% set footer = true %}
 
 {% block title %}
-	{{ "label.multi"|trans([], 'vampire') }}
+	{{ "label.multi"|trans([], 'clan') }}
 {% endblock %}
 
 {% block bodyData %}
@@ -15,35 +15,32 @@
 
 {% block body %}
 	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	<h1 class="user-select-none">
+		{% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-lg" } only %}
+		{% if clans is defined and clans is not empty %}
+			{{ "label.multi"|trans }}
+		{% else %}
+			{{ "bloodline.label.multi"|trans }}
+		{% endif %}
+	</h1>
 	<div class="container">
 		<div class="row mb-3">
 			<div class="col-12">
-				<div class="block p-2">
-					<h1 class="user-select-none">
-						{% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-lg" } only %}
-						{% if clans is defined and clans is not empty %}
-							{{ "label.multi"|trans }}
-						{% else %}
-							{{ "bloodline.label.multi"|trans }}
-						{% endif %}
-
-					</h1>
-					<div class="col-auto">
-						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">
-							<h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4>
-						</a>
-						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
-							<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
-						</a>
-					</div>
+				<div class="col-auto">
+					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">
+						<h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4>
+					</a>
+					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+						<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+					</a>
 				</div>
 			</div>
 		</div>
 		<div class="row mb-3">
 			<div id="collapseToc" class="col-auto collapse">
-				<ul class="toc block">
+				<ul class="toc block ps-4 pe-2">
 					{% if clans is defined and clans is not empty %}
-						<p class="mt-2">{{ "label.multi"|trans([], 'vampire') }}</p>
+						<p class="mt-2">{{ "label.multi"|trans([], 'clan') }}</p>
 						{% for clan in clans %}
 							<li>
 								<a href="#{{ clan.name }}">{{ clan.name }}</a>

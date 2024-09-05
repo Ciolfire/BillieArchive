@@ -25,6 +25,8 @@
   {% elseif icon == 'description' or icon == 'infos' %}
     {% set icon = 'id-card' %}
   {# human #}
+  {% elseif icon == 'sorcery' %}
+    {% set icon = 'pentacle' %}
   {% elseif icon == 'mortal' %}
     {% set icon = 'person' %}
   {# portal #}

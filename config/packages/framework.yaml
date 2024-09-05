@@ -28,12 +28,16 @@ framework:
         base_path: '/images/items/'
       characters:
         base_path: '/images/characters/'
+      # Vampire
       clans:
         base_path: '/images/clans/'
       clans_emblems:
         base_path: '/images/clans/emblems/'
       ghoul_family_emblems:
         base_path: '/images/ghoul/emblems/'
+      # Mage
+      paths_emblems:
+        base_path: '/images/paths/emblems/'
       icons:
         base_path: '/icons/'
 when@test:

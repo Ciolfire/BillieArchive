@@ -1,0 +1,42 @@
+{% trans_default_domain 'mage' %}
+
+<div class="row mage justify-content-center mt-3 pt-2">
+  <h2 class="pe-none"><img src={{ asset('SkullMTAw.webp', 'images') }} style="height:1.5em;" /> {{ "mage.label"|trans({}, 'setting')}}</h2>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {setting: 'vampire'})}}">
+      {% include "_icon.html.twig" with {icon: 'book-pile' } only %}
+      <span>{{ "label.multi"|trans({}, 'book') }}</span>
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('rule_index', {setting: 'vampire'})}}">
+      {% include "_icon.html.twig" with {icon: 'rule' } only %}
+      <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('path_index')}}">
+      {% include "_icon.html.twig" with {icon: 'path' } only %}
+      <span>{{ "label.multi"|trans({}, 'path')}}</span>
+    </a>
+  </div>
+  {# <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('legacy_index')}}">
+      {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+      <span>{{ "bloodline.label.multi"|trans({}, 'legacy')}}</span>
+    </a>
+  </div> #}
+  <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('arcanum_index')}}">
+      {% include "_icon.html.twig" with {icon: 'arcanum' } only %}
+      <span>{{ "label.multi"|trans({}, 'arcanum')}}</span>
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {'type': 'type', 'id': 'vampire'})}}">
+      {% include "_icon.html.twig" with {icon: 'merit' } only %}
+      <span>{{ "label.multi"|trans({}, 'merit') }}</span>
+    </a>
+  </div>
+</div>

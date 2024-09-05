@@ -13,7 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\Table(name: "clan")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]

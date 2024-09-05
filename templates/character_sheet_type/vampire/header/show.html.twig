@@ -7,9 +7,9 @@
   <div class="row justify-content-center">
     <div class="col-auto">
       <h1 class="py-2 text-stylized">
-        <img class="icon-light pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:2.6em;"/>
+        <img class="no-filter pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:2.6em;"/>
         <span class="text-strong">{{ character.name }}</span>
-        <img class="icon-light ps-4" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/>
+        <img class="no-filter ps-4" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/>
       </h1>
       <h2>
         {% if character.player is not null and app.user != character.player %}

@@ -23,7 +23,7 @@ Encore
     .addEntry('main', './assets/ts/main.ts')
     .addEntry('vampire', './assets/ts/vampire.ts')
     .addEntry('human', './assets/ts/human.ts')
-    .addEntry('mage', './assets/ts/human.ts')
+    .addEntry('mage', './assets/ts/mage.ts')
     .addEntry('werewolf', './assets/ts/human.ts')
     // .addEntry('character_new', './assets/js/character/new.js')
 

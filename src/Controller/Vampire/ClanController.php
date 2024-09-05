@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Entity\Vampire;
 use App\Entity\Clan;
 use App\Entity\Description;
-use App\Form\ClanType;
+use App\Form\Vampire\ClanType;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -127,7 +127,7 @@ class ClanController extends AbstractController
       }
       $this->dataService->save($clan);
 
-      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('vampire/clan/form.html.twig', [
@@ -154,7 +154,7 @@ class ClanController extends AbstractController
       }
       $this->dataService->flush();
 
-      return $this->redirectToRoute('clan_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
     if ($clan->isBloodline()) {

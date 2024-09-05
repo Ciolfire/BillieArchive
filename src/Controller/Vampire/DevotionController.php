@@ -6,7 +6,7 @@ use App\Entity\Book;
 use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\Devotion;
-use App\Form\DevotionType;
+use App\Form\Vampire\DevotionType;
 use App\Service\DataService;
 use App\Service\VampireService;
 

@@ -1,0 +1,17 @@
+{% extends 'mage/form.html.twig' %}
+
+{% trans_default_domain 'path' %}
+
+{% if form.vars.data.id|default(null) != null %}
+  {% set action = 'edit' %}
+{% else %}
+  {% set action = 'new' %}
+{% endif %}
+
+
+{% block title %}{{ action|trans }}{% endblock %}
+{% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', 'class': 'icon-lg'} only %}{% endblock %}
+
+{% block form %}
+{{ parent() }}
+{% endblock %}

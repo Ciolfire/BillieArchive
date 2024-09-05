@@ -10,6 +10,10 @@ source:
   page: "page {page}"
 page: Page
 
+cover: Cover
+release: Release date
+shortname: Short title
+
 type:
   label: Type
 

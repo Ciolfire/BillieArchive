@@ -1,3 +1,8 @@
 label:
   single: Règle
   multi: Règles
+
+ruleset:
+  label: Version
+  first: Première Édition
+  second: Seconde Édition

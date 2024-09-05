@@ -10,11 +10,12 @@
 
 {% block body %}
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  <h1 class="py-3">{% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}
+    <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
+    {% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}
+  </h1>
   <div class="container block-neutral py-3">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}
-      <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
-      {% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">

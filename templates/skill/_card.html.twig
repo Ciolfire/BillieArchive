@@ -1,4 +1,4 @@
-<div id="{{ skill.identifier }}" class="col-12 col-lg-6 mb-4">
+<div id="{{ skill.identifier }}" class="col-12 mb-2">
 	<div class="block block-wiki p-2">
 		{% if is_granted('ROLE_ST') %}
 			<a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>

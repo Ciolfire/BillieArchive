@@ -15,16 +15,16 @@
   {% else %}
     {% include "_back.html.twig" with {'link': path('homebrew_index', {'id': chronicle})} %}
   {% endif %}
-  
-  <div class="container block-neutral py-3">
+
+  <h1 class="py-3">{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
+  <div class="container block py-3">
     <div class="row py-3">
-      <h1>{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
         {% endif %}
       </div>
-      <div id="collapseDescription" class="col-12 flex-grow block collapse">
+      <div id="collapseDescription" class="col-12 flex-grow block-neutral collapse mt-2">
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>

@@ -21,8 +21,25 @@
           </div>
         </div>
       </div>
+      {% if discipline.singlePower %}
+        <div class="col-2 text-glow">
+          {% set powerPool = discipline.power.detailedDicePool(character) %}
+            {% if powerPool != null %}
+            {% include "_dice_pool.html.twig" with {pool : powerPool, contested : discipline.power.contestedText} %}
+          {% endif %}
+        </div>
+        <div class="col-8 text-center">
+          {{ discipline.short }}
+        </div>
+        <div class="col-2 text-end text-glow">
+          {% include "vampire/discipline/powers/_cost.html.twig" with {costs: discipline.power.costs} only %}
+        </div>
+      {% else %}
+        <div class="col-12 text-center">
+          {{ discipline.short }}
+        </div>
+      {% endif %}
       <div class="col-12 text-sub text-center">
-        <div>{{ discipline.short }}</div>
         {% include "_source_block.html.twig" with {element: discipline, class: 'text-end' } only %}
       </div>
     </div>
@@ -85,8 +102,11 @@
                         {% include "_dice_pool.html.twig" with {pool : powerPool, contested : power.contestedText} %}
                       {% endif %}
                     </div>
-                    <div class="col-12 text-sub text-center">
+                    <div class="col-8 offset-2 text-sub text-center">
                       <p>{{ power.short }}</p>
+                    </div>
+                    <div class="col-2 text-end text-glow">
+                      {% include "vampire/discipline/powers/_cost.html.twig" %}
                     </div>
                   </div>
                 </div>

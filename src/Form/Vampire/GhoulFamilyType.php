@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Vampire;
 
 use App\Entity\Clan;
 use App\Entity\GhoulFamily;

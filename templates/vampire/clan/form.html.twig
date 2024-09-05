@@ -3,7 +3,7 @@
 {% trans_default_domain 'clan' %}
 
 {% block title %}{% if entity == "bloodline" %}{{ ("bloodline." ~ action)|trans }}{% else %}{{ action|trans }}{% endif %}{% endblock %}
-{% block header %}{% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg'} only %}{% if entity == "bloodline" %}{{ ("bloodline." ~ action)|trans }}{% else %}{{ (action)|trans }}{% endif %}{% endblock %}
+{% block header %}{% include "_icon.html.twig" with {icon : entity, 'class': 'icon-lg'} only %}{% if entity == "bloodline" %}{{ ("bloodline." ~ action)|trans }}{% else %}{{ (action)|trans }}{% endif %}{% endblock %}
 
 {% block form %}
 {{ parent() }}

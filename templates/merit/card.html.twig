@@ -18,9 +18,10 @@
 
 {% block actions %}
 <div class="row merit_{{ merit.id }} collapse">
-  <div class="col-12 text-center py-2 d-flex justify-content-around">
-    {# <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'view'} %}</a> #}
+  <div class="col-12 text-center py-2 d-flex justify-content-around pt-0">
     {% if is_granted('ROLE_ST') %}
+      {# Could be used to copy a direct link to the merit #}
+      {# <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'view'} %}</a> #}
       <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
     {% endif %}

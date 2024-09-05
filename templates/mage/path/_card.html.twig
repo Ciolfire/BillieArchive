@@ -1,0 +1,57 @@
+{% trans_default_domain 'path' %}
+
+{% if isShown|default(false) == true %}
+  {% set collapse = "" %}
+{% else %}
+  {% set collapse = "collapse" %}
+{% endif %}
+
+<div id="{{ path.name }}" class="col-12" data-search-target="item" data-name="{{ path.name }}">
+  <div class="path-card position-relative">
+    {% if is_granted('ROLE_ST') %}
+      <a class="position-absolute end-0" href="{{ path('path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    <blockquote class="text-center mb-2 path-card-header">
+      <h3>
+        {{ path.name }}
+        {% if path.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+      </h3>
+      <h5>{{ path.title }}</h5>
+    </blockquote>
+    {% if path.emblem is not null %}
+      <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
+    {% endif %}
+    <div class="text-center mb-2 fst-italic text-strong">
+      <br>
+      {% include "_icon.html.twig" with {icon: 'arcanum' } %}
+      <h4>{{ "ruling"|trans([], 'arcanum') }}</h4>
+      {% for arcanum in path.rulingArcana %}
+        {% if loop.last %}/{% endif %}
+        <a href="{{ path('arcanum_show', {id: arcanum.id}) }}">{{ arcanum.name }}</a>
+      {% endfor %}
+      <h5>{{ "inferior"|trans([], 'arcanum') }}</h5>
+      <a class="warning" href="{{ path('arcanum_show', {id: path.inferiorArcanum.id}) }}">{{ path.inferiorArcanum.name }}</a>
+    </div>
+    <div class="path-{{ path.id }} path-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".path-{{ path.id }}" aria-expanded="false" aria-controls="{{ path.id }}">
+      <div class="text">{{ path.description|default("")|markdown_to_html }}</div>
+      <h5>{{ "weakness"|trans }}</h5>
+      <blockquote class="text">{{ path.weakness|default("")|markdown_to_html }}</blockquote>
+    </div>
+    {% if isShown|default(false) != true %}
+      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".path-{{ path.id }}" aria-expanded="false" aria-controls="{{ path.id }}">
+        <span class="fa-layers fa-fw">
+          <i class="fa-solid fa-circle"></i>
+          <span class="ok path-{{ path.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+          <span class="ok path-{{ path.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+        </span>
+      </div>
+    {% endif %}
+    <div class="path-{{ path.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".path-{{ path.id }}" aria-expanded="false" aria-controls="{{ path.id }}">
+      <div class="fluff path-card-footer">{{ path.short|default("")|markdown_to_html }}
+        <div class="text-end">
+          {% include "_source.html.twig" with {'element': path } only %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

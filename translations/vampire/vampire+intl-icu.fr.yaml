@@ -56,6 +56,5 @@ feeding:
 vitae:
   label: Vitae
   per.turn: Max <span class="accent">{value}</span> par Tour
-
 morality:
   label: Humanité

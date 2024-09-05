@@ -1,0 +1,21 @@
+{% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
+  or
+{% else %}
+  {% if not loop.first %}&{% endif %}
+{% endif %}
+{% if prerequisite.type == 'App\\Entity\\Merit' %}
+  <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+    <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+  </a>
+{% elseif prerequisite.type == 'App\\Entity\\Clan' %}
+  <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
+    <span>{{ prerequisite.entity.name }}</span>
+  </a>
+{% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
+  <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
+    <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+  </a>
+{% else %}
+  <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+{% endif %}
+{% set group = prerequisite.choiceGroup %}

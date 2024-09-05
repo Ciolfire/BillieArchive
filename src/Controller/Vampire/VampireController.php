@@ -9,7 +9,7 @@ use App\Entity\Character;
 use App\Entity\User;
 use App\Entity\Clan;
 use App\Entity\Discipline;
-use App\Form\EmbraceType;
+use App\Form\Vampire\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\DataService;
 use App\Service\VampireService;

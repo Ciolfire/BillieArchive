@@ -38,6 +38,7 @@ name: Nom
 nickname: Surnom
 options: Options
 quote: Citation
+title: Titre
 type: Type
 universal: Universel
 value: Valeur

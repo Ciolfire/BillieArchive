@@ -38,6 +38,7 @@ name: Name
 nickname: Nickname
 options: Options
 quote: Quote
+title: Title
 type: Type
 universal: Universal
 value: Value

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\Vampire;
 
 use App\Entity\Vampire;
-
+use App\Form\CharacterType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

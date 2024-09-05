@@ -21,11 +21,14 @@ h5 {
   .icon svg {
     stroke      : $titleShadow;
     stroke-width: 0.6rem;
-    // filter: none;
   }
 
   img {
     filter: drop-shadow(-1px 1px 0 $mainColor) drop-shadow(-1px -1px 0 $mainColor) drop-shadow(1px -1px 0 $mainColor) drop-shadow(1px 1px 0 $mainColor);
+
+    &.no-filter {
+      filter: none;
+    }
   }
 
   .icon {

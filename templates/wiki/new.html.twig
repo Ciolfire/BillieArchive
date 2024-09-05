@@ -2,13 +2,13 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ (entity ~ '.new')|trans }}
+{% block title %}{{ ('action.new')|trans }} {{ 'label.single'|trans([], entity) }}
 {% endblock %}
 
 {% block body %}
   <h1>
     {% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg' } only %}
-    {{ action|default('new')|trans }} {{ entity|trans }}
+    {{ ('action.new')|trans }} {{ 'label.single'|trans([], entity) }}
   </h1>
 
   {{ include('_back.html.twig') }}

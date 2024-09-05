@@ -243,4 +243,28 @@ class Devotion implements Translatable
 
       return $this;
   }
+
+  public function getCosts(): array
+  {
+    $costs = [];
+
+    if (preg_match("/Cost[*]*:([^:]+)/i", $this->getDescription(), $matches)) {
+
+      $costsString = $matches[1];
+
+      if (preg_match("/([\d]+) Vitae/i", $costsString, $matches)) {
+        $costs['vitae'] = intval($matches[1]);
+      }
+
+      if (preg_match("/([\d]+) Willpower(?! dot)/i", $costsString, $matches)) {
+        $costs['willpower'] = intval($matches[1]);
+      }
+
+      if (preg_match("/([\d]+) Willpower dot/i", $costsString, $matches)) {
+        $costs['willpowerDot'] = intval($matches[1]);
+      }
+    }
+
+    return $costs;
+  }
 }

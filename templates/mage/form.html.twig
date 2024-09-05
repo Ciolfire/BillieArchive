@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'mage' %}
+
+{% set setting = "mage" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+  <h1 class="pt-4">{% block header %}{% endblock %}</h1>
+  <div class="container block block py-3 mt-5">
+    <div class="row">
+      <div class="col">
+        {{ form_start(form) }}
+          {% block form %}
+            {{ form_rest(form) }}
+            <div class="row justify-content-center">
+              <div class="col col-md-6">
+                <button class="btn btn-primary w-100">
+                  {{ ("action." ~ action|default('save'))|trans({}, 'app') }}
+                  {% include "_icon.html.twig" with {icon : action|default('save')} only %}
+                </button>
+              </div>
+            </div>
+          {% endblock %}
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+  {% include "_back.html.twig" %}
+{% endblock %}

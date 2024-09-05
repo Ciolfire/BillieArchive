@@ -2,13 +2,11 @@
 
 namespace App\Controller\Vampire;
 
-use App\Entity\Book;
-use App\Entity\Description;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 
-use App\Form\DisciplinePowerType;
-use App\Form\DisciplineType;
+use App\Form\Vampire\DisciplinePowerType;
+use App\Form\Vampire\DisciplineType;
 
 use App\Service\DataService;
 use App\Service\VampireService;

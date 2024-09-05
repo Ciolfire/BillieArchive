@@ -9,12 +9,12 @@
 <div id="{{ clan.name }}" class="col-12" data-search-target="item" data-name="{{ clan.name }}" data-parent="{{ clan.parentClan }}">
   <div class="clan-card position-relative">
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('clan_edit', {'id': clan.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="position-absolute end-0" href="{{ path('clan_edit', {id: clan.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     <blockquote class="text-center mb-2 clan-card-header">
       <h3>
         {{ clan.name }}
-        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
+        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
       </h3>
       <h4>
         {% if clan.isBloodline is same as(true) %}({{ clan.parentClan.name|default("bloodline.parent.any"|trans) }}){% endif %}
@@ -59,7 +59,7 @@
           {% elseif not loop.first %}
             ,
           {% endif %}
-          <a class="text-strong" href="{{ path('vampire_devotion_show', {'id': devotion.id}) }}">{{ devotion.name }}</a>
+          <a class="text-strong" href="{{ path('vampire_devotion_show', {id: devotion.id}) }}">{{ devotion.name }}</a>
         {% endfor %}
         {% include "_icon.html.twig" with {icon: 'devotion' } %}
       {% endif %}

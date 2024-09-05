@@ -58,6 +58,9 @@ class Book implements Translatable
   #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'book')]
   private Collection $items;
 
+  #[ORM\Column(nullable: true)]
+  private ?bool $displayFirst = null;
+
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
   private Collection $clans;
@@ -76,8 +79,9 @@ class Book implements Translatable
   #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'book')]
   private Collection $ghoulFamilies;
 
-  #[ORM\Column(nullable: true)]
-  private ?bool $displayFirst = null;
+  // Mage
+  #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'book')]
+  private Collection $paths;
 
   public function __construct(string $setting="human")
   {
@@ -457,6 +461,33 @@ class Book implements Translatable
       // set the owning side to null (unless already changed)
       if ($family->getBook() === $this) {
         $family->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getPaths(): Collection
+  {
+    return $this->paths;
+  }
+
+  public function addPath(Path $path): self
+  {
+    if (!$this->paths->contains($path)) {
+      $this->paths[] = $path;
+      $path->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removePath(Path $path): self
+  {
+    if ($this->paths->removeElement($path)) {
+      // set the owning side to null (unless already changed)
+      if ($path->getBook() === $this) {
+        $path->setBook(null);
       }
     }
 
