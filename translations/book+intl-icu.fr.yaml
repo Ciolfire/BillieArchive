@@ -29,7 +29,8 @@ type:
   translation: Translation
 
   # Mage
-
+  legacy: Legacy
+  order: Order
   # vampire
   bloodline: Bloodline
   clan: Clan
