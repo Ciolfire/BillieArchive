@@ -42,7 +42,7 @@ services:
     environment:
       - PMA_HOST=db
       - MYSQL_ROOT_PASSWORD=root
-      - PHP_UPLOAD_MAX_FILESIZE=100MB
+      - UPLOAD_LIMIT=300M
   php:
     build: 
       context: ./docker
