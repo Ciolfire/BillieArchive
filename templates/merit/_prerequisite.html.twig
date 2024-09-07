@@ -1,3 +1,5 @@
+{% trans_default_domain 'prerequisite' %}
+
 {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
   or
 {% else %}
@@ -25,7 +27,7 @@
     {% if prerequisite.type == "special" %}
       {{ prerequisite.special}}
     {% else %}
-      {{ prerequisite.type }}
+      {{ prerequisite.type|trans }}
     {% endif %}
     {# {{ prerequisite.entity.name|default(prerequisite.type) }} {{ prerequisite.value }} #}
   {% endif %}
