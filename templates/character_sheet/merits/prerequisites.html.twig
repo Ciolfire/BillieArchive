@@ -1,21 +1,15 @@
 {% for prerequisite in merit.prerequisites %}
-	{% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
-		or
-	{% else %}
-		{% if not loop.first %}&
-		{% endif %}
-	{% endif %}
 	{% if prerequisite.entity != null %}
 		{% set identifier = prerequisite.entity.identifier|default(prerequisite.entity.id) %}
 	{% endif %}
-
-	<span data-character--merits-target="prerequisite" data-type="{{ prerequisite.realType }}" data-name="{{ identifier|default(null) }}" data-value="{{ prerequisite.value }}">
-		{{ prerequisite.entity.name|default("") }}
-		{% if prerequisite.value > 0 %}
-			{{ prerequisite.value }}
-		{% endif %}
-	</span>
-	{% set group = prerequisite.choiceGroup %}
+  <span
+		data-character--merits-target="prerequisite"
+		data-type="{{ prerequisite.realType }}"
+		data-name="{{ identifier|default(null) }}"
+		data-value="{{ prerequisite.value }}"
+	>
+    {% include "merit/_prerequisite.html.twig" %}
+  </span>
 {% endfor %}
 {% if merit.prerequisites is empty %}
 	&nbsp;

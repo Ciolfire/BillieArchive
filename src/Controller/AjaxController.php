@@ -36,19 +36,24 @@ class AjaxController extends AbstractController
   }
 
 
-  #[Route('/{_locale<%supported_locales%>?%default_locale%}/load/prerequisites', name: 'a_load_prerequisites', methods: ['GET', 'POST'])]
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/load/prerequisites', name: 'a_load_prerequisites', methods: ['POST'])]
   public function loadPrerequisites(Request $request): JsonResponse|RedirectResponse
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
-      switch ($data->value) {
-        case "App\Entity\Clan":
-          $choices = $this->dataService->findBy($data->value, [], ['isBloodline' => 'ASC', 'name' => 'ASC']);
-          break;
+      if (str_contains($data->value, "App\Entity")) {
+        // The choice is an entity, we get them
+        switch ($data->value) {
+          case "App\Entity\Clan":
+            $choices = $this->dataService->findBy($data->value, [], ['isBloodline' => 'ASC', 'name' => 'ASC']);
+            break;
 
-        default:
-          $choices = $this->dataService->findBy($data->value, [], ['name' => 'ASC']);
-          break;
+          default:
+            $choices = $this->dataService->findBy($data->value, [], ['name' => 'ASC']);
+            break;
+        }
+      } else {
+        $choices = [];
       }
 
       $choices = $this->render('forms/choices.html.twig', [

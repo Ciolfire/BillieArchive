@@ -1,17 +1,17 @@
 {% trans_default_domain 'app' %}
 
-  <div class="bdr p-2">
+  <div class="bdr bdr-accent p-1 my-2">
     <div {{ stimulus_controller('form-collection') }}
       data-form-collection-index-value="{{ form.prerequisites|length > 0 ? form.prerequisites|last.vars.name + 1 : 0 }}"
       data-form-collection-prototype-value="{{ form_widget(form.prerequisites.vars.prototype)|e('html_attr') }}"
     >
-      <ul {{ stimulus_target('form-collection', 'collectionContainer') }}>
-        <h3>{{ "prerequisite.label.multi"|trans([], 'app') }}</h3>
-        {% for prerequisite in form.prerequisites %}
-          {{ form_row(prerequisite)}}
-        {% endfor %}
+      <ul class="row g-1" {{ stimulus_target('form-collection', 'collectionContainer') }}>
+        <h3 class="text-start">{{ "prerequisite.label.multi"|trans([], 'app') }}</h3>
+          {% for prerequisite in form.prerequisites %}
+            {{ form_row(prerequisite)}}
+          {% endfor %}
       </ul>
-      <button type="button" class="btn btn-primary w-25 btn-lg mb-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
+      <button type="button" class="btn btn-primary btn-lg m-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
         {{ "prerequisite.add"|trans }}
         {% include "_icon.html.twig" with {icon: 'add' } %}
       </button>

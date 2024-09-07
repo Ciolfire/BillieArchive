@@ -6,11 +6,11 @@ use App\Entity\Prerequisite;
 use App\Entity\Types\ChoicesPrerequisite;
 use App\Entity\Types\ChoicesMeritPrerequisite;
 use App\Entity\Types\ChoicesDevotionPrerequisite;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -37,8 +37,9 @@ class PrerequisiteType extends AbstractType
     ->add('type', ChoiceType::class, [
       'label' => 'type',
       'choices' => $types->getConstants(),
-      'choice_translation_domain' => false,
+      'choice_translation_domain' => 'prerequisite',
       'choice_label' => function ($choice, string $key): TranslatableMessage|string {
+        // dd(new TranslatableMessage($key, [], 'prerequisite'));
         return new TranslatableMessage($key, [], 'prerequisite');
       },
       'attr' => [
@@ -55,21 +56,32 @@ class PrerequisiteType extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
+      ->add('special', TextType::class, [
+        'translation_domain' => 'prerequisite',
+        'label' => "special",
+        'required' => false,
+        'row_attr' => [
+          'data-prerequisite-target' => 'special',
+          'class' => 'd-none',
+        ],
+      ])
       ->add('value', null, ['label' => "value"])
       ->add('entityId', HiddenType::class, [
         'attr' => [
           'data-prerequisite-target' => 'id',
         ],
+        'empty_data' => 0,
       ])
       ->add('choiceGroup', null, [
         'label' => 'prerequisite.group',
-        'row_attr' => [
-          'class' => 'border-bottom'
-        ],
       ])
       ->add('remove', ButtonType::class, [
         'attr' => [
           'data-action' => 'form-collection#removeCollectionElement',
+          'class' => 'btn-warning w-25',
+        ],
+        'row_attr' => [
+          'class' => 'text-center',
         ],
         'label' => 'action.remove',
       ])
@@ -84,6 +96,7 @@ class PrerequisiteType extends AbstractType
       'attr' => [
         'data-controller' => 'prerequisite',
         'data-form-collection-target' => 'block',
+        'class' => "bdr p-2 rounded",
       ],
       'type' => null,
     ]);

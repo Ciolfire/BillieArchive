@@ -5,6 +5,7 @@ namespace App\Form\Vampire;
 use App\Entity\Attribute;
 use App\Entity\Devotion;
 use App\Entity\Skill;
+use App\Form\PrerequisiteType;
 use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;

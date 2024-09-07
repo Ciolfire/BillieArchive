@@ -5,17 +5,30 @@
 {% endif %}
 {% if prerequisite.type == 'App\\Entity\\Merit' %}
   <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
-    <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+    {% include "_icon.html.twig" with {icon: 'merit'} %}
+    {{ prerequisite.entity.name }}
   </a>
 {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
   <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
-    <span>{{ prerequisite.entity.name }}</span>
+    {% include "_icon.html.twig" with {icon: 'clan'} %}
+    {{ prerequisite.entity.name }}
   </a>
 {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
   <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
-    <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+    {% include "_icon.html.twig" with {icon: 'discipline'} %}
+    {{ prerequisite.entity.name }}
   </a>
 {% else %}
-  <span>{{ prerequisite.entity.name }}</span> <span>{{ prerequisite.value }}</span>
+  {% if prerequisite.entity is not null %}
+    {{ prerequisite.entity.name }}
+  {% else %}
+    {% if prerequisite.type == "special" %}
+      {{ prerequisite.special}}
+    {% else %}
+      {{ prerequisite.type }}
+    {% endif %}
+    {# {{ prerequisite.entity.name|default(prerequisite.type) }} {{ prerequisite.value }} #}
+  {% endif %}
 {% endif %}
+{% include "merit/_prerequisite_value.html.twig" %}
 {% set group = prerequisite.choiceGroup %}

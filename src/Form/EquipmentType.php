@@ -2,16 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Book;
-use App\Entity\Character;
-use App\Entity\Chronicle;
-use App\Entity\Item;
 use App\Entity\Items\Equipment;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extra\Markdown\LeagueMarkdown;
 

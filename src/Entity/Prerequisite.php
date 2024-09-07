@@ -20,7 +20,7 @@ class Prerequisite
   private string $type = "";
 
   #[ORM\Column]
-  private ?int $entityId = null;
+  private ?int $entityId = 0;
 
   #[ORM\Column(type: Types::SMALLINT)]
   private int $value;
@@ -35,6 +35,9 @@ class Prerequisite
   private Collection $devotions;
 
   private mixed $entity = null;
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $special = null;
 
   public function __construct()
   {
@@ -169,5 +172,17 @@ class Prerequisite
   public function getRealType(): string
   {
     return strtolower(substr($this->type, strrpos($this->type, '\\') + 1));
+  }
+
+  public function getSpecial(): ?string
+  {
+      return $this->special;
+  }
+
+  public function setSpecial(?string $special): static
+  {
+      $this->special = $special;
+
+      return $this;
   }
 }

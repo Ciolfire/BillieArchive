@@ -13,6 +13,8 @@ final class ChoicesMeritPrerequisite
     public const merit = Entity\Merit::class;
     public const discipline = Entity\Discipline::class;
     public const clan = Entity\Clan::class;
+    public const potency = "potency";
+    public const special = "special";
     //   public const Devotion = Entity\Devotion::class;
     //   public const Race = Entity\Race::class;
 }

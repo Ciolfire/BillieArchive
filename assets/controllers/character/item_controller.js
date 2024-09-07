@@ -19,7 +19,7 @@ export default class extends Controller {
 
   move() {
     window
-    .fetch(`/en/item/${this.idValue}/move/${this.choiceTarget.value}`, {
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/move/${this.choiceTarget.value}`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
@@ -42,7 +42,7 @@ export default class extends Controller {
 
   drop() {
     window
-    .fetch(`/en/item/${this.idValue}/drop`, {
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/drop`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
@@ -64,7 +64,7 @@ export default class extends Controller {
 
   destroy() {
     window
-    .fetch(`/en/item/${this.idValue}/delete`, {
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/delete`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
@@ -85,17 +85,22 @@ export default class extends Controller {
   }
 
   save(action) {
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-      if (xhttp.readyState == XMLHttpRequest.DONE) {
-        //ok
-      }
-    };
-    xhttp.open("POST", `/en/character/${this.idValue}/wounds/update`, true);
-    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    let data = JSON.stringify({'value': this.currentValue, 'action': action});
-    xhttp.send(data);
+    // window
+    // .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/save`, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     'X-Requested-With': 'XMLHttpRequest'
+    //   },
+    //   body: JSON.stringify({'value': this.values }),
+    //   method: "POST"
+    // })
+    // .then((response) => {
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+    //   return response.json();
+    // })
+    // .then((data) => {
+    // });
   }
 }

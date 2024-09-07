@@ -25,7 +25,7 @@
   <div class="d-flex flex-row justify-content-evenly">
     {% for prerequisite in devotion.prerequisites %}
       {% if prerequisite.value > 0 %}
-        <div class="d-inline-block">{{ prerequisite.entity.name }} {{ prerequisite.value }}</div>
+        <div class="d-inline-block">{% include "vampire/devotion/_prerequisite.html.twig" %}</div>
       {% endif %}
     {% endfor %}
   </div>

@@ -1,0 +1,5 @@
+{% if prerequisite.value > 0 %}
+  <span>{{ prerequisite.value }}</span>
+{% elseif prerequisite.value < 0 %}
+  <span class="text-strong warning">{% include "_icon.html.twig" with {icon: 'cancel'} %}</span>
+{% endif %}

@@ -287,7 +287,7 @@ class DataService
     if (method_exists(get_class($entity), 'getPrerequisites')) {
       foreach ($entity->getPrerequisites() as $prerequisite) {
         $className = $prerequisite->getType();
-        if (class_exists($className)) {
+        if (class_exists($className) && $prerequisite->getId()) {
           $prereqEntity = $this->findOneBy($className, ['id' => $prerequisite->getEntityId()]);
           if (!is_null($prereqEntity)) {
             $prerequisite->setEntity($prereqEntity);
