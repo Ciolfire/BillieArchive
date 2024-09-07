@@ -110,20 +110,23 @@ footer.footer {
 
 .bdr {
   border: 1px solid $main75pColor;
+  &.bdr-accent {
+    border-color: $accentColor;
+  }
 
-  &-s {
+  &-s,&-x {
     border-left: 1px solid $main75pColor;
   }
 
-  &-t {
+  &-t,&-y {
     border-top: 1px solid $main75pColor;
   }
 
-  &-e {
+  &-e,&-x {
     border-right: 1px solid $main75pColor;
   }
 
-  &-b {
+  &-b,&-y {
     border-bottom: 1px solid $main75pColor;
   }
 }
