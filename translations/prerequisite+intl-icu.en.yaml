@@ -1,5 +1,9 @@
 attribute: Attribute
 skill: Skill
 merit: Merit
-discipline: Discipline
+special: Special
+# Vampire
 clan: Clan
+devotion: Devotion
+discipline: Discipline
+potency: Vampire Potency
