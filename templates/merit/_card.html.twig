@@ -35,6 +35,8 @@
     {% include "_source_block.html.twig" with { 'element': merit, class: 'text-strong', isShort: true } only %}
   </div>
   <div class="col-12 text">{{ merit.description }}</div>
+</div>
+<div class="row justify-content-center">
   <div class="col-12 col-lg-8">
     <div class="merit_{{ merit.id }} rule {% block collapse %}{% endblock %}">
       {{ merit.effect|markdown_to_html }}
