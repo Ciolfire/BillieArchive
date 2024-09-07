@@ -16,7 +16,7 @@
   {% include "forms/_prerequisite_field.html.twig" %}
   <button class="btn btn-primary">
     {% include "_icon.html.twig" with {icon: 'save'} only %}
-    {{ button_label|default('save')|trans }}
+    {{ button_label|default('action.save')|trans }}
   </button>
   {% if merit.id is not null %}
     <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ merit.id) }}">
