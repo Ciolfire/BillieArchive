@@ -6,6 +6,7 @@ use App\Entity\Character;
 use App\Entity\Chronicle;
 
 use App\Form\CharacterSpecialtyType;
+use App\Form\Type\SourceableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -60,7 +61,7 @@ class CharacterType extends AbstractType
       ])
       ->add('birthday', null, [
         'label' => 'age.birthday',
-	'attr' => ['min' => "0000-01-01"],
+        'attr' => ['min' => "0000-01-01"],
       ])
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
@@ -70,21 +71,17 @@ class CharacterType extends AbstractType
       ->add('vice', null, ['label' => 'vice.label.single'])
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
-      ->add('chronicle', EntityType::class, [
-        'class' => Chronicle::class,
-        'choices' => $chronicles,
-        'required' => false,
-      ])
       ->add('faction', null, ['label' => 'faction'])
       ->add('groupName', null, ['label' => 'group'])
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
-      if (!is_null($character->getLesserTemplate())) {
-        $builder->add('lesserTemplate', $character->getLesserTemplate()->getForm());
-      }
-      if (!$options['is_edit']) {
-        $builder->add('specialty1', CharacterSpecialtyType::class, [
+    if (!is_null($character->getLesserTemplate())) {
+      $builder->add('lesserTemplate', $character->getLesserTemplate()->getForm());
+    }
+    if (!$options['is_edit']) {
+      $builder
+        ->add('specialty1', CharacterSpecialtyType::class, [
           'required' => false,
           'mapped' => false,
           'label' => false,
@@ -98,9 +95,21 @@ class CharacterType extends AbstractType
           'required' => false,
           'mapped' => false,
           'label' => false,
-        ])
-        ;
-      }
+      ]);
+    }
+    if ($character->isPremade()) {
+      $builder->add('source', SourceableType::class,[
+        'data_class' => Character::class,
+        'label' => 'source.label',
+        'isHomebrewable' => false,
+      ]);
+    } else {
+      $builder->add('chronicle', EntityType::class, [
+        'class' => Chronicle::class,
+        'choices' => $chronicles,
+        'required' => false,
+      ]);
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -24,10 +24,10 @@
         </div>
         {% endif %}
         <div class="accent">
-          {% if showChronicle|default(1) %}
+          {% if showChronicle|default(1) and character.isPremade == false %}
             &nbsp; {{ character.chronicle }} &nbsp;
           {% else %}
-            {{ character.groupName|default('-') }}
+            {% include "_source_block.html.twig" with {element: character, isShort: true, class: 'text-center'} %}
           {% endif %}
         </div>
         <div>

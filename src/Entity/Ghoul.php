@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\References\DisciplineReferences;
-use App\Form\GhoulType;
+use App\Form\Vampire\GhoulType;
 use App\Repository\GhoulRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;

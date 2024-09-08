@@ -6,7 +6,7 @@
   {% include "_source.html.twig" with {'element': element, 'isShort': isShort|default(false) } only %}
   {% if element.book is not null %}
     {% include "_icon.html.twig" with {icon : 'book'} only %}
-  {% elseif element.homebrewFor is not null %}
+  {% elseif element.homebrewFor|default(null) is not null %}
     {% include "_icon.html.twig" with {icon : 'homebrew'} only %}
   {% endif %}
 </div>

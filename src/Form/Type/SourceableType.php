@@ -38,17 +38,20 @@ class SourceableType  extends AbstractType
         'row_attr' => [
           'style' => 'display:none;',
         ],
-      ])
-      ->add('homebrewFor', EntityType::class, [
-        'class' => Chronicle::class,
-        'choice_label' => function ($choice) {
-          return $this->translator->trans("{$choice->getType()}.element", ['element' => $choice], 'setting');
-        },
-        'label' => 'homebrew',
-        'translation_domain' => 'app',
-        'required' => false,
-      ])
-    ;
+      ]
+    );
+    if ($options['isHomebrewable']) {
+      $builder
+        ->add('homebrewFor', EntityType::class, [
+          'class' => Chronicle::class,
+          'choice_label' => function ($choice) {
+            return $this->translator->trans("{$choice->getType()}.element", ['element' => $choice], 'setting');
+          },
+          'label' => 'homebrew',
+          'translation_domain' => 'app',
+          'required' => false,
+      ]);
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver): void
@@ -56,6 +59,7 @@ class SourceableType  extends AbstractType
       $resolver->setDefaults([
           'inherit_data' => true,
           'translation_domain' => 'book',
+          'isHomebrewable' => true,
       ]);
   }
 }

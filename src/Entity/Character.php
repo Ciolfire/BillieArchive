@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\References\DisciplineReferences;
+use App\Entity\Traits\Sourcable;
 use App\Entity\References\MeritReferences;
 use App\Repository\CharacterRepository;
 use Doctrine\DBAL\Types\Types;
@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
 class Character
 {
+  use Sourcable;
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]

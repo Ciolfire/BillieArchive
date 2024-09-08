@@ -8,7 +8,7 @@
   {% else %}
     <span>{{ "source.long"|trans({'%book%': element.book.name, '%page%': element.page|default("?")}) }}</span>
   {% endif %}
-{% elseif element.homebrewFor is not null %}
+{% elseif element.homebrewFor|default(null) is not null %}
   {% if hasLink|default(true) == true %}
     <a href="{{path('chronicle_show', {'id': element.homebrewFor.id }) }}">{{ element.homebrewFor.name }}</a>
   {% else %}

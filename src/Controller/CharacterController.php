@@ -193,6 +193,7 @@ class CharacterController extends AbstractController
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterType::class, $character);
     $form->handleRequest($request);
+
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
         $this->creationService->addMerits($character, $form->getExtraData()['merits']);
