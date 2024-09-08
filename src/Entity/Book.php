@@ -61,6 +61,10 @@ class Book implements Translatable
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
 
+  #[ORM\OneToMany(targetEntity: Character::class, mappedBy: 'book')]
+  #[ORM\OrderBy(["firstName" => "ASC", "id" => "ASC"])]
+  private Collection $characters;
+
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
   private Collection $clans;
@@ -279,6 +283,33 @@ class Book implements Translatable
     return $this;
   }
 
+  public function getCharacters(): Collection
+  {
+    return $this->characters;
+  }
+
+  public function addCharacter(Character $character): self
+  {
+    if (!$this->characters->contains($character)) {
+      $this->characters[] = $character;
+      $character->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeCharacter(Character $character): self
+  {
+    if ($this->characters->removeElement($character)) {
+      // set the owning side to null (unless already changed)
+      if ($character->getBook() === $this) {
+        $character->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
   // VAMPIRE
 
   /**
@@ -466,6 +497,8 @@ class Book implements Translatable
 
     return $this;
   }
+
+  // MAGE
 
   public function getPaths(): Collection
   {

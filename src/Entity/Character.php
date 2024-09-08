@@ -15,8 +15,9 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-#[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: "characters")]
+#[ORM\Entity(repositoryClass: CharacterRepository::class)]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "characters")])]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
 // Probably not needed

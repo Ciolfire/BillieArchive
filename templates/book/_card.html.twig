@@ -16,6 +16,16 @@
         <div class="book-content text-strong row">
           {% include "book/details/_details_human.html.twig" %}
           {% include "book/details/_details_vampire.html.twig" %}
+          {% if book.characters|length > 0 %}
+            <div class="col-4 text-end">
+              {% include "_icon.html.twig" with {icon: 'character'} %}
+            </div>
+            <div class="col-8">
+                <a href="{{ path('character_list', {'type': 'book', 'id': book.id}) }}">
+                {{ "count"|trans({'count': book.characters|length}, 'character') }}
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
       <div class="col-12 col-md-6">

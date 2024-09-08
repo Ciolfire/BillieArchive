@@ -50,6 +50,13 @@ avatar:
   save: Save the new avatar
   upload: Drag and drop or browse
 
+count: >-
+  {count, plural,
+    =0 {No Character}
+    =1 {1 Character}
+    other {# Characters}
+  }
+
 pc:
   label:
     single: Character

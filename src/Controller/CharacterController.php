@@ -146,6 +146,16 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  #[Route("/list/{type}/{id<\d+>}", name: "character_list", methods: ["GET"])]
+  public function list(string $type = null, int $id = null) : Response
+  {
+    $characters = $this->dataService->getList($type, $id, Character::class, "getCharacters");
+    $characters = $this->service->sortCharacters(...$characters);;
+    return $this->render('character/index.html.twig', [
+      'characters' => $characters,
+    ]);
+  }
+
   #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
   public function new(Request $request, Chronicle $chronicle = null, bool $isNpc = false): Response
   {

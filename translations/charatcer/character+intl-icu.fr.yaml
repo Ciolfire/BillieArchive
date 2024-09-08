@@ -50,6 +50,13 @@ avatar:
   save: Sauvegarder le nouvel avatar
   upload: Glisser-déposer ou parcourir
 
+count: >-
+  {count, plural,
+    =0 {Aucun Personnage}
+    =1 {1 Personnage}
+    other {# Personnages}
+  }
+
 pc:
   label:
     single: Personnage

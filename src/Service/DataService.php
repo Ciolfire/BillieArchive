@@ -10,6 +10,7 @@ use App\Entity\Devotion;
 use App\Entity\Merit;
 use App\Entity\Note;
 use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\PersistentCollection;
@@ -184,6 +185,24 @@ class DataService
     }
 
     return true;
+  }
+
+  public function getList(string $type, int $id, $class, $method): Collection|array
+  {
+    $repo = $this->getRepository($class);
+
+    switch ($type) {
+      case 'book':
+        /** @var Book */
+        $book = $this->findOneBy(Book::class, ['id' => $id]);
+        $items = $book->$method();
+        break;
+      default:
+        $items = $repo->findAll();
+        break;
+    }
+
+    return $items;
   }
 
   /** @return array<string> */
