@@ -76,6 +76,11 @@ class CharacterLesserTemplate
     return $this->sourceCharacter->getChronicle();
   }
 
+  public function getSourceCharacter(): ?Character
+  {
+    return $this->sourceCharacter;
+  }
+
   public function setSourceCharacter(?Character $sourceCharacter): static
   {
     $this->sourceCharacter = $sourceCharacter;
