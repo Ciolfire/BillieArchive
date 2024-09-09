@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
+use App\Entity\Traits\Typed;
 use App\Repository\MeritRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,6 +21,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Merit implements Translatable
 {
+  use Typed;
   use Homebrewable;
   use Sourcable;
 
@@ -64,10 +66,6 @@ class Merit implements Translatable
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
-
-  #[ORM\ManyToOne(inversedBy: 'merits')]
-  private ?ContentType $type = null;
-
 
   public function __construct()
   {
@@ -202,18 +200,6 @@ class Merit implements Translatable
   public function setDescription(string $description): self
   {
     $this->description = $description;
-
-    return $this;
-  }
-
-  public function getType(): ?ContentType
-  {
-    return $this->type;
-  }
-
-  public function setType(ContentType $type): self
-  {
-    $this->type = $type;
 
     return $this;
   }

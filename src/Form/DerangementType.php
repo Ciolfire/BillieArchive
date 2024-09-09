@@ -11,7 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Twig\Extra\Markdown\LeagueMarkdown;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DerangementType extends AbstractType
@@ -47,7 +46,7 @@ class DerangementType extends AbstractType
         },
         'choice_label' => function (?Derangement $derangement) {
           if ($derangement->getType()) {
-            $type = $this->translator->trans($derangement->getType(), [], 'content-type');
+            $type = $this->translator->trans($derangement->getType()->getName(), [], 'content-type');
             return "{$derangement->getName()} — {$type}";
           }
           return $derangement->getName();

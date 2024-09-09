@@ -18,12 +18,8 @@ class ContentType
   #[ORM\Column(length: 50)]
   private ?string $name = null;
 
-  #[ORM\OneToMany(mappedBy: 'type', targetEntity: Merit::class)]
-  private Collection $merits;
-
   public function __construct()
   {
-      $this->merits = new ArrayCollection();
   }
 
   public function __toString()
@@ -46,35 +42,5 @@ class ContentType
     $this->name = $name;
 
     return $this;
-  }
-
-  /**
-   * @return Collection<int, Merit>
-   */
-  public function getMerits(): Collection
-  {
-      return $this->merits;
-  }
-
-  public function addMerit(Merit $merit): static
-  {
-      if (!$this->merits->contains($merit)) {
-          $this->merits->add($merit);
-          $merit->setType($this);
-      }
-
-      return $this;
-  }
-
-  public function removeMerit(Merit $merit): static
-  {
-      if ($this->merits->removeElement($merit)) {
-          // set the owning side to null (unless already changed)
-          if ($merit->getType() === $this) {
-              $merit->setType(null);
-          }
-      }
-
-      return $this;
   }
 }

@@ -35,7 +35,7 @@ class ContentTypeType extends AbstractType
             ->orderBy('ct.name', 'ASC');
         },
         'required' => false,
-        'empty_data' => '',
+        'empty_data' => null,
       ]);
   }
 
