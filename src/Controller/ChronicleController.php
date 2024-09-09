@@ -100,7 +100,7 @@ class ChronicleController extends AbstractController
     return $this->render('character/npc/index.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
-      'back' => ['path' => 'chronicle_show', 'id' => $chronicle->getId()],
+      'back' => ['path' => 'chronicle_show', 'params' => ['id' => $chronicle->getId()]],
     ]);
   }
 

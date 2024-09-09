@@ -319,7 +319,7 @@ class CharacterController extends AbstractController
         return $this->render('character/npc/index.html.twig', [
           'chronicle' => $chronicle,
           'setting' => $chronicle->getType(),
-          'back' => ['path' => 'chronicle_show', 'id' => $chronicle->getId()],
+          'back' => ['path' => 'chronicle_show', 'params' => ['id' => $chronicle->getId()]],
         ]);
       } else {
         return $this->redirectToRoute('character_index');
@@ -856,7 +856,7 @@ class CharacterController extends AbstractController
         if (!is_null($filename)) {
           $old = $character->getAvatar();
           $character->setAvatar($filename);
-          $this->dataService->flush();
+          $this->dataService->update($character);
           if (!empty($old)) {
             $this->dataService->removeFile("$path/$old");
           }

@@ -37,7 +37,9 @@
       <div id="general" class="tab-content d-none" data-tabs-target="page">
         <div class="row pb-1">
           <div class="col-12 col-md-6">
-            {% block health %}{%include "character_sheet/traits/health.html.twig" %}{% endblock %}
+            {% block health %}
+              {% include "character_sheet/traits/health.html.twig" %}
+            {% endblock %}
           </div>
           <div class="col-12 col-md-6">
             {% include "character_sheet/traits/show/willpower.html.twig" %}

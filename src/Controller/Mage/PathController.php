@@ -114,7 +114,7 @@ class PathController extends AbstractController
       return $this->redirectToRoute('path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('vampire/clan/form.html.twig', [
+    return $this->render('mage/path/form.html.twig', [
       'form' => $form,
     ]);
   }

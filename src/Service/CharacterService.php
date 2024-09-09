@@ -70,7 +70,7 @@ class CharacterService
       $xp = 0;
     }
     $this->updateLogs($character, $extraData['xpLogs'], $isFree);
-    $this->dataService->flush();
+    $this->dataService->update($character);
 
     return $xp;
   }
@@ -140,7 +140,7 @@ class CharacterService
         break;
     }
     $character->setWounds($wounds);
-    $this->dataService->flush();
+    $this->dataService->update($character);
   }
 
   public function updateLogs(Character $character, string $logs, bool $isFree = false): void
