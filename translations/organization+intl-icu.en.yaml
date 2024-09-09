@@ -1,0 +1,14 @@
+label:
+  single: Organization
+  multi: Organizations
+
+new: New Organization
+emblem:
+  upload: Drag and drop or browse
+
+description: Description
+overview: Overview
+members: Members
+philosophy: Philosophy
+observances: Rituals and Observances
+titles: Titles and Duties
