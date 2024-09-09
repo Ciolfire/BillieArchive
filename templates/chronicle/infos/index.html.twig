@@ -16,6 +16,9 @@
       {{ chronicle.name }}
     </h1>
     {% include 'chronicle/infos/basics.html.twig' %}
-    {% include 'chronicle/infos/characters.html.twig' %}
+    <div class="row block py-2">
+      <h2>{% include "_icon.html.twig" with { icon: 'characters', class: 'icon-strong' } only %}{{ "label.multi"|trans({}, 'character') }}</h2>
+      {% include 'chronicle/infos/characters.html.twig' %}
+    </div>
   </div>
 {% endblock %}
