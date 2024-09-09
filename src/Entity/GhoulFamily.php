@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "ghoulFamilies"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "ghoulFamilies")])]
 #[ORM\Entity(repositoryClass: GhoulFamilyRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "ghoulFamilies"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "ghoulFamilies")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\GhoulFamilyTranslation")]
 class GhoulFamily implements Translatable
 {

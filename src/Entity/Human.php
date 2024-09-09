@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: HumanRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 class Human extends Character
 {
   // #[ORM\Id]

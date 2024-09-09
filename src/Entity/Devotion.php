@@ -13,10 +13,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "devotions"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "devotions")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\DevotionTranslation")]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Devotion implements Translatable
 {
   use Homebrewable;
@@ -32,6 +32,7 @@ class Devotion implements Translatable
   private string $name = "";
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'devotions', cascade: ['persist', 'remove'])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $prerequisites;
 
   #[ORM\Column(type: Types::SMALLINT)]
@@ -45,12 +46,15 @@ class Devotion implements Translatable
   private string $short = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $attributes;
 
   #[ORM\ManyToMany(targetEntity: Skill::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $skills;
 
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $disciplines;
 

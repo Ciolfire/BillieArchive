@@ -40,6 +40,7 @@ class Rule implements Translatable
   private ?self $parentRule = null;
 
   #[ORM\OneToMany(mappedBy: 'parentRule', targetEntity: self::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $subrules;
 
   public function __construct()

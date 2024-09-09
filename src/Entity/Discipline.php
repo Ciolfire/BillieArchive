@@ -13,10 +13,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "disciplines")])]
+
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "disciplines")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\DisciplineTranslation")]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Discipline implements Translatable
 {
   use Homebrewable;
@@ -47,6 +48,7 @@ class Discipline implements Translatable
   private string $rules = "";
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
   private Collection $powers;
 

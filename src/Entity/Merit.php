@@ -14,11 +14,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
+
 #[ORM\Table(name: "merits")]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\MeritTranslation")]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Merit implements Translatable
 {
   use Typed;
@@ -64,6 +65,7 @@ class Merit implements Translatable
   private string $description;
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
 

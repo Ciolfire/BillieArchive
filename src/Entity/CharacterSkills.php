@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterSkillsRepository::class)]
 #[ORM\Table(name: "characters_skills")]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class CharacterSkills
 {
   /** @var array<string> */
@@ -105,6 +106,7 @@ class CharacterSkills
     if ($this->id) {
       $this->id = null;
     }
+    $this->getAll();
   }
 
   public function getId(): ?int

@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: GhoulRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Ghoul extends CharacterLesserTemplate
 {
   protected $limit = 5;
@@ -26,12 +27,15 @@ class Ghoul extends CharacterLesserTemplate
   private int $vitae = 1;
 
   #[ORM\OneToMany(targetEntity: GhoulDiscipline::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $disciplines;
 
   #[ORM\ManyToMany(targetEntity: Devotion::class, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $devotions;
 
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
   #[ORM\ManyToOne]

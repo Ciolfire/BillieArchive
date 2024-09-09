@@ -15,8 +15,8 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Clan implements Translatable
 {
   use Sourcable;
@@ -34,13 +34,6 @@ class Clan implements Translatable
   #[ORM\Column(type: Types::TEXT)]
   private string $description = "";
 
-  #[ORM\ManyToMany(targetEntity: Attribute::class)]
-  private Collection $attributes;
-
-  #[ORM\ManyToMany(targetEntity: Discipline::class)]
-  #[ORM\OrderBy(["name" => "ASC"])]
-  private Collection $disciplines;
-
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private string $short = "";
@@ -48,12 +41,6 @@ class Clan implements Translatable
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 100)]
   private string $keywords = "";
-
-  #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
-  private ?Clan $parentClan = null;
-
-  #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
-  private Collection $bloodlines;
 
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   private ?string $emblem;
@@ -73,10 +60,28 @@ class Clan implements Translatable
   #[ORM\Column]
   private bool $isBloodline = false;
 
+  #[ORM\ManyToOne(targetEntity: Clan::class, inversedBy: "bloodlines")]
+  private ?Clan $parentClan = null;
+
+  #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $bloodlines;
+
+  #[ORM\ManyToMany(targetEntity: Attribute::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $attributes;
+
+  #[ORM\ManyToMany(targetEntity: Discipline::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  #[ORM\OrderBy(["name" => "ASC"])]
+  private Collection $disciplines;
+
   #[ORM\OneToMany(mappedBy: 'bloodline', targetEntity: Devotion::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $devotions;
 
   #[ORM\OneToMany(mappedBy: 'clan', targetEntity: GhoulFamily::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $ghoulFamilies;
 
   public function __construct(bool $isBloodline = false)

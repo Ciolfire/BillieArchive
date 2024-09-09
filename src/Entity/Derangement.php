@@ -14,8 +14,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "derangements")])]
 #[ORM\Entity(repositoryClass: DerangementRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "derangements")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\DerangementTranslation")]
 class Derangement implements Translatable
 {
@@ -40,6 +41,7 @@ class Derangement implements Translatable
   private ?self $previousAilment = null;
 
   #[ORM\OneToMany(mappedBy: "previousAilment", targetEntity: self::class)]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $degenerations;
 

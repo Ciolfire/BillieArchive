@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterInfoRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class CharacterInfo
 {
   #[ORM\Id]
@@ -24,6 +25,7 @@ class CharacterInfo
   private ?string $data = null;
 
   #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'infoAccesses')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $accessList;
 
   #[ORM\Column(length: 255)]

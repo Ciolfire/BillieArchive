@@ -13,6 +13,8 @@ use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\Cache;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
@@ -27,9 +29,11 @@ class DataService
   private ManagerRegistry $doctrine;
   private ObjectManager $manager;
   private SluggerInterface $slugger;
+  private Cache $cache;
 
-  public function __construct(ManagerRegistry $doctrine, SluggerInterface $slugger)
+  public function __construct(EntityManagerInterface $em, ManagerRegistry $doctrine, SluggerInterface $slugger)
   {
+    $this->cache = $em->getCache();
     $this->doctrine = $doctrine;
     $this->manager = $doctrine->getManager();
     $this->slugger = $slugger;
@@ -78,6 +82,12 @@ class DataService
   {
     $this->manager->remove($entity);
     $this->flush();
+  }
+
+  public function update(object $entity) : void
+  {
+    $this->cache->evictEntity($entity::class, $entity->getId());
+    $this->manager->flush();
   }
 
   public function flush() : void
@@ -318,6 +328,9 @@ class DataService
 
   public function duplicateCharacter(Character $character, ?Chronicle $chronicle, User $user) : ?Character
   {
+    $id = $character->getId();
+    $this->manager->detach($character);
+    $character = $this->manager->find(Character::class, $id);
     // Tried this to bypass the fetch: EAGER, no luck, maybe try other stuff
     // $character->getAttributes();
     // $character->getSkills();
@@ -334,7 +347,10 @@ class DataService
       $this->manager->persist($newCharacter);
       $this->manager->flush();
     } catch (\Throwable $th) {
-      // dd($th, $newCharacter->getAttributes(), $character->getAttributes());
+      // dd($th, $newCharacter, $newCharacter->getId());
+      if (!is_null($newCharacter->getId())) {
+        return $newCharacter;
+      }
       return null;
     }
 

@@ -17,11 +17,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: "characters")]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "characters")])]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
-// Probably not needed
 #[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "characters")])]
 class Character
 {
   use Sourcable;
@@ -46,6 +46,9 @@ class Character
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
   protected ?int $lookAge = null;
+
+  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+  private ?\DateTimeInterface $birthday = null;
 
   #[ORM\Column(type: Types::SMALLINT)]
   protected int $moral = 7;
@@ -94,16 +97,11 @@ class Character
   #[ORM\Column(type: Types::JSON)]
   protected array $experienceLogs = [];
 
-  // EAGER is needed for cloning the entity
-  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterAttributes::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected CharacterAttributes $attributes;
 
-  // EAGER is needed for cloning the entity
-  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"], fetch: "EAGER")]
+  #[ORM\OneToOne(targetEntity: CharacterSkills::class, inversedBy: "character", orphanRemoval: true, cascade: ["persist"])]
   protected CharacterSkills $skills;
-
-  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
-  protected Collection $specialties;
 
   #[ORM\ManyToOne(targetEntity: Virtue::class)]
   protected ?Virtue $virtue;
@@ -115,54 +113,65 @@ class Character
   #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
   protected ?string $viceDetail;
 
-  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\OrderBy(["level" => "DESC", "merit" => "ASC"])]
-  protected Collection $merits;
-
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "characters")]
   protected ?User $player = null;
 
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
   protected ?Chronicle $chronicle = null;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
-  protected Collection $notes;
-
-  protected int $limit = 5;
-
   #[ORM\Column]
   protected ?bool $isPremade = false;
 
-  protected string $type;
+  #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  #[ORM\OrderBy(["level" => "DESC", "merit" => "ASC"])]
+  protected Collection $merits;
+
+  #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  protected Collection $specialties;
+
+  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
+  protected Collection $notes;
 
   #[ORM\ManyToMany(targetEntity: Society::class, mappedBy: 'characters')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $societies;
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $derangements;
 
   #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $lesserTemplates;
 
   #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterInfo::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infos;
 
   #[ORM\ManyToMany(mappedBy: 'accessList', targetEntity: CharacterInfo::class, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infoAccesses;
 
   #[ORM\OneToMany(mappedBy: 'target', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $characterAccesses;
 
   #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $peekingRights;
 
   #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'owner')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
   private Collection $items;
 
-  #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-  private ?\DateTimeInterface $birthday = null;
+  protected int $limit = 5;
+
+  protected string $type;
 
   public function __construct()
   {
@@ -1340,7 +1349,7 @@ class Character
   /**
    * @return Collection<int, CharacterAccess>
    */
-  public function getOrderdPeekingRights(): Array
+  public function getOrderedPeekingRights(): Array
   {
     $list = $this->peekingRights->toArray();
 

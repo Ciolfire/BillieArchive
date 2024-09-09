@@ -10,8 +10,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use League\HTMLToMarkdown\HtmlConverter;
 
 
-#[Gedmo\TranslationEntity(class: "App\Entity\Translation\AttributeTranslation")]
 #[ORM\Entity(repositoryClass: AttributeRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\AttributeTranslation")]
 class Attribute
 {
   #[ORM\Id]
@@ -41,6 +42,7 @@ class Attribute
   private string $fluff = "";
 
   #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'attributes')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rolls;
 
   public function __construct()

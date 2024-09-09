@@ -16,10 +16,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "items"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "items")])]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
 #[ORM\DiscriminatorMap(["item" => Item::class, "equipment" => Equipment::class, "vehicle" => Vehicle::class, "ranged" => RangedWeapon::class, "melee" => Weapon::class])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "items"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "items")])]
 class Item
 {
   use Sourcable;

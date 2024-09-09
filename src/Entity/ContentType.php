@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContentTypeRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "append_only")]
 class ContentType
 {
   #[ORM\Id]

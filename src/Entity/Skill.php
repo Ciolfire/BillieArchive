@@ -9,8 +9,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\SkillTranslation")]
 class Skill
 {
@@ -38,6 +39,7 @@ class Skill
   private string $fluff = "";
 
   #[ORM\ManyToMany(targetEntity: Roll::class, mappedBy: 'skills')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rolls;
 
   public function __construct()

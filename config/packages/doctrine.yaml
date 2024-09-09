@@ -1,3 +1,9 @@
+framework:
+    cache:
+        pools:
+            doctrine.second_level_cache_pool:
+                adapter: cache.app
+
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
@@ -11,12 +17,21 @@ doctrine:
     orm:
         second_level_cache:
             enabled: true
+            region_cache_driver:
+                type: service
+                id: cache.app
             regions:
+                write_often:
+                    # expire automatically after 1 hour
+                    lifetime: 3600
+                    cache_driver: { type: service, id: cache.app }
                 write_rare:
-                    lifetime: 86400
+                    # expire automatically after 10 days
+                    lifetime: 864000
                     cache_driver: { type: service, id: cache.app }
                 append_only:
-                    lifetime: 864000
+                    # expire automatically after 100 days
+                    lifetime: 8640000
                     cache_driver: { type: service, id: cache.app }
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -62,11 +77,3 @@ when@prod:
             result_cache_driver:
                 type: pool
                 pool: doctrine.result_cache_pool
-
-    framework:
-        cache:
-            pools:
-                doctrine.result_cache_pool:
-                    adapter: cache.app
-                doctrine.system_cache_pool:
-                    adapter: cache.system

@@ -8,7 +8,6 @@ use Doctrine\DBAL\Types\Types;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
-
 #[ORM\Entity(repositoryClass: VirtueRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\VirtueTranslation")]

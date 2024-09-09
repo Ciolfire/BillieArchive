@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: CharacterNoteRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 class CharacterNote
 {
   #[ORM\Id]

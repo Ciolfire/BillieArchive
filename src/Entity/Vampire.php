@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 
+
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
@@ -30,16 +31,19 @@ class Vampire extends Character
   private int $vitae = 1;
 
   #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["level" => "DESC", "discipline" => "ASC"])]
   private Collection $disciplines;
 
   protected int $limit = 5;
 
   #[ORM\ManyToMany(targetEntity: Devotion::class, orphanRemoval: false, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $devotions;
 
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class, orphanRemoval: false, cascade: ["persist"])]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
   public function __construct(Character $character = null)

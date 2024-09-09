@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: VampireDisciplineRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 class VampireDiscipline
 {
   #[ORM\Id]

@@ -49,11 +49,6 @@ class CharacterSpecialty
     return $this;
   }
 
-  public function getCharacter(): ?Character
-  {
-    return $this->character;
-  }
-
   public function setCharacter(?Character $character): self
   {
     $this->character = $character;

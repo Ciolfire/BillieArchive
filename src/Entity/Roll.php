@@ -15,7 +15,7 @@ use Gedmo\Translatable\Translatable;
 use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: RollRepository::class)]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\RollTranslation")]
 class Roll implements Translatable
 {
@@ -39,9 +39,11 @@ class Roll implements Translatable
   private string $name = "";
 
   #[ORM\ManyToMany(targetEntity: Attribute::class, inversedBy: 'rolls')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $attributes;
 
   #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'rolls')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $skills;
 
   #[ORM\Column(type: Types::SMALLINT)]

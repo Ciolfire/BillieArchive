@@ -12,7 +12,7 @@ use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
-// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Book implements Translatable
 {
   #[ORM\Id]
@@ -49,42 +49,53 @@ class Book implements Translatable
   private ?string $cover;
 
   #[ORM\OneToMany(targetEntity: Derangement::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $derangements;
 
   #[ORM\OneToMany(targetEntity: Merit::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $merits;
 
   #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $items;
 
   #[ORM\Column(nullable: true)]
   private ?bool $displayFirst = null;
 
   #[ORM\OneToMany(targetEntity: Character::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "ASC"])]
   private Collection $characters;
 
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $clans;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $devotions;
   
   #[ORM\OneToMany(targetEntity: Discipline::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $disciplines;
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["discipline" => "ASC", "level" => "ASC", "name" => "ASC", "id" => "ASC"])]
   private Collection $rituals;
 
   #[ORM\OneToMany(targetEntity: GhoulFamily::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $ghoulFamilies;
 
   // Mage
   #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $paths;
 
   public function __construct(string $setting="human")

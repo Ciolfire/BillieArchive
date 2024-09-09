@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 
 #[ORM\Entity(repositoryClass: CharacterLesserTemplateRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'name', type: 'string')]
 #[DiscriminatorMap(['ghoul' => Ghoul::class])]
@@ -73,11 +74,6 @@ class CharacterLesserTemplate
   public function getChronicle() : ?Chronicle
   {
     return $this->sourceCharacter->getChronicle();
-  }
-
-  public function getSourceCharacter(): ?Character
-  {
-    return $this->sourceCharacter;
   }
 
   public function setSourceCharacter(?Character $sourceCharacter): static

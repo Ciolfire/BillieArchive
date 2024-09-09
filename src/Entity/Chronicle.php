@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChronicleRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Chronicle
 {
   #[ORM\Id]
@@ -22,6 +23,7 @@ class Chronicle
   private string $name;
 
   #[ORM\OneToMany(targetEntity: Character::class, mappedBy: "chronicle")]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
   private Collection $characters;
 
