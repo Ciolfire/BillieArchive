@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ContentType;
 use App\Entity\Rule;
 use App\Entity\Description;
 use App\Form\RuleType;
@@ -91,7 +92,9 @@ class RuleController extends AbstractController
   #[Route("/{setting}", name: "rule_index", methods: ["GET"])]
   public function list(string $setting = null) : Response
   {
-    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $setting], ['title' => 'ASC']);
+    $contentType = $this->dataService->findOneBy(ContentType::class, ['name' => $setting]);
+    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $contentType], ['title' => 'ASC']);
+    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $contentType], ['title' => 'ASC']);
     if (is_null($setting)) {
       // $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
       $setting = "human";

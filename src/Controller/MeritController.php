@@ -48,7 +48,7 @@ class MeritController extends AbstractController
         }
         break;
 
-        case 'chronicle':
+      case 'chronicle':
         /** @var Chronicle */
         $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
         if ($item instanceof Chronicle) {
@@ -58,7 +58,6 @@ class MeritController extends AbstractController
         }
         break;
       case 'type':
-        $contentTypes = $this->dataService->findBy(ContentType::class, ['name' => $id]);
         switch ($id) {
           case 'ghoul':
             $setting = 'vampire';
@@ -66,6 +65,9 @@ class MeritController extends AbstractController
           default:
             $setting = $id;
             break;
+        }
+        if (!isset($contentTypes)) {
+          $contentTypes = $this->dataService->findBy(ContentType::class, ['name' => $id]);
         }
         $merits = $this->dataService->findBy(Merit::class, ['type' => $contentTypes, 'homebrewFor' => null]);
         break;
