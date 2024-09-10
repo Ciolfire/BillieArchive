@@ -19,9 +19,9 @@
     {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
   </div>
   <div class="col-3 col-md-1 text-strong">
-    {% for i in 1..merit.min %}{{ "•"|spaceless }}{% endfor %}
+    {% for i in 1..merit.min %}•{% endfor %}
     {% if merit.min != merit.max %}
-      - {% for i in 1..merit.max %}{{ "•"|spaceless }}{% endfor %}
+      - {% for i in 1..merit.max %}•{% endfor %}
     {% endif %}
   </div>
   <div class="col">
