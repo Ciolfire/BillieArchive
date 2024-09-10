@@ -22,7 +22,7 @@ class MeritRepository extends ServiceEntityRepository
 
   public function findAll() : array
   {
-    return $this->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
+    return $this->findBy([], ['name' => 'ASC', 'category' => 'ASC']);
   }
 
 
