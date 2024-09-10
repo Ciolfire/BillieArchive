@@ -3,7 +3,10 @@ framework:
         pools:
             doctrine.second_level_cache_pool:
                 adapter: cache.app
-
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
