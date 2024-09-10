@@ -4,7 +4,7 @@
 	{% set id = merit.id %}
 {% endif %}
 
-<div class="col py-2">
+<div class="col py-2" data-search-target="item" data-name="{{ merit.name }}">
 	<div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
 		<div class="card-header">
 			<div class="d-flex justify-content-between">

@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block rituals %}
-  <div id="ritual-{{ sorcery.id }}" class="row accordion">
+  <div id="ritual-{{ sorcery.id }}" class="row accordion mb-2">
     {% for ritual in sorcery.powers[1:] %}
       {% if ritual not in character.rituals and ritual.level > 0 %}
         {% if ritual.level != level|default(0) %}

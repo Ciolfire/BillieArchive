@@ -3,7 +3,7 @@
 {% set categories = ['mental', 'physical', 'social'] %}
 
 {% block creation %}{% endblock %}
-<div class="position-relative row mb-2 ps-4">
+<div class="position-relative row mb-2 ps-4" data-controller="search" data-search-type-value="merit">
   <div id="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
     <div class="position-sticky top-50 my-2">
       <span >{% include "_icon.html.twig" with {icon : 'show' } only %}</span>
@@ -37,6 +37,10 @@
         {% include "_icon.html.twig" with {icon : 'creation' } only %}
       </span>
       {% endif %}
+      <span class="col-12 text-center pb-3">
+        <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
+        {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+      </span>
     </p>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 ps-5 pe-3 mt-0 g-4">
       {% block list %}{% endblock %}

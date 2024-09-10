@@ -2,7 +2,7 @@
 
 {% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines) %}
 
-<div class="col py-2">
+<div class="col py-2" data-search-target="item" data-name="{{ devotion.name }}">
   <div class="card devotion-card block h-100">
     <div class="card-header">
       <span class="float-start">

@@ -1,5 +1,7 @@
 {% extends "item/_card.html.twig" %}
 
+{% block class %}{{ class|default(null) }}{% endblock %}
+
 {% block actions %}
   <div class="row g-0 text-center">
     <div class="col-4">

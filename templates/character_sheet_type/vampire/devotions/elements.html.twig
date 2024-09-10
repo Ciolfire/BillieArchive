@@ -2,8 +2,14 @@
 
 {% block devotions %}
 {% block creation %}{% endblock %}
-  <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 mt-0 g-4">
-    {% block list %}
-    {% endblock %}
+  <div data-controller="search" data-search-type-value="devotion">
+    <div class="col-12 sticky-element">
+      <input type="text" class="search-field text-strong rounded mt-3" data-search-target="query" data-action="search#getResults"/>
+      {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+    </div>
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 mt-0 g-4">
+      {% block list %}
+      {% endblock %}
+    </div>
   </div>
 {% endblock %}

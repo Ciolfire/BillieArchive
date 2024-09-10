@@ -15,24 +15,28 @@
       </a>
   </ul>
   <div id="container-none" class="tab-content p-2 d-none" data-tabs-target="page">
-    <div class="row" data-character--item-target="container" data-container="0">
-    {% for item in character.items %}
-      {% if not item.isContainer and item.container is null %}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-          {% include "character_sheet/items/_card.html.twig" %}
-        </div>
-      {% endif %}
-    {% endfor %}
+    <div class="row" data-character--item-target="container" data-container="0" data-controller="search" data-search-type-value="item">
+      <div class="col-12 text-center py-2 sticky-element">
+        <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
+        {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+      </div>
+      {% for item in character.items %}
+        {% if not item.isContainer and item.container is null %}
+          {% include "character_sheet/items/_card.html.twig" with {class: 'col-12 col-md-6 col-lg-4 mb-3'} %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
   {% for container in character.itemContainers %}
     <div id="{{ "container-" ~ container.id }}" class="tab-content p-2 d-none" data-tabs-target="page">
-      <div class="row" data-character--item-target="container" data-container="{{ container.id }}">
-        {% include "character_sheet/items/_container_card.html.twig" with {item: container} %}
+      {% include "character_sheet/items/_container_card.html.twig" with {item: container} %}
+      <div class="row" data-character--item-target="container" data-container="{{ container.id }}" data-controller="search" data-search-type-value="item">
+        <div class="col-12 text-center py-2 sticky-element">
+          <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
+          {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+        </div>
         {% for item in container.containedItems %}
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-3">
-            {% include "character_sheet/items/_card.html.twig" %}
-          </div>
+          {% include "character_sheet/items/_card.html.twig" with {class: 'col-12 col-md-6 col-lg-4 mb-3'} %}
         {% endfor %}
       </div>
     </div>

@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block rituals %}
-  <div id="ritual-{{ sorcery.id }}" class="row accordion">
+  <div id="ritual-{{ sorcery.id }}" class="row accordion mb-2">
     {% for ritual in sorcery.powers[1:] %}
       {% if ritual in character.rituals %}
         {% if ritual.level != level|default(0) %}
@@ -27,12 +27,12 @@
         <div class="col-12 col-md-6 my-2">
           <div class="block d-flex flex-column justify-content-between p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ sorcery.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ sorcery.id }}-{{ ritual.id }}">
             <div class="flex-1">
-                          <h4>{{ ritual.name }}</h4>
-            <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
-            <div class="ritual-text--{{ sorcery.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ sorcery.id }}">
-              {{ ritual.details|markdown_to_html }}
-              <div class="accent text-end">{% include "_source.html.twig" with {'element': ritual } only %}</div>
-            </div>
+              <h4>{{ ritual.name }}</h4>
+              <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
+              <div class="ritual-text--{{ sorcery.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ sorcery.id }}">
+                {{ ritual.details|markdown_to_html }}
+                <div class="accent text-end">{% include "_source.html.twig" with {'element': ritual } only %}</div>
+              </div>
             </div>
           </div>
         </div>

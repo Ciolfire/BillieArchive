@@ -280,6 +280,15 @@ strong {
   }
 }
 
+.sticky-element {
+  z-index: 1;
+  position: sticky;
+  top: 6em;
+  .search-field {
+    background-color: $darkBlockColor;
+  }
+}
+
 .character-sheet {
   margin-top: 4rem;
 }
