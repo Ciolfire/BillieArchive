@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: CharacterSpecialtyRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Table(name: "characters_specialty")]
 class CharacterSpecialty
 {
@@ -47,6 +48,11 @@ class CharacterSpecialty
     $this->name = $name;
 
     return $this;
+  }
+
+  public function getCharacter(): ?Character
+  {
+    return $this->character;
   }
 
   public function setCharacter(?Character $character): self
