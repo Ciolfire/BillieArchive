@@ -1,24 +1,22 @@
 {% block radiobutton_row %}
-  {% apply spaceless %}
-    <div {% if form.vars.row_attr %}{% with { attr: form.vars.row_attr|merge({'class': form.vars.row_attr.class|default('')|trim ~ ' row justify-content-center mb-2' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="row justify-content-center mb-2"{% endif %}>
-      {# display the label #}
-      {% if form.vars.label != false %}
-        <label class="col-form-label col-sm-12">{{ form.vars.label|trans(label_translation_parameters, translation_domain) }}</label>
-      {% endif %}
-      <div class="col-sm-12 text-center">
-        {# create the button group #}
-        <div id="{{ form.vars.id }}" class="btn-group row g-1" role="group" aria-label="radio-button toggle button group">
-          {% for key,val in form.vars.choices %}
-            {# We set the attribute define in choice_attr, if any, we also need to handle the default class for the button appearance #}
-            <input id="{{ form.vars.id }}_{{ key }}" class="btn-check" type="radio" name="{{ form.vars.full_name }}" {% if form.vars.required == true %}required="required"{% endif %}{% if value is defined %} value="{{ val.value }}"{% endif %}>
-            <label for="{{ form.vars.id }}_{{ key }}" {% if val.attr %}{% with { attr: val.attr|merge({'class': val.attr.class|default('')|trim ~ ' btn btn-primary col-12 col-md-1 col-lg-auto' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="btn btn-primary"{% endif %}>
-              {# {{ val.label|trans(label_translation_parameters, translation_domain) }} #}
-              {{ val.label }}
-            </label>
-          {% endfor %}
-        </div>
+  <div {% if form.vars.row_attr %}{% with { attr: form.vars.row_attr|merge({'class': form.vars.row_attr.class|default('')|trim ~ ' row justify-content-center mb-2' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="row justify-content-center mb-2"{% endif %}>
+    {# display the label #}
+    {% if form.vars.label != false %}
+      <label class="col-form-label col-sm-12">{{ form.vars.label|trans(label_translation_parameters, translation_domain) }}</label>
+    {% endif %}
+    <div class="col-sm-12 text-center">
+      {# create the button group #}
+      <div id="{{ form.vars.id }}" class="btn-group row g-1" role="group" aria-label="radio-button toggle button group">
+        {% for key,val in form.vars.choices %}
+          {# We set the attribute define in choice_attr, if any, we also need to handle the default class for the button appearance #}
+          <input id="{{ form.vars.id }}_{{ key }}" class="btn-check" type="radio" name="{{ form.vars.full_name }}" {% if form.vars.required == true %}required="required"{% endif %}{% if value is defined %} value="{{ val.value }}"{% endif %}>
+          <label for="{{ form.vars.id }}_{{ key }}" {% if val.attr %}{% with { attr: val.attr|merge({'class': val.attr.class|default('')|trim ~ ' btn btn-primary col-12 col-md-1 col-lg-auto' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="btn btn-primary"{% endif %}>
+            {# {{ val.label|trans(label_translation_parameters, translation_domain) }} #}
+            {{ val.label }}
+          </label>
+        {% endfor %}
       </div>
-      <small id="{{ form.vars.id }}_help" class="form-text text-muted">{{ form.vars.help|trans(label_translation_parameters, translation_domain)|nl2br }}</small>
     </div>
-  {% endapply %}
+    <small id="{{ form.vars.id }}_help" class="form-text text-muted">{{ form.vars.help|trans(label_translation_parameters, translation_domain)|nl2br }}</small>
+  </div>
 {% endblock %}
