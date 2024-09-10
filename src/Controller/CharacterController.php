@@ -9,6 +9,7 @@ use App\Entity\Character;
 use App\Entity\CharacterAccess;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
+use App\Entity\ContentType;
 use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Item;
@@ -234,7 +235,8 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
-    $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$character->getType(), null]], ['name' => 'ASC']);
+    $type = $this->dataService->findOneBy(ContentType::class, ['name' => $character->getType()]);
+    $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$type->getid(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     $removables = $this->service->getRemovableAttributes($character);
