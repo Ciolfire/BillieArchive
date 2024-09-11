@@ -61,12 +61,19 @@ class Discipline implements Translatable
   #[ORM\Column]
   private bool $isCoil = false;
 
+  /**
+   * @var Collection<int, Covenant>
+   */
+  #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'disciplines')]
+  private Collection $covenants;
+
   public function __construct(bool $sorcery = false, bool $thaumaturgy = false, bool $coil = false)
   {
     $this->isSorcery = $sorcery;
     $this->isThaumaturgy = $thaumaturgy;
     $this->isCoil = $coil;
     $this->powers = new ArrayCollection();
+    $this->covenants = new ArrayCollection();
   }
 
   public function __toString()
@@ -270,5 +277,32 @@ class Discipline implements Translatable
     $this->isCoil = $isCoil;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Covenant>
+   */
+  public function getCovenants(): Collection
+  {
+      return $this->covenants;
+  }
+
+  public function addCovenant(Covenant $covenant): static
+  {
+      if (!$this->covenants->contains($covenant)) {
+          $this->covenants->add($covenant);
+          $covenant->addDiscipline($this);
+      }
+
+      return $this;
+  }
+
+  public function removeCovenant(Covenant $covenant): static
+  {
+      if ($this->covenants->removeElement($covenant)) {
+          $covenant->removeDiscipline($this);
+      }
+
+      return $this;
   }
 }

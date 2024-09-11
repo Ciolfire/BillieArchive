@@ -41,6 +41,9 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\ManyToOne]
   private ?GhoulFamily $family = null;
 
+  #[ORM\ManyToOne]
+  private ?Covenant $covenant = null;
+
   public function __construct(Clan $clan = null, Ghoul $ghoul = null)
   {
     if (isset($clan)) {
@@ -330,6 +333,18 @@ class Ghoul extends CharacterLesserTemplate
   public function setFamily(?GhoulFamily $family): static
   {
       $this->family = $family;
+
+      return $this;
+  }
+
+  public function getCovenant(): ?Covenant
+  {
+      return $this->covenant;
+  }
+
+  public function setCovenant(?Covenant $covenant): static
+  {
+      $this->covenant = $covenant;
 
       return $this;
   }

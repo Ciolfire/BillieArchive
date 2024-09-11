@@ -10,6 +10,7 @@ use App\Repository\EquipmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
+#[ORM\Table(name: "item_equipment")]
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 class Equipment extends Item
 {

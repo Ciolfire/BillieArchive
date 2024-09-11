@@ -12,6 +12,7 @@ parameters:
   characters_directory: '%kernel.project_dir%/public%characters_direct_directory%'
   books_cover_directory: '%kernel.project_dir%/public/images/books'
   item_img_directory: '%kernel.project_dir%/public/images/items'
+  organizations_emblems_directory: '%kernel.project_dir%/public/images/organizations/emblems'
   # Vampire
   clans_emblems_directory: '%kernel.project_dir%/public/images/clans/emblems'
   ghoul_family_emblems_directory: '%kernel.project_dir%/public/images/ghoul/emblems'

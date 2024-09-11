@@ -1,0 +1,108 @@
+{% trans_default_domain 'organization' %}
+
+{% set covenant = organization %}
+
+{% if isShown|default(false) == true %}
+  {% set collapse = "" %}
+{% else %}
+  {% set collapse = "collapse" %}
+{% endif %}
+
+<div id="{{ covenant.name }}" class="col-12" data-search-target="item" data-name="{{ covenant.name }}">
+  <div class="clan-card position-relative">
+  {% if is_granted('ROLE_ST') %}
+    <a class="position-absolute end-0" href="{{ path('organization_edit', {id: covenant.id, setting: 'vampire'}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+  {% endif %}
+  <blockquote class="text-center mb-2 clan-card-header">
+    <h1>{{ covenant.name }}</h1>
+  </blockquote>
+  {% if covenant.emblem is not null %}
+    <img class="mx-auto d-block" src="{{ asset(covenant.emblem, 'organizations_emblems') }}" alt="{{ covenant.name}}" height="200"/>
+  {% endif %}
+  <div class="text-center mb-2 fst-italic">
+    {# Disciplines #}
+    {% if covenant.disciplines is not empty %}
+      {% include "_icon.html.twig" with {icon: 'discipline' } %}
+      {% for discipline in covenant.disciplines %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <a class="text-strong" href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+      {% endfor %}
+      {% include "_icon.html.twig" with {icon: 'discipline' } %}
+    {% endif %}
+    {# Devotions #}
+    {% if covenant.devotions is not empty %}
+      <br>
+      {% include "_icon.html.twig" with {icon: 'devotion' } %}
+      {% for devotion in covenant.devotions %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <a class="text-strong" href="{{ path('vampire_devotion_show', {id: devotion.id}) }}">{{ devotion.name }}</a>
+      {% endfor %}
+      {% include "_icon.html.twig" with {icon: 'devotion' } %}
+    {% endif %}
+    {# Merits #}
+    {% if covenant.merits is not empty %}
+      <br>
+      {% include "_icon.html.twig" with {icon: 'merit' } %}
+      {% for merit in covenant.merits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <a class="text-strong" href="{{ path('merit_show', {id: merit.id}) }}">{{ merit.name }}</a>
+      {% endfor %}
+    {% endif %}
+    {# Discount Merits #}
+    {% if covenant.discountMerits is not empty %}
+      <br>
+      {% include "_icon.html.twig" with {icon: 'cost' } %}
+      {% include "_icon.html.twig" with {icon: 'merit' } %}
+      {% for discountMerit in covenant.discountMerits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <a class="text-strong" href="{{ path('merit_show', {id: discountMerit.id}) }}">{{ discountMerit.name }}</a>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="covenant-{{ covenant.id }} clan-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
+      <div class="text">{{ covenant.description|default("")|markdown_to_html }}</div>
+      <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
+      {{ covenant.overview|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "members"|trans }}</h2>
+      {{ covenant.members|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "philosophy"|trans }}</h2>
+      {{ covenant.philosophy|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "observances"|trans }}</h2>
+      {{ covenant.observances|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "titles"|trans }}</h2>
+      {{ covenant.titles|default("")|markdown_to_html }}
+    </div>
+    {% if isShown|default(false) != true %}
+      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
+        <span class="fa-layers fa-fw">
+          <i class="fa-solid fa-circle"></i>
+          <span class="ok covenant-{{ covenant.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+          <span class="ok covenant-{{ covenant.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+        </span>
+      </div>
+    {% endif %}
+    <div class="covenant-{{ covenant.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
+      <div class="fluff covenant-card-footer">{{ covenant.short|default("")|markdown_to_html }}
+        <div class="text-end">
+          {% include "_source.html.twig" with {'element': covenant } only %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

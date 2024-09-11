@@ -43,6 +43,7 @@ class CharacterAccessType extends AbstractType
       case 'vampire':
         $typeChoices = [
           'clan',
+          'covenant',
           'bloodline',
           'sire',
           'embrace',

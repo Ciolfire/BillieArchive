@@ -24,5 +24,12 @@
     <div class="character-card-avatar position-relative text-center m-1 rounded border border-secondary">
       <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
     </div>
+    <div class="my-1">
+      {% if (character.type == 'vampire' or character.type == 'ghoul') and access.hasRight('covenant')|default(false) %}
+        {{ character.covenant }}
+      {% else %}
+        &nbsp;
+      {% endif %}
+    </div>
   </a>
 </div>

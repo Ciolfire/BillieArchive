@@ -12,10 +12,10 @@
       <a class="position-absolute end-0" href="{{ path('clan_edit', {id: clan.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     <blockquote class="text-center mb-2 clan-card-header">
-      <h3>
+      <h1>
         {{ clan.name }}
         {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
-      </h3>
+      </h1>
       <h4>
         {% if clan.isBloodline is same as(true) %}({{ clan.parentClan.name|default("bloodline.parent.any"|trans) }}){% endif %}
       </h4>
@@ -39,7 +39,6 @@
         {% endfor %}
         <br>
       {% endif %}
-        
       {% include "_icon.html.twig" with {icon: 'discipline' } %}
       {% for discipline in clan.disciplines %}
         {% if loop.last %}
@@ -64,7 +63,7 @@
         {% include "_icon.html.twig" with {icon: 'devotion' } %}
       {% endif %}
     </div>
-    <div class="clan-{{ clan.id }} clan-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+    <div class="clan-{{ clan.id }} clan-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
       <div class="text">{{ clan.description|default("")|markdown_to_html }}</div>
       <h5>{{ "weakness"|trans }}</h5>
       <blockquote class="text">{{ clan.weakness|default("")|markdown_to_html }}</blockquote>
@@ -73,12 +72,12 @@
       <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
         <span class="fa-layers fa-fw">
           <i class="fa-solid fa-circle"></i>
-          <span class="ok clan-{{ clan.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-          <span class="ok clan-{{ clan.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+          <span class="ok clan-{{ clan.id }} {{ collapse }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+          <span class="ok clan-{{ clan.id }} {{ collapse }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
         </span>
       </div>
     {% endif %}
-    <div class="clan-{{ clan.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
+    <div class="clan-{{ clan.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
       <div class="fluff clan-card-footer">{{ clan.short|default("")|markdown_to_html }}
         <div class="text-end">
           {% include "_source.html.twig" with {'element': clan } only %}

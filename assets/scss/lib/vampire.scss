@@ -67,6 +67,7 @@ $subTextFont        : "goudy";
 $labelFont          : "goudy";
 $inputFont          : "goudy";
 $stylizedFont       : "Cezanne";
+$stylizedAltFont    : "Supernatural_Knight";
 
 @font-face {
   font-family: 'Cezanne';
@@ -87,6 +88,11 @@ $stylizedFont       : "Cezanne";
 @font-face {
   font-family: 'MrsEavesBold';
   src        : url('#{$fonts}/MrsEavesBold.otf');
+}
+
+@font-face {
+  font-family: 'Supernatural_Knight';
+  src        : url('#{$fonts}/Supernatural_Knight.ttf');
 }
 
 .collapse-block {

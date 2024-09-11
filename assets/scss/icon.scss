@@ -6,6 +6,10 @@
     filter: drop-shadow(-1px 1px 0 $mainDarkColor) drop-shadow(-1px -1px 0 $mainDarkColor) drop-shadow(1px -1px 0 $mainDarkColor) drop-shadow(1px 1px 0 $mainDarkColor);
   }
 
+  & img {
+    height: 1.4em;
+  }
+
   &-strong svg {
     filter: drop-shadow(-2px 2px 0 #1a1a1a8f) drop-shadow(-2px -2px 0 #1a1a1a8f) drop-shadow(2px -2px 0 #1a1a1a8f) drop-shadow(2px 2px 0 #1a1a1a8f);
   }

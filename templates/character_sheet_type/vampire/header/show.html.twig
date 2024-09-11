@@ -51,3 +51,8 @@
     </div>
   </div>
 {% endblock %}
+
+{% block organization %}
+  {{ "covenant.label.single"|trans([], 'organization') }}:
+  <span class="accent">{{ character.covenant }}</span>
+{% endblock %}

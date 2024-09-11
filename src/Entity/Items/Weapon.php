@@ -10,6 +10,7 @@ use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: "item_weapon")]
 #[ORM\Entity(repositoryClass: VehicleRepository::class)]
 class Weapon extends Item
 {

@@ -64,6 +64,12 @@ class Devotion implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
+  /**
+   * @var Collection<int, Covenant>
+   */
+  #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'devotions')]
+  private Collection $covenants;
+
   public function __construct()
   {
     $this->prerequisites = new ArrayCollection();
@@ -71,6 +77,12 @@ class Devotion implements Translatable
     $this->attributes = new ArrayCollection();
     $this->skills = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
+    $this->covenants = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return $this->name;
   }
 
   public function getId(): ?int
@@ -270,5 +282,32 @@ class Devotion implements Translatable
     }
 
     return $costs;
+  }
+
+  /**
+   * @return Collection<int, Covenant>
+   */
+  public function getCovenants(): Collection
+  {
+      return $this->covenants;
+  }
+
+  public function addCovenant(Covenant $covenant): static
+  {
+      if (!$this->covenants->contains($covenant)) {
+          $this->covenants->add($covenant);
+          $covenant->addDevotion($this);
+      }
+
+      return $this;
+  }
+
+  public function removeCovenant(Covenant $covenant): static
+  {
+      if ($this->covenants->removeElement($covenant)) {
+          $covenant->removeDevotion($this);
+      }
+
+      return $this;
   }
 }

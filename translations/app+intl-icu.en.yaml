@@ -86,3 +86,5 @@ prerequisite:
   add: New Prerequisite
   choice: Selection
   group: Choice index (X or Y or ...)
+
+upload: Drag and drop or browse

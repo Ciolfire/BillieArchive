@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Organization;
+use App\Form\Type\SourceableType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,13 +29,20 @@ class OrganizationType extends AbstractType
     $translator = $this->translator;
 
     $builder
-      ->add('name')
+      ->add('name', null, [
+        'label' => 'name',
+        'translation_domain' => 'app',
+      ])
       ->add('emblem', DropzoneType::class, [
         'label' => false,
-        'attr' => ['placeholder' => 'emblem.upload'],
+        'translation_domain' => 'app',
+        'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
-        'help' => 'help.img',
+      ])
+      ->add('source', SourceableType::class, [
+        'data_class' => Organization::class,
+        'label' => 'source.label',
       ])
       ->add('description', CKEditorType::class, [
         'label_attr' => [

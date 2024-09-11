@@ -69,9 +69,16 @@ class Merit implements Translatable
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
 
+  #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'merits')]
+  private Collection $covenants;
+
+  #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'discountMerits')]
+  private Collection $discountForCovenants;
+
   public function __construct()
   {
     $this->prerequisites = new ArrayCollection();
+    $this->covenants = new ArrayCollection();
   }
 
   public function __toString(): string

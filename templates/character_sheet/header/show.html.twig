@@ -69,6 +69,10 @@
           {{ "Chronicle"|trans }}: {{ character.chronicle }}
         </div>
         <div class="col-12">
+          {% block organization %}
+          {% endblock %}
+        </div>
+        <div class="col-12">
           {{ "faction"|trans }}: {{ character.faction }}
         </div>
         <div class="col-12">

@@ -75,6 +75,10 @@
 
   &-stylized {
     font-family: $stylizedFont;
+
+    &-alt {
+      font-family: $stylizedAltFont;
+    }
   }
 
   &-muted {

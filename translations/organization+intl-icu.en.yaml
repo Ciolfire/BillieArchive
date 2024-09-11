@@ -12,3 +12,19 @@ members: Members
 philosophy: Philosophy
 observances: Rituals and Observances
 titles: Titles and Duties
+
+covenant:
+  label:
+    single: Covenant
+    multi: Covenants
+  help:
+    devotion.limited: These devotions can only be bought by members of this Covenant
+    discipline.limited: These disciplines can only be bought by members of this Covenant
+    merit:
+      limited: These merits can only be bought by members of this Covenant
+      discount: These merits cost half for the members of this Covenant
+  devotion.limited: Restricted Devotions
+  discipline.limited: Restricted Disciplines
+  merit:
+    discount: Half Price Merits
+    limited: Restricted Merits

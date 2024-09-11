@@ -23,7 +23,8 @@ class GhoulType extends AbstractType
           return $clan ? !$clan->isBloodline() : false;
         }
       ])
-      // ->add('family')
+      ->add('covenant')
+      ->add('family')
     ;
   }
 

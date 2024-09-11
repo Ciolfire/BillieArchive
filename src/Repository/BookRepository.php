@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -14,15 +16,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BookRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Book::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Book::class);
+  }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
+  // /**
+  //  * @return Book[] Returns an array of Book objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
@@ -36,7 +38,7 @@ class BookRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Book
     {
         return $this->createQueryBuilder('b')

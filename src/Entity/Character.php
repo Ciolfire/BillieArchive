@@ -131,7 +131,7 @@ class Character
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   protected Collection $specialties;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterNote::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterNote::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
   protected Collection $notes;
@@ -140,27 +140,27 @@ class Character
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $societies;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterDerangement::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterDerangement::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $derangements;
 
-  #[ORM\OneToMany(mappedBy: 'sourceCharacter', targetEntity: CharacterLesserTemplate::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterLesserTemplate::class, mappedBy: 'sourceCharacter', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $lesserTemplates;
 
-  #[ORM\OneToMany(mappedBy: 'character', targetEntity: CharacterInfo::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterInfo::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infos;
 
-  #[ORM\ManyToMany(mappedBy: 'accessList', targetEntity: CharacterInfo::class, cascade: ["persist"])]
+  #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList', cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infoAccesses;
 
-  #[ORM\OneToMany(mappedBy: 'target', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterAccess::class, mappedBy: 'target', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $characterAccesses;
 
-  #[ORM\OneToMany(mappedBy: 'accessor', targetEntity: CharacterAccess::class, orphanRemoval: true, cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: CharacterAccess::class, mappedBy: 'accessor', orphanRemoval: true, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $peekingRights;
 

@@ -93,19 +93,17 @@ class RuleController extends AbstractController
   public function list(string $setting = null) : Response
   {
     $contentType = $this->dataService->findOneBy(ContentType::class, ['name' => $setting]);
-    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $contentType], ['title' => 'ASC']);
-    $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $contentType], ['title' => 'ASC']);
     if (is_null($setting)) {
-      // $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null], ['title' => 'ASC']);
+      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => null], ['title' => 'ASC']);
       $setting = "human";
     } else {
+      $rules = $this->dataService->findBy(Rule::class, ['parentRule' => null, 'type' => $contentType], ['title' => 'ASC']);
     }
 
     return $this->render('rule/list.html.twig', [
       'setting' => $setting,
       'rules' => $rules,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'rule']),
-      // 'search' => $search, // Kinda want to replace for dynamic list
     ]);
   }
 

@@ -16,6 +16,12 @@
     </a>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('organization_index', {setting: 'vampire'})}}">
+      {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+      <span>{{ 'covenant.label.multi'|trans({}, 'organization')}}</span>
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('clan_index')}}">
       {% include "_icon.html.twig" with {icon: 'clan' } only %}
       <span>{{ "label.multi"|trans({}, 'clan')}}</span>

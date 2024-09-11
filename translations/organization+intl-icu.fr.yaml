@@ -12,3 +12,8 @@ members:
 philosophy:
 observances:
 titles:
+
+covenant:
+  label:
+    single: Covenant
+    multi: Covenants

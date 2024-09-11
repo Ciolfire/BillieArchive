@@ -31,7 +31,9 @@ class VampireType extends CharacterType
         'attr' => [
           'placeholder' => 'embrace.by'
         ],
-      ]);
+      ])
+      ->add('covenant')
+      ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

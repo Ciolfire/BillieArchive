@@ -11,3 +11,10 @@
     {{ form_row(form.lesserTemplate.clan) }}
   </div>
 {% endblock %}
+
+{% block header_middle_col %}
+  {{ parent() }}
+  <div class="col-12">
+    {{ form_row(form.lesserTemplate.family) }}
+  </div>
+{% endblock %}

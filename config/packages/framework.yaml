@@ -28,6 +28,8 @@ framework:
         base_path: '/images/items/'
       characters:
         base_path: '/images/characters/'
+      organizations_emblems:
+        base_path: '/images/organizations/emblems/'
       # Vampire
       clans:
         base_path: '/images/clans/'

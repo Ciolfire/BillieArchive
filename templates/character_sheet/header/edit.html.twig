@@ -47,14 +47,16 @@
     <hr class="d-block d-lg-none">
     <div class="col-12 col-lg-4">
       <div class="row">
-        <div class="col-12">
-          {{ form_row(form.virtue) }}
-          {{ form_row(form.virtueDetail) }}
-        </div>
-        <div class="col-12">
-          {{ form_row(form.vice) }}
-          {{ form_row(form.viceDetail) }}
-        </div>
+        {% block header_middle_col %}
+          <div class="col-12">
+            {{ form_row(form.virtue) }}
+            {{ form_row(form.virtueDetail) }}
+          </div>
+          <div class="col-12">
+            {{ form_row(form.vice) }}
+            {{ form_row(form.viceDetail) }}
+          </div>
+          {% endblock %}
       </div>
     </div>
     <hr class="d-block d-lg-none">
@@ -66,6 +68,11 @@
           {% else %}
             {{ form_row(form.chronicle) }}
           {% endif %}
+        </div>
+        <div class="col-12">
+          {% block organization %}
+            {# {{ form_row(form.organization) }} #}
+          {% endblock %}
         </div>
         <div class="col-12">
           {{ form_row(form.faction) }}

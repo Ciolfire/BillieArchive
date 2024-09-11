@@ -6,9 +6,11 @@ use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\CharacterMerit;
 use App\Entity\Chronicle;
+use App\Entity\Covenant;
 use App\Entity\Devotion;
 use App\Entity\Merit;
 use App\Entity\Note;
+use App\Entity\Organization;
 use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -323,6 +325,17 @@ class DataService
           }
         }
       }
+    }
+  }
+
+  public function getOrganizations(?string $setting)
+  {
+    switch ($setting) {
+      case 'vampire':
+        return $this->findAll(Covenant::class);
+
+      default:
+        return $this->findAll(Organization::class);
     }
   }
 

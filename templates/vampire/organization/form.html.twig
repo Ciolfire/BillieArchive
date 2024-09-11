@@ -1,0 +1,85 @@
+{% extends 'form.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set setting = 'vampire' %}
+
+{% block title %}{% endblock %}
+
+{% block form %}
+{{ form_row(form.name) }}
+{{ form_row(form.emblem) }}
+{{ form_row(form.source) }}
+<div class="row">
+  <div class="col-12 col-lg-6">{{ form_row(form.description) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.overview) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.members) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.philosophy) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.observances) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.titles) }}</div>
+</div>
+<div class="block">
+<div class="accordion block" id="accordionCovenant">
+  <div>
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ form_label(form.disciplines) }}
+        {{ form_help(form.disciplines) }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionCovenant">
+      <div class="accordion-body">
+        {{ form_widget(form.disciplines) }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        {{ form_label(form.devotions) }}
+        {{ form_help(form.devotions) }}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionCovenant">
+      <div class="accordion-body">
+        {{ form_widget(form.devotions) }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+        {{ form_label(form.merits) }}
+        {{ form_help(form.merits) }}
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionCovenant">
+      <div class="accordion-body">
+        {{ form_widget(form.merits) }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="accordion-header" id="headingFourth">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+        {{ form_label(form.discountMerits) }}
+        {{ form_help(form.discountMerits) }}
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFourth" data-bs-parent="#accordionCovenant">
+      <div class="accordion-body">
+        {{ form_widget(form.discountMerits) }}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row justify-content-center">
+  <div class="col col-md-6">
+    <button class="btn btn-primary w-100">
+      {{ ("action." ~ action|default('save'))|trans }}
+      {% include "_icon.html.twig" with {icon : action|default('save')} only %}
+    </button>
+  </div>
+</div>
+{% endblock %}

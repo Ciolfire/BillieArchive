@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
+use App\Entity\Chronicle;
+use App\Entity\Covenant;
 use App\Entity\Description;
 use App\Entity\Organization;
+use App\Form\CovenantType;
 use App\Form\OrganizationType;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/{_locale<%supported_locales%>?%default_locale%}')]
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/organization')]
 class OrganizationController extends AbstractController
 {
   private DataService $dataService;
@@ -22,38 +26,59 @@ class OrganizationController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route('/organizations', name: 'organization_index', methods: ['GET'])]
-  public function organizations(): Response
+  #[Route('/{setting}', name: 'organization_index', methods: ['GET'])]
+  public function organizations(string $setting = null): Response
   {
+    $organizations = $this->dataService->getOrganizations($setting);
+    if ($setting == null) {
+      $setting = "human";
+    }
+
+    switch ($setting) {
+      case 'vampire':
+        $type = "covenant";
+        break;
+      case 'mage':
+        $type = "order";
+        break;
+      default:
+        $type = "organization";
+      break;
+    }
+
     return $this->render('organization/index.html.twig', [
-      'organizations' => $this->dataService->findAll(Organization::class),
+      'organizations' => $organizations,
+      'type' => $type,
+      'setting' => $setting,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'organization']),
     ]);
   }
 
-  // #[Route("/organization/{filter<\w+>}/{id<\d+>}", name: "organization_list", methods: ["GET"])]
-  // public function organizationList(string $filter, int $id): Response
-  // {
-  //   switch ($filter) {
-  //     case 'chronicle':
-  //       /** @var Chronicle */
-  //       $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-  //       $back = ['organization' => 'homebrew_index', 'id' => $id];
-  //       break;
-  //     case 'book':
-  //     default:
-  //       /** @var Book */
-  //       $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-  //       $back = ['organization' => 'book_index', 'id' => $id];
-  //   }
+  #[Route("/{filter<\w+>}/{id<\d+>}", name: "organization_list", methods: ["GET"])]
+  public function organizationList(string $filter, int $id): Response
+  {
+    // $dataService->getList()
 
-  //   return $this->render('mage/organization/index.html.twig', [
-  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'organization']),
-  //     'organizations' => $item->getOrganizations(),
-  //     'search' => [],
-  //     'back' => $back,
-  //   ]);
-  // }
+    // switch ($filter) {
+    //   case 'chronicle':
+    //     /** @var Chronicle */
+    //     $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+    //     $back = ['organization' => 'homebrew_index', 'id' => $id];
+    //     break;
+    //   case 'book':
+    //   default:
+    //     /** @var Book */
+    //     $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
+    //     $back = ['organization' => 'book_index', 'id' => $id];
+    // }
+
+    return $this->render('mage/organization/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'organization']),
+      'organizations' => $item->getOrganizations(),
+      'search' => [],
+      'back' => $back,
+    ]);
+  }
 
 
   // #[Route('/organization/{id<\d+>}', name: 'organization_show', methods: ['GET'])]
@@ -64,13 +89,22 @@ class OrganizationController extends AbstractController
   //   ]);
   // }
 
-  #[Route('/organization/new', name: 'organization_new', methods: ['GET', 'POST'])]
-  public function new(Request $request): Response
+  #[Route('/{setting<\w+>}/new', name: 'organization_new', methods: ['GET', 'POST'])]
+  public function new(Request $request, $setting = null): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $organization = new Organization();
-    $form = $this->createForm(OrganizationType::class, $organization);
+    switch ($setting) {
+      case 'vampire':
+        $organization = new Covenant();
+        $form = $this->createForm(CovenantType::class, $organization);
+        break;
+
+      default:
+        $organization = new Organization();
+        $form = $this->createForm(OrganizationType::class, $organization);
+        break;
+    }
 
     $form->handleRequest($request);
 
@@ -82,7 +116,13 @@ class OrganizationController extends AbstractController
       }
       $this->dataService->save($organization);
 
-      return $this->redirectToRoute('organization_index', ['_fragment' => $organization->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
+    }
+
+    if ($setting) {
+      return $this->render("{$setting}/organization/form.html.twig", [
+        'form' => $form,
+      ]);
     }
 
     return $this->render('organization/form.html.twig', [
@@ -90,12 +130,21 @@ class OrganizationController extends AbstractController
     ]);
   }
 
-  #[Route('/organization/{id<\d+>}/edit', name: 'organization_edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, Organization $organization): Response
+  #[Route('/{setting<\w+>}/{id<\d+>}/edit', name: 'organization_edit', methods: ['GET', 'POST'])]
+  public function edit(Request $request, Organization $organization, $setting = "human"): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(OrganizationType::class, $organization);
+    switch ($setting) {
+      case 'vampire':
+        $form = $this->createForm(CovenantType::class, $organization);
+        break;
+
+      default:
+        $form = $this->createForm(OrganizationType::class, $organization);
+        break;
+    }
+
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -105,12 +154,18 @@ class OrganizationController extends AbstractController
         $organization->setEmblem($this->dataService->upload($emblem, $fileOrganization));
       }
       $this->dataService->flush();
+      return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
+    }
 
-      return $this->redirectToRoute('organization_index', ['_fragment' => $organization->getName()], Response::HTTP_SEE_OTHER);
+    if ($setting) {
+      return $this->render("{$setting}/organization/form.html.twig", [
+        'form' => $form,
+      ]);
     }
 
     return $this->render('organization/form.html.twig', [
       'form' => $form,
+      'setting' => $setting,
     ]);
   }
 }

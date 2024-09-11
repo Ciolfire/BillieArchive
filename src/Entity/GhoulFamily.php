@@ -57,6 +57,11 @@ class GhoulFamily implements Translatable
   #[ORM\ManyToOne(inversedBy: 'ghoulFamilies')]
   private ?Clan $clan = null;
 
+  public function __toString()
+  {
+    return $this->name;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

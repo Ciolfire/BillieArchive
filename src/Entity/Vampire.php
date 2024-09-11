@@ -46,6 +46,9 @@ class Vampire extends Character
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
+  #[ORM\ManyToOne]
+  private ?Covenant $covenant = null;
+
   public function __construct(Character $character = null)
   {
     $this->disciplines = new ArrayCollection();
@@ -450,5 +453,17 @@ class Vampire extends Character
     }
     
     return 10 - $restriction;
+  }
+
+  public function getCovenant(): ?Covenant
+  {
+      return $this->covenant;
+  }
+
+  public function setCovenant(?Covenant $covenant): static
+  {
+      $this->covenant = $covenant;
+
+      return $this;
   }
 }
