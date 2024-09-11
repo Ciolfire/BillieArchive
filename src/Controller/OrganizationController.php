@@ -50,7 +50,7 @@ class OrganizationController extends AbstractController
       'organizations' => $organizations,
       'type' => $type,
       'setting' => $setting,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'organization']),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => $type]),
     ]);
   }
 
