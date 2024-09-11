@@ -224,7 +224,7 @@ class ChronicleController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush();
+      $this->dataService->update($category);
 
       return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
     }

@@ -93,7 +93,7 @@ class ItemController extends AbstractController
       if ($img instanceof UploadedFile && is_string($path)) {
         $item->setImg($this->dataService->upload($img, $path));
       }
-      $this->dataService->save($item);
+      $this->dataService->update($item);
       if ($item->getOwner()) {
         return $this->redirectToRoute('character_show', ['id' => $item->getOwner()->getId(), '_fragment' => 'inventory']);
       }

@@ -55,7 +55,7 @@ class RuleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/edit", name:"rule_edit", methods:["GET", "POST"])]
-  public function edit(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
+  public function edit(Request $request, Rule $rule): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -63,7 +63,7 @@ class RuleController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->update($rule);
 
       return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -76,14 +76,13 @@ class RuleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/delete", name:"rule_delete", methods:["POST"])]
-  public function delete(Request $request, Rule $rule, EntityManagerInterface $entityManager): Response
+  public function delete(Request $request, Rule $rule): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $token = $request->request->get('_token');
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $rule->getId(), $token)) {
-      $entityManager->remove($rule);
-      $entityManager->flush();
+      $this->dataService->remove($rule);
     }
 
     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
@@ -106,27 +105,4 @@ class RuleController extends AbstractController
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'rule']),
     ]);
   }
-
-  // #[Route("/{id<\d+>}/translate/{language}", name:"rule_translate", methods:["GET", "POST"])]
-  // public function translate(Request $request, Rule $rule, $language, EntityManagerInterface $entityManager): Response
-  // {
-  //   $this->denyAccessUnlessGranted('ROLE_ST');
-
-  //   $form = $this->createForm(RuleType::class, $rule);
-  //   $form->handleRequest($request);
-  //   $rule->setTranslatableLocale($language); // change locale
-
-  //   if ($form->isSubmitted() && $form->isValid()) {
-  //     $entityManager->persist($rule);
-  //     $entityManager->flush();
-
-  //     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
-  //   }
-
-  //   return $this->render('element/new.html.twig', [
-  //     'element' => 'rule',
-  //     'entity' => $rule,
-  //     'form' => $form,
-  //   ]);
-  // }
 }

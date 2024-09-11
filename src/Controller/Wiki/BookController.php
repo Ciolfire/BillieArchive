@@ -84,7 +84,7 @@ class BookController extends AbstractController
       if ($cover instanceof UploadedFile && is_string($path)) {
         $book->setCover($this->dataService->upload($cover, $path));
       }
-      $this->dataService->flush();
+      $this->dataService->update($book);
 
       return $this->redirectToRoute('book_index', ['setting' => $book->getSetting()], Response::HTTP_SEE_OTHER);
     }

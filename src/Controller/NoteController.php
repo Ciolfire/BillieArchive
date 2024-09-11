@@ -84,7 +84,7 @@ class NoteController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush();
+      $this->dataService->update($note);
       /** @var Chronicle $chronicle */
       $chronicle = $note->getChronicle();
       $category = $note->getCategory();

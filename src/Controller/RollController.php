@@ -55,13 +55,13 @@ class RollController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/edit", name:"roll_edit", methods:["GET", "POST"])]
-  public function edit(Request $request, Roll $roll, EntityManagerInterface $entityManager): Response
+  public function edit(Request $request, Roll $roll): Response
   {
     $form = $this->createForm(RollType::class, $roll);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->update($roll);
 
       return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
     }
@@ -74,15 +74,14 @@ class RollController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/translate/{language}", name:"roll_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Roll $roll, string $language, EntityManagerInterface $entityManager): Response
+  public function translate(Request $request, Roll $roll, string $language): Response
   {
     $form = $this->createForm(RollType::class, $roll);
     $form->handleRequest($request);
     $roll->setTranslatableLocale($language); // change locale
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($roll);
-      $entityManager->flush();
+      $this->dataService->save($roll);
 
       return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
     }
@@ -95,14 +94,13 @@ class RollController extends AbstractController
   }
 
   #[Route("/{id<\d+>}/delete", name:"roll_delete", methods:["POST"])]
-  public function delete(Request $request, Roll $roll, EntityManagerInterface $entityManager): Response
+  public function delete(Request $request, Roll $roll): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $token = $request->request->get('_token');
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $roll->getId(), $token)) {
-      $entityManager->remove($roll);
-      $entityManager->flush();
+      $this->dataService->remove($roll);
     }
 
     return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);

@@ -87,15 +87,6 @@ class DerangementController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}", name:"derangement_show", methods:["GET"])]
-  public function show(Derangement $derangement): Response
-  {
-    return $this->render('element/show.html.twig', [
-      'element' => 'derangement',
-      'entity' => $derangement,
-    ]);
-  }
-
   #[Route("/{id<\d+>}/edit", name:"derangement_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Derangement $derangement, EntityManagerInterface $entityManager): Response
   {
@@ -103,7 +94,7 @@ class DerangementController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->flush();
+      $this->dataService->update($derangement);
 
       return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
     }
@@ -112,6 +103,15 @@ class DerangementController extends AbstractController
       'element' => 'derangement',
       'entity' => $derangement,
       'form' => $form,
+    ]);
+  }
+
+  #[Route("/{id<\d+>}", name:"derangement_show", methods:["GET"])]
+  public function show(Derangement $derangement): Response
+  {
+    return $this->render('element/show.html.twig', [
+      'element' => 'derangement',
+      'entity' => $derangement,
     ]);
   }
 

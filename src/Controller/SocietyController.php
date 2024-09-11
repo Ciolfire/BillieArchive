@@ -71,7 +71,7 @@ class SocietyController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush();
+      $this->dataService->update($society);
       $this->addFlash('notice', "{$society->getName()} updated");
       return $this->redirectToRoute('society_show', ['id' => $society->getId()]);
     }

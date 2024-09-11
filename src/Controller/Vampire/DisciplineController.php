@@ -188,7 +188,7 @@ class DisciplineController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush();
+      $this->dataService->update($discipline);
 
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
@@ -234,7 +234,7 @@ class DisciplineController extends AbstractController
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->save($power);
+      $this->dataService->update($power);
       /** @var Discipline */
       $discipline = $power->getDiscipline();
 

@@ -131,7 +131,7 @@ class MeritController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->flush();
+      $this->dataService->update($merit);
 
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }

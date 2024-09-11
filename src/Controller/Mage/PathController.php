@@ -109,7 +109,7 @@ class PathController extends AbstractController
       if ($emblem instanceof UploadedFile && is_string($filePath)) {
         $path->setEmblem($this->dataService->upload($emblem, $filePath));
       }
-      $this->dataService->flush();
+      $this->dataService->update($path);
 
       return $this->redirectToRoute('path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }

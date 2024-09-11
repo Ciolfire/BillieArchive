@@ -153,7 +153,7 @@ class OrganizationController extends AbstractController
       if ($emblem instanceof UploadedFile && is_string($fileOrganization)) {
         $organization->setEmblem($this->dataService->upload($emblem, $fileOrganization));
       }
-      $this->dataService->flush();
+      $this->dataService->update($organization);
       return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
     }
 

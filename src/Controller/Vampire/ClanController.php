@@ -157,7 +157,7 @@ class ClanController extends AbstractController
       if ($emblem instanceof UploadedFile && is_string($path)) {
         $clan->setEmblem($this->dataService->upload($emblem, $path));
       }
-      $this->dataService->flush();
+      $this->dataService->update($clan);
 
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }

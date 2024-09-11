@@ -4,13 +4,9 @@ namespace App\Controller\Vampire;
 
 use App\Entity\Book;
 use App\Entity\Chronicle;
-use App\Entity\User;
-use App\Entity\Vampire;
-use App\Entity\Clan;
 use App\Entity\Description;
 use App\Entity\GhoulFamily;
-use App\Form\ClanType;
-use App\Form\GhoulFamilyType;
+use App\Form\Vampire\GhoulFamilyType;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,7 +93,7 @@ class GhoulController extends AbstractController
       if ($emblem instanceof UploadedFile && is_string($path)) {
         $family->setEmblem($this->dataService->upload($emblem, $path));
       }
-      $this->dataService->flush();
+      $this->dataService->update($family);
 
       return $this->redirectToRoute('ghoul_families_index', [], Response::HTTP_SEE_OTHER);
     }
