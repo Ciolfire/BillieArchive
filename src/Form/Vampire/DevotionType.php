@@ -73,6 +73,7 @@ class DevotionType extends AbstractType
         },
       ])
       ->add('contestedText', null, ['label' => 'contested.text', 'attr' => ['placeholder' => 'contested.placeholder']])
+      ->add('usePotency', null, ['label' => 'potency'])
       ->add('source', SourceableType::class, [
         'data_class' => Devotion::class,
         'label' => 'source.label',

@@ -62,6 +62,9 @@ class DisciplinePower implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
+  #[ORM\Column]
+  private ?bool $usePotency = null;
+
   public function __construct(Discipline $discipline, int $level)
   {
     $this->discipline = $discipline;
@@ -184,7 +187,11 @@ class DisciplinePower implements Translatable
     } else {
       $bonus = $level;
     }
-    
+
+    if ($this->usePotency) {
+      $bonus += $character->getPotency();
+    }
+
     return $character->dicePool($this->attributes, $this->skills, $bonus);
   }
 
@@ -206,10 +213,14 @@ class DisciplinePower implements Translatable
       $modifiers['thaumaturgy'] = -$this->level;
     }
 
+    if ($this->usePotency) {
+      $modifiers['potency'] = $character->getPotency();
+    }
+
     if ($this->attributes->isEmpty() && $this->skills->isEmpty()) {
       return null;
     }
-    
+
     return $character->detailedDicePool($this->attributes, $this->skills, null, $modifiers);
   }
 
@@ -295,5 +306,17 @@ class DisciplinePower implements Translatable
     }
 
     return $costs;
+  }
+
+  public function isUsePotency(): ?bool
+  {
+      return $this->usePotency;
+  }
+
+  public function setUsePotency(bool $usePotency): static
+  {
+      $this->usePotency = $usePotency;
+
+      return $this;
   }
 }

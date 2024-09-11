@@ -6,14 +6,25 @@ new: Nouvelle Organisation
 emblem:
   upload: Glisser-déposer ou parcourir
 
-description:
-overview:
-members:
-philosophy:
-observances:
-titles:
+description: Description
+overview: Vue d'ensemble
+members: Membres
+philosophy: Philosophie
+observances: Rituels et Célébrations
+titles: Titres et devoirs
 
 covenant:
   label:
     single: Covenant
     multi: Covenants
+  help:
+    devotion.limited: Ces dévotions ne peuvent être acquises que par les membres de ce Covenant
+    discipline.limited: Ces disciplines ne peuvent être acquises que par les membres de ce Covenant
+    merit:
+      limited: Ces atouts ne peuvent être acquis que par les membres de ce Covenant
+      discount: Ces atouts sont acquis à moitié prix par les membres de ce Covenant
+  devotion.limited: Dévotions Restreintes
+  discipline.limited: Disciplines Restreintes
+  merit:
+    discount: Atouts à demi-prix
+    limited: Atouts Restreints

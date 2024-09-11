@@ -63,12 +63,13 @@ class Devotion implements Translatable
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
+  
+  #[ORM\Column]
+  private ?bool $usePotency = null;
 
-  /**
-   * @var Collection<int, Covenant>
-   */
   #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'devotions')]
   private Collection $covenants;
+
 
   public function __construct()
   {
@@ -307,6 +308,18 @@ class Devotion implements Translatable
       if ($this->covenants->removeElement($covenant)) {
           $covenant->removeDevotion($this);
       }
+
+      return $this;
+  }
+
+  public function isUsePotency(): ?bool
+  {
+      return $this->usePotency;
+  }
+
+  public function setUsePotency(bool $usePotency): static
+  {
+      $this->usePotency = $usePotency;
 
       return $this;
   }

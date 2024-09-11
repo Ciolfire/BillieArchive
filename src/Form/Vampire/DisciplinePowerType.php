@@ -70,6 +70,7 @@ class DisciplinePowerType extends AbstractType
             return $translator->trans("category.{$choice->getCategory()}", [], 'app');
           },
         ])
+        ->add('usePotency', null, ['label' => "potency"])
         ->add('contestedText', null, ['label' => "contested.text", 'attr' => ['placeholder' => "contested.placeholder"]])
         ;
     }

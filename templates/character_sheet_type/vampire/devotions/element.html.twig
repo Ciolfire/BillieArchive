@@ -1,6 +1,10 @@
 {% trans_default_domain 'vampire' %}
 
-{% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines) %}
+{% if devotion.usePotency %}
+  {% set extra = {potency: character.potency} %}
+{% endif %}
+
+{% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines, extra|default([])) %}
 
 <div class="col py-2" data-search-target="item" data-name="{{ devotion.name }}">
   <div class="card devotion-card block h-100">

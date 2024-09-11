@@ -17,6 +17,8 @@ count: >-
     other {# Disciplines}
   }
 
+potency: Ajouter la Puissande du Sang au jet
+
 power:
   new: "Nouveau Pouvoir — {discipline}"
   edit: "Modifier: {power} — {discipline}"

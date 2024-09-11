@@ -17,6 +17,8 @@ count: >-
     other {# Disciplines}
   }
 
+potency: Add Blood Potency to roll
+
 power:
   new: "New Power — {discipline}"
   edit: "Edit: {power} — {discipline}"
