@@ -136,7 +136,6 @@ class ClanController extends AbstractController
 
         return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
-
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
@@ -164,6 +163,10 @@ class ClanController extends AbstractController
       }
       $this->dataService->update($clan);
 
+      if ($clan->isBloodline()) {
+
+        return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+      }
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
