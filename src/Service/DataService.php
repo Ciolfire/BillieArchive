@@ -332,7 +332,7 @@ class DataService
   {
     switch ($setting) {
       case 'vampire':
-        return $this->findAll(Covenant::class);
+        return $this->findBy(Covenant::class, ['homebrewFor' => null], ['name' => 'ASC']);
 
       default:
         return $this->findAll(Organization::class);
