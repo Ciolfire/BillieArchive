@@ -1,8 +1,8 @@
 {% if class is not defined %}
-  {% set class = 'text-end' %}
+  {% set class = 'text-end fst-italic text-muted' %}
 {% endif %}
 
-<div class="{{ class }} fst-italic text-muted">
+<div class="{{ class }}">
   {% include "_source.html.twig" with {'element': element, 'isShort': isShort|default(false) } only %}
   {% if element.book is not null %}
     {% include "_icon.html.twig" with {icon : 'book'} only %}

@@ -27,7 +27,7 @@
           {% if showChronicle|default(1) and character.isPremade == false %}
             &nbsp; {{ character.chronicle }} &nbsp;
           {% elseif character.isPremade == true %}
-            {% include "_source_block.html.twig" with {element: character, isShort: true, class: 'text-center'} %}
+            {% include "_source_block.html.twig" with {element: character, isShort: true, class: 'text-center text-muted'} %}
           {% endif %}
         </div>
         <div>

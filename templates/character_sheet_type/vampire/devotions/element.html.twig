@@ -32,8 +32,8 @@
     </div>
     {% block input %}
     {% endblock %}
-    <div class="text-end pe-3">
-      {% include "_source.html.twig" with {'element': devotion, 'isShort': 1, 'hasTooltip': 1 } only %}
+    <div class="pe-3">
+      {% include "_source_block.html.twig" with {'element': devotion, 'isShort': 1, 'class': 'text-end fst-italic' } only %}
     </div>
   </div>
 </div>

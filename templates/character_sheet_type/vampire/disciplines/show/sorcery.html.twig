@@ -9,12 +9,12 @@
   <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ sorcery.name ~ '-' ~ value }}"></label>
 {% endblock %}
 
-{% block pool %}
+{# {% block pool %}
   {% if sorcery.powers|length > 0 and (sorcery.powers|first).level == 0 %}
     {% set ritual = sorcery.powers|first %}
       <div class="float-end">{% include "_dice_pool.html.twig" with {'pool' : ritual.detailedDicePool(character), 'contested' : ritual.contestedText} %}</div>
   {% endif %}
-{% endblock %}
+{% endblock %} #}
 
 {% block rituals %}
   <div id="ritual-{{ sorcery.id }}" class="row accordion mb-2">

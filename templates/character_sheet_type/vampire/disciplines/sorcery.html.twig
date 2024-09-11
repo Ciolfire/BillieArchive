@@ -8,7 +8,8 @@
   <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} text-color w-100 container g-1">
     <div class="row align-items-center px-2 user-select-none">
       <div class="col-12 discipline-header text-center p-2">
-        <h3>{{ sorcery.name }}
+        <h3>
+          {{ sorcery.name }}
           {% if sorcery.homebrewFor is not null %}
             {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
           {% endif %}
@@ -28,7 +29,7 @@
           {% block pool %}
             {% set powerPool = ritual.detailedDicePool(character) %}
             {% if powerPool is not null %}
-              <div class="float-end">{% include "_dice_pool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
+              <div class="float-end text-glow">{% include "_dice_pool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
             {% endif %}
           {% endblock %}
         </div>

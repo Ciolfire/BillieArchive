@@ -27,7 +27,7 @@
 				<div class="col-12">
 					{% if merit.isExpanded %}
 						{% block expanded %}
-							<div class="border-top w-100 mt-1 text-strong accent">{{ chMerit.choice }}</div>
+							<div class="border-top w-100 mt-1 text-strong accent">{{ chMerit.choice|default('\xc2\xa0') }}</div>
 						{% endblock %}
           {% else %}
 						<div class="w-100 mt-1">&nbsp;</div>

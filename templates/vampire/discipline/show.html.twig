@@ -16,7 +16,7 @@
       <div class="col">
         <p class="fluff">{{ discipline.description }}</p>
         <span class="text-dark">{{ discipline.rules|markdown_to_html }}</span>
-        {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic text-strong' } only %}
         {% if discipline.isSorcery %}
           {% include "vampire/discipline/powers/_sorcery.html.twig" with {'rituals': discipline.powers} %}
           {% include "_back.html.twig" with {link: path('vampire_sorcery_index')} %}
