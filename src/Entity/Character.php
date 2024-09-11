@@ -392,6 +392,14 @@ class Character
     return $this;
   }
 
+  public function updateAvatar(): self
+  {
+    preg_replace("(\?.+)", "", $this->avatar);
+    $this->avatar .= "?timestamp=".time();
+
+    return $this;
+  }
+
   public function getLookAge(): ?int
   {
     return $this->lookAge;

@@ -475,7 +475,7 @@ class CharacterController extends AbstractController
 
     $type = $character->getLesserTemplate()->getType();
     $character->getLesserTemplate()->setIsActive(false);
-    $this->dataService->save($character);
+    $this->dataService->update($character);
 
     $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
@@ -543,9 +543,6 @@ class CharacterController extends AbstractController
       }
     }
     $form->handleRequest($request);
-
-    // if (is_null($access->getAccessor())) {
-    // }
 
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($access);
@@ -896,6 +893,8 @@ class CharacterController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $avatar = $crop->getCroppedImage(pathinfo($filename, PATHINFO_EXTENSION), 100);
       file_put_contents($filename, $avatar);
+      $character->updateAvatar();
+      $this->dataService->update($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
