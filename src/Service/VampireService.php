@@ -220,7 +220,7 @@ class VampireService
     if ($character->getLesserTemplate() === $ghoul) {
       $this->dataService->add($ghoul);
     }
-    $this->dataService->save($character);
+    $this->dataService->update($character);
   }
 
   /** @param array<string, mixed> $data */
