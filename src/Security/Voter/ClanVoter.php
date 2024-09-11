@@ -1,16 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Security\Voter;
 
-use App\Entity\Character;
+use App\Entity\Chronicle;
+use App\Entity\Clan;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CharacterVoter extends Voter
+class ClanVoter extends Voter
 {
   public const VIEW = 'view';
   public const EDIT = 'edit';
@@ -21,18 +20,18 @@ class CharacterVoter extends Voter
   protected function supports(string $attribute, mixed $subject): bool
   {
     return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
-      && $subject instanceof Character;
+      && $subject instanceof Clan;
   }
 
   protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
   {
-    /** @var Character $subject */
+    /** @var Clan $subject */
     $user = $token->getUser();
     if ($this->security->isGranted('ROLE_GM')) {
       return true;
     }
 
-    if (!$user instanceof User && !$subject->isPremade()) {
+    if (!$user instanceof User) {
       // if the user is anonymous, do not grant access
       return false;
     }
@@ -54,30 +53,25 @@ class CharacterVoter extends Voter
     return false;
   }
 
-  private function canView(Character $character, User $user): bool
+  private function canView(Clan $clan, User $user): bool
   {
-    // Anyone can see the premade
-    if ($character->isPremade()) {
+    $chronicle = $clan->getHomebrewFor();
+    if ($this->canEdit($clan, $user)) {
       return true;
     }
 
-    // Anyone that can edit can see
-    if ($this->canEdit($character, $user)) {
+    if ($chronicle && $chronicle->getPlayers()->contains($user)) {
       return true;
     }
 
     return false;
   }
 
-  private function canEdit(Character $character, User $user): bool
+  private function canEdit(Clan $clan, User $user): bool
   {
-    // The player own the character
-    if ($user === $character->getPlayer()) {
-
-      return true;
-    }
-    // The storyteller can edit the character
-    if (!is_null($character->getChronicle()) && $user === $character->getChronicle()->getStoryteller()) {
+    $chronicle = $clan->getHomebrewFor();
+    // The player own the chronicle
+    if ($chronicle && $user === $chronicle->getStoryteller()) {
 
       return true;
     }
@@ -85,13 +79,8 @@ class CharacterVoter extends Voter
     return false;
   }
 
-  private function canDelete(Character $character, User $user): bool
+  private function canDelete(Clan $clan, User $user): bool
   {
-    if ($user === $character->getPlayer()) {
-
-      return true;
-    }
-
-    return false;
+    return $this->canEdit($clan, $user);
   }
 }

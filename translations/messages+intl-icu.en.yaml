@@ -61,3 +61,7 @@ character:
         }
       deactivated: "{name} is no longer a(n) {old}."
       same: "{name} is already a(n) {type}, no change."
+clan:
+  delete:
+    success: "The Clan/Bloodline {name} was successfully deleted."
+    failed: "The Clan/Bloodline {name} was not deleted."

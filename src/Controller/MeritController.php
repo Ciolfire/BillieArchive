@@ -156,26 +156,4 @@ class MeritController extends AbstractController
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
   }
-
-  // Only needed if we want to translate for another language from a locale
-  // #[IsGranted('ROLE_ST')]
-  // #[Route("/{id<\d+>}/translate/{language}", name: "merit_translate", methods: ["GET", "POST"])]
-  // public function translate(Request $request, Merit $merit, $language, EntityManagerInterface $entityManager): Response
-  // {
-  //   $form = $this->createForm(MeritType::class, $merit);
-  //   $form->handleRequest($request);
-  //   $merit->setTranslatableLocale($language); // change locale
-  //   // dd($merit);
-  //   if ($form->isSubmitted() && $form->isValid()) {
-  //     $entityManager->persist($merit);
-  //     $entityManager->flush();
-
-  //     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
-  //   }
-
-  //   return $this->render('merit/edit.html.twig', [
-  //     'merit' => $merit,
-  //     'form' => $form,
-  //   ]);
-  // }
 }

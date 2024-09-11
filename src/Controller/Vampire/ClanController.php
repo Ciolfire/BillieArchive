@@ -132,6 +132,11 @@ class ClanController extends AbstractController
       }
       $this->dataService->save($clan);
 
+      if ($clan->isBloodline()) {
+
+        return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+      }
+
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
@@ -176,6 +181,27 @@ class ClanController extends AbstractController
       'entity' => $entity,
       'form' => $form,
     ]);
+  }
+
+  #[Route('/clan/{id<\d+>}/delete', name: 'clan_delete', methods: ['GET'])]
+  public function delete(Clan $clan): Response
+  {
+    $this->denyAccessUnlessGranted('delete', $clan);
+
+    try {
+      $this->dataService->remove($clan);
+      $this->addFlash('success', ["clan.delete.success", ['%name%' => $clan->getName()]]);
+      if ($clan->isBloodline()) {
+        return $this->redirectToRoute('bloodline_index');
+      } else {
+        return $this->redirectToRoute('clan_index');
+      }
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["clan.delete.failed", ['%name%' => $clan->getName()]]);
+    }
+
+
+    return $this->redirectToRoute('clan_show', ['id' => $clan->getId()]);
   }
 
   #[Route('/{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]
