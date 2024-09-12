@@ -63,7 +63,7 @@ class DisciplinePower implements Translatable
   private ?string $contestedText = null;
 
   #[ORM\Column]
-  private ?bool $usePotency = null;
+  private ?bool $usePotency = false;
 
   public function __construct(Discipline $discipline, int $level)
   {
