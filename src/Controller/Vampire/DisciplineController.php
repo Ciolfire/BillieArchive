@@ -2,6 +2,8 @@
 
 namespace App\Controller\Vampire;
 
+use App\Entity\Book;
+use App\Entity\Chronicle;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 
@@ -206,6 +208,8 @@ class DisciplineController extends AbstractController
 
     if (!$discipline->isSorcery()) {
       $power = new DisciplinePower($discipline, $discipline->getMaxLevel() + 1);
+      $power->setBook($discipline->getBook());
+      $power->setHomebrewFor($discipline->getHomebrewFor());
     } else {
       $power = new DisciplinePower($discipline, 1);
     }
