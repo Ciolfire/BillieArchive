@@ -874,8 +874,8 @@ class CharacterController extends AbstractController
   public function cropAvatar(Request $request, Character $character, CropperInterface $cropper)
   {
     $filename = addslashes($this->getParameter('characters_directory')."/{$character->getAvatar()}");
-    if (substr($filename, 0, strpos($filename, "?"))) {
-      $filename = $filename;
+    if (strpos($filename, "?")) {
+      $filename = substr($filename, 0, strpos($filename, "?"));
     }
 
     $crop = $cropper->createCrop($filename);
