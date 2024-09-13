@@ -231,8 +231,8 @@ class CharacterController extends AbstractController
   public function show(Request $request, Character $character, FormFactoryInterface $formFactory): Response
   {
     if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-
-      return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
+      if ($this->getUser()->getRole() != 'ROLE_GM')
+        return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $type = $this->dataService->findOneBy(ContentType::class, ['name' => $character->getType()]);

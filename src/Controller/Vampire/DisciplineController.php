@@ -217,6 +217,9 @@ class DisciplineController extends AbstractController
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+      if ($discipline->isSorcery() && $power->getLevel() > 0) {
+        $power->setIsRitual(true);
+      }
       $this->dataService->save($power);
 
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
