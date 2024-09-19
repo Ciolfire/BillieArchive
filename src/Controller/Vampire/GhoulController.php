@@ -31,7 +31,7 @@ class GhoulController extends AbstractController
   public function families(): Response
   {
     return $this->render('vampire/ghoul/family/index.html.twig', [
-      'families' => $this->dataService->findAll(GhoulFamily::class),
+      'families' => $this->dataService->findBy(GhoulFamily::class, [], ['name' => 'ASC']),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
       'entity' => 'ghoul_family',
       'category' => 'character',

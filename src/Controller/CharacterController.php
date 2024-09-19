@@ -856,7 +856,7 @@ class CharacterController extends AbstractController
           $old = $character->getAvatar();
           $character->setAvatar($filename);
           $this->dataService->update($character);
-          if (!empty($old)) {
+          if (!empty($old) && $old != 'default.jpg') {
             $this->dataService->removeFile("$path/$old");
           }
           return new JsonResponse($filename);

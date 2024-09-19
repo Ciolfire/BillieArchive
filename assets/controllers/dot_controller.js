@@ -15,7 +15,7 @@ export default class extends Controller {
 
   activate(event) {
     event.preventDefault();
-    
+
     let value = event.params.value;
 
     if (value < this.minValue) {
