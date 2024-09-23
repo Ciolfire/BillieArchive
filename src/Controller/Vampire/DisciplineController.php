@@ -106,6 +106,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($discipline);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -128,6 +129,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($discipline);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -150,6 +152,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($discipline);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -172,6 +175,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($discipline);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -192,6 +196,7 @@ class DisciplineController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($discipline);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $discipline->getName()]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -222,6 +227,7 @@ class DisciplineController extends AbstractController
       }
       $this->dataService->save($power);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => "{$discipline->getName()} — {$power->getName()}"]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
@@ -245,6 +251,7 @@ class DisciplineController extends AbstractController
       /** @var Discipline */
       $discipline = $power->getDiscipline();
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => "{$discipline->getName()} — {$power->getName()}"]]);
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 

@@ -132,8 +132,8 @@ class ClanController extends AbstractController
       }
       $this->dataService->save($clan);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $clan->getName()]]);
       if ($clan->isBloodline()) {
-
         return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
@@ -163,8 +163,8 @@ class ClanController extends AbstractController
       }
       $this->dataService->update($clan);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $clan->getName()]]);
       if ($clan->isBloodline()) {
-
         return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
       return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
@@ -213,7 +213,7 @@ class ClanController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     if ($vampire->getPlayer() != $this->getUser() && ($vampire->getChronicle() && $vampire->getChronicle()->getStoryteller() != $this->getUser())) {
-      $this->addFlash('notice', 'You are not allowed to see this character');
+      $this->addFlash('notice', 'denied');
       return $this->redirectToRoute('character_index');
     }
 
@@ -225,6 +225,7 @@ class ClanController extends AbstractController
         $this->dataService->flush();
       }
 
+      $this->addFlash('success', ["clan.bloodline.join", ['%name%' => $vampire->getName(), '%bloodline%' => $vampire->getClan()->getName()]]);
       return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
 

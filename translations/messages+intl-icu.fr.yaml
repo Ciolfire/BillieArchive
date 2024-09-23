@@ -5,6 +5,17 @@ warning: Attention
 
 denied: Vous n'avez pas les accréditations nécessaires.
 
+general:
+  edit:
+    done: "{name} modifié."
+    fail: "{name} non modifié."
+  new:
+    done: "{name} créé."
+    fail: "{name} non créé."
+  delete:
+    done: "{name} supprimé."
+    fail: "{name} non supprimé."
+
 registration:
   duplicate: Cette adresse email n'est pas disponible.
   validate:
@@ -62,6 +73,9 @@ character:
       deactivated: "{name} n'est plus un(e) {old}."
       same: "{name} est déjà un(e) {type}, pas de modification."
 clan:
+  join: "{name} est maintenant membre du clan suivant: {bloodline}."
   delete:
     success: "Le Clan/la lignée {name} a été supprimé(e) avec succès."
     failed: "The Clan/Bloodline {name} n'a pas été supprimé(e)."
+  bloodline:
+    join: "{name} est maintenant membre de la lignée suivante: {bloodline}."

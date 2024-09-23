@@ -68,6 +68,7 @@ class GhoulController extends AbstractController
       }
       $this->dataService->save($family);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $family->getName()]]);
       return $this->redirectToRoute('ghoul_families_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -95,6 +96,7 @@ class GhoulController extends AbstractController
       }
       $this->dataService->update($family);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $family->getName()]]);
       return $this->redirectToRoute('ghoul_families_index', [], Response::HTTP_SEE_OTHER);
     }
 

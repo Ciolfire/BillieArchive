@@ -77,6 +77,7 @@ class DerangementController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($derangement);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $derangement->getName()]]);
       return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -96,6 +97,7 @@ class DerangementController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($derangement);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $derangement->getName()]]);
       return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -115,27 +117,6 @@ class DerangementController extends AbstractController
     ]);
   }
 
-  #[Route("/{id<\d+>}/translate/{language}", name:"derangement_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Derangement $derangement, string $language, EntityManagerInterface $entityManager): Response
-  {
-    $form = $this->createForm(DerangementType::class, $derangement);
-    $form->handleRequest($request);
-    $derangement->setTranslatableLocale($language); // change locale
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($derangement);
-      $entityManager->flush();
-
-      return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('element/new.html.twig', [
-      'element' => 'derangement',
-      'entity' => $derangement,
-      'form' => $form,
-    ]);
-  }
-
   #[Route("/{id<\d+>}/delete", name:"derangement_delete", methods:["POST"])]
   public function delete(Request $request, Derangement $derangement, EntityManagerInterface $entityManager): Response
   {
@@ -147,6 +128,7 @@ class DerangementController extends AbstractController
       $entityManager->flush();
     }
 
+    $this->addFlash('success', ["general.edit.delete", ['%name%' => $derangement->getName()]]);
     return $this->redirectToRoute('derangement_list', [], Response::HTTP_SEE_OTHER);
   }
 }

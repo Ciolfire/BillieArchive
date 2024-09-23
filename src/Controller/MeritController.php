@@ -104,6 +104,7 @@ class MeritController extends AbstractController
       $this->dataService->add($merit);
       $this->dataService->flush();
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $merit->getName()]]);
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -133,6 +134,7 @@ class MeritController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($merit);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $merit->getName()]]);
       return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -152,6 +154,7 @@ class MeritController extends AbstractController
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $merit->getId(), $token)) {
       $this->dataService->remove($merit);
       $this->dataService->flush();
+      $this->addFlash('success', ["general.delete.done", ['%name%' => $merit->getName()]]);
     }
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);

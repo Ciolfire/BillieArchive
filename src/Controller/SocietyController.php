@@ -53,7 +53,7 @@ class SocietyController extends AbstractController
     
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($society);
-      $this->addFlash('notice', "{$society->getName()} created");
+      $this->addFlash('success', ["general.new.done", ['%name%' => $society->getName()]]);
       return $this->redirectToRoute('society_show', ['id' => $society->getId()]);
     }
 
@@ -72,7 +72,7 @@ class SocietyController extends AbstractController
     
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($society);
-      $this->addFlash('notice', "{$society->getName()} updated");
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $society->getName()]]);
       return $this->redirectToRoute('society_show', ['id' => $society->getId()]);
     }
 
@@ -105,7 +105,7 @@ class SocietyController extends AbstractController
 
       $token = $request->request->get('_token');
       if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $society->getId(), $token)) {
-        $this->addFlash('notice', "{$society->getName()} deleted");
+        $this->addFlash('success', ["general.delete.done", ['%name%' => $society->getName()]]);
         $this->dataService->remove($society);
       }
     }

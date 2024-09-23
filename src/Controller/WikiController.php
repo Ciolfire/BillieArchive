@@ -58,6 +58,7 @@ class WikiController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($attribute);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $attribute->getName()]]);
       return $this->redirectToRoute('attribute_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -91,6 +92,7 @@ class WikiController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($skill);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $skill->getName()]]);
       return $this->redirectToRoute('skill_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -126,6 +128,7 @@ class WikiController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($virtue);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $virtue->getName()]]);
       return $this->redirectToRoute('virtue_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -161,6 +164,7 @@ class WikiController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($vice);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $vice->getName()]]);
       return $this->redirectToRoute('vice_index', [], Response::HTTP_SEE_OTHER);
     }
 

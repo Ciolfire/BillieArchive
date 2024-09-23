@@ -5,6 +5,17 @@ warning: Warning
 
 denied: You are not allowed to access this ressource.
 
+general:
+  edit:
+    done: "{name} modified."
+    fail: "{name} not modified."
+  new:
+    done: "{name} created."
+    fail: "{name} not created."
+  delete:
+    done: "{name} deleted."
+    fail: "{name} not deleted."
+
 registration:
   duplicate: This Email address is not available.
   validate:
@@ -61,7 +72,15 @@ character:
         }
       deactivated: "{name} is no longer a(n) {old}."
       same: "{name} is already a(n) {type}, no change."
+
 clan:
+  join: "{name} is now a member of the {bloodline} clan."
   delete:
     success: "The Clan/Bloodline {name} was successfully deleted."
     failed: "The Clan/Bloodline {name} was not deleted."
+  bloodline:
+    join: "{name} is now a member of the {bloodline} bloodline."
+
+user:
+  preferences:
+    edit: Preferences successfully updated.

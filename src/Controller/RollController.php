@@ -35,6 +35,7 @@ class RollController extends AbstractController
       $entityManager->persist($roll);
       $entityManager->flush();
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $roll->getName()]]);
       return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -63,26 +64,7 @@ class RollController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($roll);
 
-      return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->render('element/new.html.twig', [
-      'element' => 'roll',
-      'entity' => $roll,
-      'form' => $form,
-    ]);
-  }
-
-  #[Route("/{id<\d+>}/translate/{language}", name:"roll_translate", methods:["GET", "POST"])]
-  public function translate(Request $request, Roll $roll, string $language): Response
-  {
-    $form = $this->createForm(RollType::class, $roll);
-    $form->handleRequest($request);
-    $roll->setTranslatableLocale($language); // change locale
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $this->dataService->save($roll);
-
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $roll->getName()]]);
       return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -101,6 +83,7 @@ class RollController extends AbstractController
     $token = $request->request->get('_token');
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $roll->getId(), $token)) {
       $this->dataService->remove($roll);
+      $this->addFlash('success', ["general.delete.done", ['%name%' => $roll->getName()]]);
     }
 
     return $this->redirectToRoute('roll_list', [], Response::HTTP_SEE_OTHER);

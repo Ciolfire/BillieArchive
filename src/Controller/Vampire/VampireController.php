@@ -9,6 +9,7 @@ use App\Entity\Character;
 use App\Entity\User;
 use App\Entity\Clan;
 use App\Entity\Discipline;
+use App\Entity\Vampire;
 use App\Form\Vampire\EmbraceType;
 use App\Repository\CharacterRepository;
 use App\Service\DataService;
@@ -66,6 +67,9 @@ class VampireController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       if ($this->service->embrace($character, $form)) {
 
+        if ($character instanceof Vampire) {
+          $this->addFlash('success', ["clan.join", ['%name%' => $character->getName(), '%clan%' => $character->getClan()->getName()]]);
+        }
         return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
       }
       $this->addFlash('notice', "Couldn't set the character clan");

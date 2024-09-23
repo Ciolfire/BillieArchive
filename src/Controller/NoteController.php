@@ -54,6 +54,7 @@ class NoteController extends AbstractController
       /** @var Chronicle $chronicle */
       $chronicle = $note->getChronicle();
       $category = $note->getCategory();
+      $this->addFlash('success', ["general.new.done", ['%name%' => $note->getTitle()]]);
       if ($category instanceof NoteCategory) {
 
         return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
@@ -88,6 +89,7 @@ class NoteController extends AbstractController
       /** @var Chronicle $chronicle */
       $chronicle = $note->getChronicle();
       $category = $note->getCategory();
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $note->getTitle()]]);
       if ($category instanceof NoteCategory) {
 
         return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);
@@ -114,6 +116,7 @@ class NoteController extends AbstractController
     $category = $note->getCategory();
     $this->dataService->remove($note);
 
+    $this->addFlash('success', ["general.delete.done", ['%name%' => $note->getTitle()]]);
     if ($category instanceof NoteCategory) {
 
       return $this->redirectToRoute('chronicle_notes', ['id' => $chronicle->getId(), 'category' => $category->getId()], Response::HTTP_SEE_OTHER);

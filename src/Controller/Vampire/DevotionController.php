@@ -94,6 +94,7 @@ class DevotionController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->save($devotion);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $devotion->getName()]]);
       return $this->redirectToRoute('vampire_devotion_show', ['id' => $devotion->getId()]);
     }
 
@@ -114,6 +115,7 @@ class DevotionController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($devotion);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $devotion->getName()]]);
       return $this->redirectToRoute('vampire_devotion_show', ['id' => $devotion->getId()]);
     }
 

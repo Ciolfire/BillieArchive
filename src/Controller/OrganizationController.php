@@ -116,6 +116,7 @@ class OrganizationController extends AbstractController
       }
       $this->dataService->save($organization);
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $organization->getName()]]);
       return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
     }
 
@@ -154,6 +155,7 @@ class OrganizationController extends AbstractController
         $organization->setEmblem($this->dataService->upload($emblem, $fileOrganization));
       }
       $this->dataService->update($organization);
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $organization->getName()]]);
       return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
     }
 

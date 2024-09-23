@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Character;
 use App\Entity\User;
 use App\Service\DataService;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -115,6 +114,7 @@ class mainController extends AbstractController
       $user->setLocale($form->getData()['language']);
       $user->setPreferences(['favoriteCharacter' => $form->getData()['favoriteCharacter']->getId()]);
       $this->dataService->flush();
+      $this->addFlash('success', "user.preferences.edit");
       return $this->redirectToRoute('user_preferences', [
         '_locale' => $user->getLocale(),
         'form' => $form,

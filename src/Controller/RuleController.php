@@ -36,6 +36,7 @@ class RuleController extends AbstractController
       $entityManager->persist($rule);
       $entityManager->flush();
 
+      $this->addFlash('success', ["general.new.done", ['%name%' => $rule->getTitle()]]);
       return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -65,6 +66,7 @@ class RuleController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($rule);
 
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $rule->getTitle()]]);
       return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -83,6 +85,7 @@ class RuleController extends AbstractController
     $token = $request->request->get('_token');
     if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $rule->getId(), $token)) {
       $this->dataService->remove($rule);
+      $this->addFlash('success', ["general.delete.done", ['%name%' => $rule->getTitle()]]);
     }
 
     return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
