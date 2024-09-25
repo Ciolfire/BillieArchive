@@ -3,7 +3,7 @@
 {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
   or
 {% else %}
-  {% if not loop.first %}&{% endif %}
+  {% if not loop.first %}{{ "or"|trans }}{% endif %}
 {% endif %}
 {% if prerequisite.type == 'App\\Entity\\Merit' %}
   <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
