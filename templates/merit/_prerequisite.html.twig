@@ -1,9 +1,9 @@
 {% trans_default_domain 'prerequisite' %}
 
 {% if group is defined and prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
-  or
+  {{ "or"|trans }}
 {% else %}
-  {% if not loop.first %}{{ "or"|trans }}{% endif %}
+  {% if not loop.first %}&{% endif %}
 {% endif %}
 {% if prerequisite.type == 'App\\Entity\\Merit' %}
   <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
@@ -33,4 +33,6 @@
   {% endif %}
 {% endif %}
 {% include "merit/_prerequisite_value.html.twig" %}
-{% set group = prerequisite.choiceGroup %}
+{% if prerequisite.choiceGroup is not null %}
+  {% set group = prerequisite.choiceGroup %}
+{% endif %}
