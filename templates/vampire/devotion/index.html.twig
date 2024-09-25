@@ -50,13 +50,13 @@
         <div class="col-12 col-md col-lg-4">
           <h4>{{ "effect"|trans }}</h4>
         </div>
-        <div class="col col-lg-2">
+        <div class="col col-lg-3">
           <h4>{{ "devotion.prerequisite"|trans }}</h4>
         </div>
         <div class="col col-lg-1">
           <h4>{{ "cost"|trans({}, 'app') }}</h4>
         </div>
-        <div class="col col-lg-2">
+        <div class="col col-lg-1">
           <h4>{{ "action.label.multi"|trans({}, 'app') }}</h4>
         </div>
       </div>
@@ -73,21 +73,17 @@
           <div class="col-12 col-md col-lg-4 pb-2 pb-md-0">
             <span>{{ devotion.short }}</span>
           </div>
-          <div class="col col-lg-2">
+          <div class="col col-lg-3">
             {% for prerequisite in devotion.prerequisites %}
-              {% if prerequisite.value != 0 %}
-                {{ prerequisite.entity.name|default("") }}
-                {{ prerequisite.value }}
-              {% else %}
-                <span class="strong">{{ prerequisite.entity.name|default("") }}</span>
-              {% endif %}
+              {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+              {% set group = prerequisite.choiceGroup %}
             {% endfor %}
           </div>
           <div class="col col-lg-1">
             <span class="text-strong">{{ devotion.cost }}
               xp</span>
           </div>
-          <div class="col col-lg-2 bdr-s">
+          <div class="col col-lg-1 bdr-s">
             <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'show'} %}</a>
             {% if is_granted('ROLE_ST') %}
               <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>

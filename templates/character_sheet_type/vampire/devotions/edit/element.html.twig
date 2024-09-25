@@ -25,7 +25,10 @@
   <div class="d-flex flex-row justify-content-evenly">
     {% for prerequisite in devotion.prerequisites %}
       {% if prerequisite.value > 0 %}
-        <div class="d-inline-block">{% include "vampire/devotion/_prerequisite.html.twig" %}</div>
+        <div class="d-inline-block">
+          {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+          {% set group = prerequisite.choiceGroup %}
+        </div>
       {% endif %}
     {% endfor %}
   </div>

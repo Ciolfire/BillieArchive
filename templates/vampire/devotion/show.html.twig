@@ -28,7 +28,8 @@
       {% for prerequisite in devotion.prerequisites %}
         <div class="col-4 text-center text-bold fs-5">
           <span class="text-strong">
-            {% include "vampire/devotion/_prerequisite.html.twig" %}
+            {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+            {% set group = prerequisite.choiceGroup %}
           </span>
         </div>
       {% endfor %}

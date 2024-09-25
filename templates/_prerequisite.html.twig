@@ -1,0 +1,44 @@
+{% trans_default_domain 'prerequisite' %}
+
+{% if prerequisite.choiceGroup is not null and prerequisite.choiceGroup == group %}
+  {{ "or"|trans }}
+{% else %}
+  {# {{ dump(group|default(null), prerequisite.choiceGroup) }} #}
+  {% if not loop.first %}&{% endif %}
+{% endif %}
+<span class="d-inline-block text-strong">
+  {% if prerequisite.type == 'App\\Entity\\Merit' %}
+    {% include "_icon.html.twig" with {icon: 'merit'} %}
+    <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+      {{ prerequisite.entity.name }}
+    </a>
+  {% elseif prerequisite.type == "App\\Entity\\Devotion" %}
+      {% include "_icon.html.twig" with {icon: 'devotion'} %}
+      <a href="{{ path('vampire_devotion_show', {'id': prerequisite.entity.id }) }}">
+        {{ prerequisite.entity.name }}
+      </a>
+  {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
+    {% include "_icon.html.twig" with {icon: 'clan'} %}
+    <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
+      {{ prerequisite.entity.name }}
+    </a>
+  {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
+    {% include "_icon.html.twig" with {icon: 'discipline'} %}
+    <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
+      {{ prerequisite.entity.name }}
+    </a>
+  {% else %}
+    {% if prerequisite.entity is not null %}
+      {{ prerequisite.entity.name }}
+    {% else %}
+      {% if prerequisite.type == "special" %}
+        {{ prerequisite.special}}
+      {% else %}
+        {% include "_icon.html.twig" with {icon: prerequisite.type} %}
+        {{ prerequisite.type|trans }}
+      {% endif %}
+      {# {{ prerequisite.entity.name|default(prerequisite.type) }} {{ prerequisite.value }} #}
+    {% endif %}
+  {% endif %}
+  {% include "_prerequisite_value.html.twig" %}
+</span>

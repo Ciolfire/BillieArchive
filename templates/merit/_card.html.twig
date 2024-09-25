@@ -27,7 +27,8 @@
   <div class="col">
     {% if merit.prerequisites is not empty %}
       {% for prerequisite in merit.prerequisites %}
-        {% include "merit/_prerequisite.html.twig" %}
+        {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+        {% set group = prerequisite.choiceGroup %}
       {% endfor %}
     {% endif %}
   </div>

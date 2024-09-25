@@ -8,7 +8,8 @@
 		data-name="{{ identifier|default(null) }}"
 		data-value="{{ prerequisite.value }}"
 	>
-    {% include "merit/_prerequisite.html.twig" %}
+		{% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+		{% set group = prerequisite.choiceGroup %}
   </span>
 {% endfor %}
 {% if merit.prerequisites is empty %}
