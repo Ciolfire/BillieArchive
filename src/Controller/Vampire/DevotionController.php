@@ -4,8 +4,10 @@ namespace App\Controller\Vampire;
 
 use App\Entity\Book;
 use App\Entity\Chronicle;
+use App\Entity\Clan;
 use App\Entity\Description;
 use App\Entity\Devotion;
+use App\Entity\Discipline;
 use App\Form\Vampire\DevotionType;
 use App\Service\DataService;
 use App\Service\VampireService;
@@ -37,11 +39,33 @@ class DevotionController extends AbstractController
       $this->dataService->loadPrerequisites($devotion);
     }
 
+    $search = [];
+    $search['discipline'] = [];
+    foreach ($devotions as $devotion) {
+      // Prerequisites
+      $prerequisites = $devotion->getPrerequisites();
+      foreach ($prerequisites as $prerequisite) {
+        if ($prerequisite->getEntity() instanceof Discipline) {
+          $discipline = $prerequisite->getEntity();
+          $search['discipline'][$discipline->getId()] = $discipline->getName();
+        }
+      }
+      // Clan
+      $clan = $devotion->getBloodline();
+      if ($clan instanceof Clan) {
+        $search['clan'][$clan->getId()] = $clan->getName();
+      }
+    }
+    sort($search['discipline']);
+    sort($search['clan']);
+    // dd($search);
+
     return $this->render('vampire/devotion/index.html.twig', [
       'devotions' => $devotions,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
-      'category' => 'character'
+      'category' => 'character',
+      'search' => $search,
     ]);
   }
 

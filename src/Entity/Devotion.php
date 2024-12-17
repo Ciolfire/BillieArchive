@@ -323,4 +323,15 @@ class Devotion implements Translatable
 
       return $this;
   }
+
+  public function getPrerequisiteDisciplines() : string
+  {
+    $prerequisites = "";
+    foreach ($this->prerequisites as $prerequisite) {
+      if ($prerequisite->getEntity() instanceof Discipline) {
+        $prerequisites .= $prerequisite->getEntity()->getName();
+      }
+    }
+    return $prerequisites;
+  }
 }
