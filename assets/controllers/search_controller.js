@@ -76,7 +76,7 @@ export default class extends Controller
           if (Object.keys(values).length > 0) {
             isValid = false;
             for (const value in values) {
-              if (filters[key][value] === true && item.dataset[key] === value) {
+              if (filters[key][value] === true && item.dataset[key].includes(value)) {
                 isValid = true;
                 break;
               }
@@ -88,6 +88,7 @@ export default class extends Controller
           }
         }
       }
+      // check if the name match the search text
       if (isValid && regex.test(item.dataset.name)) {
         item.classList.remove("collapse");
       } else {
