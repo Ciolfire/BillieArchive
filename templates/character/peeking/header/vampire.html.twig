@@ -1,13 +1,16 @@
-{% if character.clan.parentClan is not null %}
-  {% if access.hasRight('bloodline')|default(false) %}
+{% if access.hasRight('clan')|default(false) %}
+  {% if character.clan.parentClan is not null %}
+    {% if access.hasRight('bloodline')|default(false) %}
+      <img class="character-icon" src={% include "character/_icon.html.twig" %} />
+    {% else %}
+      <img class="character-icon" src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullVTR.png', 'images') }}';this.onerror=null;" />
+    {% endif %}
     <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-  {% else %}
-    <img class="character-icon" src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullVTR.png', 'images') }}';this.onerror=null;" />
+    {% else %}
+      <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
   {% endif %}
-{% elseif access.hasRight('clan')|default(false) %}
-  <img class="character-icon" src={% include "character/_icon.html.twig" %} />
 {% else %}
-  <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
+  <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />  
 {% endif %}
   <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
   <img class="character-icon" src={% include "character/_icon_special.html.twig" %} />
