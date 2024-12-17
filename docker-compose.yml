@@ -21,7 +21,7 @@ services:
     volumes:
       - ./:/var/www/darkness:cached
   node:
-    command: sh ./yarn.sh
+    command: sh ./watch.sh
     container_name: wod_node
     depends_on: 
       - php
