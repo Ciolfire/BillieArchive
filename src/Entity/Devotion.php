@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: DevotionRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -146,8 +145,6 @@ class Devotion implements Translatable
 
   public function setDescription(string $description = ""): self
   {
-    $converter = new HtmlConverter();
-    $description = $converter->convert($description);
     $this->description = $description;
 
     return $this;

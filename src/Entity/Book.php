@@ -6,7 +6,6 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use League\HTMLToMarkdown\HtmlConverter;
 use Doctrine\DBAL\Types\Types;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -181,8 +180,7 @@ class Book implements Translatable
 
   public function setDescription(string $description = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->description = $converter->convert($description);
+    $this->description = $description;
 
     return $this;
   }

@@ -12,8 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class ClanType extends AbstractType
 {
@@ -28,7 +28,7 @@ class ClanType extends AbstractType
   {
     /** @var Clan */
     $clan = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $translator = $this->translator;
 
     $builder
@@ -53,9 +53,9 @@ class ClanType extends AbstractType
           ])
         ],
       ])
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($clan->getDescription()), 
+        'data' => $clan->getDescription(), 
         'label' => "description",
         'translation_domain' => 'app',
       ]);
@@ -80,10 +80,10 @@ class ClanType extends AbstractType
       }
       $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
       ->add('short', null, ['label' => "short"])
-      ->add('weakness', CKEditorType::class, [
+      ->add('weakness', RichTextEditorType::class, [
         'label' => 'weakness',
         'empty_data' => '',
-        'data' => $converter->convert($clan->getWeakness())
+        'data' => $clan->getWeakness()
       ])
       ->add('disciplines', null, [
         'label' => 'label.multi',

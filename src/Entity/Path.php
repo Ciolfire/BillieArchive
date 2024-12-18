@@ -12,7 +12,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "paths"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "paths")])]
 #[ORM\Entity(repositoryClass: PathRepository::class)]

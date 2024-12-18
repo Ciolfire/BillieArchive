@@ -10,9 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Twig\Extra\Markdown\LeagueMarkdown;
 
 class BookType extends AbstractType
 {
@@ -20,7 +19,7 @@ class BookType extends AbstractType
   {
     /** @var Book $book */
     $book = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $description = $book->getDescription();
 
     $builder
@@ -44,7 +43,7 @@ class BookType extends AbstractType
         'choice_translation_domain' => 'setting',
       ])
       ->add('type', null, ['label' => "category.label.single", "translation_domain" => "app"])
-      ->add('description', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($description), 'label' => false])
+      ->add('description', RichTextEditorType::class, ['empty_data' => '', 'data' => $description, 'label' => false])
       ->add('releasedAt', DateType::class, [
         'label' => 'release',
         'input' => 'datetime_immutable',

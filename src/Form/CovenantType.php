@@ -4,11 +4,10 @@ namespace App\Form;
 
 use App\Entity\Covenant;
 use Doctrine\ORM\EntityRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
 
 class CovenantType extends OrganizationType
 {
@@ -21,7 +20,6 @@ class CovenantType extends OrganizationType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
 
     /** @var Weapon $item */

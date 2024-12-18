@@ -6,7 +6,7 @@ use App\Entity\Items\Vehicle;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
+
 
 class VehicleType extends ItemType
 {
@@ -19,7 +19,6 @@ class VehicleType extends ItemType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
     
     $item = $options['data'];

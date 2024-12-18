@@ -6,8 +6,8 @@ use App\Entity\Skill;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class SkillType extends AbstractType
 {
@@ -15,13 +15,13 @@ class SkillType extends AbstractType
   {
     /** @var Skill $skill */
     $skill = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $builder
       ->add('name', null, ['label' => 'name'])
       ->add('identifier', null, ['label' => 'identifier'])
       ->add('category', null, ['label' => 'category.label'])
-      ->add('description', CKEditorType::class, ['label' => 'description.label', 'data' => $converter->convert($skill->getDescription())])
-      ->add('fluff', CKEditorType::class, ['label' => 'description.fluff', 'data' => $converter->convert($skill->getFluff())]);
+      ->add('description', RichTextEditorType::class, ['label' => 'description.label', 'data' => $skill->getDescription()])
+      ->add('fluff', RichTextEditorType::class, ['label' => 'description.fluff', 'data' => $skill->getFluff()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

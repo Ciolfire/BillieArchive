@@ -12,7 +12,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: DerangementRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -84,8 +83,7 @@ class Derangement implements Translatable
 
   public function setDetails(string $details = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->details = $converter->convert($details);
+    $this->details = $details;
 
     return $this;
   }

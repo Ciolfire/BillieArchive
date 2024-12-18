@@ -6,7 +6,7 @@
 {{ include('_back.html.twig') }}
 <div class="row mt-5 justify-content-center">
   <h2 class="text-center mt-5">{{ ('infos.' ~ type)|trans }}</h2>
-  <div class="col col-md-6 m-5">
+  <div class="col">
     {{ form_start(form) }}
     {{ form_widget(attribute(form, type)) }}
     <div class="text-center">{{ form_widget(form.save, {'attr': {'class': 'btn-primary w-100'}}) }}</div>

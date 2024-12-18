@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -1038,8 +1037,7 @@ class Character
 
   public function setBackground(string $background = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->background = $converter->convert($background);
+    $this->background = $background;
 
     return $this;
   }

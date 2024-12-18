@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -124,8 +123,7 @@ class Clan implements Translatable
 
   public function setDescription(string $description = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->description = $converter->convert($description);
+    $this->description = $description;
 
     return $this;
   }
@@ -304,8 +302,7 @@ class Clan implements Translatable
 
   public function setQuote(string $quote = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->quote = $converter->convert($quote);
+    $this->quote = $quote;
 
     return $this;
   }

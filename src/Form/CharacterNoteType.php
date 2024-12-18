@@ -10,8 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
 
 
 class CharacterNoteType extends AbstractType
@@ -20,7 +19,7 @@ class CharacterNoteType extends AbstractType
   {
     /** @var CharacterNote $note */
     $note = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $date = $note->getAssignedAt();
     if (is_null($date)) {
       $date = new \DateTimeImmutable($options['date']);
@@ -34,10 +33,10 @@ class CharacterNoteType extends AbstractType
       'data' => $date,
       'label' => 'date',
     ))
-    ->add('content', CKEditorType::class, [
+    ->add('content', RichTextEditorType::class, [
       'label' => 'content',
       'empty_data' => '',
-      'data' => $converter->convert($note->getContent())]
+      'data' => $note->getContent()]
       )
     ->add('type', ChoiceType::class, [
       'choices' => TypeNote::typeChoices,

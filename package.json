@@ -30,9 +30,11 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.7.1",
+        "@fortawesome/fontawesome-free": "^6.7.2",
         "@popperjs/core": "^2.11.8",
-        "ckeditor4": "4.22.1",
-        "npm": "^10.9.2"
+        "@toast-ui/editor": "^3.2.2",
+        "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
+        "npm": "^10.9.2",
+        "tui-color-picker": "^2.2.8"
     }
 }

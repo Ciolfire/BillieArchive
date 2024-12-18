@@ -11,10 +11,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Twig\Extra\Markdown\LeagueMarkdown;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class RollType extends AbstractType
 {
@@ -27,7 +27,7 @@ class RollType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     $translator = $this->translator;
 
     /** @var Derangement */
@@ -43,7 +43,7 @@ class RollType extends AbstractType
           'roll.action.reflexive' => 2,
         ]
       ])
-      ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($element->getDetails()), 'label' => false])
+      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
       ->add('isContested', null, ['label' => "contested.label"])
       ->add('contestedText', null, ['label' => "contested.text"])
       ->add('isImportant', null, ['label' => "important"])

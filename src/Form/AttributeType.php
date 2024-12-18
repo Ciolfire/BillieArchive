@@ -6,14 +6,13 @@ use App\Entity\Attribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
 
 class AttributeType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     /** @var Attribute $attribute */
     $attribute = $options['data'];
 
@@ -22,11 +21,11 @@ class AttributeType extends AbstractType
       // ->add('category')
       // ->add('type')
       ->add('name')
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($attribute->getDescription())
+        'data' => $attribute->getDescription()
       ])
-      ->add('fluff', CKEditorType::class, ['data' => $converter->convert($attribute->getFluff())]);
+      ->add('fluff', RichTextEditorType::class, ['data' => $attribute->getFluff()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

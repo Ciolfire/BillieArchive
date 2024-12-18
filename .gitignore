@@ -29,3 +29,7 @@ public/images/characters/
 public/images/books/
 public/images/organizations/
 public/images/items/
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

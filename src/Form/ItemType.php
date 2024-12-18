@@ -4,21 +4,21 @@ namespace App\Form;
 
 use App\Entity\Item;
 use App\Form\Type\SourceableType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Dropzone\Form\DropzoneType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+
 
 class ItemType extends AbstractType
 {
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     /** @var Item $item */
     $item = $options['data'];
 
@@ -57,10 +57,10 @@ class ItemType extends AbstractType
         'multiple' => true,
         'expanded' => true,
         ])
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'label' => 'description',
         'empty_data' => '',
-        'data' => $converter->convert($item->getDescription()),
+        'data' => $item->getDescription(),
         'translation_domain' => 'app',
       ])
     ;

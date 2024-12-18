@@ -6,7 +6,6 @@ use App\Entity\Types\TypeNote;
 use App\Repository\CharacterNoteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\Entity(repositoryClass: CharacterNoteRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
@@ -49,8 +48,7 @@ class CharacterNote
 
   public function setContent(string $content = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->content = $converter->convert($content);
+    $this->content = $content;
 
     return $this;
   }

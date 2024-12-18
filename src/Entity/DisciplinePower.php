@@ -12,7 +12,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "rituals"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "rituals")])]
 #[ORM\Entity(repositoryClass: DisciplinePowerRepository::class)]
@@ -132,8 +131,6 @@ class DisciplinePower implements Translatable
 
   public function setDetails(string $details = ""): self
   {
-    $converter = new HtmlConverter();
-    $details = $converter->convert($details);
     $this->details = $details;
 
     return $this;

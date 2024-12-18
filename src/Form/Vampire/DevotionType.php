@@ -8,13 +8,13 @@ use App\Entity\Skill;
 use App\Form\PrerequisiteType;
 use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
+
 
 class DevotionType extends AbstractType
 {
@@ -27,13 +27,13 @@ class DevotionType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     /** @var Devotion $devotion */
     $devotion = $options['data'];
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('cost', null, ['label' => 'cost', 'translation_domain' => 'app'])
-      ->add('description', CKEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $converter->convert($devotion->getDescription())])
+      ->add('description', RichTextEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $devotion->getDescription()])
       ->add('short', null, ['label' => 'short'])
       ->add('bloodline', null, ['label' => 'bloodline.label.single', 'translation_domain' => 'clan'])
       ->add('prerequisites', CollectionType::class, [

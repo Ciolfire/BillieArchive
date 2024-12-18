@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
@@ -181,8 +180,6 @@ class Discipline implements Translatable
 
   public function setRules(string $rules = ""): self
   {
-    $converter = new HtmlConverter();
-    $rules = $converter->convert($rules);
     $this->rules = $rules;
 
     return $this;

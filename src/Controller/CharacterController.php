@@ -18,6 +18,7 @@ use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Vampire\VampireType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
@@ -26,7 +27,6 @@ use App\Service\DataService;
 use App\Service\ItemService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -37,7 +37,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Extra\Markdown\LeagueMarkdown;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Cropperjs\Factory\CropperInterface;
 use Symfony\UX\Cropperjs\Form\CropperType;
@@ -587,11 +586,10 @@ class CharacterController extends AbstractController
     $get = "get".$name;
     $set = "set".$name;
 
-    $converter = new LeagueMarkdown();
     $form = $this->createFormBuilder()
-      ->add($type, CKEditorType::class, [
+      ->add($type, RichTextEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($character->$get()),
+        'data' => $character->$get(),
         'label' => "$type.label",
         'translation_domain' => 'character'
       ])
@@ -601,7 +599,6 @@ class CharacterController extends AbstractController
       ])
       ->getForm();
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       $data = $form->get($type)->getData();
       if ($data == null) {

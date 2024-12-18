@@ -9,10 +9,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Twig\Extra\Markdown\LeagueMarkdown;
 
 class NoteType extends AbstractType
 {
@@ -28,7 +27,7 @@ class NoteType extends AbstractType
     } else {
       $characters = null;
     }
-    $converter = new LeagueMarkdown();
+    
     $builder
       ->add('title', null, ['label' => 'title'])
       ->add('assignedAt', DateType::class, array(
@@ -37,10 +36,10 @@ class NoteType extends AbstractType
         // 'data' => $date,
         'label' => 'date',
       ))
-      ->add('content', CKEditorType::class, [
+      ->add('content', RichTextEditorType::class, [
         'label' => 'content',
         'empty_data' => '',
-        'data' => $converter->convert($note->getContent())]
+        'data' => $note->getContent()]
         )
       ->add('category', ChoiceType::class, [
         'label' => 'folder.label',

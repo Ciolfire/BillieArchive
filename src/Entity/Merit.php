@@ -12,7 +12,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use League\HTMLToMarkdown\HtmlConverter;
 
 
 #[ORM\Table(name: "merits")]
@@ -195,8 +194,7 @@ class Merit implements Translatable
 
   public function setEffect(string $effect = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->effect = $converter->convert($effect);
+    $this->effect = $effect;
 
     return $this;
   }

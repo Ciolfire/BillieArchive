@@ -11,8 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class GhoulFamilyType extends AbstractType
 {
@@ -27,7 +27,6 @@ class GhoulFamilyType extends AbstractType
   {
     /** @var GhoulFamily */
     $family = $options['data'];
-    $converter = new LeagueMarkdown();
     $translator = $this->translator;
 
     $builder
@@ -59,21 +58,21 @@ class GhoulFamilyType extends AbstractType
         }
       ])
       ->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($family->getDescription()),
+        'data' => $family->getDescription(),
         'label' => "description",
         'translation_domain' => 'app',
       ])
-      ->add('strength', CKEditorType::class, [
+      ->add('strength', RichTextEditorType::class, [
         'label' => 'family.strength',
         'empty_data' => '',
-        'data' => $converter->convert($family->getWeakness())
+        'data' => $family->getWeakness()
       ])
-      ->add('weakness', CKEditorType::class, [
+      ->add('weakness', RichTextEditorType::class, [
         'label' => 'family.weakness',
         'empty_data' => '',
-        'data' => $converter->convert($family->getWeakness())
+        'data' => $family->getWeakness()
       ])
     ;
   }

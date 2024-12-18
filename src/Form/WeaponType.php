@@ -3,11 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Items\Weapon;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
+
 
 class WeaponType extends ItemType
 {
@@ -20,7 +20,6 @@ class WeaponType extends ItemType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
 
     /** @var Weapon $item */
@@ -30,10 +29,10 @@ class WeaponType extends ItemType
       ->add('damage', null, [
         'label' => 'damage.label',
       ])
-      ->add('special', CKEditorType::class, [
+      ->add('special', RichTextEditorType::class, [
         'label' => 'special.label',
         'empty_data' => '',
-        'data' => $converter->convert($item->getSpecial()),
+        'data' => $item->getSpecial(),
         ])
       ;
   }

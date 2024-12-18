@@ -12,10 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Twig\Extra\Markdown\LeagueMarkdown;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class DisciplinePowerType extends AbstractType
 {
@@ -28,7 +27,7 @@ class DisciplinePowerType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     $translator = $this->translator;
     /** @var DisciplinePower */
     $power = $options['data'];
@@ -38,7 +37,7 @@ class DisciplinePowerType extends AbstractType
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short'])
-      ->add('details', CKEditorType::class, ['empty_data' => '', 'data' => $converter->convert($power->getDetails()), 'label' => false])
+      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $power->getDetails(), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
       ->add('source', SourceableType::class, [
         'data_class' => DisciplinePower::class,

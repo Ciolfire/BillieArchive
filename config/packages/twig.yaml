@@ -6,7 +6,6 @@ twig:
     - "bootstrap_5_horizontal_layout.html.twig"
     - 'forms/radiobutton.html.twig'
     - 'forms/choicewidgetexpanded.html.twig'
-    - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
   paths:
     '%kernel.project_dir%/icons': icons
     '%kernel.project_dir%/public/images': images

@@ -3,12 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Items\Equipment;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
 
 class EquipmentType extends ItemType
 {
@@ -21,7 +20,6 @@ class EquipmentType extends ItemType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
     
     $item = $options['data'];
@@ -35,10 +33,10 @@ class EquipmentType extends ItemType
             'quality.surnatural' => array_combine(range(6, 10), range(6, 10)),
         ],
       ])
-      ->add('functionality', CKEditorType::class, [
+      ->add('functionality', RichTextEditorType::class, [
         'label' => 'functionality.label',
         'empty_data' => '',
-        'data' => $converter->convert($item->getFunctionality()),
+        'data' => $item->getFunctionality(),
       ]);
   }
 

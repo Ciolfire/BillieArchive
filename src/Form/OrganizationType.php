@@ -9,8 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Dropzone\Form\DropzoneType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
 
 class OrganizationType extends AbstractType
 {
@@ -25,7 +24,7 @@ class OrganizationType extends AbstractType
   {
     /** @var Organization */
     $organization = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $translator = $this->translator;
 
     $builder
@@ -44,53 +43,53 @@ class OrganizationType extends AbstractType
         'data_class' => Organization::class,
         'label' => 'source.label',
       ])
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'description',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getDescription()),
+        'data' => $organization->getDescription(),
       ])
-      ->add('overview', CKEditorType::class, [
+      ->add('overview', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'overview',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getOverview()),
+        'data' => $organization->getOverview(),
       ])
-      ->add('members', CKEditorType::class, [
+      ->add('members', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'members',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getMembers()),
+        'data' => $organization->getMembers(),
       ])
-      ->add('philosophy', CKEditorType::class, [
+      ->add('philosophy', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'philosophy',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getPhilosophy()),
+        'data' => $organization->getPhilosophy(),
       ])
-      ->add('observances', CKEditorType::class, [
+      ->add('observances', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'observances',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getObservances()),
+        'data' => $organization->getObservances(),
       ])
-      ->add('titles', CKEditorType::class, [
+      ->add('titles', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
         'label' => 'titles',
         'empty_data' => '',
-        'data' => $converter->convert($organization->getTitles()),
+        'data' => $organization->getTitles(),
       ])
     ;
   }

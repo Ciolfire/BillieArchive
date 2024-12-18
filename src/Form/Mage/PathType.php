@@ -12,8 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class PathType extends AbstractType
 {
@@ -28,7 +28,7 @@ class PathType extends AbstractType
   {
     /** @var Path */
     $path = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $translator = $this->translator;
 
     $builder
@@ -54,9 +54,9 @@ class PathType extends AbstractType
         ],
       ])
       ->add('short', null, ['label' => "short"])
-      ->add('description', CKEditorType::class, [
+      ->add('description', RichTextEditorType::class, [
         'empty_data' => '',
-        'data' => $converter->convert($path->getDescription()), 
+        'data' => $path->getDescription(), 
         'label' => "description",
         'translation_domain' => 'app',
         ])

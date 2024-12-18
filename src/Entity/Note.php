@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
@@ -100,9 +99,7 @@ class Note
 
   public function setContent(string $content): self
   {
-    $this->plainText = strip_tags($content);
-    $converter = new HtmlConverter();
-    $this->content = $converter->convert($content);
+    $this->content = $content;
 
     return $this;
   }

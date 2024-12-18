@@ -3,11 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Items\RangedWeapon;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extra\Markdown\LeagueMarkdown;
+
 
 class RangedWeaponType extends WeaponType
 {
@@ -20,7 +20,6 @@ class RangedWeaponType extends WeaponType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     parent::buildForm($builder, $options);
 
     /** @var RangedWeapon $item */

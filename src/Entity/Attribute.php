@@ -7,8 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use League\HTMLToMarkdown\HtmlConverter;
-
 
 #[ORM\Entity(repositoryClass: AttributeRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -115,8 +113,7 @@ class Attribute
 
   public function setDescription(string $description = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->description = $converter->convert($description);
+    $this->description = $description;
 
     return $this;
   }
@@ -128,8 +125,7 @@ class Attribute
 
   public function setFluff(string $fluff = ""): self
   {
-    $converter = new HtmlConverter();
-    $this->fluff = $converter->convert($fluff);
+    $this->fluff = $fluff;
 
     return $this;
   }

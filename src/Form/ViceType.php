@@ -6,8 +6,8 @@ use App\Entity\Vice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class ViceType extends AbstractType
 {
@@ -15,10 +15,10 @@ class ViceType extends AbstractType
   {
     /** @var Vice $vice */
     $vice = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $builder
       ->add('name', null, ['label' => 'name'])
-      ->add('details', CKEditorType::class, ['label' => 'description.fluff', 'data' => $converter->convert($vice->getDetails())]);
+      ->add('details', RichTextEditorType::class, ['label' => 'description.fluff', 'data' => $vice->getDetails()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

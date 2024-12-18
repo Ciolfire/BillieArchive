@@ -2,6 +2,7 @@ $fonts: "../../fonts";
 
 $mainColor        : #7d0000;
 $mainBrightColor  : #ca0000;
+$mainDark50pColor : #35000088;
 $mainDark75pColor : #350000cc;
 $mainDarkColor    : #350000;
 $main30pColor      : #7d00004f;
@@ -38,7 +39,10 @@ $textDarkColor      : #000000;
 $textBrightColor    : #ff6161;
 $titleColor         : silver;
 $titleShadow        : rgb(43, 0, 0);
-// btn
+// Table
+$tableAccentColor   : $mainDark50pColor;
+$tableHeaderColor   : $textColor;
+// Btn
 $btnColor           : rgba(32, 0, 0, 0.8);
 $btnTextColor       : silver;
 $btnBorderColor     : #7d0000;

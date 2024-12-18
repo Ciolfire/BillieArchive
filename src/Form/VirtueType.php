@@ -6,8 +6,8 @@ use App\Entity\Virtue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
+
 
 class VirtueType extends AbstractType
 {
@@ -15,10 +15,10 @@ class VirtueType extends AbstractType
   {
     /** @var Virtue $virtue */
     $virtue = $options['data'];
-    $converter = new LeagueMarkdown();
+    
     $builder
       ->add('name', null, ['label' => 'name'])
-      ->add('details', CKEditorType::class, ['label' => 'description.fluff', 'data' => $converter->convert($virtue->getDetails())]);
+      ->add('details', RichTextEditorType::class, ['label' => 'description.fluff', 'data' => $virtue->getDetails()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

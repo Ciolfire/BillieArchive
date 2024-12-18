@@ -7,14 +7,12 @@ use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
 
 class DisciplineType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
     /** @var Discipline $discipline */
     $discipline = $options['data'];
     $rules = $discipline->getRules();
@@ -26,7 +24,7 @@ class DisciplineType extends AbstractType
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('short', null, ['label' => 'short', 'help' => 'help.short'])
       ->add('description', null, ['label' => 'description', 'translation_domain' => 'app'])
-      ->add('rules', CKEditorType::class, ['label' => 'rules', 'empty_data' => '', 'data' => $converter->convert($rules)])
+      ->add('rules', RichTextEditorType::class, ['label' => 'rules', 'empty_data' => '', 'data' => $rules])
       ->add('isRestricted', null, ['label' => 'restricted', 'help' => 'help.restricted'])
       ->add('source', SourceableType::class, [
         'data_class' => Discipline::class,

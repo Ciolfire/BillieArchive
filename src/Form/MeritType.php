@@ -10,14 +10,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Twig\Extra\Markdown\LeagueMarkdown;
+use App\Form\Type\RichTextEditorType;
 
 class MeritType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    $converter = new LeagueMarkdown();
+    
     /** @var Merit $merit */
     $merit = $options['data'];
 
@@ -40,7 +39,7 @@ class MeritType extends AbstractType
         ],
       ])
       ->add('description', null, ['label' => 'description', 'help' => 'help.description'])
-      ->add('effect', CKEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $converter->convert($merit->getEffect())])
+      ->add('effect', RichTextEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
       ->add('min', null, ['label' => "min"])
       ->add('max', null, ['label' => "max"])
       ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])
