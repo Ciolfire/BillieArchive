@@ -12,9 +12,6 @@
 <div class="block-light container">
   {% include "_back.html.twig" %}
   <div class="row p-1">
-    {% for item in templates %}
-      {% include "character_sheet/items/list_item.html.twig" %}
-    {% endfor %}
     <div class="col-12 col-md-6 col-lg-4 mb-2">
       <div class="item-card">
         <a href="{{ path('character_item_new', {'character': character.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 h-100">
@@ -25,6 +22,9 @@
         </a>
       </div>
     </div>
+    {% for item in templates %}
+      {% include "character_sheet/items/list_item.html.twig" %}
+    {% endfor %}
   </div>
   {% block modals %}
     {% for item in templates %}
