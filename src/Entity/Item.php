@@ -247,4 +247,16 @@ class Item
 
       return $this;
   }
+
+  public function getContainers() : array
+  {
+    $containers = [];
+    foreach ($this->containedItems as $item) {
+      if ($item->isContainer()) {
+        $containers[] = $item;
+      }
+    }
+
+    return $containers;
+  }
 }

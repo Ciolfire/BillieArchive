@@ -1,9 +1,12 @@
 {% trans_default_domain 'character' %}
 <div data-controller="tabs" data-tabs-initial-value="container-none" data-tabs-parent-value="inventory">
+  {# Containers tabs #}
   <ul class="nav tabs row g-0">
     {% include "_tab.html.twig" with {name: "container-none", label: "—", icon: ''} only %}
     {% for container in character.itemContainers %}
-      {% include "_tab.html.twig" with {name: "container-" ~ container.id, label: container.name, icon: 'container', img: container.img, imgType: 'items'} only %}
+      {% if container.container is null %}
+        {% include "_tab.html.twig" with {name: "container-" ~ container.id, label: container.name, icon: 'container', img: container.img, imgType: 'items'} only %}
+      {% endif %}
     {% endfor %}
       <a href="{{ path('character_container_add', {'character': character.id }) }}" class="nav-item nav-btn col-1 text-center btn btn-primary position-relative">
         {% include "_icon.html.twig" with {icon: 'container', class:'text-strong'} only %}
@@ -14,6 +17,7 @@
         {% include "_icon.html.twig" with {icon: 'add', class:'text-strong position-absolute top-0 icon-sm'} only %}
       </a>
   </ul>
+  {# No container display page #}
   <div id="container-none" class="tab-content p-2 d-none" data-tabs-target="page">
     <div class="row" data-character--item-target="container" data-container="0" data-controller="search" data-search-type-value="item">
       <div class="col-12 text-center py-2 sticky-element">
@@ -27,6 +31,7 @@
       {% endfor %}
     </div>
   </div>
+  {# Container display page #}
   {% for container in character.itemContainers %}
     <div id="{{ "container-" ~ container.id }}" class="tab-content p-2 d-none" data-tabs-target="page">
       {% include "character_sheet/items/_container_card.html.twig" with {item: container} %}
