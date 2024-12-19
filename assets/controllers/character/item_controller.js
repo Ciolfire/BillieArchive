@@ -35,7 +35,7 @@ export default class extends Controller {
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       let container = this.containerTargets.find(target => target.dataset.container == this.choiceTarget.value);
-      container.appendChild(target.parentElement);
+      container.appendChild(target);
       this.closeMoveTarget.click();
     });
   }
