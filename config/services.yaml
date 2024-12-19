@@ -25,7 +25,7 @@ services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-  League\CommonMark\Extension\Table\TableExtension:
+  League\CommonMark\Extension\GithubFlavoredMarkdownExtension:
     tags: ['twig.markdown.league_extension']
   League\CommonMark\Extension\SmartPunct\SmartPunctExtension:
     tags: ['twig.markdown.league_extension']
