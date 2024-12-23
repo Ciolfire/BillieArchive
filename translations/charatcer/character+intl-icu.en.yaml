@@ -152,6 +152,11 @@ right:
   description: Description
   faction: Faction
   group: Group
+  importance:
+    label: Importance
+    high: High
+    normal: Normal
+    low: Low
   firstname: First name
   lastname: Last name
   morality: Morality

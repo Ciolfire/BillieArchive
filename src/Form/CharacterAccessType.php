@@ -94,6 +94,12 @@ class CharacterAccessType extends AbstractType
           },
           'multiple' => true,
           'expanded' => true,
+        ])
+        ->add('importance', ChoiceType::class, [
+          'choices' => ['right.importance.high' => 2, 'right.importance.normal' => 1, 'right.importance.low' => 0],
+          'label' => "right.importance.label",
+          'multiple' => false,
+          'expanded' => true,
         ]);
       if (!$data->getAccessor()) {
         $builder->add('accessor', EntityType::class, [

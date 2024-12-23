@@ -25,6 +25,9 @@ class CharacterAccess
   #[ORM\Column]
   private array $rights = [];
 
+  #[ORM\Column(type: "smallint")]
+  private int $importance = 1;
+
   public function getId(): ?int
   {
     return $this->id;
@@ -74,5 +77,17 @@ class CharacterAccess
     }
 
     return false;
+  }
+
+  public function getImportance(): int
+  {
+    return $this->importance;
+  }
+
+  public function setImportance(int $importance): self
+  {
+    $this->importance = $importance;
+
+    return $this;
   }
 }
