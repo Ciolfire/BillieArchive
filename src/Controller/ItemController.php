@@ -116,6 +116,7 @@ class ItemController extends AbstractController
       // Item fall, we setup the chronicle
       $item->setHomebrewFor($item->getOwner()->getChronicle());
       $item->setOwner(null);
+      $item->setContainer(null);
     } else {
       // Item cannot fall, destroyed.
       $this->dataService->remove($item);
