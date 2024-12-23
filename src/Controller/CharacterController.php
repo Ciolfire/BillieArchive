@@ -680,6 +680,7 @@ class CharacterController extends AbstractController
     $forms = [];
     foreach ($types as $type) {
       $item = new $type[0]();
+      $item->setOwner($character);
       $forms[] = $this->createForm($type[1], $item);
     }
     if ($request->isMethod('POST')) {
