@@ -4,6 +4,7 @@
 
 <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 {% if access.importance == 2 %}order-first{% elseif access.importance == 0 %}order-last{% endif %}" data-search-target="item" data-order-target="item" data-name="{{ publicName }}">
   <a class="text-center p-0 {% if access.hasRight('type')|default(false) %}{{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100" href="{{ link|default(path('character_peek', {'id': character.id})) }}">
+    {# Header #}
     <div class="character-card-header">
       {% if access.hasRight('type')|default(false) and character.type != 'human' %}
         {% include "character/peeking/header/" ~ character.type ~ ".html.twig" %}
@@ -13,6 +14,7 @@
         <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
       {% endif %}
     </div>
+    {# Name #}
     <div class="character-card-name">
       {% if publicName == "" %}
         <span class="warning">{{ "name.unknown"|trans }}</span>
@@ -21,9 +23,11 @@
       {% endif %}
       {# <p class="strong">{% if character.isNpc %}{{ "npc.label.short"|trans }}{% else %}({{ character.player }}){% endif %}</p> #}
     </div>
+    {# Avatar #}
     <div class="character-card-avatar position-relative text-center m-1 rounded border border-secondary">
       <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
     </div>
+    {# Footer #}
     <div class="my-1">
       {% if (character.type == 'vampire' or character.type == 'ghoul') and access.hasRight('covenant')|default(false) %}
         {{ character.covenant }}
