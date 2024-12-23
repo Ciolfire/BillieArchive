@@ -1,0 +1,25 @@
+{% trans_default_domain 'app' %}
+
+<div class="row" data-controller="search" data-search-type-value="character">
+  {% if chronicle.items is empty %}
+    <div class="col-12 m-2">{{ 'empty'|trans }}</div>
+  {% else %}
+    <div class="col text-center py-2 sticky-element">
+      {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+      <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
+    </div>
+    <div class="row" data-order-target="container">
+      {% for item in chronicle.items %}
+          {% include 'item/_card.html.twig' with { item: item } only %}
+      {% endfor %}
+      {% for character in chronicle.characters %}
+        {% if character.items is not empty %}
+            <h1>{{ character.name }}</h1>
+        {% endif %}
+        {% for item in character.items %}
+          {% include 'item/_list_item.html.twig' with { item: item } only %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+	{% endif %}
+</div>

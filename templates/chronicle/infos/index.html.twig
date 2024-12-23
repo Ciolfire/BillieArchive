@@ -16,9 +16,17 @@
       {{ chronicle.name }}
     </h1>
     {% include 'chronicle/infos/basics.html.twig' %}
-    <div class="row block py-2">
-      <h2>{% include "_icon.html.twig" with { icon: 'characters', class: 'icon-strong' } only %}{{ "label.multi"|trans({}, 'character') }}</h2>
-      {% include 'chronicle/infos/characters.html.twig' %}
+    <div class="row block" data-controller="tabs" data-tabs-initial-value="characters">
+      <ul class="nav tabs row g-0">
+        {% include "_tab.html.twig" with {name: 'characters', label: 'label.multi'|trans({}, 'character')} only %}
+        {% include "_tab.html.twig" with {name: 'items', label: 'label.multi'|trans({}, 'item'), icon: 'item'} only %}
+      </ul>
+      <div id="characters" class="tab-content d-none" data-tabs-target="page">
+        {% include 'chronicle/infos/characters.html.twig' %}
+      </div>
+      <div id="items" class="tab-content d-none" data-tabs-target="page">
+        {% include 'chronicle/infos/items.html.twig' %}
+      </div>
     </div>
   </div>
 {% endblock %}
