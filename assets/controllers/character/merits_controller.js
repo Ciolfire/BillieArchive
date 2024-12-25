@@ -5,10 +5,12 @@ export default class extends Controller {
   static targets = [
     "merit",
     "prerequisite",
-    "filter"
+    "filter",
+    "modal"
   ];
 
-  connect() {
+  connect()
+  {
     this.checkPrerequisite({ detail: {type: 'race', target: null } });
 
     this.meritTargets.forEach(merit => {
@@ -24,7 +26,14 @@ export default class extends Controller {
     });
   }
 
-  add(event) {
+  show(event)
+  {
+    this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
+    this.modalTarget.querySelector("#MeritShowModalDescription").innerHTML = event.params.effect;
+  }
+
+  add(event)
+  {
     let card = event.target.closest(".block");
     
     if (false == card.dataset.unique) {
@@ -40,7 +49,8 @@ export default class extends Controller {
     this.checkPrerequisite({ detail: { type: 'merit', target: event.target.getAttribute("for").split('-')[0] } })
   }
 
-  checkNeedGeneration(merits) {
+  checkNeedGeneration(merits)
+  {
     var needNew = true;
       merits.forEach(merit => {
         if (merit.getElementsByClassName("merit-value")[0].value == 0) {
@@ -52,7 +62,8 @@ export default class extends Controller {
       return needNew;
   }
 
-  meritGeneration(card, length) {
+  meritGeneration(card, length)
+  {
     
     let newCard = card.parentNode.cloneNode(true);
     
@@ -88,7 +99,8 @@ export default class extends Controller {
     card.parentNode.after(newCard);
   }
 
-  checkPrerequisite({ detail: {type, target} }) {
+  checkPrerequisite({ detail: {type, target} })
+  {
     this.prerequisiteTargets.forEach(prerequisite => {
       let data = prerequisite.dataset;
       switch (type) {
@@ -132,7 +144,8 @@ export default class extends Controller {
     });
   }
 
-  attr(name) {
+  attr(name)
+  {
     let attr = document.getElementById(`character_${name}`);
     if (attr) {
       return +attr.value;
@@ -141,7 +154,8 @@ export default class extends Controller {
     }
   }
 
-  cost(targets, type) {
+  cost(targets, type)
+  {
     let total = 0;
     let mod = 0;
     if (type == 'attr') {
@@ -159,12 +173,14 @@ export default class extends Controller {
     return total;
   }
 
-  switch(target, show, hide) {
+  switch(target, show, hide)
+  {
     target.classList.remove(hide);
     target.classList.add(show);
   }
 
-  filter(event) {
+  filter(event)
+  {
     let category = event.params.category;
     let fighting = event.params.fighting;
     let creation = event.params.creation;
@@ -187,7 +203,8 @@ export default class extends Controller {
     }
   }
 
-  checkCategory(category) {
+  checkCategory(category)
+  {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.fighting != true && (merit.dataset.category == category) || category == "") {
@@ -200,7 +217,8 @@ export default class extends Controller {
     });
   }
 
-  checkFighting() {
+  checkFighting()
+  {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.fighting) {
@@ -213,7 +231,8 @@ export default class extends Controller {
     });
   }
 
-  checkCreation() {
+  checkCreation()
+  {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.creation) {
@@ -226,7 +245,8 @@ export default class extends Controller {
     });
   }
 
-  checkRace(race) {
+  checkRace(race)
+  {
     this.meritTargets.forEach(merit => {
       let card = merit.closest('.card').parentElement;
       if (merit.dataset.race == race) {

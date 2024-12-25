@@ -10,7 +10,7 @@
 
 	{% block form_start %}
 		{% set form_attributes = {
-    'data-controller': 'character--merits character--edit',
+    'data-controller': 'character--edit character--merits',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
     'data-character--edit-used-value': character.xpUsed,
@@ -48,5 +48,9 @@
 			</div>
 		</div>
 	</div>
+  {% block modals %}
+    {# Merit #}
+    {% include "character_sheet/modals/merit_show.html.twig" %}
+  {% endblock %}
 	{{ form_end(form) }}
 {% endblock %}
