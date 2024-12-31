@@ -374,21 +374,18 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id<\d+>}/a_peek', name: 'a_character_peek', methods: ['GET'])]
-  public function a_peek(Request $request, Character $character): Response
+  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'a_character_peek', methods: ['GET'])]
+  public function a_peek(Request $request, Character $character, Character $peeker): Response
   {
-    if ($character instanceof Character) {
-      $peeker = $character->getChronicle()->getCharacter($this->getUser());
-      if ($peeker instanceof Character) {
-        $access = $peeker->getSpecificPeekingRights($character);
+    if ($character instanceof Character && $peeker instanceof Character) {
+      $access = $peeker->getSpecificPeekingRights($character);
 
-        return $this->render("character_sheet/peek/_base.html.twig", [
-          'peeker' => $peeker,
-          'access' => $access,
-          'character' => $character,
-          'setting' => $character->getChronicle()->getType(),
-        ]);
-      }
+      return $this->render("character_sheet/peek/_base.html.twig", [
+        'peeker' => $peeker,
+        'access' => $access,
+        'character' => $character,
+        'setting' => $character->getChronicle()->getType(),
+      ]);
     }
 
     $this->addFlash('notice', 'character.peek.declined');

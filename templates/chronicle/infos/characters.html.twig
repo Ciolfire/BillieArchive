@@ -2,15 +2,15 @@
 
 {% set peekingRights = character.peekingRights|default(null) %}
 
-<div class="row" data-controller="search order" data-search-type-value="character">
+<div class="row g-0" data-controller="search order" data-search-type-value="character">
   {% if peekingRights is empty %}
     <div class="col-12 m-2" data-order-target="container">{{ 'empty'|trans }}</div>
   {% else %}
-    <div class="col text-center py-2 sticky-element">
+    <div class="col-12 py-2 text-center sticky-element">
       {% include "_icon.html.twig" with {'icon' : 'search' } only %}
       <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
     </div>
-    <div class="row collapse" data-order-target="container">
+    <div class="row m-0 collapse" data-order-target="container">
       {% for peekingRight in character.peekingRights %}
         {% if peekingRight.rights is not empty %}
           {% include 'character/_peeking_card.html.twig' with { character: peekingRight.target, access: peekingRight } only %}

@@ -7,7 +7,7 @@
     data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     {# data-content-url-param="{{ link|default(path('a_load_test')) }}"  #}
-    data-content-url-param="{{ link|default(path('a_character_peek', {'id': character.id})) }}" 
+    data-content-url-param="{{ link|default(path('a_character_peek', {'id': character.id, 'peeker': access.accessor.id})) }}" 
     data-content-name-param="{{ publicName }}"
   >
     {# Header #}
