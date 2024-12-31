@@ -365,12 +365,34 @@ class CharacterController extends AbstractController
       return $this->redirectToRoute('index');
     }
     $access = $peeker->getSpecificPeekingRights($character);
-    return $this->render("character_sheet_type/{$character->getType()}/peek.html.twig", [
+
+    return $this->render("character_sheet/peek.html.twig", [
       'peeker' => $peeker,
       'access' => $access,
       'character' => $character,
       'setting' => $character->getChronicle()->getType(),
     ]);
+  }
+
+  #[Route('/{id<\d+>}/a_peek', name: 'a_character_peek', methods: ['GET'])]
+  public function a_peek(Request $request, Character $character): Response
+  {
+    if ($character instanceof Character) {
+      $peeker = $character->getChronicle()->getCharacter($this->getUser());
+      if ($peeker instanceof Character) {
+        $access = $peeker->getSpecificPeekingRights($character);
+
+        return $this->render("character_sheet/peek/_base.html.twig", [
+          'peeker' => $peeker,
+          'access' => $access,
+          'character' => $character,
+          'setting' => $character->getChronicle()->getType(),
+        ]);
+      }
+    }
+
+    $this->addFlash('notice', 'character.peek.declined');
+    return $this->redirect($request->headers->get('referer'));
   }
 
   #[Route('/{id<\d+>}/duplicate', name: 'character_duplicate', methods: ['GET', 'POST'])]
