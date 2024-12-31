@@ -15,14 +15,14 @@ titles: Titres et devoirs
 
 covenant:
   label:
-    single: Covenant
-    multi: Covenants
+    single: Ligue
+    multi: Ligues
   help:
-    devotion.limited: Ces dévotions ne peuvent être acquises que par les membres de ce Covenant
-    discipline.limited: Ces disciplines ne peuvent être acquises que par les membres de ce Covenant
+    devotion.limited: Ces dévotions ne peuvent être acquises que par les membres de cette Ligue
+    discipline.limited: Ces disciplines ne peuvent être acquises que par les membres de cette Ligue
     merit:
-      limited: Ces atouts ne peuvent être acquis que par les membres de ce Covenant
-      discount: Ces atouts sont acquis à moitié prix par les membres de ce Covenant
+      limited: Ces atouts ne peuvent être acquis que par les membres de cette Ligue
+      discount: Ces atouts sont acquis à moitié prix par les membres de cette Ligue
   devotion.limited: Dévotions Restreintes
   discipline.limited: Disciplines Restreintes
   merit:
