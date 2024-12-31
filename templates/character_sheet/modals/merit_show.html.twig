@@ -1,4 +1,4 @@
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'app' %}
 
 <div class="modal fade" id="meritShowModal" tabindex="-1" aria-labelledby="meritShowModalLabel" aria-hidden="true" data-character--merits-target="modal">
   <div class="modal-dialog">
@@ -10,9 +10,14 @@
       <div class="modal-body">
         <div id="MeritShowModalDescription">
         </div>
-        {# <input class="form-control" type="number" step="1" min="1" data-character--experience-target="input"/> #}
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary me-5" data-action="character--merits#openWiki" data-character--merits-link-param="{{ path('merit_show', {id: '0'}) }}">
+          {% include "_icon.html.twig" with {icon: 'wiki'} only %}
+          {# {{ 'action.view'|trans }} #}
+        </button>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
       </div>
     </div>
   </div>

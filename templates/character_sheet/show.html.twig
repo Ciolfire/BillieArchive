@@ -10,10 +10,12 @@
 {% block body %}
   <div
     class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}"
-    data-controller="character--experience character--avatar character--merits character--item"
-    data-character--experience-id-value="{{ character.id }}"
-    data-character--avatar-id-value="{{ character.id }}"
-    data-character--item-character-value="{{ character.id }}"
+    {% block body_attributes %}
+      data-controller="{% block data_controllers %}character--experience character--avatar character--merits character--item content{% endblock %}"
+      data-character--experience-id-value="{{ character.id }}"
+      data-character--avatar-id-value="{{ character.id }}"
+      data-character--item-character-value="{{ character.id }}"
+    {% endblock %}
   >
     {% block menu %}
       {% include "character_sheet/menu/show.html.twig" %}
@@ -91,6 +93,8 @@
         {% include "character_sheet/modals/xp_add.html.twig" %}
         {% include "character_sheet/modals/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
         {% include "character_sheet/modals/ability_removal.html.twig" %}
+        {# Relations #}
+        {% include "character_sheet/modals/content.html.twig" %}
         {# Merit #}
         {% include "character_sheet/modals/merit_show.html.twig" %}
         {# Morality #}

@@ -9,6 +9,10 @@ export default class extends Controller {
     "modal"
   ];
 
+  static value = {
+    "id": 0
+  }
+
   connect()
   {
     this.checkPrerequisite({ detail: {type: 'race', target: null } });
@@ -28,8 +32,15 @@ export default class extends Controller {
 
   show(event)
   {
+    this.idValue = event.params.id;
     this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
     this.modalTarget.querySelector("#MeritShowModalDescription").innerHTML = event.params.effect;
+  }
+
+  openWiki(event)
+  {
+    let link = event.params.link.replace('0', this.idValue);
+    window.open(link, '_blank').focus();
   }
 
   add(event)
