@@ -2,6 +2,16 @@
 
 {% trans_default_domain 'character' %}
 
+{% block data_controllers %}
+  {{ parent() }}
+  vampire--devotion
+{% endblock %}
+
+{% block body_attributes %}
+  {{ parent() }}
+{% endblock %}
+
+
 {% block header %}
   {% include "character_sheet_type/vampire/header/show.html.twig" %}
 {% endblock %}
@@ -36,4 +46,9 @@
 
 {% block specialTab %}
   {% include "_tab.html.twig" with {name: 'vampire', icon: 'type/vampire', label: 'vampire'|trans({}, 'content-type')} only %}
+{% endblock %}
+
+{% block modals %}
+  {{ parent() }}
+  {% include "character_sheet/modals/devotion_show.html.twig" %}
 {% endblock %}

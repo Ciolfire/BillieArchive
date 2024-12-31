@@ -1,0 +1,24 @@
+{% trans_default_domain 'app' %}
+
+<div class="modal fade" id="devotionShowModal" tabindex="-1" aria-labelledby="devotionShowModalLabel" aria-hidden="true" data-vampire--devotion-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h5 class="modal-title text-sub" id="devotionShowModalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="devotionShowModalDescription">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary me-5" data-action="vampire--devotion#openWiki" data-vampire--devotion-link-param="{{ path('vampire_devotion_show', {id: '0'}) }}">
+          {% include "_icon.html.twig" with {icon: 'wiki'} only %}
+          {# {{ 'action.view'|trans }} #}
+        </button>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

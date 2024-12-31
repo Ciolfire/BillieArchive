@@ -10,7 +10,7 @@
 
 {% block form_start %}
   {% set form_attributes = {
-      'data-controller': 'character--merits character--edit',
+      'data-controller': 'character--edit character--merits vampire--devotion',
       'data-action': 'character--edit:change->character--merits#checkPrerequisite',
       'data-character--edit-total-value': character.xpTotal,
       'data-character--edit-used-value': character.xpUsed,
@@ -27,4 +27,9 @@
 
 {% block specialTab %}
   {% include "_tab.html.twig" with {name: 'vampire', label: 'vampire'|trans({}, 'content-type'), icon: 'type/vampire'} only %}
+{% endblock %}
+
+{% block modals %}
+  {{ parent() }}
+  {% include "character_sheet/modals/devotion_show.html.twig" %}
 {% endblock %}

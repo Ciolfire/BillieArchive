@@ -150,7 +150,7 @@ class DevotionController extends AbstractController
   }
 
   #[Route('/devotion/{id<\d+>}/show', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
-  public function devotionShow(Devotion $devotion, Request $request): Response
+  public function devotionShow(Devotion $devotion): Response
   {
     $this->dataService->loadPrerequisites($devotion);
 
