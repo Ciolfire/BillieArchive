@@ -21,7 +21,7 @@
       {{ family.quote }}
     </blockquote>
     {% if family.emblem is not null %}
-      <img class="mx-auto d-block" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
+      <img class="mx-auto d-block mw-100" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
     {% endif %}
     <div class="clan-{{ family.id }} clan-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
       <div class="text">{{ family.description|default("")|markdown_to_html }}</div>
