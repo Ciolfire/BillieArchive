@@ -65,6 +65,17 @@ class AjaxController extends AbstractController
     }
   }
 
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/load/test', name: 'a_load_test', methods: ['GET'])]
+  public function loadTest(Request $request): JsonResponse|RedirectResponse
+  {
+    if ($request->isXmlHttpRequest()) {
+      return new JsonResponse([
+        'choices' => "ok",
+        'methods' => "ok",
+      ]);
+    }
+  }
+
   #[Route('/load/removable', name: 'a_load_removable', methods: ['GET', 'POST'])]
   public function loadRemovable(Request $request): JsonResponse|RedirectResponse
   {

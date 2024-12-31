@@ -32,7 +32,10 @@ class VampireType extends CharacterType
           'placeholder' => 'embrace.by'
         ],
       ])
-      ->add('covenant')
+      ->add('covenant', null, [
+        'label' => 'covenant.label.single',
+        'translation_domain' => 'organization'
+      ])
       ;
   }
 
