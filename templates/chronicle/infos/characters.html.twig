@@ -4,7 +4,7 @@
 
 <div class="row" data-controller="search order" data-search-type-value="character">
   {% if peekingRights is empty %}
-    <div class="col-12 m-2">{{ 'empty'|trans }}</div>
+    <div class="col-12 m-2" data-order-target="container">{{ 'empty'|trans }}</div>
   {% else %}
     <div class="col text-center py-2 sticky-element">
       {% include "_icon.html.twig" with {'icon' : 'search' } only %}
