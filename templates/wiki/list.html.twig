@@ -16,6 +16,7 @@
 
 {% block body %}
 	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	{% include "_top.html.twig" %}
 	<h1 class="py-3">
 		{% include "_icon.html.twig" with {icon: entity, class: 'icon-lg' } only %}
 		{% if domain is defined %}
