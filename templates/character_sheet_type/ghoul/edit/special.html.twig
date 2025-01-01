@@ -19,10 +19,10 @@
     {% include "character_sheet_type/vampire/disciplines/edit/sorceries.html.twig" with {'characterDisciplines': characterSorcery, 'disciplines': ghoul.sorcery, 'character': ghoulCharacter} %}
   </div>
   <div id="thaumaturgy" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {'characterDisciplines': characterThaumaturgy, 'disciplines': ghoul.thaumaturgy} %}
+    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {'characterDisciplines': characterThaumaturgy, 'disciplines': ghoul.thaumaturgy, 'character': ghoulCharacter} %}
   </div>
   <div id="devotions" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/devotions/edit/elements.html.twig" with {'characterDisciplines': characterDevotions, 'devotions': ghoul.devotions} %}
+    {% include "character_sheet_type/vampire/devotions/edit/elements.html.twig" with {'characterDisciplines': characterDevotions, 'devotions': ghoul.devotions, 'character': ghoulCharacter} %}
   </div>
 </div>
 
