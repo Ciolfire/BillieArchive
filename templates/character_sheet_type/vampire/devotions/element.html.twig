@@ -1,7 +1,7 @@
 {% trans_default_domain 'vampire' %}
 
 {% if devotion.usePotency %}
-  {% set extra = {potency: character.potency} %}
+  {% set extra = {potency: character.potency|default(0)} %}
 {% endif %}
 
 {% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines, extra|default([])) %}
