@@ -16,7 +16,7 @@
       <div class="row">
         {% for society in chronicle.societies %}
           <div class="col-12 col-sm-6 col-lg-4 g-2">
-            <a class="btn btn-primary w-100" href="{{ path('society_show', {'id': society.id }) }}">
+            <a class="btn {{ society.setting|default("btn-primary") }} w-100" href="{{ path('society_show', {'id': society.id }) }}">
               <h4 class="text-strong">
                 {{ society.name }}
               </h4>
