@@ -19,11 +19,26 @@
         <div class="row">
           <label class="accent mb-2" for="container">{{ "modal.move.container"|trans }}</label>
           <div class="col-auto">
-            <select class="form-control" name="container" data-character--item-target="choice">
+            <select class="form-control" name="container" data-character--item-target="choiceContainer" data-action="change->character--item#reset">
               <option value="0">{{ "modal.move.empty"|trans }}</option>
               {% for item in character.itemContainers %}
                 <option value="{{ item.id }}">{{ item.name }}</option>
               {% endfor %}
+            </select>
+          </div>
+          <div class="col-auto">
+            <select class="form-control" name="character" data-character--item-target="choiceCharacter" data-action="change->character--item#reset">
+              <option value="0"></option>
+              <optgroup label="Party Members">
+                {% for member in character.chronicle.playerCharacters %}
+                  <option value="{{ member.id }}">{{ member.name }}</option>
+                {% endfor %}
+              </optgroup>
+              <optgroup label="Others">
+                {% for known in character.knownCharacters %}
+                  <option value="{{ known.id }}">{{ known.publicName(character)|default("? - " ~ known.id ) }}</option>
+                {% endfor %}
+              </optgroup>
             </select>
           </div>
           <div class="col-auto">

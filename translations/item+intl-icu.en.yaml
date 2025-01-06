@@ -90,7 +90,7 @@ help:
 modal:
   move:
     title: Move this item to another container
-    container: Select a container
+    container: Select a container or a character
     empty: No container
   drop:
     title: Drop / Destroy

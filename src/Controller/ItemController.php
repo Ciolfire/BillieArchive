@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Character;
 use App\Entity\Description;
 use App\Entity\Item;
 use App\Form\EquipmentType;
@@ -10,6 +11,7 @@ use App\Form\ItemType;
 use App\Repository\ItemRepository;
 use App\Service\DataService;
 use App\Service\ItemService;
+use Gedmo\Mapping\Driver\Chain;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -142,7 +144,24 @@ class ItemController extends AbstractController
   }
 
 
-  #[Route('item/{item<\d+>}/move/{container<\d+>}', name: 'item_move', methods: ['GET', 'POST'])]
+  #[Route('item/{item<\d+>}/move/character/{character<\d+>}', name: 'item_move_to_character', methods: ['GET', 'POST'])]
+  public function moveItemToCharacter(Request $request, Item $item, ?Character $character): JsonResponse|RedirectResponse
+  {
+    $this->denyAccessUnlessGranted('edit', $item->getOwner());
+
+    if ($request->isXmlHttpRequest()) {
+      $item->setContainer(null);
+      $item->setOwner($character);
+      $this->dataService->flush();
+
+      return new JsonResponse('ok');
+    } else {
+
+      return $this->redirectToRoute('index');
+    }
+  }
+
+  #[Route('item/{item<\d+>}/move/container/{container<\d+>}', name: 'item_move', methods: ['GET', 'POST'])]
   public function moveItem(Request $request, Item $item, ?Item $container): JsonResponse|RedirectResponse
   {
     $this->denyAccessUnlessGranted('edit', $item->getOwner());

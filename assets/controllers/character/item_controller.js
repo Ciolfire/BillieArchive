@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-  static targets = ["item", "container", "choice", "closeMove", "closeDrop"];
+  static targets = ["item", "container", "choiceContainer", "choiceCharacter", "closeMove", "closeDrop"];
   static values = {
     character: 0,
     id: 0,
@@ -17,9 +17,24 @@ export default class extends Controller {
     this.idValue = params.id;
   }
 
+  reset(event) {
+    if (event.target.name == "character") {
+      this.choiceContainerTarget.value = 0;
+    } else {
+      this.choiceCharacterTarget.value = 0;
+    }
+  }
+
   move() {
+    let type = "container";
+    let target = this.choiceContainerTarget.value;
+    if (this.choiceCharacterTarget.value != 0) {
+      type = "character";
+      target = this.choiceCharacterTarget.value;
+    }
+
     window
-    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/move/${this.choiceTarget.value}`, {
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/move/${type}/${target}`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
@@ -34,8 +49,12 @@ export default class extends Controller {
     })
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
-      let container = this.containerTargets.find(target => target.dataset.container == this.choiceTarget.value);
-      container.appendChild(target);
+      if (type == "character") {
+       target.remove();
+      } else {
+        let container = this.containerTargets.find(target => target.dataset.container == this.choiceContainerTarget.value);
+        container.appendChild(target);
+      }
       this.closeMoveTarget.click();
     });
   }
