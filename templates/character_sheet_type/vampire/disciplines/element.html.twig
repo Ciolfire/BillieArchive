@@ -1,9 +1,9 @@
 {% trans_default_domain 'vampire' %}
 
 <div class="col-12 col-lg-6 justify-content-center">
-  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} w-100 container g-1">
-    <div class="row align-items-center px-2 user-select-none">
-      <div class="col-12 discipline-header text-center p-2">
+  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} w-100">
+    <div class="row g-0 align-items-center user-select-none">
+      <div class="col-12 discipline-header text-center py-2">
         <h2 class="text-glow text-color">
           {{ discipline.name }}
         </h2>
@@ -59,9 +59,23 @@
       {% block powers_btn %}
         <div class="col collapsed" data-bs-toggle="collapse" data-bs-target="#discipline-{{ discipline.id }}-powers" type="button">
           <span class="d-flex flex-column justify-content-center text-center">
-            <span class="discipline-powers-{{ discipline.id }} text-center">
-              {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
-            </span>
+            {% if discipline.singlePower %}
+              <span class="discipline-powers-{{ discipline.id }} text-center"
+                data-bs-toggle="modal" data-bs-target="#powerShowModal"
+                data-action="click->vampire--power#show"
+                data-vampire--power-name-param="{{ discipline.name }}"
+                data-vampire--power-description-param="{{ discipline.description|markdown_to_html }}"
+                data-vampire--power-effect-param="{{ discipline.power.details|markdown_to_html }}"
+                data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id})) }}"
+              >
+                {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
+                {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}
+              </span>
+            {% else %}
+              <span class="discipline-powers-{{ discipline.id }} text-center">
+                {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
+              </span>
+            {% endif %}
           </span>
         </div>
       {% endblock %}
@@ -75,12 +89,7 @@
           </div>
         {% endif %}
       {% endblock %}
-      {% if discipline.singlePower %}
-        <div id="discipline-{{ discipline.id }}-powers" class="col-12 collapse">
-          <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
-          {{ discipline.power.details|markdown_to_html }}
-        </div>
-      {% else %}
+      {% if not discipline.singlePower %}
         <div id="discipline-{{ discipline.id }}-powers" class="collapse accordion" data-bs-parent="#discipline-{{ discipline.id }}-body">
           <div class="col-12">
             <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
@@ -89,13 +98,19 @@
             <div class="row">
               {% if power.level <= maxPower %}
                 {% set powerPool = power.detailedDicePool(character) %}
-                <div class="col-12 power-header">
-                  <div class="row collapsed pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#discipline-{{ discipline.id }}-power-{{ power.id }}">
+                <div class={% if loop.index % 2 %}"col-12 power-header"{% else %}"col-12 power-header-zebra"{% endif %}>
+                  <div class="row pt-3" type="button"
+                    data-bs-toggle="modal" data-bs-target="#powerShowModal"
+                    data-action="click->vampire--power#show"
+                    data-vampire--power-name-param="{{ power.name }}"
+                    data-vampire--power-effect-param="{{ power.details|markdown_to_html }}"
+                    data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id, '_fragment': discipline.id ~ '-' ~ power.id})) }}"
+                  >
                     <div class="col-3">
                       <h5 class="strong">{{ power.levelDots }}</h5>
                     </div>
                     <div class="col-6 text-center">
-                      <h3>{{ power.name }}</h3>
+                      <a class="heading d-inline-block w-100 h-100">{{ power.name }} {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}</a>
                     </div>
                     <div class="col-3 text-end text-glow">
                       {% if powerPool != null %}
@@ -103,16 +118,12 @@
                       {% endif %}
                     </div>
                     <div class="col-8 offset-2 text-sub text-center">
-                      <p>{{ power.short }}</p>
+                      <p class="fst-italic">{{ power.short }}</p>
                     </div>
                     <div class="col-2 text-end text-glow">
                       {% include "vampire/discipline/powers/_cost.html.twig" %}
                     </div>
                   </div>
-                </div>
-                <div id="discipline-{{ discipline.id }}-power-{{ power.id }}" class="accordion-collapse collapse py-2" data-bs-parent="#discipline-{{ discipline.id }}-powers">
-                  {% include "_source_child.html.twig" with {element: power, parent: discipline, class: 'text-end text-muted' } only %}
-                  {{ power.details|markdown_to_html }}
                 </div>
               {% endif %}
             </div>

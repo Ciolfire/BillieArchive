@@ -4,7 +4,7 @@
 
 {% block data_controllers %}
   {{ parent() }}
-  vampire--devotion
+  vampire--devotion vampire--power
 {% endblock %}
 
 {% block body_attributes %}
@@ -50,5 +50,6 @@
 
 {% block modals %}
   {{ parent() }}
-  {% include "character_sheet/modals/devotion_show.html.twig" %}
+  {% include "character_sheet/modals/vampire/power_show.html.twig" %}
+  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
 {% endblock %}

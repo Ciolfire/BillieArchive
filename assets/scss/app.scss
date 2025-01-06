@@ -6,6 +6,7 @@ $tooltip-max-width: 400px;
 @import "btn";
 @import "character";
 @import "form";
+@import "heading";
 @import "icon";
 @import "item";
 @import "merit";
@@ -14,7 +15,6 @@ $tooltip-max-width: 400px;
 @import "text";
 @import "table";
 
-@import "header";
 
 $fonts: "../fonts";
 
@@ -105,7 +105,7 @@ footer.footer {
     background-color: $blockColor;
   }
   &-neutral {
-    background-color: $blockNeutralColor;
+    background-color: $neutralBlockColor;
   }
 }
 

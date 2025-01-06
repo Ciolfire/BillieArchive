@@ -18,3 +18,10 @@
     {{ form_row(form.lesserTemplate.family) }}
   </div>
 {% endblock %}
+
+{% block header_right_col %}
+  {{ parent() }}
+  <div class="col-12">
+    {{ form_row(form.lesserTemplate.covenant) }}
+  </div>
+{% endblock %}

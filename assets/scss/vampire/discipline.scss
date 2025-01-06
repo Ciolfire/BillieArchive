@@ -59,4 +59,10 @@
       background-color: $darkBlockColor;
     }
   }
+
+  &-block, &-new-block {
+    .power-header-zebra {
+      background-color: $neutralBlock30pColor;
+    }
+  }
 }

@@ -1,0 +1,23 @@
+{% trans_default_domain 'app' %}
+
+<div class="modal modal-lg fade" id="powerShowModal" tabindex="-1" aria-labelledby="powerShowModalLabel" aria-hidden="true" data-vampire--power-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h5 class="modal-title text-sub" id="powerShowModalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="powerShowModalDescription" class="fluff m-2"></div>
+        <div id="powerShowModalEffect"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary me-5" data-action="vampire--power#openWiki">
+          {% include "_icon.html.twig" with {icon: 'wiki'} only %}
+        </button>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
