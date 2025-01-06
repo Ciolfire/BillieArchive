@@ -9,6 +9,7 @@
     {# data-content-url-param="{{ link|default(path('a_load_test')) }}"  #}
     data-content-url-param="{{ link|default(path('a_character_peek', {'id': character.id, 'peeker': access.accessor.id})) }}" 
     data-content-name-param="{{ publicName }}"
+    data-content-link-param="{{ link|default(path('character_peek', {'id': character.id, 'peeker': access.accessor.id})) }}"
   >
     {# Header #}
     <div class="character-card-header">

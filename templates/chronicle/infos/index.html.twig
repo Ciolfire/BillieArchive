@@ -5,7 +5,7 @@
 
 {% set footer = true %}
 {% block bodyData %}
-  data-controller="search" data-search-type-value="merit"
+  data-controller="search content" data-search-type-value="merit"
 {% endblock %}
 
 {% block body %}
@@ -23,6 +23,7 @@
       </ul>
       <div id="characters" class="tab-content d-none" data-tabs-target="page">
         {% include 'chronicle/infos/characters.html.twig' %}
+        {% include "character_sheet/modals/content.html.twig" %}
       </div>
       <div id="items" class="tab-content d-none" data-tabs-target="page">
         {% include 'chronicle/infos/items.html.twig' %}
