@@ -6,7 +6,7 @@
 {% block body %}
   {% include '_back.html.twig' %}
 	{% include '_top.html.twig' %}
-  <div class="container-fluid container-lg py-3">
+  <div class="container-fluid container-lg py-3" data-controller="content">
     <h1 class="strong">
       {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
       {{ chronicle.name }}
