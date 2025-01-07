@@ -3,111 +3,113 @@
 {% set billie = random(0, 2) %}
 
 {% if billie != 0 %}
-	{% set billie = 'billie' ~ billie ~ '.webp' %}
+  {% set billie = 'billie' ~ billie ~ '.webp' %}
 {% else %}
-	{% set billie = 'billie' ~ random(3, 7) ~ '.webp' %}
+  {% set billie = 'billie' ~ random(3, 7) ~ '.webp' %}
 {% endif %}
 
 
 <nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
-	<div class="container-fluid">
-		<a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">Billie's Archive
-			<img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
-		<ul class="navbar-nav mb-2 mb-lg-0 flex-row justify-content-center">
-				{% for character in app.user.chroniclesCharacters %}
-					{% if character.id == app.user.preferences.favoriteCharacter|default(0) %}
-						<li class="nav-item d-flex justify-content-center">
-							<a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
-								<img class="nav-link {{ character.type }} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
-							</a>
-						</li>
-					{% else %}
-						<li class="nav-item justify-content-center d-none d-lg-flex">
-							<a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
-								<img class="nav-link {{ character.type }} btn btn-secondary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
-							</a>
-						</li>
-					{% endif %}
-				{% endfor %}
-		</ul>
-		{# <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}"> #}
+  <div class="container-fluid">
+    <a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">Billie's Archive
+      <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
+    <ul class="navbar-nav mb-2 mb-lg-0 flex-row justify-content-center">
+        {% for character in app.user.chroniclesCharacters %}
+          {% if character.id == app.user.preferences.favoriteCharacter|default(0) %}
+            <li class="nav-item d-flex justify-content-center">
+              <a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
+                <img class="nav-link {{ character.type }} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-item justify-content-center d-none d-lg-flex">
+              <a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
+                <img class="nav-link {{ character.type }} btn btn-secondary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+    </ul>
+    {# <img class="position-fixed top-0 start-50 translate-middle-x pe-none" style="height:59px;" src="{{ asset(billie, 'images') }}"> #}
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div id="navbarMenuContent" class="collapse navbar-collapse bg-dark">
-			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item border-end">
-					<a class="nav-link d-inline-block text-strong" href="{{ path('wiki_index') }}">
-						{% include "_icon.html.twig" with {icon: 'wiki' } only %}
-						{{ "label"|trans({}, 'wiki') }}
-					</a>
-					<a class="d-inline-block me-2" href="{{ path('wiki_index') }}" target="_blank">
-						{% include "_icon.html.twig" with {icon: 'open-tab', class: 'icon-sm text-strong' } only %}
-					</a>
-				</li>
-				<li class="nav-item border-end">
-					<a class="nav-link text-strong" href="{{ path('character_index') }}">
-						{% include "_icon.html.twig" with {icon: 'characters', label: "label.multi"|trans({}, 'character') } only %}
-						<span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'character') }}</span>
-					</a>
-				</li>
-				<li class="nav-item dropstart border-end">
-					<a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						{% include "_icon.html.twig" with {icon: 'chronicle', label: "label.multi"|trans({}, 'chronicle') } only %}
-						<span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'chronicle') }}</span>
-					</a>
-					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-						{% if app.user.stories is not empty %}
-							<h5>{{ "story.label.multi"|trans({}, 'chronicle') }}</h5>
-							{% for story in app.user.stories %}
-								<li>
-									<a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {id: story.id }) }}">
-										<img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: story } only %}/>
-										{{ story.name }}
-									</a>
-								</li>
-							{% endfor %}
-						{% endif %}
-						{% if app.user.chronicles is not empty %}
-							<h5>{{ "label.multi"|trans({}, 'chronicle' ) }}</h5>
-							{% for chronicle in app.user.chronicles %}
-								<li>
-									<a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {id: chronicle.id }) }}">
-										<img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: chronicle } only %}/>
-										{{ chronicle.name }}</a>
-								</li>
-							{% endfor %}
-						{% endif %}
-					</ul>
-				</li>
-				<li class="nav-item dropstart border-end">
-					<a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						{% include "_icon.html.twig" with {icon: 'language' } only %}
-						<span class="d-inline d-lg-none">{{ "language"|trans }}</span>
-					</a>
-					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-						{% for locale in locales %}
-							<li>
-								<a class="dropdown-item text-strong" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: locale}) )}}">
-									{% if locale == 'fr' %}
-										🇫🇷 
-									{% elseif locale == 'en' %}
-										🇬🇧
-									{% endif %}
-									{{ locale|language_name(locale) }}
-								</a>
-							</li>
-						{% endfor %}
-					</ul>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-strong" href="{{ path('logout') }}">
-						{% include "_icon.html.twig" with {icon: 'exit' } only %}
-						<span class="d-inline d-lg-none">{{ "logout"|trans }}</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuContent" aria-controls="navbarMenuContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarMenuContent" class="collapse navbar-collapse bg-dark">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item border-end">
+          <a class="nav-link d-inline-block text-strong" href="{{ path('wiki_index') }}">
+            {% include "_icon.html.twig" with {icon: 'wiki' } only %}
+            {{ "label"|trans({}, 'wiki') }}
+          </a>
+          <a class="d-inline-block me-2" href="{{ path('wiki_index') }}" target="_blank">
+            {% include "_icon.html.twig" with {icon: 'open-tab', class: 'icon-sm text-strong' } only %}
+          </a>
+        </li>
+        <li class="nav-item border-end">
+          <a class="nav-link text-strong" href="{{ path('character_index') }}">
+            {% include "_icon.html.twig" with {icon: 'characters', label: "label.multi"|trans({}, 'character') } only %}
+            <span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'character') }}</span>
+          </a>
+        </li>
+        <li class="nav-item dropstart border-end">
+          <a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% include "_icon.html.twig" with {icon: 'chronicle', label: "label.multi"|trans({}, 'chronicle') } only %}
+            <span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'chronicle') }}</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            {% if app.user.stories is not empty %}
+              <h5>{{ "story.label.multi"|trans({}, 'chronicle') }}</h5>
+              {% for story in app.user.stories %}
+                <li>
+                  <a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {id: story.id }) }}">
+                    <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: story } only %}/>
+                    {{ story.name }}
+                  </a>
+                </li>
+              {% endfor %}
+            {% endif %}
+            {% if app.user.chronicles is not empty %}
+              <h5>{{ "label.multi"|trans({}, 'chronicle' ) }}</h5>
+              {% for chronicle in app.user.chronicles %}
+                <li>
+                  <a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {id: chronicle.id }) }}">
+                    <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: chronicle } only %}/>
+                    {{ chronicle.name }}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </li>
+        <li class="nav-item dropstart border-end">
+          <a class="nav-link text-strong dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% include "_icon.html.twig" with {icon: 'language' } only %}
+            <span class="d-inline d-lg-none">{{ "language"|trans }}</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            {% if app.request.attributes.get('_route') is not null %}
+              {% for locale in locales %}
+                <li>
+                  <a class="dropdown-item text-strong" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({_locale: locale}) )}}">
+                    {% if locale == 'fr' %}
+                      🇫🇷 
+                    {% elseif locale == 'en' %}
+                      🇬🇧
+                    {% endif %}
+                    {{ locale|language_name(locale) }}
+                  </a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-strong" href="{{ path('logout') }}">
+            {% include "_icon.html.twig" with {icon: 'exit' } only %}
+            <span class="d-inline d-lg-none">{{ "logout"|trans }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
