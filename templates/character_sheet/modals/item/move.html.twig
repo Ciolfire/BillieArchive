@@ -29,16 +29,18 @@
           <div class="col-auto">
             <select class="form-control" name="character" data-character--item-target="choiceCharacter" data-action="change->character--item#reset">
               <option value="0"></option>
-              <optgroup label="Party Members">
-                {% for member in character.chronicle.playerCharacters %}
-                  <option value="{{ member.id }}">{{ member.name }}</option>
-                {% endfor %}
-              </optgroup>
-              <optgroup label="Others">
-                {% for known in character.knownCharacters %}
-                  <option value="{{ known.id }}">{{ known.publicName(character)|default("? - " ~ known.id ) }}</option>
-                {% endfor %}
-              </optgroup>
+              {% if character.chronicle is defined %}
+                <optgroup label="Party Members">
+                  {% for member in character.chronicle.playerCharacters|default([]) %}
+                    <option value="{{ member.id }}">{{ member.name }}</option>
+                  {% endfor %}
+                </optgroup>
+                <optgroup label="Others">
+                  {% for known in character.knownCharacters %}
+                    <option value="{{ known.id }}">{{ known.publicName(character)|default("? - " ~ known.id ) }}</option>
+                  {% endfor %}
+                </optgroup>
+              {% endif %}
             </select>
           </div>
           <div class="col-auto">
