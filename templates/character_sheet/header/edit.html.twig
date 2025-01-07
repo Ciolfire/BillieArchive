@@ -62,26 +62,24 @@
     <hr class="d-block d-lg-none">
     <div class="col-12 col-lg-4">
       <div class="row">
-        {% block header_right_col %}
-          <div class="col-12">
-            {% if character.isPremade %}
-              {{ form_row(form.source) }}
-            {% else %}
-              {{ form_row(form.chronicle) }}
-            {% endif %}
-          </div>
-          <div class="col-12">
-            {% block organization %}
-              {# {{ form_row(form.organization) }} #}
-            {% endblock %}
-          </div>
-          <div class="col-12">
-            {{ form_row(form.faction) }}
-          </div>
-          <div class="col-12">
-            {{ form_row(form.groupName) }}
-          </div>
-        {% endblock %}
+        <div class="col-12">
+          {% if character.isPremade %}
+            {{ form_row(form.source) }}
+          {% else %}
+            {{ form_row(form.chronicle) }}
+          {% endif %}
+        </div>
+        <div class="col-12">
+          {% block organization %}
+            {# {{ form_row(form.organization) }} #}
+          {% endblock %}
+        </div>
+        <div class="col-12">
+          {{ form_row(form.faction) }}
+        </div>
+        <div class="col-12">
+          {{ form_row(form.groupName) }}
+        </div>
       </div>
     </div>
   </div>
