@@ -1,0 +1,11 @@
+{% extends 'error.html.twig' %}
+
+{% block page_title %}
+  <h1 class="error m-5">
+    {{ status_code }}
+    -
+    {{ status_text }}
+  </h1>
+{% endblock %}
+
+{% block img %}<img style="height:10em;" src="{{ asset("billiestop.webp", 'images') }}">{% endblock %}

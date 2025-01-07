@@ -90,3 +90,22 @@ item:
 user:
   preferences:
     edit: Preferences successfully updated.
+
+page:
+  error:
+    404: |
+      This content does not exist. Either it has never existed, or it was deleted... 
+      
+      Anyway, nothing to see here.
+    403: |
+      Stop !
+
+      The access to this ressource is restricted.
+
+      And yes, you are not allowed to see it.
+    other: |
+      Sorry...
+
+      Looks like something is broken.
+
+      It's probably my fault, but I will fix it, promise !

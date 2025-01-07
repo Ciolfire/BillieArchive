@@ -89,3 +89,22 @@ item:
 user:
   preferences:
     edit: Préférences mises à jour.
+
+page:
+  error:
+    404: |
+      Ce contenu n'existe pas. Soit ça n'a jamais existé, soit ça a été supprimé...
+      
+      Quoi qu'il en soit, il n'y a rien à voir ici.
+    403: |
+      Stop !
+
+      L'accès à cette ressource est restreint.
+
+      Et oui, vous n'êtes pas autorisé à y acceder.
+    other: |
+      Pardon...
+
+      On dirait que quelque chose est cassé.
+
+      C'est probablement ma faute, mais je vais le réparer, promis !
