@@ -64,8 +64,8 @@
                 data-bs-toggle="modal" data-bs-target="#powerShowModal"
                 data-action="click->vampire--power#show"
                 data-vampire--power-name-param="{{ discipline.name }}"
-                data-vampire--power-description-param="{{ discipline.description|markdown_to_html }}"
-                data-vampire--power-effect-param="{{ discipline.power.details|markdown_to_html }}"
+                data-vampire--power-description-param="{{ discipline.description|markdown_to_html|e }}"
+                data-vampire--power-effect-param="{{ discipline.power.details|markdown_to_html|e }}"
                 data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id})) }}"
               >
                 {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
@@ -103,7 +103,7 @@
                     data-bs-toggle="modal" data-bs-target="#powerShowModal"
                     data-action="click->vampire--power#show"
                     data-vampire--power-name-param="{{ power.name }}"
-                    data-vampire--power-effect-param="{{ power.details|markdown_to_html }}"
+                    data-vampire--power-effect-param="{{ power.details|markdown_to_html|e }}"
                     data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id, '_fragment': discipline.id ~ '-' ~ power.id})) }}"
                   >
                     <div class="col-3">

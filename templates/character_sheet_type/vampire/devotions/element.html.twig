@@ -25,7 +25,7 @@
         data-action="click->vampire--devotion#show"
         data-vampire--devotion-id-param="{{ devotion.id }}"
         data-vampire--devotion-name-param="{{ devotion.name }}"
-        data-vampire--devotion-effect-param="{{ devotion.description|markdown_to_html }}"
+        data-vampire--devotion-effect-param="{{ devotion.description|markdown_to_html|e }}"
       >
         <br>
         {% block text %}

@@ -41,7 +41,7 @@
         data-action="click->character--merits#show"
         data-character--merits-id-param="{{ merit.id }}"
         data-character--merits-name-param="{{ merit.name }}"
-        data-character--merits-effect-param="{{ merit.effect|markdown_to_html }}"
+        data-character--merits-effect-param="{{ merit.effect|markdown_to_html|e }}"
       >
         {{ merit.description }}
       </div>
