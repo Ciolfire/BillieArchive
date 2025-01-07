@@ -81,6 +81,12 @@ clan:
   bloodline:
     join: "{name} is now a member of the {bloodline} bloodline."
 
+item:
+  chronicle:
+    new:  "the item `{name}` has been added to the chronicle `{chronicle}`."
+  character:
+    new: "the item `{name}` has been added to `{character}`'s inventory."
+
 user:
   preferences:
     edit: Preferences successfully updated.

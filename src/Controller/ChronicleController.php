@@ -250,9 +250,30 @@ class ChronicleController extends AbstractController
   {
     $this->denyAccessUnlessGranted('view', $chronicle);
     return $this->render('chronicle/infos/index.html.twig', [
+      'type' => $chronicle->getType(),
       'character' => $chronicle->getCharacter($this->getUser()),
       'chronicle' => $chronicle,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/items', name: 'chronicle_items', methods: ['GET'])]
+  public function items(Request $request, Chronicle $chronicle)
+  {
+    $this->denyAccessUnlessGranted('edit', $chronicle);
+    // Security, only the storyteller can change these settings
+
+    $form = $this->createForm(ChronicleType::class, $chronicle);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->flush();
+  
+      return $this->redirectToRoute('chronicle_show', ['id' => $chronicle->getId()]);
+    }
+
+    return $this->render('chronicle/items.html.twig', [
       'type' => $chronicle->getType(),
+      'chronicle' => $chronicle,
     ]);
   }
 

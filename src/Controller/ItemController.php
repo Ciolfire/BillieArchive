@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Entity\Character;
+use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\Item;
 use App\Form\EquipmentType;
@@ -70,6 +71,60 @@ class ItemController extends AbstractController
         }
       }
 
+      return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    $formViews = [];
+    foreach ($forms as $form) {
+      $formViews[] = $form->createView();
+    }
+    return $this->render('item/new.html.twig', [
+      'items' => $types,
+      'forms' => $formViews,
+    ]);
+  }
+
+  #[Route("item/new/{target}/{id}", name:"item_new_for_content", methods:["GET", "POST"])]
+  public function newForContent(Request $request, $target, $id): Response
+  {
+    $types = $this->service->getTypes();
+
+    $forms = [];
+    foreach ($types as $type) {
+      $item = new $type[0]();
+      $forms[] = $this->createForm($type[1], $item);
+    }
+    if ($request->isMethod('POST')) {
+      foreach ($forms as $form) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+          $item = $form->getData();
+          switch ($target) {
+            case 'chronicle':
+              $target = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
+              if ($target instanceof Chronicle) {
+                $item->setHomebrewFor($target);
+                $this->service->save($item, $form->get('img')->getData());
+                $this->addFlash('success', ['item.chronicle.new', ['name' => $item->getName(), 'chronicle' => $target->getName()]]);
+
+                return $this->redirectToRoute('chronicle_items', ['id' => $target->getId()], Response::HTTP_SEE_OTHER);
+              }
+              break;
+            case 'character':
+              $target = $this->dataService->findOneBy(Character::class, ['id' => $id]);
+              if ($target instanceof Character) {
+                $item->setHomebrewFor($target->getChronicle());
+                $item->setOwner($target);
+                $this->service->save($item, $form->get('img')->getData());
+                $this->addFlash('success', ['item.character.new', ['name' => $item->getName(), 'character' => $target->getName()]]);
+
+                return $this->redirectToRoute('show_character', ['id' => $target->getId(), '_fragment' => 'inventory'], Response::HTTP_SEE_OTHER);
+              }
+              break;
+          }
+        }
+      }
+      dd("ko");
       return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
     }
 

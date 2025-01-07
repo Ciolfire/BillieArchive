@@ -26,4 +26,10 @@ story:
     single: My Story
     multi: My Stories
 
+item:
+  group: Group's inventory
+  npc: Non-player characters' items
+  unowned: Others items
+
+
 none: You haven't joined any Chronicle yet ...

@@ -3,16 +3,12 @@
 {% trans_default_domain 'chronicle' %}
 {% set setting = chronicle.type %}
 
-{% set footer = true %}
-{% block bodyData %}
-  data-controller="search content" data-search-type-value="merit"
-{% endblock %}
-
 {% block body %}
   {% include '_back.html.twig' %}
+	{% include '_top.html.twig' %}
   <div class="container-fluid container-lg py-3">
     <h1 class="strong">
-      {% include "_icon_setting.html.twig" with {'setting': chronicle.type } only %}
+      {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
       {{ chronicle.name }}
     </h1>
     {% include 'chronicle/infos/basics.html.twig' %}
@@ -22,11 +18,11 @@
         {% include "_tab.html.twig" with {name: 'items', label: 'label.multi'|trans({}, 'item'), icon: 'item'} only %}
       </ul>
       <div id="characters" class="tab-content d-none" data-tabs-target="page">
-        {% include 'chronicle/infos/characters.html.twig' %}
+        {% include 'chronicle/infos/_characters.html.twig' %}
         {% include "character_sheet/modals/content.html.twig" %}
       </div>
-      <div id="items" class="tab-content d-none" data-tabs-target="page">
-        {% include 'chronicle/infos/items.html.twig' %}
+      <div id="items" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include 'chronicle/infos/_items.html.twig' %}
       </div>
     </div>
   </div>

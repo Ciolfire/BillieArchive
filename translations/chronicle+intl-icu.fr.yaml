@@ -25,4 +25,9 @@ story:
     single: Mon Histoire
     multi: Mes Histoires
 
+item:
+  group: inventaire du Groupe
+  npc: Objets des PNJ
+  unowned: Autres objets
+
 none: Vous n'avez pas encore rejoint de Chronique ...

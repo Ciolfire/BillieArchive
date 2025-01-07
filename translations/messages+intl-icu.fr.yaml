@@ -79,3 +79,13 @@ clan:
     failed: "The Clan/Bloodline {name} n'a pas été supprimé(e)."
   bloodline:
     join: "{name} est maintenant membre de la lignée suivante: {bloodline}."
+
+item:
+  chronicle:
+    new:  "L'objet `{name}` a été ajouté à la chronique `{chronicle}`."
+  character:
+    new: "L'objet `{name}` a été ajouté à l'inventaire de `{character}`."
+
+user:
+  preferences:
+    edit: Préférences mises à jour.

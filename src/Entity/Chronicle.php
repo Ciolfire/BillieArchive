@@ -316,6 +316,16 @@ class Chronicle
     return $this->items;
   }
 
+  public function getItemsTotal(): int
+  {
+    $total = $this->items->count();
+    foreach ($this->characters as $character) {
+      $total += $character->getItems()->count();
+    }
+
+    return $total;
+  }
+
   public function addItem(Item $item): self
   {
     if (!$this->items->contains($item)) {

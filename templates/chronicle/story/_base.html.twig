@@ -1,6 +1,9 @@
 {% trans_default_domain 'chronicle' %}
 
-<div class="row g-2">
+<div class="row">
+<a class="w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}"><h3>
+  {{ chronicle.name }}{% include "_icon.html.twig" with {icon: 'gears', class: 'icon-sm' } only %}
+</h3></a>
 {% for character in chronicle.characters %}
   {% if character.isNpc == false %}
     <div class="col-6 col-xl-3">
@@ -17,12 +20,6 @@
 {% endfor %}
 </div>
 <div class="row g-2 pb-1 justify-content-center">
-  <div class="col-6">
-    <a class="btn btn-primary w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}">
-      {% include "_icon.html.twig" with {icon: 'gears' } only %}
-      {{ 'settings'|trans }}
-    </a>
-  </div>
   <div class="col-6">
     <a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {id: chronicle.id })}}">{% include "_icon.html.twig" with {icon: 'party' } only %}
       {{ 'party.manage'|trans }}
@@ -46,6 +43,13 @@
       {% include "_icon.html.twig" with {icon: 'society' } only %}
       <span class="accent">{{ chronicle.societies|length }}</span>
       {{ "label.multi"|trans({}, 'society') }}
+    </a>
+  </div>
+  <div class="col-6">
+    <a class="btn btn-primary w-100" href="{{path('chronicle_items', {id: chronicle.id })}}">
+      {% include "_icon.html.twig" with {icon: 'item' } only %}
+      <span class="accent">{{ chronicle.itemsTotal }}</span>
+      {{ "label.multi"|trans({}, 'item') }}
     </a>
   </div>
   <div class="col-6">
