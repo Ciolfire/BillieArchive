@@ -71,6 +71,7 @@ class Item
    * @var Collection<int, self>
    */
   #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'container')]
+  #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
   private Collection $containedItems;
 
   public function __construct()
