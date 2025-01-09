@@ -8,9 +8,9 @@
   <h2 class="user-select-none">{{ "label.multi"|trans }}</h2>
   {% block creation %}{% endblock %}
   {% for category, attributes in attributes %}
-    <div class="col-4 d-lg-flex justify-content-center">
-      <div class="block attribute-block h-100">
-        <h3 class="user-select-none text-center pt-1">{{ ("category." ~ category)|trans({}, 'app') }}</h3>
+    <div class="col-4 d-md-flex justify-content-center">
+      <div class="block">
+        <h4 class="user-select-none text-center pt-1">{{ ("category." ~ category)|trans({}, 'app') }}</h4>
         {% for type, attribute in attributes %}
           {% block attribute %}{% endblock %}
         {% endfor %}
