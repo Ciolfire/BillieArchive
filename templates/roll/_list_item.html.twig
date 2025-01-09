@@ -12,7 +12,8 @@
     {% endfor %}
     {% for skill in roll.skills %}
       {% if not first %}+{% else %}{% set first = false %}{% endif %}
-      {{ skill.name }}
+      {# {{ skill.name }} #}
+      {% include "_icon.html.twig" with {icon : 'skills/' ~ skill.identifier, label: skill } only %}
     {% endfor %}
     {% if roll.contestedText is not null %}
       {{ roll.contestedText }}
