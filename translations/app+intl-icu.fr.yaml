@@ -75,6 +75,7 @@ roll:
     extended: Étendue
     instant: Instantanée
     reflexive: Reflexe
+    text: Texte
   luck:
     label: Jet de chance
     short: Cha

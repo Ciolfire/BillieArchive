@@ -1,13 +1,18 @@
 {% trans_default_domain 'app' %}
 
 {% set first = true %}
-<div id="{{ roll.id }}" class="block {{ roll.type }} m-3">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('roll_edit', {id: roll.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-  {% endif %}
-  <div class="row mb-2">
-    <h3>{{ roll.name }}</h2>
-    <div class="col-12">
+
+<div class="container block {{ roll.type }}">
+  <div class="row">
+    <div id="{{ roll.id }}" class="">
+      {% if is_granted('ROLE_ST') %}
+        <a class="float-end" href="{{ path('roll_edit', {id: roll.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+      {% endif %}
+      <h1 class="">{{ roll.name }}</h1>
+      <hr>
+  </div>
+  <div class="row">
+    <p>
       <strong>Dice Pool:</strong>
       {% for attribute in roll.attributes %}
         {% if not first %}+{% else %}{% set first = false %}{% endif %}
@@ -24,18 +29,19 @@
       {% if first %}
         None
       {% endif %}
-    </div>
-    <div class="col-12">
+    </p>
+    <p>
       <strong>{{ "action.label.single"|trans }}:</strong>
       {{ roll.actionName|trans }}{% if roll.isContested %}, {{ "roll.action.contested"|trans}}{% endif %}
-    </div>
-  </div>
-  <div class="col-12">
-    <button type="button" class="btn btn-primary w-100" data-bs-target=".action-{{ roll.id }}" data-bs-toggle="collapse">{% include "_icon.html.twig" with {icon: 'details'} only %} Details</button>
+    </p>
+    <hr>
   </div>
   <div class="row">
     <div class="col-12">
-      <div class="action-{{ roll.id }} collapse p-5">{{ roll.details|markdown_to_html }}</div>
+      <div>{{ roll.details|markdown_to_html }}</div>
     </div>
+  </div>
+  <div class="row">
+    {% include "_source_block.html.twig" with {element: roll, class: 'text-end' } only %}
   </div>
 </div>

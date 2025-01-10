@@ -6,6 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Derangement;
 use App\Entity\Roll;
 use App\Entity\Skill;
+use App\Form\Type\ContentTypeType;
 use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,15 +45,12 @@ class RollType extends AbstractType
         ]
       ])
       ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
-      ->add('isContested', null, ['label' => "contested.label"])
-      ->add('contestedText', null, ['label' => "contested.text"])
+      ->add('isContested', null, ['label' => "roll.action.contested"])
+      ->add('contestedText', null, ['label' => "roll.action.text"])
       ->add('isImportant', null, ['label' => "important"])
-      ->add('type', ChoiceType::class, [
-        'label' => 'type.label',
-        'required' => false,
-        'choices' => [
-          'type.vampire' => 'vampire',
-        ],
+      ->add('type', ContentTypeType::class, [
+        'data_class' => Roll::class,
+        'label' => false,
       ])
       ->add('attributes', null, [
         'label' => 'label.single',

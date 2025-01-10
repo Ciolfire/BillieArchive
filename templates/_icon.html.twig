@@ -24,6 +24,9 @@
   {# id-card #}
   {% elseif icon == 'description' or icon == 'infos' %}
     {% set icon = 'id-card' %}
+  {# roll #}
+  {% elseif icon == 'roll' %}
+    {% set icon = 'd10' %}
   {# human #}
   {% elseif icon == 'sorcery' %}
     {% set icon = 'pentacle' %}

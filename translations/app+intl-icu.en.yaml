@@ -75,6 +75,7 @@ roll:
     extended: Extended
     instant: Instant
     reflexive: Reflexive
+    text: Text
   luck:
     label: Luck Throw
     short: Lu
