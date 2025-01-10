@@ -7,9 +7,9 @@
     data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     {# data-content-url-param="{{ link|default(path('a_load_test')) }}"  #}
-    data-content-url-param="{{ link|default(path('a_character_peek', {'id': character.id, 'peeker': access.accessor.id})) }}" 
+    data-content-url-param="{{ link|default(path('fetch_character_peek', {id: character.id, peeker: access.accessor.id})) }}" 
     data-content-name-param="{{ publicName }}"
-    data-content-link-param="{{ link|default(path('character_peek', {'id': character.id, 'peeker': access.accessor.id})) }}"
+    data-content-link-param="{{ link|default(path('character_peek', {id: character.id, peeker: access.accessor.id})) }}"
   >
     {# Header #}
     <div class="character-card-header">
@@ -28,7 +28,6 @@
       {% else %}
         <span class="accent">{{ publicName }}</span>
       {% endif %}
-      {# <p class="strong">{% if character.isNpc %}{{ "npc.label.short"|trans }}{% else %}({{ character.player }}){% endif %}</p> #}
     </div>
     {# Avatar #}
     <div class="character-card-avatar position-relative text-center m-1 rounded border border-secondary">

@@ -377,8 +377,8 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'a_character_peek', methods: ['GET'])]
-  public function a_peek(Request $request, Character $character, Character $peeker): Response
+  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'fetch_character_peek', methods: ['GET'])]
+  public function fetchPeek(Request $request, Character $character, Character $peeker): Response
   {
     if ($character instanceof Character && $peeker instanceof Character) {
       $access = $peeker->getSpecificPeekingRights($character);
