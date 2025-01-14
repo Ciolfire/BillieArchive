@@ -56,7 +56,7 @@ class Merit implements Translatable
   private bool $isCreationOnly;
 
   #[ORM\Column]
-  private ?bool $isRelation = null;
+  private ?bool $isRelation;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
@@ -195,7 +195,7 @@ class Merit implements Translatable
       return $this->isRelation;
   }
 
-  public function setRelation(bool $isRelation): static
+  public function setIsRelation(bool $isRelation): self
   {
       $this->isRelation = $isRelation;
 
