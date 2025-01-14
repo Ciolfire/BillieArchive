@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'merit' %}
+
+{% block title %}{{ "relation"|trans }}{% endblock %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <div class="container block py-3">
+    <h1>
+      {% include "_icon.html.twig" with {icon: 'merit', class: 'icon-lg' } only %}
+      {{ "relation"|trans }}
+    </h1>
+    {{ form(form) }}
+  </div>
+{% endblock %}

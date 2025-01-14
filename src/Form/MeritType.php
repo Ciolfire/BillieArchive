@@ -46,6 +46,7 @@ class MeritType extends AbstractType
       ->add('isUnique', null, ['label' => "unique", 'help' => "help.unique"])
       ->add('isExpanded', null, ['label' => "expanded", 'help' => "help.expanded"])
       ->add('isFighting', null, ['label' => "fighting", 'help' => "help.fighting"])
+      ->add('isRelation', null, ['label' => "relation", 'help' => "help.relation"])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,

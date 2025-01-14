@@ -86,6 +86,10 @@ item:
   character:
     new: "L'objet `{name}` a été ajouté à l'inventaire de `{character}`."
 
+merit:
+  relation:
+    change: "{name} est passé(e) de {old} à {new}."
+
 user:
   preferences:
     edit: Préférences mises à jour.

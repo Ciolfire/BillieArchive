@@ -40,6 +40,9 @@
         data-bs-toggle="modal" data-bs-target="#meritShowModal"
         data-action="click->character--merits#show"
         data-character--merits-id-param="{{ merit.id }}"
+        {% if chMerit and merit.isRelation %}
+          data-character--merits-relation-param="{{ chMerit.id }}"
+        {% endif %}
         data-character--merits-name-param="{{ merit.name }}"
         data-character--merits-effect-param="{{ merit.effect|markdown_to_html|e }}"
       >

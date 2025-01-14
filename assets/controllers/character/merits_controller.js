@@ -10,7 +10,8 @@ export default class extends Controller {
   ];
 
   static value = {
-    "id": 0
+    "id": 0,
+    "relation": 0
   }
 
   connect()
@@ -33,14 +34,31 @@ export default class extends Controller {
   show(event)
   {
     this.idValue = event.params.id;
+    if (event.params.relation != undefined) {
+      this.modalTarget.querySelector("#meritShowModalRelation").classList.remove('d-none');
+      this.relationValue = event.params.relation;
+    } else {
+      this.modalTarget.querySelector("#meritShowModalRelation").classList.add('d-none');
+      this.relationValue = 0;
+    }
     this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
     this.modalTarget.querySelector("#MeritShowModalDescription").innerHTML = event.params.effect;
   }
 
   openWiki(event)
   {
-    let link = event.params.link.replace('0', this.idValue);
-    window.open(link, '_blank').focus();
+    if (this.idValue != 0) {
+      let link = event.params.link.replace('0', this.idValue);
+      window.open(link, '_blank').focus();
+    }
+  }
+
+  changeRelation(event)
+  {
+    if (this.relationValue != 0) {
+      let link = event.params.link.replace('0', this.relationValue);
+      window.open(link, '_blank').focus();
+    }
   }
 
   add(event)

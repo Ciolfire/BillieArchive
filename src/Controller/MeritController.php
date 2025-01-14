@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\CharacterMerit;
 use App\Entity\Chronicle;
 use App\Entity\ContentType;
 use App\Entity\Description;
@@ -10,7 +11,9 @@ use App\Entity\Merit;
 use App\Form\MeritType;
 
 use App\Service\DataService;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -158,5 +161,35 @@ class MeritController extends AbstractController
     }
 
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route("/{id<\d+>}/relation", name: "merit_change_relation", methods: ["GET", "POST"])]
+  public function changeRelation(Request $request, CharacterMerit $chMerit): Response
+  {
+    $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
+    ->add('relation', EntityType::class, [
+        'class' => Merit::class,
+        'choices' => $this->dataService->findBy(Merit::class, ['isRelation' => true]),
+        'data' => $chMerit,
+        'label' => false,
+      ])
+    ->add('save', SubmitType::class, ['label' => 'action.save'])
+    ->getForm();
+
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $old = $chMerit->getMerit()->getName();
+      $chMerit->setMerit($form->getData()['relation']);
+      $this->dataService->update($chMerit);
+
+      $this->addFlash('success', ["merit.relation.change", ['%name%' => $chMerit->getChoice(), 'new' => $chMerit->getMerit()->getName(), 'old' => $old]]);
+      return $this->redirectToRoute('character_show', ['id' => $chMerit->getCharacter()->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('merit/relation.html.twig', [
+      'merit' => $chMerit,
+      'form' => $form,
+    ]);
   }
 }

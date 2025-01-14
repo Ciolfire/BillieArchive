@@ -16,6 +16,7 @@ effect: Effet
 creation: Creation Uniquement
 expanded: Choix ou Détails requis
 fighting: Style de Combat
+relation: Relation
 min: Min
 max: Max
 unique: Unique
@@ -26,3 +27,4 @@ help:
   expanded: Cet atout necessite des informations qui doivent être définies lors de sa sélection.
   fighting: Un style de combat donne accès à une nouvelle maneuvre à chaque niveau.
   unique:   Cet atout ne peut être sélectionné qu'une seule fois.
+  relation: Cet atout représente un lien avec un groupe ou un personnage.

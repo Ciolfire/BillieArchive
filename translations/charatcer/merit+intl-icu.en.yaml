@@ -16,6 +16,7 @@ effect: Effect
 creation: Creation Only
 expanded: Choice or details needed
 fighting: Fighting Style
+relation: Relation
 min: Min
 max: Max
 unique: Unique
@@ -26,3 +27,4 @@ help:
   fighting: A fighting style open access to a new maneuver at each level.
   unique:   This merit can only be selected once.
   description: A short text to explain what the merit does.
+  relation: This merit represent a relation to an organization or a character.

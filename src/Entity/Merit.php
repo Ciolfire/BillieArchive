@@ -15,7 +15,7 @@ use Gedmo\Translatable\Translatable;
 
 
 #[ORM\Table(name: "merits")]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Entity(repositoryClass: MeritRepository::class)]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "merits"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "merits")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\MeritTranslation")]
@@ -54,6 +54,9 @@ class Merit implements Translatable
 
   #[ORM\Column(type: Types::BOOLEAN)]
   private bool $isCreationOnly;
+
+  #[ORM\Column]
+  private ?bool $isRelation = null;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
@@ -185,6 +188,18 @@ class Merit implements Translatable
     $this->isCreationOnly = $isCreationOnly;
 
     return $this;
+  }
+
+  public function isRelation(): ?bool
+  {
+      return $this->isRelation;
+  }
+
+  public function setRelation(bool $isRelation): static
+  {
+      $this->isRelation = $isRelation;
+
+      return $this;
   }
 
   public function getEffect(): string
