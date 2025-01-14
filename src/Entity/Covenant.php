@@ -140,4 +140,10 @@ class Covenant extends Organization
 
       return $this;
   }
+
+  public function getSetting(): string
+  {
+
+    return "vampire";
+  }
 }

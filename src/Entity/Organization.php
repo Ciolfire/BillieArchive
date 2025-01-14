@@ -152,4 +152,10 @@ class Organization
 
     return $this;
   }
+
+  public function getSetting(): string
+  {
+
+    return "human";
+  }
 }

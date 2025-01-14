@@ -54,5 +54,9 @@
 
 {% block organization %}
   {{ "covenant.label.single"|trans([], 'organization') }}:
-  <span class="accent">{{ character.covenant }}</span>
+  {% if character.covenant %}
+    <a href="{{ path("organization_show", {'id': character.covenant.id}) }}">
+      {{ character.covenant }}
+    </a>
+  {% endif %}
 {% endblock %}

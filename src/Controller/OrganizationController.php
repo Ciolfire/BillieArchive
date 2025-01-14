@@ -26,7 +26,7 @@ class OrganizationController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route('/{setting}', name: 'organization_index', methods: ['GET'])]
+  #[Route('/list/{setting}', name: 'organization_index', methods: ['GET'])]
   public function organizations(string $setting = null): Response
   {
     $organizations = $this->dataService->getOrganizations($setting);
@@ -54,7 +54,7 @@ class OrganizationController extends AbstractController
     ]);
   }
 
-  #[Route("/{filter<\w+>}/{id<\d+>}", name: "organization_list", methods: ["GET"])]
+  #[Route("/list/{filter<\w+>}/{id<\d+>}", name: "organization_list", methods: ["GET"])]
   public function organizationList(string $filter, int $id): Response
   {
     // $dataService->getList()
@@ -88,6 +88,15 @@ class OrganizationController extends AbstractController
   //     'organization' => $clan,
   //   ]);
   // }
+
+  #[Route('/{id<\d+>}', name: 'organization_show', methods: ['GET'])]
+  public function show(Organization $organization): Response
+  {
+    return $this->render('organization/show.html.twig', [
+      'organization' => $organization,
+      'setting' => $organization->getSetting(),
+    ]);
+  }
 
   #[Route('/{setting<\w+>}/new', name: 'organization_new', methods: ['GET', 'POST'])]
   public function new(Request $request, $setting = null): Response
