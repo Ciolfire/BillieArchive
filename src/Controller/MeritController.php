@@ -173,6 +173,10 @@ class MeritController extends AbstractController
         'data' => $chMerit,
         'label' => false,
       ])
+      ->add('choice', null, [
+        'data' => $chMerit->getChoice(),
+        'label' => false,
+      ])
     ->add('save', SubmitType::class, ['label' => 'action.save'])
     ->getForm();
 
@@ -181,6 +185,7 @@ class MeritController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $old = $chMerit->getMerit()->getName();
       $chMerit->setMerit($form->getData()['relation']);
+      $chMerit->setChoice($form->getData()['choice']);
       $this->dataService->update($chMerit);
 
       $this->addFlash('success', ["merit.relation.change", ['%name%' => $chMerit->getChoice(), 'new' => $chMerit->getMerit()->getName(), 'old' => $old]]);

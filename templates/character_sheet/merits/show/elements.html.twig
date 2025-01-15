@@ -3,43 +3,63 @@
 {% set mental = character.filteredMerits('mental') %}
 {% set physical = character.filteredMerits('physical') %}
 {% set social = character.filteredMerits('social') %}
+{% set relation = character.relationMerits() %}
 
 {% if mental|length > physical|length and mental|length > social|length %}
-  {% set activeTab = "mental" %}
+  {% set activeTab = "meritMental" %}
 {% elseif physical|length > social|length %}
-  {% set activeTab = "physical" %}
+  {% set activeTab = "meritPhysical" %}
 {% else %}
-  {% set activeTab = "social" %}
+  {% if relation|length <= social|length / 2 %}
+    {% set activeTab = "meritSocial" %}
+  {% else %}
+    {% set activeTab = "meritRelation" %}
+  {% endif %}
 {% endif %}
 
 <div data-controller="tabs" data-tabs-initial-value={{activeTab}} data-tabs-parent-value="merits">
   <ul class="nav tabs row g-0">
     {% if mental is not empty %}
-      {% include "_tab.html.twig" with {name: 'mental', label: 'category.mental'|trans({}, 'app')} only %}
+      {% include "_tab.html.twig" with {name: 'meritMental', label: 'category.mental'|trans({}, 'app'), icon: 'mental'} only %}
     {% endif %}
     {% if physical is not empty %}
-      {% include "_tab.html.twig" with {name: 'physical', label: 'category.physical'|trans({}, 'app')} only %}
+      {% include "_tab.html.twig" with {name: 'meritPhysical', label: 'category.physical'|trans({}, 'app'), icon: 'physical'} only %}
     {% endif %}
     {% if social is not empty %}
-      {% include "_tab.html.twig" with {name: 'social', label: 'category.social'|trans({}, 'app')} only %}
+      {% include "_tab.html.twig" with {name: 'meritSocial', label: 'category.social'|trans({}, 'app'), icon: 'social'} only %}
+    {% endif %}
+    {% if relation is not empty %}
+      {% include "_tab.html.twig" with {name: 'meritRelation', label: 'relation'|trans({}, 'character'), icon: 'characters'} only %}
     {% endif %}
   </ul>
-  <div id="mental" class="tab-content d-none" data-tabs-target="page">
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-  {% for chMerit in mental %}
-    {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
-  {% endfor %}
-</div>  </div>
-  <div id="physical" class="tab-content d-none" data-tabs-target="page">
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-  {% for chMerit in character.filteredMerits('physical') %}
-    {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
-  {% endfor %}
-</div>  </div>
-  <div id="social" class="tab-content d-none" data-tabs-target="page">
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-  {% for chMerit in character.filteredMerits('social') %}
-    {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
-  {% endfor %}
-</div>  </div>
+  <div id="meritMental" class="tab-content d-none" data-tabs-target="page">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+      {% for chMerit in mental %}
+        {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
+      {% endfor %}
+    </div>
+  </div>
+  <div id="meritPhysical" class="tab-content d-none" data-tabs-target="page">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+      {% for chMerit in physical %}
+        {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
+      {% endfor %}
+    </div>
+  </div>
+  <div id="meritSocial" class="tab-content d-none" data-tabs-target="page">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+      {% for chMerit in social %}
+        {% if not chMerit.merit.isRelation %}
+          {% include "character_sheet/merits/show/element.html.twig" with {'merit': chMerit.merit} %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div id="meritRelation" class="tab-content d-none" data-tabs-target="page">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+      {% for chMerit in relation %}
+        {% include "character_sheet/merits/show/element_small.html.twig" with {'merit': chMerit.merit} %}
+      {% endfor %}
+    </div>
+  </div>
 </div>

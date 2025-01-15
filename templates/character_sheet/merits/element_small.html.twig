@@ -1,0 +1,48 @@
+{% trans_default_domain 'merit' %}
+
+{% if id is not defined %}
+  {% set id = merit.id %}
+{% endif %}
+
+<div class="col py-2" data-search-target="item" data-name="{{ merit.name }}" data-effect="{{ merit.effect }}">
+  <div class="card merit-card merit-card-sm block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
+    <div class="card-header" type="button"
+        data-bs-toggle="modal" data-bs-target="#meritShowModal"
+        data-action="click->character--merits#show"
+        data-character--merits-id-param="{{ merit.id }}"
+        {% if chMerit and merit.isRelation %}
+          data-character--merits-relation-param="{{ chMerit.id }}"
+        {% endif %}
+        data-character--merits-name-param="{{ merit.name }}"
+        data-character--merits-effect-param="{{ merit.effect|markdown_to_html|e }}">
+      <div class="d-flex justify-content-between">
+        <span>
+          {% include "_icon.html.twig" with {icon: merit.category, label: ("category." ~ merit.category)|trans({}, 'app') } only %}
+          {% if merit.type %}
+            {% include "_icon.html.twig" with {icon: "type/" ~ merit.type, label: (merit.type)|trans({}, 'content-type') } only %}
+          {% endif %}
+        </span>
+        <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
+          <div class="dots">
+            {% for value in 1..merit.max %}
+              {% if value >= 5 and value % 5 == 1 %}
+                <span class="ms-1"></span>
+              {% endif %}
+              {% block dot %}{% endblock %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <span class="merit-name fw-bold text-strong fs-5 accent">{{ chMerit.choice|default('—') }}</span>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            {% block expanded %}
+              <div class="border-top w-100 mt-1 text-center text-strong">{{ merit.name }}</div>
+            {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -820,6 +820,21 @@ class Character
     return $merits;
   }
 
+  public function getRelationMerits(): array
+  {
+    $merits = [];
+
+    foreach ($this->merits as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->isRelation()) {
+        $key = (10 - $merit->getLevel() . $merit->getId() . $merit->getMerit()->getName());
+        $merits[$key] = $merit;
+      }
+    }
+    ksort($merits);
+
+    return $merits;
+  }
+
   public function addMerit(CharacterMerit $merit): self
   {
     if (!$this->merits->contains($merit)) {
