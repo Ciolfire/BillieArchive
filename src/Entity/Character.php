@@ -811,7 +811,7 @@ class Character
 
     foreach ($this->merits as $merit) {
       if ($merit instanceof CharacterMerit && $merit->getMerit()->getCategory() == $filter) {
-        $key = $merit->getMerit()->getName() . (10 - $merit->getLevel() . $merit->getId());
+        $key = $merit->getMerit()->getName() . (10 - $merit->getLevel()) . $merit->getId();
         $merits[$key] = $merit;
       }
     }
@@ -826,7 +826,7 @@ class Character
 
     foreach ($this->merits as $merit) {
       if ($merit instanceof CharacterMerit && $merit->getMerit()->isRelation()) {
-        $key = (10 - $merit->getLevel() . $merit->getId() . $merit->getMerit()->getName());
+        $key = (10 - $merit->getLevel()) . $merit->getChoice() . $merit->getMerit()->getId();
         $merits[$key] = $merit;
       }
     }
