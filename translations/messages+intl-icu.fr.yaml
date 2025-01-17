@@ -62,12 +62,26 @@ character:
     lesser:
       add: >-
         {type, select,
+            body_thief {{name} est maintenant un Voleur de Corps.}
+            feral {{name} est maintenant un Féral.}
             ghoul {{name} est maintenant une Goule.}
+            innocents {{name} est maintenant un Innocent.}
+            possessed {{name} est maintenant un Possédé.}
+            psychic {{name} est maintenant un Psychique.}
+            purified {{name} est maintenant un Purifié.}
+            thaumaturge {{name} est maintenant un Occultiste.}
             other {{name} est maintenant un(e) {type}.}
         }
       remove: >-
         {type, select,
+            body_thief {{name} n'est plus un Voleur de Corps.}
+            feral {{name} n'est plus un Féral.}
             ghoul {{name} n'est plus une Goule.}
+            innocents {{name} n'est plus Innocent.}
+            possessed {{name} n'est plus un Possédé.}
+            psychic {{name} n'est plus un Psychique.}
+            purified {{name} n'est plus un Purifié.}
+            thaumaturge {{name} n'est plus un Occultiste.}
             other {{name} n'est plus un(e) {type}.}
         }
       deactivated: "{name} n'est plus un(e) {old}."

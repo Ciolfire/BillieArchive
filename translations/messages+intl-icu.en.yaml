@@ -62,12 +62,26 @@ character:
     lesser:
       add: >-
         {type, select,
+            body_thief {{name} is now a Body Thief.}
+            feral {{name} is now a Feral.}
             ghoul {{name} is now a Ghoul.}
+            innocents {{name} is now an Innocent.}
+            possessed {{name} is now a Possessed.}
+            psychic {{name} is now a Psychic.}
+            purified {{name} is now a Purified.}
+            thaumaturge {{name} is now a Thaumaturge.}
             other {{name} is now a(n) {type}.}
         }
       remove: >-
         {type, select,
+            body_thief {{name} is no longer a Body Thief.}
+            feral {{name} is no longer a Feral.}
             ghoul {{name} is no longer a Ghoul.}
+            innocents {{name} is no longer Innocent.}
+            possessed {{name} is no longer a Possessed.}
+            psychic {{name} is no longer a Psychic.}
+            purified {{name} is no longer a Purified.}
+            thaumaturge {{name} is no longer a Thaumaturge.}
             other {{name} is no longer a(n) {type}.}
         }
       deactivated: "{name} is no longer a(n) {old}."

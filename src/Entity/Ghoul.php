@@ -70,7 +70,7 @@ class Ghoul extends CharacterLesserTemplate
     return "vampire";
   }
 
-  public function getForm(): string
+  public static function getForm(): string
   {
     return GhoulType::class;
   }

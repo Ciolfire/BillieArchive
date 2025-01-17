@@ -14,7 +14,16 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'name', type: 'string')]
-#[DiscriminatorMap(['ghoul' => Ghoul::class])]
+#[DiscriminatorMap([
+  'bodyThief' => BodyThief::class,
+  'feral' => Feral::class, 
+  'ghoul' => Ghoul::class, 
+  'innocents' => Innocent::class,
+  'possessed' => Possessed::class, 
+  'psychic' => Psychic::class, 
+  'purified' => Purified::class,
+  'thaumaturge' => Thaumaturge::class, 
+])]
 class CharacterLesserTemplate
 {
   #[ORM\Id]
@@ -61,9 +70,9 @@ class CharacterLesserTemplate
     return "";
   }
 
-  public function getForm() : string
+  public static function getForm() : ?string
   {
-    return "";
+    return null;
   }
 
   public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []) : array
