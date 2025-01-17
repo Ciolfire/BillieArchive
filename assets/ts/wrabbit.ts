@@ -11,10 +11,9 @@ function getRandomInt(min, max) {
 let rabbit = document.querySelector('#rabbit') as HTMLElement;
 let maxLeft = window.innerWidth/2;
 let increment = getRandomInt(1, maxLeft/100);
-let idleInDelay = getRandomInt(3, 120);
+let idleInDelay = getRandomInt(30, 240);
 let moveDelay = idleInDelay + 4;
 let idleOutDelay = moveDelay + (2.4 * increment);
-let rand =  getRandomInt(0, 99);
 let max =  getRandomInt(1, getRandomInt(2, 50));
 let count = 0;
 let ratio = 5;
