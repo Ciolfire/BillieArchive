@@ -81,27 +81,4 @@ class VampireController extends AbstractController
       'form' => $form,
     ]);
   }
-
-  #[Route('/{id<\d+>}/ghoulify', name: 'character_ghoulify', methods: ['GET', 'POST'])]
-  public function ghoulify(Request $request, Character $character): Response
-  {
-    // $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false]);
-    // $attributes = $this->dataService->findAll(Attribute::class);
-    // $disciplines = $this->dataService->findAll(Discipline::class);
-    // $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
-    // $form->handleRequest($request);
-
-    // if ($form->isSubmitted() && $form->isValid()) {
-      // if ($this->)
-      $this->service->ghoulify($character);
-      $this->addFlash('success', ["character.template.lesser.add", ['name' => $character, 'type' => $character->getLesserTemplate()->getType()]]);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    // }
-    // return $this->render('character_sheet_type/vampire/embrace/sheet.html.twig', [
-    //   'character' => $character,
-    //   'clans' => $clans,
-    //   'disciplines' => $disciplines,
-    //   'form' => $form,
-    // ]);
-  }
 }

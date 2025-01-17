@@ -29,7 +29,7 @@ export default class extends Controller {
 
   load() {
     window
-    .fetch(`/ajax/${document.location.pathname.split('/')[1]}/load/prerequisites`, {
+    .fetch(`/fetch/${document.location.pathname.split('/')[1]}/load/prerequisites`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'

@@ -16,6 +16,7 @@ class GhoulType extends AbstractType
       ->add('regent', null, [
         'label' => 'regent.label',
         'empty_data' => '',
+        'required' => false,
       ])
       ->add('clan', null, [
         'label' => 'family.clan.label',

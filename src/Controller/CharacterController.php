@@ -18,6 +18,7 @@ use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
+use App\Form\LesserTemplateType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Vampire\VampireType;
 use App\Repository\CharacterRepository;
@@ -229,8 +230,9 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}', name: 'character_show', methods: ['GET'])]
   public function show(Request $request, Character $character, FormFactoryInterface $formFactory): Response
   {
-    if ($character->getPlayer() != $this->getUser() && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $this->getUser())) {
-      if ($this->getUser()->getRole() != 'ROLE_GM')
+    $user = $this->getUser();
+    if ($character->getPlayer() != $user && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $user)) {
+      if ($user instanceof User && $user->getRole() != 'ROLE_GM')
         return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
@@ -451,41 +453,45 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $oldTemplate = $character->getLesserTemplate();
-    $templates = $this->service->getAllAvailableLesserTemplates($oldTemplate);
-    $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
-      ->add('template', ChoiceType::class, [
-        'label' => 'label.single',
-        'choices' => $templates,
-        'translation_domain' => 'content-type',
-      ])
-      ->add('submit', SubmitType::class, ['label' => 'Apply'])
-      ->getForm();
+    // We get the current lesser template, if any
+    $currentTemplate = $character->getLesserTemplate();
+    $templates = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
+    $form = $this->createForm(LesserTemplateType::class, options:['templates' => $templates]);
     $form->handleRequest($request);
-
+    
     if ($form->isSubmitted() && $form->isValid()) {
-      if (!is_null($oldTemplate)) {
-        if ($oldTemplate->getType() == $form->getData()['template']) {
-          // No change in template, shouldn't happen, return
+      // Fetch the new lesser template class from the form
+      $newTemplate = $form->getData()['template'];
+      // If the character already has a lesser template
+      if (!is_null($currentTemplate)) {
+        if ($currentTemplate->getType() == $newTemplate) {
+          // Same template, shouldn't happen, return
           $this->addFlash('error', 'character.template.lesser.same', [
             'name' => $character->getName(),
-            'type' => $oldTemplate->getType(),
+            'type' => $currentTemplate->getType(),
           ]);
           return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
         }
-        // We deactivate the old template
-        $oldTemplate->setIsActive(false);
-        $this->addFlash('notice', 'character.template.lesser.deactivated', [
+        // Otherwise, we deactivate the old template
+        $currentTemplate->setIsActive(false);
+        $this->addFlash('notice', ['character.template.lesser.deactivated', [
           'name' => $character->getName(),
-          'old' => $oldTemplate->getType(),
-        ]);
+          'old' => $currentTemplate->getType(),
+        ]]);
       }
-
-      return $this->redirectToRoute('character_ghoulify', ['id' => $character->getId()]);
+      // Setup/update of the new lesser template
+      $this->service->lesserTemplateAdd($character, $newTemplate, $request->request->all());
+      $this->addFlash('success', ["character.template.lesser.add", [
+        'name' => $character, 
+        'type' => $character->getLesserTemplate()->getType(),
+      ]]);
+  
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
+
     return $this->render('character/lesser/add.html.twig', [
       'form' => $form,
-      'character' => $character,
+      'character' => $character
     ]);
   }
 

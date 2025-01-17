@@ -8,6 +8,7 @@ use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Clan;
+use App\Entity\Covenant;
 use App\Entity\Description;
 use App\Entity\Devotion;
 use App\Entity\Vampire;
@@ -16,6 +17,7 @@ use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Ghoul;
 use App\Entity\GhoulDiscipline;
+use App\Entity\GhoulFamily;
 use App\Repository\ClanRepository;
 use Symfony\Component\Form\FormInterface;
 
@@ -209,18 +211,15 @@ class VampireService
   }
 
 
-  public function ghoulify(Character $character): void
+  public function ghoulify(Ghoul $template, array $data): Ghoul
   {
-    // $data = $form->getData();
-
     // The human turn partly vampire...
-    $clan = $this->dataService->find(Clan::class, 1);
-    $ghoul = new Ghoul($clan);
-    $character->addLesserTemplate($ghoul);
-    if ($character->getLesserTemplate() === $ghoul) {
-      $this->dataService->add($ghoul);
-    }
-    $this->dataService->update($character);
+    $template->setClan($this->dataService->find(Clan::class, $data['clan']));
+    $template->setRegent($data['regent']);
+    $template->setCovenant($this->dataService->find(Covenant::class, $data['covenant']));
+    $template->setFamily($this->dataService->find(GhoulFamily::class, $data['family']));
+
+    return $template;
   }
 
   /** @param array<string, mixed> $data */

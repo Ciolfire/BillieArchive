@@ -5,9 +5,6 @@ namespace App\Controller;
 use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\CharacterDerangement;
-use App\Entity\CharacterMerit;
-use App\Entity\CharacterSpecialty;
-use App\Entity\Clan;
 use App\Entity\Ghoul;
 use App\Entity\Skill;
 use App\Entity\Vampire;
@@ -22,8 +19,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/ajax')]
-class AjaxController extends AbstractController
+#[Route('/fetch')]
+class FetchController extends AbstractController
 {
   private DataService $dataService;
   private TranslatorInterface $translator;
@@ -186,6 +183,23 @@ class AjaxController extends AbstractController
       ]);
     } else {
       return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    }
+  }
+
+  #[Route('/{_locale<%supported_locales%>?%default_locale%}/entity/form', name: 'fetch_entity_form', methods: ['POST'])]
+  public function fetchEntityForm(Request $request): JsonResponse|RedirectResponse
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+
+      $form = $data->entity::getForm();
+      if ($form) {
+        return new JsonResponse([
+          'data' => $this->render('_form.html.twig', ['form' => $this->createForm($form)])->getContent(),
+        ]);
+      }
+
+      return new JsonResponse(status:204);
     }
   }
 }

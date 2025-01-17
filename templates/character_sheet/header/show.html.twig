@@ -3,7 +3,10 @@
 {% block header %}
 <div class="row block-light p-2 pb-4">
   {% block name %}
-    <h1 class="text-center text-stylized">
+    <h1 class="py-2 text-stylized">
+      {% if character.type != 'human' %}
+        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
+      {% endif %}
       {{ character.name }}
     </h1>
     <h2>

@@ -50,7 +50,7 @@ export default class extends Controller {
         }
       }
     };
-    xhttp.open("POST", `/ajax/load/removable`, true);
+    xhttp.open("POST", `/fetch/load/removable`, true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
     xhttp.setRequestHeader("Content-Type", "application/json");
 

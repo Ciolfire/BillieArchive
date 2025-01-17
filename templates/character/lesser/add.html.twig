@@ -6,7 +6,7 @@
   {{ parent() }}
 {% endblock %}
 
-{% block title %}{{ 'template.apply'|trans }}{{ "premade.label.single"|trans }}{% endblock %}
+{% block title %}{{ 'template.apply'|trans }}{% endblock %}
 
 
 {% block body %}
@@ -14,9 +14,13 @@
     {% include "_icon.html.twig" with {icon: 'lesser-template'} %}
     {{ 'template.apply'|trans }}
   </h1>
-  <div class="container block py-3">
+  <div class="container block py-3" data-controller="character--lesser-template">
     <h2>{{ character.name }}</h2>
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form.template) }}
+    <div data-character--lesser-template-target="form"></div>
+    {{ form_widget(form.submit)}}
+    {{ form_end(form) }}
   </div>
   {% include "_back.html.twig" %}
 {% endblock %}

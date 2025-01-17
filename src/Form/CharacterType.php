@@ -76,7 +76,7 @@ class CharacterType extends AbstractType
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
-    if (!is_null($character->getLesserTemplate())) {
+    if (!is_null($character->getLesserTemplate()) && $character->getLesserTemplate()->getForm()) {
       $builder->add('lesserTemplate', $character->getLesserTemplate()->getForm());
     }
     if (!$options['is_edit']) {

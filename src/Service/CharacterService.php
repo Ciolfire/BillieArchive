@@ -226,7 +226,24 @@ class CharacterService
     return $new;
   }
 
-  public function getAllAvailableLesserTemplates(?CharacterLesserTemplate $exception = null) : array
+  public function lesserTemplateAdd(Character $character, $name, array $data)
+  {
+    $template = new $name();
+    $character->addLesserTemplate($template);
+
+    switch ($template->getType()) {
+      case 'ghoul':
+        $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $data[$template->getType()]);
+        break;
+    }
+    if ($character->getLesserTemplate() === $template) {
+      $this->dataService->add($template);
+    }
+    
+    $this->dataService->update($template);
+  }
+
+  public function lesserTemplatesGetAllAvailable(?CharacterLesserTemplate $exception = null) : array
   {
     if (!is_null($exception)) {
       $exception = $exception::class;
@@ -237,10 +254,11 @@ class CharacterService
       // We don't add the current template in the list
       if ($class !== $exception) {
         $class = new $class();
-        $templates["{$class->getType()}"] = $class->getType();
+        $templates["{$class->getType()}"] = get_class($class);
       }
     }
 
+    ksort($templates);
     return $templates;
   }
 
