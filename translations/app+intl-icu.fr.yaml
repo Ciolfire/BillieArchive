@@ -3,6 +3,7 @@ action:
     single: Action
     multi: Actions
   add: Ajouter
+  apply: Appliquer
   back: Retour
   close: Fermer
   confirm: Confirmer
