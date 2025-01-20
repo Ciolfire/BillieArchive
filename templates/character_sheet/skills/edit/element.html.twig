@@ -36,10 +36,14 @@
 {% block specialties %}
   <div id="{{ skill ~ "specialties" }}" class="row align-items-center px-2">
     <div class="col ps-5">
-      {% for specialty in specialties %}
-        {% include "_icon.html.twig" with {icon: 'specialty-item', class: 'icon-sm'} only %}
-        {{ specialty.name }}
-      {% endfor %}
+      <ul class="list-unstyled mb-1 text-strong">
+        {% for specialty in specialties %}
+          <li>
+            {% include "_icon.html.twig" with {icon: 'specialty-item', class: 'icon-sm'} only %}
+            {{ specialty.name }}
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 {% endblock %}
