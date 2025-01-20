@@ -15,16 +15,9 @@
     <div class="col-4">
       {{ form_row(form.lastName) }}
     </div>
-    <div class="col-12">
-      <div class="mb-3 row">
-        <label class="col-form-label col-sm-auto">Player</label>
-        <div class="col-sm">
-          <input class="form-control" value="{{ character.player|default(app.user) }}" readonly>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="row px-2">
+    <hr>
     <h2>{{ "details"|trans }}</h2>
     <div class="col-12 col-lg-4">
       <div class="row g-0">
@@ -83,4 +76,11 @@
       </div>
     </div>
   </div>
+  {% if app.user.id == character.chronicle.storyteller.id|default(0) %}
+    <div class="row px-2">
+      <hr>
+      <h2>{{ "ROLE_ST"|trans({}, 'user') }}</h2>
+      {{ form_row(form.size) }}
+    </div>
+  {% endif %}
 {% endblock %}

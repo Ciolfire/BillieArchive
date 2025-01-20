@@ -9,7 +9,7 @@
 
 {% block body %}
   <div
-    class="container-fluid container-lg py-3 {% block top_margin %}character-sheet{% endblock %}"
+    class="container-fluid container-lg {% block top_margin %}character-sheet{% endblock %}"
     {% block body_attributes %}
       data-controller="{% block data_controllers %}character--experience character--avatar character--merits character--item content{% endblock %}"
       data-character--experience-id-value="{{ character.id }}"

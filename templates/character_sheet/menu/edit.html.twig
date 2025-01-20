@@ -1,16 +1,15 @@
 {% trans_default_domain 'character' %}
 
-<div id="menu" class="container">
+<div id="menu" class="container position-sticky g-0">
   <div class="row text-center text g-0">
-    <div class="col-3 ps-1 pe-0">
+    <div class="col-3">
       <button class="btn btn-sm btn-menu btn-primary w-100" type="button" data-action="click->character--edit#clean">
         {% include "_icon.html.twig" with {icon: 'save'} only %}
-        {# {{ "save"|trans({}, 'app' ) }} #}
       </button>
     </div>
     <div class="col-2 px-0">
       <input id="is_free" type="checkbox" class="btn-check" name="character[isFree]">
-      <label class="btn btn-sm btn-primary w-100" for="is_free" role="button">
+      <label class="btn btn-sm btn-warning w-100" for="is_free" role="button">
         {% include "_icon.html.twig" with {icon: 'free'} only %}
         <span class="d-none d-md-inline text-sub">{{ "xp.free"|trans }}</span>
       </label>
@@ -39,7 +38,6 @@
     <div class="col-2">
       <a class="btn btn-sm btn-menu btn-primary w-100" href="{{ path('character_show', {'id': character.id}) }}">
         {% include "_icon.html.twig" with {icon: 'back'} only %}
-        {# {{ "action.back"|trans({}, 'app') }} #}
       </a>
     </div>
   </div>
