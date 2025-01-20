@@ -19,6 +19,7 @@ class CharacterType extends AbstractType
   {
     /** @var Character */
     $character = $options['data'];
+    $user = $options['user'];
     $player = $character->getPlayer();
     $chronicle = $character->getChronicle();
 
@@ -110,6 +111,12 @@ class CharacterType extends AbstractType
         'required' => false,
       ]);
     }
+    if ($character->getChronicle() && $user == $character->getChronicle()->getStoryteller()) {
+      $builder->add('size', null, [
+        'label' => 'size.label',
+        'help' => 'size.help',
+      ]);
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver): void
@@ -119,6 +126,7 @@ class CharacterType extends AbstractType
       "translation_domain" => 'character',
       "allow_extra_fields" => true,
       "is_edit" => false,
+      "user" => null,
     ]);
   }
 }

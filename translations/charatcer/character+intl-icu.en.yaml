@@ -57,54 +57,36 @@ count: >-
     other {# Characters}
   }
 
-pc:
-  label:
-    single: Character
-    multi: Characters
-  short: PC
-  new: New character
-npc:
-  label:
-    single: Non-player Character
-    multi: Non-player Characters
-    short: NPC
-  new: New Non-player Character
-
-premade:
-  label:
-    single: Premade
-    multi: Premade Characters
-  new: New Premade Character
-
-dot:
-  fifth: Fifth dot cost two
-
-willpower:
-  label: Willpower
-  value: >-
-    {value, plural,
-      =0 {0 - Exhausted}
-      =1 {1 - Spineless}
-      =2 {2 - Weak}
-      =3 {3 - Timid}
-      =4 {4 - Certain}
-      =5 {5 - Confident}
-      =6 {6 - Resolute}
-      =7 {7 - Driven}
-      =8 {8 - Determined}
-      =9 {9 - Iron-willed}
-      =10 {10 - Implacable}
-      other {# - Surnatural}
-    }
-
 derangement:
   label: Derangement
   add: Add derangement
   new: The Storyteller may decide that a scene or circumstance to which your character is exposed is too much for him to bear and he breaks under the pressure. The Storyteller decides if the condition is temporary or permanent.
 
+dot:
+  fifth: Fifth dot cost two
+
 health: Health
 wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
+
+infos:
+  access:
+    accessor: Character
+    add: New access
+    other: Other informations access
+    standard: Standard informations access
+  background: Background
+  description: Description
+  details:
+    label: Key Informations
+    accessList: Share
+    add: Add information
+    data: Text
+    edit: Edit informations
+    title: Title
+  informations: Informations
+  none: No information provided
+  picture: Picture
 
 morality:
   derangement:
@@ -135,6 +117,22 @@ name:
   nick: Middle name/Nickname
   unknown: Name unknown
 
+npc:
+  label:
+    single: Non-player Character
+    multi: Non-player Characters
+    short: NPC
+  new: New Non-player Character
+pc:
+  label:
+    single: Character
+    multi: Characters
+  short: PC
+  new: New character
+
+peek:
+  label: Character's summary
+
 power: >-
   {count, plural,
     =0 {No Power}
@@ -142,8 +140,13 @@ power: >-
     other {Powers}
   }
 
-peek:
-  label: Character's summary
+premade:
+  label:
+    single: Premade
+    multi: Premade Characters
+  new: New Premade Character
+
+relation: Relations
 
 right:
   age: Age
@@ -175,32 +178,15 @@ right:
   potency: Potency
   sire: Sire
 
+size:
+  label: Base size
+  help: A normal adult is size 5, a kid is size 4.
+
 template:
   apply: Apply Template
   lesser:
     label: Lesser Template
     remove: Remove the current Lesser template
-
-relation: Relations
-
-infos:
-  access:
-    accessor: Character
-    add: New access
-    other: Other informations access
-    standard: Standard informations access
-  background: Background
-  description: Description
-  details:
-    label: Key Informations
-    accessList: Share
-    add: Add information
-    data: Text
-    edit: Edit informations
-    title: Title
-  informations: Informations
-  none: No information provided
-  picture: Picture
 
 type:
   unknown: Unknown
@@ -217,6 +203,24 @@ virtue:
     multi: Virtues
   detail: Other name
   unknown: Virtue not known
+
+willpower:
+  label: Willpower
+  value: >-
+    {value, plural,
+      =0 {0 - Exhausted}
+      =1 {1 - Spineless}
+      =2 {2 - Weak}
+      =3 {3 - Timid}
+      =4 {4 - Certain}
+      =5 {5 - Confident}
+      =6 {6 - Resolute}
+      =7 {7 - Driven}
+      =8 {8 - Determined}
+      =9 {9 - Iron-willed}
+      =10 {10 - Implacable}
+      other {# - Surnatural}
+    }
 
 xp:
   label: XP

@@ -319,7 +319,7 @@ class CharacterService
       /** @var Merit $merit */
       if (
         ($merit->isUnique() && !is_null($character->hasMerit($merit->getId()))) || // Character already has this merit
-        (!$isCreation && $merit->isCreationOnly()) || // Creation merit
+        // (!$isCreation && $merit->isCreationOnly()) || // Creation merit, for now, allowed to everyone
         ($merit->getType() != "" && $merit->getType() != $character->getType()) || // Template of the character does not match the merit
         (!is_null($merit->getHomebrewFor()) && $merit->getHomebrewFor() !== $chronicle) // Homebrew merit, only show for the chronicle
       ) {

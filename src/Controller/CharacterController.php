@@ -279,11 +279,11 @@ class CharacterController extends AbstractController
 
     switch ($character->getType()) {
       case 'vampire':
-        $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true]);
+        $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true, 'user' => $this->getUser()]);
         break;
 
       default:
-        $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true]);
+        $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true, 'user' => $this->getUser()]);
         break;
     }
     $form->handleRequest($request);

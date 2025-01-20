@@ -47,6 +47,7 @@ class VampireType extends CharacterType
       "allow_extra_fields" => true,
       "is_edit" => false,
       "name" => 'character',
+      "user" => null,
     ]);
   }
 }
