@@ -19,7 +19,7 @@
         {% set type = "human" %}
       {% endif %}
       
-      {% include ["character/peeking/header/" ~ type ~ ".html.twig", "character/peeking/header/human.html.twig"] with {type: type}  %}
+      {% include ["character/peeking/header/" ~ type ~ ".html.twig", "character/peeking/header/subtype.html.twig", "character/peeking/header/human.html.twig"] with {type: type}  %}
     </div>
     {# Name #}
     <div class="character-card-name">

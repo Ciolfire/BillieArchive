@@ -1,0 +1,3 @@
+{% include "_icon.html.twig" with {icon : "type/" ~ type, class: 'character-icon'} only %}
+<div class="w-100 text-center text-strong">{{ type|trans({}, 'content-type') }}</div>
+<img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
