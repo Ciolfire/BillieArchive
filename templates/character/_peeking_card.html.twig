@@ -13,12 +13,8 @@
   >
     {# Header #}
     <div class="character-card-header">
-      {% if access.hasRight('type')|default(false) and character.type != 'human' %}
-        {% include "character/peeking/header/" ~ character.type ~ ".html.twig" %}
-      {% else %}
-        <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
-        <div class="w-100 text-center text-strong">{{ "human"|trans({}, 'content-type') }}</div>
-        <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />
+      {% if access.hasRight('type')|default("human") %}
+        {% include ["character/peeking/header/" ~ character.type ~ ".html.twig", "character/peeking/header/human.html.twig"]  %}
       {% endif %}
     </div>
     {# Name #}
