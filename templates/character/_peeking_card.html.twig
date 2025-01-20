@@ -13,9 +13,13 @@
   >
     {# Header #}
     <div class="character-card-header">
-      {% if access.hasRight('type')|default("human") %}
-        {% include ["character/peeking/header/" ~ character.type ~ ".html.twig", "character/peeking/header/human.html.twig"]  %}
+      {% if access.hasRight('type') %}
+        {% set type = character.type %}
+      {% else %}
+        {% set type = "human" %}
       {% endif %}
+      
+      {% include ["character/peeking/header/" ~ type ~ ".html.twig", "character/peeking/header/human.html.twig"] with {type: type}  %}
     </div>
     {# Name #}
     <div class="character-card-name">
