@@ -29,7 +29,7 @@
         {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}
-        {% include "_tab.html.twig" with {name: 'inventory', label: 'inventory'|trans, icon: 'equipment'} only %}
+        {% include "_tab.html.twig" with {name: 'inventory', label: 'inventory'|trans, icon: 'bag'} only %}
         {% include "_tab.html.twig" with {name: 'details', label: 'details'|trans} only %}
         {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
         {% if app.user == character.player %}
@@ -76,7 +76,13 @@
         {% include "character_sheet/infos/show.html.twig" %}
       </div>
       <div id="relation" class="tab-content d-none p-0" data-tabs-target="page">
-        {% include "character_sheet/elements/relations.html.twig" %}
+        <div class="position-relative" data-controller="tabs" data-tabs-initial-value="informations" data-tabs-parent-value="relation">
+          <ul class="nav tabs row g-0">
+            {% include "_tab.html.twig" with {name: 'informations', icon: 'group', label: 'infos.informations'|trans } only %}
+            {% include "_tab.html.twig" with {name: 'share', icon: 'spy', label: 'infos.details.access.list'|trans } only %}
+          </ul>
+            {% include "character_sheet/elements/relations.html.twig" %}
+        </div>
       </div>
       {% if app.user == character.player %}
         <div id="notes" class="tab-content d-none" data-tabs-target="page">

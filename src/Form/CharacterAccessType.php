@@ -103,7 +103,7 @@ class CharacterAccessType extends AbstractType
         ]);
       if (!$data->getAccessor()) {
         $builder->add('accessor', EntityType::class, [
-          'label' => 'infos.details.accessList',
+          'label' => 'infos.details.access.list',
           'class' => Character::class,
           'choices' => $characters,
           'choice_label' => function ($choice, string $key, mixed $value) use ($path): string {

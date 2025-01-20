@@ -1,3 +1,6 @@
 {% trans_default_domain 'character' %}
 
-{% include 'chronicle/infos/_characters.html.twig' with {character } only %}
+<div id="informations" class="tab-content d-none p-0" data-tabs-target="page">
+  {% include 'chronicle/infos/_characters.html.twig' with {character } only %}
+</div>
+{% include "character_sheet/elements/informations.html.twig" %}

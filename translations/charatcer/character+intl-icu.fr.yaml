@@ -79,7 +79,7 @@ infos:
   description: Description
   details:
     label: Informations Clés
-    accessList: Partage
+    access.list: Partage
     add: Ajouter une information
     data: Texte
     edit: Modifer les informations

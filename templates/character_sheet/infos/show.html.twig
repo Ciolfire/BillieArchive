@@ -5,7 +5,6 @@
     {% include "_tab.html.twig" with {name: 'picture', label: 'infos.picture'|trans } only %}
     {% include "_tab.html.twig" with {name: 'description', label: 'infos.description'|trans } only %}
     {% include "_tab.html.twig" with {name: 'background', label: 'infos.background'|trans } only %}
-    {% include "_tab.html.twig" with {name: 'informations', icon: 'spy', label: 'infos.informations'|trans } only %}
   </ul>
   <div class="block position-relative overflow-y-hidden">
     <img class="character-background-avatar z-n1 position-absolute top-0 w-100 p-0" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
@@ -43,70 +42,6 @@
           <p>{{ "infos.none"|trans }}</p>
         {% endif %}
       </div>
-    </div>
-    <div id="informations" class="tab-content d-none" data-tabs-target="page">
-      {% if character.chronicle is not null or character.characterAccesses is not empty %}
-        <h3 class="text-light">{{ "infos.access.standard"|trans }}</h3>
-        <div class="row justify-content-center">
-          <a class="btn btn-primary w-50 mb-2" href="{{ path('character_access_add', {'id': character.id}) }}">
-            {% include "_icon.html.twig" with {icon : "key"} only %}
-            {{ "infos.access.add"|trans }}
-          </a>
-        </div>
-        {% for access in character.characterAccesses %}
-          <div class="row my-2">
-            <div class="col-1 d-flex align-items-center justify-content-center">
-              <a href="{{ path('character_peek_as', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
-                {% include "_icon.html.twig" with {icon : "impersonate"} only %}
-                {% include "_icon.html.twig" with {icon : "infos"} only %}
-              </a>
-            </div>
-            <div class="col-11">
-              {% if is_granted('edit', character) %}
-                <a class="btn btn-primary w-100" href="{{ path('character_access_edit', {'id': character.id, 'accessor': access.accessor.id}) }}">
-                  <div class="col justify-content-center">
-                    <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-                  </div>
-                  <div class="col">
-                    {% include "_icon.html.twig" with {icon : "key"} only %}
-                    {% for right in access.rights %}
-                      {% if right != access.rights|first %} | {% endif %}
-                      {{ ('right.' ~ right)|trans }}
-                    {% endfor %}
-                  </div>
-                </a>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-        <hr>
-      {% endif %}
-      <h3 class="text-light">{{ "infos.access.other"|trans }}</h3>
-      {% if is_granted('edit', character) %}
-        <a class="btn btn-primary w-100 mb-2" href="{{ path('character_infos_edit', {'id': character.id}) }}">
-          {% include "_icon.html.twig" with {icon : "edit"} only %}
-          {{ "infos.details.edit"|trans }}
-        </a>
-      {% endif %}
-      {% if character.infos is not empty %}
-        <div class="row">
-        {% for info in character.infos %}
-          <div class="col-12 col-md-6 pt-2">
-            <div class="card info-card">
-              <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
-              <div class="card-body">{{ info.data|markdown_to_html }}</div>
-              <div class="card-footer">
-                {% for character in info.accessList %}
-                  <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-        </div>
-      {% else %}
-        <p>{{ "infos.none"|trans }}</p>
-      {% endif %}
     </div>
   </div>
 </div>
