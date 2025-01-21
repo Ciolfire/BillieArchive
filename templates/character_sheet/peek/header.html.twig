@@ -13,9 +13,6 @@
       {% else %}
         <span class="accent">{{ publicName }}</span>
       {% endif %}
-      {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, 'class': 'icon-lg' } %}
-      {% endif %}
     </h1>
     <h2 class="text">
       {% if character.player is not null and app.user != character.player %}
