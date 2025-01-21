@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Rule;
 use App\Entity\Types\SettingType;
+use App\Form\Type\ContentTypeType;
 use App\Form\Type\SourceableType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -35,17 +36,14 @@ class RuleType extends AbstractType
     $builder
       ->add('title', null, ['label' => 'title'])
       ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
-      ->add('type', ChoiceType::class, [
-        'label' => 'type.label',
-        'required' => false,
-        'choices' => get_class_vars(SettingType::class),
-        'choice_label' => function ($choice, $key, $value) {
-          return "type.{$key}";
-        }
+      ->add('type', ContentTypeType::class, [
+        'data_class' => Rule::class,
+        'label' => false,
       ])
       ->add('parentRule', null,
       [
-        'label' => 'rule.parent',
+        'label' => 'parent',
+        'translation_domain' => 'rule',
         'query_builder' => function (EntityRepository $er) {
           return $er->createQueryBuilder('r')->where('r.parentRule IS NULL')->orderBy('r.title', 'ASC');
         }

@@ -2,6 +2,8 @@ label:
   single: Règle
   multi: Règles
 
+parent: Règle parente
+
 ruleset:
   label: Version
   first: Première Édition

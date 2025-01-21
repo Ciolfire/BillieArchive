@@ -2,6 +2,8 @@ label:
   single: Rule
   multi: Rules
 
+parent: Rule's parent
+
 ruleset:
   label: Ruleset
   first: First Edition
