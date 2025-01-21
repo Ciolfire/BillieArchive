@@ -53,7 +53,7 @@ class MeritType extends AbstractType
       ])
       ->add('description', null, ['label' => 'description', 'help' => 'help.description'])
       ->add('effect', RichTextEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
-      ->add('roll', RollableType::class)
+      ->add('roll', RollableType::class, ['required' => false])
       ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])
       ->add('isUnique', null, ['label' => "unique", 'help' => "help.unique"])
       ->add('isExpanded', null, ['label' => "expanded", 'help' => "help.expanded"])

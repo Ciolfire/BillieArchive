@@ -105,6 +105,9 @@ class MeritController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      if ($merit->getRoll()->getSkills()->isEmpty() && $merit->getRoll()->getAttributes()->isEmpty()) {
+        $merit->setRoll(null);
+      }
       $this->dataService->add($merit);
       $this->dataService->flush();
 
@@ -136,6 +139,9 @@ class MeritController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      if ($merit->getRoll()->getSkills()->isEmpty() && $merit->getRoll()->getAttributes()->isEmpty()) {
+        $merit->setRoll(null);
+      }
       $this->dataService->update($merit);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $merit->getName()]]);
