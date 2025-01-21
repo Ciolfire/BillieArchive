@@ -78,6 +78,7 @@ class MeritController extends AbstractController
       default:
         $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
         $search['type'] = $this->dataService->getMeritTypes();
+        natsort($search['type']);
         $setting = "human";
         break;
     }
