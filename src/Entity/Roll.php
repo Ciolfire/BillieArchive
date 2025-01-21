@@ -64,6 +64,9 @@ class Roll implements Translatable
 
   private string $locale;
 
+  #[ORM\Column]
+  private ?bool $isLinked = null;
+
   public function __construct()
   {
     $this->attributes = new ArrayCollection();
@@ -203,6 +206,18 @@ class Roll implements Translatable
   public function setContestedText(?string $contestedText): self
   {
       $this->contestedText = $contestedText;
+
+      return $this;
+  }
+
+  public function isLinked(): ?bool
+  {
+      return $this->isLinked;
+  }
+
+  public function setLinked(bool $isLinked): static
+  {
+      $this->isLinked = $isLinked;
 
       return $this;
   }

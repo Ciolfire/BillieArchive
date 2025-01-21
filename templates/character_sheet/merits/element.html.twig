@@ -36,6 +36,12 @@
           {% else %}
             <div class="w-100 mt-1">&nbsp;</div>
           {% endif %}
+          {% if merit.roll is not null %}
+            <div class="text-light text-center">
+              {% set dicePool = character.detailedDicePool(merit.roll.attributes, merit.roll.skills) %}
+              {% include "_dice_pool.html.twig" with {pool : dicePool, contested : merit.roll.contestedText} %}
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

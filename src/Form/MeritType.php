@@ -3,17 +3,27 @@
 namespace App\Form;
 
 use App\Entity\Merit;
+use App\Entity\Roll;
 use App\Form\Type\ContentTypeType;
 use App\Form\Type\SourceableType;
+use App\Form\Type\RichTextEditorType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use App\Form\Type\RichTextEditorType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MeritType extends AbstractType
 {
+  public TranslatorInterface $translator;
+
+  public function __construct(TranslatorInterface $translator)
+  {
+    $this->translator = $translator;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     
@@ -22,6 +32,8 @@ class MeritType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "label.single"])
+      ->add('min', null, ['label' => "min"])
+      ->add('max', null, ['label' => "max"])
       ->add('source', SourceableType::class, [
         'data_class' => Merit::class,
         'label' => 'source.label',
@@ -41,8 +53,7 @@ class MeritType extends AbstractType
       ])
       ->add('description', null, ['label' => 'description', 'help' => 'help.description'])
       ->add('effect', RichTextEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
-      ->add('min', null, ['label' => "min"])
-      ->add('max', null, ['label' => "max"])
+      ->add('roll', RollableType::class)
       ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])
       ->add('isUnique', null, ['label' => "unique", 'help' => "help.unique"])
       ->add('isExpanded', null, ['label' => "expanded", 'help' => "help.expanded"])

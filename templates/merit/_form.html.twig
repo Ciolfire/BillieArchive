@@ -2,13 +2,26 @@
 
 {{ form_start(form) }}
   {{ form_row(form.name) }}
+  {{ form_row(form.min) }}
+  {{ form_row(form.max) }}
   {{ form_row(form.source) }}
   {{ form_widget(form.type) }}
   {{ form_row(form.category) }}
   {{ form_row(form.description) }}
   {{ form_row(form.effect) }}
-  {{ form_row(form.min) }}
-  {{ form_row(form.max) }}
+  <div class="mb-3 row justify-content-center">
+    <div class="col text-center">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".collapseRoll" aria-expanded="false" aria-controls="collapseRoll">
+        <h2 class="text-strong">
+          {% include "_icon.html.twig" with {icon: 'roll' , class: 'pe-2'} only %}
+          {{ 'label.single'|trans({}, 'roll') }}
+        </h2>
+      </button>
+    </div>
+  </div>
+  <div class="col-12 collapseRoll collapse mb-3 block p-5">
+    {{ form_widget(form.roll) }}
+  </div>
   {{ form_row(form.isCreationOnly) }}
   {{ form_row(form.isExpanded) }}
   {{ form_row(form.isUnique) }}

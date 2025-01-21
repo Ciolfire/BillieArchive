@@ -102,7 +102,7 @@ class RollController extends AbstractController
   public function list(string $setting = null) : Response
   {
     if (is_null($setting)) {
-      $rolls = $this->dataService->findBy(Roll::class, [], ['name' => 'ASC']);
+      $rolls = $this->dataService->findBy(Roll::class, ['isLinked' => '0'], ['name' => 'ASC']);
       $setting = "human";
     } else {
       $rolls = $this->dataService->findBy(Roll::class, ['type' => $setting], ['name' => 'ASC']);
