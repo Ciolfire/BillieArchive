@@ -473,7 +473,7 @@ class CharacterController extends AbstractController
           return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
         }
         // Otherwise, we deactivate the old template
-        $currentTemplate->setIsActive(false);
+        $this->service->lesserTemplateRemove($character, $currentTemplate);
         $this->addFlash('notice', ['character.template.lesser.deactivated', [
           'name' => $character->getName(),
           'old' => $currentTemplate->getType(),
@@ -501,8 +501,7 @@ class CharacterController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $character);
 
     $type = $character->getLesserTemplate()->getType();
-    $character->getLesserTemplate()->setIsActive(false);
-    $this->dataService->update($character);
+    $this->service->lesserTemplateRemove($character, $character->getLesserTemplate());
 
     $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);

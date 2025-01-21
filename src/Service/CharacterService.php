@@ -234,6 +234,11 @@ class CharacterService
     switch ($template->getType()) {
       case 'ghoul':
         $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $data[$template->getType()]);
+
+        break;
+      case 'innocents':
+        $character->setSize($character->getSize() - 1);
+
         break;
     }
     if ($character->getLesserTemplate() === $template) {
@@ -241,6 +246,18 @@ class CharacterService
     }
     
     $this->dataService->update($template);
+  }
+
+  public function lesserTemplateRemove(Character $character, CharacterLesserTemplate $template)
+  {
+    $template->setIsActive(false);
+
+    switch ($template->getType()) {
+      case 'innocents':
+        $character->setSize($character->getSize() + 1);
+        break;
+    }
+    $this->dataService->update($character);
   }
 
   public function lesserTemplatesGetAllAvailable(?CharacterLesserTemplate $exception = null) : array
