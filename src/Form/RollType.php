@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Attribute;
-use App\Entity\Derangement;
 use App\Entity\Roll;
 use App\Entity\Skill;
 use App\Form\Type\ContentTypeType;
@@ -31,7 +30,7 @@ class RollType extends AbstractType
     
     $translator = $this->translator;
 
-    /** @var Derangement */
+    /** @var Roll */
     $element = $options['data'];
 
     $builder
@@ -82,6 +81,7 @@ class RollType extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Roll::class,
+      'data' => new Roll(),
       'translation_domain' => "app",
     ]);
   }
