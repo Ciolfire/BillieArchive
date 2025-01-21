@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ 'label.multi'|trans({}, 'rules')}}{% endblock %}
+{% block title %}{{ 'label.multi'|trans({}, 'rule')}}{% endblock %}
 
 {% block bodyData %}
   data-controller="search" data-search-type-value="rule"
@@ -11,8 +11,7 @@
 {% block body %}
   {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <h1 class="py-3">{% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}
-    <span>{{ 'label.multi'|trans({}, 'rules')}}</span>
-    {% include "_icon.html.twig" with {icon: "rule", 'class': 'icon-lg' } only %}
+    <span>{{ 'label.multi'|trans({}, 'rule')}}</span>
   </h1>
   <div class="container block-neutral py-3">
     <div class="row py-3">
