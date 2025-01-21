@@ -1,1 +1,13 @@
 {% extends "character_sheet/show.html.twig" %}
+
+{% set psychic = character.lesserTemplate %}
+
+{% block powers %}
+  <div id="psychic" class="g-0" data-tabs-target="page">
+    {% include "character_sheet_type/psychic/powers/show.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'psychic', icon: 'type/psychic' , label: 'psychic'|trans({}, 'content-type')} only %}
+{% endblock %}

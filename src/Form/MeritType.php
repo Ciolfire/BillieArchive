@@ -32,6 +32,7 @@ class MeritType extends AbstractType
       ->add('category', ChoiceType::class, [
         'label' => "category.label.single",
         'translation_domain' => 'app',
+        'required' => false,
         'choices' => [
           'category.mental' => 'mental',
           'category.physical' => 'physical',

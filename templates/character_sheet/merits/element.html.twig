@@ -8,7 +8,11 @@
   <div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="d-flex justify-content-between">
-        {% include "_icon.html.twig" with {icon: merit.category, label: ("category." ~ merit.category)|trans({}, 'app') } only %}
+        {% if merit.category %}
+          {% include "_icon.html.twig" with {icon: merit.category, label: ("category." ~ merit.category)|trans({}, 'app') } only %}
+        {% else %}
+          {% include "_icon.html.twig" with {icon: "type/" ~ merit.type, label:  merit.type|trans({}, 'content-type') } only %}
+        {% endif %}
         <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
           <div class="dots">
             {% for value in 1..merit.max %}
@@ -54,7 +58,8 @@
       <div>{% include "character_sheet/merits/prerequisites.html.twig" %}</div>
       <div class="d-flex justify-content-between">
         <div>
-          {% if merit.type %}
+          {% if merit.category is null %}
+          {% elseif merit.type and merit.category is not null %}
             {% include "_icon.html.twig" with {icon : 'type/' ~ merit.type, label: merit.type|trans({}, 'content-type'), class: 'accent text-strong' } only %}
           {% else %}
             {% include "_icon.html.twig" with {icon : 'universal', label: 'universal'|trans({}, 'app'), class: 'text-strong' } only %}

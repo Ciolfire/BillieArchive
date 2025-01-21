@@ -1,6 +1,7 @@
 {% extends "character_sheet/merits/element_small.html.twig" %}
 
 {% set id = chMerit.id %}
+{% set merit = chMerit.merit %}
 
 {% block dot %}
 <input id="{{ merit.id ~ '-' ~ value }}" type="checkbox" class="btn-check" autocomplete="off" {% if value <= chMerit.level %}checked{% endif %} disabled>

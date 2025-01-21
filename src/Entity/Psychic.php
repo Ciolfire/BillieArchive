@@ -34,4 +34,19 @@ class Psychic extends CharacterLesserTemplate
   {
     return null;
   }
+
+  public function getPowers()
+  {
+    $powers = [];
+
+    foreach ($this->getSourceCharacter()->getMerits() as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "psychic") {
+        $key = $merit->getMerit()->getName() . (10 - $merit->getLevel()) . $merit->getId();
+        $powers[$key] = $merit;
+      }
+    }
+    ksort($powers);
+
+    return $powers;
+  }
 }

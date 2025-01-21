@@ -34,8 +34,8 @@ class Merit implements Translatable
   #[ORM\Column(type: Types::STRING, length: 40)]
   private string $name = "";
 
-  #[ORM\Column(type: Types::STRING, length: 20)]
-  private string $category;
+  #[ORM\Column(type: Types::STRING, nullable: true, length: 20)]
+  private ?string $category;
 
   #[ORM\Column(type: Types::BOOLEAN)]
   private bool $isFighting;
