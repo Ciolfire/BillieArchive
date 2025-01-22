@@ -29,6 +29,9 @@ export default class extends Controller {
       let tab = document.getElementById(`${this.initialValue}Tab`);
       if (tab) {
         tab.classList.add("active");
+        tab.scrollIntoView({
+          behavior: 'smooth'
+        });
       } else {
         console.log(`${tab} not found`);
       }
