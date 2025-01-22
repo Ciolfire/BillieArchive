@@ -18,4 +18,15 @@ class Mage extends Character
   {
     return $this->id;
   }
+
+  public function getType(): string
+  {
+    return "mage";
+  }
+
+  public function getForm(): string
+  {
+    return "none";
+    // return MageType::class;
+  }
 }

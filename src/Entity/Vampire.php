@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\References\DisciplineReferences;
 use App\Entity\VampireDiscipline;
+use App\Form\Vampire\VampireType;
 use App\Repository\VampireRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -74,6 +75,11 @@ class Vampire extends Character
   public function getType(): string
   {
     return "vampire";
+  }
+
+  public function getForm(): string
+  {
+    return VampireType::class;
   }
 
   public function setPowerRating(): ?int

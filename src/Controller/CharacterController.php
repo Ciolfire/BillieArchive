@@ -167,7 +167,7 @@ class CharacterController extends AbstractController
     $user = $this->getUser();
     $character->setPlayer($user);
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterType::class, $character);
+    $form = $this->createForm(CharacterType::class, $character, ['user' => $this->getUser()]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
