@@ -19,7 +19,7 @@
   transition      : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.human {
+.human, .innocents, .psychic, .thaumaturge {
   &.btn,
   &.btn.btn-primary,
   &.btn.btn-primary.btn-human,
