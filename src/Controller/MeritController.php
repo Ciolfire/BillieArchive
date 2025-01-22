@@ -36,6 +36,7 @@ class MeritController extends AbstractController
   {
     $chronicle = false;
     $search = ['category' => $this->categories];
+
     switch ($type) {
       case 'book':
         /** @var Book */
@@ -76,8 +77,8 @@ class MeritController extends AbstractController
         break;
 
       default:
-        $merits = $this->dataService->findBy(Merit::class, ['homebrewFor' => null], ['name' => 'ASC']);
-        $search['type'] = $this->dataService->getMeritTypes();
+        $merits = $this->dataService->findBy(Merit::class, ['type' => $this->dataService->getGenericTypes(), 'homebrewFor' => null], ['name' => 'ASC']);
+        $search['type'] = $this->dataService->getGenericTypes();
         natsort($search['type']);
         $setting = "human";
         break;

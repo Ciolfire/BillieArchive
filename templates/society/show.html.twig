@@ -27,6 +27,15 @@
         </span>
       </h2>
     {% endif %}
+    {% if society.organization is not null %}
+      <h3>
+        <a href="{{ path("organization_show", {'id': society.organization.id}) }}">
+          {% include "_icon.html.twig" with {'icon' : 'covenant' } only %}
+          {{ society.organization }}
+          <span class="icon"><img src="{{ asset(society.organization.emblem, 'organizations_emblems') }}"></span>
+        </a>
+      </h3>
+    {% endif %}
     <p>{{ society.description }}</p>
     <div class="row">
       {% for character in society.characters %}

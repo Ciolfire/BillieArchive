@@ -45,6 +45,11 @@ class Covenant extends Organization
     return $this->name;
   }
 
+  static public function getType(): string
+  {
+    return 'covenant';
+  }
+
   /**
    * @return Collection<int, Discipline>
    */

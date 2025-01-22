@@ -1,20 +1,20 @@
 label:
-  single: Group
-  multi: Groups
+  single: Groupe
+  multi: Groupes
 
-new: New Group
-edit: Edit group
+new: Nouveau Groupe
+edit: Modifier le Groupe
 
 add:
-  character: Assign Characters to this Group
+  character: Assigner des Personnages au groupe
 
 type:
-  label: Category
-  allies: Allies
-  antagonist: Antagonists
-  interest: Interest
-  religious: Religious
-  political: Political
-  military: Military
-  location: Location
-  
+  label: Categorie
+  allies: Alliés
+  antagonist: Opposants
+  crime: Crime
+  interest: Intérêt
+  religious: Religieux
+  political: Politique
+  military: Militaire
+  location: Lieu

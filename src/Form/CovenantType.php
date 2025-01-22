@@ -79,6 +79,7 @@ class CovenantType extends OrganizationType
     $resolver->setDefaults([
       'data_class' => Covenant::class,
       'translation_domain' => 'organization',
+      'item' => null,
     ]);
   }
 }

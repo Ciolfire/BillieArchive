@@ -92,9 +92,9 @@
 		</div>
 		{% if is_granted('ROLE_ST') %}
 			<div class="ms-auto">
-				<a class="btn btn-primary" href="{{ path('organization_new', {'setting': setting}) }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'covenant' } only %}
+				<a class="btn btn-primary" href="{{ path('organization_new', {setting: setting, type: item.filter|default(null), id: item.id|default(null)}) }}">
+					{% include "_icon.html.twig" with {icon : 'add' } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'covenant' } only %}</span>
 				</a>
 			</div>
 		{% endif %}

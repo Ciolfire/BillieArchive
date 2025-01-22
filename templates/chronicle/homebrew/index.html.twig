@@ -20,6 +20,13 @@
           <span>{{ 'label.multi'|trans({}, 'merit') }}</span>
         </a>
       </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <a class="btn btn-primary human-btn w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'human' , id: chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+          <span class="accent">{{ chronicle.organizations|length }}</span>
+          <span>{{ "label.multi"|trans([], "organization") }}</span>
+        </a>
+      </div>
       {# <div class="col-6 col-lg">
         <a class="btn btn-primary w-100 m-2" href="{{path('homebrew_index', {'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'rule' } only %} {{ "label.multi"|trans({}, 'rules') }}
@@ -85,6 +92,13 @@
           {% include "_icon.html.twig" with {icon: 'devotion' } only %}
           <span class="accent">{{ chronicle.devotions|length }}</span>
           <span>{{ "devotion.label.multi"|trans([], "discipline") }}</span>
+        </a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'vampire' , id: chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+          <span class="accent">{{ chronicle.covenants|length }}</span>
+          <span>{{ "covenant.label.multi"|trans([], "organization") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">

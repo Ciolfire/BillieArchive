@@ -1,0 +1,31 @@
+{% extends 'form.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set setting = 'human' %}
+
+{% block title %}{% endblock %}
+
+{% block form %}
+{{ form_row(form.name) }}
+{{ form_row(form.emblem) }}
+{% if form.source|default(null) %}
+  {{ form_row(form.source) }}
+{% endif %}
+<div class="row">
+  <div class="col-12 col-lg-6">{{ form_row(form.description) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.overview) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.members) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.philosophy) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.observances) }}</div>
+  <div class="col-12 col-lg-6">{{ form_row(form.titles) }}</div>
+</div>
+<div class="row justify-content-center mt-3">
+  <div class="col col-md-6">
+    <button class="btn btn-primary w-100">
+      {{ ("action." ~ action|default('save'))|trans }}
+      {% include "_icon.html.twig" with {icon : action|default('save')} only %}
+    </button>
+  </div>
+</div>
+{% endblock %}

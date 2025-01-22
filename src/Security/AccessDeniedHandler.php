@@ -15,7 +15,6 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
   public function handle(Request $request, AccessDeniedException $accessDeniedException): ?Response
   {
-    // dd($request->headers->get('referer'));
     $request->getSession()->getFlashBag()->add('error', 'denied');
     // redirect to the previous page
     if ($request->headers->get('referer')) {

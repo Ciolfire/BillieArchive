@@ -57,6 +57,11 @@ class Organization
     return $this->id;
   }
 
+  static public function getType(): string
+  {
+    return 'organization';
+  }
+
   public function getName(): ?string
   {
     return $this->name;

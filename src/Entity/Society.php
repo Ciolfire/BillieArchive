@@ -36,6 +36,9 @@ class Society
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $setting = null;
 
+    #[ORM\ManyToOne]
+    private ?Organization $organization = null;
+
     public function __construct(?Chronicle $chronicle)
     {
         $this->chronicle = $chronicle;
@@ -127,6 +130,18 @@ class Society
     public function setSetting(?string $setting): self
     {
         $this->setting = $setting;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): static
+    {
+        $this->organization = $organization;
 
         return $this;
     }

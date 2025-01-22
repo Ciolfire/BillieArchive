@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Book;
+use App\Entity\Chronicle;
 use App\Entity\Organization;
 use App\Form\Type\SourceableType;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,8 +26,22 @@ class OrganizationType extends AbstractType
   {
     /** @var Organization */
     $organization = $options['data'];
-    
-    $translator = $this->translator;
+    $item = $options['item'];
+
+    if ($item instanceof Book) {
+      $organization->setBook($item);
+      $builder->add('source', SourceableType::class, [
+        'data_class' => Organization::class,
+        'label' => 'source.label',
+      ]);
+    } else if ($item instanceof Chronicle) {
+      $organization->setHomebrewFor($item);
+    } else {
+      $builder->add('source', SourceableType::class, [
+        'data_class' => Organization::class,
+        'label' => 'source.label',
+      ]);
+    }
 
     $builder
       ->add('name', null, [
@@ -38,10 +54,6 @@ class OrganizationType extends AbstractType
         'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
-      ])
-      ->add('source', SourceableType::class, [
-        'data_class' => Organization::class,
-        'label' => 'source.label',
       ])
       ->add('description', RichTextEditorType::class, [
         'label_attr' => [
@@ -99,6 +111,7 @@ class OrganizationType extends AbstractType
     $resolver->setDefaults([
       'data_class' => Organization::class,
       'translation_domain' => 'organization',
+      'item' => null,
     ]);
   }
 }

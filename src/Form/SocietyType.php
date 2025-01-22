@@ -56,6 +56,7 @@ class SocietyType extends AbstractType
             return "type.{$key}";
           }
         ])
+        ->add('organization', null, ['label' => 'label.single', 'translation_domain' => 'organization'])
       ;
     }
 

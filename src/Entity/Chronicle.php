@@ -23,7 +23,7 @@ class Chronicle
   private string $name;
 
   #[ORM\OneToMany(targetEntity: Character::class, mappedBy: "chronicle")]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "DESC"])]
   private Collection $characters;
 
@@ -56,10 +56,19 @@ class Chronicle
   #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
   private ?\DateTimeInterface $currentlyAt = null;
 
+  // Human
+  #[ORM\OneToMany(targetEntity: Organization::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private Collection $organizations;
+
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $clans;
+
+  #[ORM\OneToMany(targetEntity: Covenant::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private Collection $covenants;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
@@ -294,6 +303,21 @@ class Chronicle
   }
 
   /**
+   * @return array<Organization>
+   */
+  public function getOrganizations(): array
+  {
+    $list = [];
+    foreach ($this->organizations as $organization) {
+      if ($organization->getType() == "organization") {
+        $list[] = $organization;
+      }
+    }
+    
+    return $list;
+  }
+
+  /**
    * @return array<Clan>
    */
   public function getClans(): array
@@ -309,6 +333,14 @@ class Chronicle
     }
 
     return $clans;
+  }
+
+  /**
+   * @return array<Covenant>
+   */
+  public function getCovenants(): Collection
+  {
+    return $this->covenants;
   }
 
   public function getItems(): Collection

@@ -6,6 +6,7 @@ use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\CharacterMerit;
 use App\Entity\Chronicle;
+use App\Entity\ContentType;
 use App\Entity\Covenant;
 use App\Entity\Devotion;
 use App\Entity\Merit;
@@ -32,6 +33,7 @@ class DataService
   private ObjectManager $manager;
   private SluggerInterface $slugger;
   private Cache $cache;
+  private array $genericTypes = [];
 
   public function __construct(EntityManagerInterface $em, ManagerRegistry $doctrine, SluggerInterface $slugger)
   {
@@ -39,6 +41,23 @@ class DataService
     $this->doctrine = $doctrine;
     $this->manager = $doctrine->getManager();
     $this->slugger = $slugger;
+    $this->genericTypes = $this->findBy(ContentType::class,
+      [
+        'name' => [
+          'human',
+          'body_thief',
+          'purified',
+          'possessed',
+          'innocents',
+          'feral',
+          'psychic',
+          'thaumaturge',
+        ]
+      ],
+      ['name' => 'ASC']
+    );
+    $this->genericTypes[] = null;
+    // dd($this->getGenericTypes());
   }
 
   public function getDoctrine() : ManagerRegistry
@@ -217,6 +236,32 @@ class DataService
     return $items;
   }
 
+  public function getItemFromType(string $type, $id) : array
+  {
+    switch ($type) {
+      case 'chronicle':
+        /** @var Chronicle */
+        $item = $this->findOneBy(Chronicle::class, ['id' => $id]);
+        $back = ['path' => 'homebrew_index', 'params' => ['id' => $id]];
+        break;
+      case 'book':
+      default:
+        /** @var Book */
+        $item = $this->findOneBy(Book::class, ['id' => $id]);
+        $back = ['path' => 'book_index', 'params' => ['id' => $id]];
+    }
+
+    return [
+      'item' => $item,
+      'back' => $back
+    ];
+  }
+
+  public function getGenericTypes() : array
+  {
+    return $this->genericTypes;
+  }
+
   /** @return array<string> */
   public function getMeritTypes(Book $book = null) : array
   {
@@ -332,10 +377,11 @@ class DataService
   {
     switch ($setting) {
       case 'vampire':
-        return $this->findBy(Covenant::class, ['homebrewFor' => null], ['name' => 'ASC']);
 
+        return $this->findBy(Covenant::class, ['homebrewFor' => null], ['name' => 'ASC']);
       default:
-        return $this->findAll(Organization::class);
+
+        return $this->findBy(Organization::class, ['name' => $this->genericTypes]);
     }
   }
 
