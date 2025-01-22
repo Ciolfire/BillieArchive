@@ -11,7 +11,7 @@ export default class extends Controller {
   connect() {
     if (window.location.hash) {
       let hash = window.location.hash.substring(1);
-      history.replaceState(null, null, ' ');
+      history.replaceState(null, "", "");
       // Check if the hash is for this tab group
       if (this.selectPage(hash)) {
         console.log(hash);
