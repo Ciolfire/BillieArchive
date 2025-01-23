@@ -71,6 +71,23 @@ class SocietyController extends AbstractController
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
+      $organization = $society->getOrganization();
+      if ($organization) {
+        foreach ($society->getCharacters() as $character) {
+          switch ($organization->getType()) {
+            case 'covenant':
+              if (method_exists($character, 'setCovenant')) {
+                $character->setCovenant($organization);
+              }
+
+              break;
+            case 'organization':
+              $character->setOrganization($organization);
+
+              break;
+          }
+        }
+      }
       $this->dataService->update($society);
       $this->addFlash('success', ["general.edit.done", ['%name%' => $society->getName()]]);
       return $this->redirectToRoute('society_show', ['id' => $society->getId()]);

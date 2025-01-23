@@ -2,13 +2,18 @@
 
 {% trans_default_domain 'society' %}
 
-{% block title %}{{ "new"|trans }}{% endblock %}
+{% set method = "new"|trans %}
+{% if society.id %}
+  {% set method = "edit"|trans %}
+{% endif %}
+
+{% block title %}{{ method }}{% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
   <h1>
     {% include "_icon.html.twig" with {icon : 'society', class: 'icon-lg' } only %}
-    {{ "new"|trans }}
+    {{ method }}
   </h1>
   <div class="container block py-3">
     {% include "element/forms/_form.html.twig" with {'action': 'save'} %}
