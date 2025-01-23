@@ -19,13 +19,6 @@
   </div>
 {% endblock %}
 
-{% block header_right_col %}
-  {{ parent() }}
-  <div class="col-12">
-    {{ form_row(form.lesserTemplate.covenant) }}
-  </div>
-{% endblock %}
-
 {% block organization %}
-    {{ form_row(form.covenant) }}
+  {{ form_row(form.lesserTemplate.covenant) }}
 {% endblock %}
