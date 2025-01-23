@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'society' %}
 
-{% block title %}{{ "label.single"|trans }}{% endblock %}
+{% block title %}{{ society.name }}{% endblock %}
 
 {% block body %}
   {% if society.chronicle is defined %}
@@ -13,12 +13,11 @@
     {% include "_back.html.twig" %}
   {% endif %}
 
-  <h1>
-    {% include "_icon.html.twig" with {'icon' : 'society', 'class': 'icon-lg' } only %}
-    {{ "label.single"|trans }}
-  </h1>
   <div class="container block py-3">
-    <h1>{{ society.name }}</h1>
+    <h1>
+      {% include "_icon.html.twig" with {'icon' : 'society', 'class': 'icon-lg' } only %}
+      {{ society.name }}
+    </h1>
     {% if society.type %}
       <h2>
         <span class="accent">
