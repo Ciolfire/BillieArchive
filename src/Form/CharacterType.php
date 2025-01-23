@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Character;
 use App\Entity\Chronicle;
-
+use App\Entity\Organization;
 use App\Form\CharacterSpecialtyType;
 use App\Form\Type\SourceableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -74,6 +74,13 @@ class CharacterType extends AbstractType
       ->add('concept')
       ->add('faction', null, ['label' => 'faction'])
       ->add('groupName', null, ['label' => 'group'])
+      ->add('organization', null, [
+        'label' => 'label.single',
+        'translation_domain' => 'organization',
+        'choice_filter' => function (?Organization $organization) use ($character) {
+          return $organization ? $organization->getType() == "organization" && $organization->getHomebrewFor() === $character->getChronicle() : true;
+        },
+      ])
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);

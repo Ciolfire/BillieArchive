@@ -68,19 +68,34 @@
         <div class="col-12">
           {{ "Concept"|trans }}: {{ character.concept }}
         </div>
-        <div class="col-12">
-          {{ "Chronicle"|trans }}: {{ character.chronicle }}
-        </div>
+        {% if character.chronicle %}
+          <div class="col-12">
+            {{ "Chronicle"|trans }}: {{ character.chronicle }}
+          </div>
+        {% endif %}
+        {% if character.organization %}
+          <div class="col-12">
+            {{ "label.single"|trans({}, 'organization') }}:
+            <a href="{{ path("organization_show", {'id': character.organization.id}) }}">
+              {{ character.organization }}
+              <span class="icon"><img src="{{ asset(character.organization.emblem, 'organizations_emblems') }}"></span>
+            </a>
+          </div>
+        {% endif %}
         <div class="col-12">
           {% block organization %}
           {% endblock %}
         </div>
-        <div class="col-12">
-          {{ "faction"|trans }}: {{ character.faction }}
-        </div>
-        <div class="col-12">
-          {{ "group"|trans }}: {{ character.groupName }}
-        </div>
+        {% if character.faction %}
+          <div class="col-12">
+            {{ "faction"|trans }}: {{ character.faction }}
+          </div>
+        {% endif %}
+        {% if character.groupName %}
+          <div class="col-12">
+            {{ "group"|trans }}: {{ character.groupName }}
+          </div>
+        {% endif %}
       </div>
     </div>
   {% endblock %}

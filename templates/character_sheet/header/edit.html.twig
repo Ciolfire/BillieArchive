@@ -63,8 +63,10 @@
           {% endif %}
         </div>
         <div class="col-12">
+          {{ form_row(form.organization) }}
+        </div>
+        <div class="col-12">
           {% block organization %}
-            {# {{ form_row(form.organization) }} #}
           {% endblock %}
         </div>
         <div class="col-12">

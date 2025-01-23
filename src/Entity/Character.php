@@ -119,6 +119,9 @@ class Character
   #[ORM\ManyToOne(targetEntity: Chronicle::class, inversedBy: "characters")]
   protected ?Chronicle $chronicle = null;
 
+  #[ORM\ManyToOne]
+  private ?Organization $organization = null;
+
   #[ORM\Column]
   protected ?bool $isPremade = false;
 
@@ -1515,6 +1518,18 @@ class Character
   public function setBirthday(?\DateTimeInterface $birthday): static
   {
       $this->birthday = $birthday;
+
+      return $this;
+  }
+
+  public function getOrganization(): ?Organization
+  {
+      return $this->organization;
+  }
+
+  public function setOrganization(?Organization $organization): static
+  {
+      $this->organization = $organization;
 
       return $this;
   }
