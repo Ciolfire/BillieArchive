@@ -54,7 +54,7 @@
     <div class="order-1 order-md-2 col-12 col-md">
       <div class="row text-center">
         {% block details %}{% endblock %}
-        <div class="col-12 d-flex my-2" data-bs-toggle="tooltip" title="{{ 'avatar.change'|trans }}">
+        <div class="col-12 d-flex my-2">
           <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative rounded">
             <img class="p-1 rounded" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
           </div>

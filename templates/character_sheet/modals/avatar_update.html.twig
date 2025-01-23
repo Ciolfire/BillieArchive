@@ -10,7 +10,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="block position-relative">
-          <a role="button" class="position-absolute end-0" href="{{ path('character_avatar_crop', {'id': character.id}) }}">{% include "_icon.html.twig" with {icon: 'crop', 'class': 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
+          {% if character.avatar %}
+            <a role="button" class="position-absolute end-0" href="{{ path('character_avatar_crop', {'id': character.id}) }}">{% include "_icon.html.twig" with {icon: 'crop', 'class': 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
+          {% endif %}
           <img class="w-100" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
         </div>
         <div class="modal-body">
