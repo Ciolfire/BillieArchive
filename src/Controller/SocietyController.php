@@ -58,7 +58,7 @@ class SocietyController extends AbstractController
     }
 
     return $this->render('society/new.html.twig', [
-      'chronicle' => $society,
+      'society' => $society,
       'form' => $form,
     ]);
   }
@@ -94,7 +94,7 @@ class SocietyController extends AbstractController
     }
 
     return $this->render('society/new.html.twig', [
-      'chronicle' => $society,
+      'society' => $society,
       'form' => $form,
     ]);
   }
