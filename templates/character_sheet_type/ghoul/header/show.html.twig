@@ -46,3 +46,13 @@
     </div>
   </div>
 {% endblock %}
+
+{% block organization %}
+  {{ "covenant.label.single"|trans([], 'organization') }}:
+  {% if ghoulCharacter.covenant %}
+    <a href="{{ path("organization_show", {'id': ghoulCharacter.covenant.id}) }}">
+      {{ ghoulCharacter.covenant }}
+      <span class="icon link-icon"><img src="{{ asset(ghoulCharacter.covenant.emblem, 'organizations_emblems') }}"></span>
+    </a>
+  {% endif %}
+{% endblock %}
