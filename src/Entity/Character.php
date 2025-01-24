@@ -279,16 +279,21 @@ class Character
     ];
 
     foreach ($this->attributes->list as $attribute) {
-      $sum += $weight[$this->attributes->get($attribute)] * 4;
+      $sum += $weight[$this->attributes->get($attribute)] * 5;
     }
 
     foreach ($this->skills->list as $skill) {
-      $sum += $weight[$this->skills->get($skill)] * 2;
+      $sum += $weight[$this->skills->get($skill)] * 3;
     }
 
     foreach ($this->merits as $merit) {
       /** @var CharacterMerit $merit */
-      $sum += $weight[$merit->getLevel()] * 1;
+      if ($merit->getMerit()->getType() == 'psychic') {
+        // Why 4: Stronger than a merit, but often does not work on most supernatural
+        $sum += $weight[$merit->getLevel()] * 4;
+      } else {
+        $sum += $weight[$merit->getLevel()] * 2;
+      }
     }
 
     $this->powerRating = $sum;

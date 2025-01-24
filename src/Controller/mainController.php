@@ -83,7 +83,7 @@ class mainController extends AbstractController
     }
     $this->addFlash('success', ["Power Rating Updated for all characters", []]);
 
-    return $this->render('index.html.twig');
+    return $this->redirectToRoute('index');
   }
 
   #[Route("/user/preferences", name: "user_preferences", methods: ["GET", "POST"])]

@@ -34,6 +34,12 @@
                   <span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
                 </a>
               </div>
+              <div class="col-6 col-lg my-1">
+                <a class="btn btn-primary w-100" href="{{path('character_refresh_power_rating')}}">
+                  {% include "_icon.html.twig" with {icon: 'refresh' } only %}
+                  {% include "_icon.html.twig" with {icon: 'characters' } only %}
+                </a>
+              </div>
             {% endif %}
           </div>
         </div>

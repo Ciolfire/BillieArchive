@@ -84,7 +84,7 @@ class Vampire extends Character
 
   public function setPowerRating(): self
   {
-    $sum = 0;
+    $sum = parent::setPowerRating()->getPowerRating();
     $weight = [
       0 => 0,
       1 => 1,
@@ -99,17 +99,6 @@ class Vampire extends Character
       10 => 55,
     ];
 
-    foreach ($this->attributes->list as $attribute) {
-      $sum += $weight[$this->attributes->get($attribute)] * 5;
-    }
-
-    foreach ($this->skills->list as $skill) {
-      $sum += $weight[$this->skills->get($skill)] * 3;
-    }
-    foreach ($this->merits as $merit) {
-      /** @var CharacterMerit $merit */
-      $sum += $weight[$merit->getLevel()] * 2;
-    }
     // Disciplines
     $sum += $this->potency * 8;
     foreach ($this->disciplines as $discipline) {
@@ -119,12 +108,14 @@ class Vampire extends Character
     // Devotions
     foreach ($this->devotions as $devotion) {
       /** @var Devotion $devotion */
-      $sum += $devotion->getCost();
+      // Why 3: Stronger than a merit
+      $sum += $devotion->getCost() * 3;
     }
     // Rituals
     foreach ($this->rituals as $ritual) {
       /** @var DisciplinePower $ritual */
-      $sum += $weight[$ritual->getLevel()] * 2;
+      // Why 1: The level of the discipline is already included
+      $sum += $weight[$ritual->getLevel()] * 1;
     }
 
     $this->powerRating = $sum;
