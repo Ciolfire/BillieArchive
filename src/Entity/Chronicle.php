@@ -66,9 +66,9 @@ class Chronicle
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $clans;
 
-  #[ORM\OneToMany(targetEntity: Covenant::class, mappedBy: 'homebrewFor')]
-  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  private Collection $covenants;
+  // #[ORM\OneToMany(targetEntity: Covenant::class, mappedBy: 'homebrewFor')]
+  // #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  // private Collection $covenants;
 
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
@@ -338,9 +338,15 @@ class Chronicle
   /**
    * @return array<Covenant>
    */
-  public function getCovenants(): Collection
+  public function getCovenants(): array
   {
-    return $this->covenants;
+    $covenants = [];
+    foreach ($this->organizations as $organization) {
+      if ($organization instanceof Covenant) {
+        $covenants[] = $organization;
+      }
+    }
+    return $covenants;
   }
 
   public function getItems(): Collection

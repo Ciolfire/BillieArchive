@@ -68,6 +68,11 @@ class Book implements Translatable
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "ASC"])]
   private Collection $characters;
 
+  // Human
+  // #[ORM\OneToMany(targetEntity: Organization::class, mappedBy: 'homebrewFor')]
+  // #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  // private Collection $organizations;
+
   // Vampire
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: 'book')]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -317,6 +322,21 @@ class Book implements Translatable
     }
 
     return $this;
+  }
+
+  /**
+   * @return array<Organization>
+   */
+  public function getOrganizations(): array
+  {
+    $list = [];
+    foreach ($this->organizations as $organization) {
+      if ($organization->getType() == "organization") {
+        $list[] = $organization;
+      }
+    }
+    
+    return $list;
   }
 
   // VAMPIRE
