@@ -73,6 +73,19 @@ class mainController extends AbstractController
     return $this->redirectToRoute('users');
   }
 
+  #[Route("/characters/refresh/power-rating", name: "character_refresh_power_rating", methods: ["GET"])]
+  public function refreshPR()
+  {
+    $this->denyAccessUnlessGranted('ROLE_GM');
+
+    foreach ($this->dataService->findAll(Character::class) as $character) {
+      $this->dataService->update($character);
+    }
+    $this->addFlash('success', ["Power Rating Updated for all characters", []]);
+
+    return $this->render('index.html.twig');
+  }
+
   #[Route("/user/preferences", name: "user_preferences", methods: ["GET", "POST"])]
   public function userPreferences(Request $request): Response
   {

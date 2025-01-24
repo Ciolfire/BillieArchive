@@ -82,7 +82,7 @@ class Vampire extends Character
     return VampireType::class;
   }
 
-  public function setPowerRating(): ?int
+  public function setPowerRating(): self
   {
     $sum = 0;
     $weight = [
@@ -106,19 +106,29 @@ class Vampire extends Character
     foreach ($this->skills->list as $skill) {
       $sum += $weight[$this->skills->get($skill)] * 3;
     }
-
     foreach ($this->merits as $merit) {
       /** @var CharacterMerit $merit */
       $sum += $weight[$merit->getLevel()] * 2;
     }
-
+    // Disciplines
     $sum += $this->potency * 8;
     foreach ($this->disciplines as $discipline) {
       /** @var VampireDiscipline $discipline */
       $sum += $weight[$discipline->getLevel()] * 7;
     }
+    // Devotions
+    foreach ($this->devotions as $devotion) {
+      /** @var Devotion $devotion */
+      $sum += $devotion->getCost();
+    }
+    // Rituals
+    foreach ($this->rituals as $ritual) {
+      /** @var DisciplinePower $ritual */
+      $sum += $weight[$ritual->getLevel()] * 2;
+    }
 
-    return $sum;
+    $this->powerRating = $sum;
+    return $this;
   }
 
   public function getId(): ?int

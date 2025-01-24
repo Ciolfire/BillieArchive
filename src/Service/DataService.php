@@ -76,6 +76,9 @@ class DataService
    */
   public function add(object $entity) : void
   {
+    if ($entity instanceof Character) {
+      $entity->setPowerRating();
+    }
     $this->manager->persist($entity);
   }
 
@@ -84,6 +87,9 @@ class DataService
    */
   public function save(object $entity) : void
   {
+    if ($entity instanceof Character) {
+      $entity->setPowerRating();
+    }
     $this->manager->persist($entity);
     $this->flush();
   }
@@ -107,6 +113,9 @@ class DataService
 
   public function update(object $entity) : void
   {
+    if ($entity instanceof Character) {
+      $entity->setPowerRating();
+    }
     $this->cache->evictEntity($entity::class, $entity->getId());
     $this->manager->flush();
   }

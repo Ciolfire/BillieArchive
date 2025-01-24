@@ -68,6 +68,9 @@ class Character
   #[ORM\Column(type: Types::SMALLINT)]
   protected int $xpUsed = 0;
 
+  #[ORM\Column(type: Types::INTEGER)]
+  protected int $powerRating = 0;
+
   #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
   protected ?string $concept;
 
@@ -253,14 +256,12 @@ class Character
     return $this;
   }
 
-  public function getPowerRating(): ?int
+  public function getPowerRating(): int
   {
-    $sum = $this->setPowerRating();
-
-    return $sum;
+    return $this->powerRating;
   }
 
-  public function setPowerRating(): ?int
+  public function setPowerRating(): self
   {
     $sum = 0;
     $weight = [
@@ -290,7 +291,8 @@ class Character
       $sum += $weight[$merit->getLevel()] * 1;
     }
 
-    return $sum;
+    $this->powerRating = $sum;
+    return $this;
   }
 
 
