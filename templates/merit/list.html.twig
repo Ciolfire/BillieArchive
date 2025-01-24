@@ -28,9 +28,11 @@
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
-    {% for merit in merits|sort((a, b) => a.name|lower <=> b.name|lower) %}
-      {% include "merit/card.html.twig" %}
-    {% endfor %}
+    <div class="accordion" id="accordionMerits">
+      {% for merit in merits|sort((a, b) => a.name|lower <=> b.name|lower) %}
+        {% include "merit/card.html.twig" %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
 

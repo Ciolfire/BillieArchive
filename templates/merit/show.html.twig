@@ -4,18 +4,10 @@
 
 {% block body %}
   <div class="container block py-3">
-    {% include "merit/_card.html.twig" %}
-    {% if is_granted('ROLE_ST') %}
-      <div class="row merit_{{ merit.id }}">
-        <div class="col-12 text-center py-2 d-flex justify-content-around">
-          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit' } %}</a>
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{ merit.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-        </div>
-      </div>
-    {% endif %}
+    {% include "merit/_card.html.twig" with {isCollapsing: 0} %}
   </div>
   {% include "_back.html.twig" %}
   {% if is_granted('ROLE_ST') %}
-    {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
+    {% include "element/_delete.html.twig" with {element: 'merit', entity: merit} %}
   {% endif %}
 {% endblock %}

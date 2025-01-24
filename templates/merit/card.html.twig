@@ -5,8 +5,6 @@
 {% set type = merit.type|default('universal') %}
 
 {% block data %}
-  data-bs-target=".merit_{{ merit.id }}"
-  data-bs-toggle="collapse"
   data-search-target="item"
   data-name="{{ merit.name }}"
   data-type="{{ type }}"
@@ -17,17 +15,11 @@
 {% block collapse %}collapse{% endblock %}
 
 {% block actions %}
-<div class="row merit_{{ merit.id }} collapse">
-  <div class="col-12 text-center py-2 d-flex justify-content-around pt-0">
+    <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'show'} %}</a>
     {% if is_granted('ROLE_ST') %}
       {# Could be used to copy a direct link to the merit #}
-      <a class="btn btn-primary" href="{{ path('merit_show', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'show'} %}</a>
       <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
+      {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
     {% endif %}
-  </div>
-</div>
-{% if is_granted('ROLE_ST') %}
-  {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
-{% endif %}
 {% endblock %}
