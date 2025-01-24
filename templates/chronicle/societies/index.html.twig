@@ -19,6 +19,9 @@
             <a class="btn {{ society.setting|default("btn-secondary") }} w-100" href="{{ path('society_show', {'id': society.id }) }}">
               <h4 class="">
                 {{ society.name }}
+                {% if society.organization.emblem|default(false) %}
+                  <span class="icon"><img src="{{ asset(society.organization.emblem, 'organizations_emblems') }}"></span>
+                {% endif %}
               </h4>
               {% if society.type %}
                 <span class="">
