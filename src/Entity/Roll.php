@@ -65,7 +65,7 @@ class Roll implements Translatable
   private string $locale;
 
   #[ORM\Column]
-  private ?bool $isLinked = null;
+  private ?bool $isLinked = false;
 
   public function __construct()
   {
