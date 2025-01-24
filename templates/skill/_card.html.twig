@@ -1,13 +1,17 @@
-<div id="{{ skill.identifier }}" class="col-12 col-xl-6 mb-2">
+<div id="{{ skill.id }}" class="col-12 mb-3">
 	<div class="block block-wiki p-2">
 		{% if is_granted('ROLE_ST') %}
 			<a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
 		{% endif %}
-		<h2>
-      {% include "_icon.html.twig" with {icon: skill.category } %}
-      {{ skill.name }}
-    </h2>
-		<div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
-		<p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+    <div data-bs-toggle="collapse" data-bs-target=".details{{ skill.id }}" role="button">
+      <h2>
+        {% include "_icon.html.twig" with {icon: skill.category } %}
+        {{ skill.name }}
+      </h2>
+    </div>
+		<div class="details{{ skill.id }} collapse">
+      <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
+      <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
+    </div>
 	</div>
 </div>
