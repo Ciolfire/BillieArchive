@@ -17,7 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: "characters")]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+// MESSING UP WITH EMBRACE !!!
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
 #[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
@@ -129,49 +130,49 @@ class Character
   protected ?bool $isPremade = false;
 
   #[ORM\OneToMany(targetEntity: CharacterMerit::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["level" => "DESC", "merit" => "ASC"])]
   protected Collection $merits;
 
   #[ORM\OneToMany(targetEntity: CharacterSpecialty::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   protected Collection $specialties;
 
   #[ORM\OneToMany(targetEntity: CharacterNote::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   #[ORM\OrderBy(["assignedAt" => "DESC", "id" => "DESC"])]
   protected Collection $notes;
 
   #[ORM\ManyToMany(targetEntity: Society::class, mappedBy: 'characters')]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $societies;
 
   #[ORM\OneToMany(targetEntity: CharacterDerangement::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $derangements;
 
   #[ORM\OneToMany(targetEntity: CharacterLesserTemplate::class, mappedBy: 'sourceCharacter', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $lesserTemplates;
 
   #[ORM\OneToMany(targetEntity: CharacterInfo::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infos;
 
   #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList', cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   private Collection $infoAccesses;
 
   #[ORM\OneToMany(targetEntity: CharacterAccess::class, mappedBy: 'target', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $characterAccesses;
 
   #[ORM\OneToMany(targetEntity: CharacterAccess::class, mappedBy: 'accessor', orphanRemoval: true, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $peekingRights;
 
   #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'owner')]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
   #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
   private Collection $items;
 
@@ -295,6 +296,8 @@ class Character
         $sum += $weight[$merit->getLevel()] * 2;
       }
     }
+
+    $sum += count($this->getSpecialties()) * 3;
 
     $this->powerRating = $sum;
     return $this;
@@ -1283,11 +1286,11 @@ class Character
     return null;
   }
 
-  public function cleanLesserTemplates(): static
+  public function cleanLesserTemplates()
   {
     foreach ($this->lesserTemplates as $lesserTemplate) {
       if ($lesserTemplate instanceof CharacterLesserTemplate)
-        $lesserTemplate->setSourceCharacter(null);
+        $this->lesserTemplates->removeElement($lesserTemplate);
     }
 
     return $this;

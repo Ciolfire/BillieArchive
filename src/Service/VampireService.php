@@ -147,8 +147,6 @@ class VampireService
     if ($ghoul instanceof Ghoul) {
       $result = $this->embraceFromGhoul($ghoul, $disciplines);
       $disciplines = $result['disciplines'];
-      // We don't need it anymore, bye.
-      $this->dataService->remove($ghoul);
     }
     // The human is gone forever...
     // $nativeQuery = $connection->prepare("DELETE FROM `human` WHERE id = :id");// $nativeQuery->bindValue('id', $character->getId());// $nativeQuery->executeStatement();
@@ -164,8 +162,8 @@ class VampireService
     $nativeQuery->executeStatement();
     // We force the change to the manager, to avoid conflict from memory (?)
     $this->dataService->reset();
-    /** @var Vampire $vampire */
     $vampire = $this->dataService->find(Vampire::class, $character->getId());
+    // dd($vampire, $ghoul, $disciplines, $data['attribute']->getIdentifier());
     $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
     // Should reflect the current advancement of the ghoul, ie if the ghoul already has 2 discipline, she only get 1 new dot
     $this->addDisciplines($vampire, $disciplines);
