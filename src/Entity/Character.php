@@ -1543,4 +1543,9 @@ class Character
 
       return $this;
   }
+
+  public function getMainOrganization(): ?Organization
+  {
+    return $this->organization;
+  }
 }

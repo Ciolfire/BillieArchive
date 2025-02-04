@@ -1,15 +1,19 @@
 {% trans_default_domain 'app' %}
 
 <div class="col-6 col-lg-2 mb-3" data-search-target="item" data-name="{{ character.name }}">
-  <a class="text-center p-0 {{ character.type }} btn btn-primary d-block w-100 h-100" href="{{ path('character_show', {'id': character.id}) }}">
+  <a class="text-center p-0 {{ character.type }} {% if character.lesserTemplate %}border-accent{% endif %} btn btn-primary d-block w-100 h-100" href="{{ path('character_show', {'id': character.id}) }}">
     <div class="character-card-header">
       {% if character.lesserTemplate %}
-        {% include "_icon.html.twig" with {icon : "type/" ~ character.type, class: 'character-icon'} only %}
+        {% include "_icon.html.twig" with {icon : "type/" ~ character.type, class: 'character-icon accent'} only %}
       {% else %}
         <img class="character-icon" src={% include "character/_icon.html.twig" %} />
       {% endif %}
       <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
-      <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
+      {% if character.mainOrganization %}
+        <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}">
+      {% else %}
+        <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
+      {% endif %}
     </div>
     <div class="character-card-name text-strong">
       {{ character.name }}
