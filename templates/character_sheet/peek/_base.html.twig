@@ -21,7 +21,7 @@
       {# Maybe show menu to switch between available peek characters #}
     {% endblock %}
     {% block header %}
-      {% include ["character_sheet_type/" ~ character.type ~ "/peek/header.html.twig","character_sheet_type/human/peek/header.html.twig"] %}
+      {% include ["character_sheet_type/" ~ character.type ~ "/peek/header.html.twig", "character_sheet_type/human/peek/header.html.twig"] %}
     {% endblock %}
     <div class="row block">
       {% if access.hasRight('avatar')|default(false) %}

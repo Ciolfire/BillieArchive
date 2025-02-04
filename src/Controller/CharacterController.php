@@ -259,7 +259,7 @@ class CharacterController extends AbstractController
       ->getForm();
 
     $avatarForm->handleRequest($request);
-    return $this->render("character_sheet_type/{$character->getType()}/show.html.twig", [
+    return $this->render("character_sheet_type/show.html.twig", [
       'character' => $character,
       'attributes' => $this->attributes,
       'skills' => $this->skills,

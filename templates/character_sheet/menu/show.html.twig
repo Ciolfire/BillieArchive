@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="row justify-content-center g-0">
-    {% include("character_sheet_type/" ~ character.type ~ "/menu/show.html.twig") %}
+    {% include "character_sheet_type/" ~ character.type ~ "/menu/show.html.twig" ignore missing %}
     {% if character.lesserTemplate is not null %}
       <div class="col">
         <a href="{{ path('character_lesser_remove', {'id': character.id}) }}" class="btn btn-sm btn-menu btn-secondary w-100" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ "template.lesser.remove"|trans }}">

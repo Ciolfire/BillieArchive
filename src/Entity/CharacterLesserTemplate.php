@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'name', type: 'string')]
 #[DiscriminatorMap([
+  'bloodBather' => BloodBather::class,
   'bodyThief' => BodyThief::class,
   'feral' => Feral::class, 
   'ghoul' => Ghoul::class, 

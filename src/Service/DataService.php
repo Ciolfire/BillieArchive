@@ -45,6 +45,7 @@ class DataService
       [
         'name' => [
           'human',
+          'blood_bather',
           'body_thief',
           'purified',
           'possessed',
