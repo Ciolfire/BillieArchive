@@ -11,7 +11,9 @@
 
 <nav class="header-navbar navbar sticky-top navbar-expand-lg navbar-dark bg-dark block">
   <div class="container-fluid">
-    <a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">Billie's Archive
+    <a class="navbar-brand text-strong text-stylized" href="{{ path('index') }}">
+      <span class="d-inline d-sm-none">BA</span>
+      <span class="d-none d-sm-inline">Billie's Archive</span>
       <img height="20" src="{{ asset('rabbit_idle.gif', 'images') }}"></a>
     <ul class="navbar-nav mb-2 mb-lg-0 flex-row justify-content-center">
         {% for character in app.user.chroniclesCharacters %}
