@@ -1,19 +1,8 @@
-@import "~bootstrap/scss/bootstrap";
+@use "~bootstrap/scss/bootstrap";
+@use "rabbit";
+@import "elements/all";
 $tooltip-max-width: 400px;
-@import "rabbit";
 
-@import "book";
-@import "btn";
-@import "character";
-@import "form";
-@import "heading";
-@import "icon";
-@import "item";
-@import "merit";
-@import "note";
-@import "tab";
-@import "text";
-@import "table";
 
 
 $fonts: "../fonts";
