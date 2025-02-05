@@ -62,7 +62,9 @@ Encore
     })
 
     // enables Sass/SCSS support
-    .enableSassLoader()
+    .enableSassLoader((config) => {
+      config.sassOptions.silenceDeprecations = ['mixed-decls', 'color-functions', 'global-builtin', 'import']
+    })
 
     // processes files ending in .less
     // .enableLessLoader()

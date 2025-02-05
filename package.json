@@ -1,24 +1,24 @@
 {
     "devDependencies": {
-        "@babel/core": "^7.26.0",
-        "@babel/preset-env": "^7.26.0",
+        "@babel/core": "^7.26.7",
+        "@babel/preset-env": "^7.26.7",
         "@hotwired/stimulus": "^3.2.2",
-        "@symfony/stimulus-bridge": "^3.2.2",
+        "@symfony/stimulus-bridge": "^4.0.0",
         "@symfony/ux-cropperjs": "file:vendor/symfony/ux-cropperjs/assets",
         "@symfony/ux-dropzone": "file:vendor/symfony/ux-dropzone/assets",
         "@symfony/webpack-encore": "^5.0.1",
         "bootstrap": "^5.3.3",
-        "core-js": "^3.39.0",
+        "core-js": "^3.40.0",
         "cropperjs": "^1.6.2",
         "file-loader": "^6.2.0",
         "regenerator-runtime": "^0.14.1",
-        "sass": "^1.83.0",
+        "sass": "^1.83.4",
         "sass-loader": "^16.0.4",
         "scss": "^0.2.4",
-        "ts-loader": "^9.5.1",
-        "typescript": "^5.7.2",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.7.3",
         "webpack": "^5.97.1",
-        "webpack-cli": "^5.1.4",
+        "webpack-cli": "^6.0.1",
         "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
@@ -34,7 +34,7 @@
         "@popperjs/core": "^2.11.8",
         "@toast-ui/editor": "^3.2.2",
         "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
-        "npm": "^10.9.2",
+        "npm": "^11.1.0",
         "tui-color-picker": "^2.2.8"
     }
 }
