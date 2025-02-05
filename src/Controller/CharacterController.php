@@ -297,7 +297,7 @@ class CharacterController extends AbstractController
 
     $merits = $this->service->loadMerits($character, false);
 
-    return $this->render("character_sheet_type/{$character->getType()}/edit.html.twig", [
+    return $this->render("character_sheet_type/edit.html.twig", [
       'character' => $character,
       'setting' => $character->getSetting(),
       'form' => $form,
@@ -338,6 +338,10 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
   public function peek(Request $request, Character $character): Response
   {
+    if ($character->getChronicle()->getStoryteller() === $this->getUser()) {
+      return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $character->getId()]);
+    }
+
     if ($character instanceof Character) {
       $peeker = $character->getChronicle()->getCharacter($this->getUser());
       if ($peeker instanceof Character) {
