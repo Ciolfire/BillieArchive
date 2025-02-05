@@ -25,7 +25,7 @@
     {% endblock %}
     <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       {% block background %}{% endblock %}
-      <ul class="nav tabs row g-0">
+      <ul class="nav tabs g-0">
         {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}

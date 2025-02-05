@@ -10,6 +10,7 @@
 
   {% block form_start %}
     {% set form_attributes = {
+    'class': 'container-fluid container-lg character-sheet',
     'data-controller': 'character--edit character--merits',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
@@ -22,30 +23,27 @@
     {% block menu %}
       {% include "character_sheet/menu/edit.html.twig" %}
     {% endblock %}
-  <div class="container block g-0">
-    {% block header %}
-      {% include "character_sheet/header/edit.html.twig" %}
-    {% endblock %}
-    <div class="row">
-      <div data-controller="tabs" data-tabs-initial-value="general">
-        <ul class="nav tabs my-2">
-          {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
-          {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
-          {% block specialTab %}{% endblock %}
-        </ul>
-        <div id="general" class="tab-content d-none" data-tabs-target="page">
-          <div class="row">
-            {% include "character_sheet/attributes/edit/elements.html.twig" %}
-          </div>
-          <div class="row my-2">
-            {% include "character_sheet/skills/edit/elements.html.twig" %}
-          </div>
+    <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="general">
+      {% block header %}
+        {% include "character_sheet/header/edit.html.twig" %}
+      {% endblock %}
+      <ul class="nav tabs g-0">
+        {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
+        {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
+        {% block specialTab %}{% endblock %}
+      </ul>
+      <div id="general" class="tab-content d-none" data-tabs-target="page">
+        <div class="row">
+          {% include "character_sheet/attributes/edit/elements.html.twig" %}
         </div>
-        <div id="merits" class="tab-content d-none p-0 pb-5" data-tabs-target="page">
-          {% include "character_sheet/merits/edit/elements.html.twig" %}
+        <div class="row my-2">
+          {% include "character_sheet/skills/edit/elements.html.twig" %}
         </div>
-        {% block special %}{% endblock %}
       </div>
+      <div id="merits" class="tab-content d-none p-0" data-tabs-target="page">
+        {% include "character_sheet/merits/edit/elements.html.twig" %}
+      </div>
+      {% block special %}{% endblock %}
     </div>
   </div>
   {% block modals %}

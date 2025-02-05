@@ -10,6 +10,7 @@
 
 {% block form_start %}
   {% set form_attributes = {
+      'class': 'container-fluid container-lg character-sheet',
       'data-controller': 'character--edit character--merits vampire--power vampire--devotion',
       'data-action': 'character--edit:change->character--merits#checkPrerequisite',
       'data-character--edit-total-value': character.xpTotal,
