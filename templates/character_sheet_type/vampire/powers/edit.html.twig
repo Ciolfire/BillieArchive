@@ -7,7 +7,7 @@
 {% set characterDevotions = character.devotions %}
 
 <div data-controller="tabs" data-tabs-initial-value="traits">
-  <ul class="nav tabs row g-0 my-2">
+  <ul class="nav tabs row g-0 mb-2">
     {% include "_tab.html.twig" with {name: 'traits', label: 'traits'|trans({}, 'character')} only %}
     {% include "_tab.html.twig" with {name: 'disciplines', icon: 'discipline', label: 'label.multi'|trans({}, 'discipline')} only %}
     {% include "_tab.html.twig" with {name: 'sorcery', icon: 'pentacle', label: 'sorcery.label.multi'|trans({}, 'discipline')} only %}
