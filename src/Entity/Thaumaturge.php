@@ -11,6 +11,9 @@ class Thaumaturge extends CharacterLesserTemplate
 {
   protected $limit = 5;
 
+  #[ORM\ManyToOne]
+  private ?ThaumaturgeTradition $tradition = null;
+
   public function __construct()
   {
   }
@@ -33,5 +36,17 @@ class Thaumaturge extends CharacterLesserTemplate
   public static function getForm() : ?string
   {
     return null;
+  }
+
+  public function getTradition(): ?ThaumaturgeTradition
+  {
+      return $this->tradition;
+  }
+
+  public function setTradition(?ThaumaturgeTradition $tradition): static
+  {
+      $this->tradition = $tradition;
+
+      return $this;
   }
 }
