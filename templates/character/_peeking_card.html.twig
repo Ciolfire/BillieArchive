@@ -34,12 +34,10 @@
       <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
     </div>
     {# Footer #}
-    <div class="my-1">
-      {% if (character.type == 'vampire' or character.type == 'ghoul') and access.hasRight('covenant')|default(false) %}
+    {% if (character.type == 'vampire' or character.type == 'ghoul') and access.hasRight('covenant')|default(false) %}
+      <div class="my-1">
         {{ character.covenant }}
-      {% else %}
-        &nbsp;
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   </button>
 </div>

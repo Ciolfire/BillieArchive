@@ -16,7 +16,7 @@
       {% endif %}
     </div>
     <div class="character-card-name text-strong">
-      {{ character.name }}
+      <span class="accent-pale">{{ character.name }}</span>
     </div>
     <div class="character-card-avatar position-relative text-center">
       <img src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
