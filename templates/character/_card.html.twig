@@ -8,7 +8,7 @@
       {% else %}
         <img class="character-icon" src={% include "character/_icon.html.twig" %} />
       {% endif %}
-      <div class="w-100 text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
+      <div class="text-center text-strong flex-fill">{{ character.type|trans({}, 'content-type') }}</div>
       {% if character.mainOrganization %}
         <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}">
       {% else %}

@@ -40,6 +40,13 @@
     &:focus-visible {
       outline: 2px solid red;
     }
+
+    .character-card {
+      &-avatar {
+        border-top: 1px solid #6f80c5;
+        border-bottom: 1px solid #6f80c5;
+      }
+    }
   }
 }
 
