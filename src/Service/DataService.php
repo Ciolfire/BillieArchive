@@ -199,10 +199,12 @@ class DataService
   public function upload(UploadedFile $file, string $target, string $filename=null) : ?string
   {
     if (is_null($filename)) {
-      $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-      $safeFilename = $this->slugger->slug($originalFilename);
-      $filename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+      $originalFilename = pathinfo($file->getBasename(), PATHINFO_FILENAME);
+    } else {
+      $originalFilename = $filename;
     }
+    $safeFilename = $this->slugger->slug($originalFilename);
+    $filename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
     try {
       $file->move($target, $filename);

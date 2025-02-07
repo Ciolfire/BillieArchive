@@ -10,10 +10,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="block position-relative">
-          {% if character.avatar %}
-            <a role="button" class="position-absolute end-0" href="{{ path('character_avatar_crop', {'id': character.id}) }}">{% include "_icon.html.twig" with {icon: 'crop', 'class': 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
-          {% endif %}
-          <img class="w-100" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" data-character--avatar-target="updatable">
+          <a class="position-absolute end-0 {% if character.avatar is empty %}d-none{% endif %}" data-character--avatar-target="resize" href="{{ path('character_avatar_crop', {'id': character.id}) }}" role="button">{% include "_icon.html.twig" with {icon: 'crop', 'class': 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
+          <img class="w-100" data-character--avatar-target="updatable" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
         </div>
         <div class="modal-body">
           <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>

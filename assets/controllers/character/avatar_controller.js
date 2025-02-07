@@ -6,6 +6,7 @@ export default class extends Controller {
     "form",
     "avatar",
     "updatable",
+    "resize",
   ];
   static values = {
     id: 0,
@@ -18,28 +19,36 @@ export default class extends Controller {
     const avatar = this.avatarTarget;
     const updatables = this.updatableTargets;
     let oldSrc = avatar.src;
-    xhttp.onreadystatechange = function() {
-      if (xhttp.readyState == XMLHttpRequest.DONE) {
-        if (xhttp.status == 200) {
-          //ok
-          // let newSrc = JSON.parse(xhttp.response);
-          let timestamp = new Date().getTime();
-          let newSrc = `/images/characters/${JSON.parse(xhttp.response)}?t=${timestamp}`;
-          avatar.src = newSrc;
-          updatables.forEach(element => {
-            element.src = newSrc;
-          });
-        } else {
-          console.log('avatar not saved');
-          avatar.src = oldSrc;
-        }
-      }
-    };
     // temporary update of the image while it's loading :)
     avatar.src = "/images/loading.gif";
-    xhttp.open("POST", `/en/character/${this.idValue}/avatar/update`, true);
-    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-    xhttp.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
-    xhttp.send(new FormData(this.formTarget));
+    
+    window
+    .fetch(`/en/character/${this.idValue}/avatar/update`, {
+      headers: {
+        "Cache-Control": "no-cache, no-store, max-age=0",
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: new FormData(this.formTarget),
+      method: "POST"
+    })
+    .then((response) => {
+      if (!response.ok) {
+        console.log('avatar not saved');
+        avatar.src = oldSrc;
+      }
+
+      return response.json();
+    })
+    .then((response) => {
+      //ok
+      console.log(response);
+      let timestamp = new Date().getTime();
+      let newSrc = `/images/characters/${response}?t=${timestamp}`;
+      avatar.src = newSrc;
+      updatables.forEach(element => {
+        element.src = newSrc;
+      });
+      this.resizeTarget.classList.remove("d-none");
+    });
   }
 }

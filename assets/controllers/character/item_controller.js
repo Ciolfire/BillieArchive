@@ -50,7 +50,7 @@ export default class extends Controller {
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       if (type == "character") {
-       target.remove();
+        target.remove();
       } else {
         let container = this.containerTargets.find(target => target.dataset.container == this.choiceContainerTarget.value);
         container.appendChild(target);
@@ -88,7 +88,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
       },
-      method: "POST"
+      method: "DELETE"
     })
     .then((response) => {
       if (!response.ok) {

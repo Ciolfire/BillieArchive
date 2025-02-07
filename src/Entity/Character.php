@@ -91,7 +91,7 @@ class Character
   private ?string $description = "";
 
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-  protected ?string $avatar = "";
+  protected ?string $avatar;
 
   /** @var array<string, int> */
   #[ORM\Column(type: Types::JSON, nullable: true)]
@@ -398,12 +398,17 @@ class Character
     return $this;
   }
 
-  public function getAvatar(): string
+  public function getAvatar(): ?string
   {
-    return $this->avatar;
+    if ($this->avatar) {
+      
+      return $this->avatar;
+    }
+
+    return "";
   }
 
-  public function setAvatar(string $avatar = ""): self
+  public function setAvatar(?string $avatar): self
   {
     $this->avatar = $avatar;
 

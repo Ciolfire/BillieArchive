@@ -879,7 +879,7 @@ class CharacterController extends AbstractController
       $avatar = $request->files->get('avatar')['upload'];
       $path = $this->getParameter('characters_directory');
       if (!is_null($avatar) && is_string($path)) {
-        $filename = $this->dataService->upload($avatar, $path);
+        $filename = $this->dataService->upload($avatar, $path, "character-{$character->getId()}");
 
         if (!is_null($filename)) {
           $old = $character->getAvatar();

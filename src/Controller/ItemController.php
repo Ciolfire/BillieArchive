@@ -185,7 +185,7 @@ class ItemController extends AbstractController
     return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
   }
 
-  #[Route("item/{id<\d+>}/delete", name:"item_delete", methods:["GET", "POST"])]
+  #[Route("item/{id<\d+>}/delete", name:"item_delete", methods:["GET", "DELETE"])]
   public function delete(Request $request, Item $item): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
