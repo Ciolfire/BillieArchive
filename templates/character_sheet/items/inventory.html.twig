@@ -1,4 +1,5 @@
 {% trans_default_domain 'character' %}
+
 <div data-controller="tabs" data-tabs-initial-value="container-none" data-tabs-parent-value="inventory">
   {# Containers tabs #}
   <ul class="nav tabs row g-0">
@@ -18,7 +19,7 @@
       </a>
   </ul>
   {# No container display page #}
-  <div id="container-none" class="tab-content p-2 d-none" data-tabs-target="page">
+  <div id="container-none" class="tab-content d-none" data-tabs-target="page">
     <div class="row" data-character--item-target="container" data-container="0" data-controller="search" data-search-type-value="item">
       <div class="col-12 text-center py-2 sticky-element">
         <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
@@ -33,7 +34,7 @@
   </div>
   {# Container display page #}
   {% for container in character.itemContainers %}
-    <div id="{{ "container-" ~ container.id }}" class="tab-content p-2 d-none" data-tabs-target="page">
+    <div id="{{ "container-" ~ container.id }}" class="tab-content d-none" data-tabs-target="page">
       {% include "character_sheet/items/_container_card.html.twig" with {item: container} %}
       <div class="row" data-character--item-target="container" data-container="{{ container.id }}" data-controller="search" data-search-type-value="item">
         <div class="col-12 text-center py-2 sticky-element">

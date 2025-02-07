@@ -33,21 +33,21 @@
     {% endif %}
   </ul>
   <div id="meritMental" class="tab-content d-none" data-tabs-target="page">
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
       {% for chMerit in mental %}
         {% include "character_sheet/merits/show/element.html.twig" %}
       {% endfor %}
     </div>
   </div>
   <div id="meritPhysical" class="tab-content d-none" data-tabs-target="page">
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
       {% for chMerit in physical %}
         {% include "character_sheet/merits/show/element.html.twig" %}
       {% endfor %}
     </div>
   </div>
   <div id="meritSocial" class="tab-content d-none" data-tabs-target="page">
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
       {% for chMerit in social %}
         {% if not chMerit.merit.isRelation %}
           {% include "character_sheet/merits/show/element.html.twig" %}
@@ -56,7 +56,7 @@
     </div>
   </div>
   <div id="meritRelation" class="tab-content d-none" data-tabs-target="page">
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
       {% for chMerit in relation %}
         {% include "character_sheet/merits/show/element_small.html.twig" %}
       {% endfor %}
