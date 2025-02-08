@@ -1,3 +1,5 @@
+$lesserColor: #9736dad4;
+
 %full-fill {
   position: absolute;
   top: 0;
@@ -20,7 +22,6 @@
     &-header {
       display: flex;
       padding: 0;
-      border-bottom: 1px solid silver;
     }
 
     &-avatar {
@@ -41,6 +42,15 @@
         aspect-ratio: 1/1;
       }
     }
+
+    &.lesser-border-accent.btn.btn-primary,
+    &.lesser-border-accent.btn.btn-primary &-avatar {
+      border-color: $lesserColor;
+    }
+
+    .lesser-color {
+      color: $lesserColor;
+    }
   }
 
   &-icon {
@@ -54,6 +64,13 @@
     svg {
       max-width: 100%;
       max-height: 90%;
+    }
+
+    &.lesser-icon {
+      color: black !important;
+      svg {
+        filter: none !important;
+      }
     }
   }
 

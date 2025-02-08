@@ -1,47 +1,63 @@
 {% trans_default_domain 'app' %}
 
-<div class="col-6 col-lg-2 mb-3" data-search-target="item" data-name="{{ character.name }}">
-  <a class="text-center p-0 {{ character.type }} {% if character.lesserTemplate %}border-accent{% endif %} btn btn-primary d-block w-100 h-100" href="{{ path('character_show', {'id': character.id}) }}">
-    <div class="character-card-header">
-      {% if character.lesserTemplate %}
-        {% include "_icon.html.twig" with {icon : "type/" ~ character.type, class: 'character-icon accent'} only %}
-      {% else %}
-        <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-      {% endif %}
-      <div class="text-center text-strong flex-fill">{{ character.type|trans({}, 'content-type') }}</div>
-      {% if character.mainOrganization %}
-        <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}">
-      {% else %}
-        <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
-      {% endif %}
-    </div>
-    <div class="character-card-name text-strong">
-      <span class="accent-pale">{{ character.name }}</span>
-    </div>
-    <div class="character-card-avatar position-relative text-center">
-      <img src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
-    </div>
-    <div class="position-relative">
-      <div class="d-flex flex-column justify-content-end h-100 text-strong">
-        <div>
-          {{ character.concept|default(' - ') }}
-        </div>
-        {% if showPlayer|default(0) %}
-          <div>
-            {{ character.player }}
-        </div>
-        {% endif %}
-        <div class="accent">
-          {% if showChronicle|default(1) and character.isPremade == false %}
-            &nbsp; {{ character.chronicle }} &nbsp;
-          {% elseif character.isPremade == true %}
-            {% include "_source_block.html.twig" with {element: character, isShort: true, class: 'text-center text-muted'} %}
+{% if name is not defined %}
+  {% set name = character.name %}
+{% endif %}
+
+
+<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3" data-search-target="item" data-name="{{ name }}" data-order-target="item">
+  {% block wrapper %}<a class="character-card text-center p-0 btn btn-primary d-block w-100 h-100{% block class %} {{ character.type }}{% if character.lesserTemplate %} lesser-border-accent{% endif %}{% endblock class %}" href="{{ path('character_show', {'id': character.id}) }}">
+    {% block content %}
+      <div class="character-card-header">
+        {% block header %}
+          {% if character.lesserTemplate %}
+            {% include "_icon.html.twig" with {icon : "type/" ~ character.type, class: 'character-icon lesser-icon'} only %}
+          {% else %}
+            <img class="character-icon" src={% include "character/_icon.html.twig" %} />
           {% endif %}
-        </div>
-        <div>
-          PR: {{ character.powerRating }}
-        </div>
+          <div class="flex-fill text-center text-strong {% if character.lesserTemplate %}lesser-color{% endif %}">{{ character.type|trans({}, 'content-type') }}</div>
+          {% if character.mainOrganization %}
+            <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}">
+          {% else %}
+            <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
+          {% endif %}
+        {% endblock %}
       </div>
-    </div>
-  </a>
+      <div class="character-card-avatar position-relative text-center m-1 rounded">
+        {% block avatar %}
+          <img class="rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="80">
+        {% endblock %}
+      </div>
+      <div class="character-card-name accent-pale">
+        {% block name %}
+          {{ name }}
+        {% endblock %}
+      </div>
+      {% block details %}
+        <div class="position-relative">
+          <div class="d-flex flex-column justify-content-end h-100 text-strong">
+            <div>
+              {{ character.concept|default(' - ') }}
+            </div>
+            {% if showPlayer|default(0) %}
+              <div>
+                {{ character.player }}
+            </div>
+            {% endif %}
+            <div class="accent">
+              {% if showChronicle|default(1) and character.isPremade == false %}
+                &nbsp; {{ character.chronicle }} &nbsp;
+              {% elseif character.isPremade == true %}
+                {% include "_source_block.html.twig" with {element: character, isShort: true, class: 'text-center text-muted'} %}
+              {% endif %}
+            </div>
+            <div>
+              PR: {{ character.powerRating }}
+            </div>
+          </div>
+        </div>
+      {% endblock %}
+    {% endblock content %}
+    </a>
+  {% endblock wrapper %}
 </div>
