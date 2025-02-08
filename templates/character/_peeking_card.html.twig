@@ -13,7 +13,7 @@
 {% block class %} {% if access.importance == 2 %}order-first{% elseif access.importance == 0 %}order-last{% endif %}{% endblock %}
 
 {% block wrapper %}
-  <button type="button" class="character-card text-center p-0 {% if access.hasRight('type')|default(false) %}{% if character.lesserTemplate %}lesser-template-accent{% endif %} {{ character.type }}{% else %}human{% endif %} btn btn-primary d-block w-100 h-100"
+  <button type="button" class="character-card text-center p-0 btn btn-primary d-block w-100 h-100 {% if access.hasRight('type')|default(false) %}{% if character.lesserTemplate %}lesser-border-accent{% endif %} {{ character.type }}{% else %}human{% endif %}"
     data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     data-content-url-param="{{ link|default(path('fetch_character_peek', {id: character.id, peeker: access.accessor.id})) }}" 
