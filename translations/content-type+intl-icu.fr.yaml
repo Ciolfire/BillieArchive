@@ -4,6 +4,9 @@ label:
 
 # Not a real type !
 universal: Universel
+lesser:
+  single: Template Mineur
+  multi: Templates Mineurs
 
 blood_bather: Baigneur du Sang
 body_thief: Voleur de Corps

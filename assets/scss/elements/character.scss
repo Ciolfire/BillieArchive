@@ -42,15 +42,6 @@ $lesserColor: #9736dad4;
         aspect-ratio: 1/1;
       }
     }
-
-    &.lesser-border-accent.btn.btn-primary,
-    &.lesser-border-accent.btn.btn-primary &-avatar {
-      border-color: $lesserColor;
-    }
-
-    .lesser-color {
-      color: $lesserColor;
-    }
   }
 
   &-icon {

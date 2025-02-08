@@ -77,6 +77,19 @@
       <span>{{ "label.multi"|trans({}, 'flaw') }}</span>
     </a>
   </div>
+  {# Lesser Templates #}
+    <h3 class="pe-none text-strong lesser-color">
+    {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser-color' } only %}
+    <span>{{ "lesser.multi"|trans({}, 'content-type') }}</span>
+  </h3>
+  <div class="row generic pt-2 justify-content-center">
+    <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
+        {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
+        <span>{{ "psychic"|trans({}, 'content-type') }}</span>
+      </a>
+    </div>
+  </div>
   {# Tools #}
   <h3 class="pe-none text-strong">
     {% include "_icon.html.twig" with {icon: 'tools' } only %}

@@ -58,7 +58,6 @@ class DataService
       ['name' => 'ASC']
     );
     $this->genericTypes[] = null;
-    // dd($this->getGenericTypes());
   }
 
   public function getDoctrine() : ManagerRegistry

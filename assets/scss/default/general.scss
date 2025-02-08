@@ -1,3 +1,5 @@
+$lesserColor: #9736dad4;
+
 // TODO check if still needed
 .vampire-btn,
 .mage-btn,
@@ -46,6 +48,11 @@
         border-top: 1px solid #6f80c5;
         border-bottom: 1px solid #6f80c5;
       }
+    }
+
+    &.lesser-border-accent,
+    &.lesser-border-accent &-avatar {
+      border-color: $lesserColor;
     }
   }
 }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Attribute;
+use App\Entity\ContentType;
 use App\Entity\Description;
+use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vice;
 use App\Entity\Virtue;
@@ -175,4 +177,15 @@ class WikiController extends AbstractController
       'footer' => false,
     ]);
   }
+
+  #[Route('/psychic', name: 'wiki_psychic', methods: ['GET'])]
+  public function psychic(): Response
+  {
+    $type = $this->dataService->findBy(ContentType::class, ['name' => 'psychic']);
+    return $this->render('wiki/lesser/psychic.html.twig', [
+      'powers' => $this->dataService->findBy(Merit::class, ['type' => $type]),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'psychic']),
+    ]);
+  }
+
 }

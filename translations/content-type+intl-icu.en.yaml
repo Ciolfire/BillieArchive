@@ -2,9 +2,14 @@ label:
   single: Type
   multi: Types
 
+
 # Not a real type !
 universal: Universal
+lesser:
+  single: Lesser Template
+  multi: Lesser Templates
 
+# All types
 blood_bather: Blood Bather
 body_thief: Body Thief
 changeling: Changeling

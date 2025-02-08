@@ -1,3 +1,5 @@
+$lesserColor: rgba(149, 54, 217, 0.2);
+
 .merit {
   padding: 1rem 0;
   border-top: 1px solid silver;
@@ -16,8 +18,12 @@
     background-color: #0087855c;
   }
 
-  &.merit-human, &.merit-innocents, &.merit-psychic, &.merit-thaumaturge {
+  &.merit-human {
     background-color: #00134169;
+  }
+
+  &.merit-innocents, &.merit-psychic, &.merit-thaumaturge {
+    background-color: $lesserColor;
   }
 
   &-card {

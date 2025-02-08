@@ -3,7 +3,7 @@
 @import "elements/all";
 $tooltip-max-width: 400px;
 
-
+$lesserColor: #9736dad4;
 
 $fonts: "../fonts";
 
@@ -301,4 +301,8 @@ strong {
 @font-face {
   font-family: "JMHtypewriter";
   src: url("#{$fonts}/JMH Typewriter.ttf");
+}
+
+.lesser-color {
+  color: $lesserColor;
 }

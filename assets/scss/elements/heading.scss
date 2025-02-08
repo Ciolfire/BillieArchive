@@ -33,7 +33,7 @@ h5,
   }
 
   .icon {
-    color: $mainColor;
+    color: $mainColor default;
     &.accent {
       color: $accentColor!important;
     }
