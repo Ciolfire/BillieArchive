@@ -11,7 +11,7 @@
       <div class="modal-body">
         <div class="text-strong text-center">
           {% if item.img is not null %}
-            {# <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/> #}
+            <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
           {% elseif item.isContainer %}
             {% include "_icon.html.twig" with {icon: 'container', class: 'mx-auto d-block icon-100'} %}
           {% else %}

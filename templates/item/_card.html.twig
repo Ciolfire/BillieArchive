@@ -24,7 +24,7 @@
     </h5>
     <div class="item-preview text-strong text-center" data-bs-toggle="modal" data-bs-target="#{{item.id}}Modal" role="button">
       {% if item.img is not null %}
-        {# <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/> #}
+        <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
       {% elseif item.isContainer %}
         {% include "_icon.html.twig" with {icon: 'container', class: 'mx-auto d-block icon-100'} %}
       {% else %}
