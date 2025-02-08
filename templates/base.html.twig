@@ -7,7 +7,7 @@
       {% block title %}Billie Archive
       {% endblock %}
     </title>
-    <link rel="icon" href="{{ asset('rabbit_move_slow.gif', 'images') }}">
+    <link rel="icon" href="{{ asset('rabbit_move_slow.gif?v=' ~ date().timestamp, 'images') }}">
     {% if setting is not defined %}
       {% set setting = "human" %}
     {% endif %}
