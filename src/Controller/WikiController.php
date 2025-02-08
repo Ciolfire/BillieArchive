@@ -182,8 +182,14 @@ class WikiController extends AbstractController
   public function psychic(): Response
   {
     $type = $this->dataService->findBy(ContentType::class, ['name' => 'psychic']);
+    $powers = $this->dataService->findBy(Merit::class, ['type' => $type]);
+    /** @var Merit $merit */
+    foreach ($powers as $power) {
+      $this->dataService->loadPrerequisites($power);
+    }
+
     return $this->render('wiki/lesser/psychic.html.twig', [
-      'powers' => $this->dataService->findBy(Merit::class, ['type' => $type]),
+      'powers' => $powers,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'psychic']),
     ]);
   }
