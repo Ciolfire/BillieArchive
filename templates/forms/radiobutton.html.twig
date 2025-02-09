@@ -10,7 +10,7 @@
         {% for key,val in form.vars.choices %}
           {# We set the attribute define in choice_attr, if any, we also need to handle the default class for the button appearance #}
           <input id="{{ form.vars.id }}_{{ key }}" class="btn-check" type="radio" name="{{ form.vars.full_name }}" {% if form.vars.required == true %}required="required"{% endif %}{% if value is defined %} value="{{ val.value }}"{% endif %}>
-          <label for="{{ form.vars.id }}_{{ key }}" {% if val.attr %}{% with { attr: val.attr|merge({'class': val.attr.class|default('')|trim ~ ' btn btn-primary col-12 col-md-1 col-lg-auto' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="btn btn-primary"{% endif %}>
+          <label for="{{ form.vars.id }}_{{ key }}" {% if val.attr %}{% with { attr: val.attr|merge({'class': val.attr.class|default('')|trim ~ ' btn btn-primary col-12 col-sm-auto' }) } %}{{ block('attributes') }}{% endwith %}{% else %}class="btn btn-primary"{% endif %}>
             {# {{ val.label|trans(label_translation_parameters, translation_domain) }} #}
             {{ val.label }}
           </label>

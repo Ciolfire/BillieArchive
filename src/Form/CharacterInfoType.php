@@ -49,7 +49,7 @@ class CharacterInfoType extends AbstractType
         'attr' => ['style' => "height: 200px"]
       ])
       ->add('accessList', EntityType::class, [
-        'label' => 'infos.details.accessList',
+        'label' => 'infos.details.access.list',
         'class' => Character::class,
         'choices' => $characters,
         'choice_label' => function ($choice, string $key, mixed $value) use ($path): string {
