@@ -17,6 +17,9 @@ count: >-
     other {# Disciplines}
   }
 
+favored: Préférée
+others: Autres
+
 potency: Ajouter la Puissande du Sang au jet
 
 power:

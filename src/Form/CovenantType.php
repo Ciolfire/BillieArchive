@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Covenant;
 use Doctrine\ORM\EntityRepository;
-use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,8 +21,7 @@ class CovenantType extends OrganizationType
   {
     parent::buildForm($builder, $options);
 
-    /** @var Weapon $item */
-    $item = $options['data'];
+    // $item = $options['data'];
 
     $builder
       ->add('disciplines', null, [
@@ -71,7 +69,7 @@ class CovenantType extends OrganizationType
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
       ])
-      ;
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

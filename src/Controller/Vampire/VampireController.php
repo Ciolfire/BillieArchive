@@ -8,6 +8,7 @@ use App\Entity\Attribute;
 use App\Entity\Character;
 use App\Entity\User;
 use App\Entity\Clan;
+use App\Entity\Covenant;
 use App\Entity\Discipline;
 use App\Entity\Vampire;
 use App\Form\Vampire\EmbraceType;
@@ -59,9 +60,10 @@ class VampireController extends AbstractController
     }
 
     $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false]);
+    $covenants = $this->dataService->findAll(Covenant::class);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);
-    $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'attributes' => $attributes]);
+    $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'covenants' => $covenants, 'attributes' => $attributes]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -77,6 +79,7 @@ class VampireController extends AbstractController
     return $this->render('character_sheet_type/vampire/embrace/sheet.html.twig', [
       'character' => $character,
       'clans' => $clans,
+      'covenants' => $covenants,
       'disciplines' => $disciplines,
       'form' => $form,
     ]);

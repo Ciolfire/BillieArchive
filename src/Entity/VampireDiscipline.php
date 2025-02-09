@@ -15,13 +15,13 @@ class VampireDiscipline
   #[ORM\Column(type: Types::INTEGER)]
   private int $id;
 
+  #[ORM\ManyToOne(targetEntity: Vampire::class, inversedBy: "disciplines", cascade: ["persist"])]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?Vampire $character;
+
   #[ORM\ManyToOne(targetEntity: Discipline::class, fetch: "EAGER")]
   #[ORM\JoinColumn(nullable: false)]
   private Discipline $discipline;
-
-  #[ORM\ManyToOne(targetEntity: Vampire::class, inversedBy: "disciplines",cascade: ["persist"])]
-  #[ORM\JoinColumn(nullable: false)]
-  private ?Vampire $character;
 
   #[ORM\Column(type: "smallint")]
   private int $level = 1;
@@ -43,18 +43,6 @@ class VampireDiscipline
     return $this->discipline->getName();
   }
 
-  public function getDiscipline(): Discipline
-  {
-    return $this->discipline;
-  }
-
-  public function setDiscipline(Discipline $discipline): self
-  {
-    $this->discipline = $discipline;
-
-    return $this;
-  }
-
   public function getCharacter(): ?Vampire
   {
     return $this->character;
@@ -63,6 +51,18 @@ class VampireDiscipline
   public function setCharacter(?Vampire $vampire): self
   {
     $this->character = $vampire;
+
+    return $this;
+  }
+
+  public function getDiscipline(): Discipline
+  {
+    return $this->discipline;
+  }
+
+  public function setDiscipline(Discipline $discipline): self
+  {
+    $this->discipline = $discipline;
 
     return $this;
   }

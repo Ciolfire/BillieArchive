@@ -4,16 +4,17 @@ namespace App\Entity;
 
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
+use App\Form\OrganizationType;
 use App\Repository\OrganizationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Entity(repositoryClass: OrganizationRepository::class)]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "organizations")])]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
-#[ORM\DiscriminatorMap(["organization" => Organization::class, "covenant" => Covenant::class])]
+#[ORM\DiscriminatorMap(["organization" => Organization::class, "covenant" => Covenant::class, "order" => MageOrder::class])]
 class Organization
 {
   use Sourcable;
@@ -61,6 +62,11 @@ class Organization
   static public function getType(): string
   {
     return 'organization';
+  }
+
+  static public function getForm(): string
+  {
+    return OrganizationType::class;
   }
 
   public function getName(): ?string

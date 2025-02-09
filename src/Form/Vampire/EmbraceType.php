@@ -4,6 +4,7 @@ namespace App\Form\Vampire;
 
 use App\Entity\Clan;
 use App\Entity\Attribute;
+use App\Entity\Covenant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,12 +18,14 @@ class EmbraceType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-    ->add('sire', TextType::class, [
-      'label' => 'embrace.by',
-      'required' => false,
-    ])
     ->add('age', IntegerType::class, [
       'label' => 'embrace.at',
+      'translation_domain' => 'vampire',
+      'required' => false,
+    ])
+    ->add('sire', TextType::class, [
+      'label' => 'embrace.by',
+      'translation_domain' => 'vampire',
       'required' => false,
     ])
     ->add('clan', RadiobuttonType::class, [
@@ -67,15 +70,31 @@ class EmbraceType extends AbstractType
           'data-character--embrace-target' => 'clanAttribute',
         ];
       }
-    ]);
+    ])
+    ->add('covenant', RadiobuttonType::class, [
+      'empty_data' => null,
+      'required' => false,
+      'placeholder' => null,
+      'choices' => $options['covenants'],
+      'choice_label' => 'name',
+      'choice_attr' => function(Covenant $covenant) {
+        return [
+          'data-organization' => "covenant-{$covenant->getId()}",
+          'data-action' => 'click->character--embrace#covenantPicked',
+          'data-character--embrace-target' => 'covenant'
+        ];
+      }
+    ])
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'clans' => null,
+      'covenants' => null,
       'attributes' => null,
-      'translation_domain' => 'vampire',
+      'translation_domain' => false,
       "allow_extra_fields" => true,
     ]);
   }

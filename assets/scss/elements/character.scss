@@ -181,6 +181,11 @@ $avatar-size: 200px * (1 + 0.05 * 2);
     background-color: rgba(255, 255, 255, 0.548);
   }
 
+  &:hover.btn:not(.dot-locked) {
+    border-color: $mainDarkColor;
+    background-color: $mainColor;
+  }
+
   &::first-child {
     margin-left: 0px !important;
   }
@@ -194,6 +199,11 @@ $avatar-size: 200px * (1 + 0.05 * 2);
 .btn-check:checked {
   + .dot {
     background-color: $mainColor;
+
+    &:hover.btn:not(.dot-locked) {
+      border-color: rgba(255, 255, 255, 0.548);
+      background-color: $mainColor;
+    }
 
     &-locked {
       background-color: black;

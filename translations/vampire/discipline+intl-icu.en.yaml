@@ -17,6 +17,9 @@ count: >-
     other {# Disciplines}
   }
 
+favored: Favored
+others: Others
+
 potency: Add Blood Potency to roll
 
 power:

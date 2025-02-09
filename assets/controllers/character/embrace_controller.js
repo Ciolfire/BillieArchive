@@ -6,7 +6,10 @@ export default class extends Controller {
     'clan',
     'clanAttribute',
     'clanDescription',
-    'clanDiscipline',
+    'covenant',
+    'covenantDescription',
+    'discipline',
+    'disciplinesTitle',
     'disciplineValue',
     'disciplinesFavored',
     'disciplinesTotal',
@@ -64,6 +67,18 @@ export default class extends Controller {
     this.toggleAll(this.clanAttributeTargets, attributes);
     this.toggleDisciplines();
     this.disciplineUpdate();
+    this.disciplinesTitleTargets.forEach(element => {
+      element.classList.remove('d-none');
+    });
+    this.clanAttributeTargets.forEach(element => {
+      if (element.classList.contains("d-none")) {
+        document.getElementById(element.attributes.for.textContent).checked = false;
+      }
+    });
+  }
+
+  covenantPicked(event) {
+    this.toggle(this.covenantDescriptionTargets, event.target.dataset.organization);
   }
 
   toggleAll(elements, keys) {
@@ -93,14 +108,15 @@ export default class extends Controller {
   }
 
   toggleDisciplines() {
-    this.clanDisciplineTargets.forEach(discipline => {
-      let block = discipline.closest('.discipline-block');
+    this.disciplineTargets.forEach(discipline => {
+      let block = discipline.closest('.discipline');
       let input = discipline.getElementsByTagName('input')[0];
       block.classList.add("order-2");
       block.classList.remove("d-none");
       for (const key of this.disciplines) {
         if (discipline.dataset.id == key) {
           block.classList.remove("order-2");
+          // Show the second and third dot
           discipline.getElementsByTagName("label")[1].classList.remove("d-hide");
           discipline.getElementsByTagName("label")[2].classList.remove("d-hide");
           return;
@@ -111,6 +127,7 @@ export default class extends Controller {
           input.value = 1;
           input.dispatchEvent(new Event("change"));
         }
+          // Hide the second and third dot
         discipline.getElementsByTagName("label")[1].classList.add("d-hide");
         discipline.getElementsByTagName("label")[2].classList.add("d-hide");
         return;

@@ -1,20 +1,27 @@
 {% trans_default_domain 'vampire' %}
 
+<h2>{{ 'label.multi'|trans({}, 'discipline') }}</h2>
 <div class="row mb-4 justify-content-center">
-  <div class="col-12 text-center block-solid mt-2">
-    <span class="text-sub fw-bold">{{ "embrace.discipline.creation.info"|trans|raw }}</span>
-    ({% trans %}embrace.discipline.creation.favored{% endtrans %}: <span data-character--embrace-target="disciplinesFavored">0</span>)
+  <div class="col-12 text-center text-dark block-solid mt-2">
+    {{ "embrace.discipline.creation.info"|trans|raw|nl2br }}
+    ({{ 'embrace.discipline.creation.favored'|trans }} <span data-character--embrace-target="disciplinesFavored">0</span>)
     <br>
-    {% trans %}embrace.discipline.creation.all{% endtrans %}
-    <span data-character--embrace-target="disciplinesTotal">0</span>/<span class="ok">3</span>
+    {{ 'embrace.discipline.creation.all'|trans }}
+    <span class="fw-bold" data-character--embrace-target="disciplinesTotal">0</span>/<strong>3</strong>
   </div>
-  {% for discipline in disciplines %}
-    <div class="col-4 discipline-block discipline-new-block d-none order-2">
-      {% set max = 3 %}
-      {% set min = 0 %}
-      {% set base = 0 %}
-      {% include "character_sheet_type/vampire/embrace/_discipline.html.twig" %}
-    </div>
-  {% endfor %}
-  <div class="col-12 order-1"></div>
+  <div class="row justify-content-center">
+    {% for discipline in disciplines %}
+      <div class="col-4 discipline d-none order-2">
+        <div class="discipline-block discipline-new-block">
+          {% set max = 3 %}
+          {% set min = 0 %}
+          {% set base = 0 %}
+          {% include "character_sheet_type/vampire/embrace/_discipline.html.twig" %}
+        </div>
+      </div>
+    {% endfor %}
+    {# This is to make a break between order-0 and order-2 #}
+    <div class="col-12 d-none order-first pt-3" data-character--embrace-target="disciplinesTitle"><h3>{{ 'favored'|trans({}, 'discipline')}}</h3></div>
+    <div class="col-12 d-none order-1 pt-3" data-character--embrace-target="disciplinesTitle"><h3>{{ 'others'|trans({}, 'discipline')}}</h3></div>
+  </div>
 </div>

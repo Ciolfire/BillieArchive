@@ -36,7 +36,6 @@ class Vampire extends Character
   #[ORM\OrderBy(["level" => "DESC", "discipline" => "ASC"])]
   private Collection $disciplines;
 
-  protected int $limit = 5;
 
   #[ORM\ManyToMany(targetEntity: Devotion::class, orphanRemoval: false, cascade: ["persist"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -120,11 +119,6 @@ class Vampire extends Character
 
     $this->powerRating = $sum;
     return $this;
-  }
-
-  public function getId(): ?int
-  {
-    return $this->id;
   }
 
   public function getLimit(): int

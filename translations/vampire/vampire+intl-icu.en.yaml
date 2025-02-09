@@ -36,10 +36,10 @@ embrace:
   save: Start my Requiem
   discipline:
     creation:
-      info: "Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
+      info: Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
       favored: Currently
       all: Total
-  title: You have been embraced...
+  title: ... You have been embraced...
 
 sire: Sire
 potency:
