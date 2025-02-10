@@ -30,3 +30,8 @@ covenant:
   merit:
     discount: Half Price Merits
     limited: Restricted Merits
+
+order:
+  label:
+    single: Order
+    multi: Orders

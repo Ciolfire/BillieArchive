@@ -1,2 +1,23 @@
 awaken:
   label: Awaken
+
+awakening:
+  label: Awakening
+  title: ... You have Awakened...
+  arcana:
+    creation:
+      info: |
+        <strong>2</strong> dots in a first Arcanum
+        <strong>2</strong> dots in a second Arcanum
+        <strong>1</strong> dot in a third Arcanum.
+        <strong>Two</strong> of these must be the mage Ruling Arcana.
+        —
+        <strong>1 extra</strong> dot to be placed anywhere.
+        —
+      ruling: "Ruling:"
+      others: "Others:"
+      all: Dots
+  save: Become a Mage
+
+morality:
+  label: Wisdom

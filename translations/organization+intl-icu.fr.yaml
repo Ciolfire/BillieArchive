@@ -30,3 +30,8 @@ covenant:
   merit:
     discount: Atouts à demi-prix
     limited: Atouts Restreints
+
+order:
+  label:
+    single: Order
+    multi: Orders

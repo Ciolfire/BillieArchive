@@ -1,2 +1,23 @@
 awaken:
+  label: Éveiller
+
+awakening:
   label: Éveil
+  title: ... Vous vous êtes éveillé...
+  arcana:
+    creation:
+      info: |
+        <strong>2</strong> points dans un premier Arcanum
+        <strong>2</strong> points dans un second Arcanum
+        <strong>1</strong> point dans un troisième Arcanum
+        <strong>Deux</strong> de ceux-ci doivent être les Arcana Majeurs du mage.
+        —
+        <strong>1</strong> point supplementaire peut être placé dans n'importe quel Arcanum.
+        —
+      ruling: "Majeur:"
+      others: "Autres:"
+      all: Points
+  save: Devenir Mage
+
+morality:
+  label: Sagesse
