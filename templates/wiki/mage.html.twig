@@ -16,6 +16,12 @@
     </a>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
+    <a class="btn btn-primary w-100 mb-2" href="{{path('organization_index', {setting: 'mage'})}}">
+      {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+      <span>{{ "order.label.multi"|trans({}, 'organization') }}</span>
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('path_index')}}">
       {% include "_icon.html.twig" with {icon: 'path' } only %}
       <span>{{ "label.multi"|trans({}, 'path')}}</span>
@@ -31,12 +37,6 @@
     <a class="btn btn-primary w-100 mb-2" href="{{path('arcanum_index')}}">
       {% include "_icon.html.twig" with {icon: 'arcanum' } only %}
       <span>{{ "label.multi"|trans({}, 'arcanum')}}</span>
-    </a>
-  </div>
-  <div class="col-12 col-sm-6 col-lg-3">
-    <a class="btn btn-primary w-100 mb-2" href="{{path('organization_index', {setting: 'mage'})}}">
-      {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-      <span>{{ "order.label.multi"|trans({}, 'organization') }}</span>
     </a>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">

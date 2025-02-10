@@ -41,7 +41,7 @@ $btnTextColor       : $mainColor;
 $btnBorderColor     : $mainBrightColor;
 $btnActiveColor     : $main75pColor;
 $btnActiveTextColor : white;
-$btnActiveShadow    : #000035;
+$btnActiveShadow    : $textShadowColor;
 $btnWarningShadow   : #5c5c5c;
 $btnHover           : $main50pColor;
 //
@@ -49,12 +49,12 @@ $labelColor         : $mainColor;
 $subtextColor       : rgba(7, 20, 23, 0.63);
 $linkColor          : silver;
 $linkHoverColor     : #00e7ff;
-$strongColor        : $mainBrightColor;
+$strongColor        : $accentColor;
 $outlineColor       : $main50pColor;
 $helpColor          : #3f3f3f;
 // form
-$inputBackColor   : #0000009a;
-$inputActiveBColor: $mainDark75pColor;
+$inputBackColor     : rgba(40, 96, 102, 0.61);
+$inputActiveBColor  : rgba(27, 31, 31, 0.85);
 // Font
 $mainFont           : "mrsEaves-bold";
 $h1Font             : "goudy";

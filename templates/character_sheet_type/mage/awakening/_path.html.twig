@@ -3,7 +3,7 @@
 <h2>{{ 'label.single'|trans }}</h2>
 {{form_row(form.path)}}
 {% for path in paths %}
-  <div class="block {{ path.name }} d-none mb-3 text-center p-2" data-character--awakening-target="pathDescription">
+  <div class="block-light {{ path.name }} d-none mb-3 text-center p-2" data-character--awakening-target="pathDescription">
     <div>{{ path.title }}</div>
     {% if path.emblem is not null %}
       <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>

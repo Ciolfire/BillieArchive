@@ -3,7 +3,7 @@
 <h2>{{ 'order.label.single'|trans }}</h2>
 {{form_row(form.order)}}
 {% for order in orders %}
-  <div class="block mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
+  <div class="block-light mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
     <btn class="float-end" role="button" data-action="click->character--awakening#orderUnpicked">
       {% include "_icon.html.twig" with {icon: 'cancel', class: 'p-1'} only %}
     </btn>
