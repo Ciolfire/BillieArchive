@@ -29,7 +29,7 @@
 
 {% block subtraits %}
   <div class="row justify-content-center">
-    {% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}
+    {% block morality %}{{ parent() }}{% endblock %}
     {% if character.clan.parentClan is not null %}
       {% include "character_sheet_type/vampire/elements/weakness.html.twig" with { 'bloodline': character.clan, 'clan': character.clan.parentClan } %}
     {% else %}

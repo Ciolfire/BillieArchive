@@ -149,14 +149,18 @@ class VampireService
       $disciplines = $result['disciplines'];
     }
     // The human is gone forever...
-    // $nativeQuery = $connection->prepare("DELETE FROM `human` WHERE id = :id");// $nativeQuery->bindValue('id', $character->getId());// $nativeQuery->executeStatement();
     $nativeQuery = $connection->prepare("UPDATE `characters` SET type='vampire' WHERE id = :id");
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->executeStatement();
     // ...But the Vampire rise for eternity
-    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `sire`, `death_age`, `potency`, `vitae`) VALUES (:id, :clan, :sire, :age, 1, 1)");
+    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `covenant_id`, `sire`, `death_age`, `potency`, `vitae`) VALUES (:id, :clan, :covenant, :sire, :age, 1, 1)");
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->bindValue('clan', $data['clan']->getId());
+    if ($data['covenant'] instanceof Covenant) {
+      $nativeQuery->bindValue('covenant', $data['covenant']->getId());
+    } else {
+      $nativeQuery->bindValue('covenant', null);
+    }
     $nativeQuery->bindValue('sire', $data['sire']);
     $nativeQuery->bindValue('age', $data['age']);
     $nativeQuery->executeStatement();
@@ -273,7 +277,6 @@ class VampireService
   /** @param array<int, int> $disciplines */
   public function addDisciplines(Vampire|Ghoul $character, array $disciplines): void
   {
-
     foreach ($disciplines as $id => $level) {
       $discipline = $this->dataService->find(Discipline::class, $id);
       if ($discipline instanceof Discipline) {

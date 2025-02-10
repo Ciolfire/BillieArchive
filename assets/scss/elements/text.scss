@@ -27,25 +27,25 @@
 
   &-strong {
     text-shadow:
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px,
-      #000 0px 0px 3px;
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px,
+      $textShadowColor 0px 0px 3px;
     img {
       filter: drop-shadow(-1px 1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black)
         drop-shadow(1px 1px 0 black);

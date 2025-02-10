@@ -3,7 +3,7 @@
   font-size: inherit;
 
   & svg {
-    filter: drop-shadow(-1px 1px 0 $mainDarkColor) drop-shadow(-1px -1px 0 $mainDarkColor) drop-shadow(1px -1px 0 $mainDarkColor) drop-shadow(1px 1px 0 $mainDarkColor);
+    filter: drop-shadow(-1px 1px 0 $textShadowColor) drop-shadow(-1px -1px 0 $textShadowColor) drop-shadow(1px -1px 0 $textShadowColor) drop-shadow(1px 1px 0 $textShadowColor);
   }
 
   & img {

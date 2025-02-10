@@ -163,7 +163,7 @@ footer.footer {
 .fluff,
 blockquote {
   font-style: italic;
-  background-color: #000000a1;
+  background-color: $textShadowColor;
   color: silver;
   padding: 0.5rem;
   border-radius: 0.5em;
@@ -195,7 +195,7 @@ blockquote {
 
 strong {
   color: $mainBrightColor;
-  text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
+  text-shadow: $textShadowColor 0px 0px 3px,  $textShadowColor 0px 0px 3px,  $textShadowColor 0px 0px 3px,  $textShadowColor 0px 0px 3px,  $textShadowColor 0px 0px 3px,  $textShadowColor 0px 0px 3px;
 }
 
 .grayscale {

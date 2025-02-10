@@ -31,12 +31,12 @@
       &.active,
       &:focus ,
       &:hover {
-        color           : $titleColor;
+        color           : $btnTextColor;
         background-color: transparent;
         border          : 1px solid $borderColor;
         border-bottom-color: transparent;
         &:not(.active) {
-          color           : $titleColor;
+          color           : $btnTextColor;
           background-color: $darkBlockColor;
           border-color    : $borderColor;
           border-width    : 1px;

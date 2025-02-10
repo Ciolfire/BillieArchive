@@ -11,13 +11,7 @@
         <span class="text-strong">{{ character.name }}</span>
         <img class="no-filter ps-4" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/>
       </h1>
-      <h2>
-        {% if character.player is not null and app.user != character.player %}
-          ({{ character.player }})
-        {% elseif character.isPremade == true %}
-          {% include "_icon.html.twig" with {icon: 'premade', label: 'premade.label.single'|trans({}, 'character') } %}
-        {% endif %}
-      </h2>
+      {% block premade %}{{ parent() }}{% endblock %}
     </div>
   </div>
 </div>
@@ -27,7 +21,6 @@
   <div class="row">
     <div class="col-12">
       <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
-        <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
         {% if character.clan.isBloodline %}
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})
