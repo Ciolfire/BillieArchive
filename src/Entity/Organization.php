@@ -49,6 +49,9 @@ class Organization
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $titles = "";
 
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $short = "";
+
   public function __toString()
   {
     return $this->name;
@@ -169,5 +172,17 @@ class Organization
   {
 
     return "human";
+  }
+
+  public function getShort(): ?string
+  {
+      return $this->short;
+  }
+
+  public function setShort(string $short): static
+  {
+      $this->short = $short;
+
+      return $this;
   }
 }

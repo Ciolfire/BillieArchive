@@ -55,6 +55,7 @@ class OrganizationType extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
+      ->add('short')
       ->add('description', RichTextEditorType::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',

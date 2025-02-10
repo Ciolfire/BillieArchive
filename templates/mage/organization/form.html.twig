@@ -12,6 +12,7 @@
 {% if form.source|default(null) %}
   {{ form_row(form.source) }}
 {% endif %}
+{{ form_row(form.short) }}
 <div class="row">
   <div class="col-12 col-lg-6">{{ form_row(form.description) }}</div>
   <div class="col-12 col-lg-6">{{ form_row(form.overview) }}</div>
@@ -34,15 +35,7 @@
         {{ form_widget(form.RoteSpecialties) }}
       </div>
     </div>
-
   </div>
 </div>
-<div class="row justify-content-center mt-3">
-  <div class="col col-md-6">
-    <button class="btn btn-primary w-100">
-      {{ ("action." ~ action|default('save'))|trans }}
-      {% include "_icon.html.twig" with {icon : action|default('save')} only %}
-    </button>
-  </div>
-</div>
+{{ parent() }}
 {% endblock %}

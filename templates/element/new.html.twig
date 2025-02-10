@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'form.html.twig' %}
 
 {% trans_default_domain 'app' %}
 
@@ -14,7 +14,7 @@
   {{ ("action." ~ action)|trans }}
 {% endblock %}
 
-
+{# 
 {% block body %}
   <h1 class="py-3">
     {% include "_icon.html.twig" with {icon: element} %}
@@ -24,11 +24,11 @@
     {% include "_icon.html.twig" with {icon: action} %}
   </h1>
   <div class="container block py-3">
-    {{ include('element/forms/_form.html.twig') }}
+    {{ include('_form.html.twig') }}
   </div>
   {% if entity.id is not null %}
     <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ element }}-{{ entity.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
     {% include "element/_delete.html.twig" %}
   {% endif %}
   {% include "_back.html.twig" %}
-{% endblock %}
+{% endblock %} #}

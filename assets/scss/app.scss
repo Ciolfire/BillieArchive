@@ -163,7 +163,7 @@ footer.footer {
 .fluff,
 blockquote {
   font-style: italic;
-  background-color: $textShadowColor;
+  background-color: $blockquoteColor;
   color: silver;
   padding: 0.5rem;
   border-radius: 0.5em;
@@ -171,6 +171,12 @@ blockquote {
   p {
     margin-bottom: 0;
   }
+}
+
+.back-fluff {
+  color: silver;
+  background-color: $blockquoteColor;
+  padding: 0.5rem;
 }
 
 .rule {

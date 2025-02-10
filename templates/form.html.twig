@@ -4,26 +4,21 @@
 
 {% set setting = setting|default('human') %}
 
+{% set isLight = false %}
+{% if setting == 'vampire' %}
+  {% set isLight = true %}
+{% endif %}
+
+
+
 {% block title %}{% endblock %}
 
 {% block body %}
   <h1 class="pt-4">{% block header %}{% endblock %}</h1>
-  <div class="container block block py-3 mt-5">
+  <div class="container block {% if isLight %}block-light{% else %}block{% endif %} py-3 mt-5">
     <div class="row">
       <div class="col">
-        {{ form_start(form) }}
-          {% block form %}
-            {{ form_rest(form) }}
-            <div class="row justify-content-center">
-              <div class="col col-md-6">
-                <button class="btn btn-primary w-100">
-                  {{ ("action." ~ action|default('save'))|trans }}
-                  {% include "_icon.html.twig" with {icon : action|default('save')} only %}
-                </button>
-              </div>
-            </div>
-          {% endblock %}
-        {{ form_end(form) }}
+        {% include "_form.html.twig" %}
       </div>
     </div>
   </div>

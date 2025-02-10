@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "orders")])]
 #[ORM\Entity(repositoryClass: ArcanumRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ArcanumTranslation")]
 class Arcanum implements Translatable

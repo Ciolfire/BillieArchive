@@ -162,16 +162,7 @@ class OrganizationController extends AbstractController
   public function edit(Request $request, Organization $organization, $setting = "human"): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
-
-    switch ($setting) {
-      case 'vampire':
-        $form = $this->createForm(CovenantType::class, $organization);
-        break;
-
-      default:
-        $form = $this->createForm(OrganizationType::class, $organization);
-        break;
-    }
+    $form = $this->createForm($organization->getForm(), $organization);
 
     $form->handleRequest($request);
 
