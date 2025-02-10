@@ -1,0 +1,10 @@
+{% trans_default_domain 'mage' %}
+
+{% set arcana = character.arcana %}
+
+<div data-controller="tabs" data-tabs-initial-value="arcana" data-tabs-parent-value="mage">
+  {% include "character_sheet_type/mage/powers/_tabs.html.twig" %}
+  <div id="arcana" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/mage/arcana/show/elements.html.twig' with {'characterArcana': arcana} %}
+  </div>
+</div>

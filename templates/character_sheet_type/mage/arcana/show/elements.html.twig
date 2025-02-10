@@ -1,0 +1,15 @@
+{% extends "character_sheet_type/mage/arcana/elements.html.twig" %}
+
+{% trans_default_domain 'mage' %}
+
+{% block list %}
+  {% for chArcanum in characterArcana|sort((a, b) => a.name <=> b.name) %}
+    {% set max = 5 %}
+    
+    {% set maxPower = chArcanum.level %}
+    {% set min = 0 %}
+    {% set base = chArcanum.level %}
+    {% set arcanum = chArcanum.arcanum %}
+    {% include "character_sheet_type/mage/arcana/show/element.html.twig" %}
+  {% endfor %}
+{% endblock %}

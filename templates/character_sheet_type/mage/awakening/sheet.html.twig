@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'mage' %}
+
+{% set setting = 'mage' %}
+
+{% block title %}{{ 'awakening.label'|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container block py-3 mt-5">
+    <h1>{{ character.name }} {{ "awakening.title"|trans }}</h1>
+    {{ form_start(form, {'attr': {'data-controller': 'character--awakening'}}) }}
+    <hr>
+    {% include "character_sheet_type/mage/awakening/_path.html.twig" %}
+    <hr>
+    {% include "character_sheet_type/mage/awakening/_arcana.html.twig" %}
+    <hr>
+    {% include "character_sheet_type/mage/awakening/_order.html.twig" %}
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary w-100 disabled" type="submit" data-character--awakening-target="submit" data-action="click->character--awakening#clean">{{ "awakening.save"|trans }}</button>
+      </div>
+    </div>
+    {{ form_end(form) }}
+  </div>
+  {% include "_back.html.twig" with {link: path('character_show', {id: character.id})} %}
+  {% endblock %}

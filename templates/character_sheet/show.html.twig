@@ -60,7 +60,7 @@
         </div>
         {% block subtraits %}
           <div class="row justify-content-center">
-            {% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}
+            {% block morality %}{% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}{% endblock %}
           </div>
         {% endblock %}
       </div>

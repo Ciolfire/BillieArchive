@@ -61,13 +61,13 @@ class PathController extends AbstractController
   // }
 
 
-  // #[Route('/path/{id<\d+>}', name: 'path_show', methods: ['GET'])]
-  // public function pathShow(Path $clan): Response
-  // {
-  //   return $this->render('mage/path/show.html.twig', [
-  //     'path' => $clan,
-  //   ]);
-  // }
+  #[Route('/path/{id<\d+>}', name: 'path_show', methods: ['GET'])]
+  public function pathShow(Path $path): Response
+  {
+    return $this->render('mage/path/show.html.twig', [
+      'path' => $path,
+    ]);
+  }
 
   #[Route('/path/new', name: 'path_new', methods: ['GET', 'POST'])]
   public function new(Request $request): Response

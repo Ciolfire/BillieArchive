@@ -1,0 +1,49 @@
+{% extends "character_sheet/show.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block data_controllers %}
+  {{ parent() }}
+  mage--power
+{% endblock %}
+
+{% block body_attributes %}
+  {{ parent() }}
+{% endblock %}
+
+
+{% block header %}
+  {% include "character_sheet_type/mage/header/show.html.twig" %}
+{% endblock %}
+
+{% block traits %}
+  <div class="row mt-2 mb-1">
+    <div class="col-12 col-md-6">
+      {# {% include 'character_sheet_type/mage/elements/mana.html.twig' %} #}
+    </div>
+    <div class="col-12 col-md-6">
+      {# {% include 'character_sheet_type/mage/gnosis/show.html.twig' %} #}
+    </div>
+  </div>
+{% endblock %}
+
+{# {% block subtraits %}
+  <div class="row justify-content-center">
+    {% include "character_sheet/morality/show.html.twig" with { 'morality': character.moral } %}
+  </div>
+{% endblock %} #}
+
+{% block powers %}
+  <div id="mage" class="g-0 d-none" data-tabs-target="page">
+    {% include "character_sheet_type/mage/powers/show.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'mage', icon: 'type/mage', label: 'mage'|trans({}, 'content-type')} only %}
+{% endblock %}
+
+{% block modals %}
+  {{ parent() }}
+  {# {% include "character_sheet/modals/mage/power_show.html.twig" %} #}
+{% endblock %}

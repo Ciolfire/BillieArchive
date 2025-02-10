@@ -11,7 +11,10 @@ use App\Entity\Description;
 
 use App\Entity\Mage;
 use App\Entity\Arcana;
-
+use App\Entity\Arcanum;
+use App\Entity\MageArcanum;
+use App\Entity\MageOrder;
+use App\Entity\Path;
 use Symfony\Component\Form\FormInterface;
 
 class MageService
@@ -57,6 +60,76 @@ class MageService
       // 'thaumaturgy' => $thaumaturgy,
       // 'devotions' => $devotions,
     ];
+  }
+
+  public function awaken(Character $character, FormInterface $form): bool
+  {
+    $connection = $this->dataService->getConnection();
+    $data = $form->getData();
+    
+    if (!$data['path'] instanceof Path) {
+
+      return false;
+    }
+
+    $arcana = $form->getExtraData()['arcana'];
+    $startingMana = $character->getMoral();
+    
+    // dd("processing", $arcana, $form, $data['path']->getAttribute()->getIdentifier());
+    
+    // $lesser = $character->findLesserTemplate("LESSER");
+    // // IF IT'S A LESSER TEMPLATE, MAYBE NEED TO KEEP THE ARCANA/WHATEVER/...? Didn't work with entity, had to convert to array, but well, it works.
+    // if ($lesser instanceof LESSER) {
+    //   $result = $this->awakenFromLESSER($lesser, $powers);
+    //   $powers = $result['powers'];
+    // }
+
+    // The human is becoming more...
+    $nativeQuery = $connection->prepare("UPDATE `characters` SET type='mage' WHERE id = :id");
+    $nativeQuery->bindValue('id', $character->getId());
+    $nativeQuery->executeStatement();
+    // ... as a Mage for the rest of her life
+    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `mage`(`id`, `path_id`, `order_id`, `gnosis`, `mana`) VALUES (:id, :path, :order, 1, $startingMana)");
+    $nativeQuery->bindValue('id', $character->getId());
+    $nativeQuery->bindValue('path', $data['path']->getId());
+    if ($data['order'] instanceof MageOrder) {
+      $nativeQuery->bindValue('order', $data['order']->getId());
+    } else {
+      $nativeQuery->bindValue('order', null);
+    }
+    $nativeQuery->executeStatement();
+    // // We force the change to the manager, to avoid conflict from memory (?)
+    $this->dataService->reset();
+    $mage = $this->dataService->find(Mage::class, $character->getId());
+    // Bonus attribute and starting Arcana
+    $mage->addAttribute($data['path']->getAttribute()->getIdentifier(), 1);
+    $this->addArcana($mage, $arcana);
+
+    // Should we really ? There is potential loss of informations there
+    // $mage->cleanLesserTemplates();
+    $this->dataService->save($mage);
+
+    return true;
+  }
+
+  /** @param array<int, int> $arcana */
+  public function addArcana(Mage $character, array $arcana): void
+  {
+    foreach ($arcana as $id => $level) {
+      $arcanum = $this->dataService->find(Arcanum::class, $id);
+      if ($arcanum instanceof Arcanum) {
+        if ($character instanceof Mage) {
+          $newArcanum = new MageArcanum($character, $arcanum, (int)$level);
+        }
+        // else {
+        //   $newDiscipline = new GhoulDiscipline($character, $discipline, (int)$level);
+        // }
+      } else {
+        throw new \Exception("\$discipline not a Discipline");
+      }
+      $this->dataService->add($newArcanum);
+      $character->addArcanum($newArcanum);
+    }
   }
 
   public function getRules(Chronicle $chronicle)

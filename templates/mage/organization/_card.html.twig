@@ -1,0 +1,65 @@
+{% trans_default_domain 'organization' %}
+
+{% set order = organization %}
+
+{% if isShown|default(false) == true %}
+  {% set collapse = "" %}
+{% else %}
+  {% set collapse = "collapse" %}
+{% endif %}
+
+<div id="{{ order.name }}" class="col-12" data-search-target="item" data-name="{{ order.name }}">
+  <div class="path-card position-relative">
+  {% if is_granted('ROLE_ST') %}
+    <a class="position-absolute end-0" href="{{ path('organization_edit', {id: order.id, setting: 'vampire'}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+  {% endif %}
+  <blockquote class="text-center mb-2 path-card-header">
+    <h1>{{ order.name }}</h1>
+  </blockquote>
+  {% if order.emblem is not null %}
+    <img class="mx-auto d-block mw-100" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="400"/>
+  {% endif %}
+  <div class="text-center mb-2 fst-italic">
+    {# Merits #}
+    {% if order.roteSpecialties is not empty %}
+      <br>
+      {% include "_icon.html.twig" with {icon: 'skill' } %}
+      {% for skill in order.roteSpecialties %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span class="text-strong">{{ skill.name }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="mage-order-{{ order.id }} path-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".order-{{ order.id }}" aria-expanded="false" aria-controls="{{ order.id }}">
+      <div class="text">{{ order.description|default("")|markdown_to_html }}</div>
+      <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
+      {{ order.overview|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "members"|trans }}</h2>
+      {{ order.members|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "philosophy"|trans }}</h2>
+      {{ order.philosophy|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "observances"|trans }}</h2>
+      {{ order.observances|default("")|markdown_to_html }}
+      <h2 class="text-stylized-alt">{{ "titles"|trans }}</h2>
+      {{ order.titles|default("")|markdown_to_html }}
+    </div>
+    {% if isShown|default(false) != true %}
+      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".order-{{ order.id }}" aria-expanded="false" aria-controls="{{ order.id }}">
+        <span class="fa-layers fa-fw">
+          <i class="fa-solid fa-circle"></i>
+          <span class="ok mage-order-{{ order.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+          <span class="ok mage-order-{{ order.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+        </span>
+      </div>
+    {% endif %}
+    <div class="order-{{ order.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".order-{{ order.id }}" aria-expanded="false" aria-controls="{{ order.id }}">
+      <div class="fluff order-card-footer">{{ order.short|default("")|markdown_to_html }}
+        {% include "_source_block.html.twig" with {'element': order, 'class': 'text-end fst-italic' } only %}
+      </div>
+    </div>
+  </div>
+</div>

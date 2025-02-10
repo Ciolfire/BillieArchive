@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
-use App\Entity\Chronicle;
 use App\Entity\Covenant;
 use App\Entity\Description;
+use App\Entity\MageOrder;
 use App\Entity\Organization;
 use App\Form\CovenantType;
 use App\Form\OrganizationType;
@@ -30,6 +29,7 @@ class OrganizationController extends AbstractController
   public function organizations(string $setting = null): Response
   {
     $organizations = $this->dataService->getOrganizations($setting);
+
     if ($setting == null) {
       $setting = "human";
     }
@@ -61,10 +61,13 @@ class OrganizationController extends AbstractController
 
     switch ($setting) {
       case 'vampire':
-        $type ="covenant";
+        $type = "covenant";
         $organizations = $result['item']->getCovenants();
         break;
-        
+      case 'mage':
+        $type = "order";
+        $organizations = $result['item']->getOrders();
+        break;
         default:
         $type= "organization";
         $organizations = $result['item']->getOrganizations();
@@ -117,14 +120,15 @@ class OrganizationController extends AbstractController
     switch ($setting) {
       case 'vampire':
         $organization = new Covenant();
-        $form = $this->createForm(CovenantType::class, $organization, ['item' => $item]);
         break;
-
+      case 'mage':
+        $organization = new MageOrder();
+        break;
       default:
         $organization = new Organization();
-        $form = $this->createForm(OrganizationType::class, $organization, ['item' => $item]);
         break;
     }
+    $form = $this->createForm($organization->getForm(), $organization, ['item' => $item]);
 
     $form->handleRequest($request);
 

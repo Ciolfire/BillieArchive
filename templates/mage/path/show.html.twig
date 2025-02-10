@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'path' %}
+
+{% set setting = "mage" %}
+
+{% block title %}{{ "label.single"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {% include "mage/path/_card.html.twig" with {'path' : path, 'isShown': true} %}
+  </div>
+
+  {% include "_back.html.twig" %}
+{% endblock %}

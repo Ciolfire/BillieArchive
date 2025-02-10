@@ -9,6 +9,7 @@ use App\Entity\Chronicle;
 use App\Entity\ContentType;
 use App\Entity\Covenant;
 use App\Entity\Devotion;
+use App\Entity\MageOrder;
 use App\Entity\Merit;
 use App\Entity\Note;
 use App\Entity\Organization;
@@ -390,6 +391,9 @@ class DataService
       case 'vampire':
 
         return $this->findBy(Covenant::class, ['homebrewFor' => null], ['name' => 'ASC']);
+      case 'mage':
+
+          return $this->findBy(MageOrder::class, ['homebrewFor' => null], ['name' => 'ASC']);
       default:
 
         return $this->findBy(Organization::class, ['name' => $this->genericTypes]);

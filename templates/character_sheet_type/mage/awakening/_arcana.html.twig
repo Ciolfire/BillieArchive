@@ -1,0 +1,33 @@
+{% trans_default_domain 'arcanum' %}
+
+<h2>{{ 'label.single'|trans }}</h2>
+<div class="row mb-4 justify-content-center">
+  <div class="col-auto text-center block mt-2">
+    <span class=" fw-bold">{{ "awakening.arcana.creation.info"|trans({}, 'mage')|raw|nl2br }}</span>
+    {{ 'awakening.arcana.creation.ruling'|trans({}, 'mage') }}
+    <span class="ko" data-character--awakening-target="arcanaRuling">0</span>/2
+    <br>
+    {{ 'awakening.arcana.creation.others'|trans({}, 'mage') }}
+    <span class="ko" data-character--awakening-target="arcanaOthers">0</span> dots
+    <br>
+    <span class="ko" data-character--awakening-target="arcanaTotal">0</span>/6
+    {{ 'awakening.arcana.creation.all'|trans({}, 'mage') }}
+    {# <span data-character--awakening-target="arcanaTotal">0/0/0</span> #}
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+      {% for arcanum in arcana %}
+        <div class="col-6 arcanum-block d-none order-2">
+          {% set max = 3 %}
+          {% set min = 0 %}
+          {% set base = 0 %}
+          {% include "character_sheet_type/mage/awakening/_arcanum.html.twig" %}
+        </div>
+      {% endfor %}
+      {# This is to make a break between order-0, order-2 and order-4 #}
+      <div class="col-12 d-none order-first pt-3" data-character--awakening-target="arcanaTitle"><h4>{{ 'ruling'|trans }}</h4></div>
+      <div class="col-12 d-none order-1 pt-3" data-character--awakening-target="arcanaTitle"><h4>{{ 'others'|trans }}</h4></div>
+      <div class="col-12 d-none order-3 pt-3" data-character--awakening-target="arcanaTitle"><h4>{{ 'inferior'|trans }}</h4></div>
+    </div>
+  </div>
+</div>

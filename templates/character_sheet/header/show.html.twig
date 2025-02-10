@@ -9,13 +9,15 @@
       {% endif %}
       {{ character.name }}
     </h1>
-    <h2>
-      {% if character.player is not null and app.user != character.player %}
-        ({{ character.player }})
-      {% elseif character.isPremade == true %}
-        {% include "_icon.html.twig" with {icon: 'premade',  label: "premade.label.single"|trans} %}
-      {% endif %}
-    </h2>
+    {% block premade %}
+      <h2>
+        {% if character.player is not null and app.user != character.player %}
+          ({{ character.player }})
+        {% elseif character.isPremade == true %}
+          {% include "_icon.html.twig" with {icon: 'premade',  label: "premade.label.single"|trans} %}
+        {% endif %}
+      </h2>
+    {% endblock %}
   {% endblock %}
   <div class="order-2 order-md-1 col-6 col-md text-center text-strong">
     {% block leftCol %}

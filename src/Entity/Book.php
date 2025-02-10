@@ -98,6 +98,10 @@ class Book implements Translatable
   private Collection $ghoulFamilies;
 
   // Mage
+  #[ORM\OneToMany(targetEntity: Arcanum::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $arcana;
+
   #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'book')]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $paths;
@@ -528,6 +532,32 @@ class Book implements Translatable
   }
 
   // MAGE
+  public function getArcana(): Collection
+  {
+    return $this->arcana;
+  }
+
+  public function addArcanum(Arcanum $arcanum): self
+  {
+    if (!$this->arcana->contains($arcanum)) {
+      $this->arcana[] = $arcanum;
+      $arcanum->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeArcanum(Arcanum $arcanum): self
+  {
+    if ($this->arcana->removeElement($arcanum)) {
+      // set the owning side to null (unless already changed)
+      if ($arcanum->getBook() === $this) {
+        $arcanum->setBook(null);
+      }
+    }
+
+    return $this;
+  }
 
   public function getPaths(): Collection
   {

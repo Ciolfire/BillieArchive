@@ -1,5 +1,5 @@
 .mage {
-  color           : #008886;
+  color           : #c7ad6c;
   // border          : 1px solid #008886;
   // background-color: #96ba949a;
 
@@ -25,14 +25,14 @@
   &.btn.btn-primary,
   & .btn,
   & .btn.btn-primary {
-    color           : #008886;
-    background-color: #131313cf;
+    color           : #c7ad6c;
+    background-color: #00888688;
     border          : 1px solid #008886;
 
     &:hover,
     &:active,
     &:focus {
-      background-color: #00888688;
+      background-color: #16555488;
       box-shadow      : 0 0 0 0.25rem rgba(0, 135, 133, 0.5);
     }
 

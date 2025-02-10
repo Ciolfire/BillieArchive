@@ -2,19 +2,19 @@ $fonts: "../../fonts";
 
 $pageColor        : rgb(37, 37, 37);
 $footerColor      : #8e8e8eb5;
-$blockColor       : #151515c4;
+$blockColor       : rgba(61, 85, 95, 0.56);
 $neutralBlockColor : #303030a6;
-$darkBlockColor   : #000000cc;
-$lightBlockColor  : #FFFFFF80;
+$darkBlockColor   : rgba(4, 13, 17, 0.63);
+$lightBlockColor  : rgba(214, 182, 53, 0.37);
 $lightBlock30pColor: #ffffff4a;
 $solidBlockColor  : #6a6a6a;
 $tabColor         : #6a6a6a4f;
 $borderColor      : #008886;
-$mainColor        : #008886;
-$mainBrightColor  : #07cac7;
+$mainColor        : #081e19;//#008886;
+$mainBrightColor  : #008886;//#07cac7;
 $mainDark75pColor : #0087855c;
-$mainDarkColor    : #008785;
-$main30pColor      : #0088864f;
+$mainDarkColor    : #04231c;
+$main30pColor     : #0088864f;
 $main50pColor     : #00888680;
 $main75pColor     : #008886bf;
 $wrongColor       : #000968;
@@ -23,21 +23,22 @@ $secondaryColor    : rgba(0, 117, 152, 0.711);
 $accentColor      : gold;
 $backAccentColor  : #1f1f1f;
 
-$background: "images/back4.jpg";
+$background: "images/back4.png";
 
 // Text
-$textColor          : #a1a5b9;
+$textColor          : #081e19;
 $textDarkColor      : #081e19;
 $textBrightColor    : $mainBrightColor;
 $titleColor         : #081e19;
 $titleShadow        : $mainBrightColor;
+$textShadowColor    : $mainBrightColor;
 // Table
 $tableAccentColor   : $main75pColor;
 $tableHeaderColor   : $textColor;
 // Btn
 $btnColor           : #131313cf;
 $btnTextColor       : $mainColor;
-$btnBorderColor     : $mainDarkColor;
+$btnBorderColor     : $mainBrightColor;
 $btnActiveColor     : $main75pColor;
 $btnActiveTextColor : white;
 $btnActiveShadow    : #000035;
@@ -45,9 +46,9 @@ $btnWarningShadow   : #5c5c5c;
 $btnHover           : $main50pColor;
 //
 $labelColor         : $mainColor;
-$subtextColor       : #a1a5b9a1;
-$linkColor          : $mainBrightColor;
-$linkHoverColor     : #ce8904;
+$subtextColor       : rgba(7, 20, 23, 0.63);
+$linkColor          : silver;
+$linkHoverColor     : #00e7ff;
 $strongColor        : $mainBrightColor;
 $outlineColor       : $main50pColor;
 $helpColor          : #3f3f3f;
@@ -65,8 +66,26 @@ $textFont           : "goudy";
 $subTextFont        : "goudy";
 $labelFont          : "goudy";
 $inputFont          : "goudy";
-$stylizedFont       : "Cezanne";
+$stylizedFont       : "Roustel";
 $stylizedAltFont    : "Cezanne";
+
+@font-face {
+  font-family: 'Roustel';
+  src        : url('#{$fonts}/Roustel.ttf');
+  size-adjust: 150%;
+}
+
+// @font-face {
+//   font-family: 'Merlinn';
+//   src        : url('#{$fonts}/Merlinn.ttf');
+//   size-adjust: 150%;
+// }
+
+// @font-face {
+//   font-family: 'Get Show';
+//   src        : url('#{$fonts}/Get Show.ttf');
+//   size-adjust: 150%;
+// }
 
 @font-face {
   font-family: 'Cezanne';

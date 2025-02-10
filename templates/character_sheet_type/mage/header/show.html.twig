@@ -1,0 +1,47 @@
+{% trans_default_domain 'vampire' %}
+
+{% extends "character_sheet/header/show.html.twig" %}
+
+{% block name %}
+<div class="col-12">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <h1 class="py-2 text-stylized">
+        <img class="no-filter pe-2" src="{{ asset(character.path.emblem, 'paths_emblems') }}" style="height:2.6em;"/>
+        <span class="text-strong">{{ character.name }}</span>
+        {# <img class="no-filter ps-4" src="{% if character.legacy %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/> #}
+      </h1>
+      {% block premade %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+      <a href="{{ path("path_show", {'id': character.path.id}) }}">
+        {{ character.path.name }}
+      </a>
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block organization %}
+  {{ "covenant.label.single"|trans([], 'organization') }}:
+  {% if character.order %}
+    <a href="{{ path("organization_show", {'id': character.order.id}) }}">
+      {{ character.order }}
+      <span class="icon link-icon"><img src="{{ asset(character.order.emblem, 'organizations_emblems') }}"></span>
+    </a>
+  {% endif %}
+{% endblock %}
