@@ -10,6 +10,7 @@
     {% if order.emblem is not null %}
       <img class="mx-auto d-block" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="200"/>
     {% endif %}
+    {{ order.description|markdown_to_html }}
     <h4>{{ "rote.specialities"|trans({}, 'order') }}</h4>
     <span class="text-strong">
       {% for rote in order.RoteSpecialties %}

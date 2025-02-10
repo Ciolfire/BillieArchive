@@ -48,6 +48,8 @@ class AwakeningType extends AbstractType
       'choice_label' => 'name',
       'choice_attr' => function(MageOrder $order) {
         return [
+          'data-bs-toggle' => 'tooltip',
+          'title' => $order->getShort(),
           'data-order' => "mage-order-{$order->getId()}",
           'data-action' => 'click->character--awakening#orderPicked',
           'data-character--awakening-target' => 'order'
