@@ -1,0 +1,25 @@
+{% extends "character_sheet_type/mage/gnosis/element.html.twig" %}
+
+{% trans_default_domain 'mage' %}
+
+{% block controller %}data-controller="dot" role="group"{% endblock %}
+
+{% block data %}data-name="{{ 'gnosis.label'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
+
+{% block input %}
+  <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
+{% endblock %}
+
+{% block dot %}
+<input type="checkbox" {% if value == 1 %}checked{% endif %} class="btn-check" id="{{ trait ~'-' ~ index }}" value="{{ index }}" autocomplete="off" data-dot-target="dot">
+<label class="btn dot{% if value == 1 %} dot-locked{% else %} dot-selectable{% endif %}" for="{{ trait ~ '-' ~ index }}"
+  data-action="click->dot#activate click->character--edit#pay"
+  data-dot-value-param="{{ index }}"
+  data-character--edit-id-param="gnosis"
+  data-character--edit-type-param="{{ trait }}"
+  data-character--edit-name-param="{{ 'gnosis.label'|trans }}"
+  data-character--edit-value-param="{{ index }}"
+  data-character--edit-base-param="{{ current }}"
+>
+</label>
+{% endblock %}

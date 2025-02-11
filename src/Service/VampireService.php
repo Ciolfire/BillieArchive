@@ -30,6 +30,97 @@ class VampireService
     $this->dataService = $dataService;
   }
 
+  public function embrace(Character $character, FormInterface $form): bool
+  {
+    $connection = $this->dataService->getConnection();
+    $data = $form->getData();
+    
+    if (!$data['clan'] instanceof Clan) {
+
+      return false;
+    }
+
+    $ghoul = $character->findLesserTemplate("ghoul");
+    $disciplines = $form->getExtraData()['disciplines'];
+    // IF IT'S A GHOUL, NEED TO KEEP THE DISCIPLINES/DEVOTIONS/... Didn't work with entity, had to convert to array, but well, it works.
+    if ($ghoul instanceof Ghoul) {
+      $result = $this->embraceFromGhoul($ghoul, $disciplines);
+      $disciplines = $result['disciplines'];
+    }
+    // The human is gone forever...
+    $nativeQuery = $connection->prepare("UPDATE `characters` SET type='vampire' WHERE id = :id");
+    $nativeQuery->bindValue('id', $character->getId());
+    $nativeQuery->executeStatement();
+    // ...But the Vampire rise for eternity
+    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `covenant_id`, `sire`, `death_age`, `potency`, `vitae`) VALUES (:id, :clan, :covenant, :sire, :age, 1, 1)");
+    $nativeQuery->bindValue('id', $character->getId());
+    $nativeQuery->bindValue('clan', $data['clan']->getId());
+    if ($data['covenant'] instanceof Covenant) {
+      $nativeQuery->bindValue('covenant', $data['covenant']->getId());
+    } else {
+      $nativeQuery->bindValue('covenant', null);
+    }
+    $nativeQuery->bindValue('sire', $data['sire']);
+    $nativeQuery->bindValue('age', $data['age']);
+    $nativeQuery->executeStatement();
+    // We force the change to the manager, to avoid conflict from memory (?)
+    $this->dataService->reset();
+    $vampire = $this->dataService->find(Vampire::class, $character->getId());
+    // dd($vampire, $ghoul, $disciplines, $data['attribute']->getIdentifier());
+    $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
+    // Should reflect the current advancement of the ghoul, ie if the ghoul already has 2 discipline, she only get 1 new dot
+    $this->addDisciplines($vampire, $disciplines);
+    if (isset($result['rituals'])) {
+      $this->addRituals($vampire, $result['rituals']);
+    }
+    if (isset($result['devotions'])) {
+      $this->addDevotions($vampire, $result['devotions']);
+    }
+    $vampire->cleanLesserTemplates();
+    $this->dataService->save($vampire);
+
+    return true;
+  }
+
+  public function embraceFromGhoul(Ghoul $ghoul, array $disciplines) : array
+  {
+    $rituals = [];
+    $devotions = [];
+    foreach ($ghoul->getDisciplines() as $ghoulDiscipline) {
+      if ($ghoulDiscipline instanceof GhoulDiscipline) {
+        $discipline = $ghoulDiscipline->getDiscipline();
+        $level = $ghoulDiscipline->getLevel();
+        $disciplines[$discipline->getId()] = $level;
+      }
+    }
+    foreach ($ghoul->getRituals() as $ritual) {
+      if ($ritual instanceof DisciplinePower) {
+        $rituals[$ritual->getId()] = 1;
+      }
+    }
+    foreach ($ghoul->getDevotions() as $devotion) {
+      if ($devotion instanceof Devotion) {
+        $devotions[$devotion->getId()] = 1;
+      }
+    }
+
+    return [
+      'disciplines' => $disciplines,
+      'rituals' => $rituals,
+      'devotions' => $devotions,
+    ];
+  }
+
+  public function ghoulify(Ghoul $template, array $data): Ghoul
+  {
+    // The human turn partly vampire...
+    $template->setClan($this->dataService->find(Clan::class, $data['clan']));
+    $template->setRegent($data['regent']);
+    $template->setCovenant($this->dataService->find(Covenant::class, $data['covenant']));
+    $template->setFamily($this->dataService->find(GhoulFamily::class, $data['family']));
+
+    return $template;
+  }
 
   /**
    * @return array<string, array<int, object>>
@@ -129,99 +220,6 @@ class VampireService
     }
 
     return true;
-  }
-
-  public function embrace(Character $character, FormInterface $form): bool
-  {
-    $connection = $this->dataService->getConnection();
-    $data = $form->getData();
-    
-    if (!$data['clan'] instanceof Clan) {
-
-      return false;
-    }
-
-    $ghoul = $character->findLesserTemplate("ghoul");
-    $disciplines = $form->getExtraData()['disciplines'];
-    // IF IT'S A GHOUL, NEED TO KEEP THE DISCIPLINES/DEVOTIONS/... Didn't work with entity, had to convert to array, but well, it works.
-    if ($ghoul instanceof Ghoul) {
-      $result = $this->embraceFromGhoul($ghoul, $disciplines);
-      $disciplines = $result['disciplines'];
-    }
-    // The human is gone forever...
-    $nativeQuery = $connection->prepare("UPDATE `characters` SET type='vampire' WHERE id = :id");
-    $nativeQuery->bindValue('id', $character->getId());
-    $nativeQuery->executeStatement();
-    // ...But the Vampire rise for eternity
-    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `vampire`(`id`, `clan_id`, `covenant_id`, `sire`, `death_age`, `potency`, `vitae`) VALUES (:id, :clan, :covenant, :sire, :age, 1, 1)");
-    $nativeQuery->bindValue('id', $character->getId());
-    $nativeQuery->bindValue('clan', $data['clan']->getId());
-    if ($data['covenant'] instanceof Covenant) {
-      $nativeQuery->bindValue('covenant', $data['covenant']->getId());
-    } else {
-      $nativeQuery->bindValue('covenant', null);
-    }
-    $nativeQuery->bindValue('sire', $data['sire']);
-    $nativeQuery->bindValue('age', $data['age']);
-    $nativeQuery->executeStatement();
-    // We force the change to the manager, to avoid conflict from memory (?)
-    $this->dataService->reset();
-    $vampire = $this->dataService->find(Vampire::class, $character->getId());
-    // dd($vampire, $ghoul, $disciplines, $data['attribute']->getIdentifier());
-    $vampire->addAttribute($data['attribute']->getIdentifier(), 1);
-    // Should reflect the current advancement of the ghoul, ie if the ghoul already has 2 discipline, she only get 1 new dot
-    $this->addDisciplines($vampire, $disciplines);
-    if (isset($result['rituals'])) {
-      $this->addRituals($vampire, $result['rituals']);
-    }
-    if (isset($result['devotions'])) {
-      $this->addDevotions($vampire, $result['devotions']);
-    }
-    $vampire->cleanLesserTemplates();
-    $this->dataService->save($vampire);
-
-    return true;
-  }
-
-  public function embraceFromGhoul(Ghoul $ghoul, array $disciplines) : array
-  {
-    $rituals = [];
-    $devotions = [];
-    foreach ($ghoul->getDisciplines() as $ghoulDiscipline) {
-      if ($ghoulDiscipline instanceof GhoulDiscipline) {
-        $discipline = $ghoulDiscipline->getDiscipline();
-        $level = $ghoulDiscipline->getLevel();
-        $disciplines[$discipline->getId()] = $level;
-      }
-    }
-    foreach ($ghoul->getRituals() as $ritual) {
-      if ($ritual instanceof DisciplinePower) {
-        $rituals[$ritual->getId()] = 1;
-      }
-    }
-    foreach ($ghoul->getDevotions() as $devotion) {
-      if ($devotion instanceof Devotion) {
-        $devotions[$devotion->getId()] = 1;
-      }
-    }
-
-    return [
-      'disciplines' => $disciplines,
-      'rituals' => $rituals,
-      'devotions' => $devotions,
-    ];
-  }
-
-
-  public function ghoulify(Ghoul $template, array $data): Ghoul
-  {
-    // The human turn partly vampire...
-    $template->setClan($this->dataService->find(Clan::class, $data['clan']));
-    $template->setRegent($data['regent']);
-    $template->setCovenant($this->dataService->find(Covenant::class, $data['covenant']));
-    $template->setFamily($this->dataService->find(GhoulFamily::class, $data['family']));
-
-    return $template;
   }
 
   /** @param array<string, mixed> $data */

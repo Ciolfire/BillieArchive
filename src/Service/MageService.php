@@ -26,39 +26,6 @@ class MageService
     $this->dataService = $dataService;
   }
 
-
-  /**
-   * @return array<string, array<int, object>>
-   */
-  public function getSpecial(Mage $mage): array
-  {
-    /** @var array<int, Arcanum> */
-    $arcana = $this->dataService->findAll(Arcanum::class);
-    // $arcana = $this->dataService->findBy(Arcanum::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
-    // /** @var array<int, Discipline> */
-    // $sorcery = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
-    // $sorcery = $this->filterDisciplines($sorcery, $vampire);
-    // /** @var array<int, Discipline> */
-    // $coils = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
-    // $coils = $this->filterDisciplines($coils, $vampire);
-    // /** @var array<int, Discipline> */
-    // $thaumaturgy = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
-    // $thaumaturgy = $this->filterDisciplines($thaumaturgy, $vampire);
-
-    // $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
-    // foreach ($devotions as $key => $devotion) {
-    //   /** @var Devotion $devotion */
-    //   if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
-    //     unset($devotions[$key]);
-    //   }
-    //   $this->dataService->loadPrerequisites($devotion);
-    // }
-    return [
-      'arcana' => $arcana,
-      // 'spells' => $spells,
-    ];
-  }
-
   public function awaken(Character $character, FormInterface $form): bool
   {
     $connection = $this->dataService->getConnection();
@@ -107,6 +74,66 @@ class MageService
     $this->dataService->save($mage);
 
     return true;
+  }
+
+  /**
+   * @return array<string, array<int, object>>
+   */
+  public function getSpecial(Mage $mage): array
+  {
+    /** @var array<int, Arcanum> */
+    $arcana = $this->dataService->findAll(Arcanum::class);
+    // $arcana = $this->dataService->findBy(Arcanum::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
+    // /** @var array<int, Discipline> */
+    // $sorcery = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
+    // $sorcery = $this->filterDisciplines($sorcery, $vampire);
+    // /** @var array<int, Discipline> */
+    // $coils = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
+    // $coils = $this->filterDisciplines($coils, $vampire);
+    // /** @var array<int, Discipline> */
+    // $thaumaturgy = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
+    // $thaumaturgy = $this->filterDisciplines($thaumaturgy, $vampire);
+
+    // $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
+    // foreach ($devotions as $key => $devotion) {
+    //   /** @var Devotion $devotion */
+    //   if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
+    //     unset($devotions[$key]);
+    //   }
+    //   $this->dataService->loadPrerequisites($devotion);
+    // }
+    return [
+      'arcana' => $arcana,
+      // 'spells' => $spells,
+    ];
+  }
+
+  /** @param array<string, mixed> $data */
+  public function handleEdit(Mage $mage, array $data): void
+  {
+
+    if (isset($data['gnosis']) && $data['gnosis'] > $mage->getGnosis()) {
+      $mage->setGnosis((int)$data['gnosis']);
+    }
+    
+    // if (isset($data['disciplinesUp'])) {
+    //   foreach ($data['disciplinesUp'] as $id => $level) {
+    //     $discipline = $mage->getDiscipline($id);
+    //     if ($discipline) {
+    //       $discipline->setLevel((int)$level);
+    //     }
+    //   }
+    // }
+    // if (isset($data['disciplines'])) {
+    //   $this->addDisciplines($mage, $data['disciplines']);
+    // }
+    // if (isset($data['devotions'])) {
+    //   $this->addDevotions($mage, $data['devotions']);
+    // }
+
+    // if (isset($data['rituals'])) {
+    //   $this->addRituals($mage, $data['rituals']);
+    // }
   }
 
   /** @param array<int, int> $arcana */

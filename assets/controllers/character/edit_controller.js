@@ -34,6 +34,8 @@ export default class extends Controller
       'discipline': 7,
       'favoredDiscipline': 5,
       'potency': 8,
+      // mage
+      'gnosis': 8,
     },
     spendInfo: []
   }

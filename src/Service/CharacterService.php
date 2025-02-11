@@ -66,8 +66,10 @@ class CharacterService
         break;
       case 'ghoul':
         $this->vampireService->handleGhoulEdit($character->getLesserTemplate(), $extraData);
-      default:
-        # code...
+        break;
+      case 'mage':
+        /** @var Vampire $character */
+        $this->mageService->handleEdit($character, $extraData);
         break;
     }
     if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
