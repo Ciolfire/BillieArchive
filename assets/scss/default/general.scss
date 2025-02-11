@@ -1,35 +1,21 @@
 $lesserColor: #9736dad4;
 
-// TODO check if still needed
-.vampire-btn,
-.mage-btn,
-.werewolf-btn,
-.human-btn {
-  display         : inline-block;
-  font-weight     : 400;
-  line-height     : 1.5;
-  color           : #212529;
-  text-align      : center;
-  text-decoration : none;
-  vertical-align  : middle;
-  cursor          : pointer;
-  user-select     : none;
-  background-color: transparent;
-  border          : 1px solid transparent;
-  font-size       : 1rem;
-  border-radius   : 0.25rem;
-  transition      : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .psychic, .thaumaturge {
+.human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .psychic, .thaumaturge,
+.human-btn
+{
   &.btn,
   &.btn.btn-primary,
-  &.btn.btn-primary.btn-human,
+  &.btn.btn-primary.btn-human, // Maybe not needed anymore ?
+  &.btn.btn-primary.human-btn,
   & .btn,
   & .btn.btn-primary {
     color           : #6f80c5;
     background-color: #1a1d29a3;
     border          : 1px solid #6f80c5;
+
+    svg, img {
+      filter: drop-shadow(-1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(1px 1px 0 #000);
+    }
 
     &:hover,
     &:active,

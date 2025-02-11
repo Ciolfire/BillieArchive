@@ -25,7 +25,7 @@ h5,
   }
 
   img {
-    filter: drop-shadow(-1px 1px 0 $mainColor) drop-shadow(-1px -1px 0 $mainColor) drop-shadow(1px -1px 0 $mainColor) drop-shadow(1px 1px 0 $mainColor);
+    filter: drop-shadow(-1px 1px 0 $imageShadow) drop-shadow(-1px -1px 0 $imageShadow) drop-shadow(1px -1px 0 $imageShadow) drop-shadow(1px 1px 0 $imageShadow);
 
     &.no-filter {
       filter: none;
