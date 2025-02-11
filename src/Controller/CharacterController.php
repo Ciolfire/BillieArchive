@@ -259,6 +259,7 @@ class CharacterController extends AbstractController
       ->getForm();
 
     $avatarForm->handleRequest($request);
+
     return $this->render("character_sheet_type/show.html.twig", [
       'character' => $character,
       'attributes' => $this->attributes,
@@ -273,19 +274,11 @@ class CharacterController extends AbstractController
 
   #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
   #[IsGranted('edit', 'character')]
-  public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
+  public function edit(Request $request, Character $character): Response
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    switch ($character->getType()) {
-      case 'vampire':
-        $form = $formFactory->createNamed('character', VampireType::class, $character, ['is_edit' => true, 'user' => $this->getUser()]);
-        break;
-
-      default:
-        $form = $this->createForm(CharacterType::class, $character, ['is_edit' => true, 'user' => $this->getUser()]);
-        break;
-    }
+    $form = $this->createForm($character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
