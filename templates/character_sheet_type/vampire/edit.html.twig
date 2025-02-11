@@ -20,14 +20,14 @@
   {{ form_start(form, {'attr': form_attributes}) }}
 {% endblock %}
 
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'vampire', label: 'vampire'|trans({}, 'content-type'), icon: 'type/vampire'} only %}
+{% endblock %}
+
 {% block special %}
   <div id="vampire" class="g-0 d-none" data-tabs-target="page">
     {% include "character_sheet_type/vampire/powers/edit.html.twig" %}
   </div>
-{% endblock %}
-
-{% block specialTab %}
-  {% include "_tab.html.twig" with {name: 'vampire', label: 'vampire'|trans({}, 'content-type'), icon: 'type/vampire'} only %}
 {% endblock %}
 
 {% block modals %}

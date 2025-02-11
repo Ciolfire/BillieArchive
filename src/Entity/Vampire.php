@@ -2,34 +2,37 @@
 
 namespace App\Entity;
 
-use App\Entity\References\DisciplineReferences;
-use App\Entity\VampireDiscipline;
-use App\Form\Vampire\VampireType;
 use App\Repository\VampireRepository;
+use App\Entity\References\DisciplineReferences;
+use App\Form\Vampire\VampireType;
+
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 
 
 #[ORM\Entity(repositoryClass: VampireRepository::class)]
 class Vampire extends Character
 {
-  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
-  private ?string $sire = null;
-
-  #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
-  private ?int $deathAge = null;
-
-  #[ORM\ManyToOne(targetEntity: Clan::class)]
-  #[ORM\JoinColumn(nullable: false)]
-  private Clan $clan;
-
   #[ORM\Column(type: Types::SMALLINT)]
   private int $potency = 1;
 
   #[ORM\Column(type: Types::SMALLINT)]
   private int $vitae = 1;
+
+  #[ORM\ManyToOne(targetEntity: Clan::class)]
+  #[ORM\JoinColumn(nullable: false)]
+  private Clan $clan;
+
+  #[ORM\ManyToOne]
+  private ?Covenant $covenant = null;
+
+  #[ORM\Column(type: Types::STRING, length: 50, nullable: true)]
+  private ?string $sire = null;
+
+  #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
+  private ?int $deathAge = null;
 
   #[ORM\OneToMany(targetEntity: VampireDiscipline::class, mappedBy: "character", orphanRemoval: true, cascade: ["persist", "remove"])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
@@ -46,8 +49,6 @@ class Vampire extends Character
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
-  #[ORM\ManyToOne]
-  private ?Covenant $covenant = null;
 
   public function __construct(Character $character = null)
   {

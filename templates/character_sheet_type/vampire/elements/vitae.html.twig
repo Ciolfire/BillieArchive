@@ -1,20 +1,21 @@
 {% trans_default_domain 'vampire' %}
 
-<div class="block user-select-none h-100 p-3" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ character.vitae }}">
+{% set vitae = character.vitae %}
+
+<div class="block user-select-none h-100 p-3" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="vitae" data-trait-current-value="{{ vitae }}">
   <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'vitae', 'class': 'icon-lg' } only %} {{ 'vitae.label'|trans }}</h3>
-  <h4>{{ "vitae.per.turn"|trans({'%value%': character.maxVitaePerTurn})|raw }} (<span class="accent" data-trait-target="value">{{ character.vitae }}</span>/{{ character.maxVitae}})</h4>
-  {% set vitae = character.vitae %}
+  <h4>{{ "vitae.per.turn"|trans({'%value%': character.maxVitaePerTurn})|raw }} (<span class="accent" data-trait-target="value">{{ vitae }}</span>/{{ character.maxVitae}})</h4>
   <div class="d-flex flex-column align-items-start">
     <div class="text-start">
     {% for index in 1..5 %}
       <span class="d-inline-block malus-box text-center text-strong">
         <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'feeding.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'feeding.hungry'|trans }}">-1{% endif %}</div>
       </span>
-      {% endfor %}
+    {% endfor %}
     </div>
     <div class="text-start">
       {% for index in 1..character.maxVitae %}
-        {% if index <= character.vitae %}
+        {% if index <= vitae %}
           {% set value = 1 %}
         {% else %}
           {% set value = 0 %}

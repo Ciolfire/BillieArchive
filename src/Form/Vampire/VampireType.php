@@ -10,10 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class VampireType extends CharacterType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
-  {
-    /** @var Vampire */
-    $vampire = $options['data'];
-    
+  {    
     // get the parent form fields
     parent::buildForm($builder, $options);
 

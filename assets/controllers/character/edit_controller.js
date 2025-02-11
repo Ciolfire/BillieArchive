@@ -17,6 +17,7 @@ export default class extends Controller
     total: Number,
     used: Number,
     spend: Number,
+    //vampire
     ritualCurrent: {},
     coilsCurrent: {},
     coils: Number,
