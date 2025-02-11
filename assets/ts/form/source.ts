@@ -12,23 +12,27 @@ forms.forEach(form => {
       let target = event.target as HTMLInputElement;
       if (target.value) {
         pageBlock.style.display = 'flex';
-        // We choose a book, remove the homebrew
-        homebrew.value = "";
+        // We choose a book, remove the  if needed
+        if (homebrew != undefined) {
+          homebrew.value = "";
+        }
       } else {
         pageBlock.style.display = 'none';
       }
     });
     // Add listener on homebrew
-    homebrew.addEventListener("change", (event) => {
-      let target = event.target as HTMLInputElement;
-      // We choose a homebrew, remove the book
-      if (target.value) {
-        book.value = "";
-        page.value = "";
-        book.dispatchEvent( new Event('change'));
-      }
-    });
+    if (homebrew != undefined) {
+      homebrew.addEventListener("change", (event) => {
+        let target = event.target as HTMLInputElement;
+        // We choose a homebrew, remove the book
+        if (target.value) {
+          book.value = "";
+          page.value = "";
+          book.dispatchEvent( new Event('change'));
+        }
+      });
+      homebrew.dispatchEvent( new Event('change'));
+    }
     book.dispatchEvent( new Event('change'));
-    homebrew.dispatchEvent( new Event('change'));
   }
 });
