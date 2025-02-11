@@ -86,11 +86,12 @@ devotion:
   prerequisite: Prérequis
 
 # form
-short: Résumé
 rules: Règles
 
 restricted: Est limitée
 
+short:
+  help: Une phrase courte décrivant la discipline
+  label: Résumé
 help:
-  short: Une phrase courte décrivant la discipline
   restricted: Une discipline limitée ne sera disponible qu'aux vampires d'un clan ou d'une lignée qui possède celle-ci

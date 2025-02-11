@@ -86,11 +86,12 @@ devotion:
   prerequisite: Prerequisite
 
 # form
-short: Short
 rules: Rules
 
 restricted: Is restricted
 
+short:
+  label: Short
+  help: A short sentence to describe the discipline.
 help:
-  short: A short sentence to describe the discipline.
   restricted: A restricted discipline will only be accessible to vampire for whom it's in-clan or in-bloodline.
