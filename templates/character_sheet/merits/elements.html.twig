@@ -3,13 +3,14 @@
 {% set categories = ['mental', 'physical', 'social'] %}
 
 {% block creation %}{% endblock %}
-<div class="position-relative row mb-2 ps-4" data-controller="search" data-search-type-value="merit">
-  <div id="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target="#meritsWrapper">
+<div class="position-relative row mb-5 ps-4" data-controller="search" data-search-type-value="merit">
+  <div id="merit-hide" type="button" data-bs-toggle="collapse" data-bs-target=".meritsWrapper">
     <div class="position-sticky top-50 my-2">
-      <span >{% include "_icon.html.twig" with {icon : 'caret-up' } only %}</span>
+      <div class="collapse show meritsWrapper">{% include "_icon.html.twig" with {icon : 'caret-up'} only %}</div>
+      <div class="collapse meritsWrapper">{% include "_icon.html.twig" with {icon : 'caret-down' } only %}</div>
     </div>
   </div>
-  <div id="meritsWrapper" class="collapse show">
+  <div id="meritsWrapper" class="collapse show meritsWrapper">
     <p class="merit-filters my-1 ms-5">
       <span class="btn btn-primary" data-action="click->character--merits#filter" data-character--merits-target="filter" data-character--merits-category-param="">
         <span class="d-none d-md-inline">{{ "all"|trans({}, 'app') }}</span>

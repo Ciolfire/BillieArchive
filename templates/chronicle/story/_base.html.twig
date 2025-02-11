@@ -1,23 +1,23 @@
 {% trans_default_domain 'chronicle' %}
 
-<div class="row">
-<a class="w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}"><h3>
-  {{ chronicle.name }}{% include "_icon.html.twig" with {icon: 'gears', class: 'icon-sm' } only %}
-</h3></a>
-{% for character in chronicle.characters %}
-  {% if character.isNpc == false %}
-    <div class="col-6 col-xl-3">
-      <div class="w-100 h-100 py-1">
-        <a class="{{ character.type }} btn btn-primary btn-{{ character.type }} human-btn w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
-          <div class="character-frame character-frame-list position-relative text-center rounded">
-            <img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-          </div>
-          {{ character.name }}
-        </a>
+<div class="row g-2">
+  <a class="w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}"><h3>
+    {{ chronicle.name }}{% include "_icon.html.twig" with {icon: 'gears', class: 'icon-sm' } only %}
+  </h3></a>
+  {% for character in chronicle.characters %}
+    {% if character.isNpc == false %}
+      <div class="col-6 col-xl-3">
+        <div class="w-100 h-100 py-1">
+          <a class="{{ character.type }} btn btn-primary btn-{{ character.type }} w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
+            <div class="character-frame character-frame-list position-relative text-center rounded">
+              <img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+            </div>
+            {{ character.name }}
+          </a>
+        </div>
       </div>
-    </div>
-  {% endif %}
-{% endfor %}
+    {% endif %}
+  {% endfor %}
 </div>
 <div class="row g-2 pb-1 justify-content-center">
   <div class="col-6">

@@ -26,8 +26,12 @@
   <div class="row">
     <div class="col-12">
         {% if ghoulCharacter.family|default(null) %}
-        <a href="{{ path("clan_show", {'id': ghoulCharacter.family.id}) }}">
-            <span class="icon link-icon"><img src="{{ asset(ghoulCharacter.family.emblem, 'ghoul_family_emblems') }}"></span>
+        <a href="{{ path("ghoul_family_show", {'id': ghoulCharacter.family.id}) }}">
+            {% if ghoulCharacter.family.emblem %}
+              <span class="icon link-icon"><img src="{{ asset(ghoulCharacter.family.emblem, 'ghoul_family_emblems') }}"></span>
+            {% else %}
+              {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
+            {% endif %}
             {{ ghoulCharacter.family.name }}
         </a>
         {% endif %}

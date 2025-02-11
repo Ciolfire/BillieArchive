@@ -16,6 +16,9 @@
   </h1>
   <div class="container block">
     {% for arcanum in arcana %}
+      {% if is_granted('ROLE_ST') %}
+        <a class="float-end" href="{{ path('arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+      {% endif %}
       <h2>{{ arcanum.name }}</h2>
       {{ arcanum.purview|markdown_to_html }}
     {% endfor %}

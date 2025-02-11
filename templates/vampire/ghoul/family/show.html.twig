@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'ghoul' %}
+
+{% set setting = "vampire" %}
+
+{% block title %}{{ "family.label.single"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {% include "vampire/ghoul/family/_card.html.twig" with {isShown: true} %}
+  </div>
+{% endblock %}
