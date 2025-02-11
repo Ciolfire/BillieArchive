@@ -286,6 +286,8 @@ class Chronicle
     if ($type && isset($this->rules[$type])) {
 
       return $this->rules[$type];
+    } else {
+      return null;
     }
 
     return $this->rules;
