@@ -2,22 +2,24 @@
 
 {% trans_default_domain 'character' %}
 
+{% set current = character.willpower %}
+{% set max = character.attributes.composure + character.attributes.resolve %}
+
 {% block controller %}data-controller="dot" role="group"{% endblock %}
 
-{% block data %}data-name="{{ 'willpower.label'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ max }}" data-dot-min-value="{{ max }}"{% endblock %}
+{% block data %}data-name="{{ 'willpower.label'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
 
 {% block input %}
-  <input class="{{ trait }}-value" value="{{ max }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot" data-value="{{ max }}">
+  <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot" data-value="{{ current }}">
 {% endblock %}
 
 {% block dot %}
-{% if index <= max %}
+{% if index <= current %}
   {% set value = 1 %}
 {% else %}
   {% set value = 0 %}
 {% endif %}
-<input type="checkbox" {% if value == 1 %}checked {% endif %}{% if index > limit %}disabled{% endif %}
- class="btn-check" id="{{ trait ~'-' ~ index }}" value="{{ index }}" autocomplete="off" data-dot-target="dot">
+<input type="checkbox" {% if value == 1 %}checked {% endif %}{% if index > limit %}disabled{% endif %} class="btn-check" id="{{ trait ~'-' ~ index }}" value="{{ index }}" autocomplete="off" data-dot-target="dot">
 <label class="btn dot{% if value == 1 %} dot-locked{% endif %}{% if index > limit %} dot-disabled{% else %} dot-selectable{% endif %}" for="{{ trait ~ '-' ~ index }}"
   data-action="click->dot#activate click->character--edit#payWillpower"
   data-dot-value-param="{{ index }}"
@@ -25,7 +27,7 @@
   data-character--edit-id-param="willpower"
   data-character--edit-name-param="{{ 'willpower.label'|trans }}"
   data-character--edit-value-param="{{ index }}"
-  data-character--edit-base-param="{{ max }}"
+  data-character--edit-base-param="{{ current }}"
 >
 </label>
 {% endblock %}

@@ -32,9 +32,9 @@ class MageService
    */
   public function getSpecial(Mage $mage): array
   {
-    // /** @var array<int, Discipline> */
-    // $disciplines = $this->dataService->findBy(Discipline::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
-    // $disciplines = $this->filterDisciplines($disciplines, $vampire);
+    /** @var array<int, Arcanum> */
+    $arcana = $this->dataService->findAll(Arcanum::class);
+    // $arcana = $this->dataService->findBy(Arcanum::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
     // /** @var array<int, Discipline> */
     // $sorcery = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
     // $sorcery = $this->filterDisciplines($sorcery, $vampire);
@@ -54,11 +54,8 @@ class MageService
     //   $this->dataService->loadPrerequisites($devotion);
     // }
     return [
-      // 'disciplines' => $disciplines,
-      // 'sorcery' => $sorcery,
-      // 'coils' => $coils,
-      // 'thaumaturgy' => $thaumaturgy,
-      // 'devotions' => $devotions,
+      'arcana' => $arcana,
+      // 'spells' => $spells,
     ];
   }
 

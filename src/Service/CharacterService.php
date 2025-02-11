@@ -24,13 +24,22 @@ class CharacterService
 {
   private DataService $dataService;
   private VampireService $vampireService;
+  private MageService $mageService;
+  // private WerewolfService $werewolfService;
   private CreationService $create;
 
-  public function __construct(DataService $dataService, VampireService $vampireService, CreationService $create)
+  public function __construct(
+    DataService $dataService,
+    VampireService $vampireService,
+    MageService $mageService,
+    //WerewolfService $werewolfService,
+    CreationService $create
+  )
   {
     $this->create = $create;
     $this->dataService = $dataService;
     $this->vampireService = $vampireService;
+    $this->mageService = $mageService;
   }
 
   public function editCharacter(Character $character, array $extraData): int
@@ -361,6 +370,9 @@ class CharacterService
       case 'ghoul':
         /** @var Vampire $character */
         return $this->vampireService->getGhoulSpecial($character->getLesserTemplate());
+      
+      case 'mage':
+        return $this->mageService->getSpecial($character);
 
       default:
         return null;

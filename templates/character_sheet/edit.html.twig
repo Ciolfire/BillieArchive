@@ -1,22 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'human' %}
+
+{# Order is important, controllers needed by others need to be put first #}
+{% set controllers = {
+  'data-controller': 'character--merits character--edit',
+} %}
 
 {% block title %}
   {{ character.name }}
 {% endblock %}
 
 {% block body %}
+  {% block form_controller %}{% endblock %}
 
   {% block form_start %}
+    {# controllers attribute, depend on the type #}
+    {# generic attributes, common to all #}
     {% set form_attributes = {
     'class': 'container-fluid container-lg character-sheet',
-    'data-controller': 'character--edit character--merits',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
     'data-character--edit-used-value': character.xpUsed,
+    'data-character--edit-type-value': character.type,
     } %}
-    {{ form_start(form, {'attr': form_attributes}) }}
+    {# merge all atributes together #}
+    {{ form_start(form, {'attr': form_attributes|merge(controllers)}) }}
   {% endblock %}
 
   <input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">

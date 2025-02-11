@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\MageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Form\Mage\MageType;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 
 #[ORM\Entity(repositoryClass: MageRepository::class)]
@@ -31,18 +33,18 @@ class Mage extends Character
   #[ORM\OneToMany(targetEntity: MageArcanum::class, mappedBy: 'character', orphanRemoval: true)]
   private Collection $arcana;
 
+
   public function __construct(Character $character = null)
   {
-    // $this->disciplines = new ArrayCollection();
-    // if (is_object($character)) {
-    //   // Initializing class properties
-    //   foreach ($character->getProperties() as $property => $value) {
-    //     $this->$property = $value;
-    //   }
-    // }
+    $this->arcana = new ArrayCollection();
+    if (is_object($character)) {
+      // Initializing class properties
+      foreach ($character->getProperties() as $property => $value) {
+        $this->$property = $value;
+      }
+    }
     // $this->devotions = new ArrayCollection();
     // $this->rituals = new ArrayCollection();
-    $this->arcana = new ArrayCollection();
   }
 
   public function __clone()
@@ -61,8 +63,7 @@ class Mage extends Character
 
   public function getForm(): string
   {
-    return "none";
-    // return MageType::class;
+    return MageType::class;
   }
 
   public function setPowerRating(): self
@@ -125,7 +126,7 @@ class Mage extends Character
   public function getMaxMana(): int
   {
     if (!is_null($this->getChronicle()) && !is_null($this->getChronicle()->getRules('mage'))) {
-
+      
       return $this->getChronicle()->getRules('mage')['maxMana'][$this->gnosis];
     }
     switch ($this->gnosis) {

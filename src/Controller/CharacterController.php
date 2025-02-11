@@ -20,7 +20,6 @@ use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
 use App\Form\LesserTemplateType;
 use App\Form\Type\RichTextEditorType;
-use App\Form\Vampire\VampireType;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
@@ -274,11 +273,11 @@ class CharacterController extends AbstractController
 
   #[Route('/{id<\d+>}/edit', name: 'character_edit', methods: ['GET', 'POST'])]
   #[IsGranted('edit', 'character')]
-  public function edit(Request $request, Character $character): Response
+  public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $form = $this->createForm($character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
+    $form = $formFactory->createNamed('character', $character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

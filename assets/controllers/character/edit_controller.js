@@ -14,10 +14,10 @@ export default class extends Controller
     "ritualInput",
   ];
   static values = {
+    type: String,
     total: Number,
     used: Number,
     spend: Number,
-    //vampire
     ritualCurrent: {},
     coilsCurrent: {},
     coils: Number,
@@ -63,15 +63,12 @@ export default class extends Controller
         }
         switch (data.type) {
           case 'willpower':
-            // console.debug('willpower');
             this.payWillpower(event);
             break;
           case 'merit':
-            // console.debug('merit');
             this.payMerit(event);
             break;
           case 'coil':
-            // console.debug('coil');
             this.payCoil(event);
             break;
           default:
@@ -147,7 +144,6 @@ export default class extends Controller
     this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
 
-  // SURNATURAL ON  //
   payWillpower(event)
   {
     let params = event.params;
@@ -157,6 +153,9 @@ export default class extends Controller
     // Prerequisites update
     this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
+
+  // SURNATURAL ON  //
+
   // SURNATURAL OFF //
 
   // VAMPIRE ON  //
@@ -422,7 +421,7 @@ export default class extends Controller
       }
     };
     newSpecialty.id = rand;
-    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `character[specialties][${event.params.skill}][${rand}]`);
+    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `this.typeValue[specialties][${event.params.skill}][${rand}]`);
     event.target.closest('.row').after(newSpecialty);
     this.updateSpend();
   }
@@ -451,33 +450,6 @@ export default class extends Controller
     }
   }
 
-  clean()
-  {
-    for (const id in this.spendInfoValue) {
-      let entry = this.spendInfoValue[id];
-      
-      if (entry != null) {
-        if (this.cleanSpecialty(id, entry)) {
-          continue;
-        }
-        if (this.getMeritDetails(id, entry)) {
-          continue;
-        }
-      } else {
-        // Entry not cleaned properly, we remove it
-        delete this.spendInfoValue[id];
-      }
-    }
-    // remove all elements with no point spent
-    this.removeElements('merit');
-    // Yes, they don't exist for non-vampire, yes I don't care :)
-    this.removeElements('discipline');
-    this.removeElements('devotion');
-    this.removeElements('ritual');
-    this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
-    document.forms['character'].submit();
-  }
-
   // We remove all unused specialties, both from form and logs
   cleanSpecialty(id, entry)
   {
@@ -503,9 +475,9 @@ export default class extends Controller
       let key = id.replace('merit-','');
 
       if (entry.info.base === 0) {
-        details = document.getElementsByName(`character[merits][${key}][details]`)[0];
+        details = document.getElementsByName(`${this.typeValue}[merits][${key}][details]`)[0];
       } else {
-        details = document.getElementsByName(`character[meritsUp][${+key}][details]`)[0];
+        details = document.getElementsByName(`${this.typeValue}[meritsUp][${+key}][details]`)[0];
       }
       if (typeof details !== "undefined") {
         // details found for this merit
@@ -516,5 +488,33 @@ export default class extends Controller
     }
 
     return false;
+  }
+
+  clean()
+  {
+    for (const id in this.spendInfoValue) {
+      let entry = this.spendInfoValue[id];
+      
+      if (entry != null) {
+        if (this.cleanSpecialty(id, entry)) {
+          continue;
+        }
+        if (this.getMeritDetails(id, entry)) {
+          continue;
+        }
+      } else {
+        // Entry not cleaned properly, we remove it
+        delete this.spendInfoValue[id];
+      }
+    }
+    // remove all elements with no point spent
+    this.removeElements('merit');
+    // Yes, they don't exist for non-vampire, yes I don't care :)
+    this.removeElements('discipline');
+    this.removeElements('devotion');
+    this.removeElements('ritual');
+    this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
+    // console.log(document.forms);
+    document.forms['character'].submit();
   }
 }

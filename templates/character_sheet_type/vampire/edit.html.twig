@@ -8,16 +8,14 @@
   {% include "character_sheet_type/vampire/header/edit.html.twig" %}
 {% endblock %}
 
+{% block form_controller %}
+{% endblock %}
+
 {% block form_start %}
-  {% set form_attributes = {
-      'class': 'container-fluid container-lg character-sheet',
-      'data-controller': 'character--edit character--merits vampire--power vampire--devotion',
-      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
-      'data-character--edit-total-value': character.xpTotal,
-      'data-character--edit-used-value': character.xpUsed,
-      'data-character--edit-coils-value': character.coilsLevel
+  {% set controllers = {
+    'data-controller': 'character--merits vampire--power vampire--devotion character--edit',
   } %}
-  {{ form_start(form, {'attr': form_attributes}) }}
+  {{ parent() }}
 {% endblock %}
 
 {% block specialTab %}

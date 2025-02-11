@@ -81,7 +81,7 @@ class CharacterType extends AbstractType
           return $organization ? $organization->getType() == "organization" && $organization->getHomebrewFor() === $character->getChronicle() : true;
         },
       ])
-      ->add('race', HiddenType::class, ['mapped' => false, 'data' => 'mortal'])
+      ->add('race', HiddenType::class, ['mapped' => false, 'data' => $character->getType()])
       ->add('attributes', CharacterAttributesType::class)
       ->add('skills', CharacterSkillsType::class);
     if (!is_null($character->getLesserTemplate()) && $character->getLesserTemplate()->getForm()) {
@@ -132,6 +132,7 @@ class CharacterType extends AbstractType
       "data_class" => Character::class,
       "translation_domain" => 'character',
       "allow_extra_fields" => true,
+      "name" => "human",
       "is_edit" => false,
       "user" => null,
     ]);
