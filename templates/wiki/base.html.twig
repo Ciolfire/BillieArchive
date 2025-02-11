@@ -77,12 +77,15 @@
       <span>{{ "label.multi"|trans({}, 'flaw') }}</span>
     </a>
   </div>
+  <hr>
   {# Lesser Templates #}
+  <a data-bs-toggle="collapse" href="#collapseLesserTemplateWiki" role="button" aria-expanded="false" aria-controls="collapseLesserTemplateWiki">
     <h3 class="pe-none text-strong lesser-color">
-    {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser-color' } only %}
-    <span>{{ "lesser.multi"|trans({}, 'content-type') }}</span>
-  </h3>
-  <div class="row generic pt-2 justify-content-center">
+      {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser-color' } only %}
+      <span>{{ "lesser.multi"|trans({}, 'content-type') }}</span>
+    </h3>
+  </a>
+  <div id="collapseLesserTemplateWiki" class="row generic pt-2 justify-content-center collapse">
     <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
         {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
@@ -90,12 +93,15 @@
       </a>
     </div>
   </div>
+  <hr>
   {# Tools #}
-  <h3 class="pe-none text-strong">
-    {% include "_icon.html.twig" with {icon: 'tools' } only %}
-    <span>{{ "tools"|trans({}, 'wiki') }}</span>
-  </h3>
-  <div class="row generic pt-2 justify-content-center">
+  <a data-bs-toggle="collapse" href="#collapseToolsWiki" role="button" aria-expanded="false" aria-controls="collapseToolsWiki">
+    <h3 class="pe-none text-strong">
+      {% include "_icon.html.twig" with {icon: 'tools' } only %}
+      <span>{{ "tools"|trans({}, 'wiki') }}</span>
+    </h3>
+  </a>
+  <div id="collapseToolsWiki" class="row generic pt-2 justify-content-center collapse">
     <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('character_premade_index')}}">
         {% include "_icon.html.twig" with {icon: 'premade' } only %}
@@ -104,5 +110,7 @@
     </div>
   </div>
 </div>
-  {% include "wiki/vampire.html.twig" %}
-  {% include "wiki/mage.html.twig" %}
+<hr>
+{% include "wiki/vampire.html.twig" %}
+<hr>
+{% include "wiki/mage.html.twig" %}
