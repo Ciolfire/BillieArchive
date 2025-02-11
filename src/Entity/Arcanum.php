@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "orders")])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "arcana")])]
 #[ORM\Entity(repositoryClass: ArcanumRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ArcanumTranslation")]
 class Arcanum implements Translatable
@@ -34,6 +34,10 @@ class Arcanum implements Translatable
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $short = null;
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $realm = null;
 
   /**
    * @var Collection<int, Path>
@@ -95,6 +99,18 @@ class Arcanum implements Translatable
   public function setShort(string $short): static
   {
     $this->short = $short;
+
+    return $this;
+  }
+
+  public function getRealm(): ?string
+  {
+    return $this->realm;
+  }
+
+  public function setRealm(string $realm): static
+  {
+    $this->realm = $realm;
 
     return $this;
   }

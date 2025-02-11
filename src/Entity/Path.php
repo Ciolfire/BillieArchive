@@ -16,7 +16,7 @@ use Gedmo\Translatable\Translatable;
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "paths"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "paths")])]
 #[ORM\Entity(repositoryClass: PathRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\PathTranslation")]
-class Path
+class Path implements Translatable
 {
   use Sourcable;
   use Homebrewable;
@@ -51,12 +51,14 @@ class Path
   #[ORM\Column(type: Types::TEXT)]
   private ?string $nimbus = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $short = null;
 
   #[ORM\Column(length: 255)]
   private ?string $emblem = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $title = null;
 

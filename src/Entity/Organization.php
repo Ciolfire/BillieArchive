@@ -8,6 +8,8 @@ use App\Form\OrganizationType;
 use App\Repository\OrganizationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\Entity(repositoryClass: OrganizationRepository::class)]
@@ -15,7 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
 #[ORM\DiscriminatorMap(["organization" => Organization::class, "covenant" => Covenant::class, "order" => MageOrder::class])]
-class Organization
+#[Gedmo\TranslationEntity(class: "App\Entity\Translation\OrganizationTranslation")]
+class Organization implements Translatable
 {
   use Sourcable;
   use Homebrewable;
@@ -25,30 +28,38 @@ class Organization
   #[ORM\Column]
   protected ?int $id = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(length: 100)]
   protected ?string $name = null;
 
   #[ORM\Column(length: 255, nullable: true)]
   protected ?string $emblem = null;
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $description = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $overview = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $members = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $philosophy = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $observances = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   protected ?string $titles = "";
 
+  #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $short = "";
 

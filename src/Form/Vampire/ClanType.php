@@ -79,7 +79,7 @@ class ClanType extends AbstractType
         ]);
       }
       $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
-      ->add('short', null, ['label' => "short"])
+      ->add('short', null, ['label' => "short", 'translation_domain' => "app",])
       ->add('weakness', RichTextEditorType::class, [
         'label' => 'weakness',
         'empty_data' => '',
@@ -102,10 +102,10 @@ class ClanType extends AbstractType
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      "data_class" => Clan::class,
-      "translation_domain" => 'clan',
-      "allow_extra_fields" => true,
-      "is_edit" => false,
+      'data_class' => Clan::class,
+      'translation_domain' => "clan",
+      'allow_extra_fields' => true,
+      'is_edit' => false,
     ]);
   }
 }

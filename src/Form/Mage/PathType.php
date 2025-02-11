@@ -33,7 +33,7 @@ class PathType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
-      ->add('title', null, ['label' => "title"])
+      ->add('title', null, ['label' => "title", 'translation_domain' => "app"])
       ->add('source', SourceableType::class, [
         'data_class' => Path::class,
         'label' => 'source.label',
@@ -53,7 +53,7 @@ class PathType extends AbstractType
           ])
         ],
       ])
-      ->add('short', null, ['label' => "short"])
+      ->add('short', null, ['label' => "short", 'translation_domain' => "app"])
       ->add('description', RichTextEditorType::class, [
         'empty_data' => '',
         'data' => $path->getDescription(), 
