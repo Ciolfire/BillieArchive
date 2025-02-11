@@ -1,23 +1,23 @@
 {% trans_default_domain 'character' %}
 
-<div class="block my-2 pt-2">
-  <div class="col">
-    <h1>
-      {% include "_icon.html.twig" with { icon: icon|default(type), class: 'icon-lg' } only %}
-      {{ title|trans }}
-    </h1>
-    <div class="col-4 offset-4">
-      {% if type != 'premade' or is_granted('ROLE_GM') %}
-        <a class="btn btn-sm btn-primary w-100 text-center" href="{{ type == 'premade' ? path('character_new_premade') : type == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'action.new'|trans({}, 'app') }} {{ (type ~ '.label.single')|trans }}{% include "_icon.html.twig" with { icon: icon|default(type) } only %}</a>
-      {% endif %}
-    </div>
-    <div class="row pt-3">
-      {% for type, typed_character in characters %}
-        <h2>{{ type|trans({}, 'content-type') }}</h2>
+<div class="row" data-controller="tabs" data-tabs-initial-value="{{ category }}-{{ characters|keys|first }}">
+  <ul class="nav tabs g-0">
+    {% for type, typed_character in characters %}
+      {% include "_tab.html.twig" with {name: category ~ "-" ~  type , icon: 'type/' ~ type , label: type|trans({}, 'content-type') ~ " [" ~ typed_character|length ~ "]"} only %}
+    {% endfor %}
+  </ul>
+  <div class="col-4 offset-4 my-2">
+    {% if category != 'premade' or is_granted('ROLE_GM') %}
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new_premade') : category == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}{% include "_icon.html.twig" with { icon: icon|default(category) } only %}</a>
+    {% endif %}
+  </div>
+  {% for type, typed_character in characters %}
+    <div id="{{category}}-{{ type }}" class="tab-content py-0 d-none" data-tabs-target="page">
+      <div class="row">
         {% for character in typed_character %}
           {% include 'character/_card.html.twig' %}
         {% endfor %}
-      {% endfor %}
+      </div>
     </div>
-  </div>
+  {% endfor %}
 </div>

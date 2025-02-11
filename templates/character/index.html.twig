@@ -9,17 +9,43 @@
   data-controller="search" data-search-type-value="character"
 {% endblock %}
 
+{% if characters is defined %}
+  {% set tab = "pc" %}
+{% elseif npc is defined %}
+  {% set tab = "npc" %}
+{% else %}
+  {% set tab = "premade" %}
+{% endif %}
+
+
 {% block body %}
   <div class="container-fluid container-lg py-3">
-    <div class="row my-3">
+    <div class="row my-3 block" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
+      <ul class="nav tabs g-0">
+        {% if characters is defined %}
+          {% include "_tab.html.twig" with {name: 'pc', icon: 'character', label: 'pc.label.multi'|trans} only %}
+        {% endif %}
+        {% if npc is defined %}
+          {% include "_tab.html.twig" with {name: 'npc', label: 'npc.label.multi'|trans} only %}
+        {% endif %}
+        {% if premade is defined %}
+          {% include "_tab.html.twig" with {name: 'premade', label: 'premade.label.multi'|trans} only %}
+        {% endif %}
+      </ul>
       {% if characters is defined %}
-        {% include 'character/_list.html.twig' with { characters: characters, type: 'pc', title: 'pc.label.multi', icon: 'character' } %}
+        <div id="pc" class="tab-content py-0 d-none" data-tabs-target="page">
+          {% include 'character/_list.html.twig' with { characters: characters, category: 'pc', title: 'pc.label.multi', icon: 'character' } only %}
+        </div>
       {% endif %}
       {% if npc is defined %}
-        {% include 'character/_list.html.twig' with { characters: npc, type: 'npc', title: 'npc.label.multi' } %}
+        <div id="npc" class="tab-content py-0 d-none" data-tabs-target="page">
+          {% include 'character/_list.html.twig' with { characters: npc, category: 'npc', title: 'npc.label.multi' } only %}
+        </div>
       {% endif %}
       {% if premade is defined %}
-        {% include 'character/_list.html.twig' with { title: 'premade.label.multi', characters: premade, type: 'premade' } %}
+        <div id="premade" class="tab-content py-0 d-none" data-tabs-target="page">
+          {% include 'character/_list.html.twig' with { title: 'premade.label.multi', characters: premade, category: 'premade' } only %}
+        </div>
       {% endif %}
     </div>
   </div>
