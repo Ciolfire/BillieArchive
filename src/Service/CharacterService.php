@@ -85,6 +85,8 @@ class CharacterService
       }
       $sortedCharacters[$type][] = $character;
     }
+    ksort($sortedCharacters);
+
     return $sortedCharacters;
   }
 
