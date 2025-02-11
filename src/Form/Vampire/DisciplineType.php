@@ -13,18 +13,12 @@ class DisciplineType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    /** @var Discipline $discipline */
-    $discipline = $options['data'];
-    $rules = $discipline->getRules();
-    if (is_null($rules)) {
-      $rules = "";
-    }
 
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
-      ->add('short', null, ['label' => 'short', 'help' => 'help.short'])
+      ->add('short', null, ['label' => 'short.label', 'help' => 'short.help'])
       ->add('description', null, ['label' => 'description', 'translation_domain' => 'app'])
-      ->add('rules', RichTextEditorType::class, ['label' => 'rules', 'empty_data' => '', 'data' => $rules])
+      ->add('rules', RichTextEditorType::class, ['label' => 'rules', 'empty_data' => ''])
       ->add('isRestricted', null, ['label' => 'restricted', 'help' => 'help.restricted'])
       ->add('source', SourceableType::class, [
         'data_class' => Discipline::class,
