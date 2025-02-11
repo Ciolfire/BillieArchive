@@ -1,9 +1,9 @@
 {% trans_default_domain 'mage' %}
 
-<div class="col-12 col-md-6 col-xl-4 justify-content-center">
-  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} w-100">
-    <div class="row g-0 align-items-center user-select-none">
-      <div class="col-12 discipline-header text-center py-2">
+<div class="col-12 col-md-6 col-xl-4 justify-content-center py-2">
+  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}block text-color p-2{% endif %}">
+    <div class="row align-items-center user-select-none">
+      <div class="col-12 arcana-header text-center py-2">
         <h2 class="text-glow text-color">
           {{ arcanum.name }}
         </h2>

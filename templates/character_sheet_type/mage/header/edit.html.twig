@@ -1,0 +1,7 @@
+{% extends "character_sheet/header/edit.html.twig" %}
+
+{% trans_default_domain 'mage' %}
+
+{% block organization %}
+    {{ form_row(form.order) }}
+{% endblock %}

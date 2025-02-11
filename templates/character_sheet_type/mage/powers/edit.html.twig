@@ -1,0 +1,23 @@
+{% trans_default_domain 'mage' %}
+
+<div data-controller="tabs" data-tabs-initial-value="traits">
+  <ul class="nav tabs row g-0 mb-2">
+    {% include "_tab.html.twig" with {name: 'traits', label: 'traits'|trans({}, 'character')} only %}
+    {# {% include "_tab.html.twig" with {name: 'disciplines', icon: 'discipline', label: 'label.multi'|trans({}, 'discipline')} only %} #}
+    {# {% include "_tab.html.twig" with {name: 'sorcery', icon: 'pentacle', label: 'sorcery.label.multi'|trans({}, 'discipline')} only %} #}
+    {# {% include "_tab.html.twig" with {name: 'coils', label: 'coil.label.multi'|trans({}, 'discipline')} only %} #}
+    {# {% include "_tab.html.twig" with {name: 'thaumaturgy', label: 'thaumaturgy.label'|trans({}, 'discipline')} only %} #}
+    {# {% include "_tab.html.twig" with {name: 'devotions', icon: 'devotion', label: 'devotion.label.multi'|trans({}, 'discipline')} only %} #}
+  </ul>
+  <div id="traits" class="tab-content d-none" data-tabs-target="page">
+    <div class="row">
+      <div class="col-12 col-lg mb-3">
+        {% include "character_sheet_type/mage/gnosis/edit.html.twig" %}
+      </div>
+    </div>
+  </div>
+  <div id="arcana" class="tab-content d-none" data-tabs-target="page">
+    {% include "character_sheet_type/mage/arcana/edit/elements.html.twig" with {characterArcana: character.arcana, arcana: mage.arcana} %}
+  </div>
+</div>
+

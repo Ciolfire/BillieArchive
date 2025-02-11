@@ -1,0 +1,15 @@
+{% extends "character_sheet_type/mage/gnosis/element.html.twig" %}
+
+{% trans_default_domain 'vampire' %}
+
+{% block feeding %}
+<div>
+    <div class="d-inline-block text-center text-strong">
+    </div>
+</div>
+{% endblock %}
+
+{% block dot %}
+<input type="checkbox" class="btn-check" id="{{ trait ~ '-' ~ index }}" value="{{ index }}" autocomplete="off" {% if index <= current %}checked{% endif %} disabled>
+<label class="btn dot" for="{{ trait ~ '-' ~ index }}"></label>
+{% endblock %}

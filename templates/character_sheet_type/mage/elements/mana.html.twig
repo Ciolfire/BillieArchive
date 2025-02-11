@@ -1,0 +1,27 @@
+{% trans_default_domain 'mage' %}
+
+{% set mana = character.mana %}
+
+<div class="block user-select-none h-100 p-3" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="mana" data-trait-current-value="{{ mana }}">
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {'icon' : 'mana', 'class': 'icon-lg' } only %} {{ 'mana.label'|trans }}</h3>
+  <h4>{{ "mana.per.turn"|trans({'%value%': character.maxManaPerTurn})|raw }} (<span class="accent" data-trait-target="value">{{ mana }}</span>/{{ character.maxMana}})</h4>
+  <div class="d-flex flex-column align-items-start">
+    <div class="text-start">
+      {% for index in 1..character.maxMana %}
+        {% if index <= mana %}
+          {% set value = 1 %}
+        {% else %}
+          {% set value = 0 %}
+        {% endif %}
+        <svg class="trait-box" viewBox="0 0 100 100" role="button"
+          data-trait-target="input"
+          data-action="click->trait#switch"
+          data-count="{{ index }}"
+          data-value="{{ value }}"
+        >
+          <rect class="trait-fill d-none on" x="10" y="10" width="85" height="85"/>
+        </svg>
+      {% endfor %}
+    </div>
+  </div>
+</div>

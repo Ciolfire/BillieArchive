@@ -19,5 +19,12 @@ awakening:
       all: Points
   save: Devenir Mage
 
+gnosis:
+  label: Gnosis
+mana:
+  label: Mana
+  per.turn: Max <span class="accent">{value}</span> par Tour
+
+
 morality:
   label: Sagesse

@@ -1,0 +1,33 @@
+{% extends "character_sheet/edit.html.twig" %}
+
+{% trans_default_domain 'mage' %}
+
+{% set path = character.path %}
+
+{% block header %}
+  {% include "character_sheet_type/mage/header/edit.html.twig" %}
+{% endblock %}
+
+{% block form_start %}
+  {% set controllers = {
+      'data-controller': 'character--merits mage--power mage--spell character--edit',
+  } %}
+  {{ parent() }}
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'mage', label: 'mage'|trans({}, 'content-type'), icon: 'type/mage'} only %}
+{% endblock %}
+
+{% block special %}
+  <div id="mage" class="g-0 d-none" data-tabs-target="page">
+    {% include "character_sheet_type/mage/powers/edit.html.twig" %}
+  </div>
+{% endblock %}
+
+
+{% block modals %}
+  {{ parent() }}
+  {% include "character_sheet/modals/vampire/power_show.html.twig" %}
+  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
+{% endblock %}

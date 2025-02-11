@@ -19,5 +19,11 @@ awakening:
       all: Dots
   save: Become a Mage
 
+gnosis:
+  label: Gnosis
+mana:
+  label: Mana
+  per.turn: Max <span class="accent">{value}</span> per Turn
+
 morality:
   label: Wisdom
