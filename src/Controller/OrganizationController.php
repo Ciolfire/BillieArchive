@@ -6,8 +6,6 @@ use App\Entity\Covenant;
 use App\Entity\Description;
 use App\Entity\MageOrder;
 use App\Entity\Organization;
-use App\Form\CovenantType;
-use App\Form\OrganizationType;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

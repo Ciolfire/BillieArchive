@@ -42,7 +42,7 @@ class RollableType extends AbstractType
         'translation_domain' => "attribute",
         'group_by' => function ($choice) use ($translator) {
           /** @var Attribute $choice */
-          return $translator->trans($choice->getCategory(), [], 'character');
+          return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
         },
         ])
         ->add('skills', null, [
@@ -52,7 +52,7 @@ class RollableType extends AbstractType
           'choice_attr' => ['class' => 'text-sub'],
           'group_by' => function ($choice) use ($translator) {
             /** @var Skill $choice */
-            return $translator->trans($choice->getCategory(), [], 'character');
+            return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
           },
           ])
       ->add('isContested', null, ['label' => "roll.action.contested"])

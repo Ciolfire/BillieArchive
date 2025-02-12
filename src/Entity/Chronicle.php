@@ -66,10 +66,6 @@ class Chronicle
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $clans;
 
-  // #[ORM\OneToMany(targetEntity: Covenant::class, mappedBy: 'homebrewFor')]
-  // #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
-  // private Collection $covenants;
-
   #[ORM\OneToMany(targetEntity: Devotion::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $devotions;
@@ -89,6 +85,10 @@ class Chronicle
   #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $paths;
+
+  #[ORM\OneToMany(targetEntity: MageSpell::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private Collection $spells;
 
   public function __construct()
   {
@@ -380,10 +380,34 @@ class Chronicle
   {
     if ($this->items->removeElement($item)) {
       // set the owning side to null (unless already changed)
-      if ($item->getBook() === $this) {
+      if ($item->getHomebrewFor() === $this) {
         $item->setHomebrewFor(null);
       }
     }
+
+    return $this;
+  }
+
+  public function getStartAt(): ?\DateTimeInterface
+  {
+    return $this->startAt;
+  }
+
+  public function setStartAt(?\DateTimeInterface $startAt): static
+  {
+    $this->startAt = $startAt;
+
+    return $this;
+  }
+
+  public function getCurrentlyAt(): ?\DateTimeInterface
+  {
+    return $this->currentlyAt;
+  }
+
+  public function setCurrentlyAt(?\DateTimeInterface $currentlyAt): static
+  {
+    $this->currentlyAt = $currentlyAt;
 
     return $this;
   }
@@ -506,29 +530,7 @@ class Chronicle
     return $this;
   }
 
-  public function getStartAt(): ?\DateTimeInterface
-  {
-    return $this->startAt;
-  }
-
-  public function setStartAt(?\DateTimeInterface $startAt): static
-  {
-    $this->startAt = $startAt;
-
-    return $this;
-  }
-
-  public function getCurrentlyAt(): ?\DateTimeInterface
-  {
-    return $this->currentlyAt;
-  }
-
-  public function setCurrentlyAt(?\DateTimeInterface $currentlyAt): static
-  {
-    $this->currentlyAt = $currentlyAt;
-
-    return $this;
-  }
+  // MAGE
 
   public function getPaths(): Collection
   {
@@ -549,8 +551,35 @@ class Chronicle
   {
     if ($this->paths->removeElement($path)) {
       // set the owning side to null (unless already changed)
-      if ($path->getBook() === $this) {
+      if ($path->getHomebrewFor() === $this) {
         $path->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getSpells(): Collection
+  {
+    return $this->spells;
+  }
+
+  public function addSpell(MageSpell $spell): self
+  {
+    if (!$this->spells->contains($spell)) {
+      $this->spells[] = $spell;
+      $spell->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeSpell(MageSpell $spell): self
+  {
+    if ($this->spells->removeElement($spell)) {
+      // set the owning side to null (unless already changed)
+      if ($spell->getHomebrewFor() === $this) {
+        $spell->setHomebrewFor(null);
       }
     }
 

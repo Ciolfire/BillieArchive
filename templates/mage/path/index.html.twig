@@ -1,119 +1,81 @@
 {% extends "base.html.twig" %}
 
 {% trans_default_domain 'path' %}
-
 {% set setting = "mage" %}
 {% set footer = true %}
 
 {% block title %}
-	{{ "label.multi"|trans([], 'path') }}
+  {{ "label.multi"|trans([], 'path') }}
 {% endblock %}
 
 {% block bodyData %}
-	data-controller="search" data-search-type-value="path"
+  data-controller="search" data-search-type-value="path"
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
   <h1 class="user-select-none">
     {% include "_icon.html.twig" with {'icon' : 'path', 'class' : "icon-lg" } only %}
     {{ "label.multi"|trans }}
   </h1>
-	<div class="container">
-		<div class="row mb-3">
-			<div class="col-12">
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-12">
         <div class="col-auto">
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">
-            <h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4>
-          </a>
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
             <h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
           </a>
-				</div>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div id="collapseToc" class="col-auto collapse">
-				<ul class="toc block ps-4 pe-2">
-					{% if paths is defined and paths is not empty %}
-						<p class="mt-2">{{ "label.multi"|trans([], 'path') }}</p>
-						{% for path in paths %}
-							<li>
-								<a href="#{{ path.name }}">{{ path.name }}</a>
-							</li>
-						{% endfor %}
-					{% endif %}
-					{% if bloodlines is defined %}
-						<p class="mt-2">{{ "bloodline.label.multi" }}</p>
-						{% for bloodline in bloodlines %}
-							<li>
-								<a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
-							</li>
-						{% endfor %}
-					{% endif %}
-				</ul>
-			</div>
-			<div id="collapseDescription" class="collapse col">
-				<div class="block block-wiki p-2">
-					{{ description.value|default("")|markdown_to_html }}
-				</div>
-			</div>
-		</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div id="collapseToc" class="col-auto collapse">
+        <ul class="toc block ps-4 pe-2">
+          {% if paths is defined and paths is not empty %}
+            <p class="mt-2">{{ "label.multi"|trans([], 'path') }}</p>
+            {% for path in paths %}
+              <li>
+                <a href="#{{ path.name }}">{{ path.name }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
+          {% if bloodlines is defined %}
+            <p class="mt-2">{{ "bloodline.label.multi" }}</p>
+            {% for bloodline in bloodlines %}
+              <li>
+                <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+      <div id="collapseDescription" class="collapse col">
+        <div class="block block-wiki p-2">
+          {{ description.value|default("")|markdown_to_html }}
+        </div>
+      </div>
+    </div>
     <div class="row">
       {% for path in paths %}
         {% include "mage/path/_card.html.twig" with {'path' : path} %}
       {% endfor %}
     </div>
-	</div>
+  </div>
 {% endblock %}
 
 {% block footerContent %}
-	<div class="col-12 d-flex align-items-center position-relative">
+  <div class="col-12 d-flex align-items-center position-relative">
     <span class="search-icon">
       {% include "_icon.html.twig" with  {icon: 'search'} %}
     </span>
     <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
-		<div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
-			<span class="fa-layers fa-fw">
-				<i class="fa-solid fa-circle"></i>
-				<span class="ok footer-collapse collapse">
-					<i class="fa-solid fa-lg fa-circle-chevron-down"></i>
-				</span>
-				<span class="ok footer-collapse collapse show ">
-					<i class="fa-solid fa-lg fa-circle-chevron-up"></i>
-				</span>
-			</span>
-		</div>
-		{% if is_granted('ROLE_ST') %}
-			<div class="ms-auto">
-				<a class="btn btn-primary" href="{{ path('path_new') }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'path' } only %}
-				</a>
-			</div>
-		{% endif %}
-	</div>
-	{% if bloodlines is defined %}
-		<div class="col-auto py-3 footer-collapse collapse">
-			{% for key, elements in search %}
-				{% if key != 'parent' %}
-					<h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
-				{% else %}
-					<h5 class="pe-none">{{ ('bloodline.parent.label')|trans }}</h5>
-				{% endif %}
-				{% for element in elements %}
-					<a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-						<span class="d-none d-md-inline">
-							{% if key != 'parent' %}
-								{{ (key ~ "." ~ element)|trans }}
-							{% else %}
-								{{ element }}
-							{% endif %}
-						</span>
-						{% include "_icon_path.html.twig" with {'icon' : element } only %}
-					</a>
-				{% endfor %}
-			{% endfor %}
-		</div>
-	{% endif %}
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('path_new') }}">
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon: 'path' } only %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% trans_default_domain 'arcanum' %}
+{% set setting = 'mage' %}
 
 {% block title %}
 	{{ "label.multi"|trans }}
 {% endblock %}
 
-{% set setting = 'mage' %}
 
 {% block body %}
   {% include "_back.html.twig" %}
@@ -23,7 +23,7 @@
               <a class="float-end" href="{{ path('arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
             {% endif %}
             <h2>
-              {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.name|trans(locale: 'en')|lower , class: "icon-lg" } only %}
+              {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
               {{ arcanum.name }}
             </h2>
             {{ arcanum.purview|markdown_to_html }}

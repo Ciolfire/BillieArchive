@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Mage;
 
 use App\Entity\MageOrder;
 use App\Entity\Skill;
+use App\Form\OrganizationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;

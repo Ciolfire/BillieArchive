@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Mage;
 
 use App\Entity\Arcanum;
-use App\Entity\Book;
-use App\Entity\Path;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SourceableType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
