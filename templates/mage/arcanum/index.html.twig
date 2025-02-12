@@ -11,16 +11,27 @@
 {% block body %}
   {% include "_back.html.twig" %}
   <h1 class="user-select-none py-3">
-    {% include "_icon.html.twig" with {'icon' : 'arcanum', 'class' : "icon-lg" } only %}
+    {% include "_icon.html.twig" with {icon: "arcanum", class: "icon-lg" } only %}
     {{ "label.multi"|trans }}
   </h1>
-  <div class="container block">
-    {% for arcanum in arcana %}
-      {% if is_granted('ROLE_ST') %}
-        <a class="float-end" href="{{ path('arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-      {% endif %}
-      <h2>{{ arcanum.name }}</h2>
-      {{ arcanum.purview|markdown_to_html }}
-    {% endfor %}
+  <div class="container">
+    <div class="row">
+      {% for arcanum in arcana %}
+        <div class="col-12 col-lg-6 g-2">
+          <div class="block p-2">
+            {% if is_granted('ROLE_ST') %}
+              <a class="float-end" href="{{ path('arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+            {% endif %}
+            <h2>
+              {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.name|trans(locale: 'en')|lower , class: "icon-lg" } only %}
+              {{ arcanum.name }}
+            </h2>
+            {{ arcanum.purview|markdown_to_html }}
+            <hr>
+            {{ arcanum.realm|markdown_to_html }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

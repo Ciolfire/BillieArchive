@@ -132,6 +132,16 @@ class Path implements Translatable
     return $this;
   }
 
+  public function isRuling(Arcanum $arcanum): bool
+  {
+    if ($this->rulingArcana->contains($arcanum)) {
+
+      return true;
+    }
+
+    return false;
+  }
+
   public function getInferiorArcanum(): ?Arcanum
   {
     return $this->inferiorArcanum;

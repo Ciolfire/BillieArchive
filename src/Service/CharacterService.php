@@ -15,6 +15,7 @@ use App\Entity\Devotion;
 use App\Entity\Ghoul;
 use App\Entity\GhoulDiscipline;
 use App\Entity\Human;
+use App\Entity\Mage;
 use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vampire;
@@ -68,7 +69,7 @@ class CharacterService
         $this->vampireService->handleGhoulEdit($character->getLesserTemplate(), $extraData);
         break;
       case 'mage':
-        /** @var Vampire $character */
+        /** @var Mage $character */
         $this->mageService->handleEdit($character, $extraData);
         break;
     }

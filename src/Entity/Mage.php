@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -126,7 +128,7 @@ class Mage extends Character
   public function getMaxMana(): int
   {
     if (!is_null($this->getChronicle()) && !is_null($this->getChronicle()->getRules('mage'))) {
-      
+
       return $this->getChronicle()->getRules('mage')['maxMana'][$this->gnosis];
     }
     switch ($this->gnosis) {
@@ -180,14 +182,14 @@ class Mage extends Character
 
   public function getOrder(): ?MageOrder
   {
-      return $this->order;
+    return $this->order;
   }
 
   public function setOrder(?MageOrder $order): static
   {
-      $this->order = $order;
+    $this->order = $order;
 
-      return $this;
+    return $this;
   }
 
   public function getMainOrganization(): ?Organization
@@ -200,28 +202,93 @@ class Mage extends Character
    */
   public function getArcana(): Collection
   {
-      return $this->arcana;
+    return $this->arcana;
   }
 
   public function addArcanum(MageArcanum $arcanum): static
   {
-      if (!$this->arcana->contains($arcanum)) {
-          $this->arcana->add($arcanum);
-          $arcanum->setCharacter($this);
-      }
+    if (!$this->arcana->contains($arcanum)) {
+      $this->arcana->add($arcanum);
+      $arcanum->setCharacter($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeArcanum(MageArcanum $arcanum): static
   {
-      if ($this->arcana->removeElement($arcanum)) {
-          // set the owning side to null (unless already changed)
-          if ($arcanum->getCharacter() === $this) {
-              $arcanum->setCharacter(null);
-          }
+    if ($this->arcana->removeElement($arcanum)) {
+      // set the owning side to null (unless already changed)
+      if ($arcanum->getCharacter() === $this) {
+        $arcanum->setCharacter(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getArcanum(int $id): ?MageArcanum
+  {
+    foreach ($this->arcana as $chArcanum) {
+      /** @var MageArcanum $chArcanum */
+      if ($chArcanum->getArcanum()->getId() === $id) {
+
+        return $chArcanum;
+      }
+    }
+
+    return null;
+  }
+
+  public function hasArcanum(int $id): bool
+  {
+    foreach ($this->arcana as $chArcanum) {
+      /** @var MageArcanum $chArcanum */
+      if ($chArcanum->getArcanum()->getId() === $id) {
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public function isRulingArcanum(Arcanum $arcanum): bool
+  {
+    // IF RULING FOR LEGACY
+    // RETURN TRUE
+
+    foreach ($this->path->getRulingArcana() as $pathArcanum) {
+      /** @var MageArcanum $chArcanum */
+      if ($pathArcanum === $arcanum) {
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public function maxArcanumMastery(Arcanum $arcanum)
+  {
+    // TODO Maybe ?
+    // if (!is_null($this->getChronicle()) && !is_null($this->getChronicle()->getRules('mage'))) {
+
+    //   return $this->getChronicle()->getRules('mage')['maxManaPerTurn'][$this->gnosis];
+    // }
+
+    // TODO should calculate the current number of arcana owned to define the max
+    switch ($this->gnosis) {
+      case 1:
+        return 3;
+      case 2:
+        return 4;
+      case 3:
+        return 5;
+      case 4:
+        return 5;
+      default:
+        return $this->gnosis;
+    }
   }
 }

@@ -2,11 +2,18 @@
 
 {% trans_default_domain 'vampire' %}
 
-{% block feeding %}
-<div>
-    <div class="d-inline-block text-center text-strong">
-    </div>
-</div>
+{% block arcana %}
+  <div class="row row-cols-5 text-strong justify-content-center">
+    {% for arcanum in character.arcana %}
+      <div class="col d-flex flex-column">
+        <div>
+          {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
+          {{ arcanum.level }}
+        </div>
+        {{ arcanum }}
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
 
 {% block dot %}

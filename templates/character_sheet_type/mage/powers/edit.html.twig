@@ -3,7 +3,7 @@
 <div data-controller="tabs" data-tabs-initial-value="traits">
   <ul class="nav tabs row g-0 mb-2">
     {% include "_tab.html.twig" with {name: 'traits', label: 'traits'|trans({}, 'character')} only %}
-    {# {% include "_tab.html.twig" with {name: 'disciplines', icon: 'discipline', label: 'label.multi'|trans({}, 'discipline')} only %} #}
+    {% include "_tab.html.twig" with {name: 'arcanum', label: 'label.multi'|trans({}, 'arcanum')} only %}
     {# {% include "_tab.html.twig" with {name: 'sorcery', icon: 'pentacle', label: 'sorcery.label.multi'|trans({}, 'discipline')} only %} #}
     {# {% include "_tab.html.twig" with {name: 'coils', label: 'coil.label.multi'|trans({}, 'discipline')} only %} #}
     {# {% include "_tab.html.twig" with {name: 'thaumaturgy', label: 'thaumaturgy.label'|trans({}, 'discipline')} only %} #}
@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-  <div id="arcana" class="tab-content d-none" data-tabs-target="page">
+  <div id="arcanum" class="tab-content d-none" data-tabs-target="page">
     {% include "character_sheet_type/mage/arcana/edit/elements.html.twig" with {characterArcana: character.arcana, arcana: mage.arcana} %}
   </div>
 </div>

@@ -26,7 +26,7 @@ class ArcanumController extends AbstractController
   public function index(): Response
   {
     return $this->render('mage/arcanum/index.html.twig', [
-      'arcana' => $this->dataService->findAll(Arcanum::class),
+      'arcana' => $this->dataService->findBy(Arcanum::class, [], ['name' => 'ASC']),
     ]);
   }
 

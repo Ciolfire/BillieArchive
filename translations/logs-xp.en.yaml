@@ -30,6 +30,9 @@ ritual.label: New Ritual
 
 # Mage
 gnosis.label: Gnosis increased
+arcanum-ruling.label: "{0}New Ruling Arcanum|[1,Inf]Ruling Arcanum improved"
+arcanum.label: "{0}New Arcanum|[1,Inf]Arcanum improved"
+arcanum-inferior.label: "{0}New Inferior Arcanum|[1,Inf]Inferior Arcanum improved"
 
 xp:
   add.label: XP gagnés

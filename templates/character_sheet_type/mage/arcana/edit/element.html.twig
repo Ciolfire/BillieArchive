@@ -1,0 +1,25 @@
+{% extends "character_sheet_type/mage/arcana/element.html.twig" %}
+
+{% trans_default_domain 'mage' %}
+
+{% block controller %}data-controller="dot" role="group"{% endblock %}
+
+{% block data %}data-name="{{ arcanum.name }}" data-id="{{ arcanum.id }}" data-type="{% if path.ruling(arcanum) %}arcanum-ruling{% elseif path.inferiorArcanum == arcanum %}inferior-arcanum{% else %}arcanum{% endif %}" data-dot-base-value="{{ chArcanum.level|default(0) }}" data-dot-min-value="{{ chArcanum.level|default(0) }}"{% endblock %}
+
+{% block input %}
+  <input class="arcanum-value" value="{{ chArcanum.level|default(0) }}" type="hidden" name="character{% if chArcanum is defined %}[arcanaUp][{{ arcanum.id }}]{% else %}[arcana][{{ arcanum.id }}]{% endif %}" data-id="{{ arcanum.id }}" data-dot-target="input" data-character--edit-target="dot">
+{% endblock %}
+
+{% block dot %}
+<input type="checkbox" {% if chArcanum is defined and value <= chArcanum.level %}checked{% endif %} class="btn-check" id="{{ arcanum.id ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+<label class="btn dot {% if chArcanum is defined and value <= chArcanum.level %} dot-locked{% else %}dot-selectable{% endif %}" for="{{ arcanum.id ~ '-' ~ value }}"
+  data-action="click->dot#activate click->character--edit#pay"
+  data-dot-value-param="{{ value }}"
+  data-character--edit-id-param="{{ arcanum.id }}"
+  data-character--edit-type-param="{% if path.ruling(arcanum) %}arcanum-ruling{% elseif path.inferiorArcanum == arcanum %}arcanum-inferior{% else %}arcanum{% endif %}"
+  data-character--edit-name-param="{{ arcanum.name }}"
+  data-character--edit-value-param="{{ value }}"
+  data-character--edit-base-param="{{ chArcanum.level|default(0) }}"
+>
+</label>
+{% endblock %}

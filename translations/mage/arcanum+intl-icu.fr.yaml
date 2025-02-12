@@ -6,5 +6,10 @@ inferior: Inférieur
 ruling: Dominant
 common: Commun
 
+max:
+  ruling: Max 5
+  common: Max 4
+  inferior: Max 2
+
 purview: Domaine
 realm: Royaume Dominant

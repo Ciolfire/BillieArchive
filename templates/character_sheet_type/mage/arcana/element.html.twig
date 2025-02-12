@@ -1,12 +1,29 @@
-{% trans_default_domain 'mage' %}
+{% trans_default_domain 'arcanum' %}
 
-<div class="col-12 col-md-6 col-xl-4 justify-content-center py-2">
+{% set isInferior = arcanum is same as(character.path.inferiorArcanum) %}
+{% set isRuling = character.rulingArcanum(arcanum) %}
+
+<div class="col-12 col-md-6 col-xl-4 justify-content-center py-2 {% if isRuling %}order-first{% elseif isInferior %}order-last{% endif %}">
   <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}block text-color p-2{% endif %}">
     <div class="row align-items-center user-select-none">
       <div class="col-12 arcana-header text-center py-2">
         <h2 class="text-glow text-color">
+          {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
           {{ arcanum.name }}
         </h2>
+        {% if isRuling %}
+          <span class="text-strong">
+            {{ "ruling"|trans }}
+            ({{ "max.ruling"|trans }})
+          </span>
+        {% elseif isInferior %}
+          <span class="ko">
+            {{ "inferior"|trans }}
+            ({{ "max.inferior"|trans }})
+          </span>
+        {% else %}
+          ({{ "max.common"|trans }})
+        {% endif %}
       </div>
       <div class="col-12 text-center">
         <div class="my-1" role="group" {% block controller %} {% endblock %} {% block data %} {% endblock %}> {% block input %}{% endblock %}
@@ -25,93 +42,5 @@
         {% include "_source_block.html.twig" with {element: arcanum } only %}
       </div>
     </div>
-{# 
-    <div class="row g-0 ok bdr-t">
-      {% block rules_btn %}
-        {% if discipline.rules %}
-          <div class="col bdr-e collapsed" data-bs-toggle="collapse" data-bs-target="#discipline-{{ discipline.id }}-rules" type="button">
-            <span class="d-flex flex-column justify-content-center text-center">
-              <span class="discipline-rules-{{ discipline.id }} text-center show">
-                {{ "rules"|trans({}, 'discipline') }}
-              </span>
-            </span>
-          </div>
-        {% endif %}
-      {% endblock %}
-      {% block powers_btn %}
-        <div class="col collapsed" data-bs-toggle="collapse" data-bs-target="#discipline-{{ discipline.id }}-powers" type="button">
-          <span class="d-flex flex-column justify-content-center text-center">
-            {% if discipline.singlePower %}
-              <span class="discipline-powers-{{ discipline.id }} text-center"
-                data-bs-toggle="modal" data-bs-target="#powerShowModal"
-                data-action="click->vampire--power#show"
-                data-vampire--power-name-param="{{ discipline.name }}"
-                data-vampire--power-description-param="{{ discipline.description|markdown_to_html|e }}"
-                data-vampire--power-effect-param="{{ discipline.power.details|markdown_to_html|e }}"
-                data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id})) }}"
-              >
-                {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
-                {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}
-              </span>
-            {% else %}
-              <span class="discipline-powers-{{ discipline.id }} text-center">
-                {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
-              </span>
-            {% endif %}
-          </span>
-        </div>
-      {% endblock %}
-    </div>
-
-    <div id="discipline-{{ discipline.id }}-body" class="row accordion m-0">
-      {% block rules %}
-        {% if discipline.rules %}
-          <div id="discipline-{{ discipline.id }}-rules" class="col-12 collapse" data-bs-parent="#discipline-{{ discipline.id }}-body">
-            {{ discipline.rules|markdown_to_html }}
-          </div>
-        {% endif %}
-      {% endblock %}
-      {% if not discipline.singlePower %}
-        <div id="discipline-{{ discipline.id }}-powers" class="collapse accordion" data-bs-parent="#discipline-{{ discipline.id }}-body">
-          <div class="col-12">
-            <div class="fluff m-2">{{ discipline.description|markdown_to_html }}</div>
-          </div>
-          {% for power in discipline.powers %}
-            <div class="row">
-              {% if power.level <= maxPower %}
-                {% set powerPool = power.detailedDicePool(character) %}
-                <div class={% if loop.index % 2 %}"col-12 power-header"{% else %}"col-12 power-header-zebra"{% endif %}>
-                  <div class="row pt-3" type="button"
-                    data-bs-toggle="modal" data-bs-target="#powerShowModal"
-                    data-action="click->vampire--power#show"
-                    data-vampire--power-name-param="{{ power.name }}"
-                    data-vampire--power-effect-param="{{ power.details|markdown_to_html|e }}"
-                    data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id, '_fragment': discipline.id ~ '-' ~ power.id})) }}"
-                  >
-                    <div class="col-3">
-                      <h5 class="strong">{{ power.levelDots }}</h5>
-                    </div>
-                    <div class="col-6 text-center">
-                      <a class="heading d-inline-block w-100 h-100">{{ power.name }} {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}</a>
-                    </div>
-                    <div class="col-3 text-end text-glow">
-                      {% if powerPool != null %}
-                        {% include "_dice_pool.html.twig" with {pool : powerPool, contested : power.contestedText} %}
-                      {% endif %}
-                    </div>
-                    <div class="col-8 offset-2 text-sub text-center">
-                      <p class="fst-italic">{{ power.short }}</p>
-                    </div>
-                    <div class="col-2 text-end text-glow">
-                      {% include "vampire/discipline/powers/_cost.html.twig" %}
-                    </div>
-                  </div>
-                </div>
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div> #}
   </div>
 </div>

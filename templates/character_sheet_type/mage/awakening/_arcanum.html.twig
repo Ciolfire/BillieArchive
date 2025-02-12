@@ -2,6 +2,7 @@
 
 <div class="row block m-2 align-items-center justify-content-center px-2">
   <div class="col-auto text-center text-strong">
+    {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
     {{ arcanum.name }}
   </div>
   <div class="col-auto">

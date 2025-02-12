@@ -51,6 +51,9 @@ class Arcanum implements Translatable
   #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'inferiorArcanum')]
   private Collection $inferiorPaths;
 
+  #[ORM\Column(length: 20)]
+  private ?string $identifier = null;
+
   public function __construct()
   {
     $this->paths = new ArrayCollection();
@@ -170,5 +173,17 @@ class Arcanum implements Translatable
     }
 
     return $this;
+  }
+
+  public function getIdentifier(): ?string
+  {
+      return $this->identifier;
+  }
+
+  public function setIdentifier(string $identifier): static
+  {
+      $this->identifier = $identifier;
+
+      return $this;
   }
 }

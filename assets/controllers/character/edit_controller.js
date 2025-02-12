@@ -36,6 +36,9 @@ export default class extends Controller
       'potency': 8,
       // mage
       'gnosis': 8,
+      'arcanum-ruling': 6,
+      'arcanum': 7,
+      'arcanum-inferior': 8
     },
     spendInfo: []
   }
@@ -515,6 +518,8 @@ export default class extends Controller
     this.removeElements('discipline');
     this.removeElements('devotion');
     this.removeElements('ritual');
+    // Yes, they don't exist for non-mage, yes I don't care :)
+    this.removeElements('arcanum');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     // console.log(document.forms);
     document.forms['character'].submit();

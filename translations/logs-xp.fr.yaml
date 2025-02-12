@@ -30,6 +30,9 @@ ritual.label: Nouveau Rituel
 
 # Mage
 gnosis.label: Gnosis augmentée
+arcanum-ruling.label: "{0}Nouvel Arcanum Dominant|[1,Inf]Arcanum Dominant amélioré"
+arcanum.label: "{0}Nouvel Arcanum|[1,Inf]Arcanum amélioré"
+arcanum-inferior.label: "{0}Nouvel Arcanum Inférieur|[1,Inf]Arcanum Inférieur amélioré"
 
 xp:
   add.label: Gained XP

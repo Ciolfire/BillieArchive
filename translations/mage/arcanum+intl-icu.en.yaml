@@ -6,5 +6,10 @@ inferior: Inferior
 ruling: Ruling
 common: Common
 
+max:
+  ruling: Max 5
+  common: Max 4
+  inferior: Max 2
+
 purview: Purview
 realm: Ruling Realm

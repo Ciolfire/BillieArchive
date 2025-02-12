@@ -8,72 +8,82 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MageArcanumRepository::class)]
 class MageArcanum
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column]
+  private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'arcana', cascade: ["persist"])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Mage $character = null;
+  #[ORM\ManyToOne(inversedBy: 'arcana', cascade: ["persist"])]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?Mage $character = null;
 
-    #[ORM\ManyToOne(fetch: "EAGER")]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Arcanum $arcanum = null;
+  #[ORM\ManyToOne(fetch: "EAGER")]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?Arcanum $arcanum = null;
 
-    #[ORM\Column(type: "smallint")]
-    private ?int $level = 1;
+  #[ORM\Column(type: "smallint")]
+  private ?int $level = 1;
 
-    public function __construct(Mage $character, Arcanum $arcanum, int $level)
-    {
-      $this->character = $character;
-      $this->arcanum = $arcanum;
-      $this->level = $level;
-    }
+  public function __construct(Mage $character, Arcanum $arcanum, int $level)
+  {
+    $this->character = $character;
+    $this->arcanum = $arcanum;
+    $this->level = $level;
+  }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function __toString()
+  {
+    return $this->arcanum->getName();
+  }
 
-    public function getName(): string
-    {
-      return $this->arcanum->getName();
-    }
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function getCharacter(): ?Mage
-    {
-        return $this->character;
-    }
+  public function getIdentifier()
+  {
+    return $this->arcanum->getIdentifier();
+  }
 
-    public function setCharacter(?Mage $mage): static
-    {
-        $this->character = $mage;
+  public function getName(): string
+  {
+    return $this->arcanum->getName();
+  }
 
-        return $this;
-    }
+  public function getCharacter(): ?Mage
+  {
+    return $this->character;
+  }
 
-    public function getArcanum(): ?Arcanum
-    {
-        return $this->arcanum;
-    }
+  public function setCharacter(?Mage $mage): static
+  {
+    $this->character = $mage;
 
-    public function setArcanum(?Arcanum $arcanum): static
-    {
-        $this->arcanum = $arcanum;
+    return $this;
+  }
 
-        return $this;
-    }
+  public function getArcanum(): ?Arcanum
+  {
+    return $this->arcanum;
+  }
 
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
+  public function setArcanum(?Arcanum $arcanum): static
+  {
+    $this->arcanum = $arcanum;
 
-    public function setLevel(int $level): static
-    {
-        $this->level = $level;
+    return $this;
+  }
 
-        return $this;
-    }
+  public function getLevel(): ?int
+  {
+    return $this->level;
+  }
+
+  public function setLevel(int $level): static
+  {
+    $this->level = $level;
+
+    return $this;
+  }
 }

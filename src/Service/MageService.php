@@ -82,22 +82,22 @@ class MageService
   public function getSpecial(Mage $mage): array
   {
     /** @var array<int, Arcanum> */
-    $arcana = $this->dataService->findAll(Arcanum::class);
+    $arcana = $this->filterArcana($this->dataService->findAll(Arcanum::class), $mage);
     // $arcana = $this->dataService->findBy(Arcanum::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
-    // /** @var array<int, Discipline> */
-    // $sorcery = $this->dataService->findBy(Discipline::class, ['isSorcery' => true]);
-    // $sorcery = $this->filterDisciplines($sorcery, $vampire);
-    // /** @var array<int, Discipline> */
-    // $coils = $this->dataService->findBy(Discipline::class, ['isCoil' => true]);
-    // $coils = $this->filterDisciplines($coils, $vampire);
-    // /** @var array<int, Discipline> */
-    // $thaumaturgy = $this->dataService->findBy(Discipline::class, ['isThaumaturgy' => true]);
-    // $thaumaturgy = $this->filterDisciplines($thaumaturgy, $vampire);
+    // /** @var array<int, Arcanum> */
+    // $sorcery = $this->dataService->findBy(Arcanum::class, ['isSorcery' => true]);
+    // $sorcery = $this->filterArcana($sorcery, $mage);
+    // /** @var array<int, Arcanum> */
+    // $coils = $this->dataService->findBy(Arcanum::class, ['isCoil' => true]);
+    // $coils = $this->filterArcana($coils, $mage);
+    // /** @var array<int, Arcanum> */
+    // $thaumaturgy = $this->dataService->findBy(Arcanum::class, ['isThaumaturgy' => true]);
+    // $thaumaturgy = $this->filterArcana($thaumaturgy, $mage);
 
     // $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
     // foreach ($devotions as $key => $devotion) {
     //   /** @var Devotion $devotion */
-    //   if ($vampire->hasDevotion($devotion->getId()) || !$devotion->isAvailable($vampire->getChronicle())) {
+    //   if ($mage->hasDevotion($devotion->getId()) || !$devotion->isAvailable($mage->getChronicle())) {
     //     unset($devotions[$key]);
     //   }
     //   $this->dataService->loadPrerequisites($devotion);
@@ -108,25 +108,36 @@ class MageService
     ];
   }
 
+  private function filterArcana(array $arcana, Mage $mage): array
+  {
+    foreach ($arcana as $key => $arcanum) {
+      /** @var Arcanum $arcanum */
+      if ($mage->hasArcanum($arcanum->getId())) {
+        unset($arcana[$key]);
+      }
+    }
+
+    return $arcana;
+  }
+
   /** @param array<string, mixed> $data */
   public function handleEdit(Mage $mage, array $data): void
   {
-
     if (isset($data['gnosis']) && $data['gnosis'] > $mage->getGnosis()) {
       $mage->setGnosis((int)$data['gnosis']);
     }
     
-    // if (isset($data['disciplinesUp'])) {
-    //   foreach ($data['disciplinesUp'] as $id => $level) {
-    //     $discipline = $mage->getDiscipline($id);
-    //     if ($discipline) {
-    //       $discipline->setLevel((int)$level);
-    //     }
-    //   }
-    // }
-    // if (isset($data['disciplines'])) {
-    //   $this->addDisciplines($mage, $data['disciplines']);
-    // }
+    if (isset($data['arcanaUp'])) {
+      foreach ($data['arcanaUp'] as $id => $level) {
+        $arcanum = $mage->getArcanum($id);
+        if ($arcanum) {
+          $arcanum->setLevel((int)$level);
+        }
+      }
+    }
+    if (isset($data['arcana'])) {
+      $this->addArcana($mage, $data['arcana']);
+    }
     // if (isset($data['devotions'])) {
     //   $this->addDevotions($mage, $data['devotions']);
     // }
@@ -146,10 +157,10 @@ class MageService
           $newArcanum = new MageArcanum($character, $arcanum, (int)$level);
         }
         // else {
-        //   $newDiscipline = new GhoulDiscipline($character, $discipline, (int)$level);
+        //   $newArcanum = new GhoulArcanum($character, $arcanum, (int)$level);
         // }
       } else {
-        throw new \Exception("\$discipline not a Discipline");
+        throw new \Exception("\$arcanum not an Arcanum");
       }
       $this->dataService->add($newArcanum);
       $character->addArcanum($newArcanum);
@@ -160,7 +171,7 @@ class MageService
   {
     $rules = $chronicle->getRules('mage');
 
-    // // We do not have any custom rules, or no custom rules for vampire
+    // // We do not have any custom rules, or no custom rules for mage
     // if (is_null($rules)) {
     //   $rules = [
     //     'maxVitae' =>  [
@@ -196,9 +207,9 @@ class MageService
   public function getRemovableAttributes()
   {
     $removables = [
-      // 'potency' => ['label' => 'potency.label', 'domain' => 'vampire'],
-      // 'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
-      // 'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
+      // 'potency' => ['label' => 'potency.label', 'domain' => 'mage'],
+      // 'arcanum' => ['label' => 'label.single', 'domain' => 'arcanum'],
+      // 'devotion' => ['label' => 'devotion.label.single', 'domain' => 'arcanum'],
       // 'merit' => [],
       // 'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
       // 'derangement' => [],
