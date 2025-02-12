@@ -8,7 +8,8 @@ contested:
 effect: Effect
 level:
   single: • à •••••
-new: Nouvelle discipline
+learn: Apprendre une nouvelle Discipline
+new: Nouvelle Discipline
 
 count: >-
   {count, plural,
@@ -31,6 +32,7 @@ coil:
   label:
     single: Anneau du Dragon
     multi: Anneaux du Dragon
+  learn: Apprendre un nouvel Anneau
   new: Nouvel Anneau
   power:
     label: Tier
@@ -47,7 +49,7 @@ sorcery:
   label:
     single: Sorcellerie du Sang
     multi: Sorcelleries du Sang
-  learn: Apprendre une Nouvelle Sorcellerie
+  learn: Apprendre une nouvelle Sorcellerie
   new: Nouvelles Sorcelleries
   power:
     label:
@@ -66,7 +68,8 @@ sorcery:
 
 thaumaturgy:
   label: Thaumaturgie
-  new: Nouvelle voie
+  learn: Découvrir une nouvelle Voie
+  new: Nouvelle Voie
   power:
     label: Pouvoir
     new: Nouveau Pouvoir

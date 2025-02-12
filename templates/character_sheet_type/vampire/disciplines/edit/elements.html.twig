@@ -1,6 +1,6 @@
 {% extends "character_sheet_type/vampire/disciplines/elements.html.twig" %}
 
-{% trans_default_domain 'character' %}
+{% trans_default_domain 'discipline' %}
 
 {% block list %}
   {% set maxPower = 5 %}
@@ -13,7 +13,7 @@
       {% include "character_sheet_type/vampire/disciplines/edit/element.html.twig" with { 'characterDiscipline': characterDiscipline, 'discipline': characterDiscipline.discipline } %}
     {% endif %}
   {% endfor %}
-  <h2 class="text-center py-3 user-select-none">New Disciplines</h2>
+  <h2 class="text-center py-3 user-select-none">{{ 'learn'|trans }}</h2>
   {% for discipline in disciplines %}
     {% set min = 0 %}
     {% set base = 0 %}

@@ -8,6 +8,7 @@ contested:
 effect: Effect
 level:
   single: • to •••••
+learn: Learn a new Discipline
 new: New discipline
 
 count: >-
@@ -31,6 +32,7 @@ coil:
   label:
     single: Coil of the Dragon
     multi: Coils of the Dragon
+  learn: Learn a new Coil
   new: New Coil
   power:
     label: Tier
@@ -47,7 +49,7 @@ sorcery:
   label:
     single: Blood Sorcery
     multi: Blood Sorceries
-  learn: Learn New Sorcery
+  learn: Learn a new Sorcery
   new: New Sorcery
   power:
     label:
@@ -66,7 +68,8 @@ sorcery:
 
 thaumaturgy:
   label: Thaumaturgy
-  new: New path
+  lear: Learn a new Path
+  new: New Path
   power:
     label: Power
     new: New Power

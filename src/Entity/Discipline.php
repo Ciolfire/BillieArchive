@@ -85,6 +85,19 @@ class Discipline implements Translatable
     return $this->id;
   }
 
+  public function getMaxLevel(): int
+  {
+    $max = 0;
+    foreach ($this->powers as $power) {
+      /** @var DisciplinePower $power */
+      if ($power->getLevel() > $max) {
+        $max = $power->getLevel();
+      }
+    }
+
+    return $max;
+  }
+
   public function isSimple(): bool {
     if ($this->isThaumaturgy() || $this->isCoil() || $this->isSorcery()) {
 
@@ -213,19 +226,6 @@ class Discipline implements Translatable
     }
 
     return $this;
-  }
-
-  public function getMaxLevel(): int
-  {
-    $max = 0;
-    foreach ($this->powers as $power) {
-      /** @var DisciplinePower $power */
-      if ($power->getLevel() > $max) {
-        $max = $power->getLevel();
-      }
-    }
-
-    return $max;
   }
 
   public function isThaumaturgy(): bool
