@@ -69,7 +69,7 @@ $textFont           : "goudy";
 $subTextFont        : "goudy";
 $labelFont          : "goudy";
 $inputFont          : "goudy";
-$stylizedFont       : "Roustel";
+$stylizedFont       : "ZapfinoLinotypeThree";
 $stylizedAltFont    : "Cezanne";
 
 @font-face {
@@ -109,6 +109,11 @@ $stylizedAltFont    : "Cezanne";
 @font-face {
   font-family: 'MrsEavesBold';
   src        : url('#{$fonts}/MrsEavesBold.otf');
+}
+
+@font-face {
+  font-family: 'ZapfinoLinotypeThree';
+  src        : url('#{$fonts}/Zapfino_Linotype_Three.ttf');
 }
 
 .collapse-block {
