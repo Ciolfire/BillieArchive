@@ -54,10 +54,17 @@ class Arcanum implements Translatable
   #[ORM\Column(length: 20)]
   private ?string $identifier = null;
 
+  /**
+   * @var Collection<int, MageSpell>
+   */
+  #[ORM\OneToMany(targetEntity: MageSpell::class, mappedBy: 'arcanum')]
+  private Collection $spells;
+
   public function __construct()
   {
     $this->paths = new ArrayCollection();
     $this->inferiorPaths = new ArrayCollection();
+    $this->spells = new ArrayCollection();
   }
 
   public function __toString()
@@ -183,6 +190,36 @@ class Arcanum implements Translatable
   public function setIdentifier(string $identifier): static
   {
       $this->identifier = $identifier;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, MageSpell>
+   */
+  public function getSpells(): Collection
+  {
+      return $this->spells;
+  }
+
+  public function addSpell(MageSpell $spell): static
+  {
+      if (!$this->spells->contains($spell)) {
+          $this->spells->add($spell);
+          $spell->setArcanum($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSpell(MageSpell $spell): static
+  {
+      if ($this->spells->removeElement($spell)) {
+          // set the owning side to null (unless already changed)
+          if ($spell->getArcanum() === $this) {
+              $spell->setArcanum(null);
+          }
+      }
 
       return $this;
   }

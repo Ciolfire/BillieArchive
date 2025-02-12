@@ -1,0 +1,10 @@
+{% extends 'mage/form.html.twig' %}
+
+{% trans_default_domain 'spell' %}
+
+{% block title %}{{ "new"|trans }}{% endblock %}
+{% block header %}{{ "new"|trans }}{% endblock %}
+
+{% block form %}
+  {{ parent() }}
+{% endblock %}

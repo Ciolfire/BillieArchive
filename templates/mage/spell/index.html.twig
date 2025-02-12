@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'spell' %}
+{% set setting = 'mage' %}
+{% set footer = true %}
+
+{% block title %}
+	{{ "label.multi"|trans }}
+{% endblock %}
+
+{% block bodyData %}
+  data-controller="search" data-search-type-value="spell"
+{% endblock %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1 class="user-select-none py-3">
+    {% include "_icon.html.twig" with {icon: "spell", class: "icon-lg" } only %}
+    {{ "label.multi"|trans }}
+  </h1>
+  <div class="container">
+    <div class="row">
+      {% for spell in spells %}
+        {% include "mage/spell/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('mage_spell_new') }}">
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon: 'spell' } only %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

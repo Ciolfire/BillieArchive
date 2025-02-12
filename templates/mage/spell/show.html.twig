@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% include "_back.html.twig" %}
+
+{% set setting = 'mage' %}
+
+{% block body %}
+  <div class="row justify-content-center">
+    {% include "mage/spell/_card.html.twig" %}
+  </div>
+{% endblock %}

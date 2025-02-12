@@ -1,0 +1,19 @@
+<div class="col-12 col-lg-6 g-2">
+  <div class="block p-2">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+    {% endif %}
+    <h2>
+      {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
+      {{ spell.name }}
+    </h2>
+    <h5>{{ spell.skill }}</h5>
+    is Vulgar: {{ spell.vulgar }}
+    <hr>
+    cost: {{ spell.cost }}
+    <hr>
+    {{ spell.description|markdown_to_html }}
+    <hr>
+    {{ spell.rules|markdown_to_html }}
+  </div>
+</div>

@@ -106,6 +106,11 @@ class Book implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $paths;
 
+  #[ORM\OneToMany(targetEntity: MageSpell::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $spells;
+
+
   public function __construct(string $setting="human")
   {
     $this->setting = $setting;
@@ -328,20 +333,20 @@ class Book implements Translatable
     return $this;
   }
 
-  /**
-   * @return array<Organization>
-   */
-  public function getOrganizations(): array
-  {
-    $list = [];
-    foreach ($this->organizations as $organization) {
-      if ($organization->getType() == "organization") {
-        $list[] = $organization;
-      }
-    }
+  // /**
+  //  * @return array<Organization>
+  //  */
+  // public function getOrganizations(): array
+  // {
+  //   $list = [];
+  //   foreach ($this->organizations as $organization) {
+  //     if ($organization->getType() == "organization") {
+  //       $list[] = $organization;
+  //     }
+  //   }
     
-    return $list;
-  }
+  //   return $list;
+  // }
 
   // VAMPIRE
 
@@ -580,6 +585,33 @@ class Book implements Translatable
       // set the owning side to null (unless already changed)
       if ($path->getBook() === $this) {
         $path->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getSpells(): Collection
+  {
+    return $this->spells;
+  }
+
+  public function addSpell(MageSpell $spell): self
+  {
+    if (!$this->spells->contains($spell)) {
+      $this->spells[] = $spell;
+      $spell->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeSpell(MageSpell $spell): self
+  {
+    if ($this->spells->removeElement($spell)) {
+      // set the owning side to null (unless already changed)
+      if ($spell->getBook() === $this) {
+        $spell->setBook(null);
       }
     }
 

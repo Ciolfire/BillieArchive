@@ -42,6 +42,12 @@
       </a>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('mage_spell_index')}}">
+        {% include "_icon.html.twig" with {icon: 'spell' } only %}
+        <span>{{ "label.multi"|trans({}, 'spell')}}</span>
+      </a>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {'type': 'type', 'id': 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'merit' } only %}
         <span>{{ "label.multi"|trans({}, 'merit') }}</span>
