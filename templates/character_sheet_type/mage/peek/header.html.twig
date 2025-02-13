@@ -1,0 +1,29 @@
+{% extends 'character_sheet/peek/header.html.twig' %}
+
+{% trans_default_domain 'mage' %}
+
+{% block age %}
+  {{ parent() }}
+{% endblock %}
+
+{% block underAvatar %}
+  <div class="col-12 text-strong">
+    {% if access.hasRight('order')|default(false)  %}
+      {{ "order.label.single"|trans([], 'organization') }}: {{ character.order }}
+    {% endif %}
+  </div>
+  <div class="col-12 pt-3 text-strong">
+    {% if access.hasRight('path')|default(false) %}
+      {% set path = character.path %}
+      <a href="{{ path("path_show", {'id': path.id}) }}">
+        <img src="{{ asset(path.emblem, 'paths_emblems') }}" height="120">
+        {{ path.name }}
+      </a>
+    {% endif %}
+  </div>
+  <div class="col-12 text-strong">
+    {% if access.hasRight('gnosis')|default(false) %}
+      <span class="accent">{% include "_icon.html.twig" with {icon: 'gnosis', label: "gnosis.label"|trans } %} {{ character.gnosis }}</span>
+    {% endif %}
+  </div>
+{% endblock %}

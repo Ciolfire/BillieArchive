@@ -21,8 +21,8 @@
 {% block underAvatar %}
   <div class="col-12 text-strong">
     {% if access.hasRight('covenant')|default(false)  %}
-    {{ "covenant.label.single"|trans([], 'organization') }}: {{ character.covenant }}
-  {% endif %}
+      {{ "covenant.label.single"|trans([], 'organization') }}: {{ character.covenant }}
+    {% endif %}
   </div>
   <div class="col-12 pt-3 text-strong">
     {% if access.hasRight('bloodline')|default(false) and character.clan.isBloodline and access.hasRight('clan')|default(false) %}

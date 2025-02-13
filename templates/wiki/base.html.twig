@@ -1,111 +1,117 @@
 {% trans_default_domain 'app' %}
 
+{% if isCollapsed is not defined %}
+  {% set isCollapsed = false %}
+{% endif %}
+
+
+
 <div class="row generic justify-content-center pt-2">
   <h2 class="pe-none">
     <img src={{ asset('SkullWOD.webp', 'images') }} style="height:1.5em;" />
     World of Darkness
   </h2>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {'setting': 'human'})}}">
       {% include "_icon.html.twig" with {icon: 'book-pile' } only %}
-      <span>{{ 'label.multi'|trans({}, 'book')}}</span>
+      <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'book')}}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('rule_index')}}">
       {% include "_icon.html.twig" with {icon: 'rule' } only %}
-      <span>{{ 'label.multi'|trans({}, 'rule')}}</span>
+      <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'rule')}}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('attribute_index')}}">
       {% include "_icon.html.twig" with {icon: 'attribute' } only %}
-      <span>{{ 'label.multi'|trans({}, 'attribute')}}</span>
+      <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'attribute')}}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('skill_index')}}">
       {% include "_icon.html.twig" with {icon: 'skill' } only %}
-      <span>{{ 'label.multi'|trans({}, 'skill')}}</span>
+      <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'skill')}}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('virtue_index')}}">
       {% include "_icon.html.twig" with {icon: 'virtue' } only %}
-      <span>{{ 'virtue.label.multi'|trans({}, 'character') }}</span>
+      <span class="d-none d-sm-inline">{{ 'virtue.label.multi'|trans({}, 'character') }}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('vice_index')}}">
       {% include "_icon.html.twig" with {icon: 'vice' } only %}
-      <span>{{ 'vice.label.multi'|trans({}, 'character') }}</span>
+      <span class="d-none d-sm-inline">{{ 'vice.label.multi'|trans({}, 'character') }}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list')}}">
       {% include "_icon.html.twig" with {icon: 'merit' } only %}
-      <span>{{ 'label.multi'|trans({}, 'merit') }}</span>
+      <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'merit') }}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('derangement_list')}}">
       {% include "_icon.html.twig" with {icon: 'derangement' } only %}
-      <span>{{ "label.multi"|trans({}, 'derangement') }}</span>
+      <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'derangement') }}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('roll_list')}}">
       {% include "_icon.html.twig" with {icon: 'd10' } only %}
-      <span>{{ "roll.label.multi"|trans }}</span>
+      <span class="d-none d-sm-inline">{{ "roll.label.multi"|trans }}</span>
     </a>
   </div>
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="{{path('item_index')}}">
       {% include "_icon.html.twig" with {icon: 'item' } only %}
-      <span>{{ "label.multi"|trans({}, 'item') }}</span>
+      <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'item') }}</span>
     </a>
   </div>
-  {# <div class="col-12 col-sm-6 col-lg-3">
+  {# <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="#">
       {% include "_icon.html.twig" with {icon: 'advantage' } only %}
-      <span>{{ "label.multi"|trans({}, 'item') }}</span>
+      <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'item') }}</span>
     </a>
   </div> #}
-  <div class="col-12 col-sm-6 col-lg-3">
+  <div class="col-6 col-md-4 col-lg-3">
     <a class="btn btn-primary w-100 mb-2" href="#">
       {% include "_icon.html.twig" with {icon: 'flaw' } only %}
-      <span>{{ "label.multi"|trans({}, 'flaw') }}</span>
+      <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'flaw') }}</span>
     </a>
   </div>
   <hr>
   {# Lesser Templates #}
-  <a data-bs-toggle="collapse" href="#collapseLesserTemplateWiki" role="button" aria-expanded="false" aria-controls="collapseLesserTemplateWiki">
+  <a {% if isCollapsed %}data-bs-toggle="collapse" href="#collapseLesserTemplateWiki" role="button" aria-expanded="false" aria-controls="collapseLesserTemplateWiki"{% endif %}>
     <h3 class="pe-none text-strong lesser-color">
       {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser-color' } only %}
       <span>{{ "lesser.multi"|trans({}, 'content-type') }}</span>
     </h3>
   </a>
-  <div id="collapseLesserTemplateWiki" class="row generic pt-2 justify-content-center collapse">
-    <div class="col-12 col-sm-6 col-lg-3">
+  <div id="collapseLesserTemplateWiki" class="row generic pt-2 justify-content-center {% if isCollapsed %}collapse{% endif %}">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
         {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
-        <span>{{ "psychic"|trans({}, 'content-type') }}</span>
+        <span class="d-none d-sm-inline">{{ "psychic"|trans({}, 'content-type') }}</span>
       </a>
     </div>
   </div>
   <hr>
   {# Tools #}
-  <a data-bs-toggle="collapse" href="#collapseToolsWiki" role="button" aria-expanded="false" aria-controls="collapseToolsWiki">
+  <a {% if isCollapsed %}data-bs-toggle="collapse" href="#collapseToolsWiki" role="button" aria-expanded="false" aria-controls="collapseToolsWiki"{% endif %}>
     <h3 class="pe-none text-strong">
       {% include "_icon.html.twig" with {icon: 'tools' } only %}
       <span>{{ "tools"|trans({}, 'wiki') }}</span>
     </h3>
   </a>
-  <div id="collapseToolsWiki" class="row generic pt-2 justify-content-center collapse">
-    <div class="col-12 col-sm-6 col-lg-3">
+  <div id="collapseToolsWiki" class="row generic pt-2 justify-content-center {% if isCollapsed %}collapse{% endif %}">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('character_premade_index')}}">
         {% include "_icon.html.twig" with {icon: 'premade' } only %}
-        <span>{{ "premade.label.multi"|trans({}, 'character') }}</span>
+        <span class="d-none d-sm-inline">{{ "premade.label.multi"|trans({}, 'character') }}</span>
       </a>
     </div>
   </div>

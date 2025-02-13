@@ -1,56 +1,62 @@
 {% trans_default_domain 'mage' %}
 
 <div class="row mage justify-content-center pt-2">
-  <a data-bs-toggle="collapse" href="#collapseMageWiki" role="button" aria-expanded="false" aria-controls="collapseMageWiki">
+  <a {% if isCollapsed %}data-bs-toggle="collapse" href="#collapseMageWiki" role="button" aria-expanded="false" aria-controls="collapseMageWiki"{% endif %}>
     <h2 class="pe-none"><img src={{ asset('SkullMTAw.webp', 'images') }} style="height:1.5em;" /> {{ "mage.label"|trans({}, 'setting')}}</h2>
   </a>
-  <div id="collapseMageWiki" class="row justify-content-center collapse">
-    <div class="col-12 col-sm-6 col-lg-3">
+  <div id="collapseMageWiki" class="row justify-content-center {% if isCollapsed %}collapse{% endif %}">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('book_index', {setting: 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'book-pile' } only %}
-        <span>{{ "label.multi"|trans({}, 'book') }}</span>
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'book') }}</span>
       </a>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('rule_index', {setting: 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'rule' } only %}
-        <span>{{ 'label.multi'|trans({}, 'rule')}}</span>
+        <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'rule')}}</span>
       </a>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('organization_index', {setting: 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-        <span>{{ "order.label.multi"|trans({}, 'organization') }}</span>
+        <span class="d-none d-sm-inline">{{ "order.label.multi"|trans({}, 'organization') }}</span>
       </a>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('path_index')}}">
         {% include "_icon.html.twig" with {icon: 'path' } only %}
-        <span>{{ "label.multi"|trans({}, 'path')}}</span>
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'path')}}</span>
       </a>
     </div>
-    {# <div class="col-12 col-sm-6 col-lg-3">
+    {# <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('legacy_index')}}">
         {% include "_icon.html.twig" with {icon: 'legacy' } only %}
-        <span>{{ "bloodline.label.multi"|trans({}, 'legacy')}}</span>
+        <span class="d-none d-sm-inline">{{ "bloodline.label.multi"|trans({}, 'legacy')}}</span>
       </a>
     </div> #}
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="#">
+        {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'legacy')}}</span>
+      </a>
+    </div>
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('arcanum_index')}}">
         {% include "_icon.html.twig" with {icon: 'arcanum' } only %}
-        <span>{{ "label.multi"|trans({}, 'arcanum')}}</span>
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'arcanum')}}</span>
       </a>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('mage_spell_index')}}">
         {% include "_icon.html.twig" with {icon: 'spell' } only %}
-        <span>{{ "label.multi"|trans({}, 'spell')}}</span>
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'spell')}}</span>
       </a>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {'type': 'type', 'id': 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'merit' } only %}
-        <span>{{ "label.multi"|trans({}, 'merit') }}</span>
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'merit') }}</span>
       </a>
     </div>
   </div>
