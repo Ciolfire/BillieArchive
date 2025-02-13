@@ -1,0 +1,33 @@
+{% extends "character_sheet/traits/health.html.twig" %}
+
+{% block content %}
+  {{ parent() }}
+  <div class="col-12">
+    <div class="row mb-1">
+      <div class="col">
+        <button class="btn btn-primary d-inline-block">
+          1{% include "_icon.html.twig" with {icon: 'vitae'} %}
+          {% include "_icon.html.twig" with {icon: 'right'} %}
+          {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
+          2{% include "_icon.html.twig" with {icon: 'bashing'} %}
+        </button>
+      </div>
+      <div class="col">
+      <button class="btn btn-primary d-inline-block">
+        1{% include "_icon.html.twig" with {icon: 'vitae'} %}
+        {% include "_icon.html.twig" with {icon: 'right'} %}
+        {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
+        1{% include "_icon.html.twig" with {icon: 'lethal'} %}
+      </button>
+      </div>
+      <div class="col">
+      <button class="btn btn-primary d-inline-block">
+        5{% include "_icon.html.twig" with {icon: 'vitae'} %}
+        {% include "_icon.html.twig" with {icon: 'right'} %}
+        {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
+        1{% include "_icon.html.twig" with {icon: 'aggravated'} %}
+      </button>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

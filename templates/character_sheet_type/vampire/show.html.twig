@@ -27,6 +27,10 @@
   </div>
 {% endblock %}
 
+{% block health %}
+  {% include "character_sheet_type/vampire/traits/health.html.twig" %}
+{% endblock %}
+
 {% block subtraits %}
   <div class="row justify-content-center">
     {% block morality %}{{ parent() }}{% endblock %}

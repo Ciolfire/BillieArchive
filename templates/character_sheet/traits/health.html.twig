@@ -1,24 +1,26 @@
 {% trans_default_domain 'character' %}
 
-<div class="block user-select-none h-100">
+<div class="block row user-select-none h-100">
+  {% block content %}
   <h3 class="text-center pt-1">{% include "_icon.html.twig" with {icon: 'health', 'class': 'icon-lg'} %} {{ 'health'|trans }}</h3>
   <div class="col-12 text-center">
-    {% set floor = character.health - character.woundMalus %}
-    {% set wounds = character.wounds %}
-    {% for index in 1..character.maxHealth %}
-      {% if wounds.A > 0 %}
-        {% set wounds = wounds|merge({'A': (wounds.A - 1)}) %}
-        {% set value = 3 %}
-      {% elseif wounds.L > 0 %}
-        {% set wounds = wounds|merge({'L': (wounds.L - 1)}) %}
-        {% set value = 2 %}
-      {% elseif wounds.B > 0 %}
-        {% set wounds = wounds|merge({'B': (wounds.B - 1)}) %}
-        {% set value = 1 %}
-      {% else %}
-        {% set value = 0 %}
-      {% endif %}
-      {{ include('character_sheet/traits/healthBox.html.twig', {'current': index, 'health': character.health}) }}
-    {% endfor %}
+      {% set floor = character.health - character.woundMalus %}
+      {% set wounds = character.wounds %}
+      {% for index in 1..character.maxHealth %}
+        {% if wounds.A > 0 %}
+          {% set wounds = wounds|merge({'A': (wounds.A - 1)}) %}
+          {% set value = 3 %}
+        {% elseif wounds.L > 0 %}
+          {% set wounds = wounds|merge({'L': (wounds.L - 1)}) %}
+          {% set value = 2 %}
+        {% elseif wounds.B > 0 %}
+          {% set wounds = wounds|merge({'B': (wounds.B - 1)}) %}
+          {% set value = 1 %}
+        {% else %}
+          {% set value = 0 %}
+        {% endif %}
+        {{ include('character_sheet/traits/healthBox.html.twig', {'current': index, 'health': character.health}) }}
+      {% endfor %}
   </div>
+  {% endblock content %}
 </div>
