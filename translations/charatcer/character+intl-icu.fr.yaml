@@ -155,6 +155,7 @@ right:
   description: Description
   faction: Faction
   group: Groupe
+  organization: Organisation
   importance:
     label: Importance
     high: Haute
@@ -177,6 +178,11 @@ right:
   embrace: Étreinte
   potency: Puissance de sang
   sire: Sir
+  # Mage
+  path: Voie
+  order: Ordre
+  legacy: Héritage
+  gnosis: Gnosis
 
 size:
   label: Taille de base

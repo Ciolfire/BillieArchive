@@ -11,11 +11,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CharacterAccessType extends AbstractType
 {
+  public TranslatorInterface $translator;
+  
+  public function __construct(TranslatorInterface $translator)
+  {
+    $this->translator = $translator;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
+    $translator = $this->translator;
+
     $choices = [
       'type',
       'firstname',
@@ -30,6 +40,7 @@ class CharacterAccessType extends AbstractType
       'background',
       'faction',
       'group',
+      'organization',
       // 'best.skill.mental',
       // 'best.skill.physical',
       // 'best.skill.social',
@@ -62,6 +73,17 @@ class CharacterAccessType extends AbstractType
         $choices = [
           'base' => $choices,
           'ghoul' => $typeChoices
+        ];
+      case 'mage':
+        $typeChoices = [
+          'path',
+          'order',
+          'legacy',
+          'gnosis',
+        ];
+        $choices = [
+          'base' => $choices,
+          'mage' => $typeChoices
         ];
       default:
         break;

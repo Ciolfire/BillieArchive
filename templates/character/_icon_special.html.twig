@@ -1,13 +1,10 @@
-{% if isShared|default(true) == true %}
-  {% if character.type == "vampire" %}
-    {{ asset('SkullVTR.png', 'images') }}
-  {% elseif character.type == "mage" %}
-    {{ asset('SkullMTAw.webp', 'images') }}
-  {% elseif character.type == "werewolf" %}
-    {{ asset('SkullWTF.png', 'images') }}
-  {% else %}
-    {{ asset('SkullWOD.webp', 'images') }}
-  {% endif %}
+{% if character.type == "vampire" and character.covenant and access.hasRight('covenant')|default(false) %}
+  <img class="character-icon" src="{{ asset(character.covenant.emblem, 'organizations_emblems') }}">
+{% elseif character.type == "mage" and character.order and access.hasRight('order')|default(false) %}
+  <img class="character-icon" src="{{ asset(character.order.emblem, 'organizations_emblems') }}">
+{% elseif character.type == "werewolf" and character.whatever and access.hasRight('whatever')|default(false) %}
+{% elseif character.organization and access.hasRight('organization')|default(false) %}
+  <img class="character-icon" src="{{ asset(character.organization.emblem, 'organizations_emblems') }}">
 {% else %}
-  {{ asset('rabbit_move_slow.gif', 'images') }}
+  <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}">
 {% endif %}

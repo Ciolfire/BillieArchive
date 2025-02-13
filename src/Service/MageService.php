@@ -71,6 +71,10 @@ class MageService
 
     // Should we really ? There is potential loss of informations there
     // $mage->cleanLesserTemplates();
+    
+    if ($mage->getLesserTemplate()) {
+      $mage->getLesserTemplate()->setIsActive(false);
+    }
     $this->dataService->save($mage);
 
     return true;

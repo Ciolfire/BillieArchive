@@ -5,7 +5,7 @@
 {% endif %}
 
 
-<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3" data-search-target="item" data-name="{{ name }}" data-order-target="item">
+<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3 {% block order %}{% endblock %}" data-search-target="item" data-name="{{ name }}" data-order-target="item">
   {% block wrapper %}<a class="character-card text-center p-0 btn btn-primary d-block w-100 h-100{% block class %} {{ character.type }}{% if character.lesserTemplate %} lesser-border-accent{% endif %}{% endblock class %}" href="{{ path('character_show', {'id': character.id}) }}">
     {% block content %}
       <div class="character-card-header">

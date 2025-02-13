@@ -155,6 +155,7 @@ right:
   description: Description
   faction: Faction
   group: Group
+  organization: Organization
   importance:
     label: Importance
     high: High
@@ -177,6 +178,11 @@ right:
   embrace: Embrace
   potency: Potency
   sire: Sire
+  # Mage
+  path: Path
+  order: Order
+  legacy: Legacy
+  gnosis: Gnosis
 
 size:
   label: Base size
