@@ -1,16 +1,7 @@
 {% if access.hasRight('path')|default(false) %}
-  {% if character.legacy|default(null) is not null %}
-    {% if access.hasRight('legacy')|default(false) %}
-      <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-    {% else %}
-      <img class="character-icon" src="{{ asset(character.path.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullMtAw.png', 'images') }}';this.onerror=null;" />
-    {% endif %}
-  {% else %}
-    <img class="character-icon" src={% include "character/_icon.html.twig" %} />
-  {% endif %}
+  <img class="character-icon" src={% include "character/_icon.html.twig" %} />
 {% else %}
-  <img class="character-icon" src="{{ asset('SkullMtAw.png', 'images') }}" />
-  {# <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />   #}
+  <img class="character-icon" src="{{ asset('SkullMTAw.webp', 'images') }}" />
 {% endif %}
 <div class="flex-fill text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
 {% include "character/_icon_special.html.twig" %}

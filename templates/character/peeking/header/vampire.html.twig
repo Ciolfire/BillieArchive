@@ -10,7 +10,6 @@
   {% endif %}
 {% else %}
   <img class="character-icon" src="{{ asset('SkullVTR.png', 'images') }}"/>
-  {# <img class="character-icon flip" src="{{ asset('rabbit_move_slow.gif', 'images') }}" />   #}
 {% endif %}
 <div class="flex-fill text-center text-strong">{{ character.type|trans({}, 'content-type') }}</div>
 {% include "character/_icon_special.html.twig" %}
