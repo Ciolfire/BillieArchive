@@ -4,6 +4,7 @@
 $tooltip-max-width: 400px;
 
 $lesserColor: #9736dad4;
+$blockOutlineColor: $main75pColor;
 
 $fonts: "../fonts";
 
@@ -80,7 +81,8 @@ footer.footer {
 
 .block {
   background-color: $blockColor;
-  box-shadow: 0px 0px 5px 0px $mainColor;
+  // box-shadow: 0px 0px 5px 0px $mainColor;
+  outline: 1px solid $blockOutlineColor;
 
   &-backdrop {
     backdrop-filter: blur(2px);

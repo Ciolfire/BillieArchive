@@ -13,13 +13,13 @@
           {% if character.lesserTemplate %}
             {% include "_icon.html.twig" with {icon : "type/" ~ character.type, class: 'character-icon lesser-icon'} only %}
           {% else %}
-            <img class="character-icon" src={% include "character/_icon.html.twig" %} />
+            <img class="character-icon" src={% include "character/_icon.html.twig" %}/>
           {% endif %}
           <div class="flex-fill text-center text-strong {% if character.lesserTemplate %}lesser-color{% endif %}">{{ character.type|trans({}, 'content-type') }}</div>
           {% if character.mainOrganization %}
-            <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}">
+            <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}"/>
           {% else %}
-            <img class="character-icon" src={% include "chronicle/_icon.html.twig" with {"chronicle": character.chronicle} only %} />
+            <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}"/>
           {% endif %}
         {% endblock %}
       </div>

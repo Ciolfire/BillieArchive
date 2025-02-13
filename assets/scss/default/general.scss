@@ -13,7 +13,7 @@ $lesserColor: #9736dad4;
     background-color: #1a1d29a3;
     border          : 1px solid #6f80c5;
 
-    svg, img {
+    svg {
       filter: drop-shadow(-1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(1px 1px 0 #000);
     }
 
