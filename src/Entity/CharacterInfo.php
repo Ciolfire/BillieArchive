@@ -25,7 +25,7 @@ class CharacterInfo
   private ?string $data = null;
 
   #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'infoAccesses')]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $accessList;
 
   #[ORM\Column(length: 255)]
