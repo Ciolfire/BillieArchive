@@ -17,12 +17,16 @@
 {% endblock %}
 
 {% block traits %}
-  <div class="row mt-2 mb-1">
+  <div class="row">
     <div class="col-12 col-md-6">
-      {% include 'character_sheet_type/vampire/elements/vitae.html.twig' %}
+      <div class="row h-100 p-1">
+        {% include 'character_sheet_type/vampire/elements/vitae.html.twig' %}
+      </div>
     </div>
     <div class="col-12 col-md-6">
-      {% include 'character_sheet_type/vampire/potency/show.html.twig' %}
+      <div class="row h-100 p-1">
+        {% include 'character_sheet_type/vampire/potency/show.html.twig' %}
+      </div>
     </div>
   </div>
 {% endblock %}

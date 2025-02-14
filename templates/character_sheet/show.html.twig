@@ -36,20 +36,24 @@
           {% include "_tab.html.twig" with {name: 'notes', icon: 'note', label: 'label.multi'|trans({}, 'note')} only %}
         {% endif %}
       </ul>
-      <div id="general" class="tab-content d-none" data-tabs-target="page">
-        <div class="row pb-1">
+      <div id="general" class="d-none col" data-tabs-target="page">
+        <div class="row">
           <div class="col-12 col-md-6">
-            {% block health %}
-              {% include "character_sheet/traits/health.html.twig" %}
-            {% endblock %}
+            <div class="row h-100 p-1">
+              {% block health %}
+                {% include "character_sheet/traits/health.html.twig" %}
+              {% endblock %}
+            </div>
           </div>
           <div class="col-12 col-md-6">
-            {% include "character_sheet/traits/show/willpower.html.twig" %}
+            <div class="row h-100 p-1">
+              {% include "character_sheet/traits/show/willpower.html.twig" %}
+            </div>
           </div>
         </div>
         {% block traits %}
         {% endblock %}
-        <div class="row mb-3">
+        <div class="row mb-2">
           {% include "character_sheet/elements/advantages.html.twig" %}
         </div>
         <div class="row">
