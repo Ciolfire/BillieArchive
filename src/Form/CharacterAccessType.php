@@ -31,6 +31,7 @@ class CharacterAccessType extends AbstractType
       'firstname',
       'lastname',
       'nickname',
+      'title',
       'avatar',
       'age',
       'virtue',

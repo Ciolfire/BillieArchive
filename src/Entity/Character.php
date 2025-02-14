@@ -14,6 +14,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+enum Gender: int
+{
+  case female = 0;
+  case male = 1;
+  case other = 2;
+}
 
 #[ORM\Table(name: "characters")]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
@@ -41,6 +47,12 @@ class Character
 
   #[ORM\Column(length: 30)]
   protected ?string $lastName = "";
+
+  #[ORM\Column(length: 30)]
+  protected ?string $title = "";
+
+  #[ORM\Column(type: Types::INTEGER, enumType: Gender::class)]
+  private Gender $gender = Gender::female;
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
   protected ?int $age;
@@ -347,6 +359,16 @@ class Character
   {
     if (!empty($this->nickname)) {
 
+      return "{$this->title } {$this->firstName} “{$this->nickname}” {$this->lastName}";
+    }
+
+    return trim("{$this->title } {$this->firstName} {$this->lastName}");
+  }
+
+  public function getSimpleName(): string
+  {
+    if (!empty($this->nickname)) {
+
       return "{$this->firstName} “{$this->nickname}” {$this->lastName}";
     }
 
@@ -394,6 +416,47 @@ class Character
   public function setNickname(string $nickname): self
   {
     $this->nickname = $nickname;
+
+    return $this;
+  }
+
+  /** The name known for this character by another character */
+  public function getPublicName(Character $peeker): string
+  {
+    $name = "";
+    $rights = $peeker->getSpecificPeekingRights($this)->getRights();
+
+    if (in_array('title', $rights)) {
+      $name .= "{$this->title} ";
+    }
+
+    if (in_array('firstname', $rights)) {
+      $name .= "{$this->firstName} ";
+    }
+    if (in_array('nickname', $rights) && $this->nickname) {
+      $name .= "“{$this->nickname}” ";
+    }
+    if (in_array('lastname', $rights)) {
+      $name .= "{$this->lastName}";
+    }
+
+    // If the first name is not known, we remove the quotation marks as the nickname is the "official name"
+    if (str_starts_with($name, "“")) {
+
+      $name = str_replace(["“", "”"], "", $name);
+    }
+
+    return trim($name);
+  }
+
+  public function getTitle(): ?string
+  {
+    return $this->title;
+  }
+
+  public function setTitle(string $title): self
+  {
+    $this->title = $title;
 
     return $this;
   }
@@ -1455,31 +1518,6 @@ class Character
     }
 
     return null;
-  }
-
-  /** The name known for this character by another character */
-  public function getPublicName(Character $peeker): string
-  {
-    $name = "";
-    $rights = $peeker->getSpecificPeekingRights($this)->getRights();
-
-    if (in_array('firstname', $rights)) {
-      $name .= "{$this->firstName} ";
-    }
-    if (in_array('nickname', $rights) && $this->nickname) {
-      $name .= "“{$this->nickname}” ";
-    }
-    if (in_array('lastname', $rights)) {
-      $name .= "{$this->lastName}";
-    }
-
-    // If the first name is not known, we remove the quotation marks as the nickname is the "official name"
-    if (str_starts_with($name, "“")) {
-
-      $name = str_replace(["“", "”"], "", $name);
-    }
-
-    return trim($name);
   }
 
   /**

@@ -57,6 +57,14 @@ class CharacterType extends AbstractType
           'placeholder' => 'name.last',
         ],
       ])
+      ->add('title', null, [
+        'label' => false,
+        'required' => false,
+        'empty_data' => "",
+        'attr' => [
+          'placeholder' => 'name.title',
+        ],
+      ])
       ->add('age', null, [
         'label' => 'age.label',
       ])

@@ -65,6 +65,8 @@ derangement:
 dot:
   fifth: Le cinquième point coûte double
 
+gender: Sexe
+
 health: Santé
 wound:
   penalty: S'applique aux pool de dés et à la vitesse. Ne s'applique pas à la vigueur pour rester conscient.
@@ -115,6 +117,7 @@ name:
   first: Prénom
   last: Nom
   nick: Surnom
+  title: Titre
   unknown: Nom inconnu
 
 npc:
@@ -165,6 +168,7 @@ right:
   lastname: Nom de famille
   morality: Moralité
   nickname: Surnom
+  title: Titre
   type: Type
   virtue: Vertue
   vice: Vice

@@ -65,6 +65,8 @@ derangement:
 dot:
   fifth: Fifth dot cost two
 
+gender: Gender
+
 health: Health
 wound:
   penalty: Substract from character dice pool and speed. Does not apply to Stamina rolls to remain conscious.
@@ -115,6 +117,7 @@ name:
   first: First name
   last: Last name
   nick: Middle name/Nickname
+  title: Title
   unknown: Name unknown
 
 npc:
@@ -165,6 +168,7 @@ right:
   lastname: Last name
   morality: Morality
   nickname: Nickname
+  title: Title
   type: Type
   virtue: Virtue
   vice: Vice
