@@ -19,8 +19,8 @@
 
 
 {% block body %}
-  <div class="container-fluid container-lg py-3">
-    <div class="row my-3 block" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
+  <div class="container-fluid container-lg">
+    <div class="row block" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       <ul class="nav tabs g-0">
         {% if characters is defined %}
           {% include "_tab.html.twig" with {name: 'pc', icon: 'character', label: 'pc.label.multi'|trans} only %}
@@ -33,17 +33,17 @@
         {% endif %}
       </ul>
       {% if characters is defined %}
-        <div id="pc" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div id="pc" class="py-0 d-none" data-tabs-target="page">
           {% include 'character/_list.html.twig' with { characters: characters, category: 'pc', title: 'pc.label.multi', icon: 'character' } only %}
         </div>
       {% endif %}
       {% if npc is defined %}
-        <div id="npc" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div id="npc" class="py-0 d-none" data-tabs-target="page">
           {% include 'character/_list.html.twig' with { characters: npc, category: 'npc', title: 'npc.label.multi' } only %}
         </div>
       {% endif %}
       {% if premade is defined %}
-        <div id="premade" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div id="premade" class="py-0 d-none" data-tabs-target="page">
           {% include 'character/_list.html.twig' with { title: 'premade.label.multi', characters: premade, category: 'premade' } only %}
         </div>
       {% endif %}
