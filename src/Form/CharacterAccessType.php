@@ -75,6 +75,7 @@ class CharacterAccessType extends AbstractType
           'base' => $choices,
           'ghoul' => $typeChoices
         ];
+        break;
       case 'mage':
         $typeChoices = [
           'path',
