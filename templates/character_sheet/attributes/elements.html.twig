@@ -9,11 +9,13 @@
   {% block creation %}{% endblock %}
   {% for category, attributes in attributes %}
     <div class="col col-sm-4 d-flex justify-content-center">
-      <div class="block">
-        <h4 class="user-select-none text-center pt-1">{{ ("category." ~ category)|trans({}, 'app') }}</h4>
-        {% for type, attribute in attributes %}
-          {% block attribute %}{% endblock %}
-        {% endfor %}
+      <div class="row h-100 p-1">
+        <div class="block">
+          <h4 class="user-select-none text-center pt-1">{{ ("category." ~ category)|trans({}, 'app') }}</h4>
+          {% for type, attribute in attributes %}
+            {% block attribute %}{% endblock %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endfor %}

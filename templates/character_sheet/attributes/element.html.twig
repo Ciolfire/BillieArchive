@@ -1,8 +1,8 @@
 {% trans_default_domain 'character' %}
 
 <div class="row align-items-center px-2">
-  <div class="col-12 col-md">
-    <div class="user-select-none text-truncate text-strong">
+  <div class="col-12 col-md text-truncate">
+    <div class="user-select-none text-strong">
       {% include "_icon.html.twig" with {icon: type, 'class': 'd-none d-lg-inline' } only %}
       {{ attribute.name }}
     </div>
