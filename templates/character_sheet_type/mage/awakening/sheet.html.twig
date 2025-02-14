@@ -16,10 +16,11 @@
     {% include "character_sheet_type/mage/awakening/_arcana.html.twig" %}
     <hr>
     {% include "character_sheet_type/mage/awakening/_order.html.twig" %}
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-primary w-100 disabled" type="submit" data-character--awakening-target="submit" data-action="click->character--awakening#clean">{{ "awakening.save"|trans }}</button>
-      </div>
+    <div class="text-center fixed-bottom">
+      <button class="btn btn-primary btn-lg w-100 disabled" type="submit" data-character--awakening-target="submit" data-action="click->character--awakening#clean">
+        {% include "_icon.html.twig" with {icon: 'type/mage'} %}
+        {{ "awakening.save"|trans }}
+      </button>
     </div>
     {{ form_end(form) }}
   </div>
