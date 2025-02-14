@@ -9,32 +9,32 @@
 {% block body %}
   <div class="container">
     <h1 class="text-stylized my-2">{{ "dashboard"|trans }}</h1>
-    <div class="row mb-2">
-      <div class="col-12 col-lg-8">
-        <div class="block rounded h-100">
-          <div class="row align-items-center p-1 h-100">
-            <div class="col-6 col-lg my-1">
+    <div class="row block align-items-center m-1">
+      {# <div class="block rounded"> #}
+        <div class="col-12 col-lg-8">
+          <div class="row text-truncate">
+            <div class="col-6 col-lg">
               <a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
                 <span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
               </a>
             </div>
-            <div class="col-6 col-lg my-1">
+            <div class="col-6 col-lg">
               <a class="btn btn-primary w-100 disabled" href="#">{% include "_icon.html.twig" with {icon: 'note' } only %}
                 <span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'note') }}</span>
               </a>
             </div>
-            <div class="col-6 col-lg my-1">
+            <div class="col-6 col-lg">
               <a class="btn btn-primary w-100" href="{{path('user_preferences')}}">{% include "_icon.html.twig" with {icon: 'gears' } only %}
                 <span class="d-inline d-lg-none d-xl-inline">{{ "options"|trans }}</span>
               </a>
             </div>
             {% if is_granted('ROLE_GM') %}
-              <div class="col-6 col-lg my-1">
+              <div class="col-6 col-lg">
                 <a class="btn btn-primary w-100" href="{{path('users')}}">{% include "_icon.html.twig" with {icon: 'users' } only %}
                   <span class="d-inline d-lg-none d-xl-inline">{{ "user.label.multi"|trans }}</span>
                 </a>
               </div>
-              <div class="col-6 col-lg my-1">
+              <div class="col-6 col-lg">
                 <a class="btn btn-primary w-100" href="{{path('character_refresh_power_rating')}}">
                   {% include "_icon.html.twig" with {icon: 'refresh' } only %}
                   {% include "_icon.html.twig" with {icon: 'characters' } only %}
@@ -43,37 +43,31 @@
             {% endif %}
           </div>
         </div>
-      </div>
-      <div class="col-12 col-lg-4">
-        <div class="block rounded h-100">
-          <div class="row p-1">
-            <div class="col-12">
-              <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
-                <h2 class="text-strong">
-                  {% include "_icon.html.twig" with {icon: 'wiki' , class: 'icon-lg pe-2'} only %}
-                  {{ 'label'|trans({}, 'wiki') }}
-                </h2>
-              </button>
-            </div>
-          </div>
+        <div class="col-12 col-lg-4 px-0">
+          <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+            <h3 class="text-strong">
+              {% include "_icon.html.twig" with {icon: 'wiki' , class: 'icon-lg pe-2'} only %}
+              {{ 'label'|trans({}, 'wiki') }}
+            </h3>
+          </button>
         </div>
-      </div>
-      <div class="col-12 collapseWiki collapse mb-3">
-        <div class="block rounded g-1 mt-1 p-2">
+        <div class="col-12 collapseWiki collapse">
+          <hr>
           {% include "wiki/base.html.twig" with {isCollapsed: true} %}
         </div>
-      </div>
+      {# </div> #}
     </div>
-    <div class="row">
+    <div class="row g-0">
       <div class="col-12 col-lg-6">
         <h2>{{ "owned.multi"|trans({}, 'chronicle') }}</h2>
-        {% if app.user.chronicles is not empty %}
           {% for chronicle in app.user.chronicles %}
-            <div class="container block {{ chronicle.type }} mb-3 rounded">
-              {% include "chronicle/_base.html.twig" %}
+            <div class="row m-1">
+              <div class="block {{ chronicle.type }} mb-3 rounded">
+                {% include "chronicle/_base.html.twig" %}
+              </div>
             </div>
           {% endfor %}
-        {% else %}
+        {% if app.user.chronicles is empty %}
           <div class="row justify-content-center">
             <div class="col-12">
               <h3 class="text-center block p-3">{{ "none"|trans({}, 'chronicle') }}</h3>
@@ -84,8 +78,10 @@
       <div class="col-12 col-lg-6">
         <h2>{{ "story.owned.multi"|trans({}, 'chronicle') }}</h2>
         {% for chronicle in app.user.stories %}
-          <div class="container block {{ chronicle.type }} mb-3 rounded">
-            {% include "chronicle/story/_base.html.twig" %}
+          <div class="row m-1">
+            <div class="block {{ chronicle.type }} mb-3 rounded">
+              {% include "chronicle/story/_base.html.twig" %}
+            </div>
           </div>
         {% endfor %}
         <a class="btn btn-primary w-100" href="{{path('chronicle_new')}}">
@@ -94,4 +90,5 @@
         </a>
       </div>
     </div>
+  </div>
   {% endblock %}
