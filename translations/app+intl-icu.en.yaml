@@ -39,6 +39,7 @@ name: Name
 nickname: Nickname
 options: Options
 quote: Quote
+rules: Rules
 short: Short
 title: Title
 type: Type

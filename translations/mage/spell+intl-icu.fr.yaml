@@ -2,5 +2,9 @@ label:
   single: Sort
   multi: Sorts
 
-new: New Sort
-edit: Edit Sort
+new: Nouveau Sort
+edit: Modifier Sort
+
+practice: Méthode
+
+vulgar: Vulgaire

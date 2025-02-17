@@ -26,16 +26,34 @@ class MageSpellType extends AbstractType
     $translator = $this->translator;
 
     $builder
-      ->add('name')
+      ->add('name', null, [
+        'label' => "name",
+        'translation_domain' => "app",
+      ])
       ->add('arcanum', null, [
+        'label' => "label.single",
+        'translation_domain' => "arcanum",
         'query_builder' => function (EntityRepository $er) {
           return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
         },
       ])
-      ->add('short')
-      ->add('description', RichTextEditorType::class, ['empty_data' => ''])
+      ->add('short', null, [
+        'label' => "short",
+        'translation_domain' => "app",
+      ])
+      ->add('description', RichTextEditorType::class, [
+        'label' => "description",
+        'translation_domain' => "app",
+        'empty_data' => "",
+      ])
+      ->add('practice', null, [
+        'label' => "practice",
+        'choice_label' => "name",
+        'group_by' => "level",
+      ]
+      )
       ->add('action', ChoiceType::class, [
-        'label' => 'action.label.single',
+        'label' => "action.label.single",
         'choices' => [
           'roll.action.instant' => 0,
           'roll.action.extended' => 1,
@@ -43,11 +61,20 @@ class MageSpellType extends AbstractType
         ],
         'translation_domain' => "app",
       ])
-      ->add('isVulgar')
-      ->add('cost')
-      ->add('rules', RichTextEditorType::class, ['empty_data' => ''])
+      ->add('isVulgar', null, [
+        'label' => "vulgar",
+      ])
+      ->add('cost', null, [
+        'label' => "cost",
+        'translation_domain' => "app",
+      ])
+      ->add('rules', RichTextEditorType::class, [
+        'empty_data' => '',
+        'label' => "rules",
+        'translation_domain' => "app",
+      ])
       ->add('skill', null, [
-        'label' => 'label.single',
+        'label' => "label.single",
         'translation_domain' => "skill",
         'choice_attr' => ['class' => 'text-sub'],
         'group_by' => function ($choice) use ($translator) {
@@ -57,7 +84,7 @@ class MageSpellType extends AbstractType
       ])
       ->add('source', SourceableType::class, [
         'data_class' => MageSpell::class,
-        'label' => 'source.label',
+        'label' => "source.label",
         'translation_domain' => "book",
         ])
     ;

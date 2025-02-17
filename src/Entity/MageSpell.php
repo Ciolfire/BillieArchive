@@ -56,6 +56,10 @@ class MageSpell implements Translatable
   #[ORM\JoinColumn(nullable: false)]
   private ?Arcanum $arcanum = null;
 
+  #[ORM\ManyToOne(inversedBy: 'spells')]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?MagicalPractice $practice = null;
+
   public function getId(): ?int
   {
     return $this->id;
@@ -173,6 +177,18 @@ class MageSpell implements Translatable
   public function setArcanum(?Arcanum $arcanum): static
   {
       $this->arcanum = $arcanum;
+
+      return $this;
+  }
+
+  public function getPractice(): ?MagicalPractice
+  {
+      return $this->practice;
+  }
+
+  public function setPractice(?MagicalPractice $practice): static
+  {
+      $this->practice = $practice;
 
       return $this;
   }
