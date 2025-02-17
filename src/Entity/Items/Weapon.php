@@ -51,7 +51,7 @@ class Weapon extends Item
 
   public function getStrength(): mixed
   {
-      return $this->size;
+    return $this->size;
   }
 
   public function getSpecial(): ?string
@@ -61,7 +61,11 @@ class Weapon extends Item
 
   public function setSpecial(string $special): static
   {
-    $this->special = $special;
+    if ($this->special == "") {
+      $this->special = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $special);
+    } else {
+      $this->special = $special;
+    }
 
     return $this;
   }

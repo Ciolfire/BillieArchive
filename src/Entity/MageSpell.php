@@ -92,7 +92,11 @@ class MageSpell implements Translatable
 
   public function setDescription(string $description): static
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
@@ -140,7 +144,11 @@ class MageSpell implements Translatable
 
   public function setRules(string $rules): static
   {
-    $this->rules = $rules;
+    if ($this->rules == "") {
+      $this->rules = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $rules);
+    } else {
+      $this->rules = $rules;
+    }
 
     return $this;
   }

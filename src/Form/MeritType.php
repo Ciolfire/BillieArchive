@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MeritType extends AbstractType
@@ -66,7 +68,7 @@ class MeritType extends AbstractType
         'allow_add' => true,
         'allow_delete' => true,
       ])
-      ;
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -86,7 +86,11 @@ class GhoulFamily implements Translatable
 
   public function setDescription(string $description): static
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
@@ -134,7 +138,11 @@ class GhoulFamily implements Translatable
 
   public function setStrength(string $strength): static
   {
-    $this->strength = $strength;
+    if ($this->strength == "") {
+      $this->strength = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $strength);
+    } else {
+      $this->strength = $strength;
+    }
 
     return $this;
   }
@@ -146,7 +154,11 @@ class GhoulFamily implements Translatable
 
   public function setWeakness(string $weakness): static
   {
-    $this->weakness = $weakness;
+    if ($this->weakness == "") {
+      $this->weakness = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $weakness);
+    } else {
+      $this->weakness = $weakness;
+    }
 
     return $this;
   }
@@ -165,13 +177,13 @@ class GhoulFamily implements Translatable
 
   public function getClan(): ?Clan
   {
-      return $this->clan;
+    return $this->clan;
   }
 
   public function setClan(?Clan $clan): static
   {
-      $this->clan = $clan;
+    $this->clan = $clan;
 
-      return $this;
+    return $this;
   }
 }

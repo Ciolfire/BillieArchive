@@ -109,11 +109,10 @@ class MeritController extends AbstractController
       if ($merit->getRoll()->getSkills()->isEmpty() && $merit->getRoll()->getAttributes()->isEmpty()) {
         $merit->setRoll(null);
       }
-      $this->dataService->add($merit);
-      $this->dataService->flush();
+      $this->dataService->save($merit);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $merit->getName()]]);
-      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('merit_show', ['id' => $merit->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('merit/new.html.twig', [
@@ -146,7 +145,7 @@ class MeritController extends AbstractController
       $this->dataService->update($merit);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $merit->getName()]]);
-      return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('merit_show', ['id' => $merit->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('merit/edit.html.twig', [

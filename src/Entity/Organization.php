@@ -114,7 +114,11 @@ class Organization implements Translatable
 
   public function setDescription(string $description): static
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
@@ -126,7 +130,11 @@ class Organization implements Translatable
 
   public function setOverview(string $overview): static
   {
-    $this->overview = $overview;
+    if ($this->overview == "") {
+      $this->overview = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $overview);
+    } else {
+      $this->overview = $overview;
+    }
 
     return $this;
   }
@@ -138,7 +146,11 @@ class Organization implements Translatable
 
   public function setMembers(string $members): static
   {
-    $this->members = $members;
+    if ($this->members == "") {
+      $this->members = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $members);
+    } else {
+      $this->members = $members;
+    }
 
     return $this;
   }
@@ -150,7 +162,11 @@ class Organization implements Translatable
 
   public function setPhilosophy(string $philosophy): static
   {
-    $this->philosophy = $philosophy;
+    if ($this->philosophy == "") {
+      $this->philosophy = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $philosophy);
+    } else {
+      $this->philosophy = $philosophy;
+    }
 
     return $this;
   }
@@ -162,7 +178,11 @@ class Organization implements Translatable
 
   public function setObservances(string $observances): static
   {
-    $this->observances = $observances;
+    if ($this->observances == "") {
+      $this->observances = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $observances);
+    } else {
+      $this->observances = $observances;
+    }
 
     return $this;
   }
@@ -174,7 +194,11 @@ class Organization implements Translatable
 
   public function setTitles(string $titles): static
   {
-    $this->titles = $titles;
+    if ($this->titles == "") {
+      $this->titles = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $titles);
+    } else {
+      $this->titles = $titles;
+    }
 
     return $this;
   }

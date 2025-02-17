@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -77,7 +79,7 @@ class DisciplinePower implements Translatable
     return $this->id;
   }
 
-  public function __toString() : string
+  public function __toString(): string
   {
     if ($this->name === null) {
 
@@ -131,7 +133,11 @@ class DisciplinePower implements Translatable
 
   public function setDetails(string $details = ""): self
   {
-    $this->details = $details;
+    if ($this->details == "") {
+      $this->details = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $details);
+    } else {
+      $this->details = $details;
+    }
 
     return $this;
   }
@@ -167,7 +173,7 @@ class DisciplinePower implements Translatable
     return $this;
   }
 
-  public function dicePool(Vampire $character) : mixed
+  public function dicePool(Vampire $character): mixed
   {
     /** @var Discipline $discipline */
     $discipline = $this->discipline;
@@ -192,7 +198,7 @@ class DisciplinePower implements Translatable
     return $character->dicePool($this->attributes, $this->skills, $bonus);
   }
 
-  public function detailedDicePool(Vampire|Ghoul $character) : mixed
+  public function detailedDicePool(Vampire|Ghoul $character): mixed
   {
     /** @var Discipline $discipline */
     $discipline = $this->discipline;
@@ -202,9 +208,9 @@ class DisciplinePower implements Translatable
     } else {
       $charDiscipline = $character->getDiscipline($id);
     }
-    
+
     $modifiers = [
-      $discipline->getName() => $charDiscipline? $charDiscipline->getLevel() : 0,
+      $discipline->getName() => $charDiscipline ? $charDiscipline->getLevel() : 0,
     ];
     if ($discipline->isThaumaturgy()) {
       $modifiers['thaumaturgy'] = -$this->level;
@@ -226,23 +232,23 @@ class DisciplinePower implements Translatable
    */
   public function getAttributes(): Collection
   {
-      return $this->attributes;
+    return $this->attributes;
   }
 
   public function addAttribute(Attribute $attribute): self
   {
-      if (!$this->attributes->contains($attribute)) {
-          $this->attributes->add($attribute);
-      }
+    if (!$this->attributes->contains($attribute)) {
+      $this->attributes->add($attribute);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeAttribute(Attribute $attribute): self
   {
-      $this->attributes->removeElement($attribute);
+    $this->attributes->removeElement($attribute);
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -250,35 +256,35 @@ class DisciplinePower implements Translatable
    */
   public function getSkills(): Collection
   {
-      return $this->skills;
+    return $this->skills;
   }
 
   public function addSkill(Skill $skill): self
   {
-      if (!$this->skills->contains($skill)) {
-          $this->skills->add($skill);
-      }
+    if (!$this->skills->contains($skill)) {
+      $this->skills->add($skill);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeSkill(Skill $skill): self
   {
-      $this->skills->removeElement($skill);
+    $this->skills->removeElement($skill);
 
-      return $this;
+    return $this;
   }
 
   public function getContestedText(): ?string
   {
-      return $this->contestedText;
+    return $this->contestedText;
   }
 
   public function setContestedText(?string $contestedText): self
   {
-      $this->contestedText = $contestedText;
+    $this->contestedText = $contestedText;
 
-      return $this;
+    return $this;
   }
 
   public function getCosts(): array
@@ -307,13 +313,13 @@ class DisciplinePower implements Translatable
 
   public function isUsePotency(): ?bool
   {
-      return $this->usePotency;
+    return $this->usePotency;
   }
 
   public function setUsePotency(bool $usePotency): static
   {
-      $this->usePotency = $usePotency;
+    $this->usePotency = $usePotency;
 
-      return $this;
+    return $this;
   }
 }

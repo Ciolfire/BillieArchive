@@ -100,7 +100,11 @@ class Skill
 
   public function setDescription(string $description = ""): self
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
@@ -112,7 +116,11 @@ class Skill
 
   public function setFluff(string $fluff = ""): self
   {
-    $this->fluff = $fluff;
+    if ($this->fluff == "") {
+      $this->fluff = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $fluff);
+    } else {
+      $this->fluff = $fluff;
+    }
 
     return $this;
   }

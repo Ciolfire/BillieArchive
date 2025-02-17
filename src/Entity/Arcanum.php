@@ -96,7 +96,11 @@ class Arcanum implements Translatable
 
   public function setPurview(string $purview): static
   {
-    $this->purview = $purview;
+    if ($this->purview == "") {
+      $this->purview = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $purview);
+    } else {
+      $this->purview = $purview;
+    }
 
     return $this;
   }
@@ -120,7 +124,11 @@ class Arcanum implements Translatable
 
   public function setRealm(string $realm): static
   {
-    $this->realm = $realm;
+    if ($this->realm == "") {
+      $this->realm = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $realm);
+    } else {
+      $this->realm = $realm;
+    }
 
     return $this;
   }

@@ -211,7 +211,11 @@ class Merit implements Translatable
 
   public function setEffect(string $effect = ""): self
   {
-    $this->effect = $effect;
+    if ($this->effect == "") {
+      $this->effect = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $effect);
+    } else {
+      $this->effect = $effect;
+    }
 
     return $this;
   }

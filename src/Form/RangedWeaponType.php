@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Items\RangedWeapon;
-use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;

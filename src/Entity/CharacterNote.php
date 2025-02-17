@@ -48,7 +48,11 @@ class CharacterNote
 
   public function setContent(string $content = ""): self
   {
-    $this->content = $content;
+    if ($this->content == "") {
+      $this->content = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $content);
+    } else {
+      $this->content = $content;
+    }
 
     return $this;
   }

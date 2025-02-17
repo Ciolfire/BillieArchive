@@ -1139,7 +1139,11 @@ class Character
 
   public function setBackground(string $background = ""): self
   {
-    $this->background = $background;
+    if ($this->background == "") {
+      $this->background = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $background);
+    } else {
+      $this->background = $background;
+    }
 
     return $this;
   }
@@ -1151,7 +1155,11 @@ class Character
 
   public function setDescription(string $description): static
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
