@@ -12,17 +12,19 @@ count: >-
     other {# Spells}
   }
 
-aspect: Aspect
 cost: Cost
 duration: Duration
 practice: Practice
 title: Title
-vulgar: 
-  label: Vulgar
+
+aspect:
+  label: Aspect
   choice: This spell is vulgar
+  covert: Covert
+  vulgar: Vulgar
 
 help:
-  aspect: Covert or vulgar.
+  aspect: Covert or Vulgar.
   description: Brief description of the spell's effect.
   cost: Any Mana requirement for casting the spell, above the normal point needed to cast an improvised spell. See “Mana Cost”.
   duration: Prolonged, Concentration, Lasting, ...

@@ -88,7 +88,6 @@ class ArcanumController extends AbstractController
   {
     return $this->render('mage/spell/show.html.twig', [
       'spell' => $spell,
-      'back' => ['path' => $request->getSession()->get('ms_referer')],
     ]);
   }
 

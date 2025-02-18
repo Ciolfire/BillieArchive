@@ -1,3 +1,5 @@
+{% trans_default_domain 'spell' %}
+
 <div class="col-12 col-lg-6 g-2">
   <div class="block p-2">
     {% if is_granted('ROLE_ST') %}
@@ -7,12 +9,38 @@
       {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
       {{ spell.name }}
     </h2>
-    <h5>{{ spell.skill }}</h5>
-    is Vulgar: {{ spell.vulgar }}
-    <hr>
-    cost: {{ spell.cost }}
-    <hr>
+    <h5>
+      {% include "_icon.html.twig" with { icon: 'skills/' ~ spell.skill.identifier } %}
+      {{ spell.skill }}
+    </h5>
     {{ spell.description|markdown_to_html }}
+    <p>
+      <strong>{{ "practice"|trans }}:</strong> 
+      {{ spell.practice.name }}
+    </p>
+    <p>
+      <strong>{{ "action.label.single"|trans({}, "app") }}:</strong>
+      {{ spell.actionName|trans({}, 'app') }}
+      {% if spell.isContested %}
+        ; {{ spell.contestedText }}
+      {% endif %}
+    </p>
+    <p>
+      <strong>{{ "duration"|trans }}:</strong> 
+      {{ spell.duration }}
+    </p>
+    <p>
+      <strong>{{ "aspect.label"|trans }}:</strong> 
+      {% if spell.vulgar %}
+        {{ "aspect.vulgar"|trans }}
+      {% else %}
+        {{ "aspect.covert"|trans }}
+      {% endif %}
+    </p>
+    <p>
+      <strong>{{ "cost"|trans({}, "app") }}:</strong>   
+      {{ spell.cost }}
+    </p>
     <hr>
     {{ spell.rules|markdown_to_html }}
   </div>

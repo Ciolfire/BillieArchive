@@ -12,14 +12,16 @@ count: >-
     other {# Sorts}
   }
 
-aspect: Aspect
 cost: Coût
 duration: Durée
 practice: Méthode
 title: Titre
-vulgar: 
-  label: Vulgaire
+
+aspect:
+  label: Aspect
   choice: Ce sort est vulgaire
+  covert: Discret
+  vulgar: Vulgaire
 
 help:
   aspect: Discret ou vulgaire.

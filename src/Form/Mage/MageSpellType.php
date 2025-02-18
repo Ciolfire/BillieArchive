@@ -76,7 +76,7 @@ class MageSpellType extends AbstractType
         'help' => "help.duration",
       ])
       ->add('isVulgar', null, [
-        'label' => "vulgar.choice",
+        'label' => "aspect.choice",
         'help' => "help.aspect",
       ])
       ->add('cost', null, [

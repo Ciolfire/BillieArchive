@@ -15,6 +15,12 @@ use Gedmo\Translatable\Translatable;
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\MageSpellTranslation")]
 class MageSpell implements Translatable
 {
+  public const Type = [
+    0 => 'roll.action.instant',
+    1 => 'roll.action.extended',
+    2 => 'roll.action.reflexive',
+  ];
+
   use Homebrewable;
   use Sourcable;
 
@@ -125,6 +131,11 @@ class MageSpell implements Translatable
     $this->action = $action;
 
     return $this;
+  }
+
+  public function getActionName(): string
+  {
+    return self::Type[$this->action];
   }
 
   public function isVulgar(): ?bool
