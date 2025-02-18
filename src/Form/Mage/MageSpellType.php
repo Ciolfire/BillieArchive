@@ -26,34 +26,36 @@ class MageSpellType extends AbstractType
     $translator = $this->translator;
 
     $builder
+    ->add('arcanum', null, [
+      'label' => "label.single",
+      'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
+      },
+    ])
       ->add('name', null, [
-        'label' => "name",
-        'translation_domain' => "app",
-      ])
-      ->add('arcanum', null, [
-        'label' => "label.single",
-        'translation_domain' => "arcanum",
-        'query_builder' => function (EntityRepository $er) {
-          return $er->createQueryBuilder('d')->orderBy('d.name', 'ASC');
-        },
+        'label' => "title",
+        'help' => "help.title",
       ])
       ->add('short', null, [
         'label' => "short",
+        'help' => "help.short",
         'translation_domain' => "app",
       ])
       ->add('description', RichTextEditorType::class, [
-        'label' => "description",
-        'translation_domain' => "app",
+        'label' => false,
+        'help' => "help.description",
         'empty_data' => "",
       ])
       ->add('practice', null, [
         'label' => "practice",
+        'help' => "help.practice",
         'choice_label' => "name",
         'group_by' => "level",
       ]
       )
       ->add('action', ChoiceType::class, [
         'label' => "action.label.single",
+        'help' => "help.action",
         'choices' => [
           'roll.action.instant' => 0,
           'roll.action.extended' => 1,
@@ -61,20 +63,33 @@ class MageSpellType extends AbstractType
         ],
         'translation_domain' => "app",
       ])
+      ->add('isContested', null, [
+        'label' => "roll.action.contested",
+        'translation_domain' => "app",
+      ])
+      ->add('contestedText', null, [
+        'label' => "roll.action.text",
+        'translation_domain' => "app",
+      ])
+      ->add('duration', null, [
+        'label' => "duration",
+        'help' => "help.duration",
+      ])
       ->add('isVulgar', null, [
-        'label' => "vulgar",
+        'label' => "vulgar.choice",
+        'help' => "help.aspect",
       ])
       ->add('cost', null, [
         'label' => "cost",
-        'translation_domain' => "app",
-        'empty_data' => "cost.none",
+        'help' => "help.cost",
       ])
       ->add('rules', RichTextEditorType::class, [
         'empty_data' => '',
-        'label' => "rules",
-        'translation_domain' => "app",
+        'label' => false,
+        'help' => "help.rules",
       ])
       ->add('skill', null, [
+        'required' => true,
         'label' => "label.single",
         'translation_domain' => "skill",
         'choice_attr' => ['class' => 'text-sub'],

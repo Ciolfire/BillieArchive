@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -78,7 +80,7 @@ class Roll implements Translatable
     return $this->id;
   }
 
-  public function setTranslatableLocale(string $locale) : self
+  public function setTranslatableLocale(string $locale): self
   {
     $this->locale = $locale;
 
@@ -192,37 +194,37 @@ class Roll implements Translatable
 
   public function isContested(): bool
   {
-      return $this->isContested;
+    return $this->isContested;
   }
 
   public function setIsContested(bool $isContested): self
   {
-      $this->isContested = $isContested;
+    $this->isContested = $isContested;
 
-      return $this;
+    return $this;
   }
 
   public function getContestedText(): ?string
   {
-      return $this->contestedText;
+    return $this->contestedText;
   }
 
   public function setContestedText(?string $contestedText): self
   {
-      $this->contestedText = $contestedText;
+    $this->contestedText = $contestedText;
 
-      return $this;
+    return $this;
   }
 
   public function isLinked(): ?bool
   {
-      return $this->isLinked;
+    return $this->isLinked;
   }
 
   public function setLinked(bool $isLinked): static
   {
-      $this->isLinked = $isLinked;
+    $this->isLinked = $isLinked;
 
-      return $this;
+    return $this;
   }
 }

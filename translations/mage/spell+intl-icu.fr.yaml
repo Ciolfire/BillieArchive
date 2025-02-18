@@ -12,6 +12,20 @@ count: >-
     other {# Sorts}
   }
 
+aspect: Aspect
+cost: Coût
+duration: Durée
 practice: Méthode
+title: Titre
+vulgar: 
+  label: Vulgaire
+  choice: Ce sort est vulgaire
 
-vulgar: Vulgaire
+help:
+  aspect: Discret ou vulgaire.
+  description: Courte description de l'effet du sort.
+  cost: Tout demande de Mana pour lancer le sort, en plus du point nécessaire pour lancer un sort improvisé. Voir “Coût en Mana”.
+  duration: Prolongée, Concentration, ...
+  practice: L'une des 13 pratiques de magie identifiée par les Atlantes, definissant ce qu'un mage peut accomplir alors qu'il améliore sa maitrise de l'Arcana.
+  rules: Une description détaillée des règles de l'effet du sort, incluant ses facteurs principaux (pour les sorts instantanés).
+  title: Titre du sort

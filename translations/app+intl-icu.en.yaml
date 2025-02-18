@@ -54,6 +54,11 @@ category:
   physical: Physical
   social: Social
 
+help:
+  action: Instant or extended.
+  short: A single line description.
+  description: A few paragraphs of description.
+
 user:
   label:
     single: User

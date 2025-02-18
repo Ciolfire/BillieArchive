@@ -40,6 +40,7 @@ nickname: Surnom
 options: Options
 quote: Citation
 rules: Règles
+short: Résumé
 title: Titre
 type: Type
 universal: Universel
@@ -52,6 +53,11 @@ category:
   mental: Mental
   physical: Physique
   social: Social
+
+help:
+  action: Instantanée ou Étendue.
+  short: Une ligne de description.
+  description: Quelque paragraphes de description.
 
 user:
   label:

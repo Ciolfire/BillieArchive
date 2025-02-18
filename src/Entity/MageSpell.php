@@ -43,7 +43,7 @@ class MageSpell implements Translatable
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $cost = null;
+  private ?string $cost = "None";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
@@ -59,6 +59,16 @@ class MageSpell implements Translatable
   #[ORM\ManyToOne(inversedBy: 'spells')]
   #[ORM\JoinColumn(nullable: false)]
   private ?MagicalPractice $practice = null;
+
+  #[ORM\Column(type: Types::STRING)]
+  private ?string $duration = null;
+
+  #[ORM\Column]
+  private bool $isContested = false;
+
+  #[Gedmo\Translatable]
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $contestedText = null;
 
   public function getId(): ?int
   {
@@ -159,37 +169,73 @@ class MageSpell implements Translatable
 
   public function getSkill(): ?Skill
   {
-      return $this->skill;
+    return $this->skill;
   }
 
   public function setSkill(?Skill $skill): static
   {
-      $this->skill = $skill;
+    $this->skill = $skill;
 
-      return $this;
+    return $this;
   }
 
   public function getArcanum(): ?Arcanum
   {
-      return $this->arcanum;
+    return $this->arcanum;
   }
 
   public function setArcanum(?Arcanum $arcanum): static
   {
-      $this->arcanum = $arcanum;
+    $this->arcanum = $arcanum;
 
-      return $this;
+    return $this;
   }
 
   public function getPractice(): ?MagicalPractice
   {
-      return $this->practice;
+    return $this->practice;
   }
 
   public function setPractice(?MagicalPractice $practice): static
   {
-      $this->practice = $practice;
+    $this->practice = $practice;
 
-      return $this;
+    return $this;
+  }
+
+  public function getDuration(): ?string
+  {
+    return $this->duration;
+  }
+
+  public function setDuration(string $duration): static
+  {
+    $this->duration = $duration;
+
+    return $this;
+  }
+
+  public function isContested(): bool
+  {
+    return $this->isContested;
+  }
+
+  public function setIsContested(bool $isContested): self
+  {
+    $this->isContested = $isContested;
+
+    return $this;
+  }
+
+  public function getContestedText(): ?string
+  {
+    return $this->contestedText;
+  }
+
+  public function setContestedText(?string $contestedText): self
+  {
+    $this->contestedText = $contestedText;
+
+    return $this;
   }
 }
