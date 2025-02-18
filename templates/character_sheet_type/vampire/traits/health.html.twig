@@ -5,28 +5,28 @@
   <div class="col-12">
     <div class="row mb-1">
       <div class="col">
-        <button class="btn btn-primary d-inline-block">
-          1{% include "_icon.html.twig" with {icon: 'vitae'} %}
+        <div class="d-inline-block">
+          {% include "_icon.html.twig" with {icon: 'vitae'} %}
           {% include "_icon.html.twig" with {icon: 'right'} %}
           {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
           2{% include "_icon.html.twig" with {icon: 'bashing'} %}
-        </button>
+        </div>
       </div>
       <div class="col">
-      <button class="btn btn-primary d-inline-block">
-        1{% include "_icon.html.twig" with {icon: 'vitae'} %}
-        {% include "_icon.html.twig" with {icon: 'right'} %}
-        {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
-        1{% include "_icon.html.twig" with {icon: 'lethal'} %}
-      </button>
+        <div class="d-inline-block">
+          {% include "_icon.html.twig" with {icon: 'vitae'} %}
+          {% include "_icon.html.twig" with {icon: 'right'} %}
+          {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
+          {% include "_icon.html.twig" with {icon: 'lethal'} %}
+        </div>
       </div>
       <div class="col">
-      <button class="btn btn-primary d-inline-block">
-        5{% include "_icon.html.twig" with {icon: 'vitae'} %}
-        {% include "_icon.html.twig" with {icon: 'right'} %}
-        {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
-        1{% include "_icon.html.twig" with {icon: 'aggravated'} %}
-      </button>
+        <div class="d-inline-block">
+          5{% include "_icon.html.twig" with {icon: 'vitae'} %}
+          {% include "_icon.html.twig" with {icon: 'right'} %}
+          {% include "_icon.html.twig" with {icon: 'health', setting: 'human'} %}
+          {% include "_icon.html.twig" with {icon: 'aggravated'} %}
+        </div>
       </div>
     </div>
   </div>

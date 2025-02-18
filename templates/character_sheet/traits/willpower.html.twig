@@ -7,7 +7,7 @@
 {% set limit = character.attributes.composure + character.attributes.resolve %}
 {% set value = 0 %}
 
-<div class="block user-select-none" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="willpower" data-trait-current-value="{{ current }}">
+<div class="block user-select-none pb-1" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="willpower" data-trait-current-value="{{ current }}">
   <h3 class="text-center pt-1">
     {% include "_icon.html.twig" with {'icon' : trait, 'class': 'icon-lg'} only %} {{ 'willpower.label'|trans }}
     (<span class="accent" data-trait-target="value">{{ current }}</span>/{{ max }})
@@ -22,22 +22,22 @@
         {% endfor %}
     </div>
   </div>
-  <div class="col-12">
-    <div class="row mb-1">
-      <div class="col text-center">
-        <button class="btn btn-primary d-inline-block">
-          1{% include "_icon.html.twig" with {icon: 'willpower'} %}
-          {% include "_icon.html.twig" with {icon: 'right'} %}
-          +3{% include "_icon.html.twig" with {icon: 'd10'} %}
-        </button>
-      </div>
-      <div class="col text-center">
-        <button class="btn btn-primary d-inline-block">
-          1{% include "_icon.html.twig" with {icon: 'willpower'} %}
-          {% include "_icon.html.twig" with {icon: 'right'} %}
-          +2{% include "_icon.html.twig" with {icon: 'resistance'} %}
-        </button>
+  {% block infos %}
+    <div class="col-12">
+      <div class="row">
+        <div class="col text-center">
+          <div class="d-inline-block">
+            {% include "_icon.html.twig" with {icon: 'right'} %}
+            +3{% include "_icon.html.twig" with {icon: 'd10'} %}
+          </div>
+        </div>
+        <div class="col text-center">
+          <div class="d-inline-block">
+            {% include "_icon.html.twig" with {icon: 'right'} %}
+            +2{% include "_icon.html.twig" with {icon: 'resistance'} %}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  {% endblock %}
 </div>
