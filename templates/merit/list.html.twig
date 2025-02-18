@@ -11,7 +11,7 @@
 
 {% block body %}
   {% if chronicle == false %}
-    {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+    {% include "_back.html.twig" %}
   {% else %}
     {% include "_back.html.twig" with {'link': path('homebrew_index', {'id': chronicle})} %}
   {% endif %}

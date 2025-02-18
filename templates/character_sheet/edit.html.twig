@@ -33,14 +33,17 @@
       {% include "character_sheet/menu/edit.html.twig" %}
     {% endblock %}
     <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="general">
-      {% block header %}
-        {% include "character_sheet/header/edit.html.twig" %}
-      {% endblock %}
       <ul class="nav tabs g-0">
+        {% include "_tab.html.twig" with {name: 'infos', label: 'infos'|trans({}, 'chronicle')} only %}
         {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans({}, 'merit')} only %}
         {% block specialTab %}{% endblock %}
       </ul>
+      <div id="infos" class="tab-content d-none" data-tabs-target="page">
+        {% block header %}
+          {% include "character_sheet/header/edit.html.twig" %}
+        {% endblock %}
+      </div>
       <div id="general" class="tab-content d-none" data-tabs-target="page">
         <div class="row justify-content-center">
           <div class="col-12 col-lg mb-3">

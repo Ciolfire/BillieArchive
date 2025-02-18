@@ -240,6 +240,11 @@ class DataService
         $book = $this->findOneBy(Book::class, ['id' => $id]);
         $items = $book->$method();
         break;
+      case 'chronicle':
+        /** @var Chronicle */
+        $chronicle = $this->findOneBy(Chronicle::class, ['id' => $id]);
+        $items = $chronicle->$method();
+        break;
       default:
         $items = $repo->findAll();
         break;
