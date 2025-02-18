@@ -343,7 +343,7 @@ class CharacterController extends AbstractController
 
     $this->addFlash('notice', 'character.peek.declined');
     if ($request->headers->get('referer')) {
-      return $this->redirect($request->headers->get('referer'));      
+      return $this->redirect($request->headers->get('referer'));
     }
     return $this->redirectToRoute('character_index');
   }

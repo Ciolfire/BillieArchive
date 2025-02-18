@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Arcanum;
-use App\Entity\Book;
-use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\MageSpell;
 use App\Form\Mage\ArcanumType;

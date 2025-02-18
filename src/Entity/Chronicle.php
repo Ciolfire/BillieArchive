@@ -11,7 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChronicleRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class Chronicle
 {
   #[ORM\Id]
@@ -50,6 +50,7 @@ class Chronicle
 
   #[ORM\Column(type: Types::JSON,  nullable: true)]
   private ?array $rules = null;
+  
   #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
   private ?\DateTimeInterface $startAt = null;
 
