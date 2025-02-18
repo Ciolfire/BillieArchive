@@ -5,27 +5,29 @@
 {% set setting = type %}
 
 {% block title %}
-	{{ chronicle.name }}
+  {{ chronicle.name }}
 {% endblock %}
 
 {% block body %}
-	<h1 class="pt-4">
-		{{ 'label.multi'|trans({}, 'rules')}} — {{ type|trans({}, 'content-type') }}
-	</h1>
-	<div class="container block block-light py-3 mt-5">
-		<div class="row">
-			<div class="col">
-				{{ form_start(form) }}
-				{% include "chronicle/homebrew/rules/forms/" ~ type ~ ".html.twig" %}
-				{{ form_rest(form) }}
-				<button class="btn btn-primary w-100 {% if disabled == true %}disabled d-hide{% endif %}">
-					{{ ("action.save")|trans({}, 'app') }}
-					{% include "_icon.html.twig" with {'icon' : 'save'} only %}
-				</button>
-				{{ form_end(form) }}
+  <h1 class="pt-4">
+    {{ ('homebrew.' ~ type)|trans({}, 'chronicle')}}
+  </h1>
+  <div class="container block block-light py-3 mt-5">
+    <div class="row">
+      <div class="col">
+        {{ form_start(form) }}
+        {% include "chronicle/homebrew/rules/forms/" ~ type ~ ".html.twig" %}
+        {{ form_rest(form) }}
+        <div class="text-center fixed-bottom">
+          <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
+            {% include "_icon.html.twig" with {icon: 'save'} %}
+            {{ ('action.save')|trans({}, 'app') }}
+          </button>
+        </div>
+        {{ form_end(form) }}
         {% include "_back.html.twig" %}
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 
 {% endblock body %}

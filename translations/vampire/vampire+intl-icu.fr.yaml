@@ -55,6 +55,8 @@ feeding:
   starved: Le Vampire a une seule ou aucune Vitae, il est affamé et souffre d'un -2 pour résister à la Frénésie
 vitae:
   label: Vitae
+  max: Vitae Max
+  max.turn: Vitae max/tour
   per.turn: Max <span class="accent">{value}</span> par Tour
 morality:
   label: Humanité

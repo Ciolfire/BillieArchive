@@ -23,6 +23,8 @@ gnosis:
   label: Gnosis
 mana:
   label: Mana
+  max: Mana max
+  max.turn: Mana max/tour
   per.turn: Max <span class="accent">{value}</span> par Tour
 
 

@@ -23,6 +23,8 @@ gnosis:
   label: Gnosis
 mana:
   label: Mana
+  max: Max Mana
+  max.turn: Max Mana/turn
   per.turn: Max <span class="accent">{value}</span> per Turn
 
 morality:

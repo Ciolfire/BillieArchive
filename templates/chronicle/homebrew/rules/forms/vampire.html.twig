@@ -1,12 +1,22 @@
 {% trans_default_domain 'vampire' %}
 
 <div class="row">
-	<h2 class="text">
-		Max Vitae — Max Vitae/turn</h2>
-	<div class="col-6">
+  <div class="col-6">
+    <div class="row">
+      <label class="col-form-label col-sm-auto">{{ "vitae.label"|trans }}</label>
+      <div class="col-form-label col-sm text-center">
+        <label>{{ "vitae.max"|trans }}</label>
+      </div>
+    </div>
 		{{ form_row(form.maxVitae) }}
-	</div>
-	<div class="col-6">
-		{{ form_row(form.maxVitaePerTurn) }}
-	</div>
+  </div>
+  <div class="col-6">
+    <div class="row">
+      <label class="col-form-label col-sm-auto">{{ "vitae.label"|trans }}</label>
+      <div class="col-form-label col-sm text-center">
+        <label>{{ "vitae.max.turn"|trans }}</label>
+      </div>
+    </div>
+    {{ form_row(form.maxVitaePerTurn) }}
+  </div>
 </div>

@@ -8,7 +8,6 @@ owned:
 date:
   start: "Débuté:"
   current: "Date actuelle:"
-homebrew: Règles maison
 infos: Infos
 settings: Options
 
@@ -29,5 +28,10 @@ item:
   group: inventaire du Groupe
   npc: Objets des PNJ
   unowned: Autres objets
+
+homebrew:
+  label: Règles maison
+  vampire: Règles pour Vampire
+  mage: Règles pour Mage
 
 none: Vous n'avez pas encore rejoint de Chronique ...

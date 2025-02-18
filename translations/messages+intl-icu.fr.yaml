@@ -94,6 +94,9 @@ clan:
   bloodline:
     join: "{name} est maintenant membre de la lignée suivante: {bloodline}."
 
+chronicle:
+  rules: Règles mises à jour.
+
 item:
   chronicle:
     new:  "L'objet `{name}` a été ajouté à la chronique `{chronicle}`."

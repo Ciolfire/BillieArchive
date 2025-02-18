@@ -8,10 +8,8 @@ owned:
 date:
   start: "Started:"
   current: "Current date:"
-homebrew: Homebrew
 infos: Infos
 settings: Settings
-
 
 party:
   label: Party
@@ -31,5 +29,9 @@ item:
   npc: Non-player characters' items
   unowned: Others items
 
+homebrew:
+  label: Homebrew
+  vampire: Vampire Rules
+  mage: Mage Rules
 
 none: You haven't joined any Chronicle yet ...

@@ -8,10 +8,10 @@
 <div class="container">
   <div class="row justify-content-center">
     <h1 class="pt-5">
-      {% include "_icon_setting.html.twig" with {'setting': chronicle.type } only %}
+      {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
       {% include "_icon.html.twig" with {icon: 'homebrew'} only %} {{ "homebrew"|trans }} - {{ chronicle.name }}
     </h1>
-    <div class="block row mt-5">
+    <div class="block row my-2">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'human' } %} {{ "human.label"|trans({}, 'setting') }}</h2>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary human-btn w-100 m-2" href="{{path('merit_list', {'type': 'chronicle', 'id': chronicle.id })}}">
@@ -35,12 +35,12 @@
     </div>
 
 
-    <div class="block vampire row my-5">
+    <div class="block vampire row my-2">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'vampire' } %} {{ "vampire.label"|trans({}, 'setting') }}</h2>
       <div class="col-12">
         <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {'type': 'vampire', 'id': chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'type/vampire' } only %}
-          <span>{{ "homebrew.label"|trans({}, 'vampire')}}</span>
+          <span>{{ "homebrew.vampire"|trans({}, 'chronicle')}}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
@@ -109,6 +109,31 @@
         </a>
       </div>
     </div>
+  </div>
+
+    <div class="block mage row my-2">
+      <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'mage' } %} {{ "mage.label"|trans({}, 'setting') }}</h2>
+      <div class="col-12">
+        <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {type: 'mage', id: chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'type/mage' } only %}
+          <span>{{ "homebrew.mage"|trans({}, 'chronicle')}}</span>
+        </a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <a class="btn btn-primary w-100 m-2" href="{{path('path_list', {type: 'chronicle', 'id': chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'path' } only %}
+          <span class="accent">{{ chronicle.paths|length }}</span>
+          <span>{{ "label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>
+        </a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <a class="btn btn-primary w-100 m-2" href="{{path('mage_spell_list', {type: 'chronicle', 'id': chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'spell' } only %}
+          <span class="accent">{{ chronicle.spells|length }}</span>
+          <span>{{ "label.multi"|trans([], "spell") }}</span>
+        </a>
+      </div>
+
   </div>
 </div>
 

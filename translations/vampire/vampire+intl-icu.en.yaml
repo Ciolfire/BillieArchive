@@ -55,6 +55,8 @@ feeding:
   starved: The Vampire has one or no Vitae in his system, he is starved and suffer -2 to resist Frenzy
 vitae:
   label: Vitae
+  max: Max Vitae
+  max.turn: Max Vitae/turn
   per.turn: Max <span class="accent">{value}</span> per Turn
 morality:
   label: Humanity
