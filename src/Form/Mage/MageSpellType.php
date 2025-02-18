@@ -67,6 +67,7 @@ class MageSpellType extends AbstractType
       ->add('cost', null, [
         'label' => "cost",
         'translation_domain' => "app",
+        'empty_data' => "cost.none",
       ])
       ->add('rules', RichTextEditorType::class, [
         'empty_data' => '',

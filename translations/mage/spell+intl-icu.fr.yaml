@@ -5,6 +5,13 @@ label:
 new: Nouveau Sort
 edit: Modifier Sort
 
+count: >-
+  {count, plural,
+    =0 {Aucun Sort}
+    =1 {1 Sort}
+    other {# Sorts}
+  }
+
 practice: Méthode
 
 vulgar: Vulgaire

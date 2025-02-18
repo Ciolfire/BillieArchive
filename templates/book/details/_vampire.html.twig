@@ -10,7 +10,7 @@
     {% endif %}
   </div>
   <div class="col-8">
-    <a href="{{ path('clan_list', {'filter': 'book', 'id': book.id}) }}">
+    <a href="{{ path('clan_list', {filter: 'book', id: book.id}) }}">
       {% if book.clans|length > 0 %}{{ "count"|trans({'%count%': book.clans|length}, 'clan') }}{% endif %}
       {% if book.clans|length > 0 and book.bloodlines|length > 0 %}<br>{% endif %}
       {% if book.bloodlines|length > 0 %}{{ "bloodline.count"|trans({'%count%': book.bloodlines|length}, 'clan') }}{% endif %}
@@ -22,7 +22,7 @@
     {% include "_icon.html.twig" with {icon: 'discipline'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('discipline_filter', {'type': 'all', 'filter': 'book', 'id': book.id}) }}">{{ "count"|trans({'%count%': book.disciplines|length}, 'discipline') }}</a>
+    <a href="{{ path('discipline_filter', {type: 'all', filter: 'book', id: book.id}) }}">{{ "count"|trans({'%count%': book.disciplines|length}, 'discipline') }}</a>
   </div>
 {% endif %}
 {% if book.devotions|length > 0 %}
@@ -30,7 +30,7 @@
     {% include "_icon.html.twig" with {icon: 'devotion'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('devotion_list', {'filter': 'book', 'id': book.id}) }}">{{ "devotion.count"|trans({'%count%': book.devotions|length}, 'discipline') }}</a>
+    <a href="{{ path('devotion_list', {filter: "book", id: book.id}) }}">{{ "devotion.count"|trans({'%count%': book.devotions|length}, 'discipline') }}</a>
   </div>
 {% endif %}
 {% if book.rituals|length > 0 %}
@@ -38,7 +38,7 @@
     {% include "_icon.html.twig" with {icon: 'pentacle'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('ritual_list', {'filter': 'book', 'id': book.id}) }}">{{ "sorcery.power.count"|trans({'%count%': book.rituals|length}, 'discipline') }}</a>
+    <a href="{{ path('ritual_list', {filter: "book", id: book.id}) }}">{{ "sorcery.power.count"|trans({'%count%': book.rituals|length}, 'discipline') }}</a>
   </div>
 {% endif %}
 {% if book.ghoulFamilies|length > 0 %}
@@ -46,6 +46,6 @@
     {% include "_icon.html.twig" with {icon: 'ghoul_family'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('ghoul_family_list', {'filter': 'book', 'id': book.id}) }}">{{ "family.count"|trans({'%count%': book.ghoulFamilies|length}, 'ghoul') }}</a>
+    <a href="{{ path('ghoul_family_list', {filter: "book", id: book.id}) }}">{{ "family.count"|trans({'%count%': book.ghoulFamilies|length}, 'ghoul') }}</a>
   </div>
 {% endif %}

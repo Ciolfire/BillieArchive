@@ -5,7 +5,7 @@
     {% include "_icon.html.twig" with {icon: 'merit'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('merit_list', {'type': 'book', 'id': book.id}) }}">
+    <a href="{{ path('merit_list', {type: 'book', id: book.id}) }}">
       {{ "count"|trans({'count': book.merits|length}, 'merit') }}
     </a>
   </div>
@@ -15,7 +15,7 @@
     {% include "_icon.html.twig" with {icon: 'derangement'} %}
   </div>
   <div class="col-8">
-      <a href="{{ path('derangement_list', {'type': 'book', 'id': book.id}) }}">
+      <a href="{{ path('derangement_list', {type: 'book', id: book.id}) }}">
       {{ "count"|trans({'count': book.derangements|length}, 'derangement') }}
     </a>
   </div>
@@ -25,7 +25,7 @@
     {% include "_icon.html.twig" with {icon: 'item'} %}
   </div>
   <div class="col-8">
-      <a href="{{ path('item_list', {'type': 'book', 'id': book.id}) }}">
+      <a href="{{ path('item_list', {type: 'book', id: book.id}) }}">
       {{ "count"|trans({'count': book.items|length}, 'item') }}
     </a>
   </div>

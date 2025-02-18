@@ -36,29 +36,17 @@ class PathController extends AbstractController
     ]);
   }
 
-  // #[Route("/path/{filter<\w+>}/{id<\d+>}", name: "path_list", methods: ["GET"])]
-  // public function pathList(string $filter, int $id): Response
-  // {
-  //   switch ($filter) {
-  //     case 'chronicle':
-  //       /** @var Chronicle */
-  //       $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-  //       $back = ['path' => 'homebrew_index', 'id' => $id];
-  //       break;
-  //     case 'book':
-  //     default:
-  //       /** @var Book */
-  //       $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-  //       $back = ['path' => 'book_index', 'id' => $id];
-  //   }
+  #[Route("/path/list/{type<\w+>}/{id<\d+>}", name: "path_list", methods: ["GET"])]
+  public function pathList(string $type, int $id): Response
+  {
+    $paths = $this->dataService->getList($type, $id, Path::class, 'getPaths');
 
-  //   return $this->render('mage/path/index.html.twig', [
-  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'path']),
-  //     'paths' => $item->getPaths(),
-  //     'search' => [],
-  //     'back' => $back,
-  //   ]);
-  // }
+    return $this->render('mage/path/index.html.twig', [
+      'setting' => "mage",
+      'paths' => $paths,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'path']),
+    ]);
+  }
 
 
   #[Route('/path/{id<\d+>}', name: 'path_show', methods: ['GET'])]

@@ -5,6 +5,13 @@ label:
 new: New Spell
 edit: Edit Spell
 
+count: >-
+  {count, plural,
+    =0 {No Spell}
+    =1 {1 Spell}
+    other {# Spells}
+  }
+
 practice: Practice
 
 vulgar: Vulgar

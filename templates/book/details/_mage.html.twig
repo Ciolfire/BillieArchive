@@ -1,0 +1,20 @@
+{% trans_default_domain 'mage' %}
+
+{% if book.paths|length > 0 %}
+  <div class="col-4 text-end">
+    {% include "_icon.html.twig" with {icon: 'path'} %}
+  </div>
+  <div class="col-8">
+    <a href="{{ path('path_list', {type: "book", id: book.id}) }}">{{ "count"|trans({'%count%': book.paths|length}, 'path') }}</a>
+  </div>
+{% endif %}
+{% if book.spells|length > 0 %}
+  <div class="col-4 text-end">
+    {% include "_icon.html.twig" with {icon: 'spell'} %}
+  </div>
+  <div class="col-8">
+    <a href="{{ path('mage_spell_list', {type: 'book', id: book.id}) }}">
+      {% if book.spells|length > 0 %}{{ "count"|trans({'%count%': book.spells|length}, 'spell') }}{% endif %}
+    </a>
+  </div>
+{% endif %}

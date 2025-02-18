@@ -7,11 +7,13 @@ use App\Entity\Note;
 use App\Entity\NoteCategory;
 use App\Entity\User;
 use App\Form\ChronicleType;
+use App\Form\MageRulesType;
 use App\Form\NoteCategoryType;
 use App\Form\VampireRulesType;
 use App\Repository\UserRepository;
 use App\Service\CharacterService;
 use App\Service\DataService;
+use App\Service\MageService;
 use App\Service\VampireService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -290,25 +292,30 @@ class ChronicleController extends AbstractController
 
     switch ($type) {
       case 'vampire':
-        $vService = new VampireService($this->dataService);
-        $form = $this->createForm(VampireRulesType::class, null, ['ruleset' => $vService->getRules($chronicle), 'disabled' => $disabled]);
+        $service = new VampireService($this->dataService);
+        $form = $this->createForm(VampireRulesType::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
         break;
-
+      case 'mage':
+        $service = new MageService($this->dataService);
+        $form = $this->createForm(MageRulesType::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        break;
       default:
         break;
     }
 
     // We don't have a form, that mean there are no rules for this template, redirect
     if (!isset($form)) {
+      $this->addFlash('error', ["missing ruleset"]);
       return $this->redirectToRoute('homebrew_index', ['id' => $chronicle->getId()]);
     }
 
     if (!$disabled) {
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
-        $chronicle->setRules($form->getData(), 'vampire');
+        $chronicle->setRules($form->getData(), $type);
         $this->dataService->save($chronicle);
   
+        $this->addFlash('success', ["chronicle.rules", ['%chronicle%' => $chronicle->getName()]]);
         return $this->redirectToRoute('homebrew_index', ['id' => $chronicle->getId()]);
       }
     }

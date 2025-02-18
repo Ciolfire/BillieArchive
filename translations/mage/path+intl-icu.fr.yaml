@@ -5,4 +5,12 @@ label:
 new: New Path
 edit: Edit Path
 
+count: >-
+  {count, plural,
+    =0 {Aucune Voie}
+    =1 {1 Voie}
+    other {# Voies}
+  }
+
+
 nimbus: Nimbus

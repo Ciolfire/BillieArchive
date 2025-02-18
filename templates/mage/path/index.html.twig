@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block body %}
-  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" %}
   <h1 class="user-select-none">
     {% include "_icon.html.twig" with {'icon' : 'path', 'class' : "icon-lg" } only %}
     {{ "label.multi"|trans }}
@@ -36,14 +36,6 @@
             {% for path in paths %}
               <li>
                 <a href="#{{ path.name }}">{{ path.name }}</a>
-              </li>
-            {% endfor %}
-          {% endif %}
-          {% if bloodlines is defined %}
-            <p class="mt-2">{{ "bloodline.label.multi" }}</p>
-            {% for bloodline in bloodlines %}
-              <li>
-                <a href="#{{ bloodline.name }}">{{ bloodline.name }}</a>
               </li>
             {% endfor %}
           {% endif %}

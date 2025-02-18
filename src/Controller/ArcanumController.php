@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Arcanum;
+use App\Entity\Book;
+use App\Entity\Chronicle;
+use App\Entity\Description;
 use App\Entity\MageSpell;
 use App\Form\Mage\ArcanumType;
 use App\Form\Mage\MageSpellType;
@@ -62,7 +65,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/spell', name: 'mage_spell_index')]
+  #[Route('/spells', name: 'mage_spell_index')]
   public function indexSpell(): Response
   {
     return $this->render('mage/spell/index.html.twig', [
@@ -70,11 +73,24 @@ class ArcanumController extends AbstractController
     ]);
   }
 
+  #[Route("spell/list/{type<\w+>}/{id<\d+>}", name: "mage_spell_list", methods: ["GET"])]
+  public function list(string $type = null, int|string $id = null) : Response
+  {
+    $spells = $this->dataService->getList($type, $id, MageSpell::class, 'getSpells');
+
+    return $this->render('mage/spell/index.html.twig', [
+      'setting' => "mage",
+      'spells' => $spells,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
+    ]);
+  }
+
   #[Route('/spell/{id<\d+>}', name: 'mage_spell_show')]
-  public function showSpell(MageSpell $spell): Response
+  public function showSpell(Request $request, MageSpell $spell): Response
   {
     return $this->render('mage/spell/show.html.twig', [
       'spell' => $spell,
+      'back' => ['path' => $request->getSession()->get('ms_referer')],
     ]);
   }
 
@@ -110,7 +126,7 @@ class ArcanumController extends AbstractController
       $this->dataService->update($spell);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $spell->getName()]]);
-      return $this->redirectToRoute('spell_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('element/new.html.twig', [
