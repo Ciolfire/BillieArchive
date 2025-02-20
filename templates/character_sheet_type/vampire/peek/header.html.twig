@@ -26,13 +26,13 @@
   </div>
   <div class="col-12 pt-3 text-strong">
     {% if access.hasRight('bloodline')|default(false) and character.clan.isBloodline and access.hasRight('clan')|default(false) %}
-      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+      <a href="{{ path("vampire_clan_show", {'id': character.clan.id}) }}">
         <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})
       </a>
     {% elseif access.hasRight('bloodline')|default(false) %}
-      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+      <a href="{{ path("vampire_clan_show", {'id': character.clan.id}) }}">
         <span class="icon link-icon"><img src="{{ asset(character.clan.emblem, 'clans_emblems') }}"></span>
         {{ character.clan.name }}
       </a>
@@ -42,7 +42,7 @@
       {% else %}
         {% set clan = character.clan %}
       {% endif %}
-      <a href="{{ path("clan_show", {'id': clan.id}) }}">
+      <a href="{{ path("vampire_clan_show", {'id': clan.id}) }}">
         <span class="icon link-icon"><img src="{{ asset(clan.emblem, 'clans_emblems') }}"></span>
         {{ clan.name }}
       </a>

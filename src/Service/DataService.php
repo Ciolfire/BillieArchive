@@ -230,11 +230,11 @@ class DataService
     return true;
   }
 
-  public function getList(string $type, int $id, $class, $method): Collection|array
+  public function getList(string $filter, int|string $id, $class, $method): Collection|array
   {
     $repo = $this->getRepository($class);
 
-    switch ($type) {
+    switch ($filter) {
       case 'book':
         /** @var Book */
         $book = $this->findOneBy(Book::class, ['id' => $id]);
@@ -251,6 +251,20 @@ class DataService
     }
 
     return $items;
+  }
+
+  public function getItem(?string $type, $id = null)
+  {
+    switch ($type) {
+      case 'book':
+        return $this->findOneBy(Book::class, ['id' => $id]);
+      case 'chronicle':
+        return $this->findOneBy(Chronicle::class, ['id' => $id]);
+      case 'type':
+        return $this->findOneBy(ContentType::class, ['name' => $id]);
+    }
+
+    return ['type' => $type, 'id' => $id];
   }
 
   public function getItemFromType(string $type, $id) : array
@@ -409,12 +423,16 @@ class DataService
   {
     $id = $character->getId();
     $this->manager->detach($character);
+    /** @var Character $character */
     $character = $this->manager->find(Character::class, $id);
     // Tried this to bypass the fetch: EAGER, no luck, maybe try other stuff
     // $character->getAttributes();
     // $character->getSkills();
     $newCharacter = clone $character;
     // Updating specific info for the clone
+    $newCharacter->setBook(null);
+    $newCharacter->setPage(null);
+    $newCharacter->setChronicle($chronicle);
     $newCharacter->setChronicle($chronicle);
     $newCharacter->setPlayer($this->findOneBy(User::class, ['id' => $user->getId()]));
     $newCharacter->setIsPremade(false);

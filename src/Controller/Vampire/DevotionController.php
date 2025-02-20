@@ -29,7 +29,7 @@ class DevotionController extends AbstractController
     $this->service = $service;
   }
   
-  #[Route('/devotions', name: 'vampire_devotion_index', methods: ['GET'])]
+  #[Route('/wiki/devotions', name: 'vampire_devotion_index', methods: ['GET'])]
   public function disciplines(): Response
   {
     $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
@@ -69,29 +69,10 @@ class DevotionController extends AbstractController
     ]);
   }
 
-  #[Route("/devotion/{filter<\w+>}/{id<\d+>}", name: "devotion_list", methods: ["GET"])]
+  #[Route("/wiki/devotions/list/{filter<\w+>}/{id<\d+>}", name: "vampire_devotion_list", methods: ["GET"])]
   public function devotionList(string $filter, int $id): Response
   {
-    switch ($filter) {
-      case 'chronicle':
-        /** @var Chronicle */
-        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        $back = ['path' => 'homebrew_index', 'params' => [
-          'id' => $id,
-        ]];
-        break;
-      case 'book':
-      default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $back = ['path' => 'book_index', 'params' => [
-          'setting' => 'vampire',
-          '_fragment' => $id
-        ]];
-    }
-
-    $devotions = $item->getDevotions();
-    /** @var Devotion $devotion */
+    $devotions = $this->dataService->getList($filter, $id, Devotion::class, 'getDevotions');
     foreach ($devotions as $devotion) {
       $this->dataService->loadPrerequisites($devotion);
     }
@@ -101,8 +82,19 @@ class DevotionController extends AbstractController
       'entity' => 'devotion',
       'category' => 'character',
       'devotions' => $devotions,
-      'back' => $back,
+      'filter' => $filter,
+      'id' => $id,
       'search' => [],
+    ]);
+  }
+
+  #[Route('/wiki/devotion/{id<\d+>}', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
+  public function devotionShow(Devotion $devotion): Response
+  {
+    $this->dataService->loadPrerequisites($devotion);
+
+    return $this->render('vampire/devotion/show.html.twig', [
+      'devotion' => $devotion,
     ]);
   }
 
@@ -149,13 +141,21 @@ class DevotionController extends AbstractController
     ]);
   }
 
-  #[Route('/devotion/{id<\d+>}/show', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
-  public function devotionShow(Devotion $devotion): Response
+  #[Route('/devotion/{id<\d+>}/delete', name: 'vampire_devotion_delete', methods: ['GET'])]
+  public function delete(Devotion $devotion): Response
   {
-    $this->dataService->loadPrerequisites($devotion);
+    $this->denyAccessUnlessGranted('delete', $devotion);
 
-    return $this->render('vampire/devotion/show.html.twig', [
-      'devotion' => $devotion,
-    ]);
+    try {
+      $this->dataService->remove($devotion);
+      $this->addFlash('success', ["devotion.delete.success", ['%name%' => $devotion->getName()]]);
+
+      return $this->redirectToRoute('vampire_devotion_index');
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["devotion.delete.failed", ['%name%' => $devotion->getName()]]);
+    }
+
+
+    return $this->redirectToRoute('vampire_devotion_show', ['id' => $devotion->getId()]);
   }
 }

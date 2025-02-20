@@ -1,9 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
-use App\Entity\Book;
-use App\Entity\Chronicle;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 
@@ -30,8 +30,8 @@ class DisciplineController extends AbstractController
     $this->dataService = $dataService;
     $this->service = $service;
   }
-  
-  #[Route('/disciplines', name: 'vampire_discipline_index', methods: ['GET'])]
+
+  #[Route('/wiki/disciplines', name: 'vampire_discipline_index', methods: ['GET'])]
   public function disciplines(): Response
   {
     $data = $this->service->getDisciplines();
@@ -44,7 +44,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/sorceries', name: 'vampire_sorcery_index', methods: ['GET'])]
+  #[Route('/wiki/sorceries', name: 'vampire_sorcery_index', methods: ['GET'])]
   public function sorceries(): Response
   {
     $data = $this->service->getDisciplines('sorcery');
@@ -59,7 +59,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/coils', name: 'vampire_coils_index', methods: ['GET'])]
+  #[Route('/wiki/coils', name: 'vampire_coils_index', methods: ['GET'])]
   public function coils(): Response
   {
     $data = $this->service->getDisciplines('coils');
@@ -73,7 +73,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/thaumaturgy', name: 'vampire_thaumaturgy_index', methods: ['GET'])]
+  #[Route('/wiki/thaumaturgy', name: 'vampire_thaumaturgy_index', methods: ['GET'])]
   public function thaumaturgy(): Response
   {
     $data = $this->service->getDisciplines('thaumaturgy');
@@ -86,7 +86,23 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id<\d+>}', name: 'discipline_show', methods: ['GET'])]
+  #[Route("/wiki/{type<\w+>?discipline}/list/{filter<\w+>}/{id<\w+>}", name: "vampire_discipline_list", methods: ["GET"])]
+  public function disciplineFilter(string $type, string $filter, int $id): Response
+  {
+    $data = $this->service->getDisciplines($type, $filter, $id);
+
+    return $this->render($data['template'], [
+      'elements' => $data['disciplines'],
+      'description' => $data['description'],
+      'entity' => 'discipline',
+      'back' => $data['back'],
+      'type' => $data['type'],
+      'icon' => $data['icon'],
+      'label' => $data['label'],
+    ]);
+  }
+
+  #[Route('/wiki/discipline/{id<\d+>}', name: 'discipline_show', methods: ['GET'])]
   public function discipline(Discipline $discipline): Response
   {
     return $this->render('vampire/discipline/show.html.twig', [
@@ -162,7 +178,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/coils/new', name: 'vampire_coils_new', methods: ['GET', 'POST'])]
+  #[Route('/coil/new', name: 'vampire_coils_new', methods: ['GET', 'POST'])]
   public function coilsNew(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -206,7 +222,25 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id<\d+>}/power/add', name: 'discipline_power_add', methods: ['GET', 'POST'])]
+  #[Route('/discipline/{id<\d+>}/delete', name: 'vampire_discipline_delete', methods: ['GET'])]
+  public function delete(Discipline $discipline): Response
+  {
+    $this->denyAccessUnlessGranted('delete', $discipline);
+
+    try {
+      $this->dataService->remove($discipline);
+      $this->addFlash('success', ["discipline.delete.success", ['%name%' => $discipline->getName()]]);
+
+      return $this->redirectToRoute('vampire_discipline_index');
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["discipline.delete.failed", ['%name%' => $discipline->getName()]]);
+    }
+
+
+    return $this->redirectToRoute('vampire_discipline_index');
+  }
+
+  #[Route('/discipline/{id<\d+>}/power/add', name: 'vampire_discipline_power_add', methods: ['GET', 'POST'])]
   public function disciplinePowerAdd(Request $request, Discipline $discipline): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -238,7 +272,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/power/{id<\d+>}/edit', name: 'discipline_power_edit', methods: ['GET', 'POST'])]
+  #[Route('/discipline/power/{id<\d+>}/edit', name: 'vampire_discipline_power_edit', methods: ['GET', 'POST'])]
   public function disciplinePowerEdit(Request $request, DisciplinePower $power): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -262,7 +296,26 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route("/ritual/{filter<\w+>}/{id<\d+>}", name: "ritual_list", methods: ["GET"])]
+
+  #[Route('/discipline/power/{id<\d+>}/delete', name: 'vampire_discipline_power_delete', methods: ['GET'])]
+  public function deletePower(DisciplinePower $disciplinePower): Response
+  {
+    $this->denyAccessUnlessGranted('delete', $disciplinePower);
+
+    try {
+      $this->dataService->remove($disciplinePower);
+      $this->addFlash('success', ["discipline.power.delete.success", ['%name%' => $disciplinePower->getName()]]);
+
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $disciplinePower->getDiscipline()->getId()]);
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["discipline.power.delete.failed", ['%name%' => $disciplinePower->getName()]]);
+    }
+
+
+    return $this->redirectToRoute('vampire_discipline_show', ['id' => $disciplinePower->getDiscipline()->getId()]);
+  }
+
+  #[Route("/wiki/ritual/{filter<\w+>}/{id<\d+>}", name: "vampire_ritual_list", methods: ["GET"])]
   public function ritualFilter(string $filter, int $id): Response
   {
     $data = $this->service->getRituals($filter, $id);
@@ -272,22 +325,6 @@ class DisciplineController extends AbstractController
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => $data['type'],
-    ]);
-  }
-
-  #[Route("/discipline/{type<\w+>}/{filter<\w+>}/{id<\d+>}", name: "discipline_filter", methods: ["GET"])]
-  public function disciplineFilter(string $type, string $filter, int $id): Response
-  {
-    $data = $this->service->getDisciplines($type, $filter, $id);
-
-    return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
-      'description' => $data['description'],
-      'entity' => 'discipline',
-      'back' => $data['back'],
-      'type' => $data['type'],
-      'icon' => $data['icon'],
-      'label' => $data['label'],
     ]);
   }
 }

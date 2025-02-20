@@ -15,7 +15,7 @@
   <div class="col-12 pt-3 text-strong">
     {% if access.hasRight('path')|default(false) %}
       {% set path = character.path %}
-      <a href="{{ path("path_show", {'id': path.id}) }}">
+      <a href="{{ path("mage_path_show", {'id': path.id}) }}">
         <img src="{{ asset(path.emblem, 'paths_emblems') }}" height="120">
         {{ path.name }}
       </a>

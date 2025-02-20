@@ -76,6 +76,15 @@ class MageSpell implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
+  public function __construct($element)
+  {
+    if ($element instanceof Chronicle) {
+      $this->setHomebrewFor($element);
+    } else if ($element instanceof Book) {
+      $this->setBook($element);
+    }
+  }
+
   public function getId(): ?int
   {
     return $this->id;

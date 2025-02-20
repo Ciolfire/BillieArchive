@@ -33,23 +33,6 @@ class VampireController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/', name: 'vampire_index', methods: ['GET'])]
-  public function vampires(CharacterRepository $characterRepository): Response
-  {
-    /** @var User $user */
-    $user = $this->getUser();
-    return $this->render('character/index.html.twig', [
-      'characters' => $characterRepository->findBy([
-        'player' => $user->getId(),
-        'isNpc' => false
-      ]),
-      'npc' => $characterRepository->findBy([
-        'player' => $user->getId(),
-        'isNpc' => true
-      ]),
-    ]);
-  }
-
   #[Route('/{id<\d+>}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
   public function embrace(Request $request, Character $character): Response
   {

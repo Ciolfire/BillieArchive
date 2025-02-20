@@ -1,9 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Mage;
 
-use App\Entity\User;
-use App\Entity\Vampire;
 use App\Entity\Path;
 use App\Entity\Description;
 use App\Form\Mage\PathType;
@@ -27,7 +27,7 @@ class PathController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/paths', name: 'path_index', methods: ['GET'])]
+  #[Route('/wiki/paths', name: 'mage_path_index', methods: ['GET'])]
   public function paths(): Response
   {
     return $this->render('mage/path/index.html.twig', [
@@ -36,20 +36,22 @@ class PathController extends AbstractController
     ]);
   }
 
-  #[Route("/path/list/{type<\w+>}/{id<\d+>}", name: "path_list", methods: ["GET"])]
-  public function pathList(string $type, int $id): Response
+  #[Route("/wiki/paths/list/{filter<\w+>}/{id<\w+>}", name: "path_list", methods: ["GET"])]
+  public function pathList(string $filter, int $id): Response
   {
-    $paths = $this->dataService->getList($type, $id, Path::class, 'getPaths');
+    $paths = $this->dataService->getList($filter, $id, Path::class, 'getPaths');
 
     return $this->render('mage/path/index.html.twig', [
       'setting' => "mage",
       'paths' => $paths,
+      'filter' => $filter,
+      'id' => $id,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'path']),
     ]);
   }
 
 
-  #[Route('/path/{id<\d+>}', name: 'path_show', methods: ['GET'])]
+  #[Route('/wiki/path/{id<\d+>}', name: 'mage_path_show', methods: ['GET'])]
   public function pathShow(Path $path): Response
   {
     return $this->render('mage/path/show.html.twig', [
@@ -57,12 +59,12 @@ class PathController extends AbstractController
     ]);
   }
 
-  #[Route('/path/new', name: 'path_new', methods: ['GET', 'POST'])]
+  #[Route('/path/new', name: 'mage_path_new', methods: ['GET', 'POST'])]
   public function new(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $path = new Path();
+    $path = new Path($this->dataService->getItem($request->get('filter'), $request->get('id')));
     $form = $this->createForm(PathType::class, $path);
 
     $form->handleRequest($request);
@@ -75,7 +77,7 @@ class PathController extends AbstractController
       }
       $this->dataService->save($path);
 
-      return $this->redirectToRoute('path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/path/form.html.twig', [
@@ -83,7 +85,7 @@ class PathController extends AbstractController
     ]);
   }
 
-  #[Route('/path/{id<\d+>}/edit', name: 'path_edit', methods: ['GET', 'POST'])]
+  #[Route('/path/{id<\d+>}/edit', name: 'mage_path_edit', methods: ['GET', 'POST'])]
   public function edit(Request $request, Path $path): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -99,7 +101,7 @@ class PathController extends AbstractController
       }
       $this->dataService->update($path);
 
-      return $this->redirectToRoute('path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/path/form.html.twig', [

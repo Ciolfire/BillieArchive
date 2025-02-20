@@ -146,10 +146,10 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route("/list/{type}/{id<\d+>}", name: "character_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
+  #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
+  public function list(string $filter = null, int $id = null) : Response
   {
-    $characters = $this->dataService->getList($type, $id, Character::class, "getCharacters");
+    $characters = $this->dataService->getList($filter, $id, Character::class, "getCharacters");
     $characters = $this->service->sortCharacters(...$characters);;
     return $this->render('character/index.html.twig', [
       'characters' => $characters,

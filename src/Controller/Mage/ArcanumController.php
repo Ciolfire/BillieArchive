@@ -28,7 +28,7 @@ class ArcanumController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/arcana', name: 'mage_arcanum_index')]
+  #[Route('/wiki/arcana', name: 'mage_arcanum_index')]
   public function index(): Response
   {
     return $this->render('mage/arcanum/index.html.twig', [
@@ -36,7 +36,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/arcanum/{id<\d+>}', name: 'arcanum_show')]
+  #[Route('/wiki/arcanum/{id<\d+>}', name: 'arcanum_show')]
   public function show(Arcanum $arcanum): Response
   {
     return $this->render('mage/arcanum/index.html.twig', [
@@ -65,7 +65,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/spells', name: 'mage_spell_index')]
+  #[Route('/wiki/spells', name: 'mage_spell_index')]
   public function indexSpell(): Response
   {
     return $this->render('mage/spell/index.html.twig', [
@@ -73,7 +73,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route("/spell/list/{filter<\w+>}/{id<\d+>}", name: "mage_spell_list", methods: ["GET"])]
+  #[Route("/wiki/spells/list/{filter<\w+>}/{id<\w+>}", name: "mage_spell_list", methods: ["GET"])]
   public function list(string $filter = null, int|string $id = null) : Response
   {
     $spells = $this->dataService->getList($filter, $id, MageSpell::class, 'getSpells');
@@ -87,7 +87,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/spell/{id<\d+>}', name: 'mage_spell_show')]
+  #[Route('/wiki/spell/{id<\d+>}', name: 'mage_spell_show')]
   public function showSpell(Request $request, MageSpell $spell): Response
   {
     return $this->render('mage/spell/show.html.twig', [
@@ -101,7 +101,7 @@ class ArcanumController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     
-    $spell = new MageSpell($this->dataService->getItem($request->get('type'), $request->get('id')));
+    $spell = new MageSpell($this->dataService->getItem($request->get('filter'), $request->get('id')));
     $form = $this->createForm(MageSpellType::class, $spell);
 
     $form->handleRequest($request);

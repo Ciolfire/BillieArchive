@@ -24,7 +24,7 @@
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('path_index')}}">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('mage_path_index')}}">
         {% include "_icon.html.twig" with {icon: 'path' } only %}
         <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'path')}}</span>
       </a>
@@ -42,7 +42,7 @@
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('arcanum_index')}}">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('mage_arcanum_index')}}">
         {% include "_icon.html.twig" with {icon: 'arcanum' } only %}
         <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'arcanum')}}</span>
       </a>
@@ -54,7 +54,7 @@
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {'type': 'type', 'id': 'mage'})}}">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {filter: 'type', id: 'mage'})}}">
         {% include "_icon.html.twig" with {icon: 'merit' } only %}
         <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'merit') }}</span>
       </a>

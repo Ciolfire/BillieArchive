@@ -9,7 +9,7 @@
 <div id="{{ path.name }}" class="col-12" data-search-target="item" data-name="{{ path.name }}">
   <div class="path-card position-relative">
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="position-absolute end-0" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     {# Header #}
     <blockquote class="text-center mb-2 path-card-header">

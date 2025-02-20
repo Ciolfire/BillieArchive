@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/{_locale<%supported_locales%>?%default_locale%}/vampire/ghoul')]
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/ghoul')]
 class GhoulController extends AbstractController
 {
   private DataService $dataService;
@@ -29,7 +29,7 @@ class GhoulController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/families', name: 'ghoul_families_index', methods: ['GET'])]
+  #[Route('/wiki/families', name: 'ghoul_families_index', methods: ['GET'])]
   public function families(): Response
   {
     return $this->render('vampire/ghoul/family/index.html.twig', [
@@ -43,7 +43,21 @@ class GhoulController extends AbstractController
     ]);
   }
 
-  #[Route('/family/{id<\d+>}', name: 'ghoul_family_show', methods: ['GET'])]
+  #[Route("/wiki/families/list/{filter<\w+>}/{id<\d+>}", name: "ghoul_family_list", methods: ["GET"])]
+  public function familyList(string $filter, int $id): Response
+  {
+    $families = $this->dataService->getList($filter, $id, GhoulFamily::class, 'getGhoulFamilies');
+
+    return $this->render('vampire/ghoul/family/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
+      'entity' => 'ghoul_family',
+      'category' => 'character',
+      'families' => $families,
+      'search' => [],
+    ]);
+  }
+
+  #[Route('/wiki/family/{id<\d+>}', name: 'ghoul_family_show', methods: ['GET'])]
   public function familyShow(GhoulFamily $family): Response
   {
     return $this->render('vampire/ghoul/family/show.html.twig', [
@@ -110,34 +124,22 @@ class GhoulController extends AbstractController
     ]);
   }
 
-  #[Route("/family/{filter<\w+>}/{id<\d+>}", name: "ghoul_family_list", methods: ["GET"])]
-  public function familyList(string $filter, int $id): Response
+  
+  #[Route('/family/{id<\d+>}/delete', name: 'ghoul_family_delete', methods: ['GET'])]
+  public function delete(GhoulFamily $family): Response
   {
-    switch ($filter) {
-      case 'chronicle':
-        /** @var Chronicle */
-        $item = $this->dataService->findOneBy(Chronicle::class, ['id' => $id]);
-        $back = ['path' => 'homebrew_index', 'params' => [
-          'id' => $id,
-        ]];
-        break;
-      case 'book':
-      default:
-        /** @var Book */
-        $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
-        $back = ['path' => 'book_index', 'params' => [
-          'setting' => 'vampire',
-          '_fragment' => $id
-        ]];
+    $this->denyAccessUnlessGranted('delete', $family);
+
+    try {
+      $this->dataService->remove($family);
+      $this->addFlash('success', ["family.delete.success", ['%name%' => $family->getName()]]);
+
+      return $this->redirectToRoute('ghoul_families_index');
+    } catch (\Throwable $th) {
+      $this->addFlash('error', ["family.delete.failed", ['%name%' => $family->getName()]]);
     }
 
-    return $this->render('vampire/ghoul/family/index.html.twig', [
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
-      'entity' => 'ghoul_family',
-      'category' => 'character',
-      'families' => $item->getGhoulFamilies(),
-      'search' => [],
-      'back' => $back,
-    ]);
+
+    return $this->redirectToRoute('ghoul_family_show', ['id' => $family->getId()]);
   }
 }

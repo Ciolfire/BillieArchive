@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
@@ -29,7 +31,7 @@ class ClanController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/clans', name: 'clan_index', methods: ['GET'])]
+  #[Route('/wiki/clans', name: 'vampire_clan_index', methods: ['GET'])]
   public function clans(): Response
   {
     return $this->render('vampire/clan/index.html.twig', [
@@ -43,7 +45,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/bloodlines', name: 'bloodline_index', methods: ['GET'])]
+  #[Route('/wiki/bloodlines', name: 'vampire_bloodline_index', methods: ['GET'])]
   public function bloodlines(): Response
   {
     return $this->render('vampire/clan/index.html.twig', [
@@ -57,22 +59,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clans', name: 'clan_and_bloodline_index', methods: ['GET'])]
-  public function clansAndBloodline(): Response
-  {
-    return $this->render('vampire/clan/index.html.twig', [
-      'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
-      'bloodlines' => $this->service->getBloodlines(),
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
-      'entity' => 'clan',
-      'category' => 'character',
-      'search' => [
-        'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
-      ],
-    ]);
-  }
-
-  #[Route("/clan/{filter<\w+>}/{id<\d+>}", name: "clan_list", methods: ["GET"])]
+  #[Route("/wiki/clans/list/{filter<\w+>}/{id<\w+>}", name: "vampire_clan_list", methods: ["GET"])]
   public function clanList(string $filter, int $id): Response
   {
     switch ($filter) {
@@ -105,7 +92,7 @@ class ClanController extends AbstractController
   }
 
 
-  #[Route('/clan/{id<\d+>}', name: 'clan_show', methods: ['GET'])]
+  #[Route('/wiki/clan/{id<\d+>}', name: 'vampire_clan_show', methods: ['GET'])]
   public function clanShow(Clan $clan): Response
   {
     return $this->render('vampire/clan/show.html.twig', [
@@ -114,7 +101,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{bloodline<\d+>?0}/new', name: 'clan_new', methods: ['GET', 'POST'])]
+  #[Route('/clan/{bloodline<\d+>?0}/new', name: 'vampire_clan_new', methods: ['GET', 'POST'])]
   public function clanNew(bool $bloodline, Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -134,9 +121,9 @@ class ClanController extends AbstractController
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $clan->getName()]]);
       if ($clan->isBloodline()) {
-        return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('vampire_bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
-      return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('vampire_clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('vampire/clan/form.html.twig', [
@@ -147,7 +134,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{id<\d+>}/edit', name: 'clan_edit', methods: ['GET', 'POST'])]
+  #[Route('/clan/{id<\d+>}/edit', name: 'vampire_clan_edit', methods: ['GET', 'POST'])]
   public function clanEdit(Request $request, Clan $clan): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
@@ -165,9 +152,9 @@ class ClanController extends AbstractController
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $clan->getName()]]);
       if ($clan->isBloodline()) {
-        return $this->redirectToRoute('bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('vampire_bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
-      return $this->redirectToRoute('clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('vampire_clan_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
     }
 
     if ($clan->isBloodline()) {
@@ -186,7 +173,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{id<\d+>}/delete', name: 'clan_delete', methods: ['GET'])]
+  #[Route('/clan/{id<\d+>}/delete', name: 'vampire_clan_delete', methods: ['GET'])]
   public function delete(Clan $clan): Response
   {
     $this->denyAccessUnlessGranted('delete', $clan);
@@ -195,16 +182,16 @@ class ClanController extends AbstractController
       $this->dataService->remove($clan);
       $this->addFlash('success', ["clan.delete.success", ['%name%' => $clan->getName()]]);
       if ($clan->isBloodline()) {
-        return $this->redirectToRoute('bloodline_index');
+        return $this->redirectToRoute('vampire_bloodline_index');
       } else {
-        return $this->redirectToRoute('clan_index');
+        return $this->redirectToRoute('vampire_clan_index');
       }
     } catch (\Throwable $th) {
       $this->addFlash('error', ["clan.delete.failed", ['%name%' => $clan->getName()]]);
     }
 
 
-    return $this->redirectToRoute('clan_show', ['id' => $clan->getId()]);
+    return $this->redirectToRoute('vampire_clan_show', ['id' => $clan->getId()]);
   }
 
   #[Route('/{id<\d+>}/bloodline/join', name: 'vampire_bloodline_join', methods: ['GET', 'POST'])]

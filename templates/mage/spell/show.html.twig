@@ -4,7 +4,10 @@
 {% set setting = 'mage' %}
 
 {% block body %}
-{% include "_back.html.twig" %}
+  {% include "_back_entity.html.twig" with {
+    element: spell,
+    name: 'mage_spell'
+  } %}
   <div class="row justify-content-center">
     {% include "mage/spell/_card.html.twig" %}
   </div>

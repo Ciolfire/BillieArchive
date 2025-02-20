@@ -62,8 +62,13 @@ class Path implements Translatable
   #[ORM\Column(type: Types::TEXT)]
   private ?string $title = null;
 
-  public function __construct()
+  public function __construct($element = null)
   {
+    if ($element instanceof Chronicle) {
+      $this->setHomebrewFor($element);
+    } else if ($element instanceof Book) {
+      $this->setBook($element);
+    }
     $this->rulingArcana = new ArrayCollection();
   }
 

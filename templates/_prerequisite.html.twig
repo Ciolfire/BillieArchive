@@ -19,7 +19,7 @@
       </a>
   {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
     {% include "_icon.html.twig" with {icon: 'clan'} %}
-    <a href="{{ path('clan_show', {'id': prerequisite.entityId}) }}">
+    <a href="{{ path('vampire_clan_show', {'id': prerequisite.entityId}) }}">
       {{ prerequisite.entity.name }}
     </a>
   {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}

@@ -31,13 +31,13 @@ class MeritController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/list/{type}/{id}", name: "merit_list", methods: ["GET"])]
-  public function list(string $type = null, int|string $id = null) : Response
+  #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "merit_list", methods: ["GET"])]
+  public function list(string $filter = null, int|string $id = null) : Response
   {
     $chronicle = false;
     $search = ['category' => $this->categories];
 
-    switch ($type) {
+    switch ($filter) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);
@@ -89,9 +89,11 @@ class MeritController extends AbstractController
     }
 
     return $this->render('merit/list.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
       'setting' => $setting,
       'merits' => $merits,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'merit']),
+      'type' => $filter,
+      'id' => $id,
       'search' => $search, // Kinda want to replace for dynamic list
       'chronicle' => $chronicle,
     ]);
@@ -100,7 +102,7 @@ class MeritController extends AbstractController
   #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
   public function new(Request $request): Response
   {
-    $merit = new Merit();
+    $merit = new Merit($this->dataService->getItem($request->get('filter'), $request->get('id')));
 
     $form = $this->createForm(MeritType::class, $merit);
     $form->handleRequest($request);

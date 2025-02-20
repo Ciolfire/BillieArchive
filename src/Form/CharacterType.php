@@ -127,10 +127,15 @@ class CharacterType extends AbstractType
       ]);
     }
     if ($character->getChronicle() && $user == $character->getChronicle()->getStoryteller()) {
-      $builder->add('size', null, [
+      $builder
+      ->add('size', null, [
         'label' => 'size.label',
         'help' => 'size.help',
-      ]);
+      ])
+      ->add('isNpc', null, [
+        'label' => 'npc.label.single',
+      ])
+      ;
     }
   }
 

@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block body %}
+  {% include "_back_entity.html.twig" with {
+    element: devotion,
+    name: 'vampire_devotion'
+  } %}
   <div class="container block py-3 mt-5">
     {% if is_granted('ROLE_ST') %}
       <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
@@ -48,6 +52,4 @@
         {% include "_source_block.html.twig" with { 'element': devotion, class: 'text-strong text-end' } only %}
     </div>
   </div>
-
-  {% include "_back.html.twig" with {'link': path('vampire_devotion_index')} %}
 {% endblock %}

@@ -48,7 +48,7 @@
           <div class="col-12 col-md-6 my-3">
             <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
               {% if is_granted('ROLE_ST') %}
-                <a class="float-end" href="{{ path('discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+                <a class="float-end" href="{{ path('vampire_discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
               {% endif %}
               <h4>{{ ritual.name }}</h4>
               <h5>{{ 'sorcery.power.level.single'|trans({'%level%': ritual.level|format_number(style='spellout')|capitalize, '%sorcery%': discipline.name}) }}</h5>

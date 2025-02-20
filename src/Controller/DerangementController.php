@@ -31,13 +31,13 @@ class DerangementController extends AbstractController
     return $this->redirectToRoute('derangement_list', ['type' => null, 'id' => null]);
   }
 
-  #[Route("/list/{type}/{id<\d+>}", name: "derangement_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
+  #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "derangement_list", methods: ["GET"])]
+  public function list(string $filter = null, int $id = null) : Response
   {
     /** @var DerangementRepository $repo */
     $repo = $this->dataService->getRepository(Derangement::class);
 
-    switch ($type) {
+    switch ($filter) {
       case 'book':
         /** @var Book */
         $item = $this->dataService->findOneBy(Book::class, ['id' => $id]);

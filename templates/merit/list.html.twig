@@ -13,7 +13,7 @@
   {% if chronicle == false %}
     {% include "_back.html.twig" %}
   {% else %}
-    {% include "_back.html.twig" with {'link': path('homebrew_index', {'id': chronicle})} %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
 
   <h1 class="py-3">{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
@@ -50,7 +50,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto" href="{{ path('merit_new') }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">

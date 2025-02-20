@@ -22,7 +22,7 @@
               {% include "_icon.html.twig" with {icon: 'character'} %}
             </div>
             <div class="col-8">
-                <a href="{{ path('character_list', {'type': 'book', 'id': book.id}) }}">
+                <a href="{{ path('character_list', {filter: 'book', id: book.id}) }}">
                 {{ "count"|trans({'count': book.characters|length}, 'character') }}
               </a>
             </div>

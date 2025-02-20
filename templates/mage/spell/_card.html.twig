@@ -6,8 +6,9 @@
       <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
     {% endif %}
     <h2>
-      {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
       {{ spell.name }}
+      {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
+      {% for i in 1..spell.practice.level %}•{% endfor %}
     </h2>
     <h5>
       {% include "_icon.html.twig" with { icon: 'skills/' ~ spell.skill.identifier } %}

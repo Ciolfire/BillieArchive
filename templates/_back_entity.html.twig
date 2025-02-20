@@ -1,0 +1,10 @@
+{% set route = name ~ "_list" %}
+{% if element.homebrewFor %}
+  {% set param = {filter: 'chronicle', id: element.homebrewFor.id} %}
+{% elseif element.book %}
+  {% set param = {filter: 'book', id: element.book.id} %}
+{% else %}
+  {% set route = name ~ "_index" %}
+{% endif %}
+
+{% include "_back.html.twig" with { link: path(route, param|default({}))} %}

@@ -95,6 +95,12 @@ clan:
   bloodline:
     join: "{name} is now a member of the {bloodline} bloodline."
 
+devotion:
+  delete:
+    success: "The Devotion {name} was successfully deleted."
+    failed: "The Devotion {name} was not deleted."
+
+
 chronicle:
   rules: "{chronicle} — Rules updated."
 

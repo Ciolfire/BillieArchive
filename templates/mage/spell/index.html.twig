@@ -35,7 +35,7 @@
     <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('mage_spell_new') }}">
+        <a class="btn btn-primary" href="{{ path('mage_spell_new', {filter: filter|default(null), id: id|default(null)}) }}">
           <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
           {% include "_icon.html.twig" with {icon: 'spell' } only %}
         </a>

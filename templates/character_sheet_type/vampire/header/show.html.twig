@@ -20,7 +20,7 @@
 {% block leftCol %}
   <div class="row">
     <div class="col-12">
-      <a href="{{ path("clan_show", {'id': character.clan.id}) }}">
+      <a href="{{ path("vampire_clan_show", {'id': character.clan.id}) }}">
         {% if character.clan.isBloodline %}
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})
