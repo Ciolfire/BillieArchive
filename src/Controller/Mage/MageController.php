@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controller\Mage;;
+declare(strict_types=1);
+
+namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
 use App\Entity\Character;

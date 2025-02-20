@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -16,7 +18,7 @@ class LoginController extends AbstractController
     return $this->redirectToRoute('index');
   }
 
-  #[Route("/{_locale<%supported_locales%>?%default_locale%}/login", name:"login")]
+  #[Route("/{_locale<%supported_locales%>?%default_locale%}/login", name: "login")]
   public function login(AuthenticationUtils $authenticationUtils): Response
   {
     if (!is_null($this->getUser())) {
@@ -43,7 +45,7 @@ class LoginController extends AbstractController
     ]);
   }
 
-  #[Route("/logout", name:"logout", methods:["GET"])]
+  #[Route("/logout", name: "logout", methods: ["GET"])]
   public function logout(): void
   {
     // controller can be blank: it will never be called!

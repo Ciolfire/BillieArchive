@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controller;
+declare(strict_types=1);
+
+namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
 use App\Entity\Description;
@@ -14,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/{_locale<%supported_locales%>?%default_locale%}')]
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/mage')]
 class ArcanumController extends AbstractController
 {
   private DataService $dataService;
@@ -26,7 +28,7 @@ class ArcanumController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/arcana', name: 'arcanum_index')]
+  #[Route('/arcana', name: 'mage_arcanum_index')]
   public function index(): Response
   {
     return $this->render('mage/arcanum/index.html.twig', [
@@ -42,7 +44,7 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/arcanum/{id<\d+>}/edit', name: 'arcanum_edit', methods:["GET", "POST"])]
+  #[Route('/arcanum/{id<\d+>}/edit', name: 'mage_arcanum_edit', methods:["GET", "POST"])]
   public function edit(Request $request, Arcanum $arcanum): Response
   {
     $form = $this->createForm(ArcanumType::class, $arcanum);
@@ -71,15 +73,17 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route("spell/list/{type<\w+>}/{id<\d+>}", name: "mage_spell_list", methods: ["GET"])]
-  public function list(string $type = null, int|string $id = null) : Response
+  #[Route("/spell/list/{filter<\w+>}/{id<\d+>}", name: "mage_spell_list", methods: ["GET"])]
+  public function list(string $filter = null, int|string $id = null) : Response
   {
-    $spells = $this->dataService->getList($type, $id, MageSpell::class, 'getSpells');
+    $spells = $this->dataService->getList($filter, $id, MageSpell::class, 'getSpells');
 
     return $this->render('mage/spell/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
       'setting' => "mage",
       'spells' => $spells,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
+      'filter' => $filter,
+      'id' => $id,
     ]);
   }
 
@@ -96,7 +100,8 @@ class ArcanumController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $spell = new MageSpell();
+    
+    $spell = new MageSpell($this->dataService->getItem($request->get('type'), $request->get('id')));
     $form = $this->createForm(MageSpellType::class, $spell);
 
     $form->handleRequest($request);

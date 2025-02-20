@@ -2,17 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\Item;
-use App\Form\EquipmentType;
-use App\Form\ItemType;
-use App\Repository\ItemRepository;
 use App\Service\DataService;
 use App\Service\ItemService;
-use Gedmo\Mapping\Driver\Chain;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;

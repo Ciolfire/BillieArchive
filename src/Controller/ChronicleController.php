@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Chronicle;
-use App\Entity\Note;
 use App\Entity\NoteCategory;
 use App\Entity\User;
 use App\Form\ChronicleType;
