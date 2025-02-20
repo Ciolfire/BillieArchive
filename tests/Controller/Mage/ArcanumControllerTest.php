@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Mage;
 
 use App\Controller\Mage\ArcanumController;
 use App\Entity\Arcanum;

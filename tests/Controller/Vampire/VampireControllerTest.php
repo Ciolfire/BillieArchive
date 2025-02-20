@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Vampire;
 
 use App\Controller\Vampire\VampireController;
 use App\Entity\User;
