@@ -50,6 +50,8 @@ services:
     container_name: wod_php
     environment:
       - COMPOSER_MEMORY_LIMIT=-1
+      - PHP_UPLOAD_MAX_FILESIZE=100MB
+      - PHP_MEMORY_LIMIT=128M
     links:
       - db
     volumes:
