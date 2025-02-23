@@ -38,12 +38,12 @@ class ItemController extends AbstractController
     ]);
   }
 
-  #[Route("/list/{type}/{id<\d+>}", name: "item_list", methods: ["GET"])]
-  public function list(string $type = null, int $id = null) : Response
+  #[Route("/list/{filter}/{id<\d+>}", name: "item_list", methods: ["GET"])]
+  public function list(string $filter = null, int $id = null) : Response
   {
 
     return $this->render('item/index.html.twig', [
-      'items' => $this->dataService->getList($type, $id, Item::class, "getItems"),
+      'items' => $this->dataService->getList($filter, $id, Item::class, "getItems"),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'item']),
     ]);
   }
