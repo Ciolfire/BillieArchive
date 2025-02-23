@@ -24,7 +24,7 @@ final class VampireControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/vampire/287/embrace');
+    $client->request('GET', '/en/vampire/29/embrace');
 
     self::assertResponseIsSuccessful();
   }

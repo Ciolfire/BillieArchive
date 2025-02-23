@@ -24,7 +24,7 @@ final class MageControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/mage/287/awakening');
+    $client->request('GET', '/en/mage/29/awakening');
 
     self::assertResponseIsSuccessful();
   }

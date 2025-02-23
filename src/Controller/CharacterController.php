@@ -64,7 +64,7 @@ class CharacterController extends AbstractController
     $this->skills = $this->service->getSortedSkills();
   }
 
-  #[Route('', name: 'character_index', methods: ['GET'])]
+  #[Route('s', name: 'character_index', methods: ['GET'])]
   public function index(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -101,7 +101,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/premades', name: 'character_premade_index', methods: ['GET'])]
+  #[Route('s/premades', name: 'character_premade_index', methods: ['GET'])]
   public function indexPremades(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -124,7 +124,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/npc', name: 'character_npc_index', methods: ['GET'])]
+  #[Route('s/npc', name: 'character_npc_index', methods: ['GET'])]
   public function indexNpc(CharacterRepository $characterRepository): Response
   {
     /** @var User $user */
@@ -146,83 +146,13 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
+  #[Route("s/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
   public function list(string $filter = null, int $id = null) : Response
   {
     $characters = $this->dataService->getList($filter, $id, Character::class, "getCharacters");
     $characters = $this->service->sortCharacters(...$characters);;
     return $this->render('character/index.html.twig', [
       'characters' => $characters,
-    ]);
-  }
-
-  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
-  public function new(Request $request, Chronicle $chronicle = null, bool $isNpc = false): Response
-  {
-    $character = new Human();
-    $character->setChronicle($chronicle);
-    $character->setIsNpc($isNpc);
-    /** @var User $user */
-    $user = $this->getUser();
-    $character->setPlayer($user);
-    $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterType::class, $character, ['user' => $this->getUser()]);
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
-      }
-      $this->creationService->getSpecialties($character, $form);
-      // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
-
-      $this->dataService->save($character);
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-    $this->dataService->loadMeritsPrerequisites($merits);
-
-    return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
-      'form' => $form,
-      'attributes' => $this->attributes,
-      'skills' => $this->skills,
-      'merits' => $merits,
-    ]);
-  }
-
-  #[Route('/new/premade', name: 'character_new_premade', methods: ['GET', 'POST'])]
-  public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
-  {
-    $character = new Human();
-    $this->denyAccessUnlessGranted('ROLE_GM');
-    
-    $character->setIsNpc(false);
-    $character->setIsPremade(true);
-
-    $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterType::class, $character);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
-      }
-      $this->creationService->getSpecialties($character, $form);
-      // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
-      $this->dataService->save($character);
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-    $this->dataService->loadMeritsPrerequisites($merits);
-
-    return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
-      'form' => $form,
-      'attributes' => $this->attributes,
-      'skills' => $this->skills,
-      'merits' => $merits,
     ]);
   }
 
@@ -268,6 +198,76 @@ class CharacterController extends AbstractController
       'removables' => $removables,
       'derangements' => $derangements,
       'avatarForm' => $avatarForm->createView(),
+    ]);
+  }
+
+  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
+  public function new(Request $request, Chronicle $chronicle = null, bool $isNpc = false): Response
+  {
+    $character = new Human();
+    $character->setChronicle($chronicle);
+    $character->setIsNpc($isNpc);
+    /** @var User $user */
+    $user = $this->getUser();
+    $character->setPlayer($user);
+    $merits = $this->service->filterMerits($character);
+    $form = $this->createForm(CharacterType::class, $character, ['user' => $this->getUser()]);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (isset($form->getExtraData()['merits'])) {
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+      }
+      $this->creationService->getSpecialties($character, $form);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
+
+      $this->dataService->save($character);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+    $this->dataService->loadMeritsPrerequisites($merits);
+
+    return $this->render('character_sheet/new.html.twig', [
+      'character' => $character,
+      'form' => $form,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
+      'merits' => $merits,
+    ]);
+  }
+
+  #[Route('/premade/new', name: 'character_new_premade', methods: ['GET', 'POST'])]
+  public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
+  {
+    $character = new Human();
+    $this->denyAccessUnlessGranted('ROLE_GM');
+    
+    $character->setIsNpc(false);
+    $character->setIsPremade(true);
+
+    $merits = $this->service->filterMerits($character);
+    $form = $this->createForm(CharacterType::class, $character);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (isset($form->getExtraData()['merits'])) {
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+      }
+      $this->creationService->getSpecialties($character, $form);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
+      $this->dataService->save($character);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+    $this->dataService->loadMeritsPrerequisites($merits);
+
+    return $this->render('character_sheet/new.html.twig', [
+      'character' => $character,
+      'form' => $form,
+      'attributes' => $this->attributes,
+      'skills' => $this->skills,
+      'merits' => $merits,
     ]);
   }
 
@@ -375,24 +375,6 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'fetch_character_peek', methods: ['GET'])]
-  public function fetchPeek(Request $request, Character $character, Character $peeker): Response
-  {
-    if ($character instanceof Character && $peeker instanceof Character) {
-      $access = $peeker->getSpecificPeekingRights($character);
-
-      return $this->render("character_sheet/peek/_base.html.twig", [
-        'peeker' => $peeker,
-        'access' => $access,
-        'character' => $character,
-        'setting' => $character->getChronicle()->getType(),
-      ]);
-    }
-
-    $this->addFlash('notice', 'character.peek.declined');
-    return $this->redirect($request->headers->get('referer'));
-  }
-
   #[Route('/{id<\d+>}/duplicate', name: 'character_duplicate', methods: ['GET', 'POST'])]
   public function duplicate(Request $request, Character $character): Response
   {
@@ -496,55 +478,14 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $type = $character->getLesserTemplate()->getType();
-    $this->service->lesserTemplateRemove($character, $character->getLesserTemplate());
-
-    $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-  }
-
-  #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]
-  public function moralityIncrease(Request $request, Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
-
-    $this->addFlash('notice', ["character.morality.increase", ['name' => $character]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-  }
-
-  #[Route('/{id<\d+>}/morality/decrease', name: 'character_morality_decrease', methods: ['POST'])]
-  public function moralityDecrease(Request $request, Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
-
-    $this->addFlash('notice', ["character.morality.decrease", ['name' => $character]]);
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-  }
-
-  #[Route('/{id<\d+>}/derangement/new', name: 'character_derangement_new', methods: ['POST'])]
-  public function derangementNew(Request $request, Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-    $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
-
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-  }
-
-  #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
-  public function abilityRemoval(Request $request, Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    $element = $this->service->removeAbility($character, $request->request->all());
-    if ($element) {
-      $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
+    if ($character->getLesserTemplate()) {
+      $type = $character->getLesserTemplate()->getType();
+      $this->service->lesserTemplateRemove($character, $character->getLesserTemplate());
+      $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
     } else {
-      $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
+      $this->addFlash('notice', ["character.template.lesser.error", ['name' => $character]]);
     }
+
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
@@ -658,6 +599,7 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  // Fetch the list of items accessible for the character
   #[Route('/{id<\d+>}/item/list', name: 'character_item_list')]
   public function listItem(Character $character): Response
   {
@@ -928,5 +870,70 @@ class CharacterController extends AbstractController
     return $this->render('character_sheet/elements/avatar/crop.html.twig', [
       'form' => $form->createView(),
     ]);
+  }
+
+  // ASYNC
+
+  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'fetch_character_peek', methods: ['GET'])]
+  public function fetchPeek(Request $request, Character $character, Character $peeker): Response
+  {
+    if ($character instanceof Character && $peeker instanceof Character) {
+      $access = $peeker->getSpecificPeekingRights($character);
+
+      return $this->render("character_sheet/peek/_base.html.twig", [
+        'peeker' => $peeker,
+        'access' => $access,
+        'character' => $character,
+        'setting' => $character->getChronicle()->getType(),
+      ]);
+    }
+
+    $this->addFlash('notice', 'character.peek.declined');
+    return $this->redirect($request->headers->get('referer'));
+  }
+
+  #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]
+  public function moralityIncrease(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $this->service->moralityIncrease($character, (bool)$request->request->get('derangement'), (bool)$request->request->get('free'));
+
+    $this->addFlash('notice', ["character.morality.increase", ['name' => $character]]);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/morality/decrease', name: 'character_morality_decrease', methods: ['POST'])]
+  public function moralityDecrease(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $this->service->moralityDecrease($character, (int)$request->request->get('derangement'), $request->request->get('details'));
+
+    $this->addFlash('notice', ["character.morality.decrease", ['name' => $character]]);
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/derangement/new', name: 'character_derangement_new', methods: ['POST'])]
+  public function derangementNew(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+    $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/ability/remove', name: 'character_ability_removal', methods: ['POST'])]
+  public function abilityRemoval(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $element = $this->service->removeAbility($character, $request->request->all());
+    if ($element) {
+      $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
+    } else {
+      $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
+    }
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 }
