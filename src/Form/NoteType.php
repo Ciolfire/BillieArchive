@@ -52,8 +52,8 @@ class NoteType extends AbstractType
       ])
       ->add('character', null, [
         'label' => false,
-        // 'label' => 'label.single',
         'translation_domain' => 'character',
+        'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'expanded' => true,
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
@@ -67,8 +67,9 @@ class NoteType extends AbstractType
           if ($name == "") {
             $name = "<span class=\"warning\">?</span>";
           }
-          return "<div class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"$avatar\">$name</div>";
+          return "<div role=\"button\" class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"$avatar\">$name</div>";
         },
+        'label_attr' => ['class' => 'text me-2 form-choice-width text-truncate'],
         'label_html' => true,
       ])
       ->add('notes', ExpandedEntityType::class, [
@@ -88,7 +89,6 @@ class NoteType extends AbstractType
         'data' => $note->getNotes(),
         // 'mapped' => false,
       ])
-      ->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => 'app']);
     ;
   }
 

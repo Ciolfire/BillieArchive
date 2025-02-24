@@ -70,6 +70,10 @@ input[type=number] {
     padding-left: 0.5em;
     margin-top: 0.25em;
   }
+
+  &:has(img.form-select-item-avatar) {
+    min-height: 45px;
+  }
 }
 
 .form-choice-width {
@@ -105,7 +109,7 @@ textarea {
 
 .form-select-item-avatar {
   height: 40px;
-  max-width: 40px;
+  width: 40px;
   object-fit: cover;
 }
 

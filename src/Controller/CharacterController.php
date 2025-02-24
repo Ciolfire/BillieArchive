@@ -743,6 +743,17 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  #[Route('/{id<\d+>}/notes/{note}/delete', name: 'character_note_delete', methods: ['GET'])]
+  public function deleteNote(Request $request, Character $character, CharacterNote $note): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $this->dataService->remove($note);
+    $this->addFlash('notice', 'character.note.deleted');
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'notes']);
+  }
+
   #[Route('/{id<\d+>}/wounds/update', name: 'character_wounds_update', methods: ['POST'])]
   public function updateWounds(Request $request, Character $character): JsonResponse|RedirectResponse
   {

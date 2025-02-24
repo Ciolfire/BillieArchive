@@ -45,7 +45,6 @@ class CharacterNoteType extends AbstractType
         return 'type.'.$key;
       }
     ])
-    ->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => 'app']);
     ;
   }
 
