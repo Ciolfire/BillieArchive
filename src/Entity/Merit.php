@@ -66,7 +66,7 @@ class Merit implements Translatable
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private string $description;
+  private string $description = "";
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]

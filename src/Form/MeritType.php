@@ -51,9 +51,10 @@ class MeritType extends AbstractType
           'category.mental' => 'mental',
           'category.physical' => 'physical',
           'category.social' => 'social',
+          'category.location' => 'location',
         ],
       ])
-      ->add('description', null, ['label' => 'description', 'help' => 'help.description'])
+      ->add('description', null, ['label' => 'description', 'help' => 'help.description', 'required' => true, 'empty_data' => ""])
       ->add('effect', RichTextEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
       ->add('roll', RollableType::class, ['required' => false])
       ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])

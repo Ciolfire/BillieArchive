@@ -24,7 +24,7 @@ class MeritController extends AbstractController
 {
   private DataService $dataService;
   /** @var array<string> */
-  private array $categories = ['mental', 'physical', 'social'];
+  private array $categories = ['mental', 'physical', 'social', 'location'];
 
   public function __construct(DataService $dataService)
   {

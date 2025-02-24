@@ -4,6 +4,7 @@
 {% set physical = character.filteredMerits('physical') %}
 {% set social = character.filteredMerits('social') %}
 {% set relation = character.relationMerits() %}
+{% set location = character.filteredMerits('location') %}
 
 {% if mental|length > physical|length and mental|length > social|length %}
   {% set activeTab = "meritMental" %}
@@ -30,6 +31,9 @@
     {% endif %}
     {% if relation is not empty %}
       {% include "_tab.html.twig" with {name: 'meritRelation', label: 'relation'|trans({}, 'character'), icon: 'characters'} only %}
+    {% endif %}
+    {% if location is not empty %}
+      {% include "_tab.html.twig" with {name: 'meritLocation', label: 'location'|trans({}, 'app'), icon: 'location'} only %}
     {% endif %}
   </ul>
   <div id="meritMental" class="tab-content d-none" data-tabs-target="page">
@@ -58,6 +62,13 @@
   <div id="meritRelation" class="tab-content d-none" data-tabs-target="page">
     <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
       {% for chMerit in relation %}
+        {% include "character_sheet/merits/show/element_small.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+  <div id="meritLocation" class="tab-content d-none" data-tabs-target="page">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
+      {% for chMerit in location %}
         {% include "character_sheet/merits/show/element_small.html.twig" %}
       {% endfor %}
     </div>

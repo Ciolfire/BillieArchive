@@ -53,6 +53,7 @@ category:
   mental: Mental
   physical: Physique
   social: Social
+  location: Lieu
 
 help:
   action: Instantanée ou Étendue.
