@@ -18,6 +18,8 @@ use App\Entity\Human;
 use App\Entity\Mage;
 use App\Entity\Merit;
 use App\Entity\Skill;
+use App\Entity\Thaumaturge;
+use App\Entity\ThaumaturgeTradition;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 
@@ -254,6 +256,8 @@ class CharacterService
         $character->setSize($character->getSize() - 1);
 
         break;
+      case 'thaumaturge':
+        $this->applyThaumaturge($character, $character->getLesserTemplate(), $data[$template->getType()]);
     }
     if ($character->getLesserTemplate() === $template) {
       $this->dataService->add($template);
@@ -291,6 +295,15 @@ class CharacterService
 
     ksort($templates);
     return $templates;
+  }
+
+  private function applyThaumaturge(Character $character, Thaumaturge $template, array $data)
+  {
+    $tradition = $this->dataService->find(ThaumaturgeTradition::class, $data['tradition']);
+
+    $merit = new CharacterMerit($tradition->getDefiningMerit(), 4);
+    $character->addMerit($merit);
+    $template->setTradition($tradition);
   }
 
   /**

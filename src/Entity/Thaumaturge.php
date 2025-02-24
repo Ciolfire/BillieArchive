@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Form\Lesser\ThaumaturgeType;
 use App\Repository\ThaumaturgeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,9 +17,7 @@ class Thaumaturge extends CharacterLesserTemplate
   #[ORM\ManyToOne]
   private ?ThaumaturgeTradition $tradition = null;
 
-  public function __construct()
-  {
-  }
+  public function __construct() {}
 
   public function __clone()
   {
@@ -33,20 +34,35 @@ class Thaumaturge extends CharacterLesserTemplate
     return "human";
   }
 
-  public static function getForm() : ?string
+  public static function getForm(): ?string
   {
-    return null;
+    return ThaumaturgeType::class;
   }
 
   public function getTradition(): ?ThaumaturgeTradition
   {
-      return $this->tradition;
+    return $this->tradition;
   }
 
   public function setTradition(?ThaumaturgeTradition $tradition): static
   {
-      $this->tradition = $tradition;
+    $this->tradition = $tradition;
 
-      return $this;
+    return $this;
+  }
+
+  public function getMerits(): ?Array
+  {
+    $merits = [];
+
+    foreach ($this->getSourceCharacter()->getMerits() as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "thaumaturge" && is_null($merit->getMerit()->getCategory())) {
+        $key = $merit->getMerit()->getName() . (10 - $merit->getLevel()) . $merit->getId();
+        $merits[$key] = $merit;
+      }
+    }
+    ksort($merits);
+
+    return $merits;
   }
 }

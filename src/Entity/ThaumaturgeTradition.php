@@ -60,6 +60,11 @@ class ThaumaturgeTradition implements Translatable
   #[ORM\Column(type: Types::TEXT)]
   private ?string $creation = null;
 
+  public function __toString()
+  {
+    return $this->name;
+  }
+
   public function __construct()
   {
     $this->pathMerits = new ArrayCollection();

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -20,9 +22,30 @@ class MeritRepository extends ServiceEntityRepository
     parent::__construct($registry, Merit::class);
   }
 
-  public function findAll() : array
+  public function findAll(): array
   {
     return $this->findBy([], ['name' => 'ASC', 'category' => 'ASC']);
+  }
+
+  public function queryfindByType(string $type)
+  {
+    $query = $this->createQueryBuilder('m')
+      ->innerJoin('m.type', 'ct')
+      ->where('ct.name = :type')
+      ->setParameter('type', $type)
+    ;
+    return $query;
+  }
+
+  public function findByType(string $type)
+  {
+    return $this->createQueryBuilder('m')
+      ->innerJoin('m.type', 'ct')
+      ->where('ct.name = :type')
+      ->setParameter('type', $type)
+      ->getQuery()
+      ->getResult()
+    ;
   }
 
 

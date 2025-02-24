@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'thaumaturge' %}
+
+{% block title %}{{ "thaumaturge"|trans({}, 'content-type') }}{% endblock %}
+
+{% set footer = true %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1>
+    {% include "_icon.html.twig" with {icon: 'type/thaumaturge' } only %}{{ "thaumaturge"|trans({}, 'content-type') }}
+  </h1>
+  <div class="container-fluid container-lg">
+    <div class="row block" data-controller="tabs" data-tabs-initial-value="traditions">
+      {# tabs #}
+      <ul class="nav tabs g-0">
+        {% include "_tab.html.twig" with {name: 'traditions', icon: 'tradition', label: 'tradition.label.multi'|trans} only %}
+        {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
+      </ul>
+      {# content #}
+      {# traditions #}
+      <div id="traditions" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div class="row">
+          {% for tradition in traditions %}
+            {% include 'human/lesser/thaumaturge/tradition/_card.html.twig' %}
+          {% endfor %}
+        </div>
+      </div>
+      {# merits #}
+      <div id="merits" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div class="col-12 p-5">
+          {% for merit in powers %}
+            {% include 'merit/card.html.twig' %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    {% if is_granted('ROLE_ST') %}
+      <a class="btn btn-primary ms-auto" href="{{ path('thaumaturge_tradition_new') }}">
+        {% include "_icon.html.twig" with {icon : 'add' } only %}
+        {% include "_icon.html.twig" with {icon : 'tradition' } only %}
+      </a>
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: 'type', id: 'thaumaturge'}) }}">
+        {% include "_icon.html.twig" with {icon : 'add' } only %}
+        {% include "_icon.html.twig" with {icon : 'merit' } only %}
+      </a>
+
+      {# <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a> #}
+    {% endif %}
+  </div>
+{% endblock %}

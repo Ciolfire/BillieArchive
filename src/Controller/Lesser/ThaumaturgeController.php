@@ -1,0 +1,130 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controller\Lesser;
+
+use App\Entity\ContentType;
+use App\Entity\ThaumaturgeTradition;
+use App\Entity\Description;
+use App\Entity\Merit;
+use App\Form\ThaumaturgeTraditionType;
+use App\Service\CharacterService;
+use App\Service\DataService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+#[Route('/{_locale<%supported_locales%>?%default_locale%}/thaumaturge')]
+class ThaumaturgeController extends AbstractController
+{
+  private DataService $dataService;
+  private CharacterService $service;
+
+  public function __construct(DataService $dataService, CharacterService $service)
+  {
+    $this->dataService = $dataService;
+    $this->service = $service;
+  }
+
+  #[Route('', name: 'wiki_thaumaturge', methods: ['GET'])]
+  public function thaumaturge(): Response
+  {
+    $type = $this->dataService->findBy(ContentType::class, ['name' => 'thaumaturge']);
+    $powers = $this->dataService->findBy(Merit::class, ['type' => $type]);
+    $traditions = $this->dataService->findBy(ThaumaturgeTradition::class, [], ['name' => 'ASC']);
+    foreach ($powers as $power) {
+      $this->dataService->loadPrerequisites($power);
+    }
+
+    return $this->render('wiki/lesser/thaumaturge.html.twig', [
+      'traditions' => $traditions,
+      'powers' => $powers,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'thaumaturge']),
+    ]);
+  }
+
+  // #[Route('/wiki/traditions', name: 'thaumaturge_tradition_index', methods: ['GET'])]
+  // public function traditions(): Response
+  // {
+  //   return $this->render('thaumaturge/tradition/index.html.twig', [
+  //     'traditions' => $this->dataService->findAll(ThaumaturgeTradition::class),
+  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'tradition']),
+  //   ]);
+  // }
+
+  // #[Route("/wiki/traditions/list/{filter<\w+>}/{id<\w+>}", name: "tradition_list", methods: ["GET"])]
+  // public function traditionList(string $filter, int $id): Response
+  // {
+  //   $traditions = $this->dataService->getList($filter, $id, ThaumaturgeTradition::class, 'getThaumaturgeTraditions');
+
+  //   return $this->render('thaumaturge/tradition/index.html.twig', [
+  //     'setting' => "thaumaturge",
+  //     'traditions' => $traditions,
+  //     'filter' => $filter,
+  //     'id' => $id,
+  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'tradition']),
+  //   ]);
+  // }
+
+
+  #[Route('/wiki/tradition/{id<\d+>}', name: 'thaumaturge_tradition_show', methods: ['GET'])]
+  public function traditionShow(ThaumaturgeTradition $tradition): Response
+  {
+    return $this->render('thaumaturge/tradition/show.html.twig', [
+      'tradition' => $tradition,
+    ]);
+  }
+
+  #[Route('/tradition/new', name: 'thaumaturge_tradition_new', methods: ['GET', 'POST'])]
+  public function new(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $tradition = new ThaumaturgeTradition($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $form = $this->createForm(ThaumaturgeTraditionType::class, $tradition);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      // $emblem = $form->get('emblem')->getData();
+      // $fileThaumaturgeTradition = $this->getParameter('traditions_emblems_directory');
+      // if ($emblem instanceof UploadedFile && is_string($fileThaumaturgeTradition)) {
+      //   $tradition->setEmblem($this->dataService->upload($emblem, $fileThaumaturgeTradition));
+      // }
+      $this->dataService->save($tradition);
+
+      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => $tradition->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('form.html.twig', [
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/tradition/{id<\d+>}/edit', name: 'thaumaturge_tradition_edit', methods: ['GET', 'POST'])]
+  public function edit(Request $request, ThaumaturgeTradition $tradition): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $form = $this->createForm(ThaumaturgeTraditionType::class, $tradition);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      // $emblem = $form->get('emblem')->getData();
+      // $fileThaumaturgeTradition = $this->getParameter('traditions_emblems_directory');
+      // if ($emblem instanceof UploadedFile && is_string($fileThaumaturgeTradition)) {
+      //   $tradition->setEmblem($this->dataService->upload($emblem, $fileThaumaturgeTradition));
+      // }
+      $this->dataService->update($tradition);
+
+      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => $tradition->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('form.html.twig', [
+      'form' => $form,
+    ]);
+  }
+}

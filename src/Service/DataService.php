@@ -52,8 +52,6 @@ class DataService
           'possessed',
           'innocents',
           'feral',
-          'psychic',
-          'thaumaturge',
         ]
       ],
       ['name' => 'ASC']

@@ -1,0 +1,23 @@
+label:
+  single: Thaumaturge
+  multi:  Thaumaturges
+
+
+tradition:
+  label:
+    single: Tradition
+    multi: Traditions
+  help:
+    merit:
+      defining: Il s'agit de l'Atout de Thaumaturge le plus important pour une pratique particulière. Un personnage obtient cet Atout gratuitement à quatre points.
+      path: Liste des Atouts de thaumaturge pouvant être acquis par un praticien de la tradition. Un mystique ne peut pas posséder les Atouts de thaumaturgie énumérés pour d'autres traditions, seulement ceux énumérés pour sa propre voie.
+    strengths: Les thaumaturges d'une tradition sont particulièrement compétents dans un aspect de leur pratique et obtiennent certains bonus aux jets liés à leur formation.
+    weaknesses: Le dévouement requis pour pratiquer une tradition inculque certains comportements au mystique. Le personnage subit des pénalités aux jets qui défient sa formation.
+
+  creation: Creation
+  merit:
+    defining: Atout Déterminant
+    path: Atout de la voie
+  training: Formation
+  strengths: Forces
+  weaknesses: Faiblesses

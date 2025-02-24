@@ -1,0 +1,7 @@
+{% trans_default_domain 'thaumaturge' %}
+
+<div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
+  {% for merit in thaumaturge.merits %}
+    {% include "character_sheet/merits/show/element.html.twig" with {chMerit: merit} %}
+  {% endfor %}
+</div>

@@ -92,12 +92,7 @@
     </h3>
   </a>
   <div id="collapseLesserTemplateWiki" class="row generic pt-2 justify-content-center {% if isCollapsed %}collapse{% endif %}">
-    <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
-        {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
-        <span class="d-none d-sm-inline">{{ "psychic"|trans({}, 'content-type') }}</span>
-      </a>
-    </div>
+    {% include "wiki/lesser.html.twig" %}
   </div>
   <hr>
   {# Tools #}

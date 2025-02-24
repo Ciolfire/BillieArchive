@@ -1,1 +1,13 @@
 {% extends "character_sheet/show.html.twig" %}
+
+{% set thaumaturge = character.lesserTemplate %}
+
+{% block powers %}
+  <div id="thaumaturge" class="tab-content d-none" data-tabs-target="page">
+    {% include "character_sheet_type/thaumaturge/powers/show.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'thaumaturge', icon: 'type/thaumaturge' , label: 'thaumaturge'|trans({}, 'content-type')} only %}
+{% endblock %}

@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CharacterMeritRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-
 #[ORM\Entity(repositoryClass: CharacterMeritRepository::class)]
 #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class CharacterMerit
@@ -32,6 +31,12 @@ class CharacterMerit
   #[ORM\ManyToOne(targetEntity: Character::class, inversedBy: "merits", cascade: ["persist"])]
   #[ORM\JoinColumn(nullable: false)]
   private ?Character $character;
+
+  public function __construct(?Merit $merit, $level = 1)
+  {
+    $this->merit = $merit;
+    $this->level = $level;
+  }
 
   public function getId(): ?int
   {
