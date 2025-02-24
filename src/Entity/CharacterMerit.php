@@ -32,9 +32,11 @@ class CharacterMerit
   #[ORM\JoinColumn(nullable: false)]
   private ?Character $character;
 
-  public function __construct(?Merit $merit, $level = 1)
+  public function __construct(?Merit $merit = null, $level = 1)
   {
-    $this->merit = $merit;
+    if ($merit instanceof Merit) {
+      $this->merit = $merit;
+    }
     $this->level = $level;
   }
 
