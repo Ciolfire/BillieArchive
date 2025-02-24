@@ -13,16 +13,32 @@
     {% include "_tab.html.twig" with {name: 'devotions', icon: 'devotion', label: 'devotion.label.multi'|trans({}, 'discipline')} only %}
   </ul>
   <div id="disciplines" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {'characterDisciplines': characterDisciplines, 'disciplines': ghoul.disciplines, 'character': ghoulCharacter} %}
+    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {
+      characterDisciplines: characterDisciplines,
+      disciplines: ghoul.disciplines,
+      character: ghoulCharacter
+    } %}
   </div>
   <div id="sorcery" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/disciplines/edit/sorceries.html.twig" with {'characterDisciplines': characterSorcery, 'disciplines': ghoul.sorcery, 'character': ghoulCharacter} %}
+    {% include "character_sheet_type/vampire/disciplines/edit/sorceries.html.twig" with {
+      characterDisciplines: characterSorcery,
+      disciplines: ghoul.sorcery,
+      character: ghoulCharacter
+    } %}
   </div>
   <div id="thaumaturgy" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {'characterDisciplines': characterThaumaturgy, 'disciplines': ghoul.thaumaturgy, 'character': ghoulCharacter} %}
+    {% include "character_sheet_type/vampire/disciplines/edit/elements.html.twig" with {
+      characterDisciplines: characterThaumaturgy,
+      disciplines: ghoul.thaumaturgy,
+      character: ghoulCharacter
+    } %}
   </div>
   <div id="devotions" class="tab-content d-none" data-tabs-target="page">
-    {% include "character_sheet_type/vampire/devotions/edit/elements.html.twig" with {'characterDisciplines': characterDevotions, 'devotions': ghoul.devotions, 'character': ghoulCharacter} %}
+    {% include "character_sheet_type/vampire/devotions/edit/elements.html.twig" with {
+      characterDisciplines: characterDevotions,
+      devotions: ghoul.devotions,
+      character: ghoulCharacter
+    } %}
   </div>
 </div>
 

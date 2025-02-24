@@ -11,10 +11,10 @@
         <form action="{{ path('character_morality_decrease', { 'id' : character.id }) }}" method="POST">
           <div class="row">
             <div class="col-12 mb-3">
-              {% include "character_sheet/morality/derangement_select.html.twig" with {'tag' : 'morality'} %}
+              {% include "character_sheet/morality/derangement_select.html.twig" with {tag : 'morality'} %}
             </div>
           </div>
-          {% include "character_sheet/morality/derangement_list.html.twig" with {'id' : 'accordionMoralityDerangement', 'tag' : 'morality'} %}
+          {% include "character_sheet/morality/derangement_list.html.twig" with {id : 'accordionMoralityDerangement', 'tag' : 'morality'} %}
           <div class="row">
             <div class="col-12">
               <label class="accent" for="details">{{ "details"|trans }}</label>

@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if element.book and element.book != parent.book %}
-  {% include "_source_block.html.twig" with {'element': element, 'class': class } only %}
+  {% include "_source_block.html.twig" with {element: element, class: class } only %}
 {% elseif parent.book and element.book == parent.book %}
   <div class="{{ class }} fst-italic">
     {{ "source.page"|trans({'%page%': element.page}, 'book') }}

@@ -15,5 +15,5 @@
   {% set max = 5 %}
   {% set min = 1 %}
   {% set base = 1 %}
-  {% include "character_sheet/attributes/new/element.html.twig" with {'base': attribute(character.attributes, attribute.id) } %}
+  {% include "character_sheet/attributes/new/element.html.twig" with {base: attribute(character.attributes, attribute.id) } %}
 {% endblock %}

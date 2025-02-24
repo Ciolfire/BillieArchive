@@ -8,7 +8,7 @@
 {% block body %}
   <div class="container block-neutral">
     <h1 class="py-3">
-      {% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg' } only %}
+      {% include "_icon.html.twig" with {icon : entity, class: 'icon-lg' } only %}
       {{ (entity ~ '.edit')|trans({"element": form.vars.data.name}) }}
     </h1>
 

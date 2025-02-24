@@ -19,7 +19,7 @@
     {% endif %}
     <h1 class="pb-4 user-select-none">{{ devotion.name }}
       {% if devotion.homebrewFor is not null %}
-        {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}
+        {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}
       {% endif %}
     </h1>
     {% if devotion.bloodline %}

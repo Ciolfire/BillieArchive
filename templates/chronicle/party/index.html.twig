@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="block">
 				<h1 class="strong pt-2">
-					{% include "_icon_setting.html.twig" with {'setting': chronicle.type } only %}
+					{% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
 					{{ chronicle.name }}
 				</h1>
 				<h2 class="pb-5">
@@ -24,7 +24,7 @@
           {% for player in chronicle.players %}
             {% set character = chronicle.character(player) %}
             {% if character %}
-              {% include "character/_card.html.twig" with {'showPlayer' : true, 'showChronicle' : 0} %}
+              {% include "character/_card.html.twig" with {showPlayer : true, 'showChronicle' : 0} %}
             {% else %}
               <div class="col-6 col-lg-2 mb-3">
                 <a class="btn btn-primary w-100 h-100 {% if app.user.id != player.id %} disabled{% endif %}" {% if app.user.id == player.id %} href="{{path('character_new', {'chronicle': chronicle.id })}}" {% endif %} href="#">

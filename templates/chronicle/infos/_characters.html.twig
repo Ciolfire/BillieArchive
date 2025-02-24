@@ -7,7 +7,7 @@
     <div class="col-12 m-2" data-order-target="container">{{ 'empty'|trans }}</div>
   {% else %}
     <div class="col-12 py-2 text-center sticky-element">
-      {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+      {% include "_icon.html.twig" with {icon : 'search' } only %}
       <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
     </div>
     <div class="row m-0 p-0 collapse" data-order-target="container">

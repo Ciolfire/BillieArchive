@@ -80,7 +80,7 @@
     <div class="clan-{{ clan.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
       <div class="fluff clan-card-footer">{{ clan.short|default("")|markdown_to_html }}
         <div class="text-end">
-          {% include "_source.html.twig" with {'element': clan } only %}
+          {% include "_source.html.twig" with {element: clan } only %}
         </div>
       </div>
     </div>

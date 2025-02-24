@@ -6,11 +6,13 @@
     <div class="col-auto">
       <h5 class="d-inline-block" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
           data-action="click->content#load"
-          data-content-url-param="{{ link|default(path('roll_fetch', {'id': roll.id})) }}" 
+          data-content-url-param="{{ link|default(path('roll_fetch', {id: roll.id})) }}" 
           data-content-name-param="{{ roll.name }}"
-          data-content-link-param="{{ link|default(path('roll_show', {'id': roll.id})) }}"
+          data-content-link-param="{{ link|default(path('roll_show', {id: roll.id})) }}"
       >{{ roll.name }}</h5>
-      {% include "_dice_pool.html.twig" with {'pool': character.detailedDicePool(roll.attributes, roll.skills), 'contested': roll.contestedText } %}
+      {% include "_dice_pool.html.twig" with {
+        pool: character.detailedDicePool(roll.attributes, roll.skills), 
+        contested: roll.contestedText } %}
     </div>
   {% endif %}
 {% endfor %}

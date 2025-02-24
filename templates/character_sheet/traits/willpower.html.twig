@@ -9,7 +9,7 @@
 
 <div class="block user-select-none pb-1" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="willpower" data-trait-current-value="{{ current }}">
   <h3 class="text-center pt-1">
-    {% include "_icon.html.twig" with {'icon' : trait, 'class': 'icon-lg'} only %} {{ 'willpower.label'|trans }}
+    {% include "_icon.html.twig" with {icon : trait, class: 'icon-lg'} only %} {{ 'willpower.label'|trans }}
     (<span class="accent" data-trait-target="value">{{ current }}</span>/{{ max }})
   </h3>
   <div class="col-12 text-center">

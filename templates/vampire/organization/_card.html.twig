@@ -99,7 +99,7 @@
     {% endif %}
     <div class="covenant-{{ covenant.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
       <div class="fluff covenant-card-footer">{{ covenant.short|default("")|markdown_to_html }}
-        {% include "_source_block.html.twig" with {'element': covenant, 'class': 'text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: covenant, class: 'text-end fst-italic' } only %}
       </div>
     </div>
   </div>

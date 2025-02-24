@@ -32,7 +32,7 @@
         <div id="accordionBloodlines" class="accordion">
           {% for bloodline in bloodlines %}
             <div class="description-{{ bloodline.id }} collapse" data-bs-parent="#accordionBloodlines">
-              {% include "vampire/clan/_card.html.twig" with {'clan' : bloodline, 'isShown': false} %}
+              {% include "vampire/clan/_card.html.twig" with {clan : bloodline, 'isShown': false} %}
             </div>
           {% endfor %}
         </div>

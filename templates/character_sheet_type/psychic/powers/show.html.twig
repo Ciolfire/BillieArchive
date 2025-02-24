@@ -2,6 +2,6 @@
 
 <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
   {% for power in psychic.powers %}
-    {% include "character_sheet/merits/show/element.html.twig" with {'chMerit': power} %}
+    {% include "character_sheet/merits/show/element.html.twig" with {chMerit: power} %}
   {% endfor %}
 </div>

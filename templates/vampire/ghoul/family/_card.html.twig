@@ -15,7 +15,7 @@
       <h3>
         {{ family.name }} {% if family.clan %}({{ family.clan.name }}){% endif %}
         
-        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent icon-lg' } only %}{% endif %}
+        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
       </h3>
       <h5>{{ family.nickname }}</h5>
       {{ family.quote }}
@@ -42,7 +42,7 @@
     <div class="clan-{{ family.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
       <div class="fluff clan-card-footer">{{ family.short|default("")|markdown_to_html }}
         <div class="text-end">
-          {% include "_source.html.twig" with {'element': family } only %}
+          {% include "_source.html.twig" with {element: family } only %}
         </div>
       </div>
     </div>

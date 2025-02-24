@@ -14,9 +14,9 @@
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	{% include "_back.html.twig" with {link: path('wiki_index')} %}
 	<h1 class="user-select-none pt-3">
-		{% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-lg" } only %}
+		{% include "_icon.html.twig" with {icon : entity, 'class' : "icon-lg" } only %}
 		{% if clans is defined and clans is not empty %}
 			{{ "label.multi"|trans }}
 		{% else %}
@@ -66,7 +66,7 @@
 		{% if clans is defined and clans is not empty %}
 			<div class="row">
 				{% for clan in clans %}
-					{% include "vampire/clan/_card.html.twig" with {'clan' : clan} %}
+					{% include "vampire/clan/_card.html.twig" with {clan : clan} %}
 				{% endfor %}
 			</div>
 		{% endif %}
@@ -74,12 +74,12 @@
 			<div class="row">
 				{% if clans is defined and clans is not empty %}
 					<h1 class="mb-5 pt-3">
-						{% include "_icon.html.twig" with {'icon' : 'bloodline', 'class' : "icon-lg" } only %}
+						{% include "_icon.html.twig" with {icon : 'bloodline', 'class' : "icon-lg" } only %}
 						{{ "bloodline.label.multi"|trans }}
 					</h1>
 				{% endif %}
 				{% for bloodline in bloodlines %}
-					{% include "vampire/clan/_card.html.twig" with {'clan' : bloodline} %}
+					{% include "vampire/clan/_card.html.twig" with {clan : bloodline} %}
 				{% endfor %}
 			</div>
 		{% endif %}
@@ -106,12 +106,12 @@
 		{% if is_granted('ROLE_ST') %}
 			<div class="ms-auto">
 				<a class="btn btn-primary" href="{{ path('vampire_clan_new') }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'clan' } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+					{% include "_icon.html.twig" with {icon : 'clan' } only %}
 				</a>
 				<a class="btn btn-primary" href="{{ path('vampire_clan_new', {'bloodline': true}) }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'bloodline' } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+					{% include "_icon.html.twig" with {icon : 'bloodline' } only %}
 				</a>
 			</div>
 		{% endif %}
@@ -133,7 +133,7 @@
 								{{ element }}
 							{% endif %}
 						</span>
-						{% include "_icon_clan.html.twig" with {'icon' : element } only %}
+						{% include "_icon_clan.html.twig" with {icon : element } only %}
 					</a>
 				{% endfor %}
 			{% endfor %}

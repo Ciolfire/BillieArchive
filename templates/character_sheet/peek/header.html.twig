@@ -5,7 +5,7 @@
   {% block name %}
     <h1 class="text-center text">
       {% if access.hasRight('type') %}
-        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } %}
       {% endif %}
       {% set publicName = character.publicName(peeker) %}
       {% if publicName == "" %}

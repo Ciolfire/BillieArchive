@@ -61,7 +61,7 @@
     <div class="path-{{ path.id }} {{ collapse }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".path-{{ path.id }}" aria-expanded="false" aria-controls="{{ path.id }}">
       <div class="back-fluff path-card-footer">{{ path.short|default("")|markdown_to_html }}
         <div class="text-end">
-          {% include "_source.html.twig" with {'element': path } only %}
+          {% include "_source.html.twig" with {element: path } only %}
         </div>
       </div>
     </div>

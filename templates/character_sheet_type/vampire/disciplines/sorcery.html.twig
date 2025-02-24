@@ -11,7 +11,7 @@
         <h3>
           {{ sorcery.name }}
           {% if sorcery.homebrewFor is not null %}
-            {% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent' } only %}
+            {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}
           {% endif %}
         </h3>
       </div>
@@ -29,14 +29,14 @@
           {% block pool %}
             {% set powerPool = ritual.detailedDicePool(character) %}
             {% if powerPool is not null %}
-              <div class="float-end text-glow">{% include "_dice_pool.html.twig" with {'pool' : powerPool, 'contested' : ritual.contestedText } %}</div>
+              <div class="float-end text-glow">{% include "_dice_pool.html.twig" with {pool : powerPool, contested : ritual.contestedText } %}</div>
             {% endif %}
           {% endblock %}
         </div>
       </div>
       <div class="col-12 text-sub text-center">
         <div>{{ sorcery.short }}</div>
-        {% include "_source_block.html.twig" with {'element': sorcery } only %}
+        {% include "_source_block.html.twig" with {element: sorcery } only %}
       </div>
     </div>
 

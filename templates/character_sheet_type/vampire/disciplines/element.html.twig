@@ -69,7 +69,7 @@
                 data-vampire--power-link-param="{{ link|default(path('discipline_show', {'id': discipline.id})) }}"
               >
                 {{ 'power'|trans({'%count%': discipline.powers|length}, 'character') }}
-                {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}
+                {% include "_icon.html.twig" with {icon: 'info', class: 'icon-xs icon-neutral'} %}
               </span>
             {% else %}
               <span class="discipline-powers-{{ discipline.id }} text-center">
@@ -110,7 +110,7 @@
                       <h5 class="strong">{{ power.levelDots }}</h5>
                     </div>
                     <div class="col-6 text-center">
-                      <a class="heading d-inline-block w-100 h-100">{{ power.name }} {% include "_icon.html.twig" with {'icon': 'info', 'class': 'icon-xs icon-neutral'} %}</a>
+                      <a class="heading d-inline-block w-100 h-100">{{ power.name }} {% include "_icon.html.twig" with {icon: 'info', class: 'icon-xs icon-neutral'} %}</a>
                     </div>
                     <div class="col-3 text-end text-glow">
                       {% if powerPool != null %}

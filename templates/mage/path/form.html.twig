@@ -10,7 +10,7 @@
 
 
 {% block title %}{{ action|trans }}{% endblock %}
-{% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', 'class': 'icon-lg'} only %}{% endblock %}
+{% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
 
 {% block form %}
 {{ parent() }}

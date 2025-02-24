@@ -21,5 +21,8 @@
 
 
 {% block skill %}
-  {% include "character_sheet/skills/edit/element.html.twig" with {'base': attribute(character.skills, skill), 'min': attribute(character.skills, skill) } %}
+  {% include "character_sheet/skills/edit/element.html.twig" with {
+    base: attribute(character.skills, skill),
+    min: attribute(character.skills, skill)
+  } %}
 {% endblock %}

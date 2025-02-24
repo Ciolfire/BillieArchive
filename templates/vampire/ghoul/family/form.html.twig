@@ -3,7 +3,7 @@
 {% trans_default_domain 'ghoul' %}
 
 {% block title %}{{ (trans ~ action)|trans }}{% endblock %}
-{% block header %}{% include "_icon.html.twig" with {'icon' : entity, 'class': 'icon-lg'} only %}{{ (trans ~ action)|trans }}{% endblock %}
+{% block header %}{% include "_icon.html.twig" with {icon : entity, class: 'icon-lg'} only %}{{ (trans ~ action)|trans }}{% endblock %}
 
 {% block form %}
 {{ parent() }}

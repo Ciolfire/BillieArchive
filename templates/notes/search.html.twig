@@ -37,7 +37,7 @@
         </div>
         {% for note in notes %}
           <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#note-{{ note.id }}">
-            {% include "_icon.html.twig" with {'icon' : 'note' } %}
+            {% include "_icon.html.twig" with {icon : 'note' } %}
             {{ note.title ~ ' - ' ~ note.category|default('/') }}
           </button>
         {% endfor %}

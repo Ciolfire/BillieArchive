@@ -12,7 +12,7 @@
 {# {% block pool %}
   {% if sorcery.powers|length > 0 and (sorcery.powers|first).level == 0 %}
     {% set ritual = sorcery.powers|first %}
-      <div class="float-end">{% include "_dice_pool.html.twig" with {'pool' : ritual.detailedDicePool(character), 'contested' : ritual.contestedText} %}</div>
+      <div class="float-end">{% include "_dice_pool.html.twig" with {pool : ritual.detailedDicePool(character), contested : ritual.contestedText} %}</div>
   {% endif %}
 {% endblock %} #}
 
@@ -31,7 +31,7 @@
               <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
               <div class="ritual-text--{{ sorcery.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ sorcery.id }}">
                 {{ ritual.details|markdown_to_html }}
-                <div class="accent text-end">{% include "_source.html.twig" with {'element': ritual } only %}</div>
+                <div class="accent text-end">{% include "_source.html.twig" with {element: ritual } only %}</div>
               </div>
             </div>
           </div>

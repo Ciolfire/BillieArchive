@@ -44,7 +44,7 @@
     {% endif %}
     <div class="organization-{{ organization.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".organization-{{ organization.id }}" aria-expanded="false" aria-controls="{{ organization.id }}">
       <div class="fluff organization-card-footer">{{ organization.short|default("")|markdown_to_html }}
-        {% include "_source_block.html.twig" with {'element': organization, 'class': 'text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: organization, class: 'text-end fst-italic' } only %}
       </div>
     </div>
   </div>

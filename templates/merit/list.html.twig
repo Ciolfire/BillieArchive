@@ -50,7 +50,7 @@
       </span>
     </div>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
     {% endif %}
   </div>
   <div class="col-auto py-3 footer-collapse collapse">
@@ -64,10 +64,10 @@
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           {% if key == 'type' %}
             <span class="d-none d-md-inline">{{ (element)|trans({}, 'content-type') }}</span>
-            {% include "_icon.html.twig" with {'icon' : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
+            {% include "_icon.html.twig" with {icon : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
           {% else %}
             <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>
-            {% include "_icon.html.twig" with {'icon' : element } only %}
+            {% include "_icon.html.twig" with {icon : element } only %}
           {% endif %}
         </a>
       {% endfor %}

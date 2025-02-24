@@ -13,8 +13,8 @@
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
-	<h1 class="py-3">{% include "_icon.html.twig" with {icon: "item", 'class': 'icon-lg' } only %}<span>{{ "label.multi"|trans }}</span></h1>
+	{% include "_back.html.twig" with {link: path('wiki_index')} %}
+	<h1 class="py-3">{% include "_icon.html.twig" with {icon: "item", class: 'icon-lg' } only %}<span>{{ "label.multi"|trans }}</span></h1>
 	<div class="container block py-3">
 		<div class="row">
 			<div class="col-auto">
@@ -44,14 +44,14 @@
 		<input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
 		{% for type in constant('App\\Entity\\Item::TYPELIST') %}
       <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}">
-        {% include "_icon.html.twig" with {'icon' : type } only %}
+        {% include "_icon.html.twig" with {icon : type } only %}
       </a>
     {% endfor %}
 		{% if is_granted('ROLE_GM') %}
 			<div class="ms-auto">
 				<a class="btn btn-primary" href="{{ path('item_new') }}">
-					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-					{% include "_icon.html.twig" with {'icon' : 'item' } only %}
+					<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+					{% include "_icon.html.twig" with {icon : 'item' } only %}
 				</a>
 			</div>
 		{% endif %}

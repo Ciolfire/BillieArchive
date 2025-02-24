@@ -5,7 +5,7 @@
 {% set first = true %}
 
 {% block body %}
-  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {link: path('wiki_index')} %}
   {% include "_top.html.twig" %}
   {% include "roll/_element.html.twig" %}
 {% endblock %}

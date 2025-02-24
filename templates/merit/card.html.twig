@@ -20,6 +20,6 @@
       {# Could be used to copy a direct link to the merit #}
       <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-      {% include "element/_delete.html.twig" with {'element': 'merit', 'entity': merit} %}
+      {% include "element/_delete.html.twig" with {element: 'merit', 'entity': merit} %}
     {% endif %}
 {% endblock %}

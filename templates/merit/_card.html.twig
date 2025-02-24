@@ -14,11 +14,11 @@
       </div>
       <div class="col-3 col-md-2 text-strong">
         {% if merit.category %}{% include "_icon.html.twig" with {icon: merit.category } only %}{% endif %}
-        {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {'icon' : 'homebrew', 'class': 'accent', label: merit.homebrewFor.name } only %}{% endif %}
+        {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: merit.homebrewFor.name } only %}{% endif %}
         {% if not merit.isUnique %}{% include "_icon.html.twig" with {icon: 'infinity'} %}{% else %}{% include "_icon.html.twig" with {icon: 'unique', label: 'help.unique'|trans } %}{% endif %}
-        {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {'icon' : 'creation', label: 'help.creation'|trans } only %}{% endif %}
+        {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {icon : 'creation', label: 'help.creation'|trans } only %}{% endif %}
         {% if merit.isExpanded %}{% include "_icon.html.twig" with {icon: 'notebook', label: 'help.expanded'|trans } %}{% endif %}
-        {% if merit.isFighting %}{% include "_icon.html.twig" with {'icon' : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
+        {% if merit.isFighting %}{% include "_icon.html.twig" with {icon : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
       </div>
       <div class="col-3 col-md-1 text-strong">
         {% for i in 1..merit.min %}•{% endfor %}

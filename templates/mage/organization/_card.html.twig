@@ -59,7 +59,7 @@
     {# footer #}
     <div class="order-{{ order.id }} {{ collapse }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".mage-order-{{ order.id }}" aria-expanded="false" aria-controls="{{ order.id }}">
       <div class="order-card-footer back-fluff">{{ order.short|default("")|markdown_to_html }}
-        {% include "_source_block.html.twig" with {'element': order, 'class': 'text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: order, class: 'text-end fst-italic' } only %}
       </div>
     </div>
   </div>

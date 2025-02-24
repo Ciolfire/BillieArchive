@@ -55,7 +55,7 @@
               <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
               <div class="ritual-text--{{ discipline.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ discipline.id }}">
                 {{ ritual.details|markdown_to_html }}
-                <div class="accent text-end">{% include "_source.html.twig" with {'element': ritual } only %}</div>
+                <div class="accent text-end">{% include "_source.html.twig" with {element: ritual } only %}</div>
               </div>
             </div>
           </div>
@@ -72,8 +72,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('vampire_' ~ type ~ '_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : type } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon : type } only %}
         </a>
       </div>
     {% endif %}

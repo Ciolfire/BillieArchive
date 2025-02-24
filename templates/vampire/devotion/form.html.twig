@@ -25,7 +25,7 @@
     <div class="col col-md-6">
       <button class="btn btn-primary w-100">
         {{ ("action." ~ action|default('save'))|trans({}, 'app') }}
-        {% include "_icon.html.twig" with {'icon' : action} only %}
+        {% include "_icon.html.twig" with {icon : action} only %}
       </button>
     </div>
   </div>

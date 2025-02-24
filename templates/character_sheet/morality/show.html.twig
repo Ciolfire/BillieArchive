@@ -4,7 +4,7 @@
 
 {% block morality %}
   <div class="block col-12 user-select-none">
-    <h4>{% include "_icon.html.twig" with {'icon' : 'morality', 'class': 'icon-lg'} only %}
+    <h4>{% include "_icon.html.twig" with {icon : 'morality', class: 'icon-lg'} only %}
       {{ 'morality.label'|trans([], setting|default('human')) }}</h4>
     <div class="text-center morality">
       {% if is_granted('edit', character) %}

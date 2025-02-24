@@ -25,7 +25,7 @@
                 <h2>
                   {{ subrule.title }}
                   <span class="text-sub fs-6">
-                    {% include "_source_block.html.twig" with {'element': subrule} %}
+                    {% include "_source_block.html.twig" with {element: subrule} %}
                   </span>
                 </h2>
                 {{ subrule.details|markdown_to_html }}
@@ -35,5 +35,5 @@
         </div>
       </div>
     </div>
-    {% include "_back.html.twig" with {'link': path('rule_index')} %}
+    {% include "_back.html.twig" with {link: path('rule_index')} %}
   {% endblock %}

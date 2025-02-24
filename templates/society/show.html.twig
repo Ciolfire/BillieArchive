@@ -8,20 +8,20 @@
 
 {% block body %}
   {% if society.chronicle is defined %}
-    {% include "_back.html.twig" with {'link': path('chronicle_society_index', {'id': society.chronicle.id })} %}
+    {% include "_back.html.twig" with {link: path('chronicle_society_index', {'id': society.chronicle.id })} %}
   {% else %}
     {% include "_back.html.twig" %}
   {% endif %}
 
   <div class="container block py-3">
     <h1>
-      {% include "_icon.html.twig" with {'icon' : 'society', 'class': 'icon-lg' } only %}
+      {% include "_icon.html.twig" with {icon : 'society', class: 'icon-lg' } only %}
       {{ society.name }}
     </h1>
     {% if society.type %}
       <h2>
         <span class="accent">
-          {% include "_icon.html.twig" with {'icon' : society.type, 'class': 'icon-lg accent' } only %}
+          {% include "_icon.html.twig" with {icon : society.type, class: 'icon-lg accent' } only %}
           {{ ('type.' ~ society.type)|trans }}
         </span>
       </h2>
@@ -32,7 +32,7 @@
       </div>
       <h3>
         <a href="{{ path("organization_show", {'id': society.organization.id}) }}">
-          {% include "_icon.html.twig" with {'icon' : 'covenant' } only %}
+          {% include "_icon.html.twig" with {icon : 'covenant' } only %}
           {{ society.organization }}
         </a>
       </h3>
@@ -40,11 +40,11 @@
     <p>{{ society.description }}</p>
     <div class="row">
       {% for character in society.characters %}
-        {% include "character/_card.html.twig" with {'showChronicle': 0} %}
+        {% include "character/_card.html.twig" with {showChronicle: 0} %}
       {% endfor %}
     </div>
   </div>
-  {% include "element/_delete.html.twig" with {'element': 'society', 'entity': society} %}
+  {% include "element/_delete.html.twig" with {element: 'society', 'entity': society} %}
 {% endblock %}
 
 {% block footerContent %}

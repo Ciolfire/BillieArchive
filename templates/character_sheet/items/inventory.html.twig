@@ -23,7 +23,7 @@
     <div class="row" data-character--item-target="container" data-container="0" data-controller="search" data-search-type-value="item">
       <div class="col-12 text-center py-2 sticky-element">
         <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
-        {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+        {% include "_icon.html.twig" with {icon : 'search' } only %}
       </div>
       {% for item in character.items %}
         {% if not item.isContainer and item.container is null %}
@@ -39,7 +39,7 @@
       <div class="row" data-character--item-target="container" data-container="{{ container.id }}" data-controller="search" data-search-type-value="item">
         <div class="col-12 text-center py-2 sticky-element">
           <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
-          {% include "_icon.html.twig" with {'icon' : 'search' } only %}
+          {% include "_icon.html.twig" with {icon : 'search' } only %}
         </div>
         {% for item in container.containedItems %}
           {% include "character_sheet/items/_card.html.twig" with {class: 'col-12 col-md-6 col-lg-4 mb-3'} %}

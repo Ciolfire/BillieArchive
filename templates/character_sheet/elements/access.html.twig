@@ -3,7 +3,7 @@
 {% trans_default_domain 'character' %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('character_show', {'id': character.id}) } %}
+	{% include "_back.html.twig" with {link: path('character_show', {id: character.id}) } %}
 	<div class="container-fluid container-lg py-3" data-controller="character--access">
 		<div class="row justify-content-center">
 			<h1 class="text-center mt-5">{{ ('infos.details.edit')|trans }}</h1>

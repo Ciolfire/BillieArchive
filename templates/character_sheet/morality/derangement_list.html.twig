@@ -4,7 +4,7 @@
   {% for derangement in derangements %}
     <div id="derangement-{{ derangement.id }}-{{ tag|default('new') }}" class="col-12 collapse" data-bs-parent="#{{ id|default('accordionDerangement') }}">
       <h5>
-        {% if derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', 'class': 'accent', label: "help.extreme"|trans } %}{% endif %}
+        {% if derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}{% endif %}
         {{ derangement.name }}{% if not derangement.isMild %} ({{ derangement.previousAilment.name }} - {{ "severe"|trans }}){% endif %}
         {% if derangement.type %}{% include "_icon.html.twig" with {icon: ("type/" ~ derangement.type)|default('')} %}{% endif %}
       </h5>

@@ -14,13 +14,13 @@
 {% endblock %}
 
 {% block body %}
-  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {link: path('wiki_index')} %}
   <div class="container">
     <div class="row mb-3">
       <div class="col-12">
         <div class="block p-2">
           <h1 class="user-select-none">
-            {% include "_icon.html.twig" with {'icon' : entity, 'class' : "icon-lg" } only %}
+            {% include "_icon.html.twig" with {icon : entity, 'class' : "icon-lg" } only %}
             {{ "family.label.multi"|trans }}
           </h1>
           <div class="col-auto">
@@ -50,7 +50,7 @@
     {% if families is defined %}
       <div class="row">
         {% for family in families %}
-          {% include "vampire/ghoul/family/_card.html.twig" with {'family' : family} %}
+          {% include "vampire/ghoul/family/_card.html.twig" with {family: family} %}
         {% endfor %}
       </div>
     {% endif %}
@@ -74,8 +74,8 @@
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('ghoul_family_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</span>
-          {% include "_icon.html.twig" with {'icon' : 'ghoul_family' } only %}
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon : 'ghoul_family' } only %}
         </a>
       </div>
     {% endif %}
@@ -90,7 +90,7 @@
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-parent data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           <span class="d-none d-md-inline">{% if key != 'clan' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}</span>
-          {% include "_icon.html.twig" with {'icon' : element } only %}
+          {% include "_icon.html.twig" with {icon : element } only %}
         </a>
       {% endfor %}
     {% endfor %}

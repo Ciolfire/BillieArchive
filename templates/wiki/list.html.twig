@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	{% include "_back.html.twig" with {link: path('wiki_index')} %}
 	{% include "_top.html.twig" %}
 	<h1 class="py-3">
 		{% include "_icon.html.twig" with {icon: entity, class: 'icon-lg' } only %}
@@ -85,7 +85,7 @@
 				</span>
 			</div>
 			{% if is_granted('ROLE_ST') and isFixed|default(false) != true %}
-				<a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
+				<a class="btn btn-primary ms-auto" href="{{ path(entity ~ '_new', {'setting': setting}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
 			{% endif %}
 		</div>
 		<div class="col-auto py-3 footer-collapse collapse">
@@ -94,7 +94,7 @@
 				{% for element in elements %}
 					<a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
 						<span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans({}, entity) }}</span>
-						{% include "_icon.html.twig" with {'icon' : element } only %}
+						{% include "_icon.html.twig" with {icon : element } only %}
 					</a>
 				{% endfor %}
 			{% endfor %}

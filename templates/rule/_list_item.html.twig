@@ -6,7 +6,7 @@
   <div class="col-12 btn btn-primary rounded-0 my-1">
     <h3>
       {% if rule.type and setting != rule.type %}
-        {% include "_icon.html.twig" with {icon: 'type/' ~ rule.type, 'class': 'icon-lg' } %}
+        {% include "_icon.html.twig" with {icon: 'type/' ~ rule.type, class: 'icon-lg' } %}
       {% endif %}
       <span class="text-default">{{ rule.title }}</span>
     </h3>
@@ -17,7 +17,7 @@
       {% for subrule in rule.subrules %}
         <div class="col-4 mt-3 text-center {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
           <h5><span class="text-default">{{ subrule.title }}</span></h5>
-          {% include "_source.html.twig" with {'element': subrule, 'hasLink': 0 } only %}
+          {% include "_source.html.twig" with {element: subrule, 'hasLink': 0 } only %}
           {# <p>{{ "source"|trans({'page': subrule.page, 'book': subrule.book.short }) }}</p> #}
         </div>
       {% endfor %}

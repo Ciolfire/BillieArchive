@@ -4,7 +4,7 @@
 <div class="container block py-3">
   <div class="accordion" id="accordionMerits">
     {% for power in powers|sort((a, b) => a.name|lower <=> b.name|lower)  %}
-      {% include "merit/card.html.twig" with {'merit': power} %}
+      {% include "merit/card.html.twig" with {merit: power} %}
     {% endfor %}
   </div>
 </div>

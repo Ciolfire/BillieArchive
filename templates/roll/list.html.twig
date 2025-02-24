@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-  {% include "_back.html.twig" with {'link': path('wiki_index')} %}
+  {% include "_back.html.twig" with {link: path('wiki_index')} %}
   <div class="container block-neutral py-3">
     <div class="row py-3">
       <h1 class="text-strong">
@@ -26,7 +26,7 @@
       </div>
     </div>
     {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto w-100" href="{{ path('roll_new') }}">{% include "_icon.html.twig" with {'icon' : 'add' } only %}</a>
+      <a class="btn btn-primary ms-auto w-100" href="{{ path('roll_new') }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
     {% endif %}
     <div class="mt-3">
       <div class="row">

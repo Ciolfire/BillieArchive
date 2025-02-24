@@ -18,9 +18,9 @@
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {'link': path('wiki_index')} %}
+	{% include "_back.html.twig" with {link: path('wiki_index')} %}
 	<h1 class="user-select-none pt-3">
-		{% include "_icon.html.twig" with {'icon' : 'covenant', 'class' : "icon-lg" } only %}
+		{% include "_icon.html.twig" with {icon : 'covenant', 'class' : "icon-lg" } only %}
 		{{ label|default("label.multi")|trans }}
 	</h1>
 	<div class="container">
@@ -66,7 +66,7 @@
 		{% if organizations is defined and organizations is not empty %}
 			<div class="row">
 				{% for organization in organizations %}
-					{% include setting ~ "/organization/_card.html.twig" with {'organization' : organization} only %}
+					{% include setting ~ "/organization/_card.html.twig" with {organization: organization} only %}
 				{% endfor %}
 			</div>
 		{% endif %}

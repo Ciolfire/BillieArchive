@@ -3,7 +3,7 @@
 <div class="{% if currentNote is  defined and currentNote is same as(note) %}show{% endif %} collapse note" id="note-{{ note.id }}" data-bs-parent="#note-list">
   <div class="note-content position-relative">
     <div class="note-header">
-      <h5 class="note-title">{% include "_icon.html.twig" with {'icon' : 'note' } %} {{ note.assignedAt|format_datetime('full', 'none') }}</h5>
+      <h5 class="note-title">{% include "_icon.html.twig" with {icon : 'note' } %} {{ note.assignedAt|format_datetime('full', 'none') }}</h5>
     </div>
     <div class="note-body p-3">
       {{ note.content|markdown_to_html }}

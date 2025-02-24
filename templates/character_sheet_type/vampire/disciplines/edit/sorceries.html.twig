@@ -11,7 +11,10 @@
     {% if max == 0 %}{% set max = 5 %}{% endif %}
     <div class="col-12 justify-content-center">
       <div class="w-100 container g-0">
-        {% include "character_sheet_type/vampire/disciplines/edit/sorcery.html.twig" with { 'characterDiscipline': characterDiscipline, 'sorcery': characterDiscipline.discipline } %}
+        {% include "character_sheet_type/vampire/disciplines/edit/sorcery.html.twig" with {
+          characterDiscipline: characterDiscipline,
+          sorcery: characterDiscipline.discipline
+        } %}
       </div>
     </div>
   {% endfor %}
@@ -22,7 +25,7 @@
       {% set base = 0 %}
       {% set max = discipline.maxLevel %}
       {% if max == 0 %}{% set max = 5 %}{% endif %}
-      {% include "character_sheet_type/vampire/disciplines/edit/sorcery.html.twig" with {'sorcery' : discipline } %}
+      {% include "character_sheet_type/vampire/disciplines/edit/sorcery.html.twig" with {sorcery: discipline } %}
     </div>
   {% endfor %}
 {% endblock %}

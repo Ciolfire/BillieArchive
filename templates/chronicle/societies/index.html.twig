@@ -7,7 +7,7 @@
 {% block title %}{{ "label.multi"|trans }}{% endblock %}
 
 {% block body %}
-{% include "_back.html.twig" with {'link': path('chronicle_show', {'id': chronicle.id })} %}
+{% include "_back.html.twig" with {link: path('chronicle_show', {'id': chronicle.id })} %}
 <div class="container">
   <div class="row justify-content-center">
     <div class="block py-3">
@@ -25,13 +25,13 @@
               </h4>
               {% if society.type %}
                 <span class="">
-                  {% include "_icon.html.twig" with {'icon' : society.type, class: 'accent' } only %}
+                  {% include "_icon.html.twig" with {icon : society.type, class: 'accent' } only %}
                   {{ ('type.' ~ society.type)|trans }}
                   —
                 </span>
               {% endif %}
-              {% include "_icon.html.twig" with {'icon' : 'person', class: 'icon-sm' } only %}
-              {# {% include "_icon_setting.html.twig" with {'setting' : society.setting, 'size': 1 } only %} #}
+              {% include "_icon.html.twig" with {icon : 'person', class: 'icon-sm' } only %}
+              {# {% include "_icon_setting.html.twig" with {setting : society.setting, size: 1 } only %} #}
               <span class="accent">{{ society.characters|length }}</span>
             </a>
           </div>

@@ -12,7 +12,7 @@
       {% include "_icon.html.twig" with {icon: 'homebrew'} only %} {{ "homebrew"|trans }} - {{ chronicle.name }}
     </h1>
     <div class="block row my-2">
-      <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'human' } %} {{ "human.label"|trans({}, 'setting') }}</h2>
+      <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'human' } %} {{ "human.label"|trans({}, 'setting') }}</h2>
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary human-btn w-100 m-2" href="{{path('merit_list', {filter: 'chronicle', id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'merit' } only %}
@@ -36,7 +36,7 @@
 
 
     <div class="block vampire row my-2">
-      <h2 class="py-2">{% include "_icon_setting.html.twig" with {'setting': 'vampire' } %} {{ "vampire.label"|trans({}, 'setting') }}</h2>
+      <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'vampire' } %} {{ "vampire.label"|trans({}, 'setting') }}</h2>
       <div class="col-12">
         <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {type: 'vampire', id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'type/vampire' } only %}
@@ -137,6 +137,6 @@
   </div>
 </div>
 
-{% include "_back.html.twig" with {'link': path('chronicle_show', {id: chronicle.id}) } %}
+{% include "_back.html.twig" with {link: path('chronicle_show', {id: chronicle.id}) } %}
 
 {% endblock %}
