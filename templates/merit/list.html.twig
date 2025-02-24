@@ -17,8 +17,8 @@
   {% endif %}
 
   <h1 class="py-3">{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
-  <div class="container block py-3">
-    <div class="row py-3">
+  <div class="container block">
+    <div class="row py-3 justify-content-center">
       <div class="col-auto">
         {% if description is defined and description is not null and description.value is not empty %}
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
