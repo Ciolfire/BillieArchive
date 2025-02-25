@@ -39,12 +39,13 @@ class PrerequisiteType extends AbstractType
       'choices' => $types->getConstants(),
       'choice_translation_domain' => 'prerequisite',
       'choice_label' => function ($choice, string $key): TranslatableMessage|string {
-        // dd(new TranslatableMessage($key, [], 'prerequisite'));
         return new TranslatableMessage($key, [], 'prerequisite');
       },
       'attr' => [
         'data-prerequisite-target' => 'type',
         'data-action' => 'change->prerequisite#load',
+        'data-prerequisite-type-param' => $options['type'],
+        'data-prerequisite-homebrew-param' => $options['homebrew'],
       ],
       ])
       ->add('choice', ChoiceType::class, [
@@ -99,6 +100,7 @@ class PrerequisiteType extends AbstractType
         'class' => "bdr p-2 rounded",
       ],
       'type' => null,
+      'homebrew' => null,
     ]);
   }
 }

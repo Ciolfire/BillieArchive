@@ -18,7 +18,7 @@
   <div class="container block {% if isLight %}block-light{% else %}block{% endif %} py-3 mt-5">
     <div class="row">
       <div class="col">
-        {% include "_form.html.twig" %}
+        {% block form %}{% include "_form.html.twig" %}{% endblock %}
       </div>
     </div>
   </div>

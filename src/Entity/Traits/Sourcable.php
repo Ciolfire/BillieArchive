@@ -7,7 +7,7 @@ use App\Entity\Book;
 
 trait Sourcable {
   #[ORM\ManyToOne(targetEntity: Book::class)]
-  protected ?Book $book;
+  protected ?Book $book = null;
 
   #[ORM\Column(type: "smallint", nullable: true)]
   protected ?int $page;

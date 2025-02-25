@@ -728,7 +728,7 @@ class CharacterService
           switch ($character->getLesserTemplate()::class) {
             case Ghoul::class:
               // for ghoul
-              // $removables = array_merge($removables, $this->vampireService->getGhoulRemovableAttributes());
+              $removables = array_merge($removables, $this->vampireService->getGhoulRemovableAttributes());
               break;
           }
         }

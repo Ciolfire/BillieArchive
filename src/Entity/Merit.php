@@ -263,4 +263,20 @@ class Merit implements Translatable
 
     return $this;
   }
+
+  public function detailedName(): string
+  {
+    $source = "";
+    if ($this->getHomebrewFor()) {
+      $source = " — {$this->homebrewFor->getName()}";
+    } else if ($this->book) {
+      $source = " — {$this->book->getName()}";
+    }
+    $type = "";
+    if ($this->type) {
+      $type = " [{$this->type->getName()}]";
+    }
+
+    return $this->name.$type.$source;
+  }
 }

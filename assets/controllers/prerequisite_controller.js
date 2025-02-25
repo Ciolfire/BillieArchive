@@ -11,7 +11,9 @@ export default class extends Controller {
 
   connect()
   {
-    this.load();
+    // Should start load
+    this.typeTarget.dispatchEvent(new Event("change"));
+
     this.listTarget.name = "";
     if (this.idTarget.value != "") {
       this.listTarget.value = this.idTarget.value;
@@ -27,14 +29,14 @@ export default class extends Controller {
     this.idTarget.value = this.listTarget.value;
   }
 
-  load() {
+  load(event) {
     window
     .fetch(`/fetch/${document.location.pathname.split('/')[1]}/load/prerequisites`, {
       headers: {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
       },
-      body: JSON.stringify({'value': this.typeTarget.value }),
+      body: JSON.stringify({'value': this.typeTarget.value, 'type': event.params.type, 'homebrew': event.params.homebrew }),
       method: "POST"
     })
     .then((response) => {

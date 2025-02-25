@@ -490,9 +490,16 @@ class VampireService
       'potency' => ['label' => 'potency.label', 'domain' => 'vampire'],
       'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
       'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
-      // 'merit' => [],
-      // 'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
-      // 'derangement' => [],
+    ];
+
+    return $removables;
+  }
+
+  public function getGhoulRemovableAttributes()
+  {
+    $removables = [
+      'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
+      'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
     ];
 
     return $removables;

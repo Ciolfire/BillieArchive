@@ -73,4 +73,9 @@ class CharacterSpecialty
 
     return $this;
   }
+
+  public function detailedName(): string
+  {
+    return "{$this->name} ({$this->skill->getName()})";
+  }
 }

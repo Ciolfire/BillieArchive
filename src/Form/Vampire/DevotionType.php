@@ -39,7 +39,11 @@ class DevotionType extends AbstractType
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
         'entry_type' => PrerequisiteType::class,
-        'entry_options' => ['label' => false, 'type' => 'devotion'],
+        'entry_options' => [
+          'label' => false, 
+          'type' => 'devotion', 
+          'homebrew' => !is_null($devotion->getHomebrewFor()) ? $devotion->getHomebrewFor()->getId() : null,
+        ],
         'allow_add' => true,
         'allow_delete' => true,
       ])

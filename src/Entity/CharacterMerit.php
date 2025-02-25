@@ -128,4 +128,14 @@ class CharacterMerit
 
     return $this;
   }
+
+  public function detailedName(): string
+  {
+    if ($this->choice) {
+      
+      return "{$this->merit->getName()} ($this->level) — {$this->choice}";
+    }
+    
+    return "{$this->merit->getName()} ($this->level)";
+  }
 }

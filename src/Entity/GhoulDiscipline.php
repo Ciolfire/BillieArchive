@@ -92,4 +92,9 @@ class GhoulDiscipline
     }
     return 'discipline';
   }
+
+  public function detailedName(): string
+  {
+    return "{$this->discipline->getName()} — {$this->level}";
+  }
 }

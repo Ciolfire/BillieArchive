@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Homebrewable {
   #[ORM\ManyToOne(targetEntity: Chronicle::class)]
-  private ?Chronicle $homebrewFor;
+  private ?Chronicle $homebrewFor = null;
 
   public function getHomebrewFor(): ?Chronicle
   {

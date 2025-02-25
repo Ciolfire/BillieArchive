@@ -38,15 +38,27 @@ class FetchController extends AbstractController
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
+      $label = "name";
       if (str_contains($data->value, "App\Entity")) {
+        // Set the context
+        if ($data->homebrew) {
+          $filters = ['homebrewFor' => [null, "{$data->homebrew}"]];
+        } else {
+          $filters = ['homebrewFor' => null];
+        }
         // The choice is an entity, we get them
         switch ($data->value) {
           case "App\Entity\Clan":
-            $choices = $this->dataService->findBy($data->value, [], ['isBloodline' => 'ASC', 'name' => 'ASC']);
+            $choices = $this->dataService->findBy($data->value, $filters, ['isBloodline' => 'ASC', 'name' => 'ASC']);
             break;
-
-          default:
+          case "App\Entity\Attribute":
+          case "App\Entity\Skill":
             $choices = $this->dataService->findBy($data->value, [], ['name' => 'ASC']);
+            break;
+          case "App\Entity\Merit":
+            $label = "detailedName";
+          default:
+            $choices = $this->dataService->findBy($data->value, $filters, ['name' => 'ASC']);
             break;
         }
       } else {
@@ -55,6 +67,7 @@ class FetchController extends AbstractController
 
       $choices = $this->render('forms/choices.html.twig', [
         'choices' => $choices,
+        'label' => $label,
       ])->getContent();
       return new JsonResponse(['choices' => $choices]);
     } else {
@@ -94,6 +107,7 @@ class FetchController extends AbstractController
         ],
       ];
 
+      $label = "name";
       switch ($data->type) {
         case "attribute":
           $attributes = $character->getPositiveAttributes();
@@ -101,7 +115,6 @@ class FetchController extends AbstractController
           $repo = $this->dataService->getDoctrine()->getRepository(Attribute::class);
           $choices = $repo->filterByIdentifiers($attributes);
           $identifier = 'identifier';
-          $label = 'name';
           break;
         case "skill":
           $skills = $character->getLearnedSkills();
@@ -109,17 +122,16 @@ class FetchController extends AbstractController
           $repo = $this->dataService->getDoctrine()->getRepository(Skill::class);
           $choices = $repo->filterByIdentifiers($skills);
           $identifier = 'identifier';
-          $label = 'name';
           break;
-        case "merit":
+        case 'merit':
           $choices = $character->getMerits();
-          $identifier = 'id';
-          $label = 'name';
+          $identifier = "id";
+          $label = "detailedName";
           break;
         case "specialty":
           $choices = $character->getSpecialties();
           $identifier = 'id';
-          $label = 'name';
+          $label = "detailedName";
           unset($methods[0]);
           break;
         case "willpower":
@@ -142,7 +154,6 @@ class FetchController extends AbstractController
           }
           unset($methods[0]);
           $identifier = 'id';
-          $label = 'name';
           break;
         case "discipline":
           if ($character instanceof Vampire) {
@@ -154,8 +165,7 @@ class FetchController extends AbstractController
             }
           }
           $identifier = 'id';
-          $label = 'name';
-          break;
+          $label = "detailedName";
           break;
         case "ritual":
           break;
