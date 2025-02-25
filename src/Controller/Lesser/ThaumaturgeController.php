@@ -49,7 +49,7 @@ class ThaumaturgeController extends AbstractController
   #[Route('/wiki/tradition/{id<\d+>}', name: 'thaumaturge_tradition_show', methods: ['GET'])]
   public function traditionShow(ThaumaturgeTradition $tradition): Response
   {
-    return $this->render('thaumaturge/tradition/show.html.twig', [
+    return $this->render('human/lesser/thaumaturge/tradition/show.html.twig', [
       'tradition' => $tradition,
     ]);
   }

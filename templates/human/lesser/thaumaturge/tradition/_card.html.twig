@@ -2,14 +2,15 @@
 
 <div class="col-12">
   <div id="tradition-{{ tradition.id }}" class="block m-2 p-2 position-relative">
+      <a class="position-absolute start-0 ps-1" href="{{ path('thaumaturge_tradition_show', {id: tradition.id}) }}">{% include "_icon.html.twig" with {icon: 'show'} only %}</a>
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('thaumaturge_tradition_edit', {id: tradition.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="position-absolute end-0 pe-1" href="{{ path('thaumaturge_tradition_edit', {id: tradition.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
-    <div data-bs-toggle="collapse" data-bs-target="#tradition-details-{{ tradition.id }}" aria-expanded="false" aria-controls="#tradition-details-{{ tradition.id }}" role="button">
+    <div {% if not shown|default(false) %}data-bs-toggle="collapse" data-bs-target="#tradition-details-{{ tradition.id }}" aria-expanded="false" aria-controls="#tradition-details-{{ tradition.id }}" role="button"{% endif %}>
       <h1>{{ tradition.name }}</h1>
       <blockquote>{{ tradition.quote }}</blockquote>
     </div>
-    <div id="tradition-details-{{ tradition.id }}" class="collapse">
+    <div id="tradition-details-{{ tradition.id }}" class="{% if not shown|default(false) %}collapse{% endif %}">
       <p>{{ tradition.description|markdown_to_html }}</p>
 
       <hr>

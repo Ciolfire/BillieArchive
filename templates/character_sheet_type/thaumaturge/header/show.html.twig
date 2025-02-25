@@ -1,0 +1,25 @@
+{% trans_default_domain 'thaumaturge' %}
+
+{% extends "character_sheet/header/show.html.twig" %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+        {% if thaumaturge.tradition|default(null) %}
+        <a href="{{ path("thaumaturge_tradition_show", {'id': thaumaturge.tradition.id}) }}">
+          {% include "_icon.html.twig" with {icon: 'tradition', class: 'icon-lg' } only %}
+          {{ thaumaturge.tradition.name }}
+        </a>
+        {% endif %}
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
