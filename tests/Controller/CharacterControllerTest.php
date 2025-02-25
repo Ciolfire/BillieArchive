@@ -67,8 +67,14 @@ class CharacterControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/character/new');
+    $crawler = $client->request('GET', '/en/character/new');
     self::assertResponseIsSuccessful();
+
+    $form = $crawler->selectButton('Create')->form();
+    $client->submit($form, [
+      'character[firstName]' => 'ciol',
+    ]);
+    self::assertTrue($crawler->filter('html:contains("Ciol")')->count() > 0);
   }
 
   public function testPremadeNew(): void
