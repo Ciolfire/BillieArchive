@@ -1,7 +1,19 @@
 {% trans_default_domain 'psychic' %}
 
-<div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
-  {% for power in psychic.powers %}
-    {% include "character_sheet/merits/show/element.html.twig" with {chMerit: power} %}
-  {% endfor %}
+<div class="row">
+  <div class="col-12 col-lg-4 block">
+    <h1>{{ "power.label.multi"|trans }}</h1>
+    <ul>
+      <li>{{ "power.cost"|trans }}</li>
+      <li>{{ "power.concentrate"|trans }}</li>
+      <li>{{ "power.sheep"|trans }}</li>
+    </ul>
+  </div>
+  <div class="col-12 col-lg-8">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
+      {% for power in psychic.powers %}
+        {% include "character_sheet/merits/show/element.html.twig" with {chMerit: power} %}
+      {% endfor %}
+    </div>
+  </div>
 </div>

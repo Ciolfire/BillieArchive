@@ -1,0 +1,9 @@
+
+
+power:
+  label:
+    single: Psychic Power
+    multi: Psychic Powers
+  cost: Usually, cost 1 Willpower
+  concentrate: During concentration, can only move, lose Defense. If harmed, Resolve + Composure or break concentration
+  sheep: The more people present, and the more doubting they are, the harder to use
