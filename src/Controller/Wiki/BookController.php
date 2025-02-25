@@ -22,7 +22,7 @@ class BookController extends AbstractController
   }
 
   #[Route('/books/{setting}', name: 'book_index', methods: ['GET'])]
-  public function books(string $setting = "human"): Response
+  public function list(string $setting = "human"): Response
   {
     $search = [];
     // $search['setting'] = [$setting];
@@ -42,7 +42,7 @@ class BookController extends AbstractController
   }
 
   #[Route('/book/new/{setting}', name: 'book_new', methods: ['GET', 'POST'])]
-  public function bookNew(Request $request, string $setting="human"): Response
+  public function new(Request $request, string $setting="human"): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -70,8 +70,16 @@ class BookController extends AbstractController
     ]);
   }
 
+  #[Route('/book/{id<\d+>}', name: 'book_show', methods: ['GET'])]
+  public function show(Book $book): Response
+  {
+    return $this->render('book/show.html.twig', [
+      'book' => $book,
+    ]);
+  }
+
   #[Route('/book/{id<\d+>}/edit', name: 'book_edit', methods: ['GET', 'POST'])]
-  public function bookEdit(Request $request, Book $book): Response
+  public function edit(Request $request, Book $book): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 

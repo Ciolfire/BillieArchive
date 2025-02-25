@@ -59,9 +59,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row accordion" id="{{ entity }}List">
 				{% for element in elements %}
-					{% include entity ~ "/_card.html.twig" with { (entity): element} %}
+          <div class="col-12 col-lg-6 py-2">
+            {% include entity ~ "/_card.html.twig" with { (entity): element} %}
+          </div>
 				{% endfor %}
 			</div>
 		</div>

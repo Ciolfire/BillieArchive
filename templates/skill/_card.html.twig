@@ -9,7 +9,7 @@
         {{ skill.name }}
       </h2>
     </div>
-		<div class="details{{ skill.id }} collapse">
+		<div class="details{{ skill.id }} collapse" data-bs-parent="#skillList">
       <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
       <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
     </div>

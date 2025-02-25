@@ -2,26 +2,6 @@
 
 {% extends "character_sheet/header/show.html.twig" %}
 
-{% block name %}
-<div class="col-12">
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <h1 class="py-2 text-stylized">
-        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
-        <span class="text-strong">{{ character.name }}</span>
-      </h1>
-      <h2>
-        {% if character.player is not null and app.user != character.player %}
-          ({{ character.player }})
-        {% elseif character.isPremade == true %}
-          {% include "_icon.html.twig" with {icon: 'premade', class: 'ms-5', label: "premade.label.single"|trans({}, 'character')} %}
-        {% endif %}
-      </h2>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
 {% block leftCol %}
   <div class="row">
     <div class="col-12">
@@ -30,7 +10,7 @@
             {% if ghoulCharacter.family.emblem %}
               <span class="icon link-icon"><img src="{{ asset(ghoulCharacter.family.emblem, 'ghoul_family_emblems') }}"></span>
             {% else %}
-              {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
+              {% include "_icon.html.twig" with {icon: 'ghoul_family', class: 'icon-lg' } only %}
             {% endif %}
             {{ ghoulCharacter.family.name }}
         </a>

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'book' %}
+
+{% set setting = book.setting %}
+
+{% block title %}{{ "label.single"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {% include "book/_card.html.twig" with {book : book, isShown: true} %}
+  </div>
+
+  {% include "_back.html.twig" %}
+{% endblock %}

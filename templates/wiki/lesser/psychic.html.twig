@@ -12,24 +12,30 @@
     {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}{{ "psychic"|trans({}, 'content-type') }}
   </h1>
   <div class="container-fluid container-lg">
-    <div class="row block" data-controller="tabs" data-tabs-initial-value="merits">
-      {# tabs #}
-      <ul class="nav tabs g-0">
-        {# {% include "_tab.html.twig" with {name: 'infos', icon: 'info', label: 'infos'|trans(domain: 'app')} only %} #}
-        {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
-      </ul>
-      {# content #}
-      {# infos #}
-      {# <div id="infos" class="tab-content py-0 d-none" data-tabs-target="page">
-        <div class="row">
-        </div>
-      </div> #}
-      {# merits #}
-      <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
-        <div class="col-12">
-          {% for merit in powers|sort((a, b) => a.name|lower <=> b.name|lower) %}
-            {% include 'merit/card.html.twig' %}
-          {% endfor %}
+    <div class="row" data-controller="tabs" data-tabs-initial-value="merits">
+      <div class="col-12">
+        <div class="block">
+          {# tabs #}
+          <ul class="nav tabs g-0">
+            {# {% include "_tab.html.twig" with {name: 'infos', icon: 'info', label: 'infos'|trans(domain: 'app')} only %} #}
+            {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
+          </ul>
+          {# content #}
+          {# infos #}
+          {# <div id="infos" class="tab-content py-0 d-none" data-tabs-target="page">
+            <div class="row">
+            </div>
+          </div> #}
+          {# merits #}
+          <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
+            <div class="row">
+              <div class="col-12 p-2">
+                {% for merit in powers|sort((a, b) => a.name|lower <=> b.name|lower) %}
+                  {% include 'merit/card.html.twig' %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
