@@ -32,6 +32,7 @@ class MeritRepository extends ServiceEntityRepository
     $query = $this->createQueryBuilder('m')
       ->innerJoin('m.type', 'ct')
       ->where('ct.name = :type')
+      ->orderBy('m.name', 'ASC')
       ->setParameter('type', $type)
     ;
     return $query;
@@ -42,6 +43,7 @@ class MeritRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('m')
       ->innerJoin('m.type', 'ct')
       ->where('ct.name = :type')
+      ->orderBy('m.name', 'ASC')
       ->setParameter('type', $type)
       ->getQuery()
       ->getResult()
