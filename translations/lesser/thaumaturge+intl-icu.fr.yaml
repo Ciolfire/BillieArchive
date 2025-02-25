@@ -2,6 +2,12 @@ label:
   single: Thaumaturge
   multi:  Thaumaturges
 
+ritual:
+  performing: Performing Rituals
+  cost: Cost 1 Willpower per use
+  action: Always Extended Action
+  success: Usually, min. success required = Dots of the Merit
+  rolls: Max rolls = Attribute + Skill
 
 tradition:
   label:

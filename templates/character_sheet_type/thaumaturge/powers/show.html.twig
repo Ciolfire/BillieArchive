@@ -1,7 +1,20 @@
 {% trans_default_domain 'thaumaturge' %}
 
-<div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
-  {% for merit in thaumaturge.merits %}
-    {% include "character_sheet/merits/show/element.html.twig" with {chMerit: merit} %}
-  {% endfor %}
+<div class="row">
+  <div class="col-12 col-lg-4 block">
+    <h1>{{ "ritual.performing"|trans }}</h1>
+    <ul>
+      <li>{{ "ritual.cost"|trans }}</li>
+      <li>{{ "ritual.action"|trans }}</li>
+      <li>{{ "ritual.success"|trans }}</li>
+      <li>{{ "ritual.rolls"|trans }}</li>
+    </ul>
+  </div>
+  <div class="col-12 col-lg-8">
+    <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
+      {% for merit in thaumaturge.merits %}
+        {% include "character_sheet/merits/show/element.html.twig" with {chMerit: merit} %}
+      {% endfor %}
+    </div>
+  </div>
 </div>
