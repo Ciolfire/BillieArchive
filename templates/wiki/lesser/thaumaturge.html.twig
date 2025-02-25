@@ -8,7 +8,7 @@
 
 {% block body %}
   {% include "_back.html.twig" %}
-  <h1>
+  <h1 class="pt-1">
     {% include "_icon.html.twig" with {icon: 'type/thaumaturge' } only %}{{ "thaumaturge"|trans({}, 'content-type') }}
   </h1>
   <div class="container-fluid container-lg">
@@ -57,8 +57,6 @@
         {% include "_icon.html.twig" with {icon : 'add' } only %}
         {% include "_icon.html.twig" with {icon : 'merit' } only %}
       </a>
-
-      {# <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a> #}
     {% endif %}
   </div>
 {% endblock %}
