@@ -33,7 +33,7 @@ class ThaumaturgeController extends AbstractController
   public function thaumaturge(): Response
   {
     $type = $this->dataService->findBy(ContentType::class, ['name' => 'thaumaturge']);
-    $powers = $this->dataService->findBy(Merit::class, ['type' => $type]);
+    $powers = $this->dataService->findBy(Merit::class, ['type' => $type], ['name' => 'ASC']);
     $traditions = $this->dataService->findBy(ThaumaturgeTradition::class, [], ['name' => 'ASC']);
     foreach ($powers as $power) {
       $this->dataService->loadPrerequisites($power);
