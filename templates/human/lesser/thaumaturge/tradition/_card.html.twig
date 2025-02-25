@@ -11,9 +11,6 @@
       <blockquote>{{ tradition.quote }}</blockquote>
     </div>
     <div id="tradition-details-{{ tradition.id }}" class="{% if not shown|default(false) %}collapse{% endif %}">
-      <p>{{ tradition.description|markdown_to_html }}</p>
-
-      <hr>
       <h3>{{ "tradition.training"|trans }}</h3>
 
       {# Probably make sense to open in a popup ? #}
@@ -33,6 +30,8 @@
 
       <h4>{{ "tradition.weaknesses"|trans}}:</h4>
       <p>{{ tradition.weaknesses|markdown_to_html }}</p>
+      <hr>
+      <p>{{ tradition.description|markdown_to_html }}</p>
       <hr>
       <h4>{{ "tradition.creation"|trans}}:</h4>
       <p>{{ tradition.creation|markdown_to_html }}</p>
