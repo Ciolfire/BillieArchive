@@ -5,7 +5,9 @@
 <div class="{{ class }}">
   {% include "_source.html.twig" with {element: element, isShort: isShort|default(false) } only %}
   {% if element.book is not null %}
-    {% include "_icon.html.twig" with {icon : 'book'} only %}
+    <a href="{{path('book_show', {id: element.book.id})}}">
+      {% include "_icon.html.twig" with {icon : 'book'} only %}
+    </a>
   {% elseif element.homebrewFor|default(null) is not null %}
     {% include "_icon.html.twig" with {icon : 'homebrew'} only %}
   {% endif %}
