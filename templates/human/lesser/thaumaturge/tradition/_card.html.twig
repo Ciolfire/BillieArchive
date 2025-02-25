@@ -1,38 +1,41 @@
 {% trans_default_domain 'thaumaturge' %}
 
 <div class="col-12">
-  <div id="{{ tradition.id }}" class="block m-5 p-2 position-relative">
+  <div id="tradition-{{ tradition.id }}" class="block m-2 p-2 position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path('thaumaturge_tradition_edit', {id: tradition.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
-    <h1>{{ tradition.name }}</h1>
-    <blockquote>{{ tradition.quote }}</blockquote>
-
-    <p>{{ tradition.description|markdown_to_html }}</p>
-
-    <hr>
-    <h3>{{ "tradition.training"|trans }}</h3>
-
-    {# Probably make sense to open in a popup ? #}
-    <h4>{{ "tradition.merit.defining"|trans}}: <a href="{{ path("merit_show", {id: tradition.definingMerit.id}) }}">{{ tradition.definingMerit }}</a></h4>
-
-    <h4 class="mt-2">{{ "tradition.merit.path"|trans}}:</h4>
-    <div class="row">
-      {% for merit in tradition.pathMerits %}
-        <div class="col-auto">
-          <a class="text-strong" href="{{ path("merit_show", {id: merit.id}) }}">{{ merit }}</a>
-        </div>
-      {% endfor %}
+    <div data-bs-toggle="collapse" data-bs-target="#tradition-details-{{ tradition.id }}" aria-expanded="false" aria-controls="#tradition-details-{{ tradition.id }}" role="button">
+      <h1>{{ tradition.name }}</h1>
+      <blockquote>{{ tradition.quote }}</blockquote>
     </div>
+    <div id="tradition-details-{{ tradition.id }}" class="collapse">
+      <p>{{ tradition.description|markdown_to_html }}</p>
 
-    <h4>{{ "tradition.strengths"|trans}}:</h4>
-    <p>{{ tradition.strengths|markdown_to_html }}</p>
+      <hr>
+      <h3>{{ "tradition.training"|trans }}</h3>
 
-    <h4>{{ "tradition.weaknesses"|trans}}:</h4>
-    <p>{{ tradition.weaknesses|markdown_to_html }}</p>
-    <hr>
-    <h4>{{ "tradition.creation"|trans}}:</h4>
-    <p>{{ tradition.creation|markdown_to_html }}</p>
+      {# Probably make sense to open in a popup ? #}
+      <h4>{{ "tradition.merit.defining"|trans}}: <a href="{{ path("merit_show", {id: tradition.definingMerit.id}) }}">{{ tradition.definingMerit }}</a></h4>
+
+      <h4 class="mt-2">{{ "tradition.merit.path"|trans}}:</h4>
+      <div class="row">
+        {% for merit in tradition.pathMerits %}
+          <div class="col-auto">
+            <a class="text-strong" href="{{ path("merit_show", {id: merit.id}) }}">{{ merit }}</a>
+          </div>
+        {% endfor %}
+      </div>
+
+      <h4>{{ "tradition.strengths"|trans}}:</h4>
+      <p>{{ tradition.strengths|markdown_to_html }}</p>
+
+      <h4>{{ "tradition.weaknesses"|trans}}:</h4>
+      <p>{{ tradition.weaknesses|markdown_to_html }}</p>
+      <hr>
+      <h4>{{ "tradition.creation"|trans}}:</h4>
+      <p>{{ tradition.creation|markdown_to_html }}</p>
+    </div>
 
     {% include "_source_block.html.twig" with {element: tradition, 'isShort': isShort|default(false) } only %}
   </div>

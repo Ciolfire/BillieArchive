@@ -46,30 +46,6 @@ class ThaumaturgeController extends AbstractController
     ]);
   }
 
-  // #[Route('/wiki/traditions', name: 'thaumaturge_tradition_index', methods: ['GET'])]
-  // public function traditions(): Response
-  // {
-  //   return $this->render('thaumaturge/tradition/index.html.twig', [
-  //     'traditions' => $this->dataService->findAll(ThaumaturgeTradition::class),
-  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'tradition']),
-  //   ]);
-  // }
-
-  // #[Route("/wiki/traditions/list/{filter<\w+>}/{id<\w+>}", name: "tradition_list", methods: ["GET"])]
-  // public function traditionList(string $filter, int $id): Response
-  // {
-  //   $traditions = $this->dataService->getList($filter, $id, ThaumaturgeTradition::class, 'getThaumaturgeTraditions');
-
-  //   return $this->render('thaumaturge/tradition/index.html.twig', [
-  //     'setting' => "thaumaturge",
-  //     'traditions' => $traditions,
-  //     'filter' => $filter,
-  //     'id' => $id,
-  //     'description' => $this->dataService->findOneBy(Description::class, ['name' => 'tradition']),
-  //   ]);
-  // }
-
-
   #[Route('/wiki/tradition/{id<\d+>}', name: 'thaumaturge_tradition_show', methods: ['GET'])]
   public function traditionShow(ThaumaturgeTradition $tradition): Response
   {
@@ -96,7 +72,7 @@ class ThaumaturgeController extends AbstractController
       // }
       $this->dataService->save($tradition);
 
-      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => $tradition->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => "tradition-{$tradition->getId()}"], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('form.html.twig', [
@@ -120,7 +96,7 @@ class ThaumaturgeController extends AbstractController
       // }
       $this->dataService->update($tradition);
 
-      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => $tradition->getId()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => "tradition-{$tradition->getId()}"], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('form.html.twig', [

@@ -15,10 +15,16 @@
     <div class="row block" data-controller="tabs" data-tabs-initial-value="traditions">
       {# tabs #}
       <ul class="nav tabs g-0">
+        {# {% include "_tab.html.twig" with {name: 'infos', icon: 'info', label: 'infos'|trans(domain: 'app')} only %} #}
         {% include "_tab.html.twig" with {name: 'traditions', icon: 'tradition', label: 'tradition.label.multi'|trans} only %}
         {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
       </ul>
       {# content #}
+      {# infos #}
+      {# <div id="infos" class="tab-content py-0 d-none" data-tabs-target="page">
+        <div class="row">
+        </div>
+      </div> #}
       {# traditions #}
       <div id="traditions" class="tab-content py-0 d-none" data-tabs-target="page">
         <div class="row">
@@ -28,8 +34,8 @@
         </div>
       </div>
       {# merits #}
-      <div id="merits" class="tab-content py-0 d-none" data-tabs-target="page">
-        <div class="col-12 p-5">
+      <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
+        <div class="col-12">
           {% for merit in powers %}
             {% include 'merit/card.html.twig' %}
           {% endfor %}
