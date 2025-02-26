@@ -217,7 +217,7 @@ class WikiController extends AbstractController
     ]);
   }
 
-  #[Route("/description/edit", name:"description_edit", methods:["GET", "POST"])]
+  #[Route("/description/{id<\d+>}/edit", name:"description_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Description $description): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
