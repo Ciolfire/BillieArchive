@@ -1,9 +1,37 @@
 {% extends "character_sheet/show.html.twig" %}
 
+{% trans_default_domain 'thaumaturge' %}
+
 {% set thaumaturge = character.lesserTemplate %}
 
 {% block header %}
   {% include "character_sheet_type/thaumaturge/header/show.html.twig" %}
+{% endblock %}
+
+{% block subtraits %}
+{{ parent() }}
+<div class="row p-1">
+  <div class="col-6">
+    <div class="block user-select-none p-2">
+      <h4 class="pt-1">
+        {% include "_icon.html.twig" with {icon: 'tradition'} %}
+        {{ 'tradition.weaknesses'|trans }}
+        {% include "_icon.html.twig" with {icon: 'manacles'} %}
+      </h4>
+      {{ thaumaturge.tradition.weaknesses|default("")|markdown_to_html }}
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="block user-select-none p-2">
+      <h4 class="pt-1">
+        {% include "_icon.html.twig" with {icon: 'tradition'} %}
+        {{ 'tradition.strengths'|trans }}
+        {% include "_icon.html.twig" with {icon: 'manacles'} %}
+      </h4>
+      {{ thaumaturge.tradition.strengths|default("")|markdown_to_html }}
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block powers %}
