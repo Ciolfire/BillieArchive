@@ -6,6 +6,7 @@ use App\Repository\BloodBatherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BloodBatherRepository::class)]
+#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 class BloodBather extends CharacterLesserTemplate
 {
   protected $limit = 5;
