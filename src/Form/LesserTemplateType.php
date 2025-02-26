@@ -19,10 +19,9 @@ class LesserTemplateType extends AbstractType
         'expanded' => true,
         'translation_domain' => 'content-type',
         'attr' => [
-          "data-action" => "change->character--lesser-template#loadForm",
+          "data-action" => "change->character--lesser-template#loadForm change->character--lesser-template#showRules",
         ]
       ])
-      ->add('submit', SubmitType::class, ['label' => 'action.apply'])
     ;
   }
 

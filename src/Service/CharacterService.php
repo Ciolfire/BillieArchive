@@ -11,6 +11,7 @@ use App\Entity\CharacterLesserTemplate;
 use App\Entity\CharacterMerit;
 use App\Entity\CharacterSpecialty;
 use App\Entity\Derangement;
+use App\Entity\Description;
 use App\Entity\Devotion;
 use App\Entity\Ghoul;
 use App\Entity\GhoulDiscipline;
@@ -250,7 +251,11 @@ class CharacterService
     switch ($template->getType()) {
       case 'ghoul':
         $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $data[$template->getType()]);
-
+      case 'blood_bather':
+        while ($character->getMoral() > 5) {
+          $character->setXpTotal($character->getXpTotal() + 5);
+          $character->setMoral($character->getMoral() - 1);
+        }
         break;
       case 'innocents':
         $character->setSize($character->getSize() - 1);
@@ -294,7 +299,16 @@ class CharacterService
     }
 
     ksort($templates);
-    return $templates;
+
+    $descriptions = [];
+    foreach ($templates as $key => $value) {
+      $descriptions[$value] = $this->dataService->findOneBy(Description::class, ['name' => "creation_{$key}"]);
+    }
+
+    return [
+      'templates' => $templates,
+      'descriptions' => $descriptions,
+    ];
   }
 
   private function applyThaumaturge(Character $character, Thaumaturge $template, array $data)

@@ -3,7 +3,8 @@ import { Controller } from '@hotwired/stimulus';
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
   static targets = [
-    "form"
+    "form",
+    "description"
   ];
 
   static values = {
@@ -15,6 +16,20 @@ export default class extends Controller {
     if (document.querySelector('input[name="lesser_template[template]"]:checked')) {
       this.loadForm();
     }
+  }
+
+  showRules() {
+    
+    let selected = document.querySelector('input[name="lesser_template[template]"]:checked').value;    
+    
+    console.log(selected, this.descriptionTargets);
+    this.descriptionTargets.forEach(description => {
+      if (description.id == selected) {
+        description.classList.remove("d-none");
+      } else {
+        description.classList.add("d-none");
+      }
+    });
   }
 
   loadForm() {

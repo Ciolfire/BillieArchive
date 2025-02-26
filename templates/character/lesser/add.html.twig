@@ -16,11 +16,29 @@
   </h1>
   <div class="container block py-3" data-controller="character--lesser-template">
     <h2>{{ character.name }}</h2>
-    {{ form_start(form) }}
-    {{ form_widget(form.template) }}
-    <div data-character--lesser-template-target="form"></div>
-    {{ form_widget(form.submit)}}
-    {{ form_end(form) }}
+    <div class="row">
+      <div class="col-12 col-md-6">
+        {{ form_start(form) }}
+        {{ form_widget(form.template) }}
+        <div data-character--lesser-template-target="form"></div>
+        <div class="text-center fixed-bottom">
+          <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
+            {% include "_icon.html.twig" with {icon: 'save'} %}
+            {{ ('action.save')|trans({}, 'app') }}
+          </button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        {% for key, description in descriptions %}
+          {% if description.value is defined %}
+            <div id="{{ key }}" class="block p-2 d-none" data-character--lesser-template-target="description">
+              {{ description.value|markdown_to_html }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {{ form_end(form) }}
+    </div>
   </div>
   {% include "_back.html.twig" %}
 {% endblock %}

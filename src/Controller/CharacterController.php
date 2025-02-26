@@ -433,8 +433,8 @@ class CharacterController extends AbstractController
 
     // We get the current lesser template, if any
     $currentTemplate = $character->getLesserTemplate();
-    $templates = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
-    $form = $this->createForm(LesserTemplateType::class, options:['templates' => $templates]);
+    $result = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
+    $form = $this->createForm(LesserTemplateType::class, options:['templates' => $result['templates']]);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
@@ -469,6 +469,7 @@ class CharacterController extends AbstractController
 
     return $this->render('character/lesser/add.html.twig', [
       'form' => $form,
+      'descriptions' => $result['descriptions'],
       'character' => $character
     ]);
   }
