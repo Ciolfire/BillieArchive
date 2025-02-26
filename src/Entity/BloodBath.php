@@ -30,7 +30,7 @@ class BloodBath
   private array $preparation = [];
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $description = null;
+  private ?string $description = "";
 
   public function getId(): ?int
   {
