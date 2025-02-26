@@ -11,7 +11,7 @@
     <h2>{{ "effects.label"|trans }}</h2>
     <p class="text-sub fluff">{{ "effects.help"|trans }}</p class="text-sub fluff">
     <div class="row justify-content-center">
-      {% for facet in bath.effects %}
+      {% for facet in bath.effects||sort((a, b) => a.title <=> b.title) %}
       <div class="col-12 col-md-6">
         <div class="block vampire m-1 p-2 rounded">
           <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
@@ -27,7 +27,7 @@
     <h2>{{ "bath.label"|trans }}</h2>
     <p class="text-sub fluff">{{ "bath.help"|trans }}</p>
     <div class="row justify-content-center">
-      {% for facet in bath.bath %}
+      {% for facet in bath.bath||sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
           <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
@@ -42,7 +42,7 @@
     <h2>{{ "blood.label"|trans }}</h2>
     <p class="text-sub fluff">{{ "blood.help"|trans }}</p>
     <div class="row justify-content-center">
-      {% for facet in bath.blood %}
+      {% for facet in bath.blood||sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
           <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
@@ -57,7 +57,7 @@
     <h2>{{ "frequency.label"|trans }}</h2>
     <p class="text-sub fluff">{{ "frequency.help"|trans }}</p>
     <div class="row justify-content-center">
-      {% for facet in bath.frequency %}
+      {% for facet in bath.frequency||sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
           <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
@@ -72,7 +72,7 @@
     <h2>{{ "preparation.label"|trans }}</h2>
     <p class="text-sub fluff">{{ "preparation.help"|trans }}</p>
     <div class="row justify-content-center">
-      {% for facet in bath.preparation %}
+      {% for facet in bath.preparation||sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
           <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
