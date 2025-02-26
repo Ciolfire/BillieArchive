@@ -18,6 +18,10 @@ export default class extends Controller {
   static field;
 
   connect() {
+    let previewStyle = 'vertical';
+    if (this.element.dataset.richPreviewStyle != undefined) {
+      previewStyle = this.element.dataset.richPreviewStyle;
+    }
     this.field = this.element;
     let wrapper = document.createElement("div");
     this.element.after(wrapper);
@@ -26,7 +30,7 @@ export default class extends Controller {
       height: '500px',
       initialEditType: 'markdown',
       initialValue: this.element.value,
-      previewStyle: 'vertical',
+      previewStyle: previewStyle,
       theme: 'dark',
       plugins: [colorSyntax]
     });
