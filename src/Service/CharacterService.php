@@ -256,6 +256,7 @@ class CharacterService
           $character->setXpTotal($character->getXpTotal() + 5);
           $character->setMoral($character->getMoral() - 1);
         }
+        $character->setWillpower($character->getWillpower() - 1);
         break;
       case 'innocents':
         $character->setSize($character->getSize() - 1);
