@@ -12,8 +12,8 @@
     <div
       class="row block rounded align-items-center m-1">
       {# <div class="block rounded"> #}
-      <div class="col-12 col-lg-8">
-        <div class="row text-truncate">
+      <div class="col-12 col-lg-8 my-2">
+        <div class="row text-truncate g-2">
           <div class="col-6 col-lg">
             <a class="btn btn-primary w-100" href="{{path('character_index')}}">{% include "_icon.html.twig" with {icon: 'characters' } only %}
               <span class="d-inline d-lg-none d-xl-inline">{{ "label.multi"|trans({}, 'character') }}</span>
@@ -41,10 +41,16 @@
                 {% include "_icon.html.twig" with {icon: 'characters' } only %}
               </a>
             </div>
+            <div class="col-6 col-lg">
+              <a class="btn btn-primary w-100" href="{{path('description_new')}}">
+                {% include "_icon.html.twig" with {icon: 'edit' } only %}
+                {% include "_icon.html.twig" with {icon: 'info' } only %}
+              </a>
+            </div>
           {% endif %}
         </div>
       </div>
-      <div class="col-12 col-lg-4 px-0">
+      <div class="col-12 col-lg-4 px-0 mb-2">
         <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target=".collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
           <h3 class="text-strong">
             {% include "_icon.html.twig" with {icon: 'wiki' , class: 'icon-lg pe-2'} only %}

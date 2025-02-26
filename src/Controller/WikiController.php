@@ -10,6 +10,7 @@ use App\Entity\Skill;
 use App\Entity\Vice;
 use App\Entity\Virtue;
 use App\Form\AttributeType;
+use App\Form\DescriptionType;
 use App\Form\SkillType;
 use App\Form\ViceType;
 use App\Form\VirtueType;
@@ -194,4 +195,47 @@ class WikiController extends AbstractController
     ]);
   }
 
+  #[Route("/description/new", name:"description_new", methods:["GET", "POST"])]
+  public function new(Request $request): Response
+  {
+    $description = new Description();
+
+    $form = $this->createForm(DescriptionType::class, $description);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($description);
+
+      $this->addFlash('success', ["general.new.done", ['%name%' => $description->getName()]]);
+      return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('element/new.html.twig', [
+      'element' => 'description',
+      'entity' => $description,
+      'form' => $form,
+    ]);
+  }
+
+  #[Route("/description/edit", name:"description_edit", methods:["GET", "POST"])]
+  public function edit(Request $request, Description $description): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $form = $this->createForm(DescriptionType::class, $description);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->update($description);
+
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $description->getName()]]);
+      return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('element/new.html.twig', [
+      'element' => 'description',
+      'entity' => $description,
+      'form' => $form,
+    ]);
+  }
 }

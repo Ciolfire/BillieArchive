@@ -25,7 +25,7 @@ class RuleController extends AbstractController
   }
 
   #[Route("/new", name:"rule_new", methods:["GET", "POST"])]
-  public function new(Request $request, EntityManagerInterface $entityManager): Response
+  public function new(Request $request): Response
   {
     $rule = new Rule();
 
@@ -33,8 +33,7 @@ class RuleController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager->persist($rule);
-      $entityManager->flush();
+      $this->dataService->save($rule);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $rule->getTitle()]]);
       return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);

@@ -12,13 +12,13 @@ class Description
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[ORM\Column(type: "string", length: 50)]
   private string $name;
 
   #[ORM\Column(type: "text")]
-  private string $value;
+  private string $value = "";
 
   public function getId(): ?int
   {
