@@ -20,13 +20,11 @@
   {{ form_row(form.attributes) }}
   {{ form_row(form.skills) }}
   {{ form_row(form.disciplines) }}
-  <div class="row justify-content-center">
-    <div class="col col-md-6">
-      <button class="btn btn-primary w-100">
-        {{ ("action." ~ action|default('save'))|trans({}, 'app') }}
-        {% include "_icon.html.twig" with {icon : action} only %}
-      </button>
-    </div>
+  <div class="text-center fixed-bottom">
+    <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
+      {% include "_icon.html.twig" with {icon: 'save'} %}
+      {{ ('action.save')|trans({}, 'app') }}
+    </button>
   </div>
 {{ form_end(form) }}
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "character_sheet/show.html.twig" %}
+
+{% trans_default_domain 'blood-bather' %}
+
+{% set bloodbather = character.lesserTemplate %}
+
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'blood_bather', icon: 'type/blood_bather' , label: 'blood_bather'|trans({}, 'content-type')} only %}
+{% endblock %}
+
+{% block powers %}
+  <div id="blood_bather" class="tab-content d-none vampire" data-tabs-target="page">
+    {% include "character_sheet_type/blood_bather/bath/show.html.twig" %}
+  </div>
+{% endblock %}

@@ -11,8 +11,13 @@ class BloodBather extends CharacterLesserTemplate
 {
   protected $limit = 5;
 
+  #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?BloodBath $bath = null;
+
   public function __construct()
   {
+    $this->bath = new BloodBath();
   }
 
   public function __clone()
@@ -33,5 +38,17 @@ class BloodBather extends CharacterLesserTemplate
   public static function getForm() : ?string
   {
     return null;
+  }
+
+  public function getBath(): ?BloodBath
+  {
+      return $this->bath;
+  }
+
+  public function setBath(BloodBath $bath): static
+  {
+      $this->bath = $bath;
+
+      return $this;
   }
 }

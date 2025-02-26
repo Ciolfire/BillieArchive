@@ -463,7 +463,10 @@ class CharacterController extends AbstractController
         'name' => $character, 
         'type' => $character->getLesserTemplate()->getType(),
       ]]);
-  
+      switch ($character->getLesserTemplate()->getType()) {
+        case 'blood_bather':
+          return $this->redirectToRoute('bloodbather_bath_setup', ['id' => $character->getLesserTemplate()->getId()]);
+      }
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 

@@ -1,0 +1,29 @@
+{% extends 'form.html.twig' %}
+
+{% trans_default_domain 'blood-bather' %}
+
+{% block title %}{{ "bath.setup"|trans }}{% endblock %}
+{% block header %}{{ "bath.setup"|trans }}{% endblock %}
+
+{% block form %}
+  <h2>{{ "bath.facet.label.multi"|trans }}</h2>
+{{ form_start(form) }}
+  {% include "forms/_collection_field.html.twig" with {field: 'bath', domain: 'blood-bather'} %}
+  {{ form_help(form.bath) }}
+  {% include "forms/_collection_field.html.twig" with {field: 'blood', domain: 'blood-bather'} %}
+  {{ form_help(form.blood) }}
+  {% include "forms/_collection_field.html.twig" with {field: 'effects', domain: 'blood-bather'} %}
+  {{ form_help(form.effects) }}
+  {% include "forms/_collection_field.html.twig" with {field: 'frequency', domain: 'blood-bather'} %}
+  {{ form_help(form.frequency) }}
+  {% include "forms/_collection_field.html.twig" with {field: 'preparation', domain: 'blood-bather'} %}
+  {{ form_help(form.preparation) }}
+  <div class="text-center fixed-bottom">
+    <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
+      {% include "_icon.html.twig" with {icon: 'save'} %}
+      {{ ('action.save')|trans({}, 'app') }}
+    </button>
+  </div>
+  <div class="d-none">{{ form_rest(form) }}</div>
+{{ form_end(form) }}
+{% endblock %}

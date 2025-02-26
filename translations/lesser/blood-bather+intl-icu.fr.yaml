@@ -1,0 +1,23 @@
+
+custom: Custom Facet
+
+bath:
+  label: Bath
+  facet:
+    label:
+      single: Facet
+      multi: Facets
+  setup: Setup Blood Bath Ritual
+  help: Bath describes the physical setting of the Ritual. This includes the “tub” itself. Some Rituals require that the tub be made from a particular material (iron, ivory, stone). This facet also governs the time of day, month or year under which the Ritual can be performed; the more specific these requirements are, the greater the modifier. The chart below explains how different materials and requirements of the tub and the circumstances surrounding the bath alter the Ritual.
+blood:
+  label: Blood
+  help: The Blood facet involves the source of the blood, but not its extraction or anything mixed with it (these are the purview of the Preparation facet). This facet includes such factors as the types of victims that can be selected and how they must be killed for the Ritual to proceed, as well as the simple question of how much blood is required.
+effects:
+  label: Effects
+  help: The Effects of the Bathing Ritual are the benefits (and, sometimes, drawbacks) that the character derives from it. The most common, of course, is Immortality, but blood bathers might also gain the ability to heal, to boost their Attributes and even to affect the blood of their enemies.
+frequency:
+  label: Frequency
+  help: Frequency, of course, refers to how often the character must perform the Bathing Ritual. The traits below are therefore arranged by the amount of time that can pass before the blood bather must immerse herself once again in the liquid of life. This raises the question of what happens when a blood bather performs the Ritual before the time runs out, or after it has elapsed.
+preparation:
+  label: Preparation
+  help: Blood requires Preparation. Blood bathers can't (usually) simply immerse themselves in whole blood and reap the benefits. The blood must be treated and mixed with herbs or other ingredients to make it useful to the character. This facet also covers how the blood is extracted from the victim's body, and how pure it can remain.

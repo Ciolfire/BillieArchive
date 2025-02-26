@@ -1,0 +1,76 @@
+
+{% trans_default_domain 'blood-bather' %}
+
+
+{% set bath = bloodbather.bath %}
+
+<div class="row justify-content-center">
+  <h1>{{ "bath.label"|trans }} {{ "bath.facet.label.multi"|trans }}</h1>
+  <div class="col-12 col-md-6 col-xl-4">
+    <h2>{{ "bath.label"|trans }}</h2>
+    <div class="row justify-content-center">
+      {% for facet in bath.bath %}
+      <div class="col-12 col-xl-6">
+        <div class="block vampire m-1 p-1 rounded">
+          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          {{ facet.description|markdown_to_html }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <h2>{{ "blood.label"|trans }}</h2>
+    <div class="row justify-content-center">
+      {% for facet in bath.blood %}
+      <div class="col-12 col-xl-6">
+        <div class="block vampire m-1 p-1 rounded">
+          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          {{ facet.description|markdown_to_html }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <h2>{{ "effects.label"|trans }}</h2>
+    <div class="row justify-content-center">
+      {% for facet in bath.effects %}
+      <div class="col-12 col-xl-6">
+        <div class="block vampire m-1 p-1 rounded">
+          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          {{ facet.description|markdown_to_html }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <h2>{{ "frequency.label"|trans }}</h2>
+    <div class="row justify-content-center">
+      {% for facet in bath.frequency %}
+      <div class="col-12 col-xl-6">
+        <div class="block vampire m-1 p-1 rounded">
+          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          {{ facet.description|markdown_to_html }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <h2>{{ "preparation.label"|trans }}</h2>
+    <div class="row justify-content-center">
+      {% for facet in bath.preparation %}
+      <div class="col-12 col-xl-6">
+        <div class="block vampire m-1 p-1 rounded">
+          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          {{ facet.description|markdown_to_html }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<hr>
+<a class="btn btn-primary w-100" href="{{ path('bloodbather_bath_setup', {id: bloodbather.id}) }}">Setup Bath</a>
