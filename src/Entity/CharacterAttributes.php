@@ -80,6 +80,7 @@ class CharacterAttributes
 
   public function get(string $attribute) : mixed
   {
+    return $this->$attribute;
     return min($this->character->getLimit(), $this->$attribute);
   }
 
@@ -106,6 +107,7 @@ class CharacterAttributes
 
   public function getIntelligence() : int
   {
+    return $this->intelligence;
     return min($this->character->getLimit(), $this->intelligence);
   }
 
@@ -118,6 +120,7 @@ class CharacterAttributes
 
   public function getWits(): int
   {
+    return $this->wits;
     return min($this->character->getLimit(), $this->wits);
   }
 
@@ -130,6 +133,7 @@ class CharacterAttributes
 
   public function getResolve(): int
   {
+    return $this->resolve;
     return min($this->character->getLimit(), $this->resolve);
   }
 
@@ -144,6 +148,7 @@ class CharacterAttributes
 
   public function getStrength(): int
   {
+    return $this->strength;
     return min($this->character->getLimit(), $this->strength);
   }
 
@@ -156,6 +161,7 @@ class CharacterAttributes
 
   public function getDexterity(): int
   {
+    return $this->dexterity;
     return min($this->character->getLimit(), $this->dexterity);
   }
 
@@ -168,6 +174,7 @@ class CharacterAttributes
 
   public function getStamina(): int
   {
+    return $this->stamina;
     return min($this->character->getLimit(), $this->stamina);
   }
 
@@ -180,6 +187,7 @@ class CharacterAttributes
 
   public function getPresence(): int
   {
+    return $this->presence;
     return min($this->character->getLimit(), $this->presence);
   }
 
@@ -192,6 +200,7 @@ class CharacterAttributes
 
   public function getManipulation(): int
   {
+    return $this->manipulation;
     return min($this->character->getLimit(), $this->manipulation);
   }
 

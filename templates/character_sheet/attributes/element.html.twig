@@ -7,11 +7,11 @@
       {{ attribute.name }}
     </div>
   </div>
-  <div class="col-12 col-md-auto">
+  <div class="col-12 col-md">
     <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
       {% block input %}{% endblock %}
       <div class="dots">
-        {% for value in 1..max %}
+        {% for value in 1..max(base, max) %}
           {# we create a new dots block, for visual break #}
           {% if value >= 5 and value % 5 == 1 %}
             </div>
