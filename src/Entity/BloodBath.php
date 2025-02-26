@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BloodBathRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BloodBathRepository::class)]
@@ -27,6 +28,9 @@ class BloodBath
 
   #[ORM\Column]
   private array $preparation = [];
+
+  #[ORM\Column(type: Types::TEXT)]
+  private ?string $description = null;
 
   public function getId(): ?int
   {
@@ -91,5 +95,17 @@ class BloodBath
     $this->preparation = $preparation;
 
     return $this;
+  }
+
+  public function getDescription(): ?string
+  {
+      return $this->description;
+  }
+
+  public function setDescription(string $description): static
+  {
+      $this->description = $description;
+
+      return $this;
   }
 }

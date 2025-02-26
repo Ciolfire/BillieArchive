@@ -15,7 +15,7 @@
 
 {% block body %}
   <h1 class="pt-4">{% block header %}{% endblock %}</h1>
-  <div class="container block {% if isLight %}block-light{% else %}block{% endif %} py-3 mt-5">
+  <div class="container {{ custom|default("") }} {% if isLight %}block block-light{% else %}block{% endif %} py-3 mt-5">
     <div class="row">
       <div class="col">
         {% block form %}{% include "_form.html.twig" %}{% endblock %}

@@ -3,6 +3,8 @@ custom: Custom Facet
 
 bath:
   label: Bath
+  description:
+    help: The Bathing Ritual is different for every blood bather, and that means that it is built, rather than selected. This is an explanation of the process.
   facet:
     label:
       single: Facet

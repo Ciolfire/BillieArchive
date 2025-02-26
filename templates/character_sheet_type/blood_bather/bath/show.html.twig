@@ -5,16 +5,20 @@
 {% set bath = bloodbather.bath %}
 
 <div class="row justify-content-center">
-  <h1>{{ "bath.label"|trans }} {{ "bath.facet.label.multi"|trans }}</h1>
-  <p class="text-sub fluff">{{ "bath.facet.help"|trans }}</p class="text-sub fluff">
   <div class="col-12">
-    <h2>{{ "effects.label"|trans }}</h2>
+    <h1>{{ "bath.label"|trans }}</h1>
+    {{ bath.description|markdown_to_html }}
+    <h2>{{ "bath.facet.label.multi"|trans }}</h2>
+    <p class="text-sub fluff">{{ "bath.facet.help"|trans }}</p class="text-sub fluff">
+  </div>
+  <div class="col-12">
+    <h3><span class="accent">{{ "effects.label"|trans }}</span></h3>
     <p class="text-sub fluff">{{ "effects.help"|trans }}</p class="text-sub fluff">
     <div class="row justify-content-center">
       {% for facet in bath.effects|sort((a, b) => a.title <=> b.title) %}
       <div class="col-12 col-md-6">
         <div class="block vampire m-1 p-2 rounded">
-          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
           {{ facet.description|markdown_to_html }}
         </div>
@@ -24,13 +28,13 @@
   </div>
   <hr>
   <div class="col-12 col-md-6">
-    <h2>{{ "bath.label"|trans }}</h2>
+    <h3>{{ "bath.label"|trans }}</h3>
     <p class="text-sub fluff">{{ "bath.help"|trans }}</p>
     <div class="row justify-content-center">
       {% for facet in bath.bath|sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
-          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
           {{ facet.description|markdown_to_html }}
         </div>
@@ -39,13 +43,13 @@
     </div>
   </div>
   <div class="col-12 col-md-6">
-    <h2>{{ "blood.label"|trans }}</h2>
+    <h3>{{ "blood.label"|trans }}</h3>
     <p class="text-sub fluff">{{ "blood.help"|trans }}</p>
     <div class="row justify-content-center">
       {% for facet in bath.blood|sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
-          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
           {{ facet.description|markdown_to_html }}
         </div>
@@ -54,13 +58,13 @@
     </div>
   </div>
   <div class="col-12 col-md-6">
-    <h2>{{ "frequency.label"|trans }}</h2>
+    <h3>{{ "frequency.label"|trans }}</h3>
     <p class="text-sub fluff">{{ "frequency.help"|trans }}</p>
     <div class="row justify-content-center">
       {% for facet in bath.frequency|sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
-          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
           {{ facet.description|markdown_to_html }}
         </div>
@@ -69,13 +73,13 @@
     </div>
   </div>
   <div class="col-12 col-md-6">
-    <h2>{{ "preparation.label"|trans }}</h2>
+    <h3>{{ "preparation.label"|trans }}</h3>
     <p class="text-sub fluff">{{ "preparation.help"|trans }}</p>
     <div class="row justify-content-center">
       {% for facet in bath.preparation|sort((a, b) => a.title <=> b.title) %}
       <div class="col-12">
         <div class="block vampire m-1 p-2 rounded">
-          <h3>{{ facet.title }} ({{ facet.modifier }})</h3>
+          <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
           {{ facet.description|markdown_to_html }}
         </div>

@@ -5,19 +5,37 @@
 {% block title %}{{ "bath.setup"|trans }}{% endblock %}
 {% block header %}{{ "bath.setup"|trans }}{% endblock %}
 
+{% set custom = "vampire" %}
+
 {% block form %}
-  <h2>{{ "bath.facet.label.multi"|trans }}</h2>
+  <h1>{{ "bath.facet.label.multi"|trans }}</h1>
 {{ form_start(form) }}
+  {{ form_row(form.description) }}
+  <h2 role="button" data-bs-toggle="collapse" data-bs-target="#collapseBath">{{ "bath.label"|trans }}</h2>
+  <div id="collapseBath" class="collapse">
   {% include "forms/_collection_field.html.twig" with {field: 'bath', domain: 'blood-bather'} %}
   {{ form_help(form.bath) }}
+  </div>
+  <h2 role="button" data-bs-toggle="collapse" data-bs-target="#collapseBlood">{{ "blood.label"|trans }}</h2>
+  <div id="collapseBlood" class="collapse">
   {% include "forms/_collection_field.html.twig" with {field: 'blood', domain: 'blood-bather'} %}
   {{ form_help(form.blood) }}
+  </div>
+  <h2 role="button" data-bs-toggle="collapse" data-bs-target="#collapseEffects">{{ "effects.label"|trans }}</h2>
+  <div id="collapseEffects" class="collapse">
   {% include "forms/_collection_field.html.twig" with {field: 'effects', domain: 'blood-bather'} %}
   {{ form_help(form.effects) }}
+  </div>
+  <h2 role="button" data-bs-toggle="collapse" data-bs-target="#collapseFrequency">{{ "frequency.label"|trans }}</h2>
+  <div id="collapseFrequency" class="collapse">
   {% include "forms/_collection_field.html.twig" with {field: 'frequency', domain: 'blood-bather'} %}
   {{ form_help(form.frequency) }}
+  </div>
+  <h2 role="button" data-bs-toggle="collapse" data-bs-target="#collapsePreparation">{{ "preparation.label"|trans }}</h2>
+  <div id="collapsePreparation" class="collapse">
   {% include "forms/_collection_field.html.twig" with {field: 'preparation', domain: 'blood-bather'} %}
   {{ form_help(form.preparation) }}
+  </div>
   <div class="text-center fixed-bottom">
     <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
       {% include "_icon.html.twig" with {icon: 'save'} %}

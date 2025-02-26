@@ -25,7 +25,7 @@ class BloodFacetType extends AbstractType
         },
         'required' => false,
         'mapped' => false,
-        'placeholder' => "custom",
+        'placeholder' => "bath.facet.custom",
         'choice_attr' => function ($choice) {
           return [
             'data-title' => $choice->getLabel(),
