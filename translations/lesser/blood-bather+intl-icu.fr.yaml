@@ -1,5 +1,4 @@
-
-custom: Custom Facet
+ritual: Bathing Ritual
 
 bath:
   label: Bath
@@ -9,6 +8,7 @@ bath:
     label:
       single: Facet
       multi: Facets
+    custom: Custom Facet
     help: "The Bathing Ritual is composed of five facets: Blood, Bath, Frequency, Effects and Preparation. Each one has a numerical value attached to it, either positive or negative. Players wishing to construct Bathing Rituals must assemble the different facets in such a way that the end result totals zero."
   setup: Setup Blood Bath Ritual
   help: Bath describes the physical setting of the Ritual. This includes the “tub” itself. Some Rituals require that the tub be made from a particular material (iron, ivory, stone). This facet also governs the time of day, month or year under which the Ritual can be performed; the more specific these requirements are, the greater the modifier. The chart below explains how different materials and requirements of the tub and the circumstances surrounding the bath alter the Ritual.
