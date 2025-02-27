@@ -1,3 +1,5 @@
+$mainColor: #008785;
+
 .mage {
   color           : #c7ad6c;
   // border          : 1px solid #008886;
@@ -13,12 +15,12 @@
   }
 
   &>.character-card-avatar {
-    border-top   : 1px solid #008785;
-    border-bottom: 1px solid #008785;
+    border-top   : 1px solid $mainColor;
+    border-bottom: 1px solid $mainColor;
   }
 
   &.character-frame-list {
-    color: #008785;
+    color: $mainColor;
   }
 
   &.btn,

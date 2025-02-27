@@ -21,8 +21,9 @@ class SocietyType extends AbstractType
       $path = $options['path'];
       $builder
         ->add('characters', null, [
-          'expanded' => true,
           'label' => false,
+          'expanded' => true,
+          'attr' => ['class' => 'form-control d-flex flex-wrap'],
           // 'attr' => ['class' => 'form-control'],
           'query_builder' => function (EntityRepository $er) use ($society) {
             return $er->createQueryBuilder('c')
@@ -31,8 +32,9 @@ class SocietyType extends AbstractType
               ->setParameter('1', $society->getChronicle()->getId());
           },
           'choice_label' => function ($choice) use ($path): string {
-            return '<div class="d-inline-block me-1" style="width:40px;">'."<img height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"></div><span class=\"text-strong\">{$choice->getName()}</span>";
+            return "<div class=\"d-inline-block me-1 {$choice->getType()}\">"."<img class=\"form-select-item-avatar\" height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"><span class=\"text-strong \">{$choice->getName()}</span></div>";
           },
+          'label_attr' => ['class' => "text me-2 form-choice-width text-truncate"],
           'label_html' => true,
         ])
       ;

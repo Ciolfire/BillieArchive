@@ -1,13 +1,16 @@
+$mainColor: #7d0000;
+
+
 .ghoul {
-  border-color: #7d0000!important;
+  border-color: $mainColor!important;
 
   &>.character-card-avatar {
-    border-top   : 1px solid #7d0000 !important;
-    border-bottom: 1px solid #7d0000 !important;
+    border-top   : 1px solid $mainColor !important;
+    border-bottom: 1px solid $mainColor !important;
   }
 
   &.character-frame-list {
-    color: #7d0000;
+    color: $mainColor;
   }
 
   &.btn,
@@ -17,7 +20,7 @@
   & .btn.btn-primary {
     color           : rgb(246, 195, 142);
     background-color: #1a1d29a3;
-    border          : 1px solid #7d0000;
+    border          : 1px solid $mainColor;
     text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
 
 
@@ -42,9 +45,13 @@
 .vampire {
   color           : white;
 
+  .form-select-item-avatar {
+    border: solid 2px $mainColor;
+  }
+
   &.block {
     background-color: #151515b5;
-    outline      : solid 1px #7d0000;
+    outline      : solid 1px $mainColor;
 
     &-solid {
       background-color: #6a6a6a;
@@ -52,12 +59,12 @@
   }
 
   &>.character-card-avatar {
-    border-top   : 1px solid #7d0000;
-    border-bottom: 1px solid #7d0000;
+    border-top   : 1px solid $mainColor;
+    border-bottom: 1px solid $mainColor;
   }
 
   &.character-frame-list {
-    color: #7d0000;
+    color: $mainColor;
   }
 
   &.btn,
@@ -67,7 +74,7 @@
   & .btn.btn-primary {
     color           : rgb(246, 195, 142);
     background-color: rgba(32, 0, 0, 0.612);
-    border          : 1px solid #7d0000;
+    border          : 1px solid $mainColor;
     text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
 
     svg, img {
@@ -92,7 +99,7 @@
   h3,
   h4,
   h5 {
-    color: #7d0000;
+    color: $mainColor;
     text-shadow:
     rgba(32, 0, 0, 0.8) 0px 0px 3px,
     rgba(32, 0, 0, 0.8) 0px 0px 3px,
@@ -105,10 +112,10 @@
     rgba(32, 0, 0, 0.8) 0px 0px 3px,
     rgba(32, 0, 0, 0.8) 0px 0px 3px;
     img {
-      filter: drop-shadow(-1px 1px 0 #7d0000) drop-shadow(-1px -1px 0 #7d0000) drop-shadow(1px -1px 0 #7d0000) drop-shadow(1px 1px 0 #7d0000);
+      filter: drop-shadow(-1px 1px 0 $mainColor) drop-shadow(-1px -1px 0 $mainColor) drop-shadow(1px -1px 0 $mainColor) drop-shadow(1px 1px 0 $mainColor);
     }
     .icon {
-      color: #7d0000;
+      color: $mainColor;
     }
   }
 }

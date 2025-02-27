@@ -72,12 +72,14 @@ input[type=number] {
   }
 
   &:has(img.form-select-item-avatar) {
-    min-height: 45px;
+    label {
+      min-height: 45px;
+    }
   }
 }
 
 .form-choice-width {
-  width: 150px;
+  width: 200px;
 }
 
 .block-light label,
@@ -110,7 +112,9 @@ textarea {
 .form-select-item-avatar {
   height: 40px;
   width: 40px;
+  object-position: top;
   object-fit: cover;
+  aspect-ratio: 1/1;
 }
 
 .form-control:disabled,

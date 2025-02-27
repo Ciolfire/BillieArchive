@@ -52,9 +52,9 @@ class NoteType extends AbstractType
       ])
       ->add('character', null, [
         'label' => false,
+        'expanded' => true,
         'translation_domain' => 'character',
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
-        'expanded' => true,
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
           $access = $character->getSpecificPeekingRights($choice);

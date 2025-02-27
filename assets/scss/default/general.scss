@@ -1,8 +1,14 @@
 $lesserColor: #9736dad4;
+$mainColor: #6f80c5;
+
 
 .human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .psychic, .thaumaturge,
 .human-btn
 {
+  .form-select-item-avatar {
+    border: solid 2px $mainColor;
+  }
+
   &.btn,
   &.btn.btn-primary,
   &.btn.btn-primary.btn-human, // Maybe not needed anymore ?
@@ -41,6 +47,13 @@ $lesserColor: #9736dad4;
       border-color: $lesserColor;
     }
   }
+}
+
+.psychic, .thaumaturge, .body_thief, .feral, .possessed, .blood_bather {
+  .form-select-item-avatar {
+    border: solid 2px $lesserColor;
+  }
+
 }
 
 $tooltip-max-width: 400px;
