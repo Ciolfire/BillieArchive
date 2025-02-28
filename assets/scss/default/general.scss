@@ -6,7 +6,7 @@ $mainColor: #6f80c5;
 .human-btn
 {
   .form-select-item-avatar {
-    border: solid 2px $mainColor;
+    outline: solid 2px $mainColor;
   }
 
   &.btn,
