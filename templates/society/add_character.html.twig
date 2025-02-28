@@ -14,4 +14,12 @@
     <h2 class="text-strong">{{ form.vars.value.name }}</h2>
     {% include "_form.html.twig" with {action: 'save'} %}
   </div>
+
+  <script>
+    for ( let element of document.getElementsByClassName("form-check")) {
+      if (element.children[0].classList.contains("order-first")) {
+        element.classList.add("order-first");
+      }
+    };
+  </script>
 {% endblock %}

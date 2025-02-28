@@ -27,9 +27,17 @@ class SocietyType extends AbstractType
           // 'attr' => ['class' => 'form-control'],
           'query_builder' => function (EntityRepository $er) use ($society) {
             return $er->createQueryBuilder('c')
-              ->where('c.chronicle = ?1')
+              ->innerJoin('c.societies', 's')
+              ->andWhere('c.chronicle = :chronicle')
               ->orderBy('c.firstName', 'ASC')
-              ->setParameter('1', $society->getChronicle()->getId());
+              ->setParameter('chronicle', $society->getChronicle()->getId())
+              ;
+          },
+          'choice_attr' =>  function ($choice) use ($society) {
+            if ($society->hasCharacter($choice)) {
+              return ['class' => "order-first"];
+            }
+            return [];
           },
           'choice_label' => function ($choice) use ($path): string {
             return "<div class=\"d-inline-block {$choice->getType()}\">"."<img class=\"form-select-item-avatar me-1\" height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"><span class=\"text-strong\">{$choice->getName()}</span></div>";
