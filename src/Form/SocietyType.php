@@ -32,9 +32,9 @@ class SocietyType extends AbstractType
               ->setParameter('1', $society->getChronicle()->getId());
           },
           'choice_label' => function ($choice) use ($path): string {
-            return "<div class=\"d-inline-block me-1 {$choice->getType()}\">"."<img class=\"form-select-item-avatar\" height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"><span class=\"text-strong \">{$choice->getName()}</span></div>";
+            return "<div class=\"d-inline-block {$choice->getType()}\">"."<img class=\"form-select-item-avatar me-1\" height=\"40\" src=\"{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;\"><span class=\"text-strong\">{$choice->getName()}</span></div>";
           },
-          'label_attr' => ['class' => "text me-2 form-choice-width text-truncate"],
+          'label_attr' => ['class' => "d-flex flex-column justify-content-center text me-2 form-choice-width text-truncate"],
           'label_html' => true,
         ])
       ;

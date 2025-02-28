@@ -5,6 +5,10 @@ $mainColor: #008785;
   // border          : 1px solid #008886;
   // background-color: #96ba949a;
 
+  .form-select-item-avatar {
+    border: solid 2px $mainColor;
+  }
+
   &.block {
     background-color: #0087855c;
     outline      : 1px solid rgb(0, 135, 133);
