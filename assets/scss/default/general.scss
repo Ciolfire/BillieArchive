@@ -2,7 +2,7 @@ $lesserColor: #9736dad4;
 $mainColor: #6f80c5;
 
 
-.human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .psychic, .thaumaturge,
+.human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .thaumaturge,
 .human-btn
 {
   .form-select-item-avatar {
@@ -51,7 +51,7 @@ $mainColor: #6f80c5;
 
 .psychic, .thaumaturge, .body_thief, .feral, .possessed, .blood_bather, .ghoul {
   .form-select-item-avatar {
-    border: solid 2px $lesserColor;
+    outline: solid 2px $lesserColor;
   }
 
 }
