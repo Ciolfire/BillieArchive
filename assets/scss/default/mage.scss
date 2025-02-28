@@ -6,7 +6,7 @@ $mainColor: #008785;
   // background-color: #96ba949a;
 
   .form-select-item-avatar {
-    border: solid 2px $mainColor;
+    outline: solid 2px $mainColor;
   }
 
   &.block {
