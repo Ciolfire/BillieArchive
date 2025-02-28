@@ -46,7 +46,7 @@ $mainColor: #7d0000;
   color           : white;
 
   .form-select-item-avatar {
-    border: solid 2px $mainColor;
+    outline: solid 2px $mainColor;
   }
 
   &.block {
