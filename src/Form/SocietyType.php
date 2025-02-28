@@ -24,10 +24,8 @@ class SocietyType extends AbstractType
           'label' => false,
           'expanded' => true,
           'attr' => ['class' => 'form-control d-flex flex-wrap'],
-          // 'attr' => ['class' => 'form-control'],
           'query_builder' => function (EntityRepository $er) use ($society) {
             return $er->createQueryBuilder('c')
-              ->innerJoin('c.societies', 's')
               ->andWhere('c.chronicle = :chronicle')
               ->orderBy('c.firstName', 'ASC')
               ->setParameter('chronicle', $society->getChronicle()->getId())
