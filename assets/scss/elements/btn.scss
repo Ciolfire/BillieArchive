@@ -66,6 +66,26 @@
   }
 }
 
+$lesserColor: #9736dad4;
+
+.btn.btn-lesser {
+  background-color: #1a2139f5;
+  border-color: $lesserColor;
+  color: #6f80c5;
+  font-weight: bold;
+  text-shadow: black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow: 0 0 0 0.25rem #3b498480;
+    color: #a1a5b9;
+    background-color: rgba(131, 155, 253, 0.5);
+    border: 1px solid #471967d4;
+  }
+}
+
 .btn-check {
   & + .btn-primary {
     font-weight: normal;

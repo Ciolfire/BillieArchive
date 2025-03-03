@@ -2,7 +2,7 @@ $lesserColor: #9736dad4;
 $mainColor: #6f80c5;
 
 
-.human, .blood_bather, .body_thief, .feral, .innocents, .possessed, .thaumaturge,
+.human, .blood_bather, .feral, .innocents,
 .human-btn
 {
   .form-select-item-avatar {
@@ -49,7 +49,7 @@ $mainColor: #6f80c5;
   }
 }
 
-.psychic, .thaumaturge, .body_thief, .feral, .possessed, .blood_bather, .ghoul {
+.psychic, .thaumaturge, .body_thief, .feral, .possessed, .blood_bather, .ghoul.body_thief, .possessed, .thaumaturge {
   .form-select-item-avatar {
     outline: solid 2px $lesserColor;
   }
