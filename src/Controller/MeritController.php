@@ -179,7 +179,7 @@ class MeritController extends AbstractController
     ->add('relation', EntityType::class, [
         'class' => Merit::class,
         'choices' => $this->dataService->findBy(Merit::class, ['isRelation' => true]),
-        'data' => $chMerit,
+        'data' => $chMerit->getMerit(),
         'label' => false,
       ])
       ->add('choice', null, [
