@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'body-thief' %}
+
+{% block title %}{{ "body_thief"|trans({}, 'content-type') }}{% endblock %}
+
+{% set footer = true %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1 class="pt-1">
+    {% include "_icon.html.twig" with {icon: 'type/body_thief' } only %}
+    {{ "body_thief"|trans({}, 'content-type') }}
+  </h1>
+  <div class="container-fluid container-lg">
+    <div class="row" data-controller="tabs" data-tabs-initial-value="societies">
+      <div class="col-12">
+        <div class="block">
+          {# tabs #}
+          <ul class="nav tabs g-0">
+            {# {% include "_tab.html.twig" with {name: 'infos', icon: 'info', label: 'infos'|trans(domain: 'app')} only %} #}
+            {% include "_tab.html.twig" with {name: 'societies', icon: 'society', label: 'society.label.multi'|trans} only %}
+            {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
+          </ul>
+          {# content #}
+          {# infos #}
+          {# <div id="infos" class="tab-content py-0 d-none" data-tabs-target="page">
+          <div class="row">
+          </div>
+          </div> #}
+          {# societies #}
+          <div id="societies" class="tab-content py-0 d-none" data-tabs-target="page">
+            <div class="row">
+              {% for society in societies %}
+              {% include 'human/lesser/body_thief/society/_card.html.twig' %}
+              {% endfor %}
+            </div>
+          </div>
+          {# merits #}
+          <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
+            <div class="row">
+              <div class="col-12 p-2">
+                {% for merit in merits|sort((a, b) => a.name|lower <=> b.name|lower) %}
+                {% include 'merit/card.html.twig' %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    {% if is_granted('ROLE_ST') %}
+      <a class="btn btn-primary ms-auto" href="{{ path('body_thief_society_new') }}">
+        {% include "_icon.html.twig" with {icon : 'add' } only %}
+        {% include "_icon.html.twig" with {icon : 'society' } only %}
+      </a>
+      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: 'type', id: 'body_thief'}) }}">
+        {% include "_icon.html.twig" with {icon : 'add' } only %}
+        {% include "_icon.html.twig" with {icon : 'merit' } only %}
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}

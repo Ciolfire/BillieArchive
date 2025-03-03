@@ -1,0 +1,31 @@
+label:
+  single: Voleur de Corps
+  multi:  Voleurs de Corps
+
+talent:
+  label: Talent Type
+  help: If you select a Society, its talent type will take precedence
+  mental: Mental Possession
+  mystic: Mystic Transference
+
+society:
+  label:
+    single: Society
+    multi: Societies
+  advantage:
+    label: Advantage
+    help:  Most body thief societies have advantages
+  weakness:
+    label: Weakness
+    help:  Most body thief societies have weaknesses 
+  help:
+    merit:
+      defining: This is the most important Thaumaturge Merit for a particular practice. A character gets this Merit for free at four dots.
+      path: A list of the Thaumaturge Merits that may be taken by a practitioner of the tradition. A mystic cannot possess Thaumaturge Merits listed for other traditions, only those listed for his own path.
+    strengths: The thaumaturges of a tradition are particularly proficient in an aspect of their practice, and gain certain bonuses to rolls related to their training.
+    weaknesses: The dedication required to practice in a tradition instills certain behaviors in a mystic. The character suffers penalties to rolls that defy her training.
+
+  creation: Creation
+  merit:
+    defining: Defining Merit
+    help: Assume that almost all will have a required defining Merit. This Merit should cost no more than four dots and is free to all members of the society

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Attribute;
+use App\Entity\BodyThief;
+use App\Entity\BodyThiefSociety;
 use App\Entity\Character;
 use App\Entity\CharacterDerangement;
 use App\Entity\CharacterLesserTemplate;
@@ -258,6 +260,8 @@ class CharacterService
         }
         $character->setWillpower($character->getWillpower() - 1);
         break;
+      case 'body_thief':
+        $this->applyBloodBather($character, $character->getLesserTemplate(), $data[$template->getType()]);
       case 'innocents':
         $character->setSize($character->getSize() - 1);
 
@@ -319,6 +323,17 @@ class CharacterService
     $merit = new CharacterMerit($tradition->getDefiningMerit(), 4);
     $character->addMerit($merit);
     $template->setTradition($tradition);
+  }
+
+  private function applyBloodBather(Character $character, BodyThief $template, array $data)
+  {
+    $society = $this->dataService->find(BodyThiefSociety::class, $data['society']);
+
+    if ($society && $society->getDefiningMerit()) {
+      $merit = new CharacterMerit($society->getDefiningMerit(), $society->getDefiningMerit()->getMax());
+      $character->addMerit($merit);
+    }
+    $template->setSociety($society);
   }
 
   /**

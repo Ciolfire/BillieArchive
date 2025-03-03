@@ -1,0 +1,32 @@
+{% trans_default_domain 'body-thief' %}
+
+<div class="col-12">
+  <div id="society-{{ society.id }}" class="block m-2 p-2 position-relative">
+      <a class="position-absolute start-0 ps-1" href="{{ path('body_thief_society_show', {id: society.id}) }}">{% include "_icon.html.twig" with {icon: 'show'} only %}</a>
+    {% if is_granted('ROLE_ST') %}
+      <a class="position-absolute end-0 pe-1" href="{{ path('body_thief_society_edit', {id: society.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    <div {% if not shown|default(false) %}data-bs-toggle="collapse" data-bs-target="#society-details-{{ society.id }}" aria-expanded="false" aria-controls="#society-details-{{ society.id }}" role="button"{% endif %}>
+      <h1>{{ society.name }}</h1>
+    </div>
+    <div id="society-details-{{ society.id }}" class="{% if not shown|default(false) %}collapse{% endif %}">
+      <h3>{{ ("talent." ~ society.talentType.name)|trans }}</h3>
+
+      {# Probably make sense to open in a popup ? #}
+      <h4>{{ "society.merit.defining"|trans}}: <a href="{{ path("merit_show", {id: society.definingMerit.id}) }}">{{ society.definingMerit }}</a></h4>
+
+      <h4>{{ "society.advantage.label"|trans}}:</h4>
+      <p>{{ society.advantage|markdown_to_html }}</p>
+
+      <h4>{{ "society.weakness.label"|trans}}:</h4>
+      <p>{{ society.weakness|markdown_to_html }}</p>
+      <hr>
+      <p>{{ society.description|markdown_to_html }}</p>
+      <hr>
+      <h4>{{ "society.creation"|trans}}:</h4>
+      <p>{{ society.creation|markdown_to_html }}</p>
+    </div>
+
+    {% include "_source_block.html.twig" with {element: society, 'isShort': isShort|default(false) } only %}
+  </div>
+</div>
