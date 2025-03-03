@@ -383,7 +383,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
   public function setPreferences(?array $preferences): static
   {
-    // dd($preferences);
     if (is_array($this->preferences)) {
       $this->preferences = array_merge($this->preferences, $preferences);
     } else {

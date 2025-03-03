@@ -6,8 +6,8 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 
 
-#[ORM\Table(name: "bodythief_society")]
-#[ORM\Index(name: "bodythief_society_idx", columns: ["locale", "field", "foreign_key"])]
+#[ORM\Table(name: "body_thief_society_translation")]
+#[ORM\Index(name: "body_thief_society_translation_idx", columns: ["locale", "field", "foreign_key"])]
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
 class BodyThiefSocietyTranslation extends AbstractTranslation
 {

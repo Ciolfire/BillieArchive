@@ -13,7 +13,9 @@
       <h3>{{ ("talent." ~ society.talentType.name)|trans }}</h3>
 
       {# Probably make sense to open in a popup ? #}
-      <h4>{{ "society.merit.defining"|trans}}: <a href="{{ path("merit_show", {id: society.definingMerit.id}) }}">{{ society.definingMerit }}</a></h4>
+      {% if society.definingMerit %}
+        <h4>{{ "society.merit.defining"|trans}}: <a href="{{ path("merit_show", {id: society.definingMerit.id}) }}">{{ society.definingMerit }}</a></h4>
+      {% endif %}
 
       <h4>{{ "society.advantage.label"|trans}}:</h4>
       <p>{{ society.advantage|markdown_to_html }}</p>

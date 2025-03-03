@@ -442,7 +442,6 @@ class DataService
       $this->manager->persist($newCharacter);
       $this->manager->flush();
     } catch (\Throwable $th) {
-      // dd($th, $newCharacter, $newCharacter->getId());
       if (!is_null($newCharacter->getId())) {
         return $newCharacter;
       }

@@ -119,7 +119,7 @@ class ItemController extends AbstractController
           }
         }
       }
-      dd("ko");
+
       return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
     }
 

@@ -38,9 +38,7 @@ class MageService
 
     $arcana = $form->getExtraData()['arcana'];
     $startingMana = $character->getMoral();
-    
-    // dd("processing", $arcana, $form, $data['path']->getAttribute()->getIdentifier());
-    
+
     // $lesser = $character->findLesserTemplate("LESSER");
     // // IF IT'S A LESSER TEMPLATE, MAYBE NEED TO KEEP THE ARCANA/WHATEVER/...? Didn't work with entity, had to convert to array, but well, it works.
     // if ($lesser instanceof LESSER) {

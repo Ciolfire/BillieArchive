@@ -58,7 +58,6 @@ class DevotionController extends AbstractController
     }
     sort($search['discipline']);
     sort($search['clan']);
-    // dd($search);
 
     return $this->render('vampire/devotion/index.html.twig', [
       'devotions' => $devotions,
