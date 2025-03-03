@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Lesser;
 
 use App\Entity\BloodBather;
+use App\Entity\BloodBathFacet;
 use App\Entity\ContentType;
 use App\Entity\Description;
+use App\Entity\Merit;
 use App\Form\Lesser\BloodBathType;
 use App\Service\CharacterService;
 use App\Service\DataService;
@@ -27,12 +29,13 @@ class LesserController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/bloodbather', name: 'wiki_bloodbather', methods: ['GET'])]
+  #[Route('/blood_bather', name: 'wiki_blood_bather', methods: ['GET'])]
   public function bloodbather(): Response
   {
-    $type = $this->dataService->findBy(ContentType::class, ['name' => 'bloodbather']);
+    $facets = $this->dataService->findBy(BloodBathFacet::class);
 
-    return $this->render('wiki/lesser/bloodbather.html.twig', [
+    return $this->render('wiki/lesser/blood_bather.html.twig', [
+      'facets' => $facets,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'bloodbather']),
     ]);
   }
@@ -53,6 +56,22 @@ class LesserController extends AbstractController
 
     return $this->render('character_sheet_type/blood_bather/bath/edit.html.twig', [
       'form' => $form,
+    ]);
+  }
+
+  #[Route('/psychic', name: 'wiki_psychic', methods: ['GET'])]
+  public function psychic(): Response
+  {
+    $type = $this->dataService->findBy(ContentType::class, ['name' => 'psychic']);
+    $powers = $this->dataService->findBy(Merit::class, ['type' => $type]);
+    /** @var Merit $merit */
+    foreach ($powers as $power) {
+      $this->dataService->loadPrerequisites($power);
+    }
+
+    return $this->render('wiki/lesser/psychic.html.twig', [
+      'powers' => $powers,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'psychic']),
     ]);
   }
 }
