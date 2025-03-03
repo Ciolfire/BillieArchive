@@ -178,7 +178,7 @@ class DataService
    * @param array<string, 'ASC'|'asc'|'DESC'|'desc'>|null $orderBy
    * @return array<int, object>
    */
-  public function findBy(string $class, array $criteria, array $orderBy = null): array
+  public function findBy(string $class, ?array $criteria = [], ?array $orderBy = null): array
   {
 
     return $this->getRepository($class)->findBy($criteria, $orderBy);
