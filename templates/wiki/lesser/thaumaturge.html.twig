@@ -40,7 +40,7 @@
           <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
             <div class="row">
               <div class="col-12 p-2">
-                {% for merit in powers %}
+                {% for merit in powers|sort((a, b) => a.name|lower <=> b.name|lower) %}
                 {% include 'merit/card.html.twig' %}
                 {% endfor %}
               </div>

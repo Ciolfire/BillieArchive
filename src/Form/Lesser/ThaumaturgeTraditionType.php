@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Lesser;
 
 use Doctrine\ORM\EntityRepository;
 use App\Entity\ThaumaturgeTradition;

@@ -179,22 +179,6 @@ class WikiController extends AbstractController
     ]);
   }
 
-  #[Route('/psychic', name: 'wiki_psychic', methods: ['GET'])]
-  public function psychic(): Response
-  {
-    $type = $this->dataService->findBy(ContentType::class, ['name' => 'psychic']);
-    $powers = $this->dataService->findBy(Merit::class, ['type' => $type]);
-    /** @var Merit $merit */
-    foreach ($powers as $power) {
-      $this->dataService->loadPrerequisites($power);
-    }
-
-    return $this->render('wiki/lesser/psychic.html.twig', [
-      'powers' => $powers,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'psychic']),
-    ]);
-  }
-
   #[Route("/description/new", name:"description_new", methods:["GET", "POST"])]
   public function new(Request $request): Response
   {

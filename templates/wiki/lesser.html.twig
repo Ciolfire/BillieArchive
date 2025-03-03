@@ -1,11 +1,23 @@
 <div class="col-6 col-md-4 col-lg-3">
-  <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
+  <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_blood_bather')}}">
+    {% include "_icon.html.twig" with {icon: 'type/blood_bather' } only %}
+    <span class="d-none d-sm-inline">{{ "blood_bather"|trans({}, 'content-type') }}</span>
+  </a>
+</div>
+<div class="col-6 col-md-4 col-lg-3">
+  <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_body_thief')}}">
+    {% include "_icon.html.twig" with {icon: 'type/body_thief' } only %}
+    <span class="d-none d-sm-inline">{{ "body_thief"|trans({}, 'content-type') }}</span>
+  </a>
+</div>
+<div class="col-6 col-md-4 col-lg-3">
+  <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
     {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
     <span class="d-none d-sm-inline">{{ "psychic"|trans({}, 'content-type') }}</span>
   </a>
 </div>
 <div class="col-6 col-md-4 col-lg-3">
-  <a class="btn btn-primary lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_thaumaturge')}}">
+  <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_thaumaturge')}}">
     {% include "_icon.html.twig" with {icon: 'type/thaumaturge' } only %}
     <span class="d-none d-sm-inline">{{ "thaumaturge"|trans({}, 'content-type') }}</span>
   </a>

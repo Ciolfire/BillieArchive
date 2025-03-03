@@ -8,7 +8,7 @@ use App\Entity\ContentType;
 use App\Entity\ThaumaturgeTradition;
 use App\Entity\Description;
 use App\Entity\Merit;
-use App\Form\ThaumaturgeTraditionType;
+use App\Form\Lesser\ThaumaturgeTraditionType;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
