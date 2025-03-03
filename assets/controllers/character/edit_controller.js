@@ -426,7 +426,7 @@ export default class extends Controller
       }
     };
     newSpecialty.id = rand;
-    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `this.typeValue[specialties][${event.params.skill}][${rand}]`);
+    newSpecialty.getElementsByTagName('input')[0].setAttribute("name", `character[specialties][${event.params.skill}][${rand}]`);
     event.target.closest('.row').after(newSpecialty);
     this.updateSpend();
   }
