@@ -6,7 +6,7 @@ talent:
   label: Talent Type
   help: If you select a Society, its talent type will take precedence
   mental: Mental Possession
-  mystic: Mystic
+  mystic: Mystic Transference
 
 society:
   label:
