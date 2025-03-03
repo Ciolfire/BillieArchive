@@ -33,6 +33,7 @@ class Mage extends Character
    * @var Collection<int, MageArcanum>
    */
   #[ORM\OneToMany(targetEntity: MageArcanum::class, mappedBy: 'character', orphanRemoval: true)]
+  #[ORM\OrderBy(["level" => "DESC"])]
   private Collection $arcana;
 
 

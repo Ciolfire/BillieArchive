@@ -4,7 +4,7 @@
 
 {% block arcana %}
   <div class="row row-cols-5 text-strong justify-content-center">
-    {% for arcanum in character.arcana %}
+    {% for arcanum in character.arcana|sort((a, b) => a.name <=> b.name) %}
       <div class="col d-flex flex-column">
         <div>
           {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
