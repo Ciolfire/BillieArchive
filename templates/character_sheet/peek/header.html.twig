@@ -15,7 +15,7 @@
       {% endif %}
     </h1>
     <h2 class="text">
-      {% if character.player is not null and app.user != character.player %}
+      {% if character.player is not null and character.player != character.chronicle.storyteller %}
         ({{ character.player }})
       {% endif %}
     </h2>
@@ -95,9 +95,6 @@
   {% block midCol %}
     <div class="order-1 order-md-2 col-12 col-md">
       <div class="row text-center">
-        <div class="col-12">
-          {{ "Chronicle"|trans }}: {{ character.chronicle }}
-        </div>
         <div class="col-12 d-flex my-2">
           <div role="button" class="character-frame character-frame-avatar position-relative">
             {% if access.hasRight('avatar')|default(false) %}

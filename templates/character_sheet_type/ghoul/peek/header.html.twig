@@ -5,9 +5,9 @@
 {% block underAvatar %}
   <div class="col-12 pt-3">
     {% if access.hasRight('regent')|default(false) and character.lesserTemplate.regent is not empty  %}
-      {{ "regent.label"|trans }}: <span class="strong">{{ character.lesserTemplate.regent }}</span>
+      <span class="text-strong">{{ "regent.label"|trans }}: <span class="accent">{{ character.lesserTemplate.regent }}</span></span>
     {% elseif access.hasRight('type')|default(false) or access.hasRight('regent')|default(false) %}
-      {{ "regent.label"|trans }}: <span class="warning">{{ "regent.unknown"|trans }}</span>
+      <span class="text-strong">{{ "regent.label"|trans }}: <span class="warning">{{ "regent.unknown"|trans }}</span></span>
     {% endif %}
   </div>
   <div class="col-12">
