@@ -28,3 +28,4 @@ help:
   unique:   This merit can only be selected once.
   description: A short text to explain what the merit does.
   relation: This merit represent a relation to an organization or a character.
+  roll: This merit involve a dice roll.
