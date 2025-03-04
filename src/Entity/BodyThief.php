@@ -56,12 +56,12 @@ class BodyThief extends CharacterLesserTemplate
     return $this;
   }
 
-  public function getPossessionMethod(): BodyThiefTalent
+  public function getTalentType(): BodyThiefTalent
   {
     return $this->talentType;
   }
 
-  public function setPossessionMethod(BodyThiefTalent $talentType): static
+  public function setTalentType(BodyThiefTalent $talentType): static
   {
     $this->talentType = $talentType;
 

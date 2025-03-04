@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Attribute;
+use App\Entity\BloodBather;
 use App\Entity\BodyThief;
 use App\Entity\BodyThiefSociety;
 use App\Entity\Character;
@@ -253,21 +254,24 @@ class CharacterService
     switch ($template->getType()) {
       case 'ghoul':
         $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $data[$template->getType()]);
+
+        break;
       case 'blood_bather':
-        while ($character->getMoral() > 5) {
-          $character->setXpTotal($character->getXpTotal() + 5);
-          $character->setMoral($character->getMoral() - 1);
-        }
-        $character->setWillpower($character->getWillpower() - 1);
+        $this->applyBloodBather($character, $character->getLesserTemplate(), $data[$template->getType()]);
+
         break;
       case 'body_thief':
-        $this->applyBloodBather($character, $character->getLesserTemplate(), $data[$template->getType()]);
+        $this->applyBodyThief($character, $character->getLesserTemplate(), $data[$template->getType()]);
+
+        break;
       case 'innocents':
         $character->setSize($character->getSize() - 1);
 
         break;
       case 'thaumaturge':
         $this->applyThaumaturge($character, $character->getLesserTemplate(), $data[$template->getType()]);
+
+        break;
     }
     if ($character->getLesserTemplate() === $template) {
       $this->dataService->add($template);
@@ -325,7 +329,16 @@ class CharacterService
     $template->setTradition($tradition);
   }
 
-  private function applyBloodBather(Character $character, BodyThief $template, array $data)
+  private function applyBloodBather(Character $character, BloodBather $template, array $data)
+  {
+    while ($character->getMoral() > 5) {
+      $character->setXpTotal($character->getXpTotal() + 5);
+      $character->setMoral($character->getMoral() - 1);
+    }
+    $character->setWillpower($character->getWillpower() - 1);
+  }
+
+  private function applyBodyThief(Character $character, BodyThief $template, array $data)
   {
     $society = $this->dataService->find(BodyThiefSociety::class, $data['society']);
 
@@ -334,6 +347,9 @@ class CharacterService
       $character->addMerit($merit);
     }
     $template->setSociety($society);
+    if ($society) {
+      $template->setTalentType($society->getTalentType());
+    }
   }
 
   /**
