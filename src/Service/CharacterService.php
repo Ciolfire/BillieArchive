@@ -23,6 +23,7 @@ use App\Entity\Mage;
 use App\Entity\Merit;
 use App\Entity\Roll;
 use App\Entity\Skill;
+use App\Entity\Society;
 use App\Entity\Thaumaturge;
 use App\Entity\ThaumaturgeTradition;
 use App\Entity\Vampire;
@@ -83,6 +84,13 @@ class CharacterService
       case 'mage':
         /** @var Mage $character */
         $this->mageService->handleEdit($character, $extraData);
+        break;
+      case 'body_thief':
+        $lesser = $character->getLesserTemplate();
+        if ($lesser instanceof BodyThief && $lesser->getSociety() instanceof BodyThiefSociety) {
+          $lesser->setTalentType($lesser->getSociety()->getTalentType());
+        }
+        
         break;
     }
     if (isset($extraData['xp']) && !isset($extraData['isFree'])) {

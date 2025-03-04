@@ -2,9 +2,10 @@
 
 {% trans_default_domain 'body-thief' %}
 
-{% block header_middle_col %}
+{% block header_left_col %}
   {{ parent() }}
-  <div class="col-12 d-none disabled">
+  <div class="col-12">
+    {{ form_row(form.lesserTemplate.talentType) }}
     {{ form_row(form.lesserTemplate.society) }}
   </div>
 {% endblock %}

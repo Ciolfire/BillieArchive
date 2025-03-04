@@ -14,7 +14,7 @@ class BodyThiefType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-      ->add('talent', EnumType::class, [
+      ->add('talentType', EnumType::class, [
         'class' => BodyThiefTalent::class,
         'required' => false,
         'label' => 'talent.label',
