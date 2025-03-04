@@ -1,0 +1,10 @@
+{% extends "character_sheet/header/edit.html.twig" %}
+
+{% trans_default_domain 'body-thief' %}
+
+{% block header_middle_col %}
+  {{ parent() }}
+  <div class="col-12 d-none disabled">
+    {{ form_row(form.lesserTemplate.society) }}
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% trans_default_domain 'body-thief' %}
+
+{% extends "character_sheet/header/show.html.twig" %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+        {% if bodyThief.society|default(null) %}
+        <a href="{{ path("body_thief_society_show", {'id': bodyThief.society.id}) }}">
+          {% include "_icon.html.twig" with {icon: 'society', class: 'icon-lg' } only %}
+          {{ bodyThief.society.name }}
+        </a>
+        {% endif %}
+    </div>
+    <div class="col-12">
+      {% block age %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block virtue %}{{ parent() }}{% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}{{ parent() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

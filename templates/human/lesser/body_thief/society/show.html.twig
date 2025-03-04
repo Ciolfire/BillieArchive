@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'body-thief' %}
+
+{% block title %}{{ "label.single"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {% include "human/lesser/body_thief/society/_card.html.twig" with {society : society, shown: true} %}
+  </div>
+
+  {% include "_back.html.twig" %}
+{% endblock %}
