@@ -48,7 +48,7 @@ class BodyThiefController extends AbstractController
   #[Route('/wiki/society/{id<\d+>}', name: 'body_thief_society_show', methods: ['GET'])]
   public function societyShow(BodyThiefSociety $society): Response
   {
-    return $this->render('human/lesser/bodythief/society/show.html.twig', [
+    return $this->render('human/lesser/body_thief/society/show.html.twig', [
       'society' => $society,
     ]);
   }

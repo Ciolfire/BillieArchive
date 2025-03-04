@@ -21,11 +21,13 @@ use App\Entity\GhoulDiscipline;
 use App\Entity\Human;
 use App\Entity\Mage;
 use App\Entity\Merit;
+use App\Entity\Roll;
 use App\Entity\Skill;
 use App\Entity\Thaumaturge;
 use App\Entity\ThaumaturgeTradition;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CharacterService
 {
@@ -34,19 +36,23 @@ class CharacterService
   private MageService $mageService;
   // private WerewolfService $werewolfService;
   private CreationService $create;
+  
+  private TranslatorInterface $translator;
 
   public function __construct(
     DataService $dataService,
     VampireService $vampireService,
     MageService $mageService,
     //WerewolfService $werewolfService,
-    CreationService $create
+    CreationService $create,
+    TranslatorInterface $translator,
   )
   {
     $this->create = $create;
     $this->dataService = $dataService;
     $this->vampireService = $vampireService;
     $this->mageService = $mageService;
+    $this->translator = $translator;
   }
 
   public function editCharacter(Character $character, array $extraData): int
@@ -436,6 +442,28 @@ class CharacterService
       case 'mage':
         return $this->mageService->getSpecial($character);
 
+      default:
+        return null;
+    }
+  }
+
+  /** 
+   * Get extra data for the Character Show page
+   */
+  public function getSpecific(Character $character, $type): ?array
+  {
+    switch ($character->getType()) {
+      case 'body_thief':
+        $lesser = $character->getLesserTemplate();
+        if ($lesser instanceof BodyThief) {
+          return [
+            'possession' => $this->dataService->findOneBy(Roll::class, [
+            'type' => $type,
+            'name' => $this->translator->trans("talent.".$lesser->getTalentType()->name, domain: 'body-thief'),
+            ])
+          ];
+        }
+      
       default:
         return null;
     }

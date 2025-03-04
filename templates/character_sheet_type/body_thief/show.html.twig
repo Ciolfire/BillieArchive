@@ -1,1 +1,19 @@
 {% extends "character_sheet/show.html.twig" %}
+
+{% trans_default_domain 'body-thief' %}
+
+{% set bodyThief = character.lesserTemplate %}
+
+{% block header %}
+  {% include "character_sheet_type/body_thief/header/show.html.twig" %}
+{% endblock %}
+
+{% block powers %}
+  <div id="body_thief" class="tab-content d-none" data-tabs-target="page">
+    {% include "character_sheet_type/body_thief/powers/show.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'body_thief', icon: 'type/body_thief' , label: 'body_thief'|trans({}, 'content-type')} only %}
+{% endblock %}

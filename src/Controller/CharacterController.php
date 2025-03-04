@@ -147,7 +147,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route("s/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
-  public function list(string $filter = null, int $id = null) : Response
+  public function list(?string $filter = null, ?int $id = null) : Response
   {
     $characters = $this->dataService->getList($filter, $id, Character::class, "getCharacters");
     $characters = $this->service->sortCharacters(...$characters);;
@@ -170,7 +170,6 @@ class CharacterController extends AbstractController
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     $removables = $this->service->getRemovableAttributes($character);
-
     
     $avatarForm = $formFactory->createNamedBuilder("avatar", FormType::class, null, [
       'translation_domain' => 'character',
@@ -195,6 +194,7 @@ class CharacterController extends AbstractController
       'skills' => $this->skills,
       'rolls' => $rolls,
       'setting' => $character->getSetting(),
+      'special' => $this->service->getSpecific($character, $type),
       'removables' => $removables,
       'derangements' => $derangements,
       'avatarForm' => $avatarForm->createView(),
@@ -202,7 +202,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
-  public function new(Request $request, Chronicle $chronicle = null, bool $isNpc = false): Response
+  public function new(Request $request, ?Chronicle $chronicle = null, bool $isNpc = false): Response
   {
     $character = new Human();
     $character->setChronicle($chronicle);
