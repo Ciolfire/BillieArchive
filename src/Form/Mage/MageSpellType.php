@@ -57,6 +57,7 @@ class MageSpellType extends AbstractType
         'label' => "level",
         'help' => "help.level",
         'required' => false,
+        'empty_data' => '0',
       ])
       ->add('action', ChoiceType::class, [
         'label' => "action.label.single",

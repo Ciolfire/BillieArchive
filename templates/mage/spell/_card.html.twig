@@ -8,7 +8,7 @@
     <h2>
       {{ spell.name }}
       {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
-      {% for i in 1..spell.practice.level %}•{% endfor %}
+      {% for i in 1..spell.level %}•{% endfor %}
     </h2>
     <h5>
       {% include "_icon.html.twig" with { icon: 'skills/' ~ spell.skill.identifier } %}

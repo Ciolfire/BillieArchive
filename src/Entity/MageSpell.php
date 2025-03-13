@@ -77,7 +77,7 @@ class MageSpell implements Translatable
   private ?string $contestedText = null;
 
   #[ORM\Column(type: "smallint")]
-  private int $level = 0;
+  private int $level;
 
   public function __construct($element)
   {
@@ -264,6 +264,9 @@ class MageSpell implements Translatable
 
   public function getLevel(): int
   {
+    if ($this->level == 0) {
+      return $this->practice->getLevel();
+    }
     return $this->level;
   }
 

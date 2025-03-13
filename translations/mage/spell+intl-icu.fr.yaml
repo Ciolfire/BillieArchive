@@ -28,6 +28,7 @@ help:
   description: Courte description de l'effet du sort.
   cost: Tout demande de Mana pour lancer le sort, en plus du point nécessaire pour lancer un sort improvisé. Voir “Coût en Mana”.
   duration: Prolongée, Concentration, ...
+  level: Le niveau du sort (si different de la pratique)
   practice: L'une des 13 pratiques de magie identifiée par les Atlantes, definissant ce qu'un mage peut accomplir alors qu'il améliore sa maitrise de l'Arcana.
   rules: Une description détaillée des règles de l'effet du sort, incluant ses facteurs principaux (pour les sorts instantanés).
   title: Titre du sort
