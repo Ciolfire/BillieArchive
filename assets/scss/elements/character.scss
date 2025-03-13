@@ -1,3 +1,4 @@
+$defaultColor: #6f80c5;
 $lesserColor: #9736dad4;
 
 %full-fill {
@@ -14,6 +15,12 @@ $lesserColor: #9736dad4;
     opacity: 60%;
   }
   &-card {
+    &.btn {
+      color: $defaultColor;
+      &:hover {
+        color: silver;
+      }
+    }
     .text-strong {
       text-shadow: #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px,  #000 0px 0px 3px;
     }
