@@ -23,6 +23,7 @@ class BloodBather extends CharacterLesserTemplate
   public function __clone()
   {
     parent::__clone();
+    $this->bath = clone $this->bath;
   }
 
   public function getType(): string

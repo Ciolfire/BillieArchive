@@ -32,6 +32,20 @@ class BloodBath
   #[ORM\Column(type: Types::TEXT)]
   private ?string $description = "";
 
+  public function __clone()
+  {
+    if ($this->id) {
+      $this->id = null;
+    }
+
+    $this->bath;
+    $this->blood;
+    $this->effects;
+    $this->frequency;
+    $this->preparation;
+    $this->description;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

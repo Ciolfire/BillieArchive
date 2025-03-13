@@ -437,14 +437,16 @@ class DataService
     if ($chronicle instanceof Chronicle && $chronicle->getStoryteller() === $user) {
       $newCharacter->setIsNpc(true);
     }
-
+    
     try {
       $this->manager->persist($newCharacter);
       $this->manager->flush();
     } catch (\Throwable $th) {
-      if (!is_null($newCharacter->getId())) {
-        return $newCharacter;
-      }
+      // dd($th);
+      // Make the app think the creation was succesful
+      // if (!is_null($newCharacter->getId())) {
+      //   return $newCharacter;
+      // }
       return null;
     }
 
