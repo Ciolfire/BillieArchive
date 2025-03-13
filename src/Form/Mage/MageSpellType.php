@@ -53,6 +53,11 @@ class MageSpellType extends AbstractType
         'group_by' => "level",
       ]
       )
+      ->add('level', null, [
+        'label' => "level",
+        'help' => "help.level",
+        'required' => false,
+      ])
       ->add('action', ChoiceType::class, [
         'label' => "action.label.single",
         'help' => "help.action",

@@ -76,6 +76,9 @@ class MageSpell implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
+  #[ORM\Column(type: "smallint")]
+  private int $level = 0;
+
   public function __construct($element)
   {
     if ($element instanceof Chronicle) {
@@ -255,6 +258,18 @@ class MageSpell implements Translatable
   public function setContestedText(?string $contestedText): self
   {
     $this->contestedText = $contestedText;
+
+    return $this;
+  }
+
+  public function getLevel(): int
+  {
+    return $this->level;
+  }
+
+  public function setLevel(int $level): self
+  {
+    $this->level = $level;
 
     return $this;
   }

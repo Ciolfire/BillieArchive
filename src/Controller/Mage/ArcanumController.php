@@ -106,6 +106,9 @@ class ArcanumController extends AbstractController
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+      if ($spell->getLevel() == 0) {
+        $spell->setLevel($spell->getPractice()->getLevel());
+      }
       $this->dataService->save($spell);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $spell->getName()]]);
