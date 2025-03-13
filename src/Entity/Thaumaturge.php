@@ -39,6 +39,18 @@ class Thaumaturge extends CharacterLesserTemplate
     return ThaumaturgeType::class;
   }
 
+  public function getPowerRating(array $weight): int
+  {
+    $sum = 0;
+    foreach ($this->getSourceCharacter()->getMerits() as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "thaumaturge" && is_null($merit->getMerit()->getCategory())) {
+        $sum += $weight[$merit->getLevel()] * 4;
+      }
+    }
+
+    return $sum * 4;
+  }
+
   public function getTradition(): ?ThaumaturgeTradition
   {
     return $this->tradition;

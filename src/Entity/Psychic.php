@@ -35,6 +35,18 @@ class Psychic extends CharacterLesserTemplate
     return null;
   }
 
+  public function getPowerRating(array $weight): int
+  {
+    $sum = 0;
+    foreach ($this->getSourceCharacter()->getMerits() as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "psychic" && is_null($merit->getMerit()->getCategory())) {
+        $sum += $weight[$merit->getLevel()] * 4;
+      }
+    }
+
+    return $sum * 4;
+  }
+
   public function getPowers()
   {
     $powers = [];

@@ -301,12 +301,13 @@ class Character
 
     foreach ($this->merits as $merit) {
       /** @var CharacterMerit $merit */
-      if ($merit->getMerit()->getType() == 'psychic') {
-        // Why 4: Stronger than a merit, but often does not work on most supernatural
-        $sum += $weight[$merit->getLevel()] * 4;
-      } else {
+      if (!is_null($merit->getMerit()->getCategory())) {
         $sum += $weight[$merit->getLevel()] * 2;
       }
+    }
+
+    foreach ($this->lesserTemplates as $lesserTemplate) {
+      $sum += $lesserTemplate->getPowerRating($weight);
     }
 
     $sum += count($this->getSpecialties()) * 3;
@@ -314,7 +315,6 @@ class Character
     $this->powerRating = $sum;
     return $this;
   }
-
 
   public function getType(): string
   {

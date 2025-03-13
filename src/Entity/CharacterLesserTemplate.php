@@ -76,6 +76,11 @@ class CharacterLesserTemplate
     return null;
   }
 
+  public function getPowerRating(array $weight) : int
+  {
+    return 0;
+  }
+
   public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []) : array
   {
     return $this->sourceCharacter->detailedDicePool($attributes, $skills, $specials, $modifiers);

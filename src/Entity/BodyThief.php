@@ -44,6 +44,11 @@ class BodyThief extends CharacterLesserTemplate
     return BodyThiefType::class;
   }
 
+  public function getPowerRating(array $weight): int
+  {
+    return 20;
+  }
+
   public function getSociety(): ?BodyThiefSociety
   {
     return $this->society;

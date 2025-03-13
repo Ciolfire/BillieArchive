@@ -20,7 +20,7 @@
         <div class="block vampire m-1 p-2 rounded">
           <h4>{{ facet.title }} ({{ facet.modifier }})</h4>
           <hr>
-          {{ facet.description|markdown_to_html }}
+          {{ facet.description|default("")|markdown_to_html }}
         </div>
       </div>
       {% endfor %}

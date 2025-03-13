@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -36,20 +38,31 @@ class BloodBather extends CharacterLesserTemplate
     return "human";
   }
 
-  public static function getForm() : ?string
+  public static function getForm(): ?string
   {
     return null;
   }
 
+  public function getPowerRating(array $weight): int
+  {
+    $sum = 0;
+    foreach ($this->bath->getEffects() as $facet) {
+      if (is_numeric($value = intval($facet['modifier'])))
+      $sum += $value;
+    }
+
+    return $sum * 4;
+  }
+
   public function getBath(): ?BloodBath
   {
-      return $this->bath;
+    return $this->bath;
   }
 
   public function setBath(BloodBath $bath): static
   {
-      $this->bath = $bath;
+    $this->bath = $bath;
 
-      return $this;
+    return $this;
   }
 }
