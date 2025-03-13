@@ -41,10 +41,10 @@ importers:
         version: 4.0.0(@hotwired/stimulus@3.2.2)
       '@symfony/ux-cropperjs':
         specifier: file:vendor/symfony/ux-cropperjs/assets
-        version: file:vendor/symfony/ux-cropperjs/assets(@hotwired/stimulus@3.2.2)(cropperjs@1.6.2)
+        version: file:vendor/symfony/ux-cropperjs/assets
       '@symfony/ux-dropzone':
         specifier: file:vendor/symfony/ux-dropzone/assets
-        version: file:vendor/symfony/ux-dropzone/assets(@hotwired/stimulus@3.2.2)
+        version: file:vendor/symfony/ux-dropzone/assets
       '@symfony/webpack-encore':
         specifier: ^5.0.1
         version: 5.0.1(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@symfony/stimulus-bridge@4.0.0(@hotwired/stimulus@3.2.2))(file-loader@6.2.0(webpack@5.97.1))(postcss@8.5.1)(sass-loader@16.0.4(sass@1.83.4)(webpack@5.97.1))(sass@1.83.4)(ts-loader@9.5.2(typescript@5.7.3)(webpack@5.97.1))(typescript@5.7.3)(webpack-cli@6.0.1)(webpack-notifier@1.15.0)(webpack@5.97.1)
@@ -726,14 +726,9 @@ packages:
 
   '@symfony/ux-cropperjs@file:vendor/symfony/ux-cropperjs/assets':
     resolution: {directory: vendor/symfony/ux-cropperjs/assets, type: directory}
-    peerDependencies:
-      '@hotwired/stimulus': ^3.0.0
-      cropperjs: ^1.5.9
 
   '@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets':
     resolution: {directory: vendor/symfony/ux-dropzone/assets, type: directory}
-    peerDependencies:
-      '@hotwired/stimulus': ^3.0.0
 
   '@symfony/webpack-encore@5.0.1':
     resolution: {integrity: sha512-2l9ssZCJDMKOXi1iggjn7HEaErdYvITvuheLvtXHAgR2mauV2FiE/pNFS+Bqz2sbj1g4pPcqJIl5AwFE9etOgg==}
@@ -3052,14 +3047,9 @@ snapshots:
       loader-utils: 3.3.1
       schema-utils: 4.3.0
 
-  '@symfony/ux-cropperjs@file:vendor/symfony/ux-cropperjs/assets(@hotwired/stimulus@3.2.2)(cropperjs@1.6.2)':
-    dependencies:
-      '@hotwired/stimulus': 3.2.2
-      cropperjs: 1.6.2
+  '@symfony/ux-cropperjs@file:vendor/symfony/ux-cropperjs/assets': {}
 
-  '@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets(@hotwired/stimulus@3.2.2)':
-    dependencies:
-      '@hotwired/stimulus': 3.2.2
+  '@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets': {}
 
   '@symfony/webpack-encore@5.0.1(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@symfony/stimulus-bridge@4.0.0(@hotwired/stimulus@3.2.2))(file-loader@6.2.0(webpack@5.97.1))(postcss@8.5.1)(sass-loader@16.0.4(sass@1.83.4)(webpack@5.97.1))(sass@1.83.4)(ts-loader@9.5.2(typescript@5.7.3)(webpack@5.97.1))(typescript@5.7.3)(webpack-cli@6.0.1)(webpack-notifier@1.15.0)(webpack@5.97.1)':
     dependencies:
