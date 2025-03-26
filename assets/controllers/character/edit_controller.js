@@ -34,6 +34,9 @@ export default class extends Controller
       'discipline': 7,
       'favoredDiscipline': 5,
       'potency': 8,
+      // ghoul
+      'ghoulDiscipline': 14,
+      'ghoulFavoredDiscipline': 10,
       // mage
       'gnosis': 8,
       'arcanum-ruling': 6,
@@ -45,6 +48,10 @@ export default class extends Controller
 
   connect()
   {
+    if (this.typeValue == "ghoul") {
+      this.costsValue['discipline'] = this.costsValue['ghoulDiscipline'];
+      this.costsValue['favoredDiscipline'] = this.costsValue['ghoulFavoredDiscipline'];
+    }
     // Set the string for "no change" depending on language
     this.emptyInfoValue = this.usingInfoTarget.innerText;
     // For each element with dots, if it's higher than base level,

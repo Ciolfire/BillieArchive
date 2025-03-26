@@ -15,6 +15,7 @@
       'data-action': 'character--edit:change->character--merits#checkPrerequisite',
       'data-character--edit-total-value': character.xpTotal,
       'data-character--edit-used-value': character.xpUsed,
+      'data-character--edit-type-value': character.type,
   } %}
   {{ form_start(form, {'attr': form_attributes}) }}
 {% endblock %}

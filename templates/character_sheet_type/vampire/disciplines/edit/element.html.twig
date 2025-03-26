@@ -16,7 +16,7 @@
   data-action="click->dot#activate click->character--edit#pay"
   data-dot-value-param="{{ value }}"
   data-character--edit-id-param="{{ discipline.id }}"
-  data-character--edit-type-param="{% if clan.favored(discipline) %}favoredDiscipline{% else %}discipline{% endif %}"
+  data-character--edit-type-param="{{ type }}"
   data-character--edit-name-param="{{ discipline.name }}"
   data-character--edit-value-param="{{ value }}"
   data-character--edit-base-param="{{ characterDiscipline.level|default(0) }}"
