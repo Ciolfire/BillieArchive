@@ -9,6 +9,7 @@ use App\Form\CharacterSpecialtyType;
 use App\Form\Type\SourceableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -80,6 +81,13 @@ class CharacterType extends AbstractType
       ->add('vice', null, ['label' => 'vice.label.single'])
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
+      ->add('status', ChoiceType::class, [
+        'choices' => [
+          'alive',
+          'dead',
+          'unknown',
+        ]
+      ])
       ->add('faction', null, ['label' => 'faction'])
       ->add('groupName', null, ['label' => 'group'])
       ->add('organization', null, [

@@ -58,7 +58,7 @@
         {% block details %}{% endblock %}
         <div class="col-12 d-flex my-2">
           <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative rounded">
-            <img class="p-1 rounded" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+            <img class="p-1 rounded {{ character.status }}" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
           </div>
         </div>
       </div>

@@ -52,7 +52,10 @@ class Character
   protected ?string $title = "";
 
   #[ORM\Column(type: Types::INTEGER, enumType: Gender::class)]
-  private Gender $gender = Gender::female;
+  protected Gender $gender = Gender::female;
+
+  #[ORM\Column(length: 30)]
+  protected ?string $status = "alive";
 
   #[ORM\Column(type: Types::SMALLINT, nullable: true, options: ["unsigned" => true])]
   protected ?int $age;
@@ -457,6 +460,18 @@ class Character
   public function setTitle(string $title): self
   {
     $this->title = $title;
+
+    return $this;
+  }
+
+  public function getStatus(): ?string
+  {
+    return $this->status;
+  }
+
+  public function setStatus(string $status): self
+  {
+    $this->status = $status;
 
     return $this;
   }
