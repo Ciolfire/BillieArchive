@@ -37,7 +37,7 @@ class Mage extends Character
   private Collection $arcana;
 
 
-  public function __construct(Character $character = null)
+  public function __construct(?Character $character = null)
   {
     $this->arcana = new ArrayCollection();
     if (is_object($character)) {
