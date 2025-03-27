@@ -1,0 +1,9 @@
+{% if setting == "vampire" %}
+  {{ asset('SkullVTR.png', 'images') }}
+{% elseif setting == "mage" %}
+  {{ asset('SkullMTAw.webp', 'images') }}
+{% elseif setting == "werewolf" %}
+  {{ asset('SkullWTF.png', 'images') }}
+{% else %}
+  {{ asset('SkullWOD.webp', 'images') }}
+{% endif %}

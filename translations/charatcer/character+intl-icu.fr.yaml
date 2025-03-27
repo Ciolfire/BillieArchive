@@ -168,6 +168,7 @@ right:
   lastname: Nom de famille
   morality: Moralité
   nickname: Surnom
+  status: Statut
   title: Titre
   type: Type
   virtue: Vertue
@@ -191,6 +192,12 @@ right:
 size:
   label: Taille de base
   help: Un adulte normal a un taille de 5, un enfant 4.
+
+status:
+  alive: Vivant
+  dead: Mort
+  torpor: Torpeur
+  unknown: Inconnu
 
 template:
   apply: Appliquer le Template

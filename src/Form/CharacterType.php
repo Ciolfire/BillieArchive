@@ -24,6 +24,16 @@ class CharacterType extends AbstractType
     $player = $character->getPlayer();
     $chronicle = $character->getChronicle();
 
+    $status = [
+      "status.alive" => 'alive',
+      "status.dead" => 'dead',
+      "status.unknown" => 'unknown',
+    ];
+    
+    if ($character->getType() == 'vampire') {
+      $status["status.torpor"] = 'torpor'; 
+    }
+
     if ($chronicle) {
       $chronicles = [$chronicle];
     } else {
@@ -82,11 +92,9 @@ class CharacterType extends AbstractType
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
       ->add('status', ChoiceType::class, [
-        'choices' => [
-          'alive',
-          'dead',
-          'unknown',
-        ]
+        'choices' => $status,
+        'required' => false,
+        'empty_data' => "alive",
       ])
       ->add('faction', null, ['label' => 'faction'])
       ->add('groupName', null, ['label' => 'group'])

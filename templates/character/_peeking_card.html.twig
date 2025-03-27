@@ -41,7 +41,18 @@
 {% endblock %}
 
 {% block avatar %}
-  <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
+  <div class="position-relative">
+    <img class="rounded" src={% if access.hasRight('avatar')|default(false) %}"{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;"{% else %}"{{ asset('default.jpg', 'characters') }}"{% endif %} height="80">
+    {% if access.hasRight('status')|default(false) %}
+      {% if character.status == "dead" %}
+        <img class="p-1 rounded avatar-overlay avatar-overlay-dead" src={% include "_setting_src.html.twig" with {setting: character.type} %}  />
+      {% elseif character.status == "unknown" %}
+        {% include "_icon.html.twig" with {icon: 'uncertainty', class: 'avatar-overlay avatar-overlay-unknown icon-100'} %}
+      {% elseif character.status == "torpor" %}
+        {% include "_icon.html.twig" with {icon: 'stake', class: 'avatar-overlay avatar-overlay-torpor icon-100'} %}
+      {% endif %}
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block details %}{% endblock %}

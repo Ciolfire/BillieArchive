@@ -134,6 +134,36 @@ $lesserColor: #9736dad4;
   }
 }
 
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &-dead {
+    object-fit: contain!important;
+    opacity: 0.3;
+    background-color: #fff;
+  }
+
+  &-unknown {
+    color: #8c8c8c;
+    opacity: 0.3;
+    background-color: #00000080;
+  }
+
+  &-torpor {
+    color: #5b0000;
+    opacity: 0.4;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.avatar-status {
+  &-dead {
+    filter: blur(0.05em) grayscale(1);
+  }
+}
+
 $list-size: 100px * (1 + 0.05 * 2);
 $path-width: 2px;
 

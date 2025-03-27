@@ -168,6 +168,7 @@ right:
   lastname: Last name
   morality: Morality
   nickname: Nickname
+  status: Status
   title: Title
   type: Type
   virtue: Virtue
@@ -191,6 +192,12 @@ right:
 size:
   label: Base size
   help: A normal adult is size 5, a kid is size 4.
+
+status:
+  alive: Alive
+  dead: Dead
+  torpor: Torpor
+  unknown: Unknown
 
 template:
   apply: Apply Template

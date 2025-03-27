@@ -28,6 +28,7 @@ class CharacterAccessType extends AbstractType
 
     $choices = [
       'type',
+      'status',
       'firstname',
       'lastname',
       'nickname',
