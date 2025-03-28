@@ -151,6 +151,12 @@ $lesserColor: #9736dad4;
     background-color: #00000080;
   }
 
+  &-locked {
+    color: #595959;
+    opacity: 0.8;
+    background-color: #00000063;
+  }
+
   &-torpor {
     color: #5b0000;
     opacity: 0.4;

@@ -196,6 +196,7 @@ size:
 status:
   alive: Vivant
   dead: Mort
+  locked: Prisonnier
   torpor: Torpeur
   unknown: Inconnu
 

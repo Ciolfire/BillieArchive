@@ -46,6 +46,8 @@
     {% if access.hasRight('status')|default(false) %}
       {% if character.status == "dead" %}
         <img class="p-1 rounded avatar-overlay avatar-overlay-dead" src={% include "_setting_src.html.twig" with {setting: character.type} %}  />
+      {% elseif character.status == "locked" %}
+        {% include "_icon.html.twig" with {icon: 'prison', class: 'avatar-overlay avatar-overlay-locked icon-100'} %}
       {% elseif character.status == "unknown" %}
         {% include "_icon.html.twig" with {icon: 'uncertainty', class: 'avatar-overlay avatar-overlay-unknown icon-100'} %}
       {% elseif character.status == "torpor" %}

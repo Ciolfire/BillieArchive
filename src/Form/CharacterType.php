@@ -26,8 +26,9 @@ class CharacterType extends AbstractType
 
     $status = [
       "status.alive" => 'alive',
-      "status.dead" => 'dead',
+      "status.locked" => 'locked',
       "status.unknown" => 'unknown',
+      "status.dead" => 'dead',
     ];
     
     if ($character->getType() == 'vampire') {
