@@ -33,7 +33,7 @@
       {% include "_tab.html.twig" with {name: 'meritRelation', label: 'relation'|trans({}, 'character'), icon: 'characters'} only %}
     {% endif %}
     {% if location is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritLocation', label: 'location'|trans({}, 'app'), icon: 'location'} only %}
+      {% include "_tab.html.twig" with {name: 'meritLocation', label: 'category.location'|trans({}, 'app'), icon: 'location'} only %}
     {% endif %}
   </ul>
   <div id="meritMental" class="tab-content d-none" data-tabs-target="page">
