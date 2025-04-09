@@ -6,6 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Skill;
+use App\Form\StatusEffectType;
 use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Form\Type\RichTextEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
@@ -71,6 +73,17 @@ class DisciplinePowerType extends AbstractType
         ])
         ->add('usePotency', null, ['label' => "potency"])
         ->add('contestedText', null, ['label' => "contested.text", 'attr' => ['placeholder' => "contested.placeholder"]])
+        ->add('canToggle', null, ['label' => "toggle", 'help' => "toggle.help"])
+        // ->add('statusEffects', CollectionType::class, [
+        //   'label' => false,
+        //   'entry_type' => StatusEffectType::class,
+        //   'entry_options' => [
+        //     'label' => false, 
+        //     'type' => 'vampire', 
+        //   ],
+        //   'allow_add' => true,
+        //   'allow_delete' => true,
+        // ])
         ;
     }
     $builder->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => "app"]);

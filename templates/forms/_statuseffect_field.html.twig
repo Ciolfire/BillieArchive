@@ -1,0 +1,19 @@
+{% trans_default_domain 'app' %}
+
+  <div class="bdr bdr-accent p-1 my-2">
+    <div {{ stimulus_controller('form-collection') }}
+      data-form-collection-index-value="{{ form.statusEffects|length > 0 ? form.statusEffects|last.vars.name + 1 : 0 }}"
+      data-form-collection-prototype-value="{{ form_widget(form.statusEffects.vars.prototype)|e('html_attr') }}"
+    >
+      <ul class="row g-1" {{ stimulus_target('form-collection', 'collectionContainer') }}>
+        <h3 class="text-start">{{ "status.label.multi"|trans([], 'app') }}</h3>
+          {% for status in form.statusEffects %}
+            {{ form_row(status)}}
+          {% endfor %}
+      </ul>
+      <button type="button" class="btn btn-primary btn-lg m-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
+        {{ "status.add"|trans }}
+        {% include "_icon.html.twig" with {icon: 'add' } %}
+      </button>
+    </div>
+  </div>

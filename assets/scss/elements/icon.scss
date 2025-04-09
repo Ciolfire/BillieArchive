@@ -78,4 +78,27 @@
     height: 1.4em;
     width : 1.4em;
   }
+
+  &.status-wrapper {
+    height: 1.8em;
+    width : 1.8em;
+    padding: 0.2em;
+    background-color:gray;
+    border-radius: 0.2em;
+    outline: 0.2em solid black;
+    &.status-add{
+      background-color: transparent;
+      outline: 0.2em dashed black;
+      color: rgba(192, 192, 192, 0.721);
+      &:hover {
+        color: silver;
+      }
+    }
+    &.status-buff {
+      background-color: rgb(22, 69, 22);
+    }
+    &.status-debuff {
+      background-color: rgb(113, 30, 30);
+    }
+  }
 }

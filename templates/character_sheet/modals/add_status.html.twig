@@ -1,0 +1,79 @@
+{% trans_default_domain 'character' %}
+
+{% set icons = [
+  'mental',
+  'physical',
+  'social',
+  'strong',
+  'time',
+  'info',
+  'question',
+  'death',
+  'wound',
+  'downed',
+  'knockout',
+  'weak-point'
+] %}
+
+<div class="modal fade" id="addStatusModal" tabindex="-1" aria-labelledby="addStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content block-solid">
+      <div class="modal-header">
+        <h4 class="modal-title text-sub" id="addStatusModalLabel">{{'status.effect.add'|trans }}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ path('character_status_effect_add', { 'id' : character.id }) }}" method="POST" data-controller="character--status">
+          <input type="hidden" data-character--status-target="character" value="{{ character.id }}">
+          <input type="hidden" data-character--status-target="locale" value="{{ app.request.locale }}">
+          <div class="row">
+            <div class="col mb-3">
+              <select class="form-control" name="type" data-character--status-target="type" data-action="change->character--status#load">
+                <option value="">{{ "status.effect.type.basic"|trans }}</option>
+                {% for status, options in statusList %}
+                  <option value="{{status}}">{{ options['label']|default('label.single')|trans({}, options['domain']|default(status)) }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-6 mb-3">
+              <select class="form-control" name="elements" data-character--status-target="elements" data-action="change->character--status#unlock">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <label class="col-form-label">{{ "status.effect.value.label"|trans }}</label>
+              <input type="number" class="form-control" name="value" placeholder="{{ "status.effect.value.placeholder"|trans }}" data-character--status-target="value" data-action="change->character--status#isBuff"/>
+            </div>
+            <div class="col-12 mb-3">
+              <label class="col-form-label">{{ "status.effect.name"|trans }}</label>
+              <input class="form-control" name="name" placeholder="{{ "status.effect.name"|trans }}" data-character--status-target="name"/>
+            </div>
+            <div class="col-12 mb-3">
+              <label class="col-form-label">{{ "status.effect.description.label"|trans }}</label>
+              <input class="form-control" name="description" placeholder="{{ "status.effect.description.placeholder"|trans }}" data-character--status-target="description"/>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <h5>{{'status.effect.icon'|trans }}</h5>
+            {% for key, icon in icons %}
+              <div class="col-2 mb-1">
+                <input type="radio" id="icon_{{ key }}" name="icon" value="{{ icon }}" class="d-inline-block"/>
+                <label role="button" for="icon_{{ key }}" class="d-inline-block position-relative icon status-wrapper" data-character--status-target="icon">
+                  {% include "_icon.html.twig" with {class: "position-absolute top-50 start-50 translate-middle"} %}
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary w-100 disabled" data-character--status-target="submit">
+              {% include "_icon.html.twig" with {icon: 'add'} %}
+              {{ 'action.add'|trans([], 'app') }}
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

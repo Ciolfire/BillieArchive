@@ -84,6 +84,8 @@ class FetchController extends AbstractController
         'methods' => "ok",
       ]);
     }
+
+    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/load/removable', name: 'a_load_removable', methods: ['GET', 'POST'])]
@@ -94,7 +96,7 @@ class FetchController extends AbstractController
       $character = $this->dataService->find(Character::class, $data->character);
 
       if (!$character instanceof Character) {
-        return null;
+        return new JsonResponse();
       }
       $methods = [
         0 => [
@@ -191,9 +193,64 @@ class FetchController extends AbstractController
         'choices' => $choices,
         'methods' => $methods,
       ]);
-    } else {
-      return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+  
+  #[Route('/load/status', name: 'a_load_status', methods: ['GET', 'POST'])]
+  public function loadStatus(Request $request): JsonResponse|RedirectResponse
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $character = $this->dataService->find(Character::class, $data->character);
+
+      if (!$character instanceof Character) {
+        return new JsonResponse();
+      }
+
+      $label = "name";
+      switch ($data->type) {
+        case "willpower":
+        case "potency":
+          break;
+        case "attribute":
+          $attributes = $character->getPositiveAttributes();
+          /** @var AttributeRepository */
+          $repo = $this->dataService->getDoctrine()->getRepository(Attribute::class);
+          $choices = $repo->filterByIdentifiers($attributes);
+          $identifier = 'identifier';
+          break;
+        case "skill":
+          $skills = $character->getLearnedSkills();
+          /** @var SkillRepository */
+          $repo = $this->dataService->getDoctrine()->getRepository(Skill::class);
+          $choices = $repo->filterByIdentifiers($skills);
+          $identifier = 'identifier';
+          break;
+        case 'merit':
+          $choices = $character->getMerits();
+          $identifier = "id";
+          $label = "detailedName";
+          break;
+      }
+
+      if (isset($choices)) {
+        $choices = $this->render('forms/choices.html.twig', [
+          'choices' => $choices,
+          'id' => $identifier,
+          'label' => $label,
+        ])->getContent();
+      } else {
+        $choices = null;
+      }
+      return new JsonResponse([
+        'choices' => $choices,
+      ]);
+    }
+
+    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/{_locale<%supported_locales%>?%default_locale%}/entity/form', name: 'fetch_entity_form', methods: ['POST'])]
@@ -211,5 +268,7 @@ class FetchController extends AbstractController
 
       return new JsonResponse(status:204);
     }
+
+    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
   }
 }

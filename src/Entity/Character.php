@@ -195,6 +195,12 @@ class Character
 
   protected string $type;
 
+  /**
+   * @var Collection<int, StatusEffect>
+   */
+  #[ORM\ManyToMany(targetEntity: StatusEffect::class)]
+  private Collection $statusEffects;
+
   public function __construct()
   {
     $this->setAttributes(new CharacterAttributes());
@@ -212,6 +218,7 @@ class Character
     $this->characterAccesses = new ArrayCollection();
     $this->peekingRights = new ArrayCollection();
     $this->items = new ArrayCollection();
+    $this->statusEffects = new ArrayCollection();
   }
 
   public function __clone()
@@ -758,14 +765,6 @@ class Character
   public function getHealth(): ?int
   {
     $base = $this->size;
-
-    // if ($this->getType() == "vampire") {
-    //   /**@var Vampire $this */
-    //   $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
-    //   if (!is_null($resilience)) {
-    //     $base = $base + $resilience->getLevel();
-    //   }
-    // }
 
     return $base + $this->attributes->getStamina();
   }
@@ -1613,5 +1612,29 @@ class Character
   public function getMainOrganization(): ?Organization
   {
     return $this->organization;
+  }
+
+  /**
+   * @return Collection<int, StatusEffect>
+   */
+  public function getStatusEffects(): Collection
+  {
+      return $this->statusEffects;
+  }
+
+  public function addStatusEffect(StatusEffect $statusEffect): static
+  {
+      if (!$this->statusEffects->contains($statusEffect)) {
+          $this->statusEffects->add($statusEffect);
+      }
+
+      return $this;
+  }
+
+  public function removeStatusEffect(StatusEffect $statusEffect): static
+  {
+      $this->statusEffects->removeElement($statusEffect);
+
+      return $this;
   }
 }

@@ -9,6 +9,7 @@ export default class extends Controller {
   ];
   static values = {
     id: 0,
+    timer: 0,
   }
 
   update(event) {
@@ -32,5 +33,20 @@ export default class extends Controller {
 
     let data = JSON.stringify({'value': this.inputTarget.value, 'method': event.params.method });
     xhttp.send(data);
+  }
+
+  delete() {
+    console.log("delete");
+    clearTimeout(this.timerValue);
+
+    this.timerValue = window.setTimeout(function() {
+      alert("delete ?");
+    },1000);
+    return false; 
+  }
+
+  cancelDelete() {
+    console.log("no delete");
+    clearTimeout(this.timerValue);
   }
 }

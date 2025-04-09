@@ -200,6 +200,19 @@ status:
   torpor: Torpor
   unknown: Unknown
 
+status.effect:
+  add: Add a Status Effect
+  description:
+    label: Description/Context
+    placeholder: Short explanation of the effect
+  icon: Icon
+  name: Title
+  type:
+    basic: Basic
+  value:
+    label: Bonus/Malus
+    placeholder: Positive value for bonus, negative for malus, 0 for neutral
+
 template:
   apply: Apply Template
   lesser:

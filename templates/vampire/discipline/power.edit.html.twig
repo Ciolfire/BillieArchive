@@ -5,7 +5,9 @@
 {% block title %}{{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}{% endblock %}
 {% block header %}{{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}{% endblock %}
 
-{% block form %}{{ form(form) }}{% endblock %}
+{% block form %}
+{{ form(form) }}
+{% endblock %}
 
 {% block actions %}
   <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'action.back'|trans({}, "app") }}</a>

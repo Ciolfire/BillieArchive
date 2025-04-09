@@ -14,6 +14,7 @@ use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Item;
 use App\Entity\Roll;
+use App\Entity\StatusEffect;
 use App\Form\CharacterAccessType;
 use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
@@ -170,6 +171,7 @@ class CharacterController extends AbstractController
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     $removables = $this->service->getRemovableAttributes($character);
+    $statusList = $this->service->getStatusType($character);
     
     $avatarForm = $formFactory->createNamedBuilder("avatar", FormType::class, null, [
       'translation_domain' => 'character',
@@ -196,6 +198,7 @@ class CharacterController extends AbstractController
       'setting' => $character->getSetting(),
       'special' => $this->service->getSpecific($character, $type),
       'removables' => $removables,
+      'statusList' => $statusList,
       'derangements' => $derangements,
       'avatarForm' => $avatarForm->createView(),
     ]);
@@ -949,6 +952,35 @@ class CharacterController extends AbstractController
     } else {
       $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
     }
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/status/add', name: 'character_status_effect_add', methods: ['POST'])]
+  public function statusEffectAdd(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $data = $request->request->all();
+    $statusEffect = new StatusEffect();
+    $statusEffect->setName($data['name']);
+    $statusEffect->setType($data['type']);
+    $statusEffect->setValue(intval($data['value']));
+    $statusEffect->setDescription($data['description']);
+    $statusEffect->setChoice($data['elements']);
+    if (isset($data['icon'])) {
+      $statusEffect->setIcon($data['icon']);
+    } else {
+      $statusEffect->setIcon('info');
+    }
+
+    $character->addStatusEffect($statusEffect);
+    $this->dataService->save($statusEffect);
+    // $element = $this->service->removeAbility($character, $request->request->all());
+    // if ($element) {
+    //   $this->addFlash("warning", ["character.ability.remove", ['type' => $request->request->get('type'), 'element' => $element, 'method' => $request->request->get('method')]]);
+    // } else {
+    //   $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
+    // }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 }

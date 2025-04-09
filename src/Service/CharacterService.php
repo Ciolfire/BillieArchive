@@ -819,4 +819,32 @@ class CharacterService
 
     return $removables;
   }
+
+  public function getStatusType(Character $character)
+  {
+    $statusList = [
+      'attribute' => [],
+      'skill' => [],
+      // 'merit' => [],
+      'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
+      // 'derangement' => [],
+    ];
+    // switch ($character::class) {
+    //   case Vampire::class:
+    //     $statusList = array_merge($statusList, $this->vampireService->getRemovableAttributes());
+    //     break;
+    //   case Human::class:
+    //     if ($character->getLesserTemplate()) {
+    //       switch ($character->getLesserTemplate()::class) {
+    //         case Ghoul::class:
+    //           // for ghoul
+    //           $statusList = array_merge($statusList, $this->vampireService->getGhoulRemovableAttributes());
+    //           break;
+    //       }
+    //     }
+    //     break;
+    // }
+
+    return $statusList;
+  }
 }
