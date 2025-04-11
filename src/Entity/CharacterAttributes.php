@@ -78,8 +78,15 @@ class CharacterAttributes
     return $this;
   }
 
-  public function get(string $attribute) : mixed
+  public function get(string $attribute, bool $includeModifiers = false) : mixed
   {
+    if ($includeModifiers) {
+      foreach ($this->character->getStatusEffects() as $effect) {
+        if ($effect->getType() == 'attribute' && $effect->getChoice() == $attribute) {
+          return $this->$attribute + $effect->getValue();
+        }
+      }
+    }
     return $this->$attribute;
     return min($this->character->getLimit(), $this->$attribute);
   }

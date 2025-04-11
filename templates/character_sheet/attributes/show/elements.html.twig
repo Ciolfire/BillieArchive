@@ -6,5 +6,5 @@
   {% set max = character.limit %}
   {% set min = 1 %}
   {% set base = 1 %}
-  {% include "character_sheet/attributes/show/element.html.twig" with { base: attribute(character.attributes, attribute.id) } %}
+  {% include "character_sheet/attributes/show/element.html.twig" with { base: attribute(character.attributes, 'get', [attribute.id, true]) } %}
 {% endblock %}
