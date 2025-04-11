@@ -1,7 +1,17 @@
 {% trans_default_domain domain|default('icon') %}
 
-<div data-action="mousedown->character--experience#delete mouseup->character--experience#cancelDelete" role="button" class="d-inline-block position-relative icon status-wrapper {% if status.value > 0 %}status-buff{% elseif status.value < 0 %}status-debuff{% endif %} m-1 me-2">
-  {% include "_icon.html.twig" with { icon: status.icon, class: 'position-absolute top-50 start-50 translate-middle', label: status.description|default(status.name ~ ' ' ~ status.value) } %}
+<div role="button" 
+  {% if status.isLocked %}
+    data-action="mousedown->character--status#locked mouseup->character--status#cancel"
+  {% else %}
+    data-action="mousedown->character--status#delete mouseup->character--status#cancel" data-character--status-id-param="{{ status.id }}"
+  {% endif %}
+  class="d-inline-block position-relative icon status-wrapper m-1 me-2
+  {% if status.value > 0 %} status-buff{% elseif status.value < 0 %} status-debuff{% endif %}
+  {% if status.isLocked %} status-locked{% endif %}
+  "
+>
+  {% include "_icon.html.twig" with { icon: status.icon, class: 'position-absolute top-50 start-50 translate-middle', label: status.label } %}
   {% if status.value != 0 %}
     <div class="pe-none text-sm text-strong position-absolute top-100 start-100 translate-middle">{{ status.value }}</div>
   {% endif %}

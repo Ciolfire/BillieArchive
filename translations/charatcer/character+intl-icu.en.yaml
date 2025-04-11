@@ -206,12 +206,14 @@ status.effect:
     label: Description/Context
     placeholder: Short explanation of the effect
   icon: Icon
+  info: Theses status can be deleted later. Long press to remove them.
   name: Title
   type:
     basic: Basic
   value:
     label: Bonus/Malus
-    placeholder: Positive value for bonus, negative for malus, 0 for neutral
+    placeholder: -2, 0, 3, ...
+    example: Positive value for bonus, negative for malus, 0 for neutral
 
 template:
   apply: Apply Template

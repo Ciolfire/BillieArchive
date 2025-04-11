@@ -200,6 +200,21 @@ status:
   torpor: Torpeur
   unknown: Inconnu
 
+status.effect:
+  add: Ajouter un Effet
+  description:
+    label: Description/Contexte
+    placeholder: Courte explication de l'effet
+  icon: Icone
+  info: Ces status peuvent être retirés plus tard. Pour les supprimer, appuyez dessus longuement.
+  name: Titre
+  type:
+    basic: Basique
+  value:
+    label: Bonus/Malus
+    placeholder: -2, 0, 3...
+    example: Valeur positive pour un bonus, negative pour un malus, 0 pour neutre.
+
 template:
   apply: Appliquer le Template
   lesser:

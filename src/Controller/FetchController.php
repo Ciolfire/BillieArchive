@@ -7,6 +7,7 @@ use App\Entity\Character;
 use App\Entity\CharacterDerangement;
 use App\Entity\Ghoul;
 use App\Entity\Skill;
+use App\Entity\StatusEffect;
 use App\Entity\Vampire;
 use App\Repository\AttributeRepository;
 use App\Repository\SkillRepository;
@@ -248,6 +249,22 @@ class FetchController extends AbstractController
       return new JsonResponse([
         'choices' => $choices,
       ]);
+    }
+
+    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+  }
+
+  #[Route('/delete/status', name: 'a_delete_status', methods: ['GET', 'POST'])]
+  public function deleteStatus(Request $request): JsonResponse|RedirectResponse
+  {
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $status = $this->dataService->find(StatusEffect::class, $data->id);
+
+      if ($status instanceof StatusEffect) {
+        $this->dataService->remove($status);
+      }
+      return new JsonResponse();
     }
 
     return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);

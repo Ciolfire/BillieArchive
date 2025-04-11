@@ -9,15 +9,18 @@ export default class extends Controller {
     "elements",
     "value",
     "icon",
-    "submit"
+    "submit",
   ];
 
   static values = {
+    timer: 0,
   }
 
   connect() {
-    this.elementsTarget.parentElement.classList.add('collapse');
-    this.load();
+    if (this.hasElementsTarget) {
+      this.elementsTarget.parentElement.classList.add('collapse');
+      this.load();
+    }
   }
 
   load() {
@@ -84,5 +87,72 @@ export default class extends Controller {
         icon.classList.remove('status-buff');
       });
     }
+  }
+
+  delete(event) {
+    clearTimeout(this.timerValue);
+    let target = event.currentTarget;
+    console.log(target);
+
+    // Animation
+    let iconSpiningKeyframes = new KeyframeEffect(
+      target,
+      [
+        { transform: "scale(1)" },
+        { transform: "scale(0)" },
+      ],
+      { duration: 1001, iterations: 1 }
+    );
+    let spiningAnimation = new Animation(iconSpiningKeyframes, document.timeline);
+    spiningAnimation.play();
+    // End animation
+    // after long press...
+    this.timerValue = window.setTimeout(function () {
+      window.fetch("/fetch/delete/status", {
+        headers: {
+          "Content-Type": "application/json",
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        method: "POST",
+        body: JSON.stringify({ 'id': event.params.id })
+
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      let icon = event.target.closest('span');
+      console.log(icon);
+      document.getElementById(icon.getAttribute('aria-describedBy')).remove();
+      target.remove();
+      clearTimeout(this.timerValue);
+    }, 1000);
+  }
+
+  cancel(event) {
+    clearTimeout(this.timerValue);
+    let animations = event.currentTarget.getAnimations();
+    if (animations[0] != undefined) {
+      animations[0].cancel();
+    }
+  }
+
+  locked(event) {
+    clearTimeout(this.timerValue);
+    let statusLockedKeyframes = new KeyframeEffect(
+      event.currentTarget,
+      [
+        { transform: 'translateX(0%)' }, 
+        { transform: 'translateX(10%)' },
+        { transform: 'translateX(0%)' }, 
+      ],
+      { duration: 100, iterations: 10 }
+    );
+    let statusLockedAnimation = new Animation(statusLockedKeyframes, document.timeline);
+    this.timerValue = window.setTimeout(function () {
+      statusLockedAnimation.play();
+      clearTimeout(this.timerValue);
+    }, 500);
   }
 }

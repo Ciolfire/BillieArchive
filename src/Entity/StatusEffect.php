@@ -69,6 +69,12 @@ class StatusEffect
 
   public function getValue(): ?int
   {
+    if ($this->isLevelDependant) {
+      if ($this->disciplinePower) {
+        // Should reverse character from status, to get the discipline lvl
+      }
+    }
+
     return $this->value;
   }
 
@@ -93,49 +99,72 @@ class StatusEffect
 
   public function getDisciplinePower(): ?DisciplinePower
   {
-      return $this->disciplinePower;
+    return $this->disciplinePower;
   }
 
   public function setDisciplinePower(?DisciplinePower $disciplinePower): static
   {
-      $this->disciplinePower = $disciplinePower;
+    $this->disciplinePower = $disciplinePower;
 
-      return $this;
+    return $this;
   }
 
   public function isLevelDependant(): ?bool
   {
-      return $this->isLevelDependant;
+    return $this->isLevelDependant;
   }
 
   public function setIsLevelDependant(bool $isLevelDependant): static
   {
-      $this->isLevelDependant = $isLevelDependant;
+    $this->isLevelDependant = $isLevelDependant;
 
-      return $this;
+    return $this;
   }
 
   public function getChoice(): ?string
   {
-      return $this->choice;
+    return $this->choice;
   }
 
   public function setChoice(?string $choice): static
   {
-      $this->choice = $choice;
+    $this->choice = $choice;
 
-      return $this;
+    return $this;
   }
 
   public function getIcon(): ?string
   {
-      return $this->icon;
+    return $this->icon;
   }
 
   public function setIcon(?string $icon): static
   {
-      $this->icon = $icon;
+    $this->icon = $icon;
 
-      return $this;
+    return $this;
+  }
+
+  public function isLocked(): bool
+  {
+    if ($this->disciplinePower) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public function getLabel(): string
+  {
+    $label = $this->name;
+
+    if ($this->description) {
+      if ($label != "") {
+        $label .= "\n————\n";
+      }
+      $label.= $this->description;
+    }
+
+    return $label;
   }
 }

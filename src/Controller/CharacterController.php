@@ -966,7 +966,9 @@ class CharacterController extends AbstractController
     $statusEffect->setType($data['type']);
     $statusEffect->setValue(intval($data['value']));
     $statusEffect->setDescription($data['description']);
-    $statusEffect->setChoice($data['elements']);
+    if (isset($data['elements'])) {
+      $statusEffect->setChoice($data['elements']);
+    }
     if (isset($data['icon'])) {
       $statusEffect->setIcon($data['icon']);
     } else {

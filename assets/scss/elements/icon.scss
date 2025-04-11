@@ -84,8 +84,8 @@
     width : 1.8em;
     padding: 0.2em;
     background-color:gray;
-    border-radius: 0.2em;
-    outline: 0.2em solid black;
+    border-radius: 50%;
+    outline: 0.2em solid #393939;
     &.status-add{
       background-color: transparent;
       outline: 0.2em dashed black;
@@ -94,11 +94,22 @@
         color: silver;
       }
     }
+    &.status-locked {
+      outline-color: black;
+    }
     &.status-buff {
       background-color: rgb(22, 69, 22);
     }
     &.status-debuff {
       background-color: rgb(113, 30, 30);
     }
+  }
+
+  &.status-info {
+    height: 1.8em;
+    width : 1.8em;
+    padding: 0.2em;
+    background-color:transparent;
+    border-radius: 0.2em;
   }
 }
