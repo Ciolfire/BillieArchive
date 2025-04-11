@@ -4,7 +4,7 @@
   {% if status.isLocked %}
     data-action="mousedown->character--status#locked mouseup->character--status#cancel"
   {% else %}
-    data-action="mousedown->character--status#delete mouseup->character--status#cancel" data-character--status-id-param="{{ status.id }}"
+    data-action="mousedown->character--status#delete touchstart->character--status#delete mouseup->character--status#cancel touchend->character--status#cancel" data-character--status-id-param="{{ status.id }}"
   {% endif %}
   class="d-inline-block position-relative icon status-wrapper m-1 me-2
   {% if status.value > 0 %} status-buff{% elseif status.value < 0 %} status-debuff{% endif %}
