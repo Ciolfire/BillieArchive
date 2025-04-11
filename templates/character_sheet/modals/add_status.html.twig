@@ -72,7 +72,7 @@
               <div class="col-2 mb-1">
                 <input type="radio" id="icon_{{ key }}" name="icon" value="{{ icon }}" class="d-inline-block"/>
                 <label role="button" for="icon_{{ key }}" class="d-inline-block position-relative icon status-wrapper" data-character--status-target="icon">
-                  {% include "_icon.html.twig" with {class: "position-absolute top-50 start-50 translate-middle"} %}
+                  {% include "_icon.html.twig" with {class: "position-absolute translate-middle"} %}
                 </label>
               </div>
             {% endfor %}

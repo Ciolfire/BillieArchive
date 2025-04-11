@@ -11,7 +11,7 @@
   {% if status.isLocked %} status-locked{% endif %}
   "
 >
-  {% include "_icon.html.twig" with { icon: status.icon, class: 'position-absolute top-50 start-50 translate-middle', label: status.label } %}
+  {% include "_icon.html.twig" with { icon: status.icon, class: 'position-absolute translate-middle', label: status.label } %}
   {% if status.value != 0 %}
     <div class="pe-none text-sm text-strong position-absolute top-100 start-100 translate-middle">{{ status.value }}</div>
   {% endif %}

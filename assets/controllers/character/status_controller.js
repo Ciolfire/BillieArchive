@@ -124,7 +124,10 @@ export default class extends Controller {
       })
       let icon = event.target.closest('span');
       console.log(icon);
-      document.getElementById(icon.getAttribute('aria-describedBy')).remove();
+      let tooltip = document.getElementById(icon.getAttribute('aria-describedBy'));
+      if (tooltip) {
+        tooltip.remove();
+      }
       target.remove();
       clearTimeout(this.timerValue);
     }, 1000);
