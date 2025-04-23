@@ -631,8 +631,16 @@ class Character
     return $this;
   }
 
-  public function getWillpower(): int
+  public function getWillpower(bool $includeModifiers = true): int
   {
+    if ($includeModifiers) {
+      foreach ($this->getStatusEffects() as $effect) {
+        if ($effect->getType() == 'willpower') {
+          return max(0, $this->willpower + $effect->getValue());
+        }
+      }
+    }
+
     return $this->willpower;
   }
 

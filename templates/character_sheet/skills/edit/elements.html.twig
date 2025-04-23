@@ -22,7 +22,7 @@
 
 {% block skill %}
   {% include "character_sheet/skills/edit/element.html.twig" with {
-    base: attribute(character.skills, skill),
-    min: attribute(character.skills, skill)
+    base: character.skills.get(skill, false),
+    min: character.skills.get(skill, false)
   } %}
 {% endblock %}

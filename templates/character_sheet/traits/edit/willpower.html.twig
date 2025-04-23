@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'character' %}
 
-{% set current = character.willpower %}
+{% set current = character.willpower(false) %}
 {% set max = character.attributes.composure + character.attributes.resolve %}
 
 {% block controller %}data-controller="dot" role="group"{% endblock %}

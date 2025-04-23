@@ -121,9 +121,18 @@ class CharacterSkills
     return $this;
   }
 
-  public function get(string $skill): ?int
+  public function get(string $skill, bool $includeModifiers = true): ?int
   {
-    return min($this->character->getLimit(), $this->$skill);
+    if ($includeModifiers) {
+      foreach ($this->character->getStatusEffects() as $effect) {
+        if ($effect->getType() == 'skill' && $effect->getChoice() == $skill) {
+          return max(0, $this->$skill + $effect->getValue());
+        }
+      }
+    }
+    
+    return $this->$skill;
+    // return min($this->character->getLimit(), $this->$skill);
   }
 
   public function set(string $skill, int $value): self
@@ -147,7 +156,7 @@ class CharacterSkills
 
   public function getAcademics(): ?int
   {
-    return $this->academics;
+    return $this->get('academics');
   }
 
   public function setAcademics(int $academics): self
@@ -159,7 +168,7 @@ class CharacterSkills
 
   public function getComputer(): ?int
   {
-    return $this->computer;
+    return $this->get('computer');
   }
 
   public function setComputer(int $computer): self
@@ -171,7 +180,7 @@ class CharacterSkills
 
   public function getCrafts(): ?int
   {
-    return $this->crafts;
+    return $this->get('crafts');
   }
 
   public function setCrafts(int $crafts): self
@@ -183,7 +192,7 @@ class CharacterSkills
 
   public function getInvestigation(): ?int
   {
-    return $this->investigation;
+    return $this->get('investigation');
   }
 
   public function setInvestigation(int $investigation): self
@@ -195,7 +204,7 @@ class CharacterSkills
 
   public function getMedicine(): ?int
   {
-    return $this->medicine;
+    return $this->get('medicine');
   }
 
   public function setMedicine(int $medicine): self
@@ -207,7 +216,7 @@ class CharacterSkills
 
   public function getOccult(): ?int
   {
-    return $this->occult;
+    return $this->get('occult');
   }
 
   public function setOccult(int $occult): self
@@ -219,7 +228,7 @@ class CharacterSkills
 
   public function getPolitics(): ?int
   {
-    return $this->politics;
+    return $this->get('politics');
   }
 
   public function setPolitics(int $politics): self
@@ -231,7 +240,7 @@ class CharacterSkills
 
   public function getScience(): ?int
   {
-    return $this->science;
+    return $this->get('science');
   }
 
   public function setScience(int $science): self
@@ -243,7 +252,7 @@ class CharacterSkills
 
   public function getAthletics(): ?int
   {
-    return $this->athletics;
+    return $this->get('athletics');
   }
 
   public function setAthletics(int $athletics): self
@@ -255,7 +264,7 @@ class CharacterSkills
 
   public function getBrawl(): ?int
   {
-    return $this->brawl;
+    return $this->get('brawl');
   }
 
   public function setBrawl(int $brawl): self
@@ -267,7 +276,7 @@ class CharacterSkills
 
   public function getDrive(): ?int
   {
-    return $this->drive;
+    return $this->get('drive');
   }
 
   public function setDrive(int $drive): self
@@ -279,7 +288,7 @@ class CharacterSkills
 
   public function getFirearms(): ?int
   {
-    return $this->firearms;
+    return $this->get('firearms');
   }
 
   public function setFirearms(int $firearms): self
@@ -291,7 +300,7 @@ class CharacterSkills
 
   public function getLarceny(): ?int
   {
-    return $this->larceny;
+    return $this->get('larceny');
   }
 
   public function setLarceny(int $larceny): self
@@ -303,7 +312,7 @@ class CharacterSkills
 
   public function getStealth(): ?int
   {
-    return $this->stealth;
+    return $this->get('stealth');
   }
 
   public function setStealth(int $stealth): self
@@ -315,7 +324,7 @@ class CharacterSkills
 
   public function getSurvival(): ?int
   {
-    return $this->survival;
+    return $this->get('survival');
   }
 
   public function setSurvival(int $survival): self
@@ -327,7 +336,7 @@ class CharacterSkills
 
   public function getWeaponry(): ?int
   {
-    return $this->weaponry;
+    return $this->get('weaponry');
   }
 
   public function setWeaponry(int $weaponry): self
@@ -339,7 +348,7 @@ class CharacterSkills
 
   public function getAnimalKen(): ?int
   {
-    return $this->animalKen;
+    return $this->get('animalKen');
   }
 
   public function setAnimalKen(int $animalKen): self
@@ -351,7 +360,7 @@ class CharacterSkills
 
   public function getEmpathy(): ?int
   {
-    return $this->empathy;
+    return $this->get('empathy');
   }
 
   public function setEmpathy(int $empathy): self
@@ -363,7 +372,7 @@ class CharacterSkills
 
   public function getExpression(): ?int
   {
-    return $this->expression;
+    return $this->get('expression');
   }
 
   public function setExpression(int $expression): self
@@ -375,7 +384,7 @@ class CharacterSkills
 
   public function getIntimidation(): ?int
   {
-    return $this->intimidation;
+    return $this->get('intimidation');
   }
 
   public function setIntimidation(int $intimidation): self
@@ -387,7 +396,7 @@ class CharacterSkills
 
   public function getPersuasion(): ?int
   {
-    return $this->persuasion;
+    return $this->get('persuasion');
   }
 
   public function setPersuasion(int $persuasion): self
@@ -399,7 +408,7 @@ class CharacterSkills
 
   public function getSocialize(): ?int
   {
-    return $this->socialize;
+    return $this->get('socialize');
   }
 
   public function setSocialize(int $socialize): self
@@ -411,7 +420,7 @@ class CharacterSkills
 
   public function getStreetwise(): ?int
   {
-    return $this->streetwise;
+    return $this->get('streetwise');
   }
 
   public function setStreetwise(int $streetwise): self
@@ -423,7 +432,7 @@ class CharacterSkills
 
   public function getSubterfuge(): ?int
   {
-    return $this->subterfuge;
+    return $this->get('subterfuge');
   }
 
   public function setSubterfuge(int $subterfuge): self

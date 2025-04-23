@@ -12,7 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
 class CharacterAttributes
 {
   /** @var array<string> */
-  public array $list = ['intelligence', 'wits', 'resolve', 'strength', 'dexterity', 'stamina', 'presence', 'manipulation', 'composure'];
+  public array $list = [
+    'intelligence',
+    'wits',
+    'resolve',
+    'strength',
+    'dexterity',
+    'stamina',
+    'presence',
+    'manipulation',
+    'composure'
+  ];
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
@@ -78,17 +88,17 @@ class CharacterAttributes
     return $this;
   }
 
-  public function get(string $attribute, bool $includeModifiers = false) : mixed
+  public function get(string $attribute, bool $includeModifiers = true) : mixed
   {
     if ($includeModifiers) {
       foreach ($this->character->getStatusEffects() as $effect) {
         if ($effect->getType() == 'attribute' && $effect->getChoice() == $attribute) {
-          return $this->$attribute + $effect->getValue();
+          return max(0, $this->$attribute + $effect->getValue());
         }
       }
     }
+
     return $this->$attribute;
-    return min($this->character->getLimit(), $this->$attribute);
   }
 
   public function set(string $attribute, int $value): self
@@ -114,8 +124,7 @@ class CharacterAttributes
 
   public function getIntelligence() : int
   {
-    return $this->intelligence;
-    return min($this->character->getLimit(), $this->intelligence);
+    return $this->get('intelligence');
   }
 
   public function setIntelligence(int $intelligence): self
@@ -127,8 +136,7 @@ class CharacterAttributes
 
   public function getWits(): int
   {
-    return $this->wits;
-    return min($this->character->getLimit(), $this->wits);
+    return $this->get('wits');
   }
 
   public function setWits(int $wits) : self
@@ -140,8 +148,7 @@ class CharacterAttributes
 
   public function getResolve(): int
   {
-    return $this->resolve;
-    return min($this->character->getLimit(), $this->resolve);
+    return $this->get('resolve');
   }
 
   public function setResolve(int $resolve) : self
@@ -155,8 +162,7 @@ class CharacterAttributes
 
   public function getStrength(): int
   {
-    return $this->strength;
-    return min($this->character->getLimit(), $this->strength);
+    return $this->get('strength');
   }
 
   public function setStrength(int $strength): self
@@ -168,8 +174,7 @@ class CharacterAttributes
 
   public function getDexterity(): int
   {
-    return $this->dexterity;
-    return min($this->character->getLimit(), $this->dexterity);
+    return $this->get('dexterity');
   }
 
   public function setDexterity(int $dexterity): self
@@ -181,8 +186,7 @@ class CharacterAttributes
 
   public function getStamina(): int
   {
-    return $this->stamina;
-    return min($this->character->getLimit(), $this->stamina);
+    return $this->get('stamina');
   }
 
   public function setStamina(int $stamina): self
@@ -194,8 +198,7 @@ class CharacterAttributes
 
   public function getPresence(): int
   {
-    return $this->presence;
-    return min($this->character->getLimit(), $this->presence);
+    return $this->get('presence');
   }
 
   public function setPresence(int $presence): self
@@ -207,8 +210,7 @@ class CharacterAttributes
 
   public function getManipulation(): int
   {
-    return $this->manipulation;
-    return min($this->character->getLimit(), $this->manipulation);
+    return $this->get('manipulation');
   }
 
   public function setManipulation(int $manipulation): self
@@ -221,7 +223,7 @@ class CharacterAttributes
   public function getComposure(): int
   {
 
-    return min($this->character->getLimit(), $this->composure);
+    return $this->get('composure');
   }
 
   public function setComposure(int $composure): self

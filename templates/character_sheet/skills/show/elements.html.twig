@@ -3,5 +3,5 @@
 {% trans_default_domain 'character' %}
 
 {% block skill %}
-  {% include "character_sheet/skills/show/element.html.twig" with {base: attribute(character.skills, skill) } %}
+  {% include "character_sheet/skills/show/element.html.twig" with {base: character.skills.get(skill) } %}
 {% endblock %}

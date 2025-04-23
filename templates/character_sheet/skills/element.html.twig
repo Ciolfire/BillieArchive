@@ -3,7 +3,7 @@
 {% set specialties = attribute(character, 'skillSpecialties', [skill]) %}
 
 <div class="row align-items-center px-2" {% block wrapper %}{% endblock %}>
-  <div class="col {% if attribute(character, "skills") is not null and attribute(attribute(character, "skills"), skill) > 3 %}accent{% endif %} text-truncate">
+  <div class="col {% if character.skills is not null and character.skills.get(skill) > 3 %}accent{% endif %} text-truncate">
     <span class="user-select-none text-strong">
       {% include "_icon.html.twig" with {icon : 'skills/' ~ skill } only %}
       {{ name }}
@@ -14,9 +14,9 @@
     <div class="my-1" role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
       {% block input %}{% endblock %}
       <div class="dots">
-        {% for value in 1..max %}
+        {% for value in 1..max(base, max) %}
           {% if value >= 5 and value % 5 == 1 %}
-          </div>
+            </div>
             <div class="dots">
           {% endif %}
           {% block dot %}{% endblock %}

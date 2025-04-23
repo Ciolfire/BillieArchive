@@ -165,6 +165,14 @@ class StatusEffect
       $label.= $this->description;
     }
 
+    // Translation issue, to think about
+    // if ($label != "") {
+    //   $label .= "\n————\n";
+    // }
+    // if ($this->choice) {
+    //   $label .= $this->choice;
+    // }
+
     return $label;
   }
 }

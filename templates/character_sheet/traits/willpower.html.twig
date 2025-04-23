@@ -4,7 +4,7 @@
 {% set max = max|default(character.willpower) %}
 
 {% set trait = "willpower" %}
-{% set limit = character.attributes.composure + character.attributes.resolve %}
+{% set limit = character.attributes.get('composure') + character.attributes.get('resolve') %}
 {% set value = 0 %}
 
 <div class="block user-select-none pb-1" data-controller="trait" data-trait-id-value="{{ character.id }}" data-trait-type-value="willpower" data-trait-current-value="{{ current }}">
@@ -15,7 +15,7 @@
   <div class="col-12 text-center">
     <div role="group" {% block controller %}{% endblock %} {% block data %}{% endblock %}>
       {% block input %}{% endblock %}
-        {% for index in 1..(character.limit * 2) %}
+        {% for index in 1..max((character.limit * 2), limit, character.willpower) %}
           <div class="d-inline-block text-center">
             {% block dot %}{% endblock %}
           </div>

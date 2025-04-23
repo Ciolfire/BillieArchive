@@ -429,7 +429,7 @@ class Vampire extends Character
 
   public function getMaxHealth(): ?int
   {
-    $base = $this->size + $this->getLimit();
+    $base = $this->size + max($this->getLimit(), $this->getAttributes()->get('stamina'));
 
     $resilience = $this->getDiscipline(DisciplineReferences::RESILIENCE);
     if (!is_null($resilience)) {

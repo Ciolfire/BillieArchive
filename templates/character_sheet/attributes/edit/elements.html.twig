@@ -4,7 +4,7 @@
 
 {% block attribute %}
     {% include "character_sheet/attributes/edit/element.html.twig" with {
-      base: attribute(character.attributes, attribute.id), 
-      min: attribute(character.attributes, attribute.id)
+      base: character.attributes.get(attribute.id, false), 
+      min:  character.attributes.get(attribute.id, false)
     } %}
 {% endblock %}
