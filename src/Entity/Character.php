@@ -198,7 +198,7 @@ class Character
   /**
    * @var Collection<int, StatusEffect>
    */
-  #[ORM\ManyToMany(targetEntity: StatusEffect::class)]
+  #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'owner')]
   private Collection $statusEffects;
 
   public function __construct()
@@ -369,10 +369,10 @@ class Character
   {
     if (!empty($this->nickname)) {
 
-      return "{$this->title } {$this->firstName} “{$this->nickname}” {$this->lastName}";
+      return "{$this->title} {$this->firstName} “{$this->nickname}” {$this->lastName}";
     }
 
-    return trim("{$this->title } {$this->firstName} {$this->lastName}");
+    return trim("{$this->title} {$this->firstName} {$this->lastName}");
   }
 
   public function getSimpleName(): string
@@ -486,7 +486,7 @@ class Character
   public function getAvatar(): ?string
   {
     if ($this->avatar) {
-      
+
       return $this->avatar;
     }
 
@@ -503,7 +503,7 @@ class Character
   public function updateAvatar(): self
   {
     preg_replace("(\?.+)", "", $this->avatar);
-    $this->avatar .= "?timestamp=".time();
+    $this->avatar .= "?timestamp=" . time();
 
     return $this;
   }
@@ -1487,11 +1487,11 @@ class Character
   /**
    * @return Collection<int, CharacterAccess>
    */
-  public function getOrderedPeekingRights(): Array
+  public function getOrderedPeekingRights(): array
   {
     $list = $this->peekingRights->toArray();
 
-    usort($list, function(CharacterAccess $a, CharacterAccess $b) {
+    usort($list, function (CharacterAccess $a, CharacterAccess $b) {
       $nameA = $a->getTarget()->getPublicName($this);
       $nameB = $b->getTarget()->getPublicName($this);
 
@@ -1595,26 +1595,26 @@ class Character
 
   public function getBirthday(): ?\DateTimeInterface
   {
-      return $this->birthday;
+    return $this->birthday;
   }
 
   public function setBirthday(?\DateTimeInterface $birthday): static
   {
-      $this->birthday = $birthday;
+    $this->birthday = $birthday;
 
-      return $this;
+    return $this;
   }
 
   public function getOrganization(): ?Organization
   {
-      return $this->organization;
+    return $this->organization;
   }
 
   public function setOrganization(?Organization $organization): static
   {
-      $this->organization = $organization;
+    $this->organization = $organization;
 
-      return $this;
+    return $this;
   }
 
   public function getMainOrganization(): ?Organization
@@ -1627,22 +1627,40 @@ class Character
    */
   public function getStatusEffects(): Collection
   {
-      return $this->statusEffects;
+    return $this->statusEffects;
   }
 
   public function addStatusEffect(StatusEffect $statusEffect): static
   {
-      if (!$this->statusEffects->contains($statusEffect)) {
-          $this->statusEffects->add($statusEffect);
-      }
+    if (!$this->statusEffects->contains($statusEffect)) {
+      $this->statusEffects->add($statusEffect);
+      $statusEffect->setOwner($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeStatusEffect(StatusEffect $statusEffect): static
   {
-      $this->statusEffects->removeElement($statusEffect);
+    if ($this->statusEffects->removeElement($statusEffect)) {
+      // set the owning side to null (unless already changed)
+      if ($statusEffect->getOwner() === $this) {
+        $statusEffect->setOwner(null);
+      }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function hasStatus(?DisciplinePower $power) : bool
+  {
+    foreach ($this->statusEffects as $effect) {
+      if ($power && $effect->getDisciplinePower() === $power) {
+
+        return true;
+      }
+    }
+
+    return false;
   }
 }

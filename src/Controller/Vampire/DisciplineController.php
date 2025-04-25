@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Vampire;
 
+use App\Entity\Character;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
-
+use App\Entity\Vampire;
 use App\Form\Vampire\DisciplinePowerType;
 use App\Form\Vampire\DisciplineType;
 
@@ -207,8 +208,8 @@ class DisciplineController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $form = $this->createForm(DisciplineType::class, $discipline);
-    $form->handleRequest($request);
 
+    $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $this->dataService->update($discipline);
 
@@ -216,7 +217,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->render('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/form.html.twig', [
       'action' => 'edit',
       'form' => $form,
     ]);
@@ -281,6 +282,16 @@ class DisciplineController extends AbstractController
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+      foreach ($power->getStatusEffects() as $status) {
+        if ($power->getName()) {
+          $status->setName($power->getName());
+        } else {
+          $status->setName($power->getDiscipline()->getName());
+        }
+        $status->setDisciplinePower($power);
+        $status->setIcon('discipline');
+      }
+      // $this->service->setupPowerStatus();
       $this->dataService->update($power);
       /** @var Discipline */
       $discipline = $power->getDiscipline();
@@ -294,6 +305,29 @@ class DisciplineController extends AbstractController
       'power' => $power,
       'form' => $form,
     ]);
+  }
+
+  #[Route('/discipline/power/{id<\d+>}/{character<\d+>}/toggle/{activate}', name: 'vampire_discipline_power_toggle', methods: ['GET'])]
+  public function disciplinePowerToggle(Character $character, DisciplinePower $power, bool $activate): Response
+  {
+    if ($activate) {
+      if ($character instanceof Vampire) {
+        foreach ($power->getStatusEffects() as $effect) {
+          $newEffect = clone $effect;
+          $character->addStatusEffect($newEffect);
+          $this->dataService->add($newEffect);
+        }
+      }
+    } else {
+      foreach ($character->getStatusEffects() as $effect) {
+        if ($effect->getDisciplinePower() === $power) {
+          $this->dataService->delete($effect);
+        }
+      }
+    }
+    $this->dataService->flush();
+    
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
 

@@ -48,13 +48,13 @@
               </select>
             </div>
             <div class="col-6 mb-3">
-              <select class="form-control" name="elements" data-character--status-target="elements" data-action="change->character--status#unlock">
+              <select class="form-control" name="elements" data-character--status-target="elements">
                 <option value=""></option>
               </select>
             </div>
             <div class="col-12 mb-3">
               <label class="col-form-label">{{ "status.effect.value.label"|trans }}</label>
-              <input type="number" class="form-control" name="value" placeholder="{{ "status.effect.value.placeholder"|trans }}" data-character--status-target="value" data-action="change->character--status#isBuff"/>
+              <input type="number" class="form-control" name="value" placeholder="{{ "status.effect.value.placeholder"|trans }}" data-character--status-target="value" data-action="change->character--status#isBuff change->character--status#load"/>
               <p>{{ "status.effect.value.example"|trans }}</p>
             </div>
             <div class="col-12 mb-3">
@@ -78,7 +78,7 @@
             {% endfor %}
           </div>
           <div class="col-12">
-            <button class="btn btn-primary w-100 disabled" data-character--status-target="submit">
+            <button class="btn btn-primary w-100" data-character--status-target="submit">
               {% include "_icon.html.twig" with {icon: 'add'} %}
               {{ 'action.add'|trans([], 'app') }}
             </button>

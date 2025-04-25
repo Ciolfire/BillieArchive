@@ -50,7 +50,7 @@ class Vampire extends Character
   private Collection $rituals;
 
 
-  public function __construct(Character $character = null)
+  public function __construct(?Character $character = null)
   {
     $this->disciplines = new ArrayCollection();
     if (is_object($character)) {

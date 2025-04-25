@@ -36,7 +36,11 @@ export default class extends Controller {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
       },
-      body: JSON.stringify({'value': this.typeTarget.value, 'type': event.params.type, 'homebrew': event.params.homebrew }),
+      body: JSON.stringify({
+        'value': this.typeTarget.value,
+        'type': event.params.type,
+        'homebrew': event.params.homebrew
+      }),
       method: "POST"
     })
     .then((response) => {

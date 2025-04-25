@@ -26,6 +26,9 @@
               {% block dot %}{% endblock %}
             {% endfor %}
           </div>
+          {% if discipline.singlePower %}
+            {% block toggle %}{% endblock %}
+          {% endif %}
         </div>
       </div>
       {% if discipline.singlePower %}
@@ -117,7 +120,10 @@
                       <h5 class="strong">{{ power.levelDots }}</h5>
                     </div>
                     <div class="col-6 text-center">
-                      <a class="heading d-inline-block w-100 h-100">{{ power.name }} {% include "_icon.html.twig" with {icon: 'info', class: 'icon-xs icon-neutral'} %}</a>
+                      <span class="heading d-inline-block w-100 h-100">
+                        {{ power.name }} {% include "_icon.html.twig" with {icon: 'info', class: 'icon-xs icon-neutral'} %}
+                        {% block toggleMulti %}{% endblock %}
+                      </span>
                     </div>
                     <div class="col-3 text-end text-glow">
                       {% if powerPool != null %}

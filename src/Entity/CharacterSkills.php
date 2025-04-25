@@ -126,7 +126,7 @@ class CharacterSkills
     if ($includeModifiers) {
       foreach ($this->character->getStatusEffects() as $effect) {
         if ($effect->getType() == 'skill' && $effect->getChoice() == $skill) {
-          return max(0, $this->$skill + $effect->getValue());
+          return max(0, $this->$skill + $effect->getRealValue());
         }
       }
     }

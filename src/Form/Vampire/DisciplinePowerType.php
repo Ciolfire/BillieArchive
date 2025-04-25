@@ -38,7 +38,7 @@ class DisciplinePowerType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
-      ->add('short', null, ['empty_data' => '', 'label' => 'short'])
+      ->add('short', null, ['empty_data' => '', 'label' => 'short.label'])
       ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $power->getDetails(), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
       ->add('source', SourceableType::class, [
@@ -73,17 +73,17 @@ class DisciplinePowerType extends AbstractType
         ])
         ->add('usePotency', null, ['label' => "potency"])
         ->add('contestedText', null, ['label' => "contested.text", 'attr' => ['placeholder' => "contested.placeholder"]])
-        ->add('canToggle', null, ['label' => "toggle", 'help' => "toggle.help"])
-        // ->add('statusEffects', CollectionType::class, [
-        //   'label' => false,
-        //   'entry_type' => StatusEffectType::class,
-        //   'entry_options' => [
-        //     'label' => false, 
-        //     'type' => 'vampire', 
-        //   ],
-        //   'allow_add' => true,
-        //   'allow_delete' => true,
-        // ])
+        ->add('canToggle', null, ['label' => "toggle"])
+        ->add('statusEffects', CollectionType::class, [
+          'label' => false,
+          'entry_type' => StatusEffectType::class,
+          'entry_options' => [
+            'label' => false, 
+            'type' => 'vampire', 
+          ],
+          'allow_add' => true,
+          'allow_delete' => true,
+        ])
         ;
     }
     $builder->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => "app"]);

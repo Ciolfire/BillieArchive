@@ -29,6 +29,9 @@ class StatusEffect
   #[ORM\ManyToOne(inversedBy: 'statusEffects')]
   private ?DisciplinePower $disciplinePower = null;
 
+  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
+  protected ?Character $owner = null;
+
   #[ORM\Column]
   private ?bool $isLevelDependant = false;
 
@@ -83,6 +86,25 @@ class StatusEffect
     $this->value = $value;
 
     return $this;
+  }
+
+  public function getRealValue(): int
+  {
+    // If level dependant, return level x value
+    if ($this->isLevelDependant()) {
+      if ($power = $this->getDisciplinePower()) {
+        if ($this->owner instanceof Vampire) {
+          foreach ($this->owner->getDisciplines() as $discipline) {
+            /** @var VampireDiscipline $discipline */
+            if ($discipline->getDiscipline() == $power->getDiscipline()) {
+              
+              return $discipline->getLevel() * $this->value;
+            }
+          } 
+        }
+      }
+    }
+    return $this->value;
   }
 
   public function getDescription(): ?string
@@ -174,5 +196,17 @@ class StatusEffect
     // }
 
     return $label;
+  }
+
+  public function getOwner(): ?Character
+  {
+      return $this->owner;
+  }
+
+  public function setOwner(?Character $owner): static
+  {
+      $this->owner = $owner;
+
+      return $this;
   }
 }

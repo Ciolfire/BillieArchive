@@ -72,7 +72,7 @@ class DisciplinePower implements Translatable
   /**
    * @var Collection<int, StatusEffect>
    */
-  #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'disciplinePower')]
+  #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'disciplinePower', cascade: ["persist"])]
   private Collection $statusEffects;
 
   public function __construct(Discipline $discipline, int $level)
@@ -348,30 +348,39 @@ class DisciplinePower implements Translatable
   /**
    * @return Collection<int, StatusEffect>
    */
-  public function getStatusEffects(): Collection
+  public function getStatusEffects(): array
   {
-      return $this->statusEffects;
+    $effects = $this->statusEffects->toArray();
+    foreach ($effects as $key => $effect) {
+      /** @var StatusEffect $effect */
+      if ($effect->getOwner()) {
+        unset($effects[$key]);
+      }
+    }
+
+    return ($effects);
+    // dd($effects);
   }
 
   public function addStatusEffect(StatusEffect $statusEffect): static
   {
-      if (!$this->statusEffects->contains($statusEffect)) {
-          $this->statusEffects->add($statusEffect);
-          $statusEffect->setDisciplinePower($this);
-      }
+    if (!$this->statusEffects->contains($statusEffect)) {
+      $this->statusEffects->add($statusEffect);
+      $statusEffect->setDisciplinePower($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeStatusEffect(StatusEffect $statusEffect): static
   {
-      if ($this->statusEffects->removeElement($statusEffect)) {
-          // set the owning side to null (unless already changed)
-          if ($statusEffect->getDisciplinePower() === $this) {
-              $statusEffect->setDisciplinePower(null);
-          }
+    if ($this->statusEffects->removeElement($statusEffect)) {
+      // set the owning side to null (unless already changed)
+      if ($statusEffect->getDisciplinePower() === $this) {
+        $statusEffect->setDisciplinePower(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 }

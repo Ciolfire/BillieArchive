@@ -205,11 +205,6 @@ class FetchController extends AbstractController
   {
     if ($request->isXmlHttpRequest()) {
       $data = json_decode($request->getContent());
-      $character = $this->dataService->find(Character::class, $data->character);
-
-      if (!$character instanceof Character) {
-        return new JsonResponse();
-      }
 
       $label = "name";
       switch ($data->type) {
@@ -217,23 +212,16 @@ class FetchController extends AbstractController
         case "potency":
           break;
         case "attribute":
-          $attributes = $character->getPositiveAttributes();
           /** @var AttributeRepository */
           $repo = $this->dataService->getDoctrine()->getRepository(Attribute::class);
-          $choices = $repo->filterByIdentifiers($attributes);
+          $choices = $repo->findAll();
           $identifier = 'identifier';
           break;
         case "skill":
-          $skills = $character->getLearnedSkills();
           /** @var SkillRepository */
           $repo = $this->dataService->getDoctrine()->getRepository(Skill::class);
-          $choices = $repo->filterByIdentifiers($skills);
+          $choices = $repo->findAll();
           $identifier = 'identifier';
-          break;
-        case 'merit':
-          $choices = $character->getMerits();
-          $identifier = "id";
-          $label = "detailedName";
           break;
       }
 
@@ -251,7 +239,7 @@ class FetchController extends AbstractController
       ]);
     }
 
-    return $this->redirectToRoute('character_index', [], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/delete/status', name: 'a_delete_status', methods: ['GET', 'POST'])]

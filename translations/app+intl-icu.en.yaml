@@ -99,4 +99,10 @@ prerequisite:
   choice: Selection
   group: Choice index (X or Y or ...)
 
+status:
+  label:
+    single: Status Effect
+    multi: Status Effects
+  add: Add status
+
 upload: Drag and drop or browse

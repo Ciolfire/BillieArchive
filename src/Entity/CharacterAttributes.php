@@ -93,7 +93,7 @@ class CharacterAttributes
     if ($includeModifiers) {
       foreach ($this->character->getStatusEffects() as $effect) {
         if ($effect->getType() == 'attribute' && $effect->getChoice() == $attribute) {
-          return max(0, $this->$attribute + $effect->getValue());
+          return max(0, $this->$attribute + $effect->getRealValue());
         }
       }
     }

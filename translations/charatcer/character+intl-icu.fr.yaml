@@ -207,6 +207,9 @@ status.effect:
     placeholder: Courte explication de l'effet
   icon: Icone
   info: Ces status peuvent être retirés plus tard. Pour les supprimer, appuyez dessus longuement.
+  level:
+    label: Dépend du niveau
+    help:  Quand cette case est cochée, la valeure finale est égale à niveau × bonus
   name: Titre
   type:
     basic: Basique

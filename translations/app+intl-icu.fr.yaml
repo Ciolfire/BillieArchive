@@ -98,3 +98,11 @@ prerequisite:
   add: Nouveau Prérequis
   choice: Selection
   group: Groupe de choix (X ou Y ou ...)
+
+status:
+  label:
+    single: Effet
+    multi: Effets
+  add: Ajouter un Effet
+
+upload: Charger

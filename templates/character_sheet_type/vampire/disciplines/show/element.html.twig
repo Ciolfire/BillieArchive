@@ -8,3 +8,32 @@
   <input type="checkbox" class="btn-check" id="{{ discipline.name ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" {% if value <= base %}checked{% endif %} disabled>
   <label class="btn dot {% if value <= min %}dot-locked{% endif %}" for="{{ discipline.name ~ '-' ~ value }}"></label>
 {% endblock %}
+
+
+{% block toggle %}
+{% if discipline.power.canToggle %}
+  {% if character.hasStatus(power: discipline.power) %}
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: discipline.power.id, activate: 0 }) }}">
+      {% include "_icon.html.twig" with { icon: 'confirmed' } %}
+    </a>  
+  {% else %}
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: discipline.power.id, activate: 1 }) }}">
+      {% include "_icon.html.twig" with { icon: 'button' } %}
+    </a>
+  {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block toggleMulti %}
+{% if power.canToggle %}
+  {% if character.hasStatus(power: power) %}
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: power.id, activate: 0 }) }}">
+      {% include "_icon.html.twig" with { icon: 'confirmed' } %}
+    </a>  
+  {% else %}
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: power.id, activate: 1 }) }}">
+      {% include "_icon.html.twig" with { icon: 'button' } %}
+    </a>
+  {% endif %}
+{% endif %}
+{% endblock %}

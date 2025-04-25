@@ -6,15 +6,16 @@
   {% else %}
     data-action="mousedown->character--status#delete touchstart->character--status#delete mouseup->character--status#cancel touchend->character--status#cancel" data-character--status-id-param="{{ status.id }}"
   {% endif %}
-  class="d-inline-block position-relative icon status-wrapper m-1 me-2
+  class="d-inline-block position-relative icon status-wrapper m-1 me-3
   {% if status.value > 0 %} status-buff{% elseif status.value < 0 %} status-debuff{% endif %}
   {% if status.isLocked %} status-locked{% endif %}
   "
 >
   {% include "_icon.html.twig" with { icon: status.icon, class: 'position-absolute translate-middle', label: status.label } %}
   {% if status.value != 0 %}
-    <div class="pe-none text-sm text-strong position-absolute top-100 start-100 translate-middle">{{ status.value }}</div>
+    <div class="pe-none text-sm text-strong position-absolute top-100 start-100 translate-middle">{{ status.realValue }}</div>
   {% endif %}
+    <div class="pe-none text-sm text-strong position-absolute top-100 start-0 translate-middle">{{ status.name|slice(0,2) }}</div>
   {% if status.value > 0 %}
     {% include "_icon.html.twig" with { icon: 'caret-up', class: 'icon icon-sm position-absolute start-100 top-0 translate-middle'} %}
   {% elseif status.value < 0 %}

@@ -3,7 +3,6 @@ import { Controller } from '@hotwired/stimulus';
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
   static targets = [
-    "character",
     "locale",
     "type",
     "elements",
@@ -25,14 +24,11 @@ export default class extends Controller {
 
   load() {
     let elements = this.elementsTarget;
-    let submit = this.submitTarget;
 
     if (this.typeTarget.value == "") {
       elements.parentElement.classList.add('collapse');
-      submit.classList.remove('disabled');
       return;
     }
-    submit.classList.add('disabled');
 
     window.fetch("/fetch/load/status", {
       headers: {
@@ -40,7 +36,7 @@ export default class extends Controller {
         'X-Requested-With': 'XMLHttpRequest'
       },
       method: "POST",
-      body: JSON.stringify({ 'type': this.typeTarget.value, 'character': this.characterTarget.value, 'locale': this.localeTarget.value })
+      body: JSON.stringify({ 'type': this.typeTarget.value, 'locale': this.localeTarget.value })
 
     })
       .then((response) => {
@@ -56,18 +52,9 @@ export default class extends Controller {
           elements.parentElement.classList.remove('collapse');
         } else {
           elements.parentElement.classList.add('collapse');
-          submit.classList.remove('disabled');
         }
-      })
-      ;
-  }
-
-  unlock() {
-    if ((this.elementsTarget.value != "" || this.elementsTarget.length == 0)) {
-      this.submitTarget.classList.remove('disabled');
-    } else {
-      this.submitTarget.classList.add('disabled');
-    }
+      }
+    );
   }
 
   isBuff() {

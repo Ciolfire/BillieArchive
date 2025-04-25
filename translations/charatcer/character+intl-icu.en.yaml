@@ -207,6 +207,9 @@ status.effect:
     placeholder: Short explanation of the effect
   icon: Icon
   info: Theses status can be deleted later. Long press to remove them.
+  level:
+    label: Depends on level
+    help:  When this is checked, the final value is the level of the discipline × bonus
   name: Title
   type:
     basic: Basic
