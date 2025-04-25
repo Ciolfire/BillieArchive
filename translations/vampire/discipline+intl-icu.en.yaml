@@ -74,7 +74,7 @@ thaumaturgy:
     label: Power
     new: New Power
 
-toggle: Check if the power can be turned on/off
+toggle: This power can be turned on/off
 
 # Devotion
 devotion:
