@@ -5,17 +5,17 @@
 {% set power = form.vars.data %}
 
   {% block title %}
-    {% if power.id is defined %}
-      {# {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }} #}
-    {% else %}
+    {% if action == "new" %}
       {{ "power.new"|trans({'%discipline%': power.discipline.name}) }}
+    {% else %}
+      {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}
     {% endif %}
   {% endblock %}
   {% block header %}
-    {% if power.id is defined %}
-      {# {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }} #}
-    {% else %}
+    {% if action == "new" %}
       {{ "power.new"|trans({'%discipline%': power.discipline.name}) }}
+    {% else %}
+      {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }}
     {% endif %}
   {% endblock %}
 
