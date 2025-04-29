@@ -45,7 +45,19 @@ class DisciplinePowerType extends AbstractType
         'data_class' => DisciplinePower::class,
         'label' => 'source.label',
         'translation_domain' => "book",
+      ])
+      ->add('canToggle', null, ['label' => "toggle"])
+      ->add('statusEffects', CollectionType::class, [
+        'label' => false,
+        'entry_type' => StatusEffectType::class,
+        'entry_options' => [
+          'label' => false, 
+          'type' => 'vampire', 
+        ],
+        'allow_add' => true,
+        'allow_delete' => true,
       ]);
+    ;
     if (!$discipline->isCoil() && !($discipline->isSorcery() && $power->getLevel() > 0)) {
       $builder
         // TODO parse the cost string ?
@@ -73,20 +85,8 @@ class DisciplinePowerType extends AbstractType
         ])
         ->add('usePotency', null, ['label' => "potency"])
         ->add('contestedText', null, ['label' => "contested.text", 'attr' => ['placeholder' => "contested.placeholder"]])
-        ->add('canToggle', null, ['label' => "toggle"])
-        ->add('statusEffects', CollectionType::class, [
-          'label' => false,
-          'entry_type' => StatusEffectType::class,
-          'entry_options' => [
-            'label' => false, 
-            'type' => 'vampire', 
-          ],
-          'allow_add' => true,
-          'allow_delete' => true,
-        ])
-        ;
+      ;
     }
-    $builder->add('save', SubmitType::class, ['label' => 'action.save', 'translation_domain' => "app"]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

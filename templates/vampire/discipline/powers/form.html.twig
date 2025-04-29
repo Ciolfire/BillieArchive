@@ -1,0 +1,44 @@
+{% extends 'vampire/form.html.twig' %}
+
+{% trans_default_domain 'discipline' %}
+
+{% set power = form.vars.data %}
+
+  {% block title %}
+    {% if power.id is defined %}
+      {# {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }} #}
+    {% else %}
+      {{ "power.new"|trans({'%discipline%': power.discipline.name}) }}
+    {% endif %}
+  {% endblock %}
+  {% block header %}
+    {% if power.id is defined %}
+      {# {{ "power.edit"|trans({'%power%': power.name, '%discipline%': power.discipline.name}) }} #}
+    {% else %}
+      {{ "power.new"|trans({'%discipline%': power.discipline.name}) }}
+    {% endif %}
+  {% endblock %}
+
+{% block form %}
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.short) }}
+  {{ form_row(form.details) }}
+  {{ form_row(form.level) }}
+  {{ form_row(form.source) }}
+  {% if not ((power.discipline.isCoil or power.discipline.isSorcery) and power.level > 0) %}
+    {{ form_row(form.attributes) }}
+    {{ form_row(form.skills) }}
+    {{ form_row(form.usePotency) }}
+    {{ form_row(form.contestedText) }}
+  {% endif %}
+  {{ form_row(form.canToggle) }}
+  {% include "forms/_statuseffect_field.html.twig" %}
+  {% block submit %}{{ parent() }}{% endblock %}
+  {{ form_end(form)}}
+{% endblock %}
+
+
+{% block actions %}
+  <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': power.discipline.id}) }}">{{ 'action.back'|trans({}, "app") }}</a>
+{% endblock %}
