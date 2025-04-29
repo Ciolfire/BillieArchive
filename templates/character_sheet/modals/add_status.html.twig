@@ -28,7 +28,7 @@
 ] %}
 
 <div class="modal fade" id="addStatusModal" tabindex="-1" aria-labelledby="addStatusModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content block-solid">
       <div class="modal-header">
         <h4 class="modal-title text-sub" id="addStatusModalLabel">{{'status.effect.add'|trans }}</h4>
@@ -78,7 +78,7 @@
             {% endfor %}
           </div>
           <div class="col-12">
-            <button class="btn btn-primary w-100" data-character--status-target="submit">
+            <button class="btn btn-primary btn-lg w-100" data-character--status-target="submit">
               {% include "_icon.html.twig" with {icon: 'add'} %}
               {{ 'action.add'|trans([], 'app') }}
             </button>

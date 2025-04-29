@@ -1,7 +1,7 @@
 {% trans_default_domain 'character' %}
 
 <div class="modal fade" id="abilityRemovalModal" tabindex="-1" aria-labelledby="abilityRemovalModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content block-solid">
       <div class="modal-header">
         <h5 class="modal-title text-sub" id="abilityRemovalModalLabel">{{'ability.removal'|trans }}</h5>
@@ -33,8 +33,11 @@
               </select>
             </div>
           </div>
+          <label class="form-check form-switch text-start user-select-none">
+            <input class="form-check-input" type="checkbox" name="refund"/>{{ "xp.refund"|trans }}
+          </label>
           <div class="col-12">
-            <button class="btn btn-warning w-100 disabled" data-character--ability-removal-target="submit">
+            <button class="btn btn-warning btn-lg w-100 disabled" data-character--ability-removal-target="submit">
               {% include "_icon.html.twig" with {icon: 'destroy'} %}
               {{ 'action.confirm'|trans([], 'app') }}
             </button>

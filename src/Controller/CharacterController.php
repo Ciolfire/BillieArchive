@@ -222,7 +222,7 @@ class CharacterController extends AbstractController
       }
       $this->creationService->getSpecialties($character, $form);
       // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
+      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
 
       $this->dataService->save($character);
 
@@ -258,7 +258,7 @@ class CharacterController extends AbstractController
       }
       $this->creationService->getSpecialties($character, $form);
       // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->getResolve() + $character->getAttributes()->getComposure());
+      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
       $this->dataService->save($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);

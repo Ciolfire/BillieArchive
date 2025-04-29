@@ -1020,6 +1020,37 @@ class Character
     return $this;
   }
 
+  public function refundXp(int $refunded) : self
+  {
+    $this->xpUsed -= $refunded;
+
+    return $this;
+  }
+
+  public function addXp(int $value) : self
+  {
+    $this->xpTotal += $value;
+
+    return $this;
+  }
+
+  public function removeXp(int $value) : self
+  {
+    $this->xpTotal -= $value;
+
+    return $this;
+  }
+
+  public function refundElement(int $value, int $from, int $to): self
+  {
+    while ($from > $to) {
+      $this->refundXp($value * $from);
+      $from -= 1;
+    }
+    
+    return $this;
+  }
+
   /**
    * @return int
    */
@@ -1652,7 +1683,7 @@ class Character
     return $this;
   }
 
-  public function hasStatus(?DisciplinePower $power) : bool
+  public function hasStatus(?DisciplinePower $power): bool
   {
     foreach ($this->statusEffects as $effect) {
       if ($power && $effect->getDisciplinePower() === $power) {

@@ -261,5 +261,6 @@ willpower:
 xp:
   label: XP
   free: Gratuit
+  refund: Rembourser
   details:
     none: Aucun changement

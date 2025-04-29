@@ -34,7 +34,10 @@ class DevotionType extends AbstractType
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('cost', null, ['label' => 'cost', 'translation_domain' => 'app'])
       ->add('description', RichTextEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $devotion->getDescription()])
-      ->add('short', null, ['label' => 'short'])
+      ->add('short', null, [
+        'label' => 'short',
+        'translation_domain' => "app",
+      ])
       ->add('bloodline', null, ['label' => 'bloodline.label.single', 'translation_domain' => 'clan'])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,

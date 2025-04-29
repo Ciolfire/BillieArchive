@@ -485,35 +485,36 @@ class CharacterService
       $infos['name'] = $element;
     }
     $method = $data['method'];
+    $toRefund = isset($data['refund']);
 
     switch ($data['type']) {
       case 'attribute':
-        $isDone = $this->removeAttribute($character, $method, $element, $infos);
+        $isDone = $this->removeAttribute($character, $method, $element, $infos, $toRefund);
         break;
       case 'skill':
-        $isDone = $this->removeSkill($character, $method, $element, $infos);
+        $isDone = $this->removeSkill($character, $method, $element, $infos, $toRefund);
         break;
       case 'merit':
-        $isDone = $this->removeMerit($character, $method, $element, $infos);
+        $isDone = $this->removeMerit($character, $method, $element, $infos, $toRefund);
         break;
       case 'specialty':
-        $isDone = $this->removeSpecialty($character, $element, $infos);
+        $isDone = $this->removeSpecialty($character, $element, $infos, $toRefund);
         break;
       case 'willpower':
-        $isDone = $this->reduceWillpower($character, $element, $infos);
+        $isDone = $this->reduceWillpower($character, $element, $infos, $toRefund);
         break;
       case 'derangement':
         $isDone = $this->removeDerangement($method, $element, $data, $infos);
         break;
       // Vampire
       case 'potency':
-        $isDone = $this->reducePotency($character, $element, $infos);
+        $isDone = $this->reducePotency($character, $element, $infos, $toRefund);
         break;
       case 'discipline':
-        $isDone = $this->removeDiscipline($character, $method, $element, $infos);
+        $isDone = $this->removeDiscipline($character, $method, $element, $infos, $toRefund);
         break;
       case 'devotion':
-        $isDone = $this->removeDevotion($character, $element, $infos);
+        $isDone = $this->removeDevotion($character, $element, $infos, $toRefund);
         break;
       default:
         $isDone = false;
@@ -534,10 +535,10 @@ class CharacterService
     return $element;
   }
 
-  private function removeAttribute(Character $character, string $method, &$element, &$infos) : bool
+  private function removeAttribute(Character $character, string $method, &$element, &$infos, $toRefund = false) : bool
   {
     $attributes = $character->getAttributes();
-    $value = $attributes->get($element);
+    $value = $attributes->get($element, false);
     $infos['base'] = $value;
     if ($method == 'reduce' && $value > 0) {
       $newValue = $value - 1;
@@ -545,26 +546,32 @@ class CharacterService
       $newValue = 0;
     }
     $attributes->set($element, $newValue);
+    if ($toRefund) {
+      $character->refundElement(5, $infos['base'], $newValue);
+    }
 
     return true;
   }
 
-  private function removeSkill(Character $character, string $method, &$element, &$infos) : bool
+  private function removeSkill(Character $character, string $method, &$element, &$infos, $toRefund = false) : bool
   {
     $skills = $character->getSkills();
     $value = $skills->get($element);
     $infos['base'] = $value;
-    if ($method == 'reduce' && $skills->get($element) > 0) {
+    if ($method == 'reduce' && $skills->get($element, false) > 0) {
       $newValue = $value - 1;
     } else {
       $newValue = 0;
     }
     $skills->set($element, $newValue);
+    if ($toRefund) {
+      $character->refundElement(3, $infos['base'], $newValue);
+    }
 
     return true;
   }
 
-  private function removeMerit(Character $character, string $method, &$element, &$infos) : bool
+  private function removeMerit(Character $character, string $method, &$element, &$infos, $toRefund = false) : bool
   {
     $merit = $this->dataService->find(CharacterMerit::class, $element);
     if ($merit instanceof CharacterMerit) {
@@ -574,22 +581,31 @@ class CharacterService
       $infos['name'] = $element;
       if ($method == 'reduce' && $level > 1) {
         $merit->setLevel($level - 1);
+        $to = $level - 1;
       } else {
         $character->removeMerit($merit);
+        $to = 0;
       }
+      if ($toRefund) {
+        $character->refundElement(2, $infos['base'], $to);
+      }
+
       return true;
     }
 
     return false;
   }
 
-  private function removeSpecialty(Character $character, &$element, &$infos) : bool
+  private function removeSpecialty(Character $character, &$element, &$infos, $toRefund = false) : bool
   {
     $specialty = $this->dataService->find(CharacterSpecialty::class, $element);
     if ($specialty instanceof CharacterSpecialty) {
       $element = $specialty->getName();
       $infos['name'] = "{$element} ({$specialty->getSkill()->getName()})";
       $character->removeSpecialty($specialty);
+      if ($toRefund) {
+        $character->refundXp(3);
+      }
 
       return true;
     }
@@ -597,13 +613,16 @@ class CharacterService
     return false;
   }
 
-  private function reduceWillpower(Character $character, &$element, &$infos) : bool
+  private function reduceWillpower(Character $character, &$element, &$infos, $toRefund = false) : bool
   {
     $willpower = $character->getWillpower();
     if ($willpower > 1) {
       $infos['base'] = $willpower;
       $character->setWillpower($willpower - 1);
       $element = "willpower";
+      if ($toRefund) {
+        $character->refundXp(8);
+      }
 
       return true;
     }
@@ -626,19 +645,23 @@ class CharacterService
         $infos['name'] = $element;
         $this->dataService->delete($derangement);
       }
+
       return true;
     }
 
     return false;
   }
 
-  private function reducePotency(Vampire $character, &$element, &$infos) : bool
+  private function reducePotency(Vampire $character, &$element, &$infos, $toRefund = false) : bool
   {
     $potency = $character->getPotency();
     if ($potency > 1) {
       $infos['base'] = $potency;
       $character->setPotency($potency - 1);
       $element = "potency";
+      if ($toRefund) {
+        $character->refundElement(8, $potency, $potency - 1);
+      }
 
       return true;
     }
@@ -647,7 +670,7 @@ class CharacterService
   }
 
   /** Reduce/Remove a discipline for a Vampire or a Ghoul */
-  private function removeDiscipline(Character $character, string $method, &$element, &$infos) : bool
+  private function removeDiscipline(Character $character, string $method, &$element, &$infos, $toRefund = false) : bool
   {
     if ($character instanceof Vampire) {
       $discipline = $this->dataService->find(VampireDiscipline::class, $element);
@@ -658,9 +681,20 @@ class CharacterService
         $infos['name'] = $element;
         if ($method == 'reduce' && $level > 1) {
           $discipline->setLevel($level - 1);
+          $to = $level - 1;
         } else {
           $character->removeDiscipline($discipline);
+          $to = 0;
         }
+        if ($toRefund) {
+          if ($character->getClan()->isFavored($discipline->getDiscipline())) {
+            $cost = 5;
+          } else {
+            $cost = 7;
+          }
+          $character->refundElement($cost, $level, $to);
+        }
+
         return true;
       }
     } else {
@@ -685,7 +719,7 @@ class CharacterService
     return false;
   }
 
-  private function removeDevotion(Character $character, &$element, &$infos) : bool
+  private function removeDevotion(Character $character, &$element, &$infos, $toRefund = false) : bool
   {
     $devotion = $this->dataService->find(Devotion::class, $element);
     if ($devotion instanceof Devotion) {
@@ -697,6 +731,9 @@ class CharacterService
         if ($lesser instanceof Ghoul) {
           $lesser->removeDevotion($devotion);
         }
+      }
+      if ($toRefund) {
+        $character->refundXp($devotion->getCost());
       }
 
       return true;
