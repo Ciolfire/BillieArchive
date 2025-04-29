@@ -100,6 +100,16 @@ prerequisite:
   group: Groupe de choix (X ou Y ou ...)
 
 status:
+  type:
+    basic: Basique
+    attribute: Attribut
+    skill: Compétence
+    health: Santé
+    willpower: Volonté
+    armor: Armure
+    defense: Defense
+    speed: Vitesse
+    potency: Puissance du Sang
   label:
     single: Effet
     multi: Effets

@@ -29,13 +29,16 @@ class StatusEffectType extends AbstractType
         $types = new \ReflectionClass(ChoicesStatus::class);
         break;
     }
+    $types = $types->getConstants();
+    asort($types);
+
     $builder
     ->add('type', ChoiceType::class, [
       'label' => false,
-      'choices' => $types->getConstants(),
+      'choices' => $types,
       'choice_translation_domain' => null,
       'choice_label' => function ($choice, string $key): TranslatableMessage|string {
-        return new TranslatableMessage($key, [], 'status');
+        return new TranslatableMessage("status.type.{$key}", [], 'app');
       },
       'attr' => [
         'data-character--status-target' => 'type',

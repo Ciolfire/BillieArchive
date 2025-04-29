@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Types;
 
-final class VampireChoicesStatus
+final class VampireChoicesStatus extends ChoicesStatus
 {
-  public const Basic = 'basic';
-  public const Attribute = 'attribute';
-  public const Skill = 'skill';
-  public const Potency = 'potency';
+  public const potency = 'potency';
 }

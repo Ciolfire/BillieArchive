@@ -100,6 +100,16 @@ prerequisite:
   group: Choice index (X or Y or ...)
 
 status:
+  type:
+    basic: Basic
+    attribute: Attribute
+    skill: Skill
+    health: Health
+    willpower: Willpower
+    armor: Armor
+    defense: Defense
+    speed: Speed
+    potency: Potency
   label:
     single: Status Effect
     multi: Status Effects
