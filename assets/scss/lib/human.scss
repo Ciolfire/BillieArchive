@@ -1,28 +1,33 @@
 $fonts: "../../fonts";
 
-$pageColor         : rgb(37, 37, 37);
-$footerColor       : #131828db;
-$blockColor        : #18181dcc;//#1a1b24cc;//#1a2139f5; //#131828db;
-$neutralBlockColor : #151515eb;
-$darkBlockColor    : #0b0b0b85;
-$lightBlockColor   : #FFFFFF80;
-$lightBlock30pColor: #ffffff4a;
-$solidBlockColor   : #131828;
-$tabColor          : #181d35b3;
-$borderColor       : #3b4984;
 $mainColor         : #6f80c5;
 $mainBrightColor   : #839bfd;
+$mainDark50pColor  : rgba(0, 0, 53, 0.5);
 $mainDark75pColor  : #000035cc;
 $mainDarkColor     : #000035;
 $main30pColor      : #3b49844f;
 $main50pColor      : #3b498480;
 $main75pColor      : #3b4984bf;
-$inputBackColor    : #00000099;
-$inputActiveBColor : #ffffff05;
+
+$secondaryColor    : rgb(191, 191, 191);
+
+$blockColor        : #18181dcc;//#1a1b24cc;//#1a2139f5; //#131828db;
+$neutralBlockColor : #151515eb;
+$neutralBlock30pColor : #15151541;
+$darkBlockColor    : #0b0b0b85;
+$lightBlockColor   : #FFFFFF80;
+$lightBlock30pColor: #ffffff4a;
+$solidBlockColor   : #131828;
+$modalBlockColor   : #131828;
+
+$pageColor         : rgb(37, 37, 37);
+$footerColor       : #131828db;
+$tabColor          : #181d35b3;
+$borderColor       : #3b4984;
+
 $wrongColor        : #b53434;
 $warningColor      : #b53434;
 $accentColor       : gold;
-$secondaryColor    : rgb(191, 191, 191);
 $backAccentColor   : #161c31;
 
 $background: "images/back1.jpg";
@@ -48,15 +53,19 @@ $btnActiveShadow    : $mainDarkColor;
 $btnWarningShadow   : #ffffff8d;
 $btnHover           : $mainBrightColor;
 //
+$blockquoteColor    : $mainDark75pColor;
+$helpColor          : silver;
 $labelColor         : $textColor;
-$subtextColor       : #a1a5b9a1;
-$strongColor        : $mainBrightColor;
 $linkColor          : $mainBrightColor;
 $linkHoverColor     : $accentColor;
+$subtextColor       : #a1a5b9a1;
 $strongColor        : $mainBrightColor;
 $outlineColor       : $main30pColor;
-$helpColor          : silver;
-$blockquoteColor    : $mainDark75pColor;
+// Form
+$inputBackColor    : #00000099;
+$inputActiveBColor : #ffffff05;
+$inputFont          : "goudy";
+$labelFont          : "goudy";
 // Font
 $mainFont           : "Trebuchet MS";
 $h1Font             : "goudy";
@@ -66,8 +75,6 @@ $h4Font             : "goudy";
 $h5Font             : "goudy";
 $textFont           : "goudy";
 $subTextFont        : "goudy";
-$labelFont          : "goudy";
-$inputFont          : "goudy";
 $stylizedFont       : "CaslonAntique";
 $stylizedAltFont    : "PlasticMan";
 

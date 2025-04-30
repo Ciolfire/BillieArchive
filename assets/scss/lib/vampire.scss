@@ -18,21 +18,19 @@ $darkBlockColor   : #000000cc;
 $lightBlockColor  : #FFFFFF80;
 $lightBlock30pColor: #ffffff4a;
 $solidBlockColor  : #6a6a6a;
+$modalBlockColor  : #000000cc;
 
 $pageColor        : #252525;
 $footerColor      : #8e8e8eb5;
 $tabColor         : #6a6a6a4f;
 $borderColor      : #7d0000;
-$inputBackColor   : #00000033;
-$inputActiveBColor: #b5b5b5ed;
+
 $wrongColor       : #000968;
 $warningColor     : #fb9150;
-// $secondaryColor    : #bfbfbf;
 $accentColor      : gold;
 $backAccentColor  : #1f1f1f;
 
 $background: "images/back2.jpg";
-
 
 // Text
 $textColor          : #a1a5b9;
@@ -55,14 +53,19 @@ $btnActiveShadow    : rgba(125, 0, 0, 0.5);
 $btnWarningShadow   : #5c5c5c;
 $btnHover           : $main50pColor;
 //
+$blockquoteColor    : $mainDark75pColor;
+$helpColor          : #3f3f3f;
 $labelColor         : $mainColor;
-$subtextColor       : #a1a5b9a1;
 $linkColor          : $mainBrightColor;
 $linkHoverColor     : #ce8904;
+$subtextColor       : #a1a5b9a1;
 $strongColor        : $mainBrightColor;
 $outlineColor       : #af000052;
-$helpColor          : #3f3f3f;
-$blockquoteColor    : $mainDark75pColor;
+// Form
+$inputBackColor   : #00000033;
+$inputActiveBColor: #b5b5b5ed;
+$inputFont          : "goudy";
+$labelFont          : "goudy";
 // Font
 $mainFont           : "mrsEaves-bold";
 $h1Font             : "goudy";
@@ -72,8 +75,6 @@ $h4Font             : "goudy";
 $h5Font             : "goudy";
 $textFont           : "goudy";
 $subTextFont        : "goudy";
-$labelFont          : "goudy";
-$inputFont          : "goudy";
 $stylizedFont       : "Cezanne";
 $stylizedAltFont    : "Supernatural_Knight";
 

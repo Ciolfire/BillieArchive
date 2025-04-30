@@ -1,25 +1,32 @@
 $fonts: "../../fonts";
 
-$pageColor        : rgb(37, 37, 37);
-$footerColor      : #8e8e8eb5;
-$blockColor       : rgba(92, 112, 117, 0.66);//rgba(61, 85, 95, 0.56);
-$neutralBlockColor : #303030a6;
-$darkBlockColor   : rgba(4, 13, 17, 0.63);
-$lightBlockColor  : rgba(129, 103, 0, 0.37);
-$lightBlock30pColor: #ffffff4a;
-$solidBlockColor  : #6a6a6a;
-$tabColor         : #6a6a6a4f;
-$borderColor      : #008886;
 $mainColor        : #081e19;//#008886;
 $mainBrightColor  : #008886;//#07cac7;
+$mainDark50pColor : #00878583;
 $mainDark75pColor : #0087855c;
 $mainDarkColor    : #04231c;
 $main30pColor     : #0088864f;
 $main50pColor     : #00888680;
 $main75pColor     : #008886bf;
+
+$secondaryColor    : rgba(0, 117, 152, 0.711);
+
+$blockColor       : rgba(92, 112, 117, 0.66);//rgba(61, 85, 95, 0.56);
+$neutralBlockColor : #303030a6;
+$neutralBlock30pColor : #30303031;
+$darkBlockColor   : rgba(4, 13, 17, 0.63);
+$lightBlockColor  : rgba(129, 103, 0, 0.37);
+$lightBlock30pColor: #ffffff4a;
+$solidBlockColor  : #6a6a6a;
+$modalBlockColor  : #0087855c;
+
+$pageColor        : rgb(37, 37, 37);
+$footerColor      : #8e8e8eb5;
+$tabColor         : #6a6a6a4f;
+$borderColor      : #008886;
+
 $wrongColor       : #000968;
 $warningColor     : #fb9150;
-$secondaryColor    : rgba(0, 117, 152, 0.711);
 $accentColor      : gold;
 $backAccentColor  : #1f1f1f;
 
@@ -33,7 +40,6 @@ $titleColor         : #081e19;
 $titleShadow        : $mainBrightColor;
 $textShadowColor    : $mainBrightColor;
 $imageShadow        : $mainBrightColor;
-
 // Table
 $tableAccentColor   : $main75pColor;
 $tableHeaderColor   : $textColor;
@@ -47,17 +53,19 @@ $btnActiveShadow    : $textShadowColor;
 $btnWarningShadow   : #5c5c5c;
 $btnHover           : $main50pColor;
 //
+$blockquoteColor    : rgba(20, 51, 50, 0.78);
+$helpColor          : #13312f;//#3f3f3f;
 $labelColor         : $mainColor;
-$subtextColor       : rgba(7, 20, 23, 0.63);
 $linkColor          : silver;
 $linkHoverColor     : #00e7ff;
+$subtextColor       : rgba(7, 20, 23, 0.63);
 $strongColor        : $accentColor;
 $outlineColor       : $main50pColor;
-$helpColor          : #13312f;//#3f3f3f;
-$blockquoteColor    : rgba(20, 51, 50, 0.78);
 // form
 $inputBackColor     : rgba(26, 49, 51, 0.78);
 $inputActiveBColor  : rgba(27, 31, 31, 0.85);
+$inputFont          : "goudy";
+$labelFont          : "goudy";
 // Font
 $mainFont           : "mrsEaves-bold";
 $h1Font             : "goudy";
@@ -67,8 +75,6 @@ $h4Font             : "goudy";
 $h5Font             : "goudy";
 $textFont           : "goudy";
 $subTextFont        : "goudy";
-$labelFont          : "goudy";
-$inputFont          : "goudy";
 $stylizedFont       : "ZapfinoLinotypeThree";
 $stylizedAltFont    : "Cezanne";
 

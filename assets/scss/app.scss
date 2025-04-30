@@ -92,6 +92,10 @@ footer.footer {
     background-color: $solidBlockColor;
   }
 
+  &-modal {
+    background-color: $modalBlockColor;
+  }
+
   &-light {
     background-color: $lightBlockColor;
   }
