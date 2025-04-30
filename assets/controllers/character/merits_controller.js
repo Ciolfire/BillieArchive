@@ -6,12 +6,13 @@ export default class extends Controller {
     "merit",
     "prerequisite",
     "filter",
-    "modal"
+    "modal",
+    "relation",
+    "choice"
   ];
 
   static value = {
     "id": 0,
-    "relation": 0
   }
 
   connect()
@@ -35,11 +36,24 @@ export default class extends Controller {
   {
     this.idValue = event.params.id;
     if (event.params.relation != undefined) {
-      this.modalTarget.querySelector("#meritShowModalRelation").classList.remove('d-none');
-      this.relationValue = event.params.relation;
+      // edit link for relation
+      this.relationTarget.href = this.relationTarget.dataset.link.replace('0', event.params.relation);
+      this.relationTarget.classList.remove('d-none');
+      // hide link for choice
+      this.choiceTarget.classList.add('d-none');
+      this.choiceTarget.href = null;
+    } else if (event.params.chmid) {
+      // edit link for choice
+      this.choiceTarget.href = this.choiceTarget.dataset.link.replace('0', event.params.chmid);
+      this.choiceTarget.classList.remove('d-none');
+      // hide link for relation
+      this.relationTarget.classList.add('d-none');
+      this.relationTarget.href = null;
     } else {
-      this.modalTarget.querySelector("#meritShowModalRelation").classList.add('d-none');
-      this.relationValue = 0;
+      this.choiceTarget.classList.add('d-none');
+      this.choiceTarget.href = null;
+      this.relationTarget.classList.add('d-none');
+      this.relationTarget.href = null;
     }
     this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
     this.modalTarget.querySelector("#MeritShowModalDescription").innerHTML = event.params.effect;
@@ -49,14 +63,6 @@ export default class extends Controller {
   {
     if (this.idValue != 0) {
       let link = event.params.link.replace('0', this.idValue);
-      window.open(link, '_blank').focus();
-    }
-  }
-
-  changeRelation(event)
-  {
-    if (this.relationValue != 0) {
-      let link = event.params.link.replace('0', this.relationValue);
       window.open(link, '_blank').focus();
     }
   }

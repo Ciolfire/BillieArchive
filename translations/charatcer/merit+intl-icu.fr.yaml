@@ -21,6 +21,14 @@ min: Min
 max: Max
 unique: Unique
 
+change:
+  choice:
+    label: Modifier les choix
+    help: Un aotut peut évoluer avec le temps, le personnage peut avoir appris quelque chose de nouveau, ou s'être adapté à une nouvelle situation, ce changement reflète cela.
+  relation:
+    label: Changer la relation
+    help: Une relation peut évoluer dans le temps, il est donc possible de reflèter ceci sur l'atout.
+
 help:
   creation: Cet atout ne peut être choisi que par un nouveau personnage.
   description: Un court texte résumant le fonctionnement de l'atout.

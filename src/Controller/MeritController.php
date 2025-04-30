@@ -186,7 +186,39 @@ class MeritController extends AbstractController
         'data' => $chMerit->getChoice(),
         'label' => false,
       ])
-    ->add('save', SubmitType::class, ['label' => 'action.save'])
+    ->getForm();
+
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      $old = $chMerit->getMerit()->getName();
+      $chMerit->setMerit($form->getData()['relation']);
+      $chMerit->setChoice($form->getData()['choice']);
+      $this->dataService->update($chMerit);
+
+      if ($chMerit->getMerit()->getName() != $old) {
+        $this->addFlash('success', ["merit.relation.change", ['%name%' => $chMerit->getChoice(), 'new' => $chMerit->getMerit()->getName(), 'old' => $old]]);
+      } else {
+        $this->addFlash('success', ["merit.relation.update", ['%name%' => $chMerit->getChoice(), 'old' => $old]]);
+      }
+      return $this->redirectToRoute('character_show', ['id' => $chMerit->getCharacter()->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('merit/relation.html.twig', [
+      'merit' => $chMerit,
+      'form' => $form,
+      'setting' => $chMerit->getCharacter()->getType(),
+    ]);
+  }
+
+  #[Route("/{id<\d+>}/choice", name: "merit_change_choice", methods: ["GET", "POST"])]
+  public function changeDetails(Request $request, CharacterMerit $chMerit): Response
+  {
+    $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
+      ->add('choice', null, [
+        'data' => $chMerit->getChoice(),
+        'label' => false,
+      ])
     ->getForm();
 
     $form->handleRequest($request);
@@ -201,9 +233,10 @@ class MeritController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $chMerit->getCharacter()->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('merit/relation.html.twig', [
+    return $this->render('merit/choice.html.twig', [
       'merit' => $chMerit,
       'form' => $form,
+      'setting' => $chMerit->getCharacter()->getType(),
     ]);
   }
 }

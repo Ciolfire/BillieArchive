@@ -86,13 +86,19 @@ character:
         }
       deactivated: "{name} n'est plus un(e) {old}."
       same: "{name} est déjà un(e) {type}, pas de modification."
+
 clan:
   join: "{name} est maintenant membre du clan suivant: {bloodline}."
   delete:
-    success: "Le Clan/la lignée {name} a été supprimé(e) avec succès."
-    failed: "The Clan/Bloodline {name} n'a pas été supprimé(e)."
+    success: "Le Clan ou la lignée {name} a été supprimé(e) avec succès."
+    failed: "The Clan or Bloodline {name} n'a pas été supprimé(e)."
   bloodline:
     join: "{name} est maintenant membre de la lignée suivante: {bloodline}."
+
+devotion:
+  delete:
+    success: "La Dévotion {name} a été supprimée avec succès."
+    failed: "La Dévotion {name} n'a pas été supprimée."
 
 chronicle:
   rules: Règles mises à jour.
@@ -105,6 +111,7 @@ item:
 
 merit:
   relation:
+    update: "{name} ({old}) mis à jour."
     change: "{name} est passé(e) de {old} à {new}."
 
 user:

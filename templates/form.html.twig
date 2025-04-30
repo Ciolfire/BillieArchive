@@ -18,19 +18,21 @@
   <div class="container {{ custom|default("") }} {% if isLight %}block block-light{% else %}block{% endif %} py-3 mt-5">
     <div class="row">
       <div class="col">
+        {% block content_start %}{% endblock %}
         {{ form_start(form) }}
           {% block form %}
             {{ form_rest(form) }}
             {% block submit %}
               <div class="text-center fixed-bottom">
                 <button class="btn btn-primary btn-lg w-100 rounded-0 rounded-top" type="submit">
-                  {% include "_icon.html.twig" with {icon: 'save'} %}
+                  {% include "_icon.html.twig" with {icon: action|default('save')} %}
                   {{ ('action.' ~ action|default('save'))|trans({}, 'app') }}
                 </button>
               </div>
             {% endblock %}
           {% endblock %}
         {{ form_end(form) }}
+        {% block content_end %}{% endblock %}
       </div>
     </div>
   </div>

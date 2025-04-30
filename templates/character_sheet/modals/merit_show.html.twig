@@ -1,8 +1,8 @@
 {% trans_default_domain 'app' %}
 
 <div class="modal modal-lg fade" id="meritShowModal" tabindex="-1" aria-labelledby="meritShowModalLabel" aria-hidden="true" data-character--merits-target="modal">
-  <div class="modal-dialog">
-    <div class="modal-content block-solid">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content block-modal">
       <div class="modal-header">
         <h5 class="modal-title text-sub" id="meritShowModalTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -11,16 +11,15 @@
         <div id="MeritShowModalDescription">
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" id="meritShowModalRelation" class="btn btn-primary me-5" data-action="character--merits#changeRelation" data-character--merits-link-param="{{ path('merit_change_relation', {id: '0'}) }}">
-          {% include "_icon.html.twig" with {icon: 'edit'} only %}
-          {% include "_icon.html.twig" with {icon: 'character'} only %}
-        </button>
-        <button type="button" class="btn btn-primary me-5" data-action="character--merits#openWiki" data-character--merits-link-param="{{ path('merit_show', {id: '0'}) }}">
+      <div class="modal-footer justify-content-center">
+        <a type="button" id="meritShowModalChoice" class="btn btn-primary btn-lg me-5" data-character--merits-target="choice" data-link="{{ path('merit_change_choice', {id: '0'}) }}">
+          {% include "_icon.html.twig" with {icon: 'note'} only %}
+        </a>
+        <a type="button" id="meritShowModalRelation" class="btn btn-primary btn-lg me-5" data-character--merits-target="relation" data-link="{{ path('merit_change_relation', {id: '0'}) }}">
+          {% include "_icon.html.twig" with {icon: 'infos'} only %}
+        </a>
+        <button type="button" class="btn btn-primary btn-lg me-5" data-action="character--merits#openWiki" data-character--merits-link-param="{{ path('merit_show', {id: '0'}) }}">
           {% include "_icon.html.twig" with {icon: 'wiki'} only %}
-          {# {{ 'action.view'|trans }} #}
-        </button>
-        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
     </div>

@@ -100,7 +100,6 @@ devotion:
     success: "The Devotion {name} was successfully deleted."
     failed: "The Devotion {name} was not deleted."
 
-
 chronicle:
   rules: "{chronicle} — Rules updated."
 
@@ -110,9 +109,9 @@ item:
   character:
     new: "the item `{name}` has been added to `{character}`'s inventory."
 
-
 merit:
   relation:
+    update: "{name} ({old}) updated."
     change: "{name} changed from {old} to {new}."
 
 user:

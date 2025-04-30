@@ -21,11 +21,19 @@ min: Min
 max: Max
 unique: Unique
 
+change:
+  choice:
+    label: Modify choices
+    help: A merit can evolve over time, the character might have learned something new, or adapted to a new situation, this change reflect this.
+  relation:
+    label: Change relationship
+    help: A relation can change over time, this allow to reflect the changes to the actual merit.
+
 help:
   creation: This merit can only be selected when the character is created.
+  description: A short text to explain what the merit does.
   expanded: This merit has some variable parameter than can or need to be specified when selected.
   fighting: A fighting style open access to a new maneuver at each level.
   unique:   This merit can only be selected once.
-  description: A short text to explain what the merit does.
   relation: This merit represent a relation to an organization or a character.
   roll: This merit involve a dice roll.

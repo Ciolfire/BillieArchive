@@ -4,15 +4,15 @@
 
 {% set action = "save" %}
 
-{% block title %}{{ "change.relation.label"|trans }}{% endblock %}
+{% block title %}{{ "change.choice.label"|trans }}{% endblock %}
 
 {% block header %}
   <h1>
     {% include "_icon.html.twig" with {icon: 'merit', class: 'icon-lg' } only %}
-    {{ "change.relation.label"|trans }}
+    {{ "change.choice.label"|trans }}
   </h1>
 {% endblock %}
 
 {% block content_end %}
-  <p class="text-dark">{{ "change.relation.help"|trans }}</p>
+  <p class="text-dark">{{ "change.choice.help"|trans }}</p>
 {% endblock %}
