@@ -1,22 +1,16 @@
+{% extends "_modal.html.twig" %}
+
 {% trans_default_domain 'app' %}
 
-<div class="modal fade" id="deleteModal-{{element}}-{{entity.id}}" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ "action.delete"|trans }} {{ entity.name|default(entity.id) }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ "action.confirm"|trans}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <form method="post" action="{{ path(element ~ '_delete', {'id': entity.id}) }}">
-          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
-          <button class="btn btn-warning">{% include "_icon.html.twig" with {icon: 'delete' } %} {{ "action.delete"|trans }}</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+{% set isLarge = false %}
+{% set id = "deleteModal-#{element}-#{entity.id}" %}
+
+{% block title %}{{ "action.delete"|trans }} {{ entity.name|default(entity.id) }}{% endblock %}
+
+{% block body %}
+  <p>{{ "help.delete"|trans}}</p>
+  <form method="post" action="{{ path(element ~ '_delete', {'id': entity.id}) }}">
+    <button class="btn btn-warning btn-lg p-5 w-100">{% include "_icon.html.twig" with {icon: 'delete' } %} {{ "action.delete"|trans }}</button>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
+  </form>
+{% endblock %}

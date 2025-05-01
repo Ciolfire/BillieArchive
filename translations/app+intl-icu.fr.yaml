@@ -59,6 +59,7 @@ category:
 
 help:
   action: Instantanée ou Étendue.
+  delete: Cette action est définitive, êtes-vous sûr ?
   short: Une ligne de description.
   description: Quelque paragraphes de description.
 

@@ -93,9 +93,14 @@ infos:
   picture: Photo
 
 morality:
+  raise: Augmenter la Moralité
+  lose: Perdre de la Moralité
   derangement:
     keep: Garder
-    new:  Lancez un nombre de dés égal à la nouvelle valeur d'humanité, en cas d'echec le personnage développe un dérangement. Ne s'applique PAS à 8+.
+    new: |
+      Lancez un nombre de dés égal à la nouvelle valeur d'humanité.
+      En cas d'echec le personnage développe un dérangement.
+      Ne s'applique PAS à 8+.
     overcome: Quand un dérangement devrait être vaincu en remontant en Moralité, cette maladie peut être supprimée ou au choix ignorée.
     remove: Retirer
   cost:

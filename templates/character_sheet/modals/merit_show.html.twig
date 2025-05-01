@@ -1,27 +1,26 @@
 {% trans_default_domain 'app' %}
+{% extends "_modal.html.twig" %}
 
-<div class="modal modal-lg fade" id="meritShowModal" tabindex="-1" aria-labelledby="meritShowModalLabel" aria-hidden="true" data-character--merits-target="modal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content block-modal">
-      <div class="modal-header">
-        <h5 class="modal-title text-sub" id="meritShowModalTitle"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div id="MeritShowModalDescription">
-        </div>
-      </div>
-      <div class="modal-footer justify-content-evenly">
-        <a type="button" id="meritShowModalChoice" class="btn btn-primary btn-lg px-5" data-character--merits-target="choice" data-link="{{ path('merit_change_choice', {id: '0'}) }}">
-          {% include "_icon.html.twig" with {icon: 'note'} only %}
-        </a>
-        <a type="button" id="meritShowModalRelation" class="btn btn-primary btn-lg px-5" data-character--merits-target="relation" data-link="{{ path('merit_change_relation', {id: '0'}) }}">
-          {% include "_icon.html.twig" with {icon: 'infos'} only %}
-        </a>
-        <button type="button" class="btn btn-primary btn-lg px-5" data-action="character--merits#openWiki" data-character--merits-link-param="{{ path('merit_show', {id: '0'}) }}">
-          {% include "_icon.html.twig" with {icon: 'wiki'} only %}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+{% set isLarge = true %}
+{% set hasFooter = true %}
+{% set id = "meritShowModal" %}
+
+{% block data %}data-character--merits-target="modal"{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+  <div id="MeritShowModalDescription"></div>
+{% endblock %}
+
+{% block footer %}
+  <a type="button" id="meritShowModalChoice" class="btn btn-primary btn-lg px-5" data-character--merits-target="choice" data-link="{{ path('merit_change_choice', {id: '0'}) }}">
+    {% include "_icon.html.twig" with {icon: 'note'} only %}
+  </a>
+  <a type="button" id="meritShowModalRelation" class="btn btn-primary btn-lg px-5" data-character--merits-target="relation" data-link="{{ path('merit_change_relation', {id: '0'}) }}">
+    {% include "_icon.html.twig" with {icon: 'infos'} only %}
+  </a>
+  <button type="button" class="btn btn-primary btn-lg px-5" data-action="character--merits#openWiki" data-character--merits-link-param="{{ path('merit_show', {id: '0'}) }}">
+    {% include "_icon.html.twig" with {icon: 'wiki'} only %}
+  </button>
+{% endblock %}

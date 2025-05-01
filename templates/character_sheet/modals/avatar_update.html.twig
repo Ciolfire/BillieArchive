@@ -1,30 +1,32 @@
 {% trans_default_domain 'character' %}
+{% extends "_modal.html.twig" %}
 
-<div class="modal fade" id="avatarModal" aria-labelledby="avatarModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content block-modal">
-      {{ form_start(avatarForm) }}
-      <form data-action="character--avatar#update" name="avatar" data-character--avatar-target="form" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.modal'|trans }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="block position-relative">
-          <a class="position-absolute end-0 {% if character.avatar is empty %}d-none{% endif %}" data-character--avatar-target="resize" href="{{ path('character_avatar_crop', {'id': character.id}) }}" role="button">{% include "_icon.html.twig" with {icon: 'crop', class: 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
-          <img class="w-100" data-character--avatar-target="updatable" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
-        </div>
-        <div class="modal-body">
-          <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
-          {{ form_widget(avatarForm.upload) }}
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-            {% include "_icon.html.twig" with {icon: 'save'} only %}
-            {{ 'avatar.save'|trans }}
-          </button>
-        </div>
-      {{ form_end(avatarForm) }}
-      </form>
+{% set isLarge = false %}
+{% set hasFooter = true %}
+{% set id = "avatarModal" %}
+
+{% block title %}{{'avatar.modal'|trans }}{% endblock %}
+
+{% block header %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <form data-action="character--avatar#update" id="avatar" name="avatar" data-character--avatar-target="form" method="post">
+    {{ form_start(avatarForm) }}
+    <div class="block position-relative">
+      <a class="position-absolute end-0 {% if character.avatar is empty %}d-none{% endif %}" data-character--avatar-target="resize" href="{{ path('character_avatar_crop', {'id': character.id}) }}" role="button">{% include "_icon.html.twig" with {icon: 'crop', class: 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
+      <img class="w-100" data-character--avatar-target="updatable" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     </div>
-  </div>
-</div>
+    <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
+    {{ form_widget(avatarForm.upload) }}
+    {{ form_end(avatarForm) }}
+  </form>
+{% endblock %}
+
+{% block footer %}
+  <button type="submit" form="avatar" class="btn btn-primary btn-lg px-5" data-bs-dismiss="modal">
+    {% include "_icon.html.twig" with {icon: 'save'} only %}
+    {{ 'avatar.save'|trans }}
+  </button>
+{% endblock %}

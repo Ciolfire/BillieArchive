@@ -1,0 +1,32 @@
+{% trans_default_domain 'derangement' %}
+{% extends "_modal.html.twig" %}
+
+{% set isLarge = false %}
+{% set hasFooter = false %}
+{% set id = "newDerangementModal" %}
+
+{% block title %}{{ "add"|trans }}{% endblock %}
+
+{% block body %}
+  <form action="{{ path('character_derangement_new', { 'id' : character.id }) }}" method="POST">
+    <div class="row">
+      <div class="col-12 mb-3">
+        {% include "_icon.html.twig" with {icon: 'derangement'} %}
+        {% include "character_sheet/morality/derangement_select.html.twig" with {required: true} %}
+      </div>
+    </div>
+    {% include "character_sheet/morality/derangement_list.html.twig" %}
+    <div class="row">
+      <div class="col-12">
+        <label class="accent" for="details">{{ "details"|trans }}</label>
+        <input class="form-control" name="details" type="text">
+      </div>
+      <div class="col-12">
+        <button class="btn btn-warning w-100 mt-5">
+          {% include "_icon.html.twig" with {icon: 'derangement'} %}
+          {{ 'action.add'|trans([], 'app') }}
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

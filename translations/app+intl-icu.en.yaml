@@ -59,6 +59,7 @@ category:
 
 help:
   action: Instant or extended.
+  delete: This action is definitive, are you sure ?
   short: A single line description.
   description: A few paragraphs of description.
 

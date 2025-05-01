@@ -1,0 +1,35 @@
+{% trans_default_domain 'character' %}
+{% extends "_modal.html.twig" %}
+
+{% set isLarge = false %}
+{% set hasFooter = false %}
+{% set id = "moralityDecreaseModal" %}
+
+{% block title %}{{ "morality.lose"|trans }}{% endblock %}
+
+{% block body %}
+  <p class="text-center">
+    {{ "morality.derangement.new"|trans|nl2br }}
+  </p>
+  <form action="{{ path('character_morality_decrease', { 'id' : character.id }) }}" method="POST">
+    <div class="row">
+      <div class="col-12 mb-3">
+        {% include "_icon.html.twig" with {icon: 'derangement'} %}
+        {% include "character_sheet/morality/derangement_select.html.twig" with {tag : 'morality'} %}
+      </div>
+    </div>
+    {% include "character_sheet/morality/derangement_list.html.twig" with {id : 'accordionMoralityDerangement', 'tag' : 'morality'} %}
+    <div class="row">
+      <div class="col-12 mb-3">
+        <label class="accent" for="details">{{ "details"|trans }}</label>
+        <input class="form-control" name="details" type="text">
+      </div>
+      <div class="col-12">
+        <button class="btn btn-warning btn-lg w-100">
+          {% include "_icon.html.twig" with {icon: 'morality'} %}
+          {{ "morality.down"|trans }}
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
