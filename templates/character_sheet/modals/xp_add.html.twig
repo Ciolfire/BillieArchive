@@ -1,21 +1,25 @@
 {% trans_default_domain 'character' %}
+{% extends "_modal.html.twig" %}
 
-<div class="modal fade" id="xpAddModal" tabindex="-1" aria-labelledby="xpAddModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content block-modal">
-      <div class="modal-header">
-        <h5 class="modal-title text-sub" id="xpAddModalLabel">{{'xp.modal'|trans([], 'logs-xp') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <input class="form-control" type="number" step="1" min="1" data-character--experience-target="input"/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-lg p-5 w-100" data-bs-dismiss="modal" data-action="click->character--experience#update" data-character--experience-method-param="add">
-          {% include "_icon.html.twig" with {icon: 'xp'} %}
-          {{ 'xp.save'|trans([], 'logs-xp') }}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+
+{% set isLarge = true %}
+{% set hasFooter = true %}
+{% set id = "xpAddModal" %}
+
+{% block data %}
+{% endblock %}
+
+{% block title %}
+  {{'xp.modal'|trans([], 'logs-xp') }}
+{% endblock %}
+
+{% block body %}
+  <input class="form-control" type="number" step="1" min="1" data-character--experience-target="input"/>
+{% endblock %}
+
+{% block footer %}
+  <button type="button" class="btn btn-primary btn-lg p-5 w-100" data-bs-dismiss="modal" data-action="click->character--experience#update" data-character--experience-method-param="add">
+    {% include "_icon.html.twig" with {icon: 'xp'} %}
+    {{ 'xp.save'|trans([], 'logs-xp') }}
+  </button>
+{% endblock %}
