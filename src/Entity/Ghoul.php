@@ -44,7 +44,7 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\ManyToOne]
   private ?Covenant $covenant = null;
 
-  public function __construct(Clan $clan = null, Ghoul $ghoul = null)
+  public function __construct(?Clan $clan = null, Ghoul $ghoul = null)
   {
     if (isset($clan)) {
       $this->clan = $clan;
@@ -116,13 +116,13 @@ class Ghoul extends CharacterLesserTemplate
     return $this->disciplines;
   }
 
-  public function getFilteredDisciplines(string $filter = null): mixed
+  public function getFilteredDisciplines(?string $filter = null): mixed
   {
     switch ($filter) {
       case 'discipline':
         $disciplines = [];
         foreach ($this->disciplines as $discipline) {
-          /** @var VampireDiscipline $discipline */
+          /** @var GhoulDiscipline $discipline */
           if ($discipline->getDiscipline()->isSimple()) {
             $disciplines[] = $discipline;
           }

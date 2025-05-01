@@ -147,7 +147,6 @@ class DataService
   public function find(string $class, mixed $id): ?object
   {
     $object = $this->getRepository($class)->find($id);
-
     if ($object instanceof $class) {
       return $object;
     } else {
