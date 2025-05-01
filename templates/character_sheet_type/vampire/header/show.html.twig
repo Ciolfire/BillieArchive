@@ -20,7 +20,12 @@
 {% block leftCol %}
   <div class="row">
     <div class="col-12">
-      <a href="{{ path("vampire_clan_show", {'id': character.clan.id}) }}">
+      <a class="d-inline-block" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        data-action="click->content#load"
+        data-content-url-param="{{ link|default(path('vampire_clan_fetch', {id: character.clan.id})) }}" 
+        data-content-name-param="{{ character.covenant }}"
+        data-content-link-param="{{ link|default(path("vampire_clan_show", {'id': character.clan.id})) }}"
+      >
         {% if character.clan.isBloodline %}
           {{ character.clan.name }}
           ({{ character.clan.parentClan.name }})
@@ -48,7 +53,12 @@
 {% block organization %}
   {{ "covenant.label.single"|trans([], 'organization') }}:
   {% if character.covenant %}
-    <a href="{{ path("organization_show", {'id': character.covenant.id}) }}">
+    <a class="d-inline-block" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load"
+      data-content-url-param="{{ link|default(path('organization_fetch', {id: character.covenant.id})) }}" 
+      data-content-name-param="{{ character.covenant }}"
+      data-content-link-param="{{ link|default(path("organization_show", {'id': character.covenant.id})) }}"
+    >
       {{ character.covenant }}
       <span class="icon link-icon"><img src="{{ asset(character.covenant.emblem, 'organizations_emblems') }}"></span>
     </a>

@@ -23,8 +23,18 @@ class OrganizationController extends AbstractController
     $this->dataService = $dataService;
   }
 
+  #[Route("/{id<\d+>}/fetch", name:"organization_fetch", methods:["GET"])]
+  public function fetch(Organization $organization): Response
+  {
+    return $this->render("{$organization->getSetting()}/organization/_card.html.twig", [
+      'element' => 'roll',
+      'organization' => $organization,
+      'isShown' => true,
+    ]);
+  }
+
   #[Route('/list/{setting}', name: 'organization_index', methods: ['GET'])]
-  public function organizations(string $setting = null): Response
+  public function organizations(?string $setting = null): Response
   {
     $organizations = $this->dataService->getOrganizations($setting);
 

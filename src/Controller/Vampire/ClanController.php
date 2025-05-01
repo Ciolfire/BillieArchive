@@ -31,6 +31,16 @@ class ClanController extends AbstractController
     $this->service = $service;
   }
 
+  #[Route("/{id<\d+>}/fetch", name:"vampire_clan_fetch", methods:["GET"])]
+  public function fetch(Clan $clan): Response
+  {
+    return $this->render("vampire/clan/_card.html.twig", [
+      'element' => 'roll',
+      'clan' => $clan,
+      'isShown' => true,
+    ]);
+  }
+
   #[Route('/wiki/clans', name: 'vampire_clan_index', methods: ['GET'])]
   public function clans(): Response
   {
