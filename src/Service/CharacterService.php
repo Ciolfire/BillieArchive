@@ -23,9 +23,10 @@ use App\Entity\Mage;
 use App\Entity\Merit;
 use App\Entity\Roll;
 use App\Entity\Skill;
-use App\Entity\Society;
 use App\Entity\Thaumaturge;
 use App\Entity\ThaumaturgeTradition;
+use App\Entity\Types\ChoicesStatus;
+use App\Entity\Types\VampireChoicesStatus;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -869,29 +870,19 @@ class CharacterService
 
   public function getStatusType(Character $character)
   {
-    $statusList = [
-      'attribute' => [],
-      'skill' => [],
-      // 'merit' => [],
-      'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
-      // 'derangement' => [],
-    ];
-    // switch ($character::class) {
-    //   case Vampire::class:
-    //     $statusList = array_merge($statusList, $this->vampireService->getRemovableAttributes());
-    //     break;
-    //   case Human::class:
-    //     if ($character->getLesserTemplate()) {
-    //       switch ($character->getLesserTemplate()::class) {
-    //         case Ghoul::class:
-    //           // for ghoul
-    //           $statusList = array_merge($statusList, $this->vampireService->getGhoulRemovableAttributes());
-    //           break;
-    //       }
-    //     }
-    //     break;
-    // }
+    switch ($character->getType()) {
+      // vampire
+      case 'vampire':
+        $types = new \ReflectionClass(VampireChoicesStatus::class);
+        break;
 
-    return $statusList;
+      default:
+        $types = new \ReflectionClass(ChoicesStatus::class);
+        break;
+    }
+    $types = $types->getConstants();
+    asort($types);
+
+    return $types;
   }
 }

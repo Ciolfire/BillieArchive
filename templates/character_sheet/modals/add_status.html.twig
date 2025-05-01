@@ -41,9 +41,8 @@
           <div class="row">
             <div class="col mb-3">
               <select class="form-control" name="type" data-character--status-target="type" data-action="change->character--status#load">
-                <option value="">{{ "status.effect.type.basic"|trans }}</option>
-                {% for status, options in statusList %}
-                  <option value="{{status}}">{{ options['label']|default('label.single')|trans({}, options['domain']|default(status)) }}</option>
+                {% for label, value in statusList %}
+                  <option value="{{value}}">{{ ('status.type.' ~ label)|trans({}, 'app') }}</option>
                 {% endfor %}
               </select>
             </div>

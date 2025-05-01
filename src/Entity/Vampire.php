@@ -163,9 +163,18 @@ class Vampire extends Character
     return $this;
   }
 
-  public function getPotency(): ?int
+  public function getPotency($withBonus = false): ?int
   {
-    return $this->potency;
+    $bonus = 0;
+    if ($withBonus) {
+      foreach ($this->getStatusEffects() as $effect) {
+        if ($effect->getType() == 'potency') {
+          $bonus += $effect->getRealValue();
+        }
+      }
+    }
+
+    return $this->potency + $bonus;
   }
 
   public function setPotency(int $potency): self

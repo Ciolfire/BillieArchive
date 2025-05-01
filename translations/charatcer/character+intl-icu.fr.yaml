@@ -29,10 +29,12 @@ age:
     value: "En fait {looks}"
 
 advantage:
-  armor: Armure
+  armor:
+    label: Armure
+    tooltip: "Equipment ({item}) + bonus ({bonus})"
   defense:
     label: Defense
-    tooltip: "le plus petit entre Dexterité ({dexterity}) et Astuce ({wits})"
+    tooltip: "le plus petit entre Dexterité ({dexterity}) et Astuce ({wits}) + bonus ({bonus})"
   initiative: 
     label: Initiative
     tooltip: "Dexterité {dexterity} + Calme {composure}"

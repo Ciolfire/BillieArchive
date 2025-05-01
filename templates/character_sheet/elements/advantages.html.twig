@@ -4,6 +4,7 @@
 {% set initiative = character.initiativeDetails %}
 {% set defense = character.defenseDetails %}
 {% set speed = character.speedDetails %}
+{% set armor = character.armorDetails %}
 <div class="col-4 col-lg-2 text-strong">
   <span class="d-none d-md-inline">{{ "advantage.size"|trans }}</span>
   {% include "_icon.html.twig" with {icon: 'size-person'} only %}
@@ -24,10 +25,10 @@
   {% include "_icon.html.twig" with {icon: 'defense'} only %}
   <span id="defense">{{ defense.total }}</span>
 </div>
-<div class="col-4 col-lg-2 text-strong">
-  <span class="d-none d-md-inline">{{ "advantage.armor"|trans }}</span>
+<div class="col-4 col-lg-2 text-strong" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.armor.tooltip"|trans(armor.details) }}">
+  <span class="d-none d-md-inline">{{ "advantage.armor.label"|trans }}</span>
   {% include "_icon.html.twig" with {icon: 'armor'} only %}
-  <span id="armor">0</span>
+  <span id="armor">{{ armor.total }}</span>
 </div>
 <div class="col-4 col-lg-2 text-strong fw-bold">
   {% include "_icon.html.twig" with {icon: 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>

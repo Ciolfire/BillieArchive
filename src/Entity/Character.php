@@ -773,8 +773,15 @@ class Character
   public function getHealth(): ?int
   {
     $base = $this->size;
+    
+    $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'health') {
+        $bonus += $effect->getRealValue();
+      }
+    }
 
-    return $base + $this->attributes->getStamina();
+    return $base + $bonus + $this->attributes->get('stamina');
   }
 
   public function getMaxHealth(): ?int
@@ -811,10 +818,15 @@ class Character
   public function getSpeed(): ?int
   {
     $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'speed') {
+        $bonus += $effect->getRealValue();
+      }
+    }
 
     $merit = $this->hasMerit(MeritReferences::FLEET_OF_FOOT);
     if ($merit) {
-      $bonus = $merit->getLevel();
+      $bonus += $merit->getLevel();
     }
 
     return $this->attributes->getStrength() + $this->attributes->getDexterity() + 5 + $bonus;
@@ -826,10 +838,15 @@ class Character
   public function getSpeedDetails(): array
   {
     $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'speed') {
+        $bonus += $effect->getRealValue();
+      }
+    }
 
     $merit = $this->hasMerit(MeritReferences::FLEET_OF_FOOT);
     if (!is_null($merit)) {
-      $bonus = $merit->getLevel();
+      $bonus += $merit->getLevel();
     }
 
     $details = [
@@ -883,8 +900,14 @@ class Character
 
   public function getDefense(): int
   {
+    $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'defense') {
+        $bonus += $effect->getRealValue();
+      }
+    }
 
-    return min($this->attributes->getDexterity(), $this->attributes->getWits());
+    return min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus;
   }
 
   /**
@@ -893,6 +916,11 @@ class Character
   public function getDefenseDetails(): array
   {
     $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'defense') {
+        $bonus += $effect->getRealValue();
+      }
+    }
 
     $details = [
       'dexterity' => $this->attributes->getDexterity(),
@@ -902,6 +930,42 @@ class Character
 
     return [
       'total' => (int)min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus,
+      'details' => $details,
+    ];
+  }
+
+  public function getArmor(): int
+  {
+    $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'armor') {
+        $bonus += $effect->getRealValue();
+      }
+    }
+
+    return $bonus;
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  public function getArmorDetails(): array
+  {
+    $items = 0;
+    $bonus = 0;
+    foreach ($this->getStatusEffects() as $effect) {
+      if ($effect->getType() == 'armor') {
+        $bonus += $effect->getRealValue();
+      }
+    }
+
+    $details = [
+      'item' => $items,
+      'bonus' => $bonus,
+    ];
+
+    return [
+      'total' => $items + $bonus,
       'details' => $details,
     ];
   }

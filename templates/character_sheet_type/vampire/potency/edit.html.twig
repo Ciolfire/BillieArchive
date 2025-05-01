@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'vampire' %}
 
+{% set current = character.potency %}
+
 {% block feeding %}
 {% for index in 1..10 %}
   <div class="d-inline-block text-center">
