@@ -12,8 +12,10 @@
         data-character--merits-id-param="{{ merit.id }}"
         {% if chMerit is defined and merit.isRelation %}
           data-character--merits-relation-param="{{ chMerit.id }}"
+          data-character--merits-choice-param="{{ chMerit.choice }}"
         {% elseif chMerit is defined and merit.isExpanded %}
           data-character--merits-chmid-param="{{ chMerit.id }}"
+          data-character--merits-choice-param="{{ chMerit.choice }}"
         {% endif %}
         data-character--merits-name-param="{{ merit.name }}"
         data-character--merits-effect-param="{{ merit.effect|markdown_to_html|e }}">

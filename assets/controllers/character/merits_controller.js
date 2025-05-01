@@ -55,7 +55,11 @@ export default class extends Controller {
       this.relationTarget.classList.add('d-none');
       this.relationTarget.href = null;
     }
-    this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
+    if (event.params.choice.length > 0) {
+      this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = `${event.params.name} (${event.params.choice})`;
+    } else {
+      this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;
+    }
     this.modalTarget.querySelector("#MeritShowModalDescription").innerHTML = event.params.effect;
   }
 
