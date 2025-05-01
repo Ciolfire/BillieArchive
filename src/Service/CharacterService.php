@@ -708,8 +708,18 @@ class CharacterService
           $infos['name'] = $element;
           if ($method == 'reduce' && $level > 1) {
             $discipline->setLevel($level - 1);
+            $to = $level - 1;
           } else {
             $lesser->removeDiscipline($discipline);
+            $to = 0;
+          }
+          if ($toRefund) {
+            if ($lesser->getClan()->isFavored($discipline->getDiscipline())) {
+              $cost = 10;
+            } else {
+              $cost = 14;
+            }
+            $character->refundElement($cost, $level, $to);
           }
           return true;
         }
