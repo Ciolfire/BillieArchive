@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Discipline;
+use App\Entity\GhoulDiscipline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Discipline|null find($id, $lockMode = null, $lockVersion = null)
- * @method Discipline|null findOneBy(array $criteria, array $orderBy = null)
- * @method Discipline[]    findAll()
- * @method Discipline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GhoulDiscipline|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GhoulDiscipline|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GhoulDiscipline[]    findAll()
+ * @method GhoulDiscipline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class GhoulDisciplineRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Discipline::class);
+        parent::__construct($registry, GhoulDiscipline::class);
     }
 
     // /**
-    //  * @return Discipline[] Returns an array of Discipline objects
+    //  * @return GhoulDiscipline[] Returns an array of GhoulDiscipline objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class GhoulDisciplineRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Discipline
+    public function findOneBySomeField($value): ?GhoulDiscipline
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')
