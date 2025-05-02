@@ -1,0 +1,10 @@
+{% extends "form.html.twig" %}
+
+{% set isDangerous = true %}
+
+{% block title %}{{character }}{% endblock %}
+
+{% block header %}
+  {% include "_icon.html.twig" with {icon: 'death'} %}
+  {{ character }}
+{% endblock %}

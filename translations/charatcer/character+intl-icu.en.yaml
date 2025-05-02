@@ -59,6 +59,10 @@ count: >-
     other {# Characters}
   }
 
+delete:
+  label: Confirm ?
+  help: Check this to confirm that you want to delete this character
+
 derangement:
   label: Derangement
   add: Add derangement

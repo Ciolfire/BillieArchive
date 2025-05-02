@@ -59,6 +59,9 @@ count: >-
     other {# Personnages}
   }
 
+delete:
+  label: Supprimer ?
+  help: Cochez cette case pour confirmer que vous voulez supprimer ce personnage
 derangement:
   label: Dérangement
   add: Ajouter un dérangement

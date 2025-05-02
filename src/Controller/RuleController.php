@@ -91,7 +91,7 @@ class RuleController extends AbstractController
   }
 
   #[Route("s/{setting}", name: "rule_index", methods: ["GET"])]
-  public function list(string $setting = null) : Response
+  public function list(?string $setting = null) : Response
   {
     if (is_null($setting)) {
       $contentTypes = $this->dataService->findAll(ContentType::class);

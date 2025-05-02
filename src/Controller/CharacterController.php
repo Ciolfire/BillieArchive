@@ -29,6 +29,7 @@ use App\Service\ItemService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -304,30 +305,48 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['GET'])]
-  public function delete(Character $character): Response
+  #[Route('/{id<\d+>}/delete', name: 'character_delete', methods: ['GET', 'POST'])]
+  public function delete(Character $character, Request $request): Response
   {
     $this->denyAccessUnlessGranted('delete', $character);
 
-    $chronicle = $character->getChronicle();
-    try {
-      $this->dataService->remove($character);
-      $this->addFlash('success', ["character.delete.success", ['%name%' => $character->getName()]]);
-      if ($chronicle && $character->isNpc()) {
-        return $this->render('character/npc/index.html.twig', [
-          'chronicle' => $chronicle,
-          'setting' => $chronicle->getType(),
-          'back' => ['path' => 'chronicle_show', 'params' => ['id' => $chronicle->getId()]],
-        ]);
-      } else {
-        return $this->redirectToRoute('character_index');
+    $form = $this->createFormBuilder()
+      ->add('confirm', CheckboxType::class, [
+        'label' => "delete.label",
+        'help' => "delete.help",
+        'translation_domain' => "character",
+      ])
+      ->getForm();
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+
+      $chronicle = $character->getChronicle();
+      try {
+        $this->dataService->remove($character);
+        $this->addFlash('success', ["character.delete.success", ['%name%' => $character->getName()]]);
+        if ($chronicle && $character->isNpc()) {
+          return $this->render('character/npc/index.html.twig', [
+            'chronicle' => $chronicle,
+            'setting' => $chronicle->getType(),
+            'back' => ['path' => 'chronicle_show', 'params' => ['id' => $chronicle->getId()]],
+          ]);
+        } else {
+          return $this->redirectToRoute('character_index');
+        }
+      } catch (\Throwable $th) {
+        $this->addFlash('error', ["character.delete.error", ['%name%' => $character->getName()]]);
       }
-    } catch (\Throwable $th) {
-      $this->addFlash('error', ["character.delete.error", ['%name%' => $character->getName()]]);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
-
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    return $this->render("character/delete.html.twig", [
+      'form' => $form,
+      'action' => 'delete',
+      'character' => $character,
+      'setting' => $character->getSetting(),
+    ]);
   }
 
   #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]

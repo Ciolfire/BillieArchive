@@ -56,6 +56,14 @@
         <div class="row">
           {% include "character_sheet/skills/edit/elements.html.twig" %}
         </div>
+        <div class="row justify-content-end mt-3">
+          <div class="col-auto">
+            <a class="btn btn-sm btn-danger" href="{{ path('character_delete', {'id': character.id }) }}">
+              {% include "_icon.html.twig" with {icon: 'death'} %}
+              {{ "action.delete"|trans([], 'app') }}
+            </a>
+          </div>
+        </div>
       </div>
       <div id="merits" class="tab-content d-none p-0" data-tabs-target="page">
         {% include "character_sheet/merits/edit/elements.html.twig" %}
