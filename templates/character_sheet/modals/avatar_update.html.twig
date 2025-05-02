@@ -1,7 +1,7 @@
 {% trans_default_domain 'character' %}
 {% extends "_modal.html.twig" %}
 
-{% set isLarge = false %}
+{% set isLarge = true %}
 {% set hasFooter = true %}
 {% set id = "avatarModal" %}
 
@@ -16,7 +16,7 @@
     {{ form_start(avatarForm) }}
     <div class="block position-relative">
       <a class="position-absolute end-0 {% if character.avatar is empty %}d-none{% endif %}" data-character--avatar-target="resize" href="{{ path('character_avatar_crop', {'id': character.id}) }}" role="button">{% include "_icon.html.twig" with {icon: 'crop', class: 'text-strong icon-lg icon-secondary opacity-50'} only %}</a>
-      <img class="w-100" data-character--avatar-target="updatable" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+      <img class="avatar-update w-100" data-character--avatar-target="updatable" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     </div>
     <h5 class="modal-title" id="avatarModalLabel">{{'avatar.change'|trans }}</h5>
     {{ form_widget(avatarForm.upload) }}

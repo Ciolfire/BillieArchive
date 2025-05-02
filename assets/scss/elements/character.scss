@@ -170,6 +170,11 @@ $lesserColor: #9736dad4;
   }
 }
 
+.avatar-update {
+  max-height: 65vh;
+  object-fit: contain;
+}
+
 $list-size: 100px * (1 + 0.05 * 2);
 $path-width: 2px;
 
