@@ -97,13 +97,8 @@ class mainController extends AbstractController
       $character = $this->dataService->find(Character::class, $user->getPreferences()['favoriteCharacter']);
     }
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
-      ->add('favoriteCharacter', EntityType::class, [
-        'class' => Character::class,
-        'choices' => $user->getChroniclesCharacters(),
-        'data' => $character,
-      ])
       ->add('language', ChoiceType::class, [
-        'label' => 'language',
+        'label' => false,
         'choices' => $this->getParameter('locales'),
         'choice_label' => function ($choice): string {
           $flag = strtoupper($choice);
@@ -119,13 +114,30 @@ class mainController extends AbstractController
         'expanded' => true,
         'translation_domain' => false,
       ])
+      ->add('favoriteCharacter', EntityType::class, [
+        'label' => 'option.character.favorite',
+        'class' => Character::class,
+        'choices' => $user->getChroniclesCharacters(),
+        'data' => $character,
+      ])
+      ->add('arcanaDisplay', ChoiceType::class, [
+        'label' => 'option.arcana.label',
+        'choices' => [
+          'option.arcana.normal' => 0,
+          'option.arcana.short' => 1,
+        ],
+        'data' => $user->getPreferences()['arcanaDisplay'],
+      ])
       ->add('save', SubmitType::class, ['label' => 'action.save'])
       ->getForm();
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $user->setLocale($form->getData()['language']);
-      $user->setPreferences(['favoriteCharacter' => $form->getData()['favoriteCharacter']->getId()]);
+      $user->setPreferences([
+        'favoriteCharacter' => $form->getData()['favoriteCharacter']->getId(),
+        'arcanaDisplay' => $form->getData()['arcanaDisplay'],
+      ]);
       $this->dataService->flush();
       $this->addFlash('success', "user.preferences.edit");
       return $this->redirectToRoute('user_preferences', [

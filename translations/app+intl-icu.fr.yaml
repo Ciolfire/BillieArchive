@@ -122,3 +122,11 @@ status:
   add: Ajouter un Effet
 
 upload: Charger
+
+option:
+  character.favorite: Personnage préféré
+  language: Langue
+  arcana: 
+    label: Affichage du nom des Arcana
+    short: Court, icone uniquement
+    normal: Normal, nom + icone

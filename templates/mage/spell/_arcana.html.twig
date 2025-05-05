@@ -20,9 +20,15 @@
     {% endif %}
   {% endif %}
 
+  
+  
   {% if arcanum.name != prevName|default(null) %}
-    {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
-    {{ arcanum.name }}
+    {% if app.user.preferences['arcanaDisplay']|default(0) %}
+      {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier, label: arcanum.name } %}
+    {% else %}
+      {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
+      {{ arcanum.name }}
+    {% endif %}
   {% endif %}
   {% for i in 1..arcanum.level %}•{% endfor %}
   {% set group = arcanum.choiceGroup %}

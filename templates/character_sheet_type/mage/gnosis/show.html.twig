@@ -1,16 +1,23 @@
 {% extends "character_sheet_type/mage/gnosis/element.html.twig" %}
 
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'mage' %}
 
 {% block arcana %}
   <div class="row row-cols-5 text-strong justify-content-center">
     {% for arcanum in character.arcana|sort((a, b) => a.name <=> b.name) %}
       <div class="col d-flex flex-column">
-        <div>
-          {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
-          {{ arcanum.level }}
-        </div>
-        {{ arcanum }}
+        {% if app.user.preferences['arcanaDisplay']|default(0) == 0 %}
+          <div>
+            {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
+            {{ arcanum.level }}
+          </div>
+            {{ arcanum }}
+        {% else %}
+          <div>
+            {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier, label: arcanum } %}
+            {{ arcanum.level }}
+          </div>
+        {% endif %}
       </div>
     {% endfor %}
   </div>

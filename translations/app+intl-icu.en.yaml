@@ -122,3 +122,11 @@ status:
   add: Add status
 
 upload: Drag and drop or browse
+
+option:
+  character.favorite: Favorite Character
+  language: Language
+  arcana: 
+    label: Arcana name display
+    short: Short, icon only
+    normal: Normal, name + icon
