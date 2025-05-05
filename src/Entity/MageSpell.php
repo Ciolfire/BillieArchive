@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\MageSpellRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -60,10 +62,6 @@ class MageSpell implements Translatable
 
   #[ORM\ManyToOne(inversedBy: 'spells')]
   #[ORM\JoinColumn(nullable: false)]
-  private ?Arcanum $arcanum = null;
-
-  #[ORM\ManyToOne(inversedBy: 'spells')]
-  #[ORM\JoinColumn(nullable: false)]
   private ?MagicalPractice $practice = null;
 
   #[ORM\Column(type: Types::STRING)]
@@ -76,8 +74,13 @@ class MageSpell implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
 
-  #[ORM\Column(type: "smallint")]
-  private int $level;
+  /**
+   * @var Collection<int, MageSpellArcanum>
+   */
+  #[ORM\OneToMany(targetEntity: MageSpellArcanum::class, mappedBy: 'spell', orphanRemoval: true, cascade: ['persist', 'remove'])]
+  #[ORM\OrderBy(["isOptional" => "ASC", "choiceGroup" => "ASC", "arcanum" => "ASC", "level" => "ASC"])]
+
+  private Collection $arcana;
 
   public function __construct($element)
   {
@@ -86,6 +89,7 @@ class MageSpell implements Translatable
     } else if ($element instanceof Book) {
       $this->setBook($element);
     }
+    $this->arcana = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -202,16 +206,9 @@ class MageSpell implements Translatable
     return $this;
   }
 
-  public function getArcanum(): ?Arcanum
+  public function getArcanum(): ?MageSpellArcanum
   {
-    return $this->arcanum;
-  }
-
-  public function setArcanum(?Arcanum $arcanum): static
-  {
-    $this->arcanum = $arcanum;
-
-    return $this;
+    return $this->arcana->first();
   }
 
   public function getPractice(): ?MagicalPractice
@@ -264,15 +261,42 @@ class MageSpell implements Translatable
 
   public function getLevel(): int
   {
-    if ($this->level == 0) {
-      return $this->practice->getLevel();
+    $level = 1;
+    foreach ($this->arcana as $arcanum) {
+      if ($arcanum->getLevel() > $level && !$arcanum->isOptional()) {
+        $level = $arcanum->getLevel();
+      }
     }
-    return $this->level;
+
+    return $level;
   }
 
-  public function setLevel(int $level): self
+  /**
+   * @return Collection<int, MageSpellArcanum>
+   */
+  public function getArcana(): Collection
   {
-    $this->level = $level;
+    return $this->arcana;
+  }
+
+  public function addArcana(MageSpellArcanum $arcana): static
+  {
+    if (!$this->arcana->contains($arcana)) {
+      $this->arcana->add($arcana);
+      $arcana->setSpell($this);
+    }
+
+    return $this;
+  }
+
+  public function removeArcana(MageSpellArcanum $arcana): static
+  {
+    if ($this->arcana->removeElement($arcana)) {
+      // set the owning side to null (unless already changed)
+      if ($arcana->getSpell() === $this) {
+        $arcana->setSpell(null);
+      }
+    }
 
     return $this;
   }

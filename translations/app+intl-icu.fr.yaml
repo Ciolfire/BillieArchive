@@ -39,6 +39,7 @@ login: Connexion
 logout: Déconnexion
 name: Nom
 nickname: Surnom
+optional: Optionnel
 options: Options
 quote: Citation
 rules: Règles
@@ -57,11 +58,15 @@ category:
   social: Social
   location: Lieu
 
+choice:
+  label: Identifiant du choix
+
 help:
   action: Instantanée ou Étendue.
+  choice: Index du choix (X ou Y ou ...)
   delete: Cette action est définitive, êtes-vous sûr ?
-  short: Une ligne de description.
   description: Quelque paragraphes de description.
+  short: Une ligne de description.
 
 user:
   label:
@@ -98,7 +103,7 @@ prerequisite:
     multi: Prérequis
   add: Nouveau Prérequis
   choice: Selection
-  group: Groupe de choix (X ou Y ou ...)
+  group: Identifiant du choix
 
 status:
   type:

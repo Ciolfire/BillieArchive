@@ -14,7 +14,6 @@ count: >-
 
 cost: Cost
 duration: Duration
-level: Level
 practice: Practice
 title: Title
 
@@ -29,7 +28,9 @@ help:
   description: Brief description of the spell's effect.
   cost: Any Mana requirement for casting the spell, above the normal point needed to cast an improvised spell. See “Mana Cost”.
   duration: Prolonged, Concentration, Lasting, ...
-  level: The level of the spell (if different from the practice)
   practice: One of the 13 magical practices identified by the Atlanteans, defining just what a mage can accomplish with increasing degrees of Arcana mastery.
   rules: A detailed rules description of the spell's effect, including its primary factor (for instant spells).
-  title: Spell Title
+
+arcanum:
+  optional: Optional
+  or: or

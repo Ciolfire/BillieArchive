@@ -1,0 +1,31 @@
+{% trans_default_domain 'spell' %}
+
+
+{% set optionalArcana = false %}
+{% set first = true %}
+
+{% for arcanum in arcana %}
+  {% if arcanum.isOptional and optionalArcana == false %}
+    {% set first = true %}
+    {% set optionalArcana = true %}
+    <br>
+    {{ "arcanum.optional"|trans }}
+    <br>
+  {% endif %}
+  {% if group is defined and not first %}
+    {% if arcanum.choiceGroup == group %}
+      {{ "arcanum.or"|trans }}
+    {% else %}
+      +
+    {% endif %}
+  {% endif %}
+
+  {% if arcanum.name != prevName|default(null) %}
+    {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
+    {{ arcanum.name }}
+  {% endif %}
+  {% for i in 1..arcanum.level %}•{% endfor %}
+  {% set group = arcanum.choiceGroup %}
+  {% set prevName = arcanum.name %}
+  {% set first = false %}
+{% endfor %}

@@ -39,6 +39,7 @@ login: Login
 logout: Logout
 name: Name
 nickname: Nickname
+optional: Optional
 options: Options
 quote: Quote
 rules: Rules
@@ -57,8 +58,12 @@ category:
   social: Social
   location: Location
 
+choice:
+  label: Choice identifier
+
 help:
   action: Instant or extended.
+  choice: Choice index (X or Y or ...)
   delete: This action is definitive, are you sure ?
   short: A single line description.
   description: A few paragraphs of description.
@@ -98,7 +103,7 @@ prerequisite:
     multi: Prerequisites
   add: New Prerequisite
   choice: Selection
-  group: Choice index (X or Y or ...)
+  group: Choice identifier
 
 status:
   type:

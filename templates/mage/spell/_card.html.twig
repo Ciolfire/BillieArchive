@@ -1,15 +1,16 @@
 {% trans_default_domain 'spell' %}
 
 <div class="col-12 col-lg-6 g-2">
+  {% if is_granted('ROLE_ST') %}
+    <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+  {% endif %}
   <div class="block p-2">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-    {% endif %}
     <h2>
       {{ spell.name }}
-      {% include "_icon.html.twig" with { icon: 'arcana/' ~ spell.arcanum.identifier } %}
-      {% for i in 1..spell.level %}•{% endfor %}
     </h2>
+    <h4>
+      {% include "mage/spell/_arcana.html.twig" with { arcana : spell.arcana } %}
+    </h4>
     <h5>
       {% include "_icon.html.twig" with { icon: 'skills/' ~ spell.skill.identifier } %}
       {{ spell.skill }}

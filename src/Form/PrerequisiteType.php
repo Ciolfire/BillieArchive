@@ -74,7 +74,8 @@ class PrerequisiteType extends AbstractType
         'empty_data' => 0,
       ])
       ->add('choiceGroup', null, [
-        'label' => 'prerequisite.group',
+        'label' => 'choice.label',
+        'help' => "help.choice",
       ])
       ->add('remove', ButtonType::class, [
         'attr' => [
@@ -94,13 +95,13 @@ class PrerequisiteType extends AbstractType
     $resolver->setDefaults([
       'data_class' => Prerequisite::class,
       'translation_domain' => 'app',
+      'type' => null,
+      'homebrew' => null,
       'attr' => [
         'data-controller' => 'prerequisite',
         'data-form-collection-target' => 'block',
         'class' => "bdr p-2 rounded",
       ],
-      'type' => null,
-      'homebrew' => null,
     ]);
   }
 }

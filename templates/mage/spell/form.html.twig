@@ -1,0 +1,18 @@
+{% extends 'mage/form.html.twig' %}
+
+{% trans_default_domain 'spell' %}
+
+{% block title %}{{ action|trans }}{% endblock %}
+{% block header %}{{ action|trans }}{% endblock %}
+
+{% block form %}
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.short) }}
+  {% include "forms/mage/_arcanum_field.html.twig" %}
+  {{ form_rest(form) }}
+    {% block submit %}
+      {{ parent() }}
+    {% endblock %}
+  {{ form_end(form) }}
+{% endblock %}

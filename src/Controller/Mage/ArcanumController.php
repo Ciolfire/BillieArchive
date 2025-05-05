@@ -7,6 +7,7 @@ namespace App\Controller\Mage;
 use App\Entity\Arcanum;
 use App\Entity\Description;
 use App\Entity\MageSpell;
+use App\Entity\MageSpellArcanum;
 use App\Form\Mage\ArcanumType;
 use App\Form\Mage\MageSpellType;
 use App\Service\DataService;
@@ -74,7 +75,7 @@ class ArcanumController extends AbstractController
   }
 
   #[Route("/wiki/spells/list/{filter<\w+>}/{id<\w+>}", name: "mage_spell_list", methods: ["GET"])]
-  public function list(string $filter = null, int|string $id = null) : Response
+  public function list(?string $filter = null, int|string|null $id = null) : Response
   {
     $spells = $this->dataService->getList($filter, $id, MageSpell::class, 'getSpells');
 
@@ -102,20 +103,18 @@ class ArcanumController extends AbstractController
 
     
     $spell = new MageSpell($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    new MageSpellArcanum($spell);
     $form = $this->createForm(MageSpellType::class, $spell);
-
+    
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-      if ($spell->getLevel() < $spell->getPractice()->getLevel()) {
-        $spell->setLevel($spell->getPractice()->getLevel());
-      }
       $this->dataService->save($spell);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $spell->getName()]]);
       return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()]);
     }
 
-    return $this->render('mage/spell/new.html.twig', [
+    return $this->render('mage/spell/form.html.twig', [
       'action' => 'new',
       'form' => $form,
     ]);
@@ -128,19 +127,14 @@ class ArcanumController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      if ($spell->getLevel() < $spell->getPractice()->getLevel()) {
-        $spell->setLevel($spell->getPractice()->getLevel());
-      }
       $this->dataService->update($spell);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $spell->getName()]]);
       return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->render('element/new.html.twig', [
-      'setting' => 'mage',
-      'element' => 'spell',
-      'entity' => $spell,
+    return $this->render('mage/spell/form.html.twig', [
+      'action' => 'edit',
       'form' => $form,
     ]);
   }
