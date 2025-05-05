@@ -55,7 +55,7 @@ export default class extends Controller {
       this.relationTarget.classList.add('d-none');
       this.relationTarget.href = null;
     }
-    if (event.params.choice.length > 0) {
+    if (event.params.choice != undefined && event.params.choice.length > 0) {
       this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = `${event.params.name} (${event.params.choice})`;
     } else {
       this.modalTarget.querySelector("#meritShowModalTitle").innerHTML = event.params.name;

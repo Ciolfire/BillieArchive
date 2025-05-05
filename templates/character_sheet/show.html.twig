@@ -68,6 +68,10 @@
         <div class="row my-3">
           {% include "character_sheet/skills/show/elements.html.twig" %}
         </div>
+        {# Flaws #}
+        {# <div class="row my-3">
+          {% include "character_sheet/elements/flaws.html.twig" %}
+        </div> #}
         {% block subtraits %}
           {# Morality #}
           <div class="row justify-content-center">
@@ -85,6 +89,7 @@
       <div id="inventory" class="tab-content d-none p-0" data-tabs-target="page">
         {% include "character_sheet/items/inventory.html.twig" %}
       </div>
+      {# Details #}
       <div id="details" class="tab-content d-none p-0" data-tabs-target="page">
         {% include "character_sheet/infos/show.html.twig" %}
       </div>
