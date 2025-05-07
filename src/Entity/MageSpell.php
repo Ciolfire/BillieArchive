@@ -82,6 +82,12 @@ class MageSpell implements Translatable
 
   private Collection $arcana;
 
+  /**
+   * @var Collection<int, SpellRote>
+   */
+  #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'spell', orphanRemoval: true)]
+  private Collection $rotes;
+
   public function __construct($element)
   {
     if ($element instanceof Chronicle) {
@@ -90,6 +96,7 @@ class MageSpell implements Translatable
       $this->setBook($element);
     }
     $this->arcana = new ArrayCollection();
+    $this->rotes = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -299,5 +306,35 @@ class MageSpell implements Translatable
     }
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, SpellRote>
+   */
+  public function getRotes(): Collection
+  {
+      return $this->rotes;
+  }
+
+  public function addRote(SpellRote $rote): static
+  {
+      if (!$this->rotes->contains($rote)) {
+          $this->rotes->add($rote);
+          $rote->setSpell($this);
+      }
+
+      return $this;
+  }
+
+  public function removeRote(SpellRote $rote): static
+  {
+      if ($this->rotes->removeElement($rote)) {
+          // set the owning side to null (unless already changed)
+          if ($rote->getSpell() === $this) {
+              $rote->setSpell(null);
+          }
+      }
+
+      return $this;
   }
 }

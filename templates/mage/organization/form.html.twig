@@ -3,12 +3,37 @@
 {% trans_default_domain 'app' %}
 
 {% set setting = 'mage' %}
+{% set organization = form.vars.data %}
 
 {% block title %}{% endblock %}
+
+{% block content_start %}
+  <div class="row">
+    <div class="col">
+      {% if organization.emblem is not null %}
+        <img class="mx-auto d-block" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
+      {% endif %}
+    </div>
+    <div class="col">
+      {% if organization.rune is not null %}
+        <img class="mx-auto d-block" src="{{ asset(organization.rune, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5>{{ "emblem"|trans }}</h5>
+    </div>
+    <div class="col">
+      <h5>{{ "rune"|trans }}</h5>
+    </div>
+  </div>
+{% endblock %}
 
 {% block form %}
 {{ form_row(form.name) }}
 {{ form_row(form.emblem) }}
+{{ form_row(form.rune) }}
 {% if form.source|default(null) %}
   {{ form_row(form.source) }}
 {% endif %}

@@ -30,3 +30,11 @@ mana:
 
 morality:
   label: Sagesse
+
+symbol:
+  label: Symbole
+  help: Embleme simplifié
+rune:
+  label: Rune
+
+upload: Glisser-déposer ou naviguer

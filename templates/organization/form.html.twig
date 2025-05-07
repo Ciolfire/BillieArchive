@@ -7,10 +7,25 @@
 {% else %}
   {% set action = 'new' %}
 {% endif %}
-
+{% set organization = form.vars.data %}
 
 {% block title %}{{ action|trans }}{% endblock %}
 {% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
+
+{% block content_start %}
+  <div class="row">
+    <div class="col">
+      {% if organization.emblem is not null %}
+        <img class="mx-auto d-block" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5>{{ "emblem"|trans }}</h5>
+    </div>
+  </div>
+{% endblock %}
 
 {% block form %}
 {{ parent() }}

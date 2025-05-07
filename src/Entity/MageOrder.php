@@ -27,11 +27,21 @@ class MageOrder extends Organization
   #[ORM\ManyToMany(targetEntity: Skill::class)]
   private Collection $roteSpecialties;
 
+  /**
+   * @var Collection<int, SpellRote>
+   */
+  #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'mageOrder')]
+  private Collection $rotes;
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $rune = null;
+
   public function __construct()
   {
     // $this->merits = new ArrayCollection();
     // $this->discountMerits = new ArrayCollection();
     $this->roteSpecialties = new ArrayCollection();
+    $this->rotes = new ArrayCollection();
   }
 
   public function __toString()
@@ -123,6 +133,48 @@ class MageOrder extends Organization
   public function removeRoteSpecialties(Skill $roteSpecialty): static
   {
       $this->roteSpecialties->removeElement($roteSpecialty);
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, SpellRote>
+   */
+  public function getRotes(): Collection
+  {
+      return $this->rotes;
+  }
+
+  public function addRote(SpellRote $rote): static
+  {
+      if (!$this->rotes->contains($rote)) {
+          $this->rotes->add($rote);
+          $rote->setMageOrder($this);
+      }
+
+      return $this;
+  }
+
+  public function removeRote(SpellRote $rote): static
+  {
+      if ($this->rotes->removeElement($rote)) {
+          // set the owning side to null (unless already changed)
+          if ($rote->getMageOrder() === $this) {
+              $rote->setMageOrder(null);
+          }
+      }
+
+      return $this;
+  }
+
+  public function getRune(): ?string
+  {
+      return $this->rune;
+  }
+
+  public function setRune(?string $rune): static
+  {
+      $this->rune = $rune;
 
       return $this;
   }

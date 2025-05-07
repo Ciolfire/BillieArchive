@@ -8,8 +8,10 @@ use App\Entity\Arcanum;
 use App\Entity\Description;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
+use App\Entity\SpellRote;
 use App\Form\Mage\ArcanumType;
 use App\Form\Mage\MageSpellType;
+use App\Form\SpellRoteType;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,7 +99,7 @@ class ArcanumController extends AbstractController
   }
 
   #[Route('/spell/new', name: 'mage_spell_new', methods: ['GET', 'POST'])]
-  public function spellNew(Request $request): Response
+  public function newSpell(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -111,7 +113,7 @@ class ArcanumController extends AbstractController
       $this->dataService->save($spell);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $spell->getName()]]);
-      return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()]);
+      return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/spell/form.html.twig', [
@@ -134,6 +136,48 @@ class ArcanumController extends AbstractController
     }
 
     return $this->render('mage/spell/form.html.twig', [
+      'action' => 'edit',
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/spell/{spell<\d+>}/rote/new', name: 'mage_spell_rote_new', methods: ['GET', 'POST'])]
+  public function newRote(Request $request, MageSpell $spell): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    
+    $rote = new SpellRote($spell);
+    $form = $this->createForm(SpellRoteType::class, $rote);
+    
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->save($rote);
+
+      $this->addFlash('success', ["general.new.done", ['%name%' => $rote->getName()]]);
+      return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('mage/form.html.twig', [
+      'action' => 'new',
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/spell/rote/{id<\d+>}/edit', name: 'mage_spell_rote_edit', methods:["GET", "POST"])]
+  public function editRote(Request $request, SpellRote $rote): Response
+  {
+    $form = $this->createForm(SpellRoteType::class, $rote);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->dataService->update($rote);
+
+      $this->addFlash('success', ["general.edit.done", ['%name%' => $rote->getName()]]);
+      return $this->redirectToRoute('mage_spell_show', ['id' => $rote->getSpell()->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('mage/form.html.twig', [
       'action' => 'edit',
       'form' => $form,
     ]);

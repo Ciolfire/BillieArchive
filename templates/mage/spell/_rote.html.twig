@@ -1,0 +1,19 @@
+<div class="col">
+  {% if is_granted('ROLE_ST') %}
+    <a class="float-end" href="{{ path('mage_spell_rote_edit', {'id': rote.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+  {% endif %}
+  <div class="block">
+    <h4>
+      {% if rote.mageOrder %}
+        <span class="icon">
+          <img src="{{ asset(rote.mageOrder.emblem, 'organizations_emblems') }}"/>
+          {# <img src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/> #}
+        </span>
+      {% endif %}
+      {{ rote.name }}
+      
+    </h4>
+    <h5>{{ rote.attribute }}</h5>
+  {{ rote.description }}
+  </div>
+</div>

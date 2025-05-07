@@ -9,8 +9,6 @@
   {% set isLight = true %}
 {% endif %}
 
-
-
 {% block title %}{% endblock %}
 
 {% block body %}
@@ -26,7 +24,7 @@
               <div class="text-center fixed-bottom">
                 <button class="btn {% if isDangerous|default(false) %}btn-danger{% else %}btn-primary{% endif %} btn-lg w-100 rounded-0 rounded-top" type="submit">
                   {% include "_icon.html.twig" with {icon: action|default('save')} %}
-                  {{ ('action.' ~ action|default('save'))|trans({}, 'app') }}
+                  {{ "action.#{action|default('save')}"|trans({}, 'app') }}
                 </button>
               </div>
             {% endblock %}

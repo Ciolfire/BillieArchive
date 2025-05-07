@@ -12,7 +12,7 @@
       {% include "mage/spell/_arcana.html.twig" with { arcana : spell.arcana } %}
     </h4>
     <h5>
-      {% include "_icon.html.twig" with { icon: 'skills/' ~ spell.skill.identifier } %}
+      {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
       {{ spell.skill }}
     </h5>
     {{ spell.description|markdown_to_html }}
@@ -45,5 +45,20 @@
     </p>
     <hr>
     {{ spell.rules|markdown_to_html }}
+    {% block rotes %}
+      <div class="row">
+        {% for rote in spell.rotes|default(null) %}
+          {% include "mage/spell/_rote.html.twig" %}
+        {% endfor %}
+        {% if is_granted('ROLE_ST') %}
+          <div class="col-12 mt-2 text-center">
+            <a href="{{ path('mage_spell_rote_new', { spell: spell.id }) }}" class="btn btn-primary">
+              {% include "_icon.html.twig" with { icon: 'spell' } %}
+              {{ "rote.new"|trans }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endblock %}
   </div>
 </div>

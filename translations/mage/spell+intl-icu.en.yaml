@@ -34,3 +34,8 @@ help:
 arcanum:
   optional: Optional
   or: or
+
+rote:
+  label: Rote
+  new: New Rote
+  edit: Edit Rote

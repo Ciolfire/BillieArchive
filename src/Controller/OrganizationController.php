@@ -146,6 +146,14 @@ class OrganizationController extends AbstractController
       if ($emblem instanceof UploadedFile && is_string($fileOrganization)) {
         $organization->setEmblem($this->dataService->upload($emblem, $fileOrganization));
       }
+      switch ($setting) {
+        case 'mage':
+          $rune = $form->get('rune')->getData();
+          if ($organization instanceof MageOrder && $rune instanceof UploadedFile && is_string($fileOrganization)) {
+            $organization->setRune($this->dataService->upload($rune, $fileOrganization));
+          }
+        break;
+      }
       $this->dataService->save($organization);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $organization->getName()]]);
@@ -179,6 +187,14 @@ class OrganizationController extends AbstractController
       $fileOrganization = $this->getParameter('organizations_emblems_directory');
       if ($emblem instanceof UploadedFile && is_string($fileOrganization)) {
         $organization->setEmblem($this->dataService->upload($emblem, $fileOrganization));
+      }
+      switch ($setting) {
+        case 'mage':
+          $rune = $form->get('rune')->getData();
+          if ($organization instanceof MageOrder && $rune instanceof UploadedFile && is_string($fileOrganization)) {
+            $organization->setRune($this->dataService->upload($rune, $fileOrganization));
+          }
+        break;
       }
       $this->dataService->update($organization);
       $this->addFlash('success', ["general.edit.done", ['%name%' => $organization->getName()]]);

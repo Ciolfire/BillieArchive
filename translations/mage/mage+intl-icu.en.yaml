@@ -29,3 +29,11 @@ mana:
 
 morality:
   label: Wisdom
+
+symbol:
+  label: Symbol
+  help: Simplified Emblem
+rune:
+  label: Rune
+
+upload: Drag and drop or browse
