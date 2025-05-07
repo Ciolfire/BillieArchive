@@ -1,5 +1,9 @@
 {% trans_default_domain domain|default('icon') %}
 
+{% if icon is null %}
+  {% set icon = 'missing' %}
+{% endif %}
+
 <span class="icon {{ class|default("")}}"{% if label is defined %} data-bs-toggle="tooltip" data-bs-placement="top" title="{{ label }}"{% endif %} data-icon-ref="{{ icon }}">
   {# health #}
   {% if icon == 'health' %}
@@ -39,11 +43,9 @@
     {% set icon = 'portal' %}
   {% endif %}
 
-
-  {# {{ source('@icons/' ~ icon ~ '.svg') }} #}
-  {% if source('@icons/' ~ icon|default('missing') ~ '.svg', ignore_missing = true) == null %}
+  {% if source("@icons/#{icon}.svg", ignore_missing = true) == null %}
     <span class="warning text-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ icon }}">{{ source('@icons/missing.svg', ignore_missing = true) }}</span>
   {% else %}
-    {{ source('@icons/' ~ icon|default('missing') ~ '.svg', ignore_missing = true) }}
+    {{ source("@icons/#{icon}.svg", ignore_missing = true) }}
   {% endif %}
 </span>
