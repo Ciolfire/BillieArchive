@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class MageOrderType extends OrganizationType
 {
@@ -26,6 +27,13 @@ class MageOrderType extends OrganizationType
     // $item = $options['data'];
 
     $builder
+      ->add('rune', DropzoneType::class, [
+        'label' => 'rune.label',
+        'translation_domain' => 'mage',
+        'attr' => ['placeholder' => 'upload'],
+        'mapped' => false,
+        'required' => false,
+      ])
       ->add('RoteSpecialties', EntityType::class, [
         'class' => Skill::class,
         'choice_label' => 'id',

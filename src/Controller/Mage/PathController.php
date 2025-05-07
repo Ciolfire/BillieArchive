@@ -71,9 +71,17 @@ class PathController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $emblem = $form->get('emblem')->getData();
+      $symbol = $form->get('symbol')->getData();
+      $rune = $form->get('rune')->getData();
       $filePath = $this->getParameter('paths_emblems_directory');
       if ($emblem instanceof UploadedFile && is_string($filePath)) {
         $path->setEmblem($this->dataService->upload($emblem, $filePath));
+      }
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $path->setSymbol($this->dataService->upload($symbol, $filePath));
+      }
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $path->setRune($this->dataService->upload($rune, $filePath));
       }
       $this->dataService->save($path);
 
@@ -95,9 +103,17 @@ class PathController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $emblem = $form->get('emblem')->getData();
+      $symbol = $form->get('symbol')->getData();
+      $rune = $form->get('rune')->getData();
       $filePath = $this->getParameter('paths_emblems_directory');
       if ($emblem instanceof UploadedFile && is_string($filePath)) {
         $path->setEmblem($this->dataService->upload($emblem, $filePath));
+      }
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $path->setSymbol($this->dataService->upload($symbol, $filePath));
+      }
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $path->setRune($this->dataService->upload($rune, $filePath));
       }
       $this->dataService->update($path);
 

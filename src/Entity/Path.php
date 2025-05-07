@@ -13,14 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "paths"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "paths")])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "paths"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "paths")])]
 #[ORM\Entity(repositoryClass: PathRepository::class)]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\PathTranslation")]
 class Path implements Translatable
 {
   use Sourcable;
   use Homebrewable;
-  
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column]
@@ -61,6 +61,12 @@ class Path implements Translatable
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
   private ?string $title = null;
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $symbol = null;
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $rune = null;
 
   public function __toString()
   {
@@ -182,37 +188,61 @@ class Path implements Translatable
 
   public function getShort(): ?string
   {
-      return $this->short;
+    return $this->short;
   }
 
   public function setShort(string $short): static
   {
-      $this->short = $short;
+    $this->short = $short;
 
-      return $this;
+    return $this;
   }
 
   public function getEmblem(): ?string
   {
-      return $this->emblem;
+    return $this->emblem;
   }
 
   public function setEmblem(string $emblem): static
   {
-      $this->emblem = $emblem;
+    $this->emblem = $emblem;
 
-      return $this;
+    return $this;
   }
 
   public function getTitle(): ?string
   {
-      return $this->title;
+    return $this->title;
   }
 
   public function setTitle(string $title): static
   {
-      $this->title = $title;
+    $this->title = $title;
 
-      return $this;
+    return $this;
+  }
+
+  public function getSymbol(): ?string
+  {
+    return $this->symbol;
+  }
+
+  public function setSymbol(?string $symbol): static
+  {
+    $this->symbol = $symbol;
+
+    return $this;
+  }
+
+  public function getRune(): ?string
+  {
+    return $this->rune;
+  }
+
+  public function setRune(?string $rune): static
+  {
+    $this->rune = $rune;
+
+    return $this;
   }
 }

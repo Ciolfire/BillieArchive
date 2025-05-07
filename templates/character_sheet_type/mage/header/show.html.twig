@@ -7,7 +7,7 @@
   <div class="row justify-content-center">
     <div class="col-auto">
       <h1 class="py-2 text-stylized">
-        <img class="no-filter pe-2" src="{{ asset(character.path.emblem, 'paths_emblems') }}" style="height:5em;"/>
+        <img class="no-filter pe-2" src="{{ asset(character.path.symbol|default(character.path.emblem), 'paths_emblems') }}" style="height:2.6em;"/>
         <span class="text-strong">{{ character.name }}</span>
         {# <img class="no-filter ps-4" src="{% if character.legacy %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/> #}
       </h1>
@@ -41,7 +41,7 @@
   {% if character.order %}
     <a href="{{ path("organization_show", {'id': character.order.id}) }}">
       {{ character.order }}
-      <span class="icon link-icon"><img src="{{ asset(character.order.emblem, 'organizations_emblems') }}"></span>
+      <span class="icon link-icon"><img src="{{ asset(character.order.emblem|default(character.order.rune), 'organizations_emblems') }}"></span>
     </a>
   {% endif %}
 {% endblock %}

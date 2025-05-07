@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use App\Form\Type\RichTextEditorType;
-
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class PathType extends AbstractType
 {
@@ -37,21 +37,28 @@ class PathType extends AbstractType
       ->add('source', SourceableType::class, [
         'data_class' => Path::class,
         'label' => 'source.label',
-        'translation_domain' => "book"
+        'translation_domain' => "book",
       ])
-      ->add('emblem', FileType::class, [
+      ->add('emblem', DropzoneType::class, [
         'label' => 'emblem',
+        'translation_domain' => 'app',
+        'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
-        'translation_domain' => 'app',
-        'constraints' => [
-          new File([
-            'mimeTypes' => [
-              'image/*',
-            ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
-        ],
+      ])
+      ->add('symbol', DropzoneType::class, [
+        'label' => 'symbol.label',
+        'translation_domain' => 'mage',
+        'attr' => ['placeholder' => 'upload'],
+        'mapped' => false,
+        'required' => false,
+      ])
+      ->add('rune', DropzoneType::class, [
+        'label' => 'rune.label',
+        'translation_domain' => 'mage',
+        'attr' => ['placeholder' => 'upload'],
+        'mapped' => false,
+        'required' => false,
       ])
       ->add('short', null, ['label' => "short", 'translation_domain' => "app"])
       ->add('description', RichTextEditorType::class, [
