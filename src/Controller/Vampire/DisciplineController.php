@@ -150,7 +150,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->render('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/form.html.twig', [
       'action' => 'new',
       'form' => $form,
     ]);
@@ -173,7 +173,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->render('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/form.html.twig', [
       'action' => 'new',
       'form' => $form,
     ]);
@@ -196,7 +196,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->render('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/form.html.twig', [
       'action' => 'new',
       'form' => $form,
     ]);
