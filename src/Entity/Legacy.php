@@ -31,18 +31,18 @@ class Legacy implements Translatable
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $description = null;
+  private ?string $description = "";
 
   #[ORM\ManyToOne(inversedBy: 'legacies')]
   private ?Path $path = null;
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 255)]
-  private ?string $nickname = null;
+  private ?string $nickname = "";
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $short = null;
+  private ?string $short = "";
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $emblem = null;

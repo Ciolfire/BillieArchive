@@ -68,7 +68,7 @@ class LegacyType extends AbstractType
         },
       ])
       ->add('attainments', CollectionType::class, [
-        'label' => "legacy.attainment.label.multi",
+        'label' => false,
         'entry_type' => AttainmentType::class,
         // 'enty_option' => [
         //   'label' => false,
