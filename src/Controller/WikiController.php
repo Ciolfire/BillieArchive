@@ -9,11 +9,11 @@ use App\Entity\Merit;
 use App\Entity\Skill;
 use App\Entity\Vice;
 use App\Entity\Virtue;
-use App\Form\AttributeType;
-use App\Form\DescriptionType;
-use App\Form\SkillType;
-use App\Form\ViceType;
-use App\Form\VirtueType;
+use App\Form\AttributeForm;
+use App\Form\DescriptionForm;
+use App\Form\SkillForm;
+use App\Form\ViceForm;
+use App\Form\VirtueForm;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,7 +55,7 @@ class WikiController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
-    $form = $this->createForm(AttributeType::class, $attribute);
+    $form = $this->createForm(AttributeForm::class, $attribute);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -89,7 +89,7 @@ class WikiController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
-    $form = $this->createForm(SkillType::class, $skill);
+    $form = $this->createForm(SkillForm::class, $skill);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -125,7 +125,7 @@ class WikiController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
-    $form = $this->createForm(VirtueType::class, $virtue);
+    $form = $this->createForm(VirtueForm::class, $virtue);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -161,7 +161,7 @@ class WikiController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     
-    $form = $this->createForm(ViceType::class, $vice);
+    $form = $this->createForm(ViceForm::class, $vice);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -184,7 +184,7 @@ class WikiController extends AbstractController
   {
     $description = new Description();
 
-    $form = $this->createForm(DescriptionType::class, $description);
+    $form = $this->createForm(DescriptionForm::class, $description);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -206,7 +206,7 @@ class WikiController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(DescriptionType::class, $description);
+    $form = $this->createForm(DescriptionForm::class, $description);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

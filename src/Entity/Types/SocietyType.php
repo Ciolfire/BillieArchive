@@ -2,7 +2,7 @@
 
 namespace App\Entity\Types;
 
-final class SocietyType {
+final class SocietyForm {
   public $allies = "allies";
   public $antagonist = "antagonist";
   public $crime = "crime";

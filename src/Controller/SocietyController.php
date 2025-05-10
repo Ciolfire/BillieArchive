@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Chronicle;
 use App\Entity\Society;
-use App\Form\SocietyType;
+use App\Form\SocietyForm;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class SocietyController extends AbstractController
   public function new(Request $request, ?Chronicle $chronicle) : Response
   {
     $society = new Society($chronicle);
-    $form = $this->createForm(SocietyType::class, $society);
+    $form = $this->createForm(SocietyForm::class, $society);
     
     $form->handleRequest($request);
     
@@ -47,7 +47,7 @@ class SocietyController extends AbstractController
   public function newForChronicle(Request $request, ?Chronicle $chronicle) : Response
   {
     $society = new Society($chronicle);
-    $form = $this->createForm(SocietyType::class, $society);
+    $form = $this->createForm(SocietyForm::class, $society);
     
     $form->handleRequest($request);
     
@@ -66,7 +66,7 @@ class SocietyController extends AbstractController
   #[Route("{id<\d+>}/edit", name: "society_edit")]
   public function edit(Request $request, Society $society) : Response
   {
-    $form = $this->createForm(SocietyType::class, $society);
+    $form = $this->createForm(SocietyForm::class, $society);
     
     $form->handleRequest($request);
     
@@ -142,7 +142,7 @@ class SocietyController extends AbstractController
   #[Route("{id<\d+>}/add/character", name: "society_add_character", methods: ["GET", "POST"])]
   public function characterAdd(Request $request, Society $society) : Response
   {
-    $form = $this->createForm(SocietyType::class, $society, ['add_character' => true, 'path' => $this->getParameter('characters_direct_directory')]);
+    $form = $this->createForm(SocietyForm::class, $society, ['add_character' => true, 'path' => $this->getParameter('characters_direct_directory')]);
     
     $form->handleRequest($request);
     

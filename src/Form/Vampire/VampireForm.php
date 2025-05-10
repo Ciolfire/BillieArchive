@@ -1,13 +1,13 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Form\Vampire;
 
 use App\Entity\Vampire;
-use App\Form\CharacterType;
+use App\Form\CharacterForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VampireForm extends CharacterType
+class VampireForm extends CharacterForm
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {    

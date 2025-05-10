@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Entity\Derangement;
 use App\Entity\Description;
-use App\Form\DerangementType;
+use App\Form\DerangementForm;
 use App\Repository\DerangementRepository;
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,7 +71,7 @@ class DerangementController extends AbstractController
   {
     $derangement = new Derangement();
 
-    $form = $this->createForm(DerangementType::class, $derangement);
+    $form = $this->createForm(DerangementForm::class, $derangement);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -91,7 +91,7 @@ class DerangementController extends AbstractController
   #[Route("/{id<\d+>}/edit", name:"derangement_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Derangement $derangement, EntityManagerInterface $entityManager): Response
   {
-    $form = $this->createForm(DerangementType::class, $derangement);
+    $form = $this->createForm(DerangementForm::class, $derangement);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

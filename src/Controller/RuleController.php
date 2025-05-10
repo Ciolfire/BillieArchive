@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\ContentType;
 use App\Entity\Rule;
 use App\Entity\Description;
-use App\Form\RuleType;
+use App\Form\RuleForm;
 
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +29,7 @@ class RuleController extends AbstractController
   {
     $rule = new Rule();
 
-    $form = $this->createForm(RuleType::class, $rule);
+    $form = $this->createForm(RuleForm::class, $rule);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -59,7 +59,7 @@ class RuleController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(RuleType::class, $rule);
+    $form = $this->createForm(RuleForm::class, $rule);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

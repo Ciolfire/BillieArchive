@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Items;
 
 use App\Entity\Item;
-use App\Form\EquipmentType;
+use App\Form\EquipmentForm;
 use App\Repository\EquipmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
@@ -21,7 +21,7 @@ class Equipment extends Item
 
   public function getForm()
   {
-    return EquipmentType::class;
+    return EquipmentForm::class;
   }
 
   #[ORM\Column(type: Types::SMALLINT)]

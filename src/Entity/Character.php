@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\Sourcable;
 use App\Entity\References\MeritReferences;
-use App\Form\CharacterType;
+use App\Form\CharacterForm;
 use App\Repository\CharacterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -337,7 +337,7 @@ class Character
 
   public function getForm(): string
   {
-    return CharacterType::class;
+    return CharacterForm::class;
   }
 
   public function getSetting(): string

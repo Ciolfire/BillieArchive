@@ -79,7 +79,7 @@ class BodyThiefController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(bodythiefSocietyType::class, $society);
+    $form = $this->createForm(bodythiefSocietyForm::class, $society);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

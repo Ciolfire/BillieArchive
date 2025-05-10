@@ -11,7 +11,7 @@ use App\Entity\MageSpellArcanum;
 use App\Entity\SpellRote;
 use App\Form\Mage\ArcanumForm;
 use App\Form\Mage\MageSpellForm;
-use App\Form\SpellRoteType;
+use App\Form\Mage\SpellRoteForm;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -158,7 +158,7 @@ class ArcanumController extends AbstractController
 
     
     $rote = new SpellRote($spell);
-    $form = $this->createForm(SpellRoteType::class, $rote);
+    $form = $this->createForm(SpellRoteForm::class, $rote);
     
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -177,7 +177,7 @@ class ArcanumController extends AbstractController
   #[Route('/spell/rote/{id<\d+>}/edit', name: 'mage_spell_rote_edit', methods:["GET", "POST"])]
   public function editRote(Request $request, SpellRote $rote): Response
   {
-    $form = $this->createForm(SpellRoteType::class, $rote);
+    $form = $this->createForm(SpellRoteForm::class, $rote);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

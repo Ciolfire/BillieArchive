@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\RegistrationForm;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
   public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
   {
     $user = new User();
-    $form = $this->createForm(RegistrationFormType::class, $user);
+    $form = $this->createForm(RegistrationForm::class, $user);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid() && is_null($form->get('phone')->getData())) {
       // encode the plain password

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Form\CovenantType;
+use App\Form\Vampire\CovenantForm;
 use App\Repository\CovenantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -53,7 +53,7 @@ class Covenant extends Organization
 
   static public function getForm(): string
   {
-    return CovenantType::class;
+    return CovenantForm::class;
   }
 
   /**

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Form\Vampire;
 
@@ -6,7 +6,7 @@ use App\Entity\Attribute;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Skill;
-use App\Form\StatusEffectType;
+use App\Form\StatusEffectForm;
 use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -48,7 +48,7 @@ class DisciplinePowerForm extends AbstractType
       ->add('canToggle', null, ['label' => "toggle"])
       ->add('statusEffects', CollectionType::class, [
         'label' => false,
-        'entry_type' => StatusEffectType::class,
+        'entry_type' => StatusEffectForm::class,
         'entry_options' => [
           'label' => false, 
           'type' => 'vampire', 

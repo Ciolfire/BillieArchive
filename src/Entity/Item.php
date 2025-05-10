@@ -8,7 +8,7 @@ use App\Entity\Items\Equipment;
 use App\Entity\Items\RangedWeapon;
 use App\Entity\Items\Vehicle;
 use App\Entity\Items\Weapon;
-use App\Form\ItemType;
+use App\Form\ItemForm;
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -203,7 +203,7 @@ class Item
 
   public function getForm()
   {
-    return ItemType::class;
+    return ItemForm::class;
   }
 
   public function getTypeName()

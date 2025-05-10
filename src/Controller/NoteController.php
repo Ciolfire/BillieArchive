@@ -6,8 +6,8 @@ use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Entity\NoteCategory;
 use App\Entity\User;
-use App\Form\NoteSearchType;
-use App\Form\NoteType;
+use App\Form\NoteSearchForm;
+use App\Form\NoteForm;
 use App\Repository\NoteRepository;
 use App\Service\DataService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,7 +40,7 @@ class NoteController extends AbstractController
     $repo = $this->doctrine->getRepository(Note::class);
     $linkableNotes = $repo->findByLinkable($user, $note);
     // Set up date based on chronicle date
-    $form = $this->createForm(NoteType::class, $note, [
+    $form = $this->createForm(NoteForm::class, $note, [
       'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $chronicle, 'user' => $user]),
       'notes' => [$linkableNotes],
       'path' => $this->getParameter('characters_direct_directory'),
@@ -77,7 +77,7 @@ class NoteController extends AbstractController
     /** @var NoteRepository $repo */
     $repo = $this->doctrine->getRepository(Note::class);
     $linkableNotes = $repo->findByLinkable($user, $note);
-    $form = $this->createForm(NoteType::class, $note, [
+    $form = $this->createForm(NoteForm::class, $note, [
       'categories' => $this->dataService->findBy(NoteCategory::class, ['chronicle' => $note->getChronicle(), 'user' => $user]),
       'notes' => [$linkableNotes],
       'path' => $this->getParameter('characters_direct_directory'),
@@ -181,7 +181,7 @@ class NoteController extends AbstractController
     $user = $this->getUser();
     $notes = null;
     // Set up date based on chronicle date
-    $form = $this->createForm(NoteSearchType::class);
+    $form = $this->createForm(NoteSearchForm::class);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $toSearch = $form->getData()['toFind'];

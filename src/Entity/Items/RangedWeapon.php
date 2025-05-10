@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Items;
 
 use App\Entity\Item;
-use App\Form\RangedWeaponType;
+use App\Form\RangedWeaponForm;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,7 +45,7 @@ class RangedWeapon extends Item
 
   public function getForm()
   {
-    return RangedWeaponType::class;
+    return RangedWeaponForm::class;
   }
 
   public function getRanges(): ?string

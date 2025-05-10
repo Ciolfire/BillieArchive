@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\Chronicle;
 use App\Entity\NoteCategory;
 use App\Entity\User;
-use App\Form\ChronicleType;
-use App\Form\MageRulesType;
-use App\Form\NoteCategoryType;
-use App\Form\VampireRulesType;
+use App\Form\ChronicleForm;
+use App\Form\MageRulesForm;
+use App\Form\NoteCategoryForm;
+use App\Form\VampireRulesForm;
 use App\Repository\UserRepository;
 use App\Service\CharacterService;
 use App\Service\DataService;
@@ -40,7 +40,7 @@ class ChronicleController extends AbstractController
   public function new(Request $request) : Response
   {
     $chronicle = new Chronicle();
-    $form = $this->createForm(ChronicleType::class, $chronicle);
+    $form = $this->createForm(ChronicleForm::class, $chronicle);
     
     $form->handleRequest($request);
     
@@ -200,7 +200,7 @@ class ChronicleController extends AbstractController
     $category->setChronicle($chronicle);
 
     // Set up date based on chronicle date
-    $form = $this->createForm(NoteCategoryType::class, $category);
+    $form = $this->createForm(NoteCategoryForm::class, $category);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
@@ -221,7 +221,7 @@ class ChronicleController extends AbstractController
     /** @var User $user */
     $user = $this->getUser();
     // Set up date based on chronicle date
-    $form = $this->createForm(NoteCategoryType::class, $category);
+    $form = $this->createForm(NoteCategoryForm::class, $category);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
@@ -263,7 +263,7 @@ class ChronicleController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $chronicle);
     // Security, only the storyteller can change these settings
 
-    $form = $this->createForm(ChronicleType::class, $chronicle);
+    $form = $this->createForm(ChronicleForm::class, $chronicle);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -292,11 +292,11 @@ class ChronicleController extends AbstractController
     switch ($type) {
       case 'vampire':
         $service = new VampireService($this->dataService);
-        $form = $this->createForm(VampireRulesType::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        $form = $this->createForm(VampireRulesForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
         break;
       case 'mage':
         $service = new MageService($this->dataService);
-        $form = $this->createForm(MageRulesType::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        $form = $this->createForm(MageRulesForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
         break;
       default:
         break;
@@ -333,7 +333,7 @@ class ChronicleController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $chronicle);
     // Security, only the storyteller can change these settings
 
-    $form = $this->createForm(ChronicleType::class, $chronicle);
+    $form = $this->createForm(ChronicleForm::class, $chronicle);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {

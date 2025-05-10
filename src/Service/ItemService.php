@@ -10,11 +10,11 @@ use App\Entity\Items\Equipment;
 use App\Entity\Items\RangedWeapon;
 use App\Entity\Items\Vehicle;
 use App\Entity\Items\Weapon;
-use App\Form\EquipmentType;
-use App\Form\ItemType;
-use App\Form\RangedWeaponType;
-use App\Form\VehicleType;
-use App\Form\WeaponType;
+use App\Form\EquipmentForm;
+use App\Form\ItemForm;
+use App\Form\RangedWeaponForm;
+use App\Form\VehicleForm;
+use App\Form\WeaponForm;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Repository\ItemRepository;
@@ -31,11 +31,11 @@ class ItemService
     $this->params = $params;
     $this->dataService = $dataService;
     $this->types = [
-      'item' => [Item::class, ItemType::class],
-      'equipment' => [Equipment::class, EquipmentType::class],
-      'vehicle' => [Vehicle::class, VehicleType::class],
-      'weapon' => [Weapon::class, WeaponType::class],
-      'ranged_weapon' => [RangedWeapon::class, RangedWeaponType::class],
+      'item' => [Item::class, ItemForm::class],
+      'equipment' => [Equipment::class, EquipmentForm::class],
+      'vehicle' => [Vehicle::class, VehicleForm::class],
+      'weapon' => [Weapon::class, WeaponForm::class],
+      'ranged_weapon' => [RangedWeapon::class, RangedWeaponForm::class],
     ];
   }
 

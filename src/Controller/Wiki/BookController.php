@@ -3,7 +3,7 @@
 namespace App\Controller\Wiki;
 
 use App\Entity\Book;
-use App\Form\BookType;
+use App\Form\BookForm;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -26,7 +26,7 @@ class BookController extends AbstractController
   {
     $search = [];
     // $search['setting'] = [$setting];
-    $types = $this->dataService->getBookTypes($setting);
+    $types = $this->dataService->getBookForms($setting);
     if (count($types) > 1) {
       $search['type'] = $types;
     }
@@ -47,7 +47,7 @@ class BookController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $book = new Book($setting);
-    $form = $this->createForm(BookType::class, $book);
+    $form = $this->createForm(BookForm::class, $book);
 
     $form->handleRequest($request);
 
@@ -83,7 +83,7 @@ class BookController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(BookType::class, $book);
+    $form = $this->createForm(BookForm::class, $book);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

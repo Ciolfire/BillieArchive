@@ -8,7 +8,7 @@ use App\Entity\Chronicle;
 use App\Entity\ContentType;
 use App\Entity\Description;
 use App\Entity\Merit;
-use App\Form\MeritType;
+use App\Form\MeritForm;
 
 use App\Service\DataService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -45,7 +45,7 @@ class MeritController extends AbstractController
           $setting = $item->getSetting();
           $merits = $item->getMerits();
           // We get the type of book/item for the search filters
-          $types = $this->dataService->getMeritTypes($item);
+          $types = $this->dataService->getMeritForms($item);
           if (count($types) > 1) {
             $search['type'] = $types;
           }
@@ -104,7 +104,7 @@ class MeritController extends AbstractController
   {
     $merit = new Merit($this->dataService->getItem($request->get('type'), $request->get('id')));
 
-    $form = $this->createForm(MeritType::class, $merit);
+    $form = $this->createForm(MeritForm::class, $merit);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -137,7 +137,7 @@ class MeritController extends AbstractController
   #[Route("/{id<\d+>}/edit", name: "merit_edit", methods: ["GET", "POST"])]
   public function edit(Request $request, Merit $merit): Response
   {
-    $form = $this->createForm(MeritType::class, $merit);
+    $form = $this->createForm(MeritForm::class, $merit);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

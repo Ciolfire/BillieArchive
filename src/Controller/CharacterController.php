@@ -15,11 +15,11 @@ use App\Entity\Human;
 use App\Entity\Item;
 use App\Entity\Roll;
 use App\Entity\StatusEffect;
-use App\Form\CharacterAccessType;
-use App\Form\CharacterInfoAccessType;
-use App\Form\CharacterNoteType;
-use App\Form\CharacterType;
-use App\Form\LesserTemplateType;
+use App\Form\CharacterAccessForm;
+use App\Form\CharacterInfoAccessForm;
+use App\Form\CharacterNoteForm;
+use App\Form\CharacterForm;
+use App\Form\LesserTemplateForm;
 use App\Form\Type\RichTextEditorForm;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
@@ -215,7 +215,7 @@ class CharacterController extends AbstractController
     $user = $this->getUser();
     $character->setPlayer($user);
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterType::class, $character, ['user' => $this->getUser()]);
+    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
@@ -250,7 +250,7 @@ class CharacterController extends AbstractController
     $character->setIsPremade(true);
 
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterType::class, $character);
+    $form = $this->createForm(CharacterForm::class, $character);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -456,7 +456,7 @@ class CharacterController extends AbstractController
     // We get the current lesser template, if any
     $currentTemplate = $character->getLesserTemplate();
     $result = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
-    $form = $this->createForm(LesserTemplateType::class, options:['templates' => $result['templates']]);
+    $form = $this->createForm(LesserTemplateForm::class, options:['templates' => $result['templates']]);
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
@@ -524,7 +524,7 @@ class CharacterController extends AbstractController
 
     $access->setTarget($character);
     try {
-      $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+      $form = $this->createForm(CharacterAccessForm::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
     } catch (\Throwable $th) {
       if ($th->getCode() == 847) {
         $this->addFlash('warning', ["character.access.none", []]);
@@ -552,7 +552,7 @@ class CharacterController extends AbstractController
 
     $access = $this->dataService->findOneBy(CharacterAccess::class, ['target' => $character, 'accessor' => $accessor]);
 
-    $form = $this->createForm(CharacterAccessType::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
+    $form = $this->createForm(CharacterAccessForm::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -611,7 +611,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $form = $this->createForm(CharacterInfoAccessType::class, $character, ['path' => $this->getParameter('characters_direct_directory'),]);
+    $form = $this->createForm(CharacterInfoAccessForm::class, $character, ['path' => $this->getParameter('characters_direct_directory'),]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
 
@@ -734,7 +734,7 @@ class CharacterController extends AbstractController
     if ($latestNote instanceof CharacterNote && $latestNote->getAssignedAt() instanceof DateTimeImmutable) {
       $options['date'] = $latestNote->getAssignedAt()->format('Y-m-d H:i:s');
     }
-    $form = $this->createForm(CharacterNoteType::class, $note, $options);
+    $form = $this->createForm(CharacterNoteForm::class, $note, $options);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -755,7 +755,7 @@ class CharacterController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $character);
 
     $options = [];
-    $form = $this->createForm(CharacterNoteType::class, $note, $options);
+    $form = $this->createForm(CharacterNoteForm::class, $note, $options);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

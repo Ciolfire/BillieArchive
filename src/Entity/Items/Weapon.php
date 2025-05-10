@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Items;
 
 use App\Entity\Item;
-use App\Form\WeaponType;
+use App\Form\WeaponForm;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,7 +34,7 @@ class Weapon extends Item
 
   public function getForm()
   {
-    return WeaponType::class;
+    return WeaponForm::class;
   }
 
   public function getDamage(): ?int

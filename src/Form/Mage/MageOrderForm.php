@@ -4,14 +4,14 @@ namespace App\Form\Mage;
 
 use App\Entity\MageOrder;
 use App\Entity\Skill;
-use App\Form\OrganizationType;
+use App\Form\OrganizationForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
-class MageOrderForm extends OrganizationType
+class MageOrderForm extends OrganizationForm
 {
   public TranslatorInterface $translator;
 

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Roll;
 // use App\Entity\Description;
-use App\Form\RollType;
+use App\Form\RollForm;
 
 use App\Service\DataService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,7 +28,7 @@ class RollController extends AbstractController
   {
     $roll = new Roll();
 
-    $form = $this->createForm(RollType::class, $roll);
+    $form = $this->createForm(RollForm::class, $roll);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +67,7 @@ class RollController extends AbstractController
   #[Route("/{id<\d+>}/edit", name:"roll_edit", methods:["GET", "POST"])]
   public function edit(Request $request, Roll $roll): Response
   {
-    $form = $this->createForm(RollType::class, $roll);
+    $form = $this->createForm(RollForm::class, $roll);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

@@ -7,7 +7,7 @@ namespace App\Controller\Mage;
 use App\Entity\Path;
 use App\Entity\Description;
 use App\Entity\Legacy;
-use App\Form\LegacyType;
+use App\Form\Mage\LegacyForm;
 use App\Form\Mage\PathForm;
 use App\Service\DataService;
 use App\Service\MageService;
@@ -166,7 +166,7 @@ class PathController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $legacy = new Legacy($this->dataService->getItem($request->get('filter'), $request->get('id')));
-    $form = $this->createForm(LegacyType::class, $legacy);
+    $form = $this->createForm(LegacyForm::class, $legacy);
 
     $form->handleRequest($request);
 
@@ -191,7 +191,7 @@ class PathController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(LegacyType::class, $legacy);
+    $form = $this->createForm(LegacyForm::class, $legacy);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

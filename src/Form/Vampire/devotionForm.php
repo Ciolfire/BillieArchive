@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Form\Vampire;
 
 use App\Entity\Attribute;
 use App\Entity\Devotion;
 use App\Entity\Skill;
-use App\Form\PrerequisiteType;
+use App\Form\PrerequisiteForm;
 use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
 use App\Form\Type\RichTextEditorForm;
@@ -41,7 +41,7 @@ class DevotionForm extends AbstractType
       ->add('bloodline', null, ['label' => 'bloodline.label.single', 'translation_domain' => 'clan'])
       ->add('prerequisites', CollectionType::class, [
         'label' => false,
-        'entry_type' => PrerequisiteType::class,
+        'entry_type' => PrerequisiteForm::class,
         'entry_options' => [
           'label' => false, 
           'type' => 'devotion', 

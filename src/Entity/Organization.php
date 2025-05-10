@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
-use App\Form\OrganizationType;
+use App\Form\OrganizationForm;
 use App\Repository\OrganizationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -80,7 +80,7 @@ class Organization implements Translatable
 
   static public function getForm(): string
   {
-    return OrganizationType::class;
+    return OrganizationForm::class;
   }
 
   public function getName(): ?string

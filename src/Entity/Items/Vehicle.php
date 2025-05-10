@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Items;
 
 use App\Entity\Item;
-use App\Form\VehicleType;
+use App\Form\VehicleForm;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +28,7 @@ class Vehicle extends Item
 
   public function getForm()
   {
-    return VehicleType::class;
+    return VehicleForm::class;
   }
 
   public function getTypeName()

@@ -291,7 +291,7 @@ class DataService
   }
 
   /** @return array<string> */
-  public function getMeritTypes(Book $book = null) : array
+  public function getMeritForms(Book $book = null) : array
   {
     $qb = $this->getConnection()->createQueryBuilder()
     ->select('DISTINCT t.name')
@@ -310,7 +310,7 @@ class DataService
   }
 
   /** @return array<string> */
-  public function getBookTypes(string $setting) : array
+  public function getBookForms(string $setting) : array
   {
     return $this->getConnection()->createQueryBuilder()
     ->select('type')
