@@ -2,8 +2,6 @@
 
 namespace App\Controller\Vampire;
 
-use App\Entity\Book;
-use App\Entity\Chronicle;
 use App\Entity\Clan;
 use App\Entity\Description;
 use App\Entity\Devotion;
