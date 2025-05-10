@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
-class DisciplinePowerType extends AbstractType
+class DisciplinePowerForm extends AbstractType
 {
   public TranslatorInterface $translator;
 

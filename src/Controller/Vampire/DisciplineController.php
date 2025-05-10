@@ -8,8 +8,8 @@ use App\Entity\Character;
 use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Vampire;
-use App\Form\Vampire\DisciplinePowerType;
-use App\Form\Vampire\DisciplineType;
+use App\Form\Vampire\DisciplinePowerForm;
+use App\Form\Vampire\DisciplineForm;
 
 use App\Service\DataService;
 use App\Service\VampireService;
@@ -117,7 +117,7 @@ class DisciplineController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $discipline = new Discipline();
-    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form = $this->createForm(DisciplineForm::class, $discipline);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -140,7 +140,7 @@ class DisciplineController extends AbstractController
 
     $discipline = new Discipline(true);
 
-    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form = $this->createForm(DisciplineForm::class, $discipline);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -163,7 +163,7 @@ class DisciplineController extends AbstractController
 
     $discipline = new Discipline(false, true);
 
-    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form = $this->createForm(DisciplineForm::class, $discipline);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class DisciplineController extends AbstractController
 
     $discipline = new Discipline(false, false, true);
 
-    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form = $this->createForm(DisciplineForm::class, $discipline);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -207,7 +207,7 @@ class DisciplineController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(DisciplineType::class, $discipline);
+    $form = $this->createForm(DisciplineForm::class, $discipline);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -253,7 +253,7 @@ class DisciplineController extends AbstractController
     } else {
       $power = new DisciplinePower($discipline, 1);
     }
-    $form = $this->createForm(DisciplinePowerType::class, $power);
+    $form = $this->createForm(DisciplinePowerForm::class, $power);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -278,7 +278,7 @@ class DisciplineController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(DisciplinePowerType::class, $power);
+    $form = $this->createForm(DisciplinePowerForm::class, $power);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {

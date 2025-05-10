@@ -11,7 +11,7 @@ use App\Entity\Clan;
 use App\Entity\Covenant;
 use App\Entity\Discipline;
 use App\Entity\Vampire;
-use App\Form\Vampire\EmbraceType;
+use App\Form\Vampire\EmbraceForm;
 use App\Repository\CharacterRepository;
 use App\Service\DataService;
 use App\Service\VampireService;
@@ -46,7 +46,7 @@ class VampireController extends AbstractController
     $covenants = $this->dataService->findAll(Covenant::class);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);
-    $form = $this->createForm(EmbraceType::class, null, ['clans' => $clans, 'covenants' => $covenants, 'attributes' => $attributes]);
+    $form = $this->createForm(EmbraceForm::class, null, ['clans' => $clans, 'covenants' => $covenants, 'attributes' => $attributes]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

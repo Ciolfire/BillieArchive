@@ -8,7 +8,7 @@ use App\Entity\Clan;
 use App\Entity\Description;
 use App\Entity\Devotion;
 use App\Entity\Discipline;
-use App\Form\Vampire\DevotionType;
+use App\Form\Vampire\DevotionForm;
 use App\Service\DataService;
 use App\Service\VampireService;
 
@@ -103,7 +103,7 @@ class DevotionController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $devotion = new Devotion();
-    $form = $this->createForm(DevotionType::class, $devotion);
+    $form = $this->createForm(DevotionForm::class, $devotion);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -124,7 +124,7 @@ class DevotionController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(DevotionType::class, $devotion);
+    $form = $this->createForm(DevotionForm::class, $devotion);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {

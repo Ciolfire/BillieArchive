@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
-class DevotionType extends AbstractType
+class DevotionForm extends AbstractType
 {
   public TranslatorInterface $translator;
 

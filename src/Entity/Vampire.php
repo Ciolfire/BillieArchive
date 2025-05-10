@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VampireRepository;
 use App\Entity\References\DisciplineReferences;
-use App\Form\Vampire\VampireType;
+use App\Form\Vampire\VampireForm;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
@@ -79,7 +79,7 @@ class Vampire extends Character
 
   public function getForm(): string
   {
-    return VampireType::class;
+    return VampireForm::class;
   }
 
   public function setPowerRating(): self

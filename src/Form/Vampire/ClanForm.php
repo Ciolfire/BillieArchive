@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\File;
 use App\Form\Type\RichTextEditorForm;
 
 
-class ClanType extends AbstractType
+class ClanForm extends AbstractType
 {
   public TranslatorInterface $translator;
 

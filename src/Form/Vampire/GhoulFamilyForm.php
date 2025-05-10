@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\File;
 use App\Form\Type\RichTextEditorForm;
 
 
-class GhoulFamilyType extends AbstractType
+class GhoulFamilyForm extends AbstractType
 {
   public TranslatorInterface $translator;
 

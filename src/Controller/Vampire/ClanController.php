@@ -10,7 +10,7 @@ use App\Entity\User;
 use App\Entity\Vampire;
 use App\Entity\Clan;
 use App\Entity\Description;
-use App\Form\Vampire\ClanType;
+use App\Form\Vampire\ClanForm;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -117,7 +117,7 @@ class ClanController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $clan = new Clan($bloodline);
-    $form = $this->createForm(ClanType::class, $clan);
+    $form = $this->createForm(ClanForm::class, $clan);
 
     $form->handleRequest($request);
 
@@ -149,7 +149,7 @@ class ClanController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(ClanType::class, $clan);
+    $form = $this->createForm(ClanForm::class, $clan);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

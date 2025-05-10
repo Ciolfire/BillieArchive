@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\Type\RichTextEditorForm;
 
-class DisciplineType extends AbstractType
+class DisciplineForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {

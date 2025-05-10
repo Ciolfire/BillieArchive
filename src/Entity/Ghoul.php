@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\References\DisciplineReferences;
-use App\Form\Vampire\GhoulType;
+use App\Form\Vampire\GhoulForm;
 use App\Repository\GhoulRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -72,7 +72,7 @@ class Ghoul extends CharacterLesserTemplate
 
   public static function getForm(): string
   {
-    return GhoulType::class;
+    return GhoulForm::class;
   }
 
   public function getRegent(): ?string

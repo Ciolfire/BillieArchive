@@ -8,7 +8,7 @@ use App\Entity\Book;
 use App\Entity\Chronicle;
 use App\Entity\Description;
 use App\Entity\GhoulFamily;
-use App\Form\Vampire\GhoulFamilyType;
+use App\Form\Vampire\GhoulFamilyForm;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,7 +72,7 @@ class GhoulController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $family = new GhoulFamily();
-    $form = $this->createForm(GhoulFamilyType::class, $family);
+    $form = $this->createForm(GhoulFamilyForm::class, $family);
 
     $form->handleRequest($request);
 
@@ -101,7 +101,7 @@ class GhoulController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(GhoulFamilyType::class, $family);
+    $form = $this->createForm(GhoulFamilyForm::class, $family);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
