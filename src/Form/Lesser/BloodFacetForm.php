@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BloodFacetType extends AbstractType
+class BloodFacetForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {

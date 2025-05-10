@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Types\BodyThiefTalent;
-use App\Form\Lesser\BodyThiefType;
+use App\Form\Lesser\BodyThiefForm;
 use App\Repository\BodyThiefRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,7 +41,7 @@ class BodyThief extends CharacterLesserTemplate
 
   public static function getForm() : ?string
   {
-    return BodyThiefType::class;
+    return BodyThiefForm::class;
   }
 
   public function getPowerRating(array $weight): int

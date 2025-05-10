@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BloodBathType extends AbstractType
+class BloodBathForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
@@ -22,7 +22,7 @@ class BloodBathType extends AbstractType
       ->add('bath', CollectionType::class, [
         'label' => false,
         'help' =>"bath.help",
-        'entry_type' => BloodFacetType::class,
+        'entry_type' => BloodFacetForm::class,
         'entry_options' => [
           'attr' => [
             'data-bloodbather--bath-param' => "bath",
@@ -37,7 +37,7 @@ class BloodBathType extends AbstractType
       ->add('blood', CollectionType::class, [
         'label' => false,
         'help' => "blood.help",
-        'entry_type' => BloodFacetType::class,
+        'entry_type' => BloodFacetForm::class,
         'entry_options' => [
           'attr' => [
             'data-bloodbather--bath-param' => "blood",
@@ -52,7 +52,7 @@ class BloodBathType extends AbstractType
       ->add('effects', CollectionType::class, [
         'label' => false,
         'help' => "effects.help",
-        'entry_type' => BloodFacetType::class,
+        'entry_type' => BloodFacetForm::class,
         'entry_options' => [
           'attr' => [
             'data-bloodbather--bath-param' => "effects",
@@ -67,7 +67,7 @@ class BloodBathType extends AbstractType
       ->add('frequency', CollectionType::class, [
         'label' => false,
         'help' => "frequency.help",
-        'entry_type' => BloodFacetType::class,
+        'entry_type' => BloodFacetForm::class,
         'entry_options' => [
           'attr' => [
             'data-bloodbather--bath-param' => "frequency",
@@ -82,7 +82,7 @@ class BloodBathType extends AbstractType
       ->add('preparation', CollectionType::class, [
         'label' => false,
         'help' => "preparation.help",
-        'entry_type' => BloodFacetType::class,
+        'entry_type' => BloodFacetForm::class,
         'entry_options' => [
           'attr' => [
             'data-bloodbather--bath-param' => "preparation",

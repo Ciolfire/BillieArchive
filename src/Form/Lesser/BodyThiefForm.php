@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BodyThiefType extends AbstractType
+class BodyThiefForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {

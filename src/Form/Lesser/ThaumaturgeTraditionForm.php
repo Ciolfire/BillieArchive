@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ThaumaturgeTraditionType extends AbstractType
+class ThaumaturgeTraditionForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
@@ -62,7 +62,7 @@ class ThaumaturgeTraditionType extends AbstractType
         },
       ])
       ->add('source', SourceableType::class, [
-        'data_class' => ThaumaturgeTraditionType::class,
+        'data_class' => ThaumaturgeTraditionForm::class,
         'label' => 'source.label',
       ])
     ;

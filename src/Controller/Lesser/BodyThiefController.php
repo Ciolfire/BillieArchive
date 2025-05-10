@@ -8,7 +8,7 @@ use App\Entity\ContentType;
 use App\Entity\Description;
 use App\Entity\Merit;
 use App\Entity\BodyThiefSociety;
-use App\Form\Lesser\BodyThiefSocietyType;
+use App\Form\Lesser\BodyThiefSocietyForm;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,7 +59,7 @@ class BodyThiefController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $society = new BodyThiefSociety($this->dataService->getItem($request->get('filter'), $request->get('id')));
-    $form = $this->createForm(BodyThiefSocietyType::class, $society);
+    $form = $this->createForm(BodyThiefSocietyForm::class, $society);
 
     $form->handleRequest($request);
 

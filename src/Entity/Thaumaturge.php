@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Form\Lesser\ThaumaturgeType;
+use App\Form\Lesser\ThaumaturgeForm;
 use App\Repository\ThaumaturgeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,7 +36,7 @@ class Thaumaturge extends CharacterLesserTemplate
 
   public static function getForm(): ?string
   {
-    return ThaumaturgeType::class;
+    return ThaumaturgeForm::class;
   }
 
   public function getPowerRating(array $weight): int

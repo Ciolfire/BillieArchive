@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BodyThiefSocietyType extends AbstractType
+class BodyThiefSocietyForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
@@ -59,7 +59,7 @@ class BodyThiefSocietyType extends AbstractType
         },
       ])
       ->add('source', SourceableType::class, [
-        'data_class' => BodyThiefSocietyType::class,
+        'data_class' => BodyThiefSocietyForm::class,
         'label' => 'source.label',
       ])
     ;

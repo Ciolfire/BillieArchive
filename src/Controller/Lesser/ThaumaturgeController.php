@@ -8,7 +8,7 @@ use App\Entity\ContentType;
 use App\Entity\ThaumaturgeTradition;
 use App\Entity\Description;
 use App\Entity\Merit;
-use App\Form\Lesser\ThaumaturgeTraditionType;
+use App\Form\Lesser\ThaumaturgeTraditionForm;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +60,7 @@ class ThaumaturgeController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $tradition = new ThaumaturgeTradition($this->dataService->getItem($request->get('filter'), $request->get('id')));
-    $form = $this->createForm(ThaumaturgeTraditionType::class, $tradition);
+    $form = $this->createForm(ThaumaturgeTraditionForm::class, $tradition);
 
     $form->handleRequest($request);
 
@@ -85,7 +85,7 @@ class ThaumaturgeController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(ThaumaturgeTraditionType::class, $tradition);
+    $form = $this->createForm(ThaumaturgeTraditionForm::class, $tradition);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

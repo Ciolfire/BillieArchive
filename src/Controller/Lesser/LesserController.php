@@ -9,7 +9,7 @@ use App\Entity\BloodBathFacet;
 use App\Entity\ContentType;
 use App\Entity\Description;
 use App\Entity\Merit;
-use App\Form\Lesser\BloodBathType;
+use App\Form\Lesser\BloodBathForm;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +45,7 @@ class LesserController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(BloodBathType::class, $bather->getBath());
+    $form = $this->createForm(BloodBathForm::class, $bather->getBath());
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
