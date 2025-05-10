@@ -1,0 +1,19 @@
+{% trans_default_domain 'path' %}
+
+  <div class="bdr bdr-accent p-1 my-2">
+    <div {{ stimulus_controller('form-collection') }}
+      data-form-collection-index-value="{{ form.attainments|length > 0 ? form.attainments|last.vars.name + 1 : 0 }}"
+      data-form-collection-prototype-value="{{ form_widget(form.attainments.vars.prototype)|e('html_attr') }}"
+    >
+      <ul class="row g-1" {{ stimulus_target('form-collection', 'collectionContainer') }}>
+        <h3 class="text-start">{{ "legacy.attainment.label.multi"|trans([]) }}</h3>
+          {% for attainment in form.attainments %}
+            {{ form_row(attainment)}}
+          {% endfor %}
+      </ul>
+      <button type="button" class="btn btn-primary btn-lg m-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
+        {{ "add"|trans }}
+        {% include "_icon.html.twig" with {icon: 'add' } %}
+      </button>
+    </div>
+  </div>

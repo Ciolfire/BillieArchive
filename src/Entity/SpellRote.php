@@ -103,13 +103,18 @@ class SpellRote implements Translatable
 
   public function getAttribute(): ?Attribute
   {
-      return $this->attribute;
+    return $this->attribute;
   }
 
   public function setAttribute(?Attribute $attribute): static
   {
-      $this->attribute = $attribute;
+    $this->attribute = $attribute;
 
-      return $this;
+    return $this;
+  }
+
+  public function getLevel()
+  {
+    return $this->getSpell()->getLevel();
   }
 }

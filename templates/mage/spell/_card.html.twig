@@ -15,6 +15,10 @@
       {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
       {{ spell.skill }}
     </h5>
+    <div class="text-center fst-italic">
+      {{ spell.short }}
+    </div>
+    <hr>
     {{ spell.description|markdown_to_html }}
     <p>
       <strong>{{ "practice"|trans }}:</strong> 
@@ -60,5 +64,7 @@
         {% endif %}
       </div>
     {% endblock %}
+
+    {% include "_source_block.html.twig" with { element: spell } %}
   </div>
 </div>

@@ -14,36 +14,35 @@
 
 {% block form %}
 {% set path = form.vars.data %}
-<div class="row">
-  <div class="col">
-    {% if path.emblem is not null %}
-      <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-    {% endif %}
+{% if path.id %}
+  <div class="row">
+    <div class="col">
+      {% if path.emblem is not null %}
+        <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+      {% endif %}
+    </div>
+    <div class="col">
+      {% if path.symbol is not null %}
+        <img class="mx-auto d-block" src="{{ asset(path.symbol, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+      {% endif %}
+    </div>
+    <div class="col">
+      {% if path.rune is not null %}
+        <img class="mx-auto d-block" src="{{ asset(path.rune, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+      {% endif %}
+    </div>
   </div>
-  <div class="col">
-    {% if path.symbol is not null %}
-      <img class="mx-auto d-block" src="{{ asset(path.symbol, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-    {% endif %}
+  <div class="row">
+    <div class="col">
+      <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+    </div>
+    <div class="col">
+      <h5>{{ "symbol.label"|trans(domain: "mage") }}</h5>
+    </div>
+    <div class="col">
+      <h5>{{ "rune.label"|trans(domain: "mage") }}</h5>
+    </div>
   </div>
-  <div class="col">
-    {% if path.rune is not null %}
-      <img class="mx-auto d-block" src="{{ asset(path.rune, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-    {% endif %}
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <h5>{{ "emblem"|trans }}</h5>
-  </div>
-  <div class="col">
-    <h5>{{ "symbol"|trans }}</h5>
-  </div>
-  <div class="col">
-    <h5>{{ "rune"|trans }}</h5>
-  </div>
-</div>
-{# <pre>
-  {{ dump(form) }}
-</pre> #}
+{% endif %}
 {{ parent() }}
 {% endblock %}

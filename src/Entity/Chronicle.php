@@ -87,9 +87,17 @@ class Chronicle
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $paths;
 
+  #[ORM\OneToMany(targetEntity: Legacy::class, mappedBy: 'homebrewFor')]
+  #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
+  private Collection $legacies;
+
   #[ORM\OneToMany(targetEntity: MageSpell::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
   private Collection $spells;
+
+  #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $spellRotes;
 
   public function __construct()
   {
@@ -321,6 +329,34 @@ class Chronicle
   }
 
   /**
+   * @return array<Covenant>
+   */
+  public function getCovenants(): array
+  {
+    $covenants = [];
+    foreach ($this->organizations as $organization) {
+      if ($organization instanceof Covenant) {
+        $covenants[] = $organization;
+      }
+    }
+    return $covenants;
+  }
+
+  /**
+   * @return array<MageOrder>
+   */
+  public function getOrders(): array
+  {
+    $orders = [];
+    foreach ($this->organizations as $organization) {
+      if ($organization instanceof MageOrder) {
+        $orders[] = $organization;
+      }
+    }
+    return $orders;
+  }
+
+  /**
    * @return array<Clan>
    */
   public function getClans(): array
@@ -336,20 +372,6 @@ class Chronicle
     }
 
     return $clans;
-  }
-
-  /**
-   * @return array<Covenant>
-   */
-  public function getCovenants(): array
-  {
-    $covenants = [];
-    foreach ($this->organizations as $organization) {
-      if ($organization instanceof Covenant) {
-        $covenants[] = $organization;
-      }
-    }
-    return $covenants;
   }
 
   public function getItems(): Collection
@@ -560,6 +582,33 @@ class Chronicle
     return $this;
   }
 
+  public function getLegacies(): Collection
+  {
+    return $this->legacies;
+  }
+
+  public function addLegacy(Legacy $legacy): self
+  {
+    if (!$this->legacies->contains($legacy)) {
+      $this->legacies[] = $legacy;
+      $legacy->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeLegacy(Legacy $legacy): self
+  {
+    if ($this->legacies->removeElement($legacy)) {
+      // set the owning side to null (unless already changed)
+      if ($legacy->getHomebrewFor() === $this) {
+        $legacy->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
   public function getSpells(): Collection
   {
     return $this->spells;
@@ -581,6 +630,33 @@ class Chronicle
       // set the owning side to null (unless already changed)
       if ($spell->getHomebrewFor() === $this) {
         $spell->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getSpellRotes(): Collection
+  {
+    return $this->spellRotes;
+  }
+
+  public function addSpellRote(SpellRote $rote): self
+  {
+    if (!$this->spellRotes->contains($rote)) {
+      $this->spellRotes[] = $rote;
+      $rote->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeSpellRote(SpellRote $rote): self
+  {
+    if ($this->spellRotes->removeElement($rote)) {
+      // set the owning side to null (unless already changed)
+      if ($rote->getHomebrewFor() === $this) {
+        $rote->setHomebrewFor(null);
       }
     }
 

@@ -14,3 +14,23 @@ count: >-
 
 
 nimbus: Nimbus
+
+legacy:
+  label:
+    single: Legacy
+    multi: Legacies
+
+  new: New Legacy
+  edit: Edit Legacy
+
+  count: >-
+    {count, plural,
+      =0 {No Legacy}
+      =1 {1 Legacy}
+      other {# Legacies}
+    }
+
+  attainment:
+    label:
+      single: Attainment
+      multi: Attainments

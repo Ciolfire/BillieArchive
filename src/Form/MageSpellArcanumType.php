@@ -46,15 +46,16 @@ class MageSpellArcanumType extends AbstractType
         'label' => 'optional',
       ])
       ->add('remove', ButtonType::class, [
-      'attr' => [
-        'data-action' => 'form-collection#removeCollectionElement',
-        'class' => 'btn-warning w-25',
-      ],
-      'row_attr' => [
-        'class' => 'text-center',
-      ],
-      'label' => 'action.remove',
-    ]);
+        'attr' => [
+          'data-action' => 'form-collection#removeCollectionElement',
+          'class' => 'btn-warning w-25',
+        ],
+        'row_attr' => [
+          'class' => 'text-center',
+        ],
+        'label' => 'action.remove',
+      ])
+    ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void

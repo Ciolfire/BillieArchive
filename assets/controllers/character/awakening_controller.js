@@ -135,7 +135,7 @@ export default class extends Controller {
 
   toggle(elements, key) {
     elements.forEach(element => {
-      if (element.classList.contains(key)) {
+      if (key != undefined && element.classList.contains(key)) {
         element.classList.remove('d-none');
         return;
       }

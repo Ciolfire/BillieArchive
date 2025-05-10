@@ -7,6 +7,12 @@
     <div class="col-sm-12 text-center">
       {# create the button group #}
       <div id="{{ form.vars.id }}" class="btn-group row g-1" role="group" aria-label="radio-button toggle button group">
+        {% if not form.vars.required %}
+          <input id="{{ form.vars.id }}_00" class="btn-check" type="radio" name="{{ form.vars.full_name }}" value="0">
+          <label for="{{ form.vars.id }}_00" class="btn btn-primary col-12 col-sm-auto"{{ block('attributes') }} class="btn btn-primary">
+            {% include "_icon.html.twig" with { icon: "cancel"} %}
+          </label>
+        {% endif %}
         {% for key,val in form.vars.choices %}
           {# We set the attribute define in choice_attr, if any, we also need to handle the default class for the button appearance #}
           <input id="{{ form.vars.id }}_{{ key }}" class="btn-check" type="radio" name="{{ form.vars.full_name }}" {% if form.vars.required == true %}required="required"{% endif %}{% if value is defined %} value="{{ val.value }}"{% endif %}>

@@ -1,0 +1,47 @@
+{% extends 'mage/form.html.twig' %}
+
+{% trans_default_domain 'path' %}
+
+{% if form.vars.data.id|default(null) != null %}
+  {% set action = 'edit' %}
+{% else %}
+  {% set action = 'new' %}
+{% endif %}
+
+
+{% block title %}{{ action|trans }}{% endblock %}
+{% block header %}{{ "legacy.#{action}"|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
+
+{% block form %}
+  {% set legacy = form.vars.data %}
+  <div class="row">
+    <div class="col">
+      {% if legacy.emblem is not null %}
+        <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="200"/>
+      {% endif %}
+    </div>
+  </div>
+  {% if legacy.id %}
+    <div class="row">
+      <div class="col">
+        <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+      </div>
+    </div>
+  {% endif %}
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.emblem) }}
+  {{ form_row(form.source) }}
+  {{ form_row(form.quote) }}
+  {{ form_row(form.path) }}
+  {{ form_row(form.parentOrder) }}
+  {{ form_row(form.nickname) }}
+  {{ form_row(form.short) }}
+  {{ form_row(form.arcanum) }}
+  {% include "forms/mage/_attainment_field.html.twig" %}
+  {{ form_rest(form) }}
+    {% block submit %}
+      {{ parent() }}
+    {% endblock %}
+  {{ form_end(form) }}
+{% endblock %}

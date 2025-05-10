@@ -68,6 +68,12 @@ class Path implements Translatable
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $rune = null;
 
+  /**
+   * @var Collection<int, Legacy>
+   */
+  #[ORM\OneToMany(targetEntity: Legacy::class, mappedBy: 'path')]
+  private Collection $legacies;
+
   public function __toString()
   {
     return $this->name;
@@ -81,6 +87,7 @@ class Path implements Translatable
       $this->setBook($element);
     }
     $this->rulingArcana = new ArrayCollection();
+    $this->legacies = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -244,5 +251,35 @@ class Path implements Translatable
     $this->rune = $rune;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Legacy>
+   */
+  public function getLegacies(): Collection
+  {
+      return $this->legacies;
+  }
+
+  public function addLegacy(Legacy $legacy): static
+  {
+      if (!$this->legacies->contains($legacy)) {
+          $this->legacies->add($legacy);
+          $legacy->setPath($this);
+      }
+
+      return $this;
+  }
+
+  public function removeLegacy(Legacy $legacy): static
+  {
+      if ($this->legacies->removeElement($legacy)) {
+          // set the owning side to null (unless already changed)
+          if ($legacy->getPath() === $this) {
+              $legacy->setPath(null);
+          }
+      }
+
+      return $this;
   }
 }

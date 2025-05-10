@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'path' %}
+{% set setting = "mage" %}
+{% set footer = true %}
+
+{% block title %}
+  {{ "legacy.label.multi"|trans([], 'path') }}
+{% endblock %}
+
+{% block bodyData %}
+  data-controller="search" data-search-type-value="path"
+{% endblock %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1 class="user-select-none mt-2">
+    {% include "_icon.html.twig" with {icon : 'legacy', 'class' : "icon-lg" } only %}
+    {{ "legacy.label.multi"|trans }}
+  </h1>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="col-auto">
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
+            <h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div id="collapseToc" class="col-auto collapse">
+        <ul class="toc block ps-4 pe-2">
+          {% if legacies is defined and legacies is not empty %}
+            <p class="mt-2">{{ "label.multi"|trans([], 'path') }}</p>
+            {% for legacy in legacies %}
+              <li>
+                <a href="#{{ legacy.name }}">{{ legacy.name }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+      <div id="collapseDescription" class="collapse col">
+        <div class="block block-wiki p-2">
+          {{ description.value|default("")|markdown_to_html }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% for legacy in legacies %}
+        {% include "mage/legacy/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('mage_legacy_new', {filter: filter|default(null), id: id|default(null)}) }}">
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

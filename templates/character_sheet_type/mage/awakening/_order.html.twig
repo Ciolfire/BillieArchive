@@ -14,7 +14,10 @@
     <h4>{{ "rote.specialities"|trans({}, 'order') }}</h4>
     <span class="text-strong">
       {% for rote in order.RoteSpecialties %}
-        {{ rote.name }}
+        <span class="mx-2">
+          {% include "_icon.html.twig" with { icon: "skills/#{rote.identifier}" } %}
+          {{ rote.name }}
+        </span>
       {% endfor %}
     </span>
   </div>

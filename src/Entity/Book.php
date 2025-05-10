@@ -106,10 +106,17 @@ class Book implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $paths;
 
+  #[ORM\OneToMany(targetEntity: Legacy::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $legacies;
+
   #[ORM\OneToMany(targetEntity: MageSpell::class, mappedBy: 'book')]
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $spells;
 
+  #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $spellRotes;
 
   public function __construct(string $setting="human")
   {
@@ -595,6 +602,34 @@ class Book implements Translatable
     return $this;
   }
 
+  public function getLegacies(): Collection
+  {
+    return $this->legacies;
+  }
+
+  public function addLegacy(Legacy $legacy): self
+  {
+    if (!$this->legacies->contains($legacy)) {
+      $this->legacies[] = $legacy;
+      $legacy->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeLegacy(Legacy $legacy): self
+  {
+    if ($this->legacies->removeElement($legacy)) {
+      // set the owning side to null (unless already changed)
+      if ($legacy->getBook() === $this) {
+        $legacy->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+
   public function getSpells(): Collection
   {
     return $this->spells;
@@ -616,6 +651,33 @@ class Book implements Translatable
       // set the owning side to null (unless already changed)
       if ($spell->getBook() === $this) {
         $spell->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getSpellRotes(): Collection
+  {
+    return $this->spellRotes;
+  }
+
+  public function addSpellRote(SpellRote $rote): self
+  {
+    if (!$this->spellRotes->contains($rote)) {
+      $this->spellRotes[] = $rote;
+      $rote->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeSpellRote(SpellRote $rote): self
+  {
+    if ($this->spellRotes->removeElement($rote)) {
+      // set the owning side to null (unless already changed)
+      if ($rote->getBook() === $this) {
+        $rote->setBook(null);
       }
     }
 

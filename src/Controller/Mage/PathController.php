@@ -6,6 +6,8 @@ namespace App\Controller\Mage;
 
 use App\Entity\Path;
 use App\Entity\Description;
+use App\Entity\Legacy;
+use App\Form\LegacyType;
 use App\Form\Mage\PathType;
 use App\Service\DataService;
 use App\Service\MageService;
@@ -27,7 +29,7 @@ class PathController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('/wiki/paths', name: 'mage_path_index', methods: ['GET'])]
+  #[Route('/wiki/paths', name: 'mage_paths', methods: ['GET'])]
   public function paths(): Response
   {
     return $this->render('mage/path/index.html.twig', [
@@ -60,7 +62,7 @@ class PathController extends AbstractController
   }
 
   #[Route('/path/new', name: 'mage_path_new', methods: ['GET', 'POST'])]
-  public function new(Request $request): Response
+  public function pathNew(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -85,7 +87,7 @@ class PathController extends AbstractController
       }
       $this->dataService->save($path);
 
-      return $this->redirectToRoute('mage_path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_paths', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/path/form.html.twig', [
@@ -94,7 +96,7 @@ class PathController extends AbstractController
   }
 
   #[Route('/path/{id<\d+>}/edit', name: 'mage_path_edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, Path $path): Response
+  public function pathEdit(Request $request, Path $path): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -117,10 +119,93 @@ class PathController extends AbstractController
       }
       $this->dataService->update($path);
 
-      return $this->redirectToRoute('mage_path_index', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_paths', ['_fragment' => $path->getName()], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/path/form.html.twig', [
+      'form' => $form,
+    ]);
+  }
+
+
+  #[Route('/wiki/legacies', name: 'mage_legacies', methods: ['GET'])]
+  public function legacies(): Response
+  {
+    return $this->render('mage/legacy/index.html.twig', [
+      'legacies' => $this->dataService->findBy(Legacy::class, ['homebrewFor' => null], ['name' => "ASC"]),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
+    ]);
+  }
+
+  #[Route("/wiki/legacies/list/{filter<\w+>}/{id<\w+>}", name: "mage_legacies_list", methods: ["GET"])]
+  public function legaciesList(string $filter, int $id): Response
+  {
+    $legacies = $this->dataService->getList($filter, $id, Legacy::class, 'getLegacies');
+
+    return $this->render('mage/legacy/index.html.twig', [
+      'setting' => "mage",
+      'legacies' => $legacies,
+      'filter' => $filter,
+      'id' => $id,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
+    ]);
+  }
+
+
+  #[Route('/wiki/legacy/{id<\d+>}', name: 'mage_legacy_show', methods: ['GET'])]
+  public function legacyShow(Legacy $legacy): Response
+  {
+    return $this->render('mage/legacy/show.html.twig', [
+      'legacy' => $legacy,
+    ]);
+  }
+
+  #[Route('/legacy/new', name: 'mage_legacy_new', methods: ['GET', 'POST'])]
+  public function legacyNew(Request $request): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $legacy = new Legacy($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $form = $this->createForm(LegacyType::class, $legacy);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $emblem = $form->get('emblem')->getData();
+      $filePath = $this->getParameter('paths_emblems_directory');
+      if ($emblem instanceof UploadedFile && is_string($filePath)) {
+        $legacy->setEmblem($this->dataService->upload($emblem, $filePath));
+      }
+      $this->dataService->save($legacy);
+
+      return $this->redirectToRoute('mage_legacies', ['_fragment' => $legacy->getName()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('mage/legacy/form.html.twig', [
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/legacy/{id<\d+>}/edit', name: 'mage_legacy_edit', methods: ['GET', 'POST'])]
+  public function legacyEdit(Request $request, Legacy $legacy): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $form = $this->createForm(LegacyType::class, $legacy);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $emblem = $form->get('emblem')->getData();
+      $filePath = $this->getParameter('paths_emblems_directory');
+      if ($emblem instanceof UploadedFile && is_string($filePath)) {
+        $legacy->setEmblem($this->dataService->upload($emblem, $filePath));
+      }
+      $this->dataService->update($legacy);
+
+      return $this->redirectToRoute('mage_legacies', ['_fragment' => $legacy->getName()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('mage/legacy/form.html.twig', [
       'form' => $form,
     ]);
   }

@@ -11,6 +11,8 @@
       {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
       {% include "_icon.html.twig" with {icon: 'homebrew'} only %} {{ "homebrew"|trans }} - {{ chronicle.name }}
     </h1>
+
+    {# Human #}
     <div class="block row my-2">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'human' } %} {{ "human.label"|trans({}, 'setting') }}</h2>
       <div class="col-12 col-sm-6 col-lg-3">
@@ -34,13 +36,20 @@
       </div> #}
     </div>
 
-
+    {# Vampire #}
     <div class="block vampire row my-2">
       <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'vampire' } %} {{ "vampire.label"|trans({}, 'setting') }}</h2>
       <div class="col-12">
         <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {type: 'vampire', id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'type/vampire' } only %}
           <span>{{ "homebrew.vampire"|trans({}, 'chronicle')}}</span>
+        </a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'vampire' , id: chronicle.id })}}">
+          {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+          <span class="accent">{{ chronicle.covenants|length }}</span>
+          <span>{{ "covenant.label.multi"|trans([], "organization") }}</span>
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
@@ -67,13 +76,6 @@
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
-        <a class="btn btn-primary w-100 m-2" href="{{path('vampire_ritual_list', { filter: 'chronicle', id: chronicle.id })}}">
-          {% include "_icon.html.twig" with {icon: 'pentacle' } only %}
-          <span class="accent">{{ chronicle.rituals|length }}</span>
-          <span>{{ "sorcery.power.label.multi"|trans([], "discipline") }}</span>
-        </a>
-      </div>
-      <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('vampire_discipline_list', {type: 'coils', filter: 'chronicle', id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'coils' } only %}
           <span class="accent">{{ chronicle.disciplinesFromCategory('coil')|length }}</span>
@@ -95,13 +97,6 @@
         </a>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
-        <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'vampire' , id: chronicle.id })}}">
-          {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-          <span class="accent">{{ chronicle.covenants|length }}</span>
-          <span>{{ "covenant.label.multi"|trans([], "organization") }}</span>
-        </a>
-      </div>
-      <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('ghoul_family_list', { filter: 'chronicle', id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'ghoul_family' } only %}
           <span class="accent">{{ chronicle.ghoulFamilies|length }}</span>
@@ -111,28 +106,44 @@
     </div>
   </div>
 
-    <div class="block mage row my-2">
-      <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'mage' } %} {{ "mage.label"|trans({}, 'setting') }}</h2>
-      <div class="col-12">
-        <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {type: 'mage', id: chronicle.id })}}">
-          {% include "_icon.html.twig" with {icon: 'type/mage' } only %}
-          <span>{{ "homebrew.mage"|trans({}, 'chronicle')}}</span>
-        </a>
-      </div>
-      <div class="col-12 col-sm-6 col-lg-3">
-        <a class="btn btn-primary w-100 m-2" href="{{path('path_list', {filter: 'chronicle', id: chronicle.id })}}">
-          {% include "_icon.html.twig" with {icon: 'path' } only %}
-          <span class="accent">{{ chronicle.paths|length }}</span>
-          <span>{{ "label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>
-        </a>
-      </div>
-      <div class="col-12 col-sm-6 col-lg-3">
-        <a class="btn btn-primary w-100 m-2" href="{{path('mage_spell_list', {filter: 'chronicle', id: chronicle.id })}}">
-          {% include "_icon.html.twig" with {icon: 'spell' } only %}
-          <span class="accent">{{ chronicle.spells|length }}</span>
-          <span>{{ "label.multi"|trans([], "spell") }}</span>
-        </a>
-      </div>
+  {# Mage #}
+  <div class="block mage row my-2">
+    <h2 class="py-2">{% include "_icon_setting.html.twig" with {setting: 'mage' } %} {{ "mage.label"|trans({}, 'setting') }}</h2>
+    <div class="col-12">
+      <a class="btn btn-primary w-100 m-2" href="{{path('chronicle_rules_set', {type: 'mage', id: chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'type/mage' } only %}
+        <span>{{ "homebrew.mage"|trans({}, 'chronicle')}}</span>
+      </a>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'mage' , id: chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'order' } only %}
+        <span class="accent">{{ chronicle.paths|length }}</span>
+        <span>{{ "order.label.multi"|trans({}, 'organization')}}</span><span class="d-none d-sm-inline"></span>
+      </a>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary w-100 m-2" href="{{path('path_list', {filter: 'chronicle', id: chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'path' } only %}
+        <span class="accent">{{ chronicle.paths|length }}</span>
+        <span>{{ "label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>
+      </a>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary w-100 m-2" href="{{path('mage_legacies_list', {filter: 'chronicle', id: chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+        <span class="accent">{{ chronicle.legacies|length }}</span>
+        <span>{{ "legacy.label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>
+      </a>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <a class="btn btn-primary w-100 m-2" href="{{path('mage_spell_list', {filter: 'chronicle', id: chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'spell' } only %}
+        <span class="accent">{{ chronicle.spells|length }}</span>
+        <span>{{ "label.multi"|trans([], "spell") }}</span>
+      </a>
+    </div>
+  
 
   </div>
 </div>

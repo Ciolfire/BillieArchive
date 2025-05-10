@@ -71,15 +71,25 @@ class ArcanumController extends AbstractController
   #[Route('/wiki/spells', name: 'mage_spell_index')]
   public function indexSpell(): Response
   {
+    $spells = $this->dataService->findBy(MageSpell::class, [], ['name' => 'ASC']);
+
+    usort($spells, function (MageSpell $spell1, MageSpell $spell2) {
+      return ($spell2->getLevel() < $spell1->getLevel()) ? 1 : -1;
+    });
+
     return $this->render('mage/spell/index.html.twig', [
-      'spells' => $this->dataService->findBy(MageSpell::class, [], ['name' => 'ASC']),
+      'spells' => $spells,
     ]);
   }
 
   #[Route("/wiki/spells/list/{filter<\w+>}/{id<\w+>}", name: "mage_spell_list", methods: ["GET"])]
   public function list(?string $filter = null, int|string|null $id = null) : Response
   {
-    $spells = $this->dataService->getList($filter, $id, MageSpell::class, 'getSpells');
+    $spells = $this->dataService->getList($filter, $id, MageSpell::class, 'getSpells')->toArray();
+
+    usort($spells, function (MageSpell $spell1, MageSpell $spell2) {
+      return ($spell2->getLevel() < $spell1->getLevel()) ? 1 : -1;
+    });
 
     return $this->render('mage/spell/index.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
@@ -91,7 +101,7 @@ class ArcanumController extends AbstractController
   }
 
   #[Route('/wiki/spell/{id<\d+>}', name: 'mage_spell_show')]
-  public function showSpell(Request $request, MageSpell $spell): Response
+  public function showSpell(MageSpell $spell): Response
   {
     return $this->render('mage/spell/show.html.twig', [
       'spell' => $spell,

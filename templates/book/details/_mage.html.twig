@@ -8,6 +8,14 @@
     <a href="{{ path('path_list', {filter: "book", id: book.id}) }}">{{ "count"|trans({'%count%': book.paths|length}, 'path') }}</a>
   </div>
 {% endif %}
+{% if book.legacies|length > 0 %}
+  <div class="col-4 text-end">
+    {% include "_icon.html.twig" with {icon: 'legacy'} %}
+  </div>
+  <div class="col-8">
+    <a href="{{ path('mage_legacies_list', {filter: "book", id: book.id}) }}">{{ "legacy.count"|trans({'%count%': book.legacies|length}, 'path') }}</a>
+  </div>
+{% endif %}
 {% if book.spells|length > 0 %}
   <div class="col-4 text-end">
     {% include "_icon.html.twig" with {icon: 'spell'} %}

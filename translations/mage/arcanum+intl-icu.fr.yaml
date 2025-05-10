@@ -7,6 +7,7 @@ add: Ajouter un Arcanum
 inferior: Inférieur
 ruling: Dominant
 common: Commun
+primary: Primaire
 
 max:
   ruling: Max 5

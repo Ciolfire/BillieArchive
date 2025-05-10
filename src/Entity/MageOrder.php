@@ -36,12 +36,19 @@ class MageOrder extends Organization
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $rune = null;
 
+  /**
+   * @var Collection<int, Legacy>
+   */
+  #[ORM\OneToMany(targetEntity: Legacy::class, mappedBy: 'parentOrder')]
+  private Collection $legacies;
+
   public function __construct()
   {
     // $this->merits = new ArrayCollection();
     // $this->discountMerits = new ArrayCollection();
     $this->roteSpecialties = new ArrayCollection();
     $this->rotes = new ArrayCollection();
+    $this->legacies = new ArrayCollection();
   }
 
   public function __toString()
@@ -175,6 +182,36 @@ class MageOrder extends Organization
   public function setRune(?string $rune): static
   {
       $this->rune = $rune;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Legacy>
+   */
+  public function getLegacies(): Collection
+  {
+      return $this->legacies;
+  }
+
+  public function addLegacy(Legacy $legacy): static
+  {
+      if (!$this->legacies->contains($legacy)) {
+          $this->legacies->add($legacy);
+          $legacy->setParentOrder($this);
+      }
+
+      return $this;
+  }
+
+  public function removeLegacy(Legacy $legacy): static
+  {
+      if ($this->legacies->removeElement($legacy)) {
+          // set the owning side to null (unless already changed)
+          if ($legacy->getParentOrder() === $this) {
+              $legacy->setParentOrder(null);
+          }
+      }
 
       return $this;
   }

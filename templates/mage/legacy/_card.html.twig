@@ -1,0 +1,62 @@
+{% trans_default_domain 'path' %}
+
+{% if isShown|default(false) == true %}
+  {% set collapse = "" %}
+{% else %}
+  {% set collapse = "collapse" %}
+{% endif %}
+
+<div id="{{ legacy.name }}" class="col-12" data-search-target="item" data-name="{{ legacy.name }}">
+  <div class="path-card position-relative">
+    {% if is_granted('ROLE_ST') %}
+      <a class="position-absolute end-0" href="{{ path('mage_legacy_edit', {id: legacy.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    {# Header #}
+    <blockquote class="text-center mb-2 legacy-card-header">
+      <h3>
+        {{ legacy.name }}
+        {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+      </h3>
+      <h5>{{ legacy.nickname }}</h5>
+      {{ legacy.quote }}
+    </blockquote>
+    {# Body #}
+    {% if legacy.emblem is not null %}
+      <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="400"/>
+    {% endif %}
+    <div class="row text-strong">
+      <div class="col-12 text-center">
+        {% include "_icon.html.twig" with {icon: 'arcanum' } %}
+      </div>
+      <div class="col-12 pb-2 text-center">
+        <div class="text-strong mb-0">{{ "primary"|trans([], 'arcanum') }}</div>
+          <a href="{{ path('arcanum_show', {id: legacy.arcanum.id}) }}">{{ legacy.arcanum.name }}</a>
+      </div>
+      <div class="col-12 pb-2 text-center">{{ "legacy.attainment.label.multi"|trans([], 'path') }}</div>
+      {% for attainment in legacy.attainments %}
+        <div class="col text-center">{{ attainment.name }}</div>
+      {% endfor %}
+    </div>
+    <div class="legacy-{{ legacy.id }} path-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".legacy-{{ legacy.id }}" aria-expanded="false" aria-controls="{{ legacy.id }}">
+      <h5>{{ "description"|trans([], 'app') }}</h5>
+      <div>{{ legacy.description|default("")|markdown_to_html }}</div>
+    </div>
+    {% if isShown|default(false) != true %}
+      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".legacy-{{ legacy.id }}" aria-expanded="false" aria-controls="{{ legacy.id }}">
+        <span class="fa-layers fa-fw">
+          <i class="fa-solid fa-circle"></i>
+          <span class="ok legacy-{{ legacy.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+          <span class="ok legacy-{{ legacy.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+        </span>
+      </div>
+    {% endif %}
+    {# Footer #}
+    <div class="legacy-{{ legacy.id }} {{ collapse }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".legacy-{{ legacy.id }}" aria-expanded="false" aria-controls="{{ legacy.id }}">
+      <div class="back-fluff legacy-card-footer">{{ legacy.short|default("")|markdown_to_html }}
+        <div class="text-end">
+          {% include "_source.html.twig" with {element: legacy } only %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
