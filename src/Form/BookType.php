@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BookType extends AbstractType
@@ -43,7 +43,7 @@ class BookType extends AbstractType
         'choice_translation_domain' => 'setting',
       ])
       ->add('type', null, ['label' => "category.label.single", "translation_domain" => "app"])
-      ->add('description', RichTextEditorType::class, ['empty_data' => '', 'data' => $description, 'label' => false])
+      ->add('description', RichTextEditorForm::class, ['empty_data' => '', 'data' => $description, 'label' => false])
       ->add('releasedAt', DateType::class, [
         'label' => 'release',
         'input' => 'datetime_immutable',

@@ -3,13 +3,13 @@
 namespace App\Form\Mage;
 
 use App\Entity\Path;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class PathForm extends AbstractType
@@ -31,7 +31,7 @@ class PathForm extends AbstractType
     $builder
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
       ->add('title', null, ['label' => "title", 'translation_domain' => "app"])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Path::class,
         'label' => 'source.label',
         'translation_domain' => "book",
@@ -58,7 +58,7 @@ class PathForm extends AbstractType
         'required' => false,
       ])
       ->add('short', null, ['label' => "short", 'translation_domain' => "app"])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $path->getDescription(), 
         'label' => "description",

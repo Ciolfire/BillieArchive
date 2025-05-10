@@ -6,9 +6,9 @@ use App\Entity\Attribute;
 use App\Entity\Devotion;
 use App\Entity\Skill;
 use App\Form\PrerequisiteType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +33,7 @@ class DevotionType extends AbstractType
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => 'app'])
       ->add('cost', null, ['label' => 'cost', 'translation_domain' => 'app'])
-      ->add('description', RichTextEditorType::class, ['label' => false, 'empty_data' => '', 'data' => $devotion->getDescription()])
+      ->add('description', RichTextEditorForm::class, ['label' => false, 'empty_data' => '', 'data' => $devotion->getDescription()])
       ->add('short', null, [
         'label' => 'short',
         'translation_domain' => "app",
@@ -81,7 +81,7 @@ class DevotionType extends AbstractType
       ])
       ->add('contestedText', null, ['label' => 'contested.text', 'attr' => ['placeholder' => 'contested.placeholder']])
       ->add('usePotency', null, ['label' => 'potency'])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Devotion::class,
         'label' => 'source.label',
       ])

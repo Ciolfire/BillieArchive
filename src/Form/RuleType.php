@@ -4,14 +4,14 @@ namespace App\Form;
 
 use App\Entity\Rule;
 use App\Entity\Types\SettingType;
-use App\Form\Type\ContentTypeType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\ContentTypeForm;
+use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -35,8 +35,8 @@ class RuleType extends AbstractType
 
     $builder
       ->add('title', null, ['label' => 'title'])
-      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
-      ->add('type', ContentTypeType::class, [
+      ->add('details', RichTextEditorForm::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
+      ->add('type', ContentTypeForm::class, [
         'data_class' => Rule::class,
         'label' => false,
       ])
@@ -48,7 +48,7 @@ class RuleType extends AbstractType
           return $er->createQueryBuilder('r')->where('r.parentRule IS NULL')->orderBy('r.title', 'ASC');
         }
       ],)
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Rule::class,
         'label' => 'source.label',
       ])

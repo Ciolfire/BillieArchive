@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Item;
-use App\Form\Type\SourceableType;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\SourceableForm;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,7 +24,7 @@ class ItemType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => 'name',])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Item::class,
         'label' => 'source.label',
         ])
@@ -57,7 +57,7 @@ class ItemType extends AbstractType
         'multiple' => true,
         'expanded' => true,
         ])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'label' => 'description',
         'empty_data' => '',
         'data' => $item->getDescription(),

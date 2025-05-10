@@ -5,8 +5,8 @@ namespace App\Form\Lesser;
 use App\Entity\BodyThiefSociety;
 use App\Entity\Types\BodyThiefTalent;
 use Doctrine\ORM\EntityRepository;
-use App\Form\Type\RichTextEditorType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\RichTextEditorForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,22 +29,22 @@ class BodyThiefSocietyForm extends AbstractType
           return "talent.{$choice->name}";
         }
       ])
-      ->add('advantage', RichTextEditorType::class, [
+      ->add('advantage', RichTextEditorForm::class, [
         'label' => 'society.advantage.label',
         'help' => 'society.advantage.help',
         'empty_data' => "",
       ])
-      ->add('weakness', RichTextEditorType::class, [
+      ->add('weakness', RichTextEditorForm::class, [
         'label' => 'society.weakness.label',
         'help' => 'society.weakness.help',
         'empty_data' => "",
       ])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'label' => 'description',
         'translation_domain' => 'app',
         'empty_data' => "",
       ])
-      ->add('creation', RichTextEditorType::class, [
+      ->add('creation', RichTextEditorForm::class, [
         'label' => 'society.creation',
         'empty_data' => "",
       ])
@@ -58,7 +58,7 @@ class BodyThiefSocietyForm extends AbstractType
           return $er->queryfindByType('body_thief');
         },
       ])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => BodyThiefSocietyForm::class,
         'label' => 'source.label',
       ])

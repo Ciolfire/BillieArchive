@@ -4,12 +4,12 @@ namespace App\Form;
 
 use App\Entity\Chronicle;
 use App\Entity\Note;
-use App\Form\Type\ExpandedEntityType;
+use App\Form\Type\ExpandedEntityForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -36,7 +36,7 @@ class NoteType extends AbstractType
         // 'data' => $date,
         'label' => 'date',
       ))
-      ->add('content', RichTextEditorType::class, [
+      ->add('content', RichTextEditorForm::class, [
         'label' => 'content',
         'empty_data' => '',
         'data' => $note->getContent()]
@@ -72,7 +72,7 @@ class NoteType extends AbstractType
         'label_attr' => ['class' => 'text me-2 form-choice-width text-truncate'],
         'label_html' => true,
       ])
-      ->add('notes', ExpandedEntityType::class, [
+      ->add('notes', ExpandedEntityForm::class, [
         'class' => Note::class,
         'label' => 'links',
         'expanded' => true,

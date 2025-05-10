@@ -6,7 +6,7 @@ use App\Entity\Vice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 
 class ViceType extends AbstractType
@@ -18,7 +18,7 @@ class ViceType extends AbstractType
     
     $builder
       ->add('name', null, ['label' => 'name'])
-      ->add('details', RichTextEditorType::class, ['label' => 'description.fluff', 'data' => $vice->getDetails()]);
+      ->add('details', RichTextEditorForm::class, ['label' => 'description.fluff', 'data' => $vice->getDetails()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

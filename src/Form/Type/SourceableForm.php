@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class SourceableType  extends AbstractType
+class SourceableForm  extends AbstractType
 {
   public TranslatorInterface $translator;
 

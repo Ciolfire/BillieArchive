@@ -6,7 +6,7 @@ use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Organization;
 use App\Form\CharacterSpecialtyType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -131,7 +131,7 @@ class CharacterType extends AbstractType
       ]);
     }
     if ($character->isPremade()) {
-      $builder->add('source', SourceableType::class,[
+      $builder->add('source', SourceableForm::class,[
         'data_class' => Character::class,
         'label' => 'source.label',
         'isHomebrewable' => false,

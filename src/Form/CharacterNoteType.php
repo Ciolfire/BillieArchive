@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 
 class CharacterNoteType extends AbstractType
@@ -33,7 +33,7 @@ class CharacterNoteType extends AbstractType
       'data' => $date,
       'label' => 'date',
     ))
-    ->add('content', RichTextEditorType::class, [
+    ->add('content', RichTextEditorForm::class, [
       'label' => 'content',
       'empty_data' => '',
       'data' => $note->getContent()]

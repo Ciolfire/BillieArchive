@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Items\Equipment;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +33,7 @@ class EquipmentType extends ItemType
             'quality.surnatural' => array_combine(range(6, 10), range(6, 10)),
         ],
       ])
-      ->add('functionality', RichTextEditorType::class, [
+      ->add('functionality', RichTextEditorForm::class, [
         'label' => 'functionality.label',
         'empty_data' => '',
         'data' => $item->getFunctionality(),

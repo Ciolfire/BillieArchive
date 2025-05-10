@@ -5,13 +5,13 @@ namespace App\Form;
 use App\Entity\Book;
 use App\Entity\Chronicle;
 use App\Entity\Organization;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Dropzone\Form\DropzoneType;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 class OrganizationType extends AbstractType
 {
@@ -30,14 +30,14 @@ class OrganizationType extends AbstractType
 
     if ($item instanceof Book) {
       $organization->setBook($item);
-      $builder->add('source', SourceableType::class, [
+      $builder->add('source', SourceableForm::class, [
         'data_class' => Organization::class,
         'label' => 'source.label',
       ]);
     } else if ($item instanceof Chronicle) {
       $organization->setHomebrewFor($item);
     } else {
-      $builder->add('source', SourceableType::class, [
+      $builder->add('source', SourceableForm::class, [
         'data_class' => Organization::class,
         'label' => 'source.label',
       ]);
@@ -56,7 +56,7 @@ class OrganizationType extends AbstractType
         'required' => false,
       ])
       ->add('short')
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
@@ -64,7 +64,7 @@ class OrganizationType extends AbstractType
         'empty_data' => '',
         'data' => $organization->getDescription(),
       ])
-      ->add('overview', RichTextEditorType::class, [
+      ->add('overview', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
@@ -72,7 +72,7 @@ class OrganizationType extends AbstractType
         'empty_data' => '',
         'data' => $organization->getOverview(),
       ])
-      ->add('members', RichTextEditorType::class, [
+      ->add('members', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
@@ -80,7 +80,7 @@ class OrganizationType extends AbstractType
         'empty_data' => '',
         'data' => $organization->getMembers(),
       ])
-      ->add('philosophy', RichTextEditorType::class, [
+      ->add('philosophy', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
@@ -88,7 +88,7 @@ class OrganizationType extends AbstractType
         'empty_data' => '',
         'data' => $organization->getPhilosophy(),
       ])
-      ->add('observances', RichTextEditorType::class, [
+      ->add('observances', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],
@@ -96,7 +96,7 @@ class OrganizationType extends AbstractType
         'empty_data' => '',
         'data' => $organization->getObservances(),
       ])
-      ->add('titles', RichTextEditorType::class, [
+      ->add('titles', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',
         ],

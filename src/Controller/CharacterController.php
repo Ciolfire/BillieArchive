@@ -20,7 +20,7 @@ use App\Form\CharacterInfoAccessType;
 use App\Form\CharacterNoteType;
 use App\Form\CharacterType;
 use App\Form\LesserTemplateType;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
 use App\Service\CreationService;
@@ -577,7 +577,7 @@ class CharacterController extends AbstractController
     $set = "set".$name;
 
     $form = $this->createFormBuilder()
-      ->add($type, RichTextEditorType::class, [
+      ->add($type, RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $character->$get(),
         'label' => "$type.label",

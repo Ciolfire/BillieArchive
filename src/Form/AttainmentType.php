@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Attainment;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ class AttainmentType extends AbstractType
     $builder
       ->add('name')
       ->add('level')
-      ->add('description', RichTextEditorType::class)
+      ->add('description', RichTextEditorForm::class)
       ->add('remove', ButtonType::class, [
         'attr' => [
           'data-action' => 'form-collection#removeCollectionElement',

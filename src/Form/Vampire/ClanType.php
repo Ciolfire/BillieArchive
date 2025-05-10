@@ -4,7 +4,7 @@ namespace App\Form\Vampire;
 
 use App\Entity\Attribute;
 use App\Entity\Clan;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 
 class ClanType extends AbstractType
@@ -34,7 +34,7 @@ class ClanType extends AbstractType
     $builder
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
       ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Clan::class,
         'label' => 'source.label',
         'translation_domain' => "book"
@@ -53,7 +53,7 @@ class ClanType extends AbstractType
           ])
         ],
       ])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $clan->getDescription(), 
         'label' => "description",
@@ -80,7 +80,7 @@ class ClanType extends AbstractType
       }
       $builder->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
       ->add('short', null, ['label' => "short", 'translation_domain' => "app",])
-      ->add('weakness', RichTextEditorType::class, [
+      ->add('weakness', RichTextEditorForm::class, [
         'label' => 'weakness',
         'empty_data' => '',
         'data' => $clan->getWeakness()

@@ -3,13 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Derangement;
-use App\Form\Type\ContentTypeType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\ContentTypeForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DerangementType extends AbstractType
@@ -31,11 +31,11 @@ class DerangementType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => 'label.single'])
-      ->add('type', ContentTypeType::class, [
+      ->add('type', ContentTypeForm::class, [
         'data_class' => Derangement::class,
         'label' => false,
       ])
-      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
+      ->add('details', RichTextEditorForm::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
       ->add('isExtreme', null, ['label' => 'extreme', 'help' => 'help.extreme'])
       ->add('previousAilment', null, [
         'label' => 'previous',
@@ -51,7 +51,7 @@ class DerangementType extends AbstractType
           return $derangement->getName();
         },
       ])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Derangement::class,
         'label' => 'source.label',
       ])

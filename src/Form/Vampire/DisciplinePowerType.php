@@ -7,12 +7,12 @@ use App\Entity\Discipline;
 use App\Entity\DisciplinePower;
 use App\Entity\Skill;
 use App\Form\StatusEffectType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -38,9 +38,9 @@ class DisciplinePowerType extends AbstractType
     $builder
       ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
       ->add('short', null, ['empty_data' => '', 'label' => 'short.label'])
-      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $power->getDetails(), 'label' => false])
+      ->add('details', RichTextEditorForm::class, ['empty_data' => '', 'data' => $power->getDetails(), 'label' => false])
       ->add('level', null, ['label' => 'level', 'translation_domain' => "app"])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => DisciplinePower::class,
         'label' => 'source.label',
         'translation_domain' => "book",

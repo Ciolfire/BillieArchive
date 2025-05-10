@@ -3,14 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Description;
-use App\Form\Type\ContentTypeType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\ContentTypeForm;
+use App\Form\Type\SourceableForm;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
@@ -23,7 +23,7 @@ class DescriptionType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => 'title'])
-      ->add('value', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getValue(), 'label' => false])
+      ->add('value', RichTextEditorForm::class, ['empty_data' => '', 'data' => $element->getValue(), 'label' => false])
       ;
   }
 

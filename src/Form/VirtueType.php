@@ -6,7 +6,7 @@ use App\Entity\Virtue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 
 class VirtueType extends AbstractType
@@ -18,7 +18,7 @@ class VirtueType extends AbstractType
     
     $builder
       ->add('name', null, ['label' => 'name'])
-      ->add('details', RichTextEditorType::class, ['label' => 'description.fluff', 'data' => $virtue->getDetails()]);
+      ->add('details', RichTextEditorForm::class, ['label' => 'description.fluff', 'data' => $virtue->getDetails()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -4,8 +4,8 @@ namespace App\Form\Mage;
 
 use App\Entity\MageSpell;
 use App\Form\MageSpellArcanumForm;
-use App\Form\Type\RichTextEditorType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\RichTextEditorForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -44,7 +44,7 @@ class MageSpellForm extends AbstractType
       'help' => "help.short",
       'translation_domain' => "app",
     ])
-    ->add('description', RichTextEditorType::class, [
+    ->add('description', RichTextEditorForm::class, [
       'label' => false,
       'help' => "help.description",
       'empty_data' => "",
@@ -86,7 +86,7 @@ class MageSpellForm extends AbstractType
       'label' => "cost",
       'help' => "help.cost",
     ])
-    ->add('rules', RichTextEditorType::class, [
+    ->add('rules', RichTextEditorForm::class, [
       'empty_data' => '',
       'label' => false,
       'help' => "help.rules",
@@ -101,7 +101,7 @@ class MageSpellForm extends AbstractType
         return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
       },
     ])
-    ->add('source', SourceableType::class, [
+    ->add('source', SourceableForm::class, [
       'data_class' => MageSpell::class,
       'label' => "source.label",
       'translation_domain' => "book",

@@ -6,7 +6,7 @@ use App\Entity\Attribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 class AttributeType extends AbstractType
 {
@@ -21,11 +21,11 @@ class AttributeType extends AbstractType
       // ->add('category')
       // ->add('type')
       ->add('name')
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $attribute->getDescription()
       ])
-      ->add('fluff', RichTextEditorType::class, ['data' => $attribute->getFluff()]);
+      ->add('fluff', RichTextEditorForm::class, ['data' => $attribute->getFluff()]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

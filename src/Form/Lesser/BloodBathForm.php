@@ -3,7 +3,7 @@
 namespace App\Form\Lesser;
 
 use App\Entity\BloodBath;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +14,7 @@ class BloodBathForm extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'label' => false,
         'help' => 'bath.description.help',
         'empty_data' => "",

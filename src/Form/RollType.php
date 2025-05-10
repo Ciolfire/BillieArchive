@@ -5,13 +5,13 @@ namespace App\Form;
 use App\Entity\Attribute;
 use App\Entity\Roll;
 use App\Entity\Skill;
-use App\Form\Type\ContentTypeType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\ContentTypeForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -43,11 +43,11 @@ class RollType extends AbstractType
           'roll.action.reflexive' => 2,
         ]
       ])
-      ->add('details', RichTextEditorType::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
+      ->add('details', RichTextEditorForm::class, ['empty_data' => '', 'data' => $element->getDetails(), 'label' => false])
       ->add('isContested', null, ['label' => "roll.action.contested"])
       ->add('contestedText', null, ['label' => "roll.action.text"])
       ->add('isImportant', null, ['label' => "important"])
-      ->add('type', ContentTypeType::class, [
+      ->add('type', ContentTypeForm::class, [
         'data_class' => Roll::class,
         'label' => false,
       ])
@@ -70,7 +70,7 @@ class RollType extends AbstractType
           return $this->translator->trans("category.{$choice->getCategory()}", [], 'app');
         },
       ])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Roll::class,
         'label' => 'source.label',
       ])

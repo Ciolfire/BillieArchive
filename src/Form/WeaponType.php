@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Items\Weapon;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,7 +29,7 @@ class WeaponType extends ItemType
       ->add('damage', null, [
         'label' => 'damage.label',
       ])
-      ->add('special', RichTextEditorType::class, [
+      ->add('special', RichTextEditorForm::class, [
         'label' => 'special.label',
         'empty_data' => '',
         'data' => $item->getSpecial(),

@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\Merit;
 use App\Entity\Roll;
-use App\Form\Type\ContentTypeType;
-use App\Form\Type\SourceableType;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\ContentTypeForm;
+use App\Form\Type\SourceableForm;
+use App\Form\Type\RichTextEditorForm;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,11 +36,11 @@ class MeritType extends AbstractType
       ->add('name', null, ['label' => "label.single"])
       ->add('min', null, ['label' => "min"])
       ->add('max', null, ['label' => "max"])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => Merit::class,
         'label' => 'source.label',
       ])
-      ->add('type', ContentTypeType::class, [
+      ->add('type', ContentTypeForm::class, [
         'data_class' => Merit::class,
       ])
       ->add('category', ChoiceType::class, [
@@ -55,7 +55,7 @@ class MeritType extends AbstractType
         ],
       ])
       ->add('description', null, ['label' => 'description', 'help' => 'help.description', 'required' => true, 'empty_data' => ""])
-      ->add('effect', RichTextEditorType::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
+      ->add('effect', RichTextEditorForm::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
       ->add('roll', RollableType::class, ['required' => false])
       ->add('isCreationOnly', null, ['label' => "creation", 'help' => "help.creation"])
       ->add('isUnique', null, ['label' => "unique", 'help' => "help.unique"])

@@ -8,14 +8,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RadiobuttonType;
+use App\Form\Type\RadiobuttonForm;
 
 class AwakeningForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-    ->add('path', RadiobuttonType::class, [
+    ->add('path', RadiobuttonForm::class, [
       'choices' => $options['paths'],
       'choice_label' => 'name',
       'choice_attr' => function(Path $path) {
@@ -40,7 +40,7 @@ class AwakeningForm extends AbstractType
         ];
       }
     ])
-    ->add('order', RadiobuttonType::class, [
+    ->add('order', RadiobuttonForm::class, [
       'empty_data' => null,
       'required' => false,
       'placeholder' => null,

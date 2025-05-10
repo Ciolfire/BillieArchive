@@ -3,8 +3,8 @@
 namespace App\Form\Mage;
 
 use App\Entity\Arcanum;
-use App\Form\Type\RichTextEditorType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\RichTextEditorForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +15,10 @@ class ArcanumForm extends AbstractType
     {
         $builder
             ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
-            ->add('purview', RichTextEditorType::class, ['label' => "purview", 'empty_data' => ""])
-            ->add('realm', RichTextEditorType::class, ['label' => "realm", 'empty_data' => ""])
+            ->add('purview', RichTextEditorForm::class, ['label' => "purview", 'empty_data' => ""])
+            ->add('realm', RichTextEditorForm::class, ['label' => "realm", 'empty_data' => ""])
             ->add('short', null, ['label' => "short", 'translation_domain' => "app"])
-            ->add('source', SourceableType::class, [
+            ->add('source', SourceableForm::class, [
               'data_class' => Arcanum::class,
               'label' => 'source.label',
               'isHomebrewable' => false,

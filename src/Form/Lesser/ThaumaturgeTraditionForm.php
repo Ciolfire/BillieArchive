@@ -4,8 +4,8 @@ namespace App\Form\Lesser;
 
 use Doctrine\ORM\EntityRepository;
 use App\Entity\ThaumaturgeTradition;
-use App\Form\Type\RichTextEditorType;
-use App\Form\Type\SourceableType;
+use App\Form\Type\RichTextEditorForm;
+use App\Form\Type\SourceableForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,22 +23,22 @@ class ThaumaturgeTraditionForm extends AbstractType
         'label' => 'quote',
         'translation_domain' => 'app',
         ])
-      ->add('strengths', RichTextEditorType::class, [
+      ->add('strengths', RichTextEditorForm::class, [
         'label' => 'tradition.strengths',
         'help' => 'tradition.help.strengths',
         'empty_data' => "",
       ])
-      ->add('weaknesses', RichTextEditorType::class, [
+      ->add('weaknesses', RichTextEditorForm::class, [
         'label' => 'tradition.weaknesses',
         'help' => 'tradition.help.weaknesses',
         'empty_data' => "",
       ])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'label' => 'description',
         'translation_domain' => 'app',
         'empty_data' => "",
       ])
-      ->add('creation', RichTextEditorType::class, [
+      ->add('creation', RichTextEditorForm::class, [
         'label' => 'tradition.creation',
         'empty_data' => "",
       ])
@@ -61,7 +61,7 @@ class ThaumaturgeTraditionForm extends AbstractType
           return $er->queryfindByType('thaumaturge');
         },
       ])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => ThaumaturgeTraditionForm::class,
         'label' => 'source.label',
       ])

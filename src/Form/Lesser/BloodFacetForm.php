@@ -3,7 +3,7 @@
 namespace App\Form\Lesser;
 
 use App\Entity\BloodBathFacet;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -46,7 +46,7 @@ class BloodFacetForm extends AbstractType
           'class' => "d-none",
         ]
       ])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'attr' => [
           'data-bloodbather--bath-target' => "description",
           'data-rich-preview-style' => 'tab'

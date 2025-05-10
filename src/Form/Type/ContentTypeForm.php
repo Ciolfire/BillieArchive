@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class ContentTypeType extends AbstractType
+class ContentTypeForm extends AbstractType
 {
   public TranslatorInterface $translator;
 

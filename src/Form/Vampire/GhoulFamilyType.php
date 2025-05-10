@@ -4,14 +4,14 @@ namespace App\Form\Vampire;
 
 use App\Entity\Clan;
 use App\Entity\GhoulFamily;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-use App\Form\Type\RichTextEditorType;
+use App\Form\Type\RichTextEditorForm;
 
 
 class GhoulFamilyType extends AbstractType
@@ -31,7 +31,7 @@ class GhoulFamilyType extends AbstractType
 
     $builder
       ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => GhoulFamily::class,
         'label' => 'source.label',
       ])
@@ -58,18 +58,18 @@ class GhoulFamilyType extends AbstractType
         }
       ])
       ->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
-      ->add('description', RichTextEditorType::class, [
+      ->add('description', RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $family->getDescription(),
         'label' => "description",
         'translation_domain' => 'app',
       ])
-      ->add('strength', RichTextEditorType::class, [
+      ->add('strength', RichTextEditorForm::class, [
         'label' => 'family.strength',
         'empty_data' => '',
         'data' => $family->getWeakness()
       ])
-      ->add('weakness', RichTextEditorType::class, [
+      ->add('weakness', RichTextEditorForm::class, [
         'label' => 'family.weakness',
         'empty_data' => '',
         'data' => $family->getWeakness()

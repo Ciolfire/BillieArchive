@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\MageOrder;
 use App\Entity\SpellRote;
-use App\Form\Type\SourceableType;
+use App\Form\Type\SourceableForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ class SpellRoteType extends AbstractType
         'choice_label' => "name",
         'required' => false,
       ])
-      ->add('source', SourceableType::class, [
+      ->add('source', SourceableForm::class, [
         'data_class' => SpellRote::class,
         'label' => "source.label",
         'translation_domain' => "book",
