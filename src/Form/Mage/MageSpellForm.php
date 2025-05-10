@@ -3,7 +3,7 @@
 namespace App\Form\Mage;
 
 use App\Entity\MageSpell;
-use App\Form\MageSpellArcanumType;
+use App\Form\MageSpellArcanumForm;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SourceableType;
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MageSpellType extends AbstractType
+class MageSpellForm extends AbstractType
 {
   public TranslatorInterface $translator;
 
@@ -29,7 +29,7 @@ class MageSpellType extends AbstractType
     $builder
     ->add('arcana', CollectionType::class, [
       'label' => false,
-      'entry_type' => MageSpellArcanumType::class,
+      'entry_type' => MageSpellArcanumForm::class,
       'entry_options' => [
         'label' => false, 
       ],

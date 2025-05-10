@@ -7,7 +7,7 @@ use App\Form\CharacterType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MageType extends CharacterType
+class MageForm extends CharacterType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {

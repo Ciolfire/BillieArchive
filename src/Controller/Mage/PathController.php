@@ -8,7 +8,7 @@ use App\Entity\Path;
 use App\Entity\Description;
 use App\Entity\Legacy;
 use App\Form\LegacyType;
-use App\Form\Mage\PathType;
+use App\Form\Mage\PathForm;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,7 +67,7 @@ class PathController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     $path = new Path($this->dataService->getItem($request->get('filter'), $request->get('id')));
-    $form = $this->createForm(PathType::class, $path);
+    $form = $this->createForm(PathForm::class, $path);
 
     $form->handleRequest($request);
 
@@ -100,7 +100,7 @@ class PathController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $form = $this->createForm(PathType::class, $path);
+    $form = $this->createForm(PathForm::class, $path);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

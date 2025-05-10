@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Form\Type\RadiobuttonType;
 
-class AwakeningType extends AbstractType
+class AwakeningForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {

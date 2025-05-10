@@ -9,8 +9,8 @@ use App\Entity\Description;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
 use App\Entity\SpellRote;
-use App\Form\Mage\ArcanumType;
-use App\Form\Mage\MageSpellType;
+use App\Form\Mage\ArcanumForm;
+use App\Form\Mage\MageSpellForm;
 use App\Form\SpellRoteType;
 use App\Service\DataService;
 use App\Service\MageService;
@@ -50,7 +50,7 @@ class ArcanumController extends AbstractController
   #[Route('/arcanum/{id<\d+>}/edit', name: 'mage_arcanum_edit', methods:["GET", "POST"])]
   public function edit(Request $request, Arcanum $arcanum): Response
   {
-    $form = $this->createForm(ArcanumType::class, $arcanum);
+    $form = $this->createForm(ArcanumForm::class, $arcanum);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -116,7 +116,7 @@ class ArcanumController extends AbstractController
     
     $spell = new MageSpell($this->dataService->getItem($request->get('filter'), $request->get('id')));
     new MageSpellArcanum($spell);
-    $form = $this->createForm(MageSpellType::class, $spell);
+    $form = $this->createForm(MageSpellForm::class, $spell);
     
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -135,7 +135,7 @@ class ArcanumController extends AbstractController
   #[Route('/spell/{id<\d+>}/edit', name: 'mage_spell_edit', methods:["GET", "POST"])]
   public function editSpell(Request $request, MageSpell $spell): Response
   {
-    $form = $this->createForm(MageSpellType::class, $spell);
+    $form = $this->createForm(MageSpellForm::class, $spell);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

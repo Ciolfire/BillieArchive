@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Form\Mage\MageOrderType;
+use App\Form\Mage\MageOrderForm;
 use App\Repository\MageOrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -63,7 +63,7 @@ class MageOrder extends Organization
 
   static public function getForm(): string
   {
-    return MageOrderType::class;
+    return MageOrderForm::class;
   }
 
   // /**

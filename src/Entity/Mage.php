@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\MageRepository;
-use App\Form\Mage\MageType;
+use App\Form\Mage\MageForm;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
@@ -66,7 +66,7 @@ class Mage extends Character
 
   public function getForm(): string
   {
-    return MageType::class;
+    return MageForm::class;
   }
 
   public function setPowerRating(): self

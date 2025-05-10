@@ -9,7 +9,7 @@ use App\Entity\Character;
 use App\Entity\Mage;
 use App\Entity\MageOrder;
 use App\Entity\Path;
-use App\Form\Mage\AwakeningType;
+use App\Form\Mage\AwakeningForm;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +41,7 @@ final class MageController extends AbstractController
     $paths = $this->dataService->findAll(Path::class);
     $orders = $this->dataService->findAll(MageOrder::class);
     $arcana = $this->dataService->findBy(Arcanum::class, [], ['name' => 'ASC']);
-    $form = $this->createForm(AwakeningType::class, null, ['paths' => $paths, 'orders' => $orders]);
+    $form = $this->createForm(AwakeningForm::class, null, ['paths' => $paths, 'orders' => $orders]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

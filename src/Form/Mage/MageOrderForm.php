@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
-class MageOrderType extends OrganizationType
+class MageOrderForm extends OrganizationType
 {
   public TranslatorInterface $translator;
 

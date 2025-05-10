@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\Type\RichTextEditorType;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
-class PathType extends AbstractType
+class PathForm extends AbstractType
 {
   public TranslatorInterface $translator;
 
