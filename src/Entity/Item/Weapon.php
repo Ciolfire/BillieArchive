@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Items;
+namespace App\Entity\Item;
 
 use App\Entity\Item;
-use App\Form\WeaponForm;
+use App\Form\Item\WeaponForm;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

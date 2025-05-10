@@ -18,11 +18,14 @@ export default class extends Controller {
   static values = {
     path: Number,
     rulingArcana: Array,
-    inferiorArcanum: Number
+    inferiorArcanum: Number,
   }
 
 
   connect() {
+    let orderNull = document.getElementsByClassName("awakening_form[order]-null")[0];
+    orderNull.checked = true;
+    orderNull.dataset.action = "click->character--awakening#orderUnpicked";
     this.pathTargets.forEach(path => {
       if (path.previousSibling.checked) {
         path.dispatchEvent(new Event("click"));
@@ -111,9 +114,9 @@ export default class extends Controller {
   }
 
   orderUnpicked(event) {
-    event.currentTarget.parentElement.classList.add('d-none');
-    this.orderTargets.forEach(element => {
-      document.getElementById(element.attributes.for.textContent).checked = false;
+    document.getElementsByClassName("awakening_form[order]-null")[0].checked = true;
+    this.orderDescriptionTargets.forEach(element => {
+      element.classList.add('d-none');
     });
   }
 

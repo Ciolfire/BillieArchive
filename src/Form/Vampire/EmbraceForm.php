@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use App\Form\Type\RadiobuttonForm;
+use App\Form\Type\RadiobuttonType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmbraceForm extends AbstractType
@@ -28,7 +28,7 @@ class EmbraceForm extends AbstractType
       'translation_domain' => 'vampire',
       'required' => false,
     ])
-    ->add('clan', RadiobuttonForm::class, [
+    ->add('clan', RadiobuttonType::class, [
       'choices' => $options['clans'],
       'choice_label' => 'name',
       'choice_attr' => function(Clan $clan) {
@@ -60,7 +60,7 @@ class EmbraceForm extends AbstractType
         ];
       }
     ])
-    ->add('attribute', RadiobuttonForm::class, [
+    ->add('attribute', RadiobuttonType::class, [
       'required' => true,
       'choices' => $options['attributes'],
       'choice_label' => 'name',
@@ -71,7 +71,7 @@ class EmbraceForm extends AbstractType
         ];
       }
     ])
-    ->add('covenant', RadiobuttonForm::class, [
+    ->add('covenant', RadiobuttonType::class, [
       'empty_data' => null,
       'required' => false,
       'placeholder' => null,

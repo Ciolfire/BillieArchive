@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Item;
 
-use App\Entity\Items\Vehicle;
+use App\Entity\Item\RangedWeapon;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
-class VehicleForm extends ItemForm
+class RangedWeaponForm extends WeaponForm
 {
   public TranslatorInterface $translator;
 
@@ -20,21 +20,19 @@ class VehicleForm extends ItemForm
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     parent::buildForm($builder, $options);
-    
+
+    /** @var RangedWeapon $item */
     $item = $options['data'];
 
     $builder
-      ->add('handling', null, [
-        'label' => 'handling.label',
-      ])
-      ->add('acceleration', null, [
-        'label' => 'acceleration.label',
+      ->add('ranges', null, [
+        'label' => 'ranges.label',
         ])
-      ->add('safeSpeed', null, [
-        'label' => 'safeSpeed.label',
+      ->add('clip', null, [
+        'label' => 'clip.label',
         ])
-      ->add('maxSpeed', null, [
-        'label' => 'maxSpeed.label',
+      ->add('strength', null, [
+        'label' => 'strength.label',
         ])
       ;
   }
@@ -42,7 +40,7 @@ class VehicleForm extends ItemForm
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      'data_class' => Vehicle::class,
+      'data_class' => RangedWeapon::class,
       'translation_domain' => 'item',
     ]);
   }

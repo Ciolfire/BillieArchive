@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Chronicle;
 use App\Entity\Note;
-use App\Form\Type\ExpandedEntityForm;
+use App\Form\Type\ExpandedEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -72,7 +72,7 @@ class NoteForm extends AbstractType
         'label_attr' => ['class' => 'text me-2 form-choice-width text-truncate'],
         'label_html' => true,
       ])
-      ->add('notes', ExpandedEntityForm::class, [
+      ->add('notes', ExpandedEntityType::class, [
         'class' => Note::class,
         'label' => 'links',
         'expanded' => true,

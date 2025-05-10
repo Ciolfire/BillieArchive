@@ -6,7 +6,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ExpandedEntityForm extends AbstractType
+class ExpandedEntityType extends AbstractType
 {
   public function configureOptions(OptionsResolver $resolver): void
   {

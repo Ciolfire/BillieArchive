@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Item;
 
-use App\Entity\Items\Weapon;
-use App\Form\Type\RichTextEditorForm;
+use App\Entity\Item\Vehicle;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
-class WeaponForm extends ItemForm
+class VehicleForm extends ItemForm
 {
   public TranslatorInterface $translator;
 
@@ -21,18 +20,21 @@ class WeaponForm extends ItemForm
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     parent::buildForm($builder, $options);
-
-    /** @var Weapon $item */
+    
     $item = $options['data'];
 
     $builder
-      ->add('damage', null, [
-        'label' => 'damage.label',
+      ->add('handling', null, [
+        'label' => 'handling.label',
       ])
-      ->add('special', RichTextEditorForm::class, [
-        'label' => 'special.label',
-        'empty_data' => '',
-        'data' => $item->getSpecial(),
+      ->add('acceleration', null, [
+        'label' => 'acceleration.label',
+        ])
+      ->add('safeSpeed', null, [
+        'label' => 'safeSpeed.label',
+        ])
+      ->add('maxSpeed', null, [
+        'label' => 'maxSpeed.label',
         ])
       ;
   }
@@ -40,7 +42,7 @@ class WeaponForm extends ItemForm
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      'data_class' => Weapon::class,
+      'data_class' => Vehicle::class,
       'translation_domain' => 'item',
     ]);
   }

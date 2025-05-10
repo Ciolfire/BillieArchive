@@ -4,9 +4,6 @@
 {{form_row(form.order)}}
 {% for order in orders %}
   <div class="block-light mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
-    <btn class="float-end" role="button" data-action="click->character--awakening#orderUnpicked">
-      {% include "_icon.html.twig" with {icon: 'cancel', class: 'p-1'} only %}
-    </btn>
     {% if order.emblem is not null %}
       <img class="mx-auto d-block" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="200"/>
     {% endif %}

@@ -22,6 +22,9 @@ export default class extends Controller {
 
 
   connect() {
+    let covenantNull = document.getElementsByClassName("embrace_form[covenant]-null")[0];
+    covenantNull.checked = true;
+    covenantNull.dataset.action = "click->character--embrace#covenantUnpicked";
     this.clanTargets.forEach(clan => {
       if (clan.previousSibling.checked) {
         clan.dispatchEvent(new Event("click"));
@@ -79,6 +82,13 @@ export default class extends Controller {
 
   covenantPicked(event) {
     this.toggle(this.covenantDescriptionTargets, event.target.dataset.organization);
+  }
+
+  covenantUnpicked(event) {
+    document.getElementsByClassName("embrace_form[covenant]-null")[0].checked = true;
+    this.covenantDescriptionTargets.forEach(element => {
+      element.classList.add('d-none');
+    });
   }
 
   toggleAll(elements, keys) {

@@ -6,15 +6,15 @@ namespace App\Service;
 
 use App\Entity\Book;
 use App\Entity\Item;
-use App\Entity\Items\Equipment;
-use App\Entity\Items\RangedWeapon;
-use App\Entity\Items\Vehicle;
-use App\Entity\Items\Weapon;
-use App\Form\EquipmentForm;
-use App\Form\ItemForm;
-use App\Form\RangedWeaponForm;
-use App\Form\VehicleForm;
-use App\Form\WeaponForm;
+use App\Entity\Item\Equipment;
+use App\Entity\Item\RangedWeapon;
+use App\Entity\Item\Vehicle;
+use App\Entity\Item\Weapon;
+use App\Form\Item\ItemForm;
+use App\Form\Item\EquipmentForm;
+use App\Form\Item\RangedWeaponForm;
+use App\Form\Item\VehicleForm;
+use App\Form\Item\WeaponForm;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Repository\ItemRepository;
@@ -39,7 +39,7 @@ class ItemService
     ];
   }
 
-  public function getItemList(string $type = null, int $id = null) : array
+  public function getItemList(?string $type = null, ?int $id = null) : array
   {
     /** @var ItemRepository $repo */
     $repo = $this->dataService->getRepository(Item::class);

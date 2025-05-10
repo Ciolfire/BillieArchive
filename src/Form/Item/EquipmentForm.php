@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Item;
 
-use App\Entity\Items\Equipment;
+use App\Entity\Item\Equipment;
 use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

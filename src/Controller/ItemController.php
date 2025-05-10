@@ -39,7 +39,7 @@ class ItemController extends AbstractController
   }
 
   #[Route("/list/{filter}/{id<\d+>}", name: "item_list", methods: ["GET"])]
-  public function list(string $filter = null, int $id = null) : Response
+  public function list(?string $filter = null, ?int $id = null) : Response
   {
 
     return $this->render('item/index.html.twig', [
@@ -73,6 +73,7 @@ class ItemController extends AbstractController
     foreach ($forms as $form) {
       $formViews[] = $form->createView();
     }
+
     return $this->render('item/new.html.twig', [
       'items' => $types,
       'forms' => $formViews,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Item;
 
 use App\Entity\Item;
 use App\Form\Type\SourceableForm;

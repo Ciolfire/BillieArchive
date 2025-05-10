@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Item;
 
-use App\Entity\Items\RangedWeapon;
+use App\Entity\Item\Weapon;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
-class RangedWeaponForm extends WeaponForm
+class WeaponForm extends ItemForm
 {
   public TranslatorInterface $translator;
 
@@ -21,18 +22,17 @@ class RangedWeaponForm extends WeaponForm
   {
     parent::buildForm($builder, $options);
 
-    /** @var RangedWeapon $item */
+    /** @var Weapon $item */
     $item = $options['data'];
 
     $builder
-      ->add('ranges', null, [
-        'label' => 'ranges.label',
-        ])
-      ->add('clip', null, [
-        'label' => 'clip.label',
-        ])
-      ->add('strength', null, [
-        'label' => 'strength.label',
+      ->add('damage', null, [
+        'label' => 'damage.label',
+      ])
+      ->add('special', RichTextEditorForm::class, [
+        'label' => 'special.label',
+        'empty_data' => '',
+        'data' => $item->getSpecial(),
         ])
       ;
   }
@@ -40,7 +40,7 @@ class RangedWeaponForm extends WeaponForm
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      'data_class' => RangedWeapon::class,
+      'data_class' => Weapon::class,
       'translation_domain' => 'item',
     ]);
   }

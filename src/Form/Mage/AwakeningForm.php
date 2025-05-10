@@ -4,18 +4,17 @@ namespace App\Form\Mage;
 
 use App\Entity\MageOrder;
 use App\Entity\Path;
+use App\Form\Type\RadiobuttonType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use App\Form\Type\RadiobuttonForm;
 
 class AwakeningForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-    ->add('path', RadiobuttonForm::class, [
+    ->add('path', RadiobuttonType::class, [
       'choices' => $options['paths'],
       'choice_label' => 'name',
       'choice_attr' => function(Path $path) {
@@ -40,7 +39,7 @@ class AwakeningForm extends AbstractType
         ];
       }
     ])
-    ->add('order', RadiobuttonForm::class, [
+    ->add('order', RadiobuttonType::class, [
       'empty_data' => null,
       'required' => false,
       'placeholder' => null,

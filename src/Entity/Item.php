@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
-use App\Entity\Items\Equipment;
-use App\Entity\Items\RangedWeapon;
-use App\Entity\Items\Vehicle;
-use App\Entity\Items\Weapon;
+use App\Entity\Item\Equipment;
+use App\Entity\Item\RangedWeapon;
+use App\Entity\Item\Vehicle;
+use App\Entity\Item\Weapon;
 use App\Form\ItemForm;
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
