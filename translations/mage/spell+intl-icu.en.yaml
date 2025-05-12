@@ -34,6 +34,7 @@ help:
 arcanum:
   optional: Optional
   or: or
+  and: and
 
 rote:
   label: Rote

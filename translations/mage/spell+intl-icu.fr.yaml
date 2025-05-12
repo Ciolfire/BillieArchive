@@ -32,8 +32,9 @@ help:
   rules: Une description détaillée des règles de l'effet du sort, incluant ses facteurs principaux (pour les sorts instantanés).
 
   arcanum:
-  optional: Optional
-  or: or
+  optional: Optionel
+  or: ou
+  and: et
 
 rote:
   label: Rote

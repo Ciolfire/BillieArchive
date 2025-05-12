@@ -3,6 +3,7 @@
 
 {% set optionalArcana = false %}
 {% set first = true %}
+{% set group = null %}
 
 {% for arcanum in arcana %}
   {% if arcanum.isOptional and optionalArcana == false %}
@@ -12,10 +13,13 @@
     {{ "arcanum.optional"|trans }}
     <br>
   {% endif %}
-  {% if group is defined and not first %}
-    {% if arcanum.choiceGroup == group %}
+  {% if not first %}
+    {% if group is not null and arcanum.choiceGroup == group %}
       {{ "arcanum.or"|trans }}
+    {% elseif arcanum.choiceGroup is not null %}
+      {{ "arcanum.and"|trans }}
     {% else %}
+      
       +
     {% endif %}
   {% endif %}
