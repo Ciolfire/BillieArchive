@@ -1,0 +1,35 @@
+setup:
+  label: "{name} est soumis à une Possession"
+  done: Continuer
+
+vestment:
+  label:
+    single: Ornement
+    multi: Ornements
+
+  new: Nouvel Ornement
+  edit: "Modifier un Ornement: {vestment}"
+
+  level: >-
+    {level, plural,
+      =1 {Inné}
+      =2 {Mineur}
+      =3 {Majeur}
+      other {}
+    }
+
+  setup: |
+    Vous choisissez des Ornements basé sur le nombre de points placés dans le Vice associé.
+    Pour chaque point dans un Vice, vous gagnez un Ornement conformément au niveau.
+
+    Les Ornements, comme le niveau de Vice, sont séparés en pouvoirs Innés (1 point), Mineur (2 points) et Majeur (3 points).
+
+vice:
+  label:
+  setup: | 
+    Vous commencez avec 3 points à répartir dans les 7 Vices.
+    Votre personnage ne peut jamais avoir plus de points dans un autre Vice que dans celui qui lui est principal.
+  all: Total
+
+infernal.will:
+  label: Infernal Will

@@ -1,0 +1,18 @@
+{% trans_default_domain 'possessed' %}
+
+{% set vices = possessed.getVices %}
+
+<div class="row p-2">
+  <h2>
+    {% include "_icon.html.twig" with {icon: 'extreme' } %}
+    {{ "vestment.label.multi"|trans }}
+  </h2>
+  {% for key, vestments in possessed.vestments %}
+    <h3>{{ "vestment.level"|trans({level: key}) }}</h3>
+    {% for vestment in vestments %}
+      <div class="col">
+        {% include "human/lesser/possessed/vestment/_card.html.twig" %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>

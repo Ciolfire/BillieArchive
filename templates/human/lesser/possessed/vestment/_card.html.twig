@@ -1,0 +1,23 @@
+<div class="block m-1 p-2 rounded position-relative">
+  {% if is_granted('ROLE_ST') %}
+    <a class="position-absolute end-0" href="{{ path('possessed_vestment_edit', {id: vestment.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+  {% endif %}
+  <h4>{{ vestment.name }}</h4>
+  <hr>
+  {{ vestment.effect|markdown_to_html }}
+  {# {% if vestment.statusEffects is not empty %} #}
+    <div class="bdr-t pt-1">
+      {% include "_source_block.html.twig" with {element: vestment,} %}
+      {% for status in vestment.statusEffects %}
+        {% include "_status_icon.html.twig" %}
+        {# {% include "_icon.html.twig" with { icon: "#{status.type}s/#{status.choice}" } %}
+        {{ status.choice }}
+        {% if status.isLevelDependant %}
+        {{ status.value }} / dot of {{ vice }}
+        {% else %}
+          {{ status.value }}
+        {% endif %} #}
+      {% endfor %}
+    </div>
+  {# {% endif %} #}
+</div>

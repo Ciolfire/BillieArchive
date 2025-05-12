@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'possessed' %}
+
+{# {% set setting = 'mage' %} #}
+{% set character = possessed.sourceCharacter %}
+
+{% block title %}{{ "setup.label"|trans({name: character.name}) }}{% endblock %}
+
+{% block body %}
+  <div class="container block py-3 mt-5">
+    <h1>
+      {% include "_icon.html.twig" with { icon: "type/possessed"} %}
+      {{ "setup.label"|trans({name: character.name}) }}
+    </h1>
+    {{ form_start(form, {'attr': {
+      'data-controller': "possessed--setup",
+      'data-possessed--setup-vices-value': "{\"#{character.vice.id}\":1}",
+      'data-possessed--setup-primary-value': character.vice.id,
+      }})
+    }}    
+    <h2>
+      {% include "_icon.html.twig" with { icon: "vice"} %}
+      {{ 'vice.label.multi'|trans({}, 'character') }}
+    </h2>
+    <div class="row mb-4 justify-content-center">
+      <div class="col-auto text-center block mt-2">
+        <div class="fw-bold" data-possessed--setup-target="vicePrimary">{{ "vice.setup"|trans|raw|nl2br }}</div>
+        {{ 'vice.all'|trans }}
+        <span class="ko" data-possessed--setup-target="viceTotal">1</span>/3
+      </div>
+      <div class="col-12">
+        <div class="row justify-content-center">
+          {% for vice in vices %}
+            {% include "character_sheet_type/possessed/setup/_vice.html.twig" %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    <h2>
+      {% include "_icon.html.twig" with { icon: "extreme"} %}
+      {{ 'vestment.label.multi'|trans }}
+    </h2>
+    <div class="row mb-4 justify-content-center">
+      <div class="col-auto text-center block mt-2">
+        <div class=" fw-bold">{{ "vestment.setup"|trans|raw|nl2br }}</div>
+      </div>
+    </div>
+    {% for vice in vices %}
+      {% set level = 0 %}
+      <div class="row g-2">
+        <h3>{{ vice.name }}</h3>
+        {% for vestment in vice.possessedVestments %}
+          {% if vestment.level != level %}
+            {% if level > 0 %}
+              </div>
+            {% endif %}
+            {% set level = vestment.level %}
+          <div class="btn-group col-12 row d-none" role="group" data-possessed--setup-target="vestment" data-level="{{ vestment.level }}" data-vice="{{ vestment.vice.id }}">
+            <h4>{{ "vestment.level"|trans({ level: level}) }}</h4>
+          {% endif %}
+
+            <div class="col-12 col-md-6">
+              <div class="text-center p-1">
+                <input id="{{ vestment.id }}" type="radio" class="btn-check" name="form[vestment][{{ vice.id }}][{{ level }}]" value="{{ vestment.id }}" autocomplete="off">
+                <label class="btn btn-primary btn-submit" for="{{ vestment.id }}">{{ vestment.name }}</label>
+                <p class="bdr bg-dark">{{ vestment.effect }}</p>
+              </div>
+            </div>
+        {% endfor %}
+        {% if vice.possessedVestments|last and level > 0 %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    
+    <div class="text-center fixed-bottom">
+      <button class="btn btn-primary accent btn-lg w-100 disabled" type="submit" data-possessed--setup-target="submit" data-action="click->possessed--setup#clean">
+        {% include "_icon.html.twig" with {icon: 'type/possessed'} %}
+        {{ "setup.done"|trans }}
+      </button>
+    </div>
+    {{ form_end(form) }}
+  </div>
+  {% include "_back.html.twig" with {link: path('character_show', {id: possessed.sourceCharacter.id})} %}
+  {% endblock %}

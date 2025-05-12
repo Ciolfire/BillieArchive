@@ -13,6 +13,7 @@ use App\Entity\ContentType;
 use App\Entity\Derangement;
 use App\Entity\Human;
 use App\Entity\Item;
+use App\Entity\Possessed;
 use App\Entity\Roll;
 use App\Entity\StatusEffect;
 use App\Form\CharacterAccessForm;
@@ -165,6 +166,13 @@ class CharacterController extends AbstractController
     if ($character->getPlayer() != $user && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $user)) {
       if ($user instanceof User && $user->getRole() != 'ROLE_GM')
         return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
+    }
+    switch ($character->getType()) {
+      case 'possessed':
+        if (($template = $character->getLesserTemplate()) instanceof Possessed && $template->getVices()->isEmpty()) {
+          // We need to set the template
+          return $this->redirectToRoute('possessed_setup', ['id' => $character->getLesserTemplate()->getId()]);
+        }
     }
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $type = $this->dataService->findOneBy(ContentType::class, ['name' => $character->getType()]);
@@ -446,73 +454,6 @@ class CharacterController extends AbstractController
       'form' => $form,
       'character' => $character,
     ]);
-  }
-
-  #[Route('/{id<\d+>}/lesser/add', name: 'character_lesser_add', methods: ['GET', 'POST'])]
-  public function applyLesserTemplate(Request $request, Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    // We get the current lesser template, if any
-    $currentTemplate = $character->getLesserTemplate();
-    $result = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
-    $form = $this->createForm(LesserTemplateForm::class, options:['templates' => $result['templates']]);
-    $form->handleRequest($request);
-    
-    if ($form->isSubmitted() && $form->isValid()) {
-      // Fetch the new lesser template class from the form
-      $newTemplate = $form->getData()['template'];
-      // If the character already has a lesser template
-      if (!is_null($currentTemplate)) {
-        if ($currentTemplate->getType() == $newTemplate) {
-          // Same template, shouldn't happen, return
-          $this->addFlash('error', 'character.template.lesser.same', [
-            'name' => $character->getName(),
-            'type' => $currentTemplate->getType(),
-          ]);
-          return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-        }
-        // Otherwise, we deactivate the old template
-        $this->service->lesserTemplateRemove($character, $currentTemplate);
-        $this->addFlash('notice', ['character.template.lesser.deactivated', [
-          'name' => $character->getName(),
-          'old' => $currentTemplate->getType(),
-        ]]);
-      }
-      // Setup/update of the new lesser template
-      $this->service->lesserTemplateAdd($character, $newTemplate, $request->request->all());
-      $this->addFlash('success', ["character.template.lesser.add", [
-        'name' => $character, 
-        'type' => $character->getLesserTemplate()->getType(),
-      ]]);
-      switch ($character->getLesserTemplate()->getType()) {
-        case 'blood_bather':
-          return $this->redirectToRoute('bloodbather_bath_setup', ['id' => $character->getLesserTemplate()->getId()]);
-      }
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-
-    return $this->render('character/lesser/add.html.twig', [
-      'form' => $form,
-      'descriptions' => $result['descriptions'],
-      'character' => $character
-    ]);
-  }
-
-  #[Route('/{id<\d+>}/lesser/remove', name: 'character_lesser_remove', methods: ['GET'])]
-  public function removeLesserTemplate(Character $character): Response
-  {
-    $this->denyAccessUnlessGranted('edit', $character);
-
-    if ($character->getLesserTemplate()) {
-      $type = $character->getLesserTemplate()->getType();
-      $this->service->lesserTemplateRemove($character, $character->getLesserTemplate());
-      $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
-    } else {
-      $this->addFlash('notice', ["character.template.lesser.error", ['name' => $character]]);
-    }
-
-    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }
 
   #[Route('/{id<\d+>}/access/add', name: 'character_access_add', methods: ['GET', 'POST'])]

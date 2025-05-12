@@ -11,6 +11,12 @@
   </a>
 </div>
 <div class="col-6 col-md-4 col-lg-3">
+  <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_possessed')}}">
+    {% include "_icon.html.twig" with {icon: 'type/possessed' } only %}
+    <span class="d-none d-sm-inline">{{ "possessed"|trans({}, 'content-type') }}</span>
+  </a>
+</div>
+<div class="col-6 col-md-4 col-lg-3">
   <a class="btn btn-primary btn-lesser lesser-border-accent w-100 mb-2 psychic" href="{{path('wiki_psychic')}}">
     {% include "_icon.html.twig" with {icon: 'type/psychic' } only %}
     <span class="d-none d-sm-inline">{{ "psychic"|trans({}, 'content-type') }}</span>

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ViceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -27,6 +29,18 @@ class Vice implements Translatable
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT, nullable: true)]
   private string $details;
+
+  /**
+   * @var Collection<int, PossessedVestment>
+   */
+  #[ORM\OneToMany(targetEntity: PossessedVestment::class, mappedBy: 'vice')]
+  #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
+  private Collection $possessedVestments;
+
+  public function __construct()
+  {
+      $this->possessedVestments = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -64,5 +78,35 @@ class Vice implements Translatable
     }
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, PossessedVestment>
+   */
+  public function getPossessedVestments(): Collection
+  {
+      return $this->possessedVestments;
+  }
+
+  public function addPossessedVestment(PossessedVestment $possessedVestment): static
+  {
+      if (!$this->possessedVestments->contains($possessedVestment)) {
+          $this->possessedVestments->add($possessedVestment);
+          $possessedVestment->setVice($this);
+      }
+
+      return $this;
+  }
+
+  public function removePossessedVestment(PossessedVestment $possessedVestment): static
+  {
+      if ($this->possessedVestments->removeElement($possessedVestment)) {
+          // set the owning side to null (unless already changed)
+          if ($possessedVestment->getVice() === $this) {
+              $possessedVestment->setVice(null);
+          }
+      }
+
+      return $this;
   }
 }

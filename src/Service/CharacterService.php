@@ -21,6 +21,9 @@ use App\Entity\GhoulDiscipline;
 use App\Entity\Human;
 use App\Entity\Mage;
 use App\Entity\Merit;
+use App\Entity\Possessed;
+use App\Entity\PossessedVestment;
+use App\Entity\PossessedVice;
 use App\Entity\Roll;
 use App\Entity\Skill;
 use App\Entity\Thaumaturge;
@@ -29,6 +32,7 @@ use App\Entity\Types\ChoicesStatus;
 use App\Entity\Types\VampireChoicesStatus;
 use App\Entity\Vampire;
 use App\Entity\VampireDiscipline;
+use App\Entity\Vice;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CharacterService
@@ -215,6 +219,11 @@ class CharacterService
       case 'willpower':
           $character->setCurrentWillpower(min($character->getWillpower(), $data->value));
         break;
+      case 'infernalWill':
+        if ($character instanceof Possessed) {
+          $character->setCurrentInfernalWill(min($character->getInfernalWill(), $data->value));
+        }
+        break;
       default:
         $setTrait = "set" . ucfirst($data->trait);
         $character->$setTrait($data->value);
@@ -265,18 +274,22 @@ class CharacterService
   {
     $template = new $name();
     $character->addLesserTemplate($template);
+    $formData = [];
+    if (isset($data["{$template->getType()}_form"])) {
+      $formData = $data["{$template->getType()}_form"];
+    }
 
     switch ($template->getType()) {
       case 'ghoul':
-        $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $data[$template->getType()]);
+        $template = $this->vampireService->ghoulify($character->getLesserTemplate(), $formData);
 
         break;
       case 'blood_bather':
-        $this->applyBloodBather($character, $character->getLesserTemplate(), $data[$template->getType()]);
+        $this->applyBloodBather($character, $character->getLesserTemplate(), $formData);
 
         break;
       case 'body_thief':
-        $this->applyBodyThief($character, $character->getLesserTemplate(), $data[$template->getType()]);
+        $this->applyBodyThief($character, $character->getLesserTemplate(), $formData);
 
         break;
       case 'innocents':
@@ -284,7 +297,7 @@ class CharacterService
 
         break;
       case 'thaumaturge':
-        $this->applyThaumaturge($character, $character->getLesserTemplate(), $data[$template->getType()]);
+        $this->applyThaumaturge($character, $character->getLesserTemplate(), $formData);
 
         break;
     }
@@ -301,8 +314,12 @@ class CharacterService
 
     switch ($template->getType()) {
       case 'innocents':
+        // Character grow up, adult size
         $character->setSize($character->getSize() + 1);
         break;
+      case 'possessed':
+        // Free of the demon, remove everything
+        $character->removeLesserTemplate($template);
     }
     $this->dataService->update($character);
   }
@@ -365,6 +382,22 @@ class CharacterService
     if ($society) {
       $template->setTalentType($society->getTalentType());
     }
+  }
+
+  public function applyPossessed(Possessed $template, array $data)
+  {
+    $vices = $this->dataService->findAll(Vice::class);
+    // dd($vices);
+    foreach ($vices as $vice) {
+      $pVice = new PossessedVice($vice, intval($data['vices'][$vice->getId()]));
+      if (isset($data['vestment'][$vice->getId()])) {
+        foreach ($data['vestment'][$vice->getId()] as $idVestment) {
+          $pVice->addVestment($this->dataService->find(PossessedVestment::class, $idVestment));
+        }
+      }
+      $template->addVice($pVice);
+    }
+    $this->dataService->update($template->getSourceCharacter());
   }
 
   /**

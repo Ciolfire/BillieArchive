@@ -45,6 +45,7 @@ quote: Quote
 rules: Rules
 short: Short
 title: Title
+toggle: This can be turned on/off 
 type: Type
 universal: Universal
 value: Value

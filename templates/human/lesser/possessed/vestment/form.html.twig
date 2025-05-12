@@ -1,0 +1,43 @@
+{% extends 'form.html.twig' %}
+
+{% trans_default_domain 'possessed' %}
+
+{% if action is not defined %}
+{% set action = "new" %}
+{% endif %}
+
+
+{% set vestment = form.vars.data %}
+
+  {% block title %}
+    {% if action == "new" %}
+      {{ "vestment.new"|trans }}
+    {% else %}
+      {{ "vestment.edit"|trans({ '%vestment%': vestment.name }) }}
+    {% endif %}
+  {% endblock %}
+  {% block header %}
+    {% if action == "new" %}
+      {{ "vestment.new"|trans }}
+    {% else %}
+      {{ "vestment.edit"|trans({ '%vestment%': vestment.name }) }}
+    {% endif %}
+  {% endblock %}
+
+{% block form %}
+  {{ form_start(form) }}
+  {{ form_row(form.vice) }}
+  {{ form_row(form.level) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.effect) }}
+  {{ form_row(form.source) }}
+  {{ form_row(form.canToggle) }}
+  {% include "forms/_statuseffect_field.html.twig" %}
+  {% block submit %}{{ parent() }}{% endblock %}
+  {{ form_end(form)}}
+{% endblock %}
+
+
+{% block actions %}
+  <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': vestment.discipline.id}) }}">{{ 'action.back'|trans({}, "app") }}</a>
+{% endblock %}

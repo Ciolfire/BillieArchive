@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'possessed' %}
+
+{% block title %}{{ "possessed"|trans({}, 'content-type') }}{% endblock %}
+
+{% set footer = true %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+  <h1 class="pt-1">
+    {% include "_icon.html.twig" with {icon: 'type/possessed' } only %}
+    {{ "possessed"|trans({}, 'content-type') }}
+  </h1>
+  <div class="container-fluid container-lg">
+    <div class="row" data-controller="tabs" data-tabs-initial-value="vestments">
+      <div class="col-12">
+        <div class="block">
+          {# tabs #}
+          <ul class="nav tabs g-0">
+            {% include "_tab.html.twig" with {name: 'vestments', icon: "extreme", label: 'vestment.label.multi'|trans(domain: 'possessed') } only %}
+          </ul>
+          {# content #}
+          {# infos #}
+          <div id="vestments" class="tab-content p-0 d-none" data-tabs-target="page">
+          {# vestments #}
+          <div data-controller="tabs" data-tabs-initial-value={{ vices|first }} data-tabs-parent-value="vestments">
+            <ul class="nav tabs row g-0">
+              {% for vice in vices %}
+                {% include "_tab.html.twig" with {name: vice, icon: '' } only %}
+              {% endfor %}
+            </ul>
+            {% for vice in vices %}
+              <div id="{{ vice }}" class="tab-content g-0 d-none" data-tabs-target="page">
+                <div class="row">
+                  {% for vestment in vice.possessedVestments %}
+                    {% if level|default(null) != vestment.level %}
+                      {% set level = vestment.level %}
+                      <h3>{{ "vestment.level"|trans({level: level}) }}</h3>
+                    {% endif %}
+                    
+                    <div class="col-12 col-md-6">
+                      {% include "human/lesser/possessed/vestment/_card.html.twig" %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    {% if is_granted('ROLE_ST') %}
+      <a class="btn btn-primary ms-auto" href="{{ path('possessed_vestment_new') }}">
+        {% include "_icon.html.twig" with {icon : 'add' } only %}
+        {% include "_icon.html.twig" with {icon : 'extreme' } only %}
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}

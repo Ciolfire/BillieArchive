@@ -1,1 +1,32 @@
 {% extends "character_sheet/show.html.twig" %}
+
+{% set possessed = character.lesserTemplate %}
+
+{% block traits %}
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="row h-100 p-1">
+        {% include 'character_sheet_type/possessed/elements/vices.html.twig' %}
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="row h-100 p-1">
+        {% include 'character_sheet_type/possessed/elements/infernal-will.html.twig'  %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block powers %}
+  <div id="possessed" class="col" data-tabs-target="page">
+    {% include "character_sheet_type/possessed/powers/show.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block specialTab %}
+  {% include "_tab.html.twig" with {name: 'possessed', icon: 'type/possessed' , label: 'possessed'|trans({}, "content-type")} only %}
+{% endblock %}
+
+{% block modals %}
+  {{ parent() }}
+{% endblock %}

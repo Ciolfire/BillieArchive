@@ -1,0 +1,24 @@
+{% set max = 3 %}
+{% set min = (vice == character.vice ? 1 : 0) %}
+{% set base = min %}
+
+<div class="{% if vice == character.vice %}col-12 order-first{% else %}col-6{% endif %}">
+  <div class="text-center block m-2">
+    <h2>{{ vice }}</h2>
+    <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}">
+      <input class="vice-value" value="{{ min }}" type="hidden" name="form[vices][{{ vice.id }}]" data-dot-target="input" data-action="change->dot#checkDots" data-possessed--setup-target="vice" data-id="{{ vice.id }}">
+      <div class="dots">
+        {% for value in 1..max %}
+          <input type="checkbox" class="btn-check" id="{{ "#{vice.name}-#{value}" }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          <label class="btn dot {{ vice.name }} {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ "#{vice.name}-#{value}" }}" 
+            data-action="click->dot#activate click->possessed--setup#vicesUpdate"
+            data-possessed--setup-value-param="{{ value }}"
+            data-possessed--setup-vice-param="{{ vice.id }}"
+            data-dot-value-param="{{ value }}"
+          >
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+setup:
+  label: "{name} has been possessed"
+  done: Continue
+
+vestment:
+  label:
+    single: Vestment
+    multi: Vestments
+
+  new: New Vestment
+  edit: "Edit Vestment: {vestment}"
+
+  level: >-
+    {level, plural,
+      =1 {Innate}
+      =2 {Lesser}
+      =3 {Greater}
+      other {}
+    }
+
+  setup: |
+    You choose Vestments based upon the dot ratings you placed in Vice.
+    For each dot in a Vice, you gain one Vestment in accordance with that dot ranking.
+
+    Vestments, like the Vice ratings, are delimited by Innate (1-dot), Lesser (2-dot) and Greater (3-dot) powers.
+
+vice:
+  label:
+  setup: | 
+    You begin with 3 dots to distribute across all seven Vices.
+    Your character may never have more dots in another Vice than those dots possessed in that primary Vice.
+  all: Total
+
+infernal.will:
+  label: Infernal Will

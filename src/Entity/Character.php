@@ -1489,6 +1489,14 @@ class Character
     return $this;
   }
 
+  public function removeLesserTemplate(CharacterLesserTemplate $template)
+  {
+    foreach ($this->lesserTemplates as $lesserTemplate) {
+      if ($lesserTemplate === $template)
+        $this->lesserTemplates->removeElement($lesserTemplate);
+    }
+  }
+
   /**
    * @return Collection<int, CharacterInfo>
    */

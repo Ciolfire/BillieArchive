@@ -1,0 +1,15 @@
+{% trans_default_domain 'possessed' %}
+
+<div class="block user-select-none h-100 p-3">
+  <h3 class="text-center pt-1">{% include "_icon.html.twig" with {icon : 'vice', class: 'icon-lg' } only %} {{ "vice.label.multi"|trans({}, "character") }}</h3>
+  <div class="d-flex flex-column align-items-start">
+    <div class="row row-cols-5 text-strong justify-content-center">
+      {% for vice in possessed.vices %}
+        <div class="d-flex flex-column text-center {% if vice == possessed.primaryVice %}accent order-first col-12{% else %}col-4{% endif %}">
+            {{ vice }}
+            {% include "_level.html.twig" with { level: vice.level } %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
