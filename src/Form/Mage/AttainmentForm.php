@@ -17,7 +17,9 @@ class AttainmentForm extends AbstractType
     $builder
       ->add('name')
       ->add('level')
-      ->add('description', RichTextEditorForm::class)
+      ->add('description', RichTextEditorForm::class, [
+        'empty_data' => "",
+      ])
       ->add('remove', ButtonType::class, [
         'attr' => [
           'data-action' => 'form-collection#removeCollectionElement',

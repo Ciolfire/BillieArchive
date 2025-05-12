@@ -30,7 +30,7 @@ class Attainment implements Translatable
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $description = null;
+  private string $description = "";
 
   public function __construct(Legacy $legacy)
   {

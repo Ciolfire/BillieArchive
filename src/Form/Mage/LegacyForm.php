@@ -73,6 +73,7 @@ class LegacyForm extends AbstractType
         // 'enty_option' => [
         //   'label' => false,
         // ],
+        'by_reference' => false,
         'allow_add' => true,
         'allow_delete' => true,
       ])
