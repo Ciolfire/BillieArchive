@@ -13,14 +13,14 @@ export default class extends Controller {
   }
 
   connect() {
-    if (document.querySelector('input[name="lesser_template[template]"]:checked')) {
+    if (document.querySelector('input[name="lesser_template_form[template]"]:checked')) {
       this.loadForm();
     }
   }
 
   showRules() {
     
-    let selected = document.querySelector('input[name="lesser_template[template]"]:checked').value;    
+    let selected = document.querySelector('input[name="lesser_template_form[template]"]:checked').value;    
     
     console.log(selected, this.descriptionTargets);
     this.descriptionTargets.forEach(description => {
@@ -39,7 +39,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         'X-Requested-With': 'XMLHttpRequest'
       },
-      body: JSON.stringify({'entity': document.querySelector('input[name="lesser_template[template]"]:checked').value }),
+      body: JSON.stringify({'entity': document.querySelector('input[name="lesser_template_form[template]"]:checked').value }),
       method: "POST"
     })
     .then((response) => {
