@@ -282,16 +282,6 @@ class DisciplineController extends AbstractController
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-      foreach ($power->getStatusEffects() as $status) {
-        if ($power->getName()) {
-          $status->setName($power->getName());
-        } else {
-          $status->setName($power->getDiscipline()->getName());
-        }
-        $status->setDisciplinePower($power);
-        $status->setIcon('discipline');
-      }
-      // $this->service->setupPowerStatus();
       $this->dataService->update($power);
       /** @var Discipline */
       $discipline = $power->getDiscipline();

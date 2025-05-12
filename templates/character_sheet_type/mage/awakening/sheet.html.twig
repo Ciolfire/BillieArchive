@@ -17,7 +17,7 @@
     <hr>
     {% include "character_sheet_type/mage/awakening/_order.html.twig" %}
     <div class="text-center fixed-bottom">
-      <button class="btn btn-primary btn-lg w-100 disabled" type="submit" data-character--awakening-target="submit" data-action="click->character--awakening#clean">
+      <button class="btn btn-primary btn-submit disabled" type="submit" data-character--awakening-target="submit" data-action="click->character--awakening#clean">
         {% include "_icon.html.twig" with {icon: 'type/mage'} %}
         {{ "awakening.save"|trans }}
       </button>

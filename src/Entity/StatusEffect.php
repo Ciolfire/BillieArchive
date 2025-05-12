@@ -26,12 +26,6 @@ class StatusEffect
   #[ORM\Column(type: Types::TEXT, nullable: true)]
   private ?string $description = null;
 
-  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
-  private ?DisciplinePower $disciplinePower = null;
-
-  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
-  protected ?Character $owner = null;
-
   #[ORM\Column]
   private ?bool $isLevelDependant = false;
 
@@ -40,6 +34,15 @@ class StatusEffect
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $icon = null;
+
+  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
+  private ?DisciplinePower $disciplinePower = null;
+
+  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
+  protected ?Character $owner = null;
+
+  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
+  private ?PossessedVestment $possessedVestment = null;
 
   public function getId(): ?int
   {
@@ -119,18 +122,6 @@ class StatusEffect
     return $this;
   }
 
-  public function getDisciplinePower(): ?DisciplinePower
-  {
-    return $this->disciplinePower;
-  }
-
-  public function setDisciplinePower(?DisciplinePower $disciplinePower): static
-  {
-    $this->disciplinePower = $disciplinePower;
-
-    return $this;
-  }
-
   public function isLevelDependant(): ?bool
   {
     return $this->isLevelDependant;
@@ -167,6 +158,29 @@ class StatusEffect
     return $this;
   }
 
+  public function getDefaultIcon(): ?string
+  {
+    switch ($this->type) {
+      case 'skill':
+        return "skills/{$this->choice}";
+      case 'armor':
+      case 'defense':
+      case 'health':
+      case 'speed':
+      case 'willpower':
+        return $this->type;
+    }
+
+    if ($this->getDisciplinePower()) {
+      return "discipline";
+    }
+    else if ($this->getPossessedVestment()) {
+      return "type/possessed";
+    }
+
+    return "info";
+  }
+
   public function isLocked(): bool
   {
     if ($this->disciplinePower) {
@@ -178,7 +192,8 @@ class StatusEffect
 
   public function getLabel(): string
   {
-    $label = $this->name;
+    $label = "";
+    $label .= $this->name;
 
     if ($this->description) {
       if ($label != "") {
@@ -198,6 +213,18 @@ class StatusEffect
     return $label;
   }
 
+  public function getDisciplinePower(): ?DisciplinePower
+  {
+    return $this->disciplinePower;
+  }
+
+  public function setDisciplinePower(?DisciplinePower $disciplinePower): static
+  {
+    $this->disciplinePower = $disciplinePower;
+
+    return $this;
+  }
+
   public function getOwner(): ?Character
   {
       return $this->owner;
@@ -206,6 +233,18 @@ class StatusEffect
   public function setOwner(?Character $owner): static
   {
       $this->owner = $owner;
+
+      return $this;
+  }
+
+  public function getPossessedVestment(): ?PossessedVestment
+  {
+      return $this->possessedVestment;
+  }
+
+  public function setPossessedVestment(?PossessedVestment $possessedVestment): static
+  {
+      $this->possessedVestment = $possessedVestment;
 
       return $this;
   }

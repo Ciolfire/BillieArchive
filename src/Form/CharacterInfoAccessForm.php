@@ -17,6 +17,7 @@ class CharacterInfoAccessForm extends AbstractType
         'label' => false,
         'entry_type' => CharacterInfoForm::class,
         'entry_options' => ['character' => $data, 'path' => $options['path']],
+        'by_reference' => false,
         'allow_add' => true,
         'allow_delete' => true
       ])

@@ -53,9 +53,10 @@ class DisciplinePowerForm extends AbstractType
           'label' => false, 
           'type' => 'vampire', 
         ],
+        'by_reference' => false,
         'allow_add' => true,
         'allow_delete' => true,
-      ]);
+      ])
     ;
     if (!$discipline->isCoil() && !($discipline->isSorcery() && $power->getLevel() > 0)) {
       $builder

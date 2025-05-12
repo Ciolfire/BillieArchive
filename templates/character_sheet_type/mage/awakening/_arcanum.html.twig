@@ -14,8 +14,8 @@
             </div>
             <div class="dots">
           {% endif %}
-          <input type="checkbox" class="btn-check" id="{{ arcanum.name ~ '-' ~ value }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
-          <label class="btn dot {{ arcanum.name }}" for="{{ arcanum.name ~ '-' ~ value }}" 
+          <input type="checkbox" class="btn-check" id="{{ "#{arcanum.name}-#{value}" }}" value="{{ value }}" autocomplete="off" data-dot-target="dot">
+          <label class="btn dot {{ arcanum.name }}" for="{{ "#{arcanum.name}-#{value}" }}" 
             data-action="click->dot#activate click->character--awakening#arcanaUpdate"
             data-dot-value-param="{{ value }}">
           </label>

@@ -110,6 +110,9 @@ class DataService
     $this->flush();
   }
 
+  /**
+   * Update an existing entity, will add security checks there
+   */
   public function update(object $entity) : void
   {
     if ($entity instanceof Character) {
