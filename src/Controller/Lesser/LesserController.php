@@ -6,10 +6,12 @@ namespace App\Controller\Lesser;
 
 use App\Entity\BloodBather;
 use App\Entity\BloodBathFacet;
+use App\Entity\Character;
 use App\Entity\ContentType;
 use App\Entity\Description;
 use App\Entity\Merit;
 use App\Form\Lesser\BloodBathForm;
+use App\Form\LesserTemplateForm;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +31,75 @@ class LesserController extends AbstractController
     $this->service = $service;
   }
 
+  #[Route('/{id<\d+>}/add', name: 'character_lesser_add', methods: ['GET', 'POST'])]
+  public function applyLesserTemplate(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    // We get the current lesser template, if any
+    $currentTemplate = $character->getLesserTemplate();
+    $result = $this->service->lesserTemplatesGetAllAvailable($currentTemplate);
+    $form = $this->createForm(LesserTemplateForm::class, options:['templates' => $result['templates']]);
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+      // Fetch the new lesser template class from the form
+      $newTemplate = $form->getData()['template'];
+      // If the character already has a lesser template
+      if (!is_null($currentTemplate)) {
+        if ($currentTemplate->getType() == $newTemplate) {
+          // Same template, shouldn't happen, return
+          $this->addFlash('error', 'character.template.lesser.same', [
+            'name' => $character->getName(),
+            'type' => $currentTemplate->getType(),
+          ]);
+          return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+        }
+        // Otherwise, we deactivate the old template
+        $this->service->lesserTemplateRemove($character, $currentTemplate);
+        $this->addFlash('notice', ['character.template.lesser.deactivated', [
+          'name' => $character->getName(),
+          'old' => $currentTemplate->getType(),
+        ]]);
+      }
+      // Setup/update of the new lesser template
+      $this->service->lesserTemplateAdd($character, $newTemplate, $request->request->all());
+      $this->addFlash('success', ["character.template.lesser.add", [
+        'name' => $character, 
+        'type' => $character->getLesserTemplate()->getType(),
+      ]]);
+      switch ($character->getLesserTemplate()->getType()) {
+        case 'blood_bather':
+          return $this->redirectToRoute('bloodbather_bath_setup', ['id' => $character->getLesserTemplate()->getId()]);
+          case 'possessed':
+            return $this->redirectToRoute('possessed_setup', ['id' => $character->getLesserTemplate()->getId()]);
+      }
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+
+    return $this->render('character/lesser/add.html.twig', [
+      'form' => $form,
+      'descriptions' => $result['descriptions'],
+      'character' => $character
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/remove', name: 'character_lesser_remove', methods: ['GET'])]
+  public function removeLesserTemplate(Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    if ($character->getLesserTemplate()) {
+      $type = $character->getLesserTemplate()->getType();
+      $this->service->lesserTemplateRemove($character, $character->getLesserTemplate());
+      $this->addFlash('notice', ["character.template.lesser.remove", ['name' => $character, 'type' => $type]]);
+    } else {
+      $this->addFlash('notice', ["character.template.lesser.error", ['name' => $character]]);
+    }
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
   #[Route('/blood_bather', name: 'wiki_blood_bather', methods: ['GET'])]
   public function bloodbather(): Response
   {
@@ -43,7 +114,7 @@ class LesserController extends AbstractController
   #[Route('/bloodbather/{id<\d+>}/bath/setup', name: 'bloodbather_bath_setup', methods: ['GET', 'POST'])]
   public function bloodbatherBathSetup(Request $request, BloodBather $bather): Response
   {
-    $this->denyAccessUnlessGranted('ROLE_ST');
+    $this->denyAccessUnlessGranted('edit', $bather->getSourceCharacter());
 
     $form = $this->createForm(BloodBathForm::class, $bather->getBath());
     $form->handleRequest($request);
