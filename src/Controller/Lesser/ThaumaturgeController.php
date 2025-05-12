@@ -12,7 +12,6 @@ use App\Form\Lesser\ThaumaturgeTraditionForm;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +29,7 @@ class ThaumaturgeController extends AbstractController
   }
 
   #[Route('', name: 'wiki_thaumaturge', methods: ['GET'])]
-  public function thaumaturge(): Response
+  public function wiki(): Response
   {
     $type = $this->dataService->findBy(ContentType::class, ['name' => 'thaumaturge']);
     $powers = $this->dataService->findBy(Merit::class, ['type' => $type], ['name' => 'ASC']);
@@ -55,7 +54,7 @@ class ThaumaturgeController extends AbstractController
   }
 
   #[Route('/tradition/new', name: 'thaumaturge_tradition_new', methods: ['GET', 'POST'])]
-  public function new(Request $request): Response
+  public function traditionNew(Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -81,7 +80,7 @@ class ThaumaturgeController extends AbstractController
   }
 
   #[Route('/tradition/{id<\d+>}/edit', name: 'thaumaturge_tradition_edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, ThaumaturgeTradition $tradition): Response
+  public function traditionEdit(Request $request, ThaumaturgeTradition $tradition): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -89,11 +88,6 @@ class ThaumaturgeController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      // $emblem = $form->get('emblem')->getData();
-      // $fileThaumaturgeTradition = $this->getParameter('traditions_emblems_directory');
-      // if ($emblem instanceof UploadedFile && is_string($fileThaumaturgeTradition)) {
-      //   $tradition->setEmblem($this->dataService->upload($emblem, $fileThaumaturgeTradition));
-      // }
       $this->dataService->update($tradition);
 
       return $this->redirectToRoute('wiki_thaumaturge', ['_fragment' => "tradition-{$tradition->getId()}"], Response::HTTP_SEE_OTHER);
