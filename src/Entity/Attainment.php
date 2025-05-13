@@ -85,7 +85,11 @@ class Attainment implements Translatable
 
   public function setDescription(string $description): static
   {
-    $this->description = $description;
+    if ($this->description == "") {
+      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+    } else {
+      $this->description = $description;
+    }
 
     return $this;
   }
