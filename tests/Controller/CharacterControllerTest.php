@@ -72,7 +72,7 @@ class CharacterControllerTest extends WebTestCase
 
     $form = $crawler->selectButton('Create')->form();
     $client->submit($form, [
-      'character[firstName]' => 'ciol',
+      'character_form[firstName]' => 'ciol',
     ]);
     self::assertTrue($crawler->filter('html:contains("Ciol")')->count() > 0);
   }

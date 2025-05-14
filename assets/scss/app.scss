@@ -92,10 +92,6 @@ footer.footer {
     background-color: $solidBlockColor;
   }
 
-  &-modal {
-    background-color: $modalBlockColor;
-  }
-
   &-light {
     background-color: $lightBlockColor;
   }
@@ -105,6 +101,18 @@ footer.footer {
   }
   &-neutral {
     background-color: $neutralBlockColor;
+  }
+}
+
+// modal
+.modal {
+  &-block {
+    color: $modalColor;
+    background-color: $modalBlockColor;
+  }
+
+  &-header, &-footer {
+    background-color: $modalMarginColor;
   }
 }
 

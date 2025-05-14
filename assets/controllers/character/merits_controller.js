@@ -112,8 +112,8 @@ export default class extends Controller {
 
     // This is to save the merit
     valueInput.id = `merit-${rand}`;
-    valueInput.name = `character[merits][${rand}][level]`;
-    detailsInput.name = `character[merits][${rand}][details]`;
+    valueInput.name = `character_form[merits][${rand}][level]`;
+    detailsInput.name = `character_form[merits][${rand}][details]`;
     
     // reset the values for the new form
     valueInput.value = 0;
@@ -130,7 +130,7 @@ export default class extends Controller {
       switch (type) {
         case 'merit':
           if ((target != null && data.name == target) || data.type == type) {
-            if (typeof document.getElementsByName(`character[merits][${data.name}][level]`)[0] === 'undefined' || document.getElementsByName(`character[merits][${data.name}][level]`)[0].value >= data.value) {
+            if (typeof document.getElementsByName(`character_form[merits][${data.name}][level]`)[0] === 'undefined' || document.getElementsByName(`character_form[merits][${data.name}][level]`)[0].value >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {
               this.switch(prerequisite, "ko", "ok");

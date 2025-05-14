@@ -186,8 +186,8 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
-    if (document.forms['awakening'].checkValidity()) {
-      document.forms['awakening'].submit();
+    if (document.forms['awakening_form'].checkValidity()) {
+      document.forms['awakening_form'].submit();
     }
   }
 }

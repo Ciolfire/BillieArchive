@@ -15,7 +15,7 @@
       data-character--edit-name-param="{{ devotion.name }}"
       data-character--edit-value-param="{{ devotion.cost }}">
       {{ devotion.cost }} {% include "_icon.html.twig" with {icon: 'xp', label: 'xp'} %}
-      <input data-character--edit-target="devotionInput" data-value="{{ devotion.cost }}" data-name="{{ devotion.name }}" id ="devotion-{{ devotion.id }}" class="devotion-value" value="0" type="hidden" name="character[devotions][{{ devotion.id }}]">
+      <input data-character--edit-target="devotionInput" data-value="{{ devotion.cost }}" data-name="{{ devotion.name }}" id ="devotion-{{ devotion.id }}" class="devotion-value" value="0" type="hidden" name="character_form[devotions][{{ devotion.id }}]">
     </div>
   </div>
 {% endblock %}

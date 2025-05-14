@@ -6,7 +6,7 @@
 
 {% block input %}
   <input
-    class="merit-value" type="hidden" name="character[merits][{{ merit.id }}][level]" 
+    class="merit-value" type="hidden" name="character_form[merits][{{ merit.id }}][level]" 
     data-id="{{ merit.id }}"
     data-name="{{ merit.name }}"
     data-category="{{ merit.category }}"
@@ -28,5 +28,5 @@
 {% endblock %}
 
 {% block expanded %}
-<div class="card-text"><input name="character[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
+<div class="card-text"><input name="character_form[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
 {% endblock %}

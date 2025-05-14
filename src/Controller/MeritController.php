@@ -236,7 +236,7 @@ class MeritController extends AbstractController
     return $this->render('merit/choice.html.twig', [
       'merit' => $chMerit,
       'form' => $form,
-      'setting' => $chMerit->getCharacter()->getType(),
+      'setting' => $chMerit->getCharacter()->getSetting(),
     ]);
   }
 }

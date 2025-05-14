@@ -7,7 +7,7 @@
   </div>
   <div class="col-auto">
     <div class="my-1" role="group" data-controller="dot" data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}" data-character--awakening-target="arcana" data-id="{{ arcanum.id }}">
-      <input class="arcanum-value" value="0" type="hidden" name="awakening[arcana][{{ arcanum.id }}]" data-dot-target="input" data-action="change->dot#checkDots" data-character--awakening-target="arcanumValue">
+      <input class="arcanum-value" value="0" type="hidden" name="awakening_form[arcana][{{ arcanum.id }}]" data-dot-target="input" data-action="change->dot#checkDots" data-character--awakening-target="arcanumValue">
       <div class="dots">
         {% for value in 1..max %}
           {% if value >= 5 and value % 5 == 1 %}

@@ -20,7 +20,6 @@ use App\Form\CharacterAccessForm;
 use App\Form\CharacterInfoAccessForm;
 use App\Form\CharacterNoteForm;
 use App\Form\CharacterForm;
-use App\Form\LesserTemplateForm;
 use App\Form\Type\RichTextEditorForm;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
@@ -249,7 +248,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/premade/new', name: 'character_new_premade', methods: ['GET', 'POST'])]
-  public function newTemplate(Request $request, EntityManagerInterface $entityManager): Response
+  public function newTemplate(Request $request): Response
   {
     $character = new Human();
     $this->denyAccessUnlessGranted('ROLE_GM');
@@ -289,7 +288,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $form = $formFactory->createNamed('character', $character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
+    $form = $formFactory->createNamed('character_form', $character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

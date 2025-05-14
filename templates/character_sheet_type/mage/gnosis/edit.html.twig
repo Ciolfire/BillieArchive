@@ -7,7 +7,7 @@
 {% block data %}data-name="{{ 'gnosis.label'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
 
 {% block input %}
-  <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="character[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
+  <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="character_form[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
 {% endblock %}
 
 {% block dot %}

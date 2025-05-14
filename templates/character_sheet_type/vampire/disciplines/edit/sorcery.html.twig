@@ -54,7 +54,7 @@
             data-character--edit-name-param="{{ ritual.name }}"
             data-character--edit-value-param="{{ 2 * ritual.level }}">
               {% include "_icon.html.twig" with {icon: 'xp', label: 'xp'} %}
-              <input data-character--edit-target="ritualInput" id="ritual-{{ ritual.id }}" data-value="{{ 2 * ritual.level }}" data-name="{{ ritual.name }}" data-sorcery-id="{{ sorcery.id }}" class="ritual-value" value="0" type="hidden" name="character[rituals][{{ ritual.id }}]">
+              <input data-character--edit-target="ritualInput" id="ritual-{{ ritual.id }}" data-value="{{ 2 * ritual.level }}" data-name="{{ ritual.name }}" data-sorcery-id="{{ sorcery.id }}" class="ritual-value" value="0" type="hidden" name="character_form[rituals][{{ ritual.id }}]">
             </div>
           </div>
         </div>

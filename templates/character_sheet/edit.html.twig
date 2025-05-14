@@ -28,7 +28,7 @@
     {{ form_start(form, {'attr': form_attributes|merge(controllers)}) }}
   {% endblock %}
 
-  <input class="xpLogs" value="" type="hidden" name="character[xpLogs]" data-character--edit-target="xpLogs">
+  <input class="xpLogs" value="" type="hidden" name="character_form[xpLogs]" data-character--edit-target="xpLogs">
     {% block menu %}
       {% include "character_sheet/menu/edit.html.twig" %}
     {% endblock %}

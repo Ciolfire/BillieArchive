@@ -14,11 +14,15 @@ $secondaryColor    : rgba(0, 117, 152, 0.711);
 $blockColor       : rgba(92, 112, 117, 0.66);//rgba(61, 85, 95, 0.56);
 $neutralBlockColor : #303030a6;
 $neutralBlock30pColor : #30303031;
-$darkBlockColor   : rgba(4, 13, 17, 0.63);
-$lightBlockColor  : rgba(129, 103, 0, 0.37);
+$darkBlockColor   : rgb(4, 62, 62);
+$lightBlockColor  : rgba(225, 193, 69, 0.41);
 $lightBlock30pColor: #ffffff4a;
 $solidBlockColor  : #6a6a6a;
-$modalBlockColor  : #0087855c;
+
+//Modal
+$modalColor        : black;
+$modalBlockColor  : rgba(132, 161, 160, 0.95);
+$modalMarginColor  : rgb(4, 62, 62);
 
 $pageColor        : rgb(37, 37, 37);
 $footerColor      : #8e8e8eb5;

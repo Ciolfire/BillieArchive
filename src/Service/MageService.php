@@ -36,7 +36,9 @@ class MageService
       return false;
     }
 
-    $arcana = $form->getExtraData()['arcana'];
+    if (isset($form->getExtraData()['arcana'])) {
+      $arcana = $form->getExtraData()['arcana'];
+    }
     $startingMana = $character->getMoral();
 
     // $lesser = $character->findLesserTemplate("LESSER");
