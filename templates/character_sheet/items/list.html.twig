@@ -14,7 +14,7 @@
   <div class="row p-1">
     <div class="col-12 col-md-6 col-lg-4 mb-2">
       <div class="item-card">
-        <a href="{{ path('character_item_new', {'character': character.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 h-100">
+        <a href="{{ path('character_item_new', {character: character.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 h-100">
           <div>{{ "new"|trans }}</div>
           <div class="item-preview text-strong text-center">
             {% include "_icon.html.twig" with {icon: 'add', class: 'mx-auto d-block icon-100'} %}

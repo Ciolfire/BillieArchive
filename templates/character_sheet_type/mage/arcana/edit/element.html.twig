@@ -7,7 +7,7 @@
 {% block data %}data-name="{{ arcanum.name }}" data-id="{{ arcanum.id }}" data-type="{% if path.ruling(arcanum) %}arcanum-ruling{% elseif path.inferiorArcanum == arcanum %}inferior-arcanum{% else %}arcanum{% endif %}" data-dot-base-value="{{ chArcanum.level|default(0) }}" data-dot-min-value="{{ chArcanum.level|default(0) }}"{% endblock %}
 
 {% block input %}
-  <input class="arcanum-value" value="{{ chArcanum.level|default(0) }}" type="hidden" name="character{% if chArcanum is defined %}[arcanaUp][{{ arcanum.id }}]{% else %}[arcana][{{ arcanum.id }}]{% endif %}" data-id="{{ arcanum.id }}" data-dot-target="input" data-character--edit-target="dot">
+  <input class="arcanum-value" value="{{ chArcanum.level|default(0) }}" type="hidden" name="{{ form.vars.name }}{% if chArcanum is defined %}[arcanaUp][{{ arcanum.id }}]{% else %}[arcana][{{ arcanum.id }}]{% endif %}" data-id="{{ arcanum.id }}" data-dot-target="input" data-character--edit-target="dot">
 {% endblock %}
 
 {% block dot %}

@@ -25,10 +25,10 @@
         <div class="col-12">
           {% block age %}
             {% if character.lookAge is defined and character.lookAge != character.age %}
-              {{ "age.normal"|trans({"%age%": character.age|default(0)}, 'character') }}
-              ({{ "age.looks.value"|trans({"%looks%": character.lookAge}, 'character') }})
+              {{ "age.normal"|trans({"%age%": character.age|default(0)}) }}
+              ({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})
             {% elseif character.age is defined %}
-              {{ "age.normal"|trans({"%age%": character.age}, 'character') }}
+              {{ "age.normal"|trans({"%age%": character.age}) }}
             {% endif %}
             <br>
             {% if character.birthday is not null %}

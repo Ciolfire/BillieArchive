@@ -8,14 +8,14 @@
       </button>
     </div>
     <div class="col-2 px-0">
-      <input id="is_free" type="checkbox" class="btn-check" name="character_form[isFree]">
+      <input id="is_free" type="checkbox" class="btn-check" name="{{ form.vars.name }}[isFree]">
       <label class="btn btn-sm btn-warning w-100" for="is_free" role="button">
         {% include "_icon.html.twig" with {icon: 'free'} only %}
         <span class="d-none d-md-inline text-sub">{{ "xp.free"|trans }}</span>
       </label>
     </div>
     <div class="col-5">
-      <input value="0" type="hidden" name="character_form[xp][spend]" data-character--edit-target="spend">
+      <input value="0" type="hidden" name="{{ form.vars.name }}[xp][spend]" data-character--edit-target="spend">
       <div class="w-100 block">
         <div class="d-flex flex-row justify-content-center btn btn-menu btn-primary btn-sm w-100" data-bs-toggle="collapse" role="button" data-bs-target=".usingInfo">
           <span>

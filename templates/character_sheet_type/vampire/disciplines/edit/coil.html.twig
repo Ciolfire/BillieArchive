@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block input %}
-  <input class="discipline-value" value="{{ characterDiscipline.level|default(0) }}" type="hidden" name="character{% if characterDiscipline is defined %}[disciplinesUp][{{ discipline.id }}]{% else %}[disciplines][{{ discipline.id }}]{% endif %}" data-id="{{ discipline.id }}" data-dot-target="input" data-character--edit-target="dot">
+  <input class="discipline-value" value="{{ characterDiscipline.level|default(0) }}" type="hidden" name="{{ form.vars.name }}{% if characterDiscipline is defined %}[disciplinesUp][{{ discipline.id }}]{% else %}[disciplines][{{ discipline.id }}]{% endif %}" data-id="{{ discipline.id }}" data-dot-target="input" data-character--edit-target="dot">
 {% endblock %}
 
 {% block dot %}

@@ -6,7 +6,7 @@
 
 {% block input %}
   <input
-    class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="character{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" 
+    class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="{{ form.vars.name }}{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" 
     data-id="{{ chMerit.id|default(merit.id) }}"
     data-name="{{ merit.name }}"
     data-category="{{ merit.category }}"
@@ -35,9 +35,9 @@
 
 {% block expanded %}
   {% if chMerit is defined %}
-    <div><input name="character_form[meritsUp][{{ chMerit.id }}][details]" type="text" class="form-control merit-detail" value="{{ chMerit.choice }}"/></div>
+    <div><input name="{{ form.vars.name }}[meritsUp][{{ chMerit.id }}][details]" type="text" class="form-control merit-detail" value="{{ chMerit.choice }}"/></div>
   {% else %}
-    <div><input name="character_form[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
+    <div><input name="{{ form.vars.name }}[merits][{{ merit.id }}][details]" type="text" class="form-control merit-detail"/></div>
   {% endif %}
 {% endblock %}
 

@@ -529,6 +529,6 @@ export default class extends Controller
     this.removeElements('arcanum');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     // console.log(document.forms);
-    document.forms['character'].submit();
+    document.forms['character_form'].submit();
   }
 }
