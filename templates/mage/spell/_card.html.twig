@@ -1,6 +1,6 @@
 {% trans_default_domain 'spell' %}
 
-<div class="col-12 col-lg-6 g-2">
+<div class="col-12 g-2">
   {% if is_granted('ROLE_ST') %}
     <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
   {% endif %}

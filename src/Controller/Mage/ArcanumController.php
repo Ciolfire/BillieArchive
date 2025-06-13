@@ -71,7 +71,7 @@ class ArcanumController extends AbstractController
   #[Route('/wiki/spells', name: 'mage_spell_index')]
   public function indexSpell(): Response
   {
-    $spells = $this->dataService->findBy(MageSpell::class, [], ['name' => 'ASC']);
+    $spells = $this->dataService->findBy(MageSpell::class, ['homebrewFor' => null], ['name' => 'ASC']);
 
     usort($spells, function (MageSpell $spell1, MageSpell $spell2) {
       return ($spell2->getLevel() < $spell1->getLevel()) ? 1 : -1;
@@ -190,6 +190,15 @@ class ArcanumController extends AbstractController
     return $this->render('mage/form.html.twig', [
       'action' => 'edit',
       'form' => $form,
+    ]);
+  }
+
+  #[Route("/{id<\d+>}/fetch", name:"mage_spell_fetch", methods:["GET"])]
+  public function fetch(MageSpell $spell): Response
+  {
+    return $this->render('mage/spell/_card.html.twig', [
+      'element' => 'spell',
+      'spell' => $spell,
     ]);
   }
 }

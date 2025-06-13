@@ -99,7 +99,7 @@ class RollController extends AbstractController
   }
 
   #[Route("/{setting}", name: "roll_list", methods: ["GET"])]
-  public function list(string $setting = null) : Response
+  public function list(?string $setting = null) : Response
   {
     if (is_null($setting)) {
       $rolls = $this->dataService->findBy(Roll::class, ['isLinked' => '0'], ['name' => 'ASC']);

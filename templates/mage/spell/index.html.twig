@@ -18,12 +18,14 @@
     {% include "_icon.html.twig" with {icon: "spell", class: "icon-lg" } only %}
     {{ "label.multi"|trans }}
   </h1>
-  <div class="container">
-    <div class="row">
+  <div class="container" data-controller="content">
+    <div class="row block">
       {% for spell in spells %}
-        {% include "mage/spell/_card.html.twig" %}
+        {% include "mage/spell/_list_item.html.twig" %}
+        {# {% include "mage/spell/_card.html.twig" %} #}
       {% endfor %}
     </div>
+    {% include "character_sheet/modals/content.html.twig" %}
   </div>
 {% endblock %}
 

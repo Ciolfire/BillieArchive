@@ -15,5 +15,11 @@
     <span>{{ element.homebrewFor.name }}</span>
   {% endif %}
 {% else %}
-  <span class="warning">{{ "source.not.found"|trans }}</span>
+  <span class="warning">
+    {% if isShort|default(false) == true %}
+      ?
+    {% else %}
+      {{ "source.not.found"|trans }}
+    {% endif %}
+  </span>
 {% endif %}
