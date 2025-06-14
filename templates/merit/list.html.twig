@@ -53,29 +53,31 @@
       <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
     {% endif %}
   </div>
-  <div class="col-auto py-3 footer-collapse collapse">
+  <div class="col-12 footer-collapse collapse">
     {% for key, elements in search %}
       {% if key == 'type' %}
-        <h5 class="pe-none text-strong">{{ ("label.multi")|trans({}, 'content-type') }}</h5>
+        <h5 class="text-strong">{{ ("label.multi")|trans({}, 'content-type') }}</h5>
       {% else %}
-        <h5 class="pe-none text-strong">{{ (key ~ ".label.multi")|trans }}</h5>
+        <h5 class="text-strong">{{ (key ~ ".label.multi")|trans }}</h5>
       {% endif %}
-      {% for element in elements %}
-        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-          {% if key == 'type' %}
-            <span class="d-none d-md-inline">{{ (element)|trans({}, 'content-type') }}</span>
-            {% include "_icon.html.twig" with {icon : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
-          {% else %}
-            <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>
-            {% include "_icon.html.twig" with {icon : element } only %}
-          {% endif %}
-        </a>
-      {% endfor %}
+      <div class="text-center pb-2">
+        {% for element in elements %}
+          <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+            {% if key == 'type' %}
+              <span class="d-none d-md-inline">{{ (element)|trans({}, 'content-type') }}</span>
+              {% include "_icon.html.twig" with {icon : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
+            {% else %}
+              <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>
+              {% include "_icon.html.twig" with {icon : element } only %}
+            {% endif %}
+          </a>
+        {% endfor %}
+        {% if key == "category" %}
+          <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
+            <span class="d-none d-md-inline">{{ "fighting"|trans([], 'merit') }}</span>{% include "_icon.html.twig" with {icon : 'fighting-style' } only %}
+          </a>
+        {% endif %}
+      </div>
     {% endfor %}
-    <div class="col-auto py-3 footer-collapse collapse">
-      <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
-        <span class="d-none d-md-inline">{{ "fighting"|trans([], 'merit') }}</span>{% include "_icon.html.twig" with {icon : 'fighting-style' } only %}
-      </a>
-    </div>
   </div>
 {% endblock %}
