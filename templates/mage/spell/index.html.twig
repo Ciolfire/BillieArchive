@@ -22,7 +22,6 @@
     <div class="row block">
       {% for spell in spells %}
         {% include "mage/spell/_list_item.html.twig" %}
-        {# {% include "mage/spell/_card.html.twig" %} #}
       {% endfor %}
     </div>
     {% include "character_sheet/modals/content.html.twig" %}
@@ -35,6 +34,14 @@
       {% include "_icon.html.twig" with  {icon: 'search'} %}
     </span>
     <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    {# sorting options, for later TODO #}
+    {# <h5 class="pe-none text-strong">{{ ("sort")|trans({}, 'app') }}</h5>
+    <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
+      <span class="d-none d-md-inline">{{ "level"|trans([], 'app') }}</span>
+    </a>
+    <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
+      <span class="d-none d-md-inline">{{ "name"|trans([], 'app') }}</span>
+    </a> #}
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('mage_spell_new', {filter: filter|default(null), id: id|default(null)}) }}">
@@ -43,5 +50,38 @@
         </a>
       </div>
     {% endif %}
+  </div>
+  {# search block #}
+  {# {% set search = search|merge([{ title: item.title, ... }]) %} #}
+  {# <div class="col-12 align-content-center py-3 footer-collapse collapse"> #}
+    {# {% for key, elements in arcana %}
+      {% if key == 'type' %}
+        <h5 class="pe-none text-strong">{{ ("label.multi")|trans({}, 'content-type') }}</h5>
+      {% else %}
+        <h5 class="pe-none text-strong">{{ (key ~ ".label.multi")|trans }}</h5>
+      {% endif %}
+      {% for element in elements %}
+        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+          {% if key == 'type' %}
+            <span class="d-none d-md-inline">{{ (element)|trans({}, 'content-type') }}</span>
+            {% include "_icon.html.twig" with {icon : "type/" ~ element, label: element|trans({}, 'content-type') } only %}
+          {% else %}
+            <span class="d-none d-md-inline">{{ (key ~ "." ~ element)|trans }}</span>
+            {% include "_icon.html.twig" with {icon : element } only %}
+          {% endif %}
+        </a>
+      {% endfor %}
+    {% endfor %} #}
+  {# </div> #}
+  <h5 class="text-strong">{{ ("label.multi")|trans({}, 'arcanum') }}</h5>
+  <div class="text-center">
+    {% for arcanum in arcana %}
+      <a class="btn btn-primary d-inline-block" role="button" data-action="click->search#switchFilter" data-search-type-param="arcana" data-search-filter-param="{{ arcanum.name }}">
+          {% include "_icon.html.twig" with { icon: "arcana/#{arcanum.identifier}"} %}
+        <span class="d-none d-lg-inline">
+          {{ arcanum.name }}
+        </span>
+      </a>
+    {% endfor %}
   </div>
 {% endblock %}

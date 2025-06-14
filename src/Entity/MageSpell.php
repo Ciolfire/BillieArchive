@@ -313,28 +313,38 @@ class MageSpell implements Translatable
    */
   public function getRotes(): Collection
   {
-      return $this->rotes;
+    return $this->rotes;
   }
 
   public function addRote(SpellRote $rote): static
   {
-      if (!$this->rotes->contains($rote)) {
-          $this->rotes->add($rote);
-          $rote->setSpell($this);
-      }
+    if (!$this->rotes->contains($rote)) {
+      $this->rotes->add($rote);
+      $rote->setSpell($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeRote(SpellRote $rote): static
   {
-      if ($this->rotes->removeElement($rote)) {
-          // set the owning side to null (unless already changed)
-          if ($rote->getSpell() === $this) {
-              $rote->setSpell(null);
-          }
+    if ($this->rotes->removeElement($rote)) {
+      // set the owning side to null (unless already changed)
+      if ($rote->getSpell() === $this) {
+        $rote->setSpell(null);
       }
+    }
 
-      return $this;
+    return $this;
+  }
+
+  public function getArcanaList()
+  {
+    $list = [];
+    foreach ($this->arcana as $arcanum) {
+      $list[$arcanum->getArcanum()->getId()] = $arcanum->getName();
+    }
+
+    return $list;
   }
 }

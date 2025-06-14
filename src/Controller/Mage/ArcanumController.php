@@ -6,6 +6,7 @@ namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
 use App\Entity\Description;
+use App\Entity\MageArcanum;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
 use App\Entity\SpellRote;
@@ -77,7 +78,13 @@ class ArcanumController extends AbstractController
       return ($spell2->getLevel() < $spell1->getLevel()) ? 1 : -1;
     });
 
+    usort($spells, function (MageSpell $spell1, MageSpell $spell2) {
+      return ($spell2->getName() < $spell1->getName()) ? 1 : -1;
+    });
+
     return $this->render('mage/spell/index.html.twig', [
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'mage_spell']),
+      'arcana' => $this->dataService->findAll(Arcanum::class),
       'spells' => $spells,
     ]);
   }
