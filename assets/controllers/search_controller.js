@@ -17,6 +17,11 @@ export default class extends Controller
   {
   }
 
+  order(event)
+  {
+    
+  }
+
   switchFilter(event)
   {
     let filters = this.filtersValue;
