@@ -73,10 +73,10 @@
       {% endfor %}
     {% endfor %} #}
   {# </div> #}
-  <h5 class="text-strong">{{ ("label.multi")|trans({}, 'arcanum') }}</h5>
+  {# <h5 class="text-strong">{{ ("label.multi")|trans({}, 'arcanum') }}</h5> #}
   <div class="text-center">
     {% for arcanum in arcana %}
-      <a class="btn btn-primary d-inline-block" role="button" data-action="click->search#switchFilter" data-search-type-param="arcana" data-search-filter-param="{{ arcanum.name }}">
+      <a class="btn btn-primary btn-sm" role="button" data-action="click->search#switchFilter" data-search-type-param="arcana" data-search-filter-param="{{ arcanum.name }}">
           {% include "_icon.html.twig" with { icon: "arcana/#{arcanum.identifier}"} %}
         <span class="d-none d-lg-inline">
           {{ arcanum.name }}
