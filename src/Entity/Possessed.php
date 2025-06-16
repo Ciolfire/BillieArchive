@@ -87,6 +87,21 @@ class Possessed extends CharacterLesserTemplate
     $vestments = [];
     foreach ($this->vices as $vice) {
       foreach ($vice->getVestments() as $vestment) {
+        $vestments[] = $vestment;
+      }
+    }
+    ksort($vestments);
+    return $vestments;
+  }
+
+  /**
+   * @return array
+   */
+  public function getSortedVestments(): array
+  {
+    $vestments = [];
+    foreach ($this->vices as $vice) {
+      foreach ($vice->getVestments() as $vestment) {
         $vestments[$vestment->getLevel()][] = $vestment;
       }
     }

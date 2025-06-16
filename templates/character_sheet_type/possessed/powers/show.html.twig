@@ -7,7 +7,7 @@
     {% include "_icon.html.twig" with {icon: 'extreme' } %}
     {{ "vestment.label.multi"|trans }}
   </h2>
-  {% for key, vestments in possessed.vestments %}
+  {% for key, vestments in possessed.sortedVestments %}
     <h3>{{ "vestment.level"|trans({level: key}) }}</h3>
     {% for vestment in vestments %}
       <div class="col">

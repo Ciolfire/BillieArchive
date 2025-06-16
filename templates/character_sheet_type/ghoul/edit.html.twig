@@ -11,11 +11,12 @@
 
 {% block form_start %}
   {% set form_attributes = {
-      'data-controller': 'character--merits character--edit vampire--power vampire--devotion',
-      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
-      'data-character--edit-total-value': character.xpTotal,
-      'data-character--edit-used-value': character.xpUsed,
-      'data-character--edit-type-value': character.type,
+    class: 'container-fluid container-lg character-sheet',
+    'data-controller': 'character--merits character--edit vampire--power vampire--devotion',
+    'data-action': 'character--edit:change->character--merits#checkPrerequisite',
+    'data-character--edit-total-value': character.xpTotal,
+    'data-character--edit-used-value': character.xpUsed,
+    'data-character--edit-type-value': character.type,
   } %}
   {{ form_start(form, {'attr': form_attributes}) }}
 {% endblock %}

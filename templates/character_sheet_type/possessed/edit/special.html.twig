@@ -1,0 +1,56 @@
+{% trans_default_domain 'possessed' %}
+
+{% set characterVestments = possessedCharacter.vestments %}
+
+<div data-controller="tabs" data-tabs-initial-value="vices">
+  <ul class="nav tabs row g-0">
+    {% include "_tab.html.twig" with {name: 'vices', icon: 'vice', label: 'vice.label.multi'|trans({}, 'character')} only %}
+    {% include "_tab.html.twig" with {name: 'vestments', icon: 'power', label: 'vestment.label.multi'|trans } only %}
+  </ul>
+  <div id="vices" class="tab-content d-none" data-tabs-target="page">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          {% for pVice in possessedCharacter.vices %}
+            {% include "character_sheet_type/possessed/setup/_vice.html.twig" with {
+              vice: pVice.vice,
+              min: pVice.level
+            } %}
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+  <div id="vestments" class="tab-content d-none" data-tabs-target="page">
+    {% for pvice in possessedCharacter.vices %}
+      {% set vice = pvice.vice %}
+      <pre>
+        {{ dump(vice.possessedVestments) }}
+      </pre>
+      {% set level = 0 %}
+      <div class="row g-2">
+        <h3>{{ vice.name }}</h3>
+        {% for vestment in vice.possessedVestments %}
+          {% if vestment.level != level %}
+            {% if level > 0 %}
+              </div>
+            {% endif %}
+            {% set level = vestment.level %}
+          <div class="btn-group col-12 row d-none" role="group" data-possessed--setup-target="vestment" data-level="{{ vestment.level }}" data-vice="{{ vestment.vice.id }}">
+            <h4>{{ "vestment.level"|trans({ level: level}) }}</h4>
+          {% endif %}
+
+            <div class="col-12 col-md-6">
+              <div class="text-center p-1">
+                <input id="{{ vestment.id }}" type="radio" class="btn-check" name="form[vestment][{{ vice.id }}][{{ level }}]" value="{{ vestment.id }}" autocomplete="off">
+                <label class="btn btn-primary btn-submit" for="{{ vestment.id }}">{{ vestment.name }}</label>
+                <p class="bdr bg-dark">{{ vestment.effect }}</p>
+              </div>
+            </div>
+        {% endfor %}
+        {% if vice.possessedVestments|last and level > 0 %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+

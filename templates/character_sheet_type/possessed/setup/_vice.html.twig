@@ -1,5 +1,8 @@
 {% set max = 3 %}
-{% set min = (vice == character.vice ? 1 : 0) %}
+{% if min is not defined %}
+  {% set min = (vice == character.vice ? 1 : 0) %}
+{% endif %}
+
 {% set base = min %}
 
 <div class="{% if vice == character.vice %}col-12 order-first{% else %}col-6{% endif %}">

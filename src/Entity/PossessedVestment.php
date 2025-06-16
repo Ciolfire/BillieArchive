@@ -48,6 +48,11 @@ class PossessedVestment implements Translatable
   #[ORM\Column]
   private ?bool $canToggle = null;
 
+  public function __toString()
+  {
+    return $this->name;
+  }
+
   public function __construct()
   {
     $this->statusEffects = new ArrayCollection();
