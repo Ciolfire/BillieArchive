@@ -49,7 +49,6 @@ class DataService
           'blood_bather',
           'body_thief',
           'purified',
-          'possessed',
           'innocents',
           'feral',
         ]

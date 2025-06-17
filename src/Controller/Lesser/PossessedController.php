@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Lesser;
 
+use App\Entity\ContentType;
 use App\Entity\PossessedVestment;
 use App\Entity\Description;
+use App\Entity\Merit;
 use App\Entity\Possessed;
 use App\Entity\Vice;
 use App\Form\Lesser\PossessedVestmentForm;
@@ -28,10 +30,17 @@ class PossessedController extends AbstractController
     $this->service = $service;
   }
 
-  #[Route('', name: 'wiki_possessed', methods: ['GET'])]
+  #[Route('/wiki', name: 'wiki_possessed', methods: ['GET'])]
   public function possessed(): Response
   {
+    $type = $this->dataService->findBy(ContentType::class, ['name' => 'possessed']);
+    $merits = $this->dataService->findBy(Merit::class, ['type' => $type], ['name' => 'ASC']);
+    foreach ($merits as $merit) {
+      $this->dataService->loadPrerequisites($merit);
+    }
+
     return $this->render('wiki/lesser/possessed.html.twig', [
+      'merits' => $merits,
       'vices' => $this->dataService->findAll(Vice::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'possessed']),
     ]);
