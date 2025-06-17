@@ -16,6 +16,7 @@
           <label class="btn dot {{ vice.name }} {% if value <= min %}dot-locked{% else %}dot-selectable{% endif %}" for="{{ "#{vice.name}-#{value}" }}" 
             data-action="click->dot#activate click->possessed--setup#vicesUpdate"
             data-possessed--setup-value-param="{{ value }}"
+            data-possessed--setup-min-param="{{ min }}"
             data-possessed--setup-vice-param="{{ vice.id }}"
             data-dot-value-param="{{ value }}"
           >

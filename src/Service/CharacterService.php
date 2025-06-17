@@ -83,19 +83,25 @@ class CharacterService
         /** @var Vampire $character */
         $this->vampireService->handleEdit($character, $extraData);
         break;
+      
       case 'ghoul':
         $this->vampireService->handleGhoulEdit($character->getLesserTemplate(), $extraData);
         break;
+      
       case 'mage':
         /** @var Mage $character */
         $this->mageService->handleEdit($character, $extraData);
         break;
+      
       case 'body_thief':
         $lesser = $character->getLesserTemplate();
         if ($lesser instanceof BodyThief && $lesser->getSociety() instanceof BodyThiefSociety) {
           $lesser->setTalentType($lesser->getSociety()->getTalentType());
         }
-        
+        break;
+      
+      case 'possessed':
+        $this->handlePossessedEdit($character->getLesserTemplate(), $extraData['vices'], $extraData['vestments']);
         break;
     }
     if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
@@ -110,6 +116,27 @@ class CharacterService
     $this->dataService->update($character);
 
     return $xp;
+  }
+
+  public function handlePossessedEdit(Possessed $possessed, $vices, $vestments)
+  {
+    foreach ($vices as $id => $level) {
+      if ($level > 0) {
+        // Update vice value
+        $vice = $possessed->getVice($id);
+        $vice->setLevel(intval($level));
+        // Add eventual new vestment
+        if (isset($vestments[$id])) {
+          $viceVestments = $vestments[$id];
+          foreach ($viceVestments as $vestment) {
+            $vestment = $this->dataService->find(PossessedVestment::class, $vestment);
+            if ($vestment->getLevel() <= $level) {
+              $vice->addVestment($vestment);
+            }
+          }
+        }
+      }
+    }
   }
 
   public function sortCharacters(Character ...$characters)

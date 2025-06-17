@@ -41,7 +41,10 @@ export default class extends Controller
       'gnosis': 8,
       'arcanum-ruling': 6,
       'arcanum': 7,
-      'arcanum-inferior': 8
+      'arcanum-inferior': 8,
+      // possessed
+      'vestment': 10,
+      'possessedVice': 10
     },
     spendInfo: []
   }
@@ -283,7 +286,7 @@ export default class extends Controller
     let params = event.params;
     let key = `ritual-${params.sorceryId}-${params.id}`;
     let cost = this.ritualRealCost(params);
-    let input = document.getElementById("ritual-" + event.params.id);
+    let input = document.getElementById("ritual-" + params.id);
 
     if (input.value == 0 || refresh == true) {
       event.target.classList.add('active');
@@ -327,6 +330,33 @@ export default class extends Controller
   }
 
   // VAMPIRE OFF //
+
+  // POSSESSED ON //
+  payVestment(event, refresh = false)
+  {
+    let params = event.params;
+    let key = `vestment-${params.id}`;
+    let input = document.getElementById("vestment-" + params.id);
+
+    console.log(input);
+    if (input.checked) {
+      this.spendInfoValue[key] = {
+        type: params.type,
+        info: {
+          name: params.name,
+          id: params.id,
+          cost: this.costsValue['vestment'],
+        }
+      };
+    } else {
+      // We cancel the change, so we unset
+      this.spendInfoValue[key] = undefined;
+      delete this.spendInfoValue[key];
+    }
+    // Get the cost for this specific dot
+    this.updateSpend();
+  }
+  // POSSESSED OFF //
 
   allocate(cost, key, params)
   {
@@ -373,6 +403,7 @@ export default class extends Controller
 
         case 'devotion':
         case 'ritual':
+        case 'vestment':
           info = current.info;
           total += info.cost;
           text += `${info['name']} (${info['cost']})</br>`;

@@ -204,6 +204,7 @@ size:
   help: Un adulte normal a un taille de 5, un enfant 4.
 
 status:
+  label: Status
   alive: Vivant
   dead: Mort
   locked: Prisonnier

@@ -30,16 +30,18 @@ export default class extends Controller {
 
   vicesCheck()
   {
-    let isLocked = false;
-    // Check if primary vice is bigger
-    isLocked = this.vicePrimaryCheck(isLocked);
-    // Compare total to 3
-    isLocked = this.viceTotalUpdate(isLocked);
-    // Lock form if there are issues
-    if (isLocked) {
-      this.submitTarget.classList.add("disabled");
-    } else {
-      this.submitTarget.classList.remove("disabled");
+    if (this.hasViceTotalTarget) {
+      let isLocked = false;
+      // Check if primary vice is bigger
+      isLocked = this.vicePrimaryCheck(isLocked);
+      // Compare total to 3
+      isLocked = this.viceTotalUpdate(isLocked);
+      // Lock form if there are issues
+      if (isLocked) {
+        this.submitTarget.classList.add("disabled");
+      } else {
+        this.submitTarget.classList.remove("disabled");
+      }
     }
     // Update the list of available vestments
     this.vestmentUpdate();
@@ -50,11 +52,7 @@ export default class extends Controller {
     let vices = this.vicesValue;
     if (vices[event.params.vice] == event.params.value) {
       // Same value, we reset it
-      if (event.params.vice == this.primaryValue) {
-        vices[event.params.vice] = 1;
-      } else {
-        vices[event.params.vice] = 0;
-      }
+      vices[event.params.vice] = event.params.min;
     } else {
       // or we update the value
       vices[event.params.vice] = event.params.value;
@@ -112,6 +110,7 @@ export default class extends Controller {
   }
 
   vestmentUpdate() {
+    console.log(this.vicesValue);
     this.vestmentTargets.forEach(vestment => {
       if (this.vicesValue[vestment.dataset.vice] >= vestment.dataset.level ) {
         vestment.classList.remove("d-none");

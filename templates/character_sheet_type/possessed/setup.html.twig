@@ -18,7 +18,7 @@
       'data-possessed--setup-vices-value': "{\"#{character.vice.id}\":1}",
       'data-possessed--setup-primary-value': character.vice.id,
       }})
-    }}    
+    }}
     <h2>
       {% include "_icon.html.twig" with { icon: "vice"} %}
       {{ 'vice.label.multi'|trans({}, 'character') }}
@@ -32,7 +32,7 @@
       <div class="col-12">
         <div class="row justify-content-center">
           {% for vice in vices %}
-            {% include "character_sheet_type/possessed/setup/_vice.html.twig" %}
+            {% include "character_sheet_type/possessed/vice/element.html.twig" %}
           {% endfor %}
         </div>
       </div>

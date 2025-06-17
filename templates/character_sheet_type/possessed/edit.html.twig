@@ -11,7 +11,7 @@
 {% block form_start %}
   {% set form_attributes = {
     class: 'container-fluid container-lg character-sheet',
-    'data-controller': 'character--merits character--edit vampire--power vampire--devotion',
+    'data-controller': 'character--merits character--edit possessed--setup',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
     'data-character--edit-used-value': character.xpUsed,

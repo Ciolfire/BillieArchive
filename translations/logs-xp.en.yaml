@@ -34,6 +34,10 @@ arcanum-ruling.label: "{0}New Ruling Arcanum|[1,Inf]Ruling Arcanum improved"
 arcanum.label: "{0}New Arcanum|[1,Inf]Arcanum improved"
 arcanum-inferior.label: "{0}New Inferior Arcanum|[1,Inf]Inferior Arcanum improved"
 
+# Possessed
+possessedVice.label: Vice level increased
+vestment.label: New Vestment
+
 xp:
   add.label: XP gagnés
   remove.label: XP retirés

@@ -93,6 +93,7 @@ class CharacterForm extends AbstractType
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
       ->add('status', ChoiceType::class, [
+        'label' => "status.label",
         'choices' => $status,
         'required' => false,
         'empty_data' => "alive",

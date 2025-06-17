@@ -125,6 +125,18 @@ class Possessed extends CharacterLesserTemplate
   //   return $this;
   // }
 
+  public function getVice(int $id): ?PossessedVice
+  {
+    foreach ($this->vices as $vice) {
+      if ($vice->getVice()->getId() == $id) {
+
+        return $vice;
+      }
+    }
+
+    return null;
+  }
+
   /**
    * @return Collection<int, PossessedVice>
    */

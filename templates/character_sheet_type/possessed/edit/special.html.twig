@@ -11,7 +11,7 @@
       <div class="col-12">
         <div class="row justify-content-center">
           {% for pVice in possessedCharacter.vices %}
-            {% include "character_sheet_type/possessed/setup/_vice.html.twig" with {
+            {% include "character_sheet_type/possessed/vice/edit.html.twig" with {
               vice: pVice.vice,
               min: pVice.level
             } %}
@@ -22,29 +22,35 @@
   <div id="vestments" class="tab-content d-none" data-tabs-target="page">
     {% for pvice in possessedCharacter.vices %}
       {% set vice = pvice.vice %}
-      <pre>
-        {{ dump(vice.possessedVestments) }}
-      </pre>
       {% set level = 0 %}
       <div class="row g-2">
         <h3>{{ vice.name }}</h3>
         {% for vestment in vice.possessedVestments %}
-          {% if vestment.level != level %}
-            {% if level > 0 %}
-              </div>
+          {% if vestment not in pvice.vestments %}
+            {% if vestment.level != level %}
+              {% if level > 0 %}
+                </div>
+              {% endif %}
+              {% set level = vestment.level %}
+            <div class="btn-group col-12 row d-none" role="group" data-possessed--setup-target="vestment" data-level="{{ vestment.level }}" data-vice="{{ vestment.vice.id }}">
+              <h4>{{ "vestment.level"|trans({ level: level}) }}</h4>
             {% endif %}
-            {% set level = vestment.level %}
-          <div class="btn-group col-12 row d-none" role="group" data-possessed--setup-target="vestment" data-level="{{ vestment.level }}" data-vice="{{ vestment.vice.id }}">
-            <h4>{{ "vestment.level"|trans({ level: level}) }}</h4>
-          {% endif %}
 
             <div class="col-12 col-md-6">
               <div class="text-center p-1">
-                <input id="{{ vestment.id }}" type="radio" class="btn-check" name="form[vestment][{{ vice.id }}][{{ level }}]" value="{{ vestment.id }}" autocomplete="off">
-                <label class="btn btn-primary btn-submit" for="{{ vestment.id }}">{{ vestment.name }}</label>
+                <input id="vestment-{{ vestment.id }}" type="checkbox" class="btn-check" name="character_form[vestments][{{ vice.id }}][{{ vestment.id }}]" value="{{ vestment.id }}" autocomplete="off"
+                  data-action="click->character--edit#payVestment"
+                  data-character--edit-type-param="vestment"
+                  data-character--edit-id-param="{{ vestment.id }}"
+                  data-character--edit-name-param="{{ vestment.name }}"
+                  data-character--edit-vice-param="{{ vestment.vice.id }}"
+                  data-character--edit-level-param="{{ vestment.level }}"
+                >
+                <label class="btn btn-primary btn-submit" for="vestment-{{ vestment.id }}">{{ vestment.name }}</label>
                 <p class="bdr bg-dark">{{ vestment.effect }}</p>
               </div>
             </div>
+          {% endif %}
         {% endfor %}
         {% if vice.possessedVestments|last and level > 0 %}
           </div>

@@ -15,7 +15,7 @@
 
 {% block body %}
   {% for timestamp, entry in logs|reverse(true) %}
-    <p class="text-strong">
+    <p class="text-strong text-light">
       <span class="text-strong">{{ timestamp|date()|format_datetime(pattern="d MMM y, hh:mm", locale=app.request.locale) }}</span>
       <br>
       {% for key, log in entry %}
@@ -54,7 +54,7 @@
           <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ (log.info.id)|trans([], log.type) }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
         {% elseif log.type == 'discipline' or log.type == 'favoredDiscipline' or log.type =="arcanum" or log.type =="arcanum-inferior" or log.type =="arcanum-ruling" %}
           <span class="accent">{{ (log.type ~ ".label")|trans({ '%count%': log.info.base }) }}</span> ― {{ log.info.name }} ― {{ log.info.base }} ➔ <span class="accent fw-bold">{{ log.info.value }}</span> ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
-        {% elseif log.type == 'devotion' or log.type == 'ritual' %}
+        {% elseif log.type == 'devotion' or log.type == 'ritual' or log.type == 'vestment' %}
           <span class="accent">{{ (log.type ~ ".label")|trans }}</span> ― {{ log.info.name }} ({% if log.info.cost > 0 %}{{ log.info.cost }}{% else %}{{ "xp.free"|trans }}{% endif %})
         {% elseif log.type == 'xp' %}
           {% if log.info.action == "add" %}
