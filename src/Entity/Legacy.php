@@ -65,6 +65,9 @@ class Legacy implements Translatable
   #[ORM\OrderBy(["level" => "ASC"])]
   private Collection $attainments;
 
+  #[ORM\Column]
+  private ?bool $isLeftHanded = false;
+
   public function __construct()
   {
       $this->attainments = new ArrayCollection();
@@ -213,6 +216,18 @@ class Legacy implements Translatable
               $attainment->setLegacy(null);
           }
       }
+
+      return $this;
+  }
+
+  public function isLeftHanded(): ?bool
+  {
+      return $this->isLeftHanded;
+  }
+
+  public function setIsLeftHanded(bool $isLeftHanded): static
+  {
+      $this->isLeftHanded = $isLeftHanded;
 
       return $this;
   }

@@ -23,6 +23,8 @@ legacy:
   new: New Legacy
   edit: Edit Legacy
 
+  left-handed: Left-Handed
+
   count: >-
     {count, plural,
       =0 {No Legacy}

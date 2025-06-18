@@ -24,8 +24,9 @@ class LegacyForm extends AbstractType
     $legacy = $options['data'];
 
     $builder
-      ->add('name', null, ['label' => "name", 'translation_domain' => "app"])
-      ->add('quote', null, ['label' => "quote", 'translation_domain' => "app"])
+      ->add('name', null, ['label' => "name"])
+      ->add('isLeftHanded', null, ['label' => "legacy.left-handed", 'translation_domain' => "path"])
+      ->add('quote', null, ['label' => "quote"])
       ->add('source', SourceableForm::class, [
         'data_class' => Path::class,
         'label' => 'source.label',
@@ -37,13 +38,13 @@ class LegacyForm extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
-      ->add('short', null, ['label' => "short", 'translation_domain' => "app"])
+      ->add('short', null, ['label' => "short"])
       ->add('description', RichTextEditorForm::class, [
         'empty_data' => '',
         'data' => $legacy->getDescription(), 
         'label' => "description",
         ])
-      ->add('nickname', null, ['label' => "nickname", 'translation_domain' => "app"])
+      ->add('nickname', null, ['label' => "nickname"])
       ->add('path', EntityType::class, [
         'label' => "label.single",
         'translation_domain' => 'path',
@@ -84,7 +85,7 @@ class LegacyForm extends AbstractType
   {
     $resolver->setDefaults([
       'data_class' => Legacy::class,
-      'translation_domain' => 'app',
+      'translation_domain' => "app",
     ]);
   }
 }

@@ -23,6 +23,8 @@ legacy:
   new: Nouvel Héritage
   edit: Modifier l'Héritage
 
+  left-handed: Left-Handed
+
   count: >-
     {count, plural,
       =0 {Aucun Héritage}

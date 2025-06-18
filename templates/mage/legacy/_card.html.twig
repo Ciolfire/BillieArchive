@@ -15,6 +15,10 @@
     <blockquote class="text-center mb-2 legacy-card-header">
       <h3>
         {{ legacy.name }}
+        {% if legacy.isLeftHanded %}
+        ({{"legacy.left-handed"|trans }})
+        {% endif %}
+        
         {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
       </h3>
       <h5>{{ legacy.nickname }}</h5>
