@@ -1,14 +1,13 @@
 {% trans_default_domain 'spell' %}
 
-<div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}" data-search-target="item">
+<div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}" 
+  role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-search-target="item" data-action="click->content#load"
+  data-content-url-param="{{ link|default(path('mage_spell_fetch', {id: spell.id})) }}" 
+  data-content-name-param="{{ spell.name }}"
+  data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+>
   <div class="row bdr-b py-1">
-    <div class="col-6 col-lg-2 text-center text-md-end text-lg-start text-strong"
-      role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-      data-action="click->content#load"
-      data-content-url-param="{{ link|default(path('mage_spell_fetch', {id: spell.id})) }}" 
-      data-content-name-param="{{ spell.name }}"
-      data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
-    >
+    <div class="col-6 col-lg-2 text-center text-md-end text-lg-start text-strong">
       {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
       {{ spell.name }}
     </div>
