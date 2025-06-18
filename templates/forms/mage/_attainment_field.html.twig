@@ -12,7 +12,7 @@
           {% endfor %}
       </ul>
       <button type="button" class="btn btn-primary btn-lg m-2" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
-        {{ "add"|trans }}
+        {{ "action.add"|trans({}, "app") }}
         {% include "_icon.html.twig" with {icon: 'add' } %}
       </button>
     </div>

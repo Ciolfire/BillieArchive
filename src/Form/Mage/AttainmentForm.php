@@ -15,10 +15,11 @@ class AttainmentForm extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-      ->add('name')
-      ->add('level')
+      ->add('name', null, ['label' => "name"])
+      ->add('level', null, ['label' => "level"])
       ->add('description', RichTextEditorForm::class, [
         'empty_data' => "",
+        'label' => "description"
       ])
       ->add('remove', ButtonType::class, [
         'attr' => [
