@@ -37,7 +37,7 @@ class CharacterLesserTemplate
 
   #[ORM\ManyToOne(inversedBy: 'lesserTemplates')]
   #[ORM\JoinColumn(nullable: false)]
-  private ?Character $sourceCharacter = null;
+  protected ?Character $sourceCharacter = null;
 
   public function __clone()
   {

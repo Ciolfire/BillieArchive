@@ -45,13 +45,15 @@ class BloodBather extends CharacterLesserTemplate
 
   public function getPowerRating(array $weight): int
   {
-    $sum = 0;
+    $sum = 20;
+    $count = 0;
     foreach ($this->bath->getEffects() as $facet) {
       if (is_numeric($value = intval($facet['modifier'])))
-      $sum += $value;
+      $count++;
+      $sum += $value * 4 + ($weight[min($count, 10)] * 3);
     }
 
-    return $sum * 4;
+    return $sum;
   }
 
   public function getBath(): ?BloodBath

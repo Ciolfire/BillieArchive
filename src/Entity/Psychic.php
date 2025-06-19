@@ -44,7 +44,7 @@ class Psychic extends CharacterLesserTemplate
       }
     }
 
-    return $sum * 4;
+    return $sum;
   }
 
   public function getPowers()

@@ -72,25 +72,12 @@ class Mage extends Character
   public function setPowerRating(): self
   {
     $sum = parent::setPowerRating()->getPowerRating();
-    $weight = [
-      0 => 0,
-      1 => 1,
-      2 => 3,
-      3 => 6,
-      4 => 10,
-      5 => 15,
-      6 => 21,
-      7 => 28,
-      8 => 36,
-      9 => 45,
-      10 => 55,
-    ];
 
     // Arcana
     $sum += $this->gnosis * 8;
     foreach ($this->arcana as $arcanum) {
       /** @var MageArcanum $discipline */
-      $sum += $weight[$arcanum->getLevel()] * 7;
+      $sum += $this->weightPower[$arcanum->getLevel()] * 7;
     }
 
     $this->powerRating = $sum;

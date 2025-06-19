@@ -51,6 +51,35 @@ class Possessed extends CharacterLesserTemplate
     return null;
   }
 
+  public function getPowerRating(array $weight): int
+  {
+    // immortality + auto merits
+    $sum = 20 + ($weight[4] * 2) + ($weight[3] * 2);
+    foreach ($this->vices as $vice) {
+      if ($vice->getVice() == $this->sourceCharacter->getVice()) {
+        // Bonus willpower, free language
+        $sum += $vice->getLevel() * 10;
+      } else {
+        // Low impact by itself, but can have some impact
+        $sum += $weight[$vice->getLevel()] * 2;
+        // $sum += $weight[$vice->getLevel()] * 2;
+      }
+      $count = 0;
+      foreach ($this->getVestments() as $vestment) {
+        /** @var PossessedVestment $vestment */
+        $count++;
+        $sum += (3 * $vestment->getLevel()) * $weight[min($count, 10)];
+      }
+    }
+    foreach ($this->sourceCharacter->getMerits() as $merit) {
+      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "psychic" && is_null($merit->getMerit()->getCategory())) {
+        $sum += $weight[$merit->getLevel()] * 4;
+      }
+    }
+
+    return $sum;
+  }
+
   public function getPrimaryVice(): ?PossessedVice
   {
     foreach ($this->vices as $vice) {

@@ -33,6 +33,31 @@ class Character
 {
   use Sourcable;
 
+  protected $weightPower = [
+    // 0 => 0,
+    // 1 => 1,
+    // 2 => 4,
+    // 3 => 8,
+    // 4 => 13,
+    // 5 => 19,
+    // 6 => 26,
+    // 7 => 34,
+    // 8 => 43,
+    // 9 => 53,
+    // 10 => 64,
+    0 => 0,
+    1 => 1,
+    2 => 3,
+    3 => 6,
+    4 => 10,
+    5 => 15,
+    6 => 21,
+    7 => 28,
+    8 => 36,
+    9 => 45,
+    10 => 55,
+  ];
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
@@ -287,38 +312,28 @@ class Character
   public function setPowerRating(): self
   {
     $sum = 0;
-    $weight = [
-      0 => 0,
-      1 => 1,
-      2 => 3,
-      3 => 6,
-      4 => 10,
-      5 => 15,
-      6 => 21,
-      7 => 28,
-      8 => 36,
-      9 => 45,
-      10 => 55,
-    ];
 
     foreach ($this->attributes->list as $attribute) {
-      $sum += $weight[$this->attributes->get($attribute)] * 5;
+      $sum += $this->weightPower[$this->attributes->get($attribute)] * 5;
     }
 
     foreach ($this->skills->list as $skill) {
-      $sum += $weight[$this->skills->get($skill)] * 3;
+      $sum += $this->weightPower[$this->skills->get($skill)] * 3;
     }
 
     foreach ($this->merits as $merit) {
       /** @var CharacterMerit $merit */
       if (!is_null($merit->getMerit()->getCategory())) {
-        $sum += $weight[$merit->getLevel()] * 2;
+        $sum += $this->weightPower[$merit->getLevel()] * 2;
       }
     }
 
-    foreach ($this->lesserTemplates as $lesserTemplate) {
-      $sum += $lesserTemplate->getPowerRating($weight);
+    if ($this->getLesserTemplate()) {
+      $sum += $this->getLesserTemplate()->getPowerRating($this->weightPower);
     }
+    // foreach ($this->lesserTemplates as $lesserTemplate) {
+    //   $sum += $lesserTemplate->getPowerRating($this->weightPower);
+    // }
 
     $sum += count($this->getSpecialties()) * 3;
 

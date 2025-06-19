@@ -42,7 +42,7 @@ class Thaumaturge extends CharacterLesserTemplate
   public function getPowerRating(array $weight): int
   {
     $sum = 0;
-    foreach ($this->getSourceCharacter()->getMerits() as $merit) {
+    foreach ($this->sourceCharacter->getMerits() as $merit) {
       if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "thaumaturge" && is_null($merit->getMerit()->getCategory())) {
         $sum += $weight[$merit->getLevel()] * 4;
       }
