@@ -62,13 +62,12 @@ class Possessed extends CharacterLesserTemplate
       } else {
         // Low impact by itself, but can have some impact
         $sum += $weight[$vice->getLevel()] * 2;
-        // $sum += $weight[$vice->getLevel()] * 2;
       }
       $count = 0;
       foreach ($this->getVestments() as $vestment) {
         /** @var PossessedVestment $vestment */
         $count++;
-        $sum += (3 * $vestment->getLevel()) * $weight[min($count, 10)];
+        $sum += (3 * $vestment->getLevel()) + $weight[min($count, 10)] * 2;
       }
     }
     foreach ($this->sourceCharacter->getMerits() as $merit) {
