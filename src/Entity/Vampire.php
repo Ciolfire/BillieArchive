@@ -84,10 +84,11 @@ class Vampire extends Character
 
   public function setPowerRating(): self
   {
-    $sum = parent::setPowerRating()->getPowerRating();
+    // Human + template
+    $sum = parent::setPowerRating()->getPowerRating() + 50;
 
     // Disciplines
-    $sum += 50 + $this->potency ** 2;
+    $sum += $this->potency ** 2;
     foreach ($this->disciplines as $discipline) {
       /** @var VampireDiscipline $discipline */
       $sum += $this->weightPower[$discipline->getLevel()] * 7;

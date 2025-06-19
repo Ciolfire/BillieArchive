@@ -71,7 +71,8 @@ class Mage extends Character
 
   public function setPowerRating(): self
   {
-    $sum = parent::setPowerRating()->getPowerRating();
+    // Human + template
+    $sum = parent::setPowerRating()->getPowerRating() + 50;
 
     // Arcana
     $sum += $this->gnosis * 8;
