@@ -67,7 +67,7 @@ class Possessed extends CharacterLesserTemplate
       foreach ($this->getVestments() as $vestment) {
         /** @var PossessedVestment $vestment */
         $count++;
-        $sum += (3 * $vestment->getLevel()) + $weight[min($count, 10)];
+        $sum += (3 * $vestment->getLevel()) + $weight[min($count / 2, 10)];
       }
     }
 
