@@ -70,11 +70,6 @@ class Possessed extends CharacterLesserTemplate
         $sum += (3 * $vestment->getLevel()) + $weight[min($count, 10)] * 2;
       }
     }
-    foreach ($this->sourceCharacter->getMerits() as $merit) {
-      if ($merit instanceof CharacterMerit && $merit->getMerit()->getType() == "psychic" && is_null($merit->getMerit()->getCategory())) {
-        $sum += $weight[$merit->getLevel()] * 4;
-      }
-    }
 
     return $sum;
   }
