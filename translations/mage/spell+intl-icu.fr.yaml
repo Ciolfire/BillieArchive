@@ -37,6 +37,8 @@ help:
   and: et
 
 rote:
-  label: Rote
+  label: 
+    single: Rote
+    multi: Rotes
   new: Nouveau Rote
   edit: Modifier Rote

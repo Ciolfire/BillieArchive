@@ -37,6 +37,8 @@ arcanum:
   and: and
 
 rote:
-  label: Rote
+  label: 
+    single: Rote
+    multi: Rotes
   new: New Rote
   edit: Edit Rote
