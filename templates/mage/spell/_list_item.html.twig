@@ -1,6 +1,8 @@
 {% trans_default_domain 'spell' %}
 
-<div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}" 
+<div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
+  data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
+  data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
   role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-search-target="item" data-action="click->content#load"
   data-content-url-param="{{ link|default(path('mage_spell_fetch', {id: spell.id})) }}" 
   data-content-name-param="{{ spell.name }}"

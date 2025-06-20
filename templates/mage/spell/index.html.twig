@@ -85,4 +85,17 @@
       </a>
     {% endfor %}
   </div>
+  <div class="text-center">
+    {% for order in mageOrders %}
+      <a class="btn btn-primary btn-sm" role="button" data-action="click->search#switchFilter" data-search-type-param="order" data-search-filter-param="{{ order.name }}">
+        <span class="icon">
+          <img src="{{ asset(order.rune|default(order.emblem), 'organizations_emblems') }}"/>
+          {# <img src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/> #}
+        </span>
+        <span class="d-none d-lg-inline">
+          {{ order.name }}
+        </span>
+      </a>
+    {% endfor %}
+  </div>
 {% endblock %}
