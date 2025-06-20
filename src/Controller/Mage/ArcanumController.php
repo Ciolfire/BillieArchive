@@ -7,6 +7,7 @@ namespace App\Controller\Mage;
 use App\Entity\Arcanum;
 use App\Entity\Description;
 use App\Entity\MageArcanum;
+use App\Entity\MageOrder;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
 use App\Entity\SpellRote;
@@ -84,6 +85,7 @@ class ArcanumController extends AbstractController
 
     return $this->render('mage/spell/index.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'mage_spell']),
+      'mageOrders' => $this->dataService->findAll(MageOrder::class),
       'arcana' => $this->dataService->findAll(Arcanum::class),
       'spells' => $spells,
     ]);
