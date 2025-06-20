@@ -139,7 +139,8 @@ export default class extends Controller {
           break;
         case 'attribute':
           if ((target !== null && data.name == target) || data.type == type) {
-            if (this.attr("attributes_" + data.name) >= data.value) {
+            if (document.getElementById(`character_form_attributes_${data.name}`).value >= data.value) {
+            // if (this.attr("attributes_" + data.name) >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {
               this.switch(prerequisite, "ko", "ok");
@@ -148,7 +149,8 @@ export default class extends Controller {
           break;
         case 'skill':
           if ((target !== null && data.name == target) || data.type == type) {
-            if (this.attr("skills_" + data.name) >= data.value) {
+            if (document.getElementById(`character_form_skills_${data.name}`).value >= data.value) {
+            // if (this.attr("skills_" + data.name) >= data.value) {
               this.switch(prerequisite, "ok", "ko");
             } else {
               this.switch(prerequisite, "ko", "ok");
