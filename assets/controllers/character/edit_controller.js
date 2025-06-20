@@ -135,18 +135,12 @@ export default class extends Controller
     this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
   
-  calculateClassicCost(cost, base, value, offset = 0)
+  calculateClassicCost(cost, base, target, offset = 0)
   {
-    let total = 0;
-    
     base += offset;
-    value += offset;
+    target += offset;
 
-    for (let i = base + 1; i <= value; i++) {
-      total += i * cost;
-    }
-
-    return total;
+    return ((target * (target + 1)) - (base * (base + 1))) * cost / 2;
   }
 
   payMerit(event)
