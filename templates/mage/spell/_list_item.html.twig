@@ -18,10 +18,10 @@
       {% for rote in spell.rotes %}
         {% if rote.mageOrder %}
           <span class="icon">
-            <img src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
+            <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ rote.mageOrder }}" src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
           </span>
         {% else %}
-          {% include "_icon.html.twig" with {icon: 'universal'} %}
+          {% include "_icon.html.twig" with {icon: 'universal', label: 'universal'|trans({}, 'app')} %}
         {% endif %}
       {% endfor %}
     </div>
