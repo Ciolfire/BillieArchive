@@ -35,5 +35,6 @@ help:
   expanded: This merit has some variable parameter than can or need to be specified when selected.
   fighting: A fighting style open access to a new maneuver at each level.
   unique:   This merit can only be selected once.
+  not.unique: This merit can be selected more than once.
   relation: This merit represent a relation to an organization or a character.
   roll: This merit involve a dice roll.

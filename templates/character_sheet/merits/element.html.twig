@@ -5,6 +5,7 @@
 {% endif %}
 
 <div class="col py-2" data-search-target="item" data-name="{{ merit.name }}" data-effect="{{ merit.effect }}">
+  {# TODO Probably remove the data-unique from there, it's on the edit element, need to check if used somewhere else #}
   <div class="card merit-card block{% block owned %}{% endblock %}" name="{{ "merit-" ~ id }}" data-unique="{{ merit.isUnique|number_format }}">
     <div class="card-header">
       <div class="d-flex justify-content-between">
@@ -68,10 +69,9 @@
       <div>{% include "character_sheet/merits/prerequisites.html.twig" %}</div>
       <div class="d-flex justify-content-between">
         <div>
-          {% if merit.category is null %}
-          {% elseif merit.type and merit.category is not null %}
+          {% if merit.type and merit.category is not null %}
             {% include "_icon.html.twig" with {icon : 'type/' ~ merit.type, label: merit.type|trans({}, 'content-type'), class: 'accent text-strong' } only %}
-          {% else %}
+          {% elseif merit.category is not null %}
             {% include "_icon.html.twig" with {icon : 'universal', label: 'universal'|trans({}, 'app'), class: 'text-strong' } only %}
           {% endif %}
           {% if merit.isFighting %}
@@ -79,6 +79,9 @@
           {% endif %}
           {% if merit.isCreationOnly %}
             {% include "_icon.html.twig" with {icon : 'creation', label: 'creation'|trans } only %}
+          {% endif %}
+          {% if not merit.isUnique %}
+            {% include "_icon.html.twig" with {icon : 'infinity', label: 'help.not.unique'|trans } only %}
           {% endif %}
         </div>
         {% include "_source_block.html.twig" with {element: merit, class: 'fst-italic', 'isShort': true } only %}

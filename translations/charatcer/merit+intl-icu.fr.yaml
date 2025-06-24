@@ -35,5 +35,6 @@ help:
   expanded: Cet atout necessite des informations qui doivent être définies lors de sa sélection.
   fighting: Un style de combat donne accès à une nouvelle maneuvre à chaque niveau.
   unique:   Cet atout ne peut être sélectionné qu'une seule fois.
+  not.unique: Cet atout peut être sélectionné plus d'une fois.
   relation: Cet atout représente un lien avec un groupe ou un personnage.
   roll: Cet atout necessite un jet de dés.
