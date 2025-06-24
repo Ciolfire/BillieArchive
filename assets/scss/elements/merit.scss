@@ -36,7 +36,8 @@ $lesserColor: rgba(149, 54, 217, 0.2);
     }
     .card-header,
     .card-footer {
-      background: $darkBlockColor; //#1c1c1c;
+      background-color: rgba(55, 55, 55, 0.8);
+      // background: $darkBlockColor; //#1c1c1c;
       color: $textColor;
     }
 
