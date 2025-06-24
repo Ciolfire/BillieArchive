@@ -123,6 +123,11 @@ export default class extends Controller
     // Used for prerequisite, secondary
     this.dispatch("change", { detail: { type: 'skill', target: null } });
     this.dispatch("change", { detail: { type: 'attribute', target: null } });
+    this.dispatch("change", { detail: { type: 'merit', target: null } });
+    if (this.hasDevotionInputTarget) {
+      // TODO Check the prerequisite for devotions, to filter based on prerequisite
+      // this.dispatch("change", { detail: { type: 'devotion', target: null } });
+    }
   }
 
   pay(event)
@@ -210,6 +215,7 @@ export default class extends Controller
       base += coil.value - coil.base;
     }
 
+    console.log(this.coilsCurrentValue);
     this.updateSpend();
     // Prerequisites update
     // this.dispatch("change", { detail: { type: params.type, target: params.id } });

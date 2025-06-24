@@ -18,11 +18,13 @@ export default class extends Controller {
   connect()
   {
     this.checkPrerequisite({ detail: {type: 'race', target: null } });
-
+    // Generate the extra cards if needed
     this.meritTargets.forEach(merit => {
-      let card = merit.closest(".block");
-      if (-1 == merit.name.indexOf('meritsUp') && false == card.dataset.unique) {
-        if (card.getElementsByClassName("merit-value")[0].value > 0) {
+      // the merit is not owned by the character and can be bought more than once
+      if (-1 == merit.name.indexOf('meritsUp') && false == merit.dataset.unique) {
+        // the merit has a value of 1 or more
+        if (merit.value > 0) {
+          let card = merit.closest(".block");
           let merits = document.getElementsByName(card.attributes.name.value);
           if (this.checkNeedGeneration(merits)) {
             this.meritGeneration(card, merits.length);
@@ -130,10 +132,11 @@ export default class extends Controller {
       switch (type) {
         case 'merit':
           if ((target != null && data.name == target) || data.type == type) {
-            if (typeof document.getElementsByName(`character_form[merits][${data.name}][level]`)[0] === 'undefined' || document.getElementsByName(`character_form[merits][${data.name}][level]`)[0].value >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
+            // We make sure that at least one of the element reach the required level
+            if (Array.from(document.querySelectorAll(`.merit-value[data-real-id='${data.name}']`)).some(el => el.value >= data.value)) {
+              this.switch(prerequisite.getElementsByTagName('a')[0], "accent", "ko");
             } else {
-              this.switch(prerequisite, "ko", "ok");
+              this.switch(prerequisite.getElementsByTagName('a')[0], "ko", "accent");
             }
           }
           break;
@@ -141,9 +144,9 @@ export default class extends Controller {
           if ((target !== null && data.name == target) || data.type == type) {
             if (document.getElementById(`character_form_attributes_${data.name}`).value >= data.value) {
             // if (this.attr("attributes_" + data.name) >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
+              this.switch(prerequisite, "accent", "ko");
             } else {
-              this.switch(prerequisite, "ko", "ok");
+              this.switch(prerequisite, "ko", "accent");
             }
           }
           break;
@@ -151,18 +154,18 @@ export default class extends Controller {
           if ((target !== null && data.name == target) || data.type == type) {
             if (document.getElementById(`character_form_skills_${data.name}`).value >= data.value) {
             // if (this.attr("skills_" + data.name) >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
+              this.switch(prerequisite, "accent", "ko");
             } else {
-              this.switch(prerequisite, "ko", "ok");
+              this.switch(prerequisite, "ko", "accent");
             }
           }
           break;
         default:
           if ((target !== null && data.name == target) || data.type == type) {
             if (this.attr(data.name) >= data.value) {
-              this.switch(prerequisite, "ok", "ko");
+              this.switch(prerequisite, "accent", "ko");
             } else {
-              this.switch(prerequisite, "ko", "ok");
+              this.switch(prerequisite, "ko", "accent");
             }
           }
           break;

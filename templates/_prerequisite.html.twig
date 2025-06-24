@@ -29,11 +29,14 @@
     </a>
   {% else %}
     {% if prerequisite.entity is not null %}
+      {# Generic entity #}
       {{ prerequisite.entity.name }}
     {% else %}
+      {# Special prerequisite #}
       {% if prerequisite.type == "special" %}
         {{ prerequisite.special}}
       {% else %}
+        {# default prerequisite #}
         {% include "_icon.html.twig" with {icon: prerequisite.type} %}
         {{ prerequisite.type|trans }}
       {% endif %}

@@ -8,7 +8,9 @@
   <input
     class="merit-value" id="merit-{{ chMerit.id|default(merit.id) }}" value="{{ chMerit.level|default(0) }}" type="hidden" name="{{ form.vars.name }}{% if chMerit is defined %}[meritsUp][{{ chMerit.id }}]{% else %}[merits][{{ merit.id }}]{% endif %}[level]" 
     data-id="{{ chMerit.id|default(merit.id) }}"
+    data-real-id="{{ merit.id }}"
     data-name="{{ merit.name }}"
+    data-unique="{{ merit.isUnique|number_format }}"
     data-category="{{ merit.category }}"
     data-fighting="{{ merit.isFighting }}"
     data-creation="{{ merit.isCreationOnly }}"
