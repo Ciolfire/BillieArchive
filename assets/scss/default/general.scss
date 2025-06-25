@@ -49,7 +49,15 @@ $mainColor: #6f80c5;
   }
 }
 
-.psychic, .thaumaturge, .body_thief, .feral, .possessed, .blood_bather, .ghoul.body_thief, .possessed, .thaumaturge {
+.blood_bather,
+.body_thief,
+.feral,
+.ghoul,
+.psychic,
+.purified,
+.possessed,
+.thaumaturge
+{
   .form-select-item-avatar {
     outline: solid 2px $lesserColor;
   }

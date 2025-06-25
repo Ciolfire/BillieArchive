@@ -107,9 +107,13 @@ footer.footer {
 // modal
 .modal {
   &-block {
-    color: $modalColor;
+    color: currentColor;
+    // color: $modalColor;
     background-color: $modalBlockColor;
   }
+  // &-content {
+  //   color: currentColor!important;
+  // }
 
   &-header, &-footer {
     background-color: $modalMarginColor;

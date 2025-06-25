@@ -1,0 +1,8 @@
+.spell {
+  &-btn {
+    &:hover {
+      color: $accentColor;
+      background-color: $main30pColor;
+    }
+  }
+}

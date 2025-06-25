@@ -1,4 +1,5 @@
 $lesserColor: rgba(149, 54, 217, 0.2);
+$lesserHoverColor: rgba(26, 11, 37, 0.616);
 
 .merit {
   padding: 1rem 0;
@@ -8,10 +9,15 @@ $lesserColor: rgba(149, 54, 217, 0.2);
   &.merit-vampire,
   &.merit-ghoul {
     color: silver;
-    background-color: #481717a1;
+    background-color: rgba(44, 6, 6, 0.32);
     strong {
       color: #b61717;
     }
+  }
+
+  &.merit-btn:hover {
+    color: $accentColor;
+    background-color: #1717177a;
   }
 
   &.merit-mage {
@@ -20,10 +26,24 @@ $lesserColor: rgba(149, 54, 217, 0.2);
 
   &.merit-human {
     background-color: #00134169;
+    &.merit-btn:hover {
+      background-color: #000a2185;
+    }
   }
 
-  &.merit-innocents, &.merit-psychic, &.merit-thaumaturge, &.merit-body_thief {
+  &.merit-blood_bather,
+  &.merit-body_thief,
+  &.merit-feral,
+  &.merit-innocents,
+  &.merit-possessed,
+  &.merit-psychic,
+  &.merit-purified,
+  &.merit-thaumaturge
+  {
     background-color: $lesserColor;
+    &.merit-btn:hover {
+      background-color: $lesserHoverColor;
+    }
   }
 
   &-card {
