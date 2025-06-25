@@ -1,0 +1,54 @@
+{% trans_default_domain 'merit' %}
+
+{% set type = merit.type|default('universal') %}
+
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start"
+  data-search-target="item"
+  data-name="{{ merit.name ~ merit.description }}"
+  data-type="{{ type }}"
+  data-category="{{ merit.category }}"
+  data-style="{{ merit.isFighting|default(0) }}"
+
+>
+  <div class="rounded bdr p-3 h-100 merit merit-btn merit-{{ merit.type|default('universal') }}"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    {# data-content-url-param="{{ link|default(path('merit_show', {id: merit.id})) }}"  #}
+    data-content-name-param="{{ merit.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('merit_show', {id: merit.id})) }}"
+  >
+    <div class="row">
+      <div class="col text-strong text-center">{{ merit.name }}</div>
+      <div class="col-auto">
+        {% if merit.type != null %}
+          {% include "_icon.html.twig" with {icon: 'type/' ~ type, class:'accent text-strong', label: (type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
+        {% else %}
+          {% include "_icon.html.twig" with {icon: type, class:'text-strong', label: ('universal'|trans({}, 'app')~ ' ' ~ 'label.single'|trans) } only %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-strong">
+        {% if merit.category %}{% include "_icon.html.twig" with {icon: merit.category, label: "category.#{merit.category}"|trans({}, 'app') } only %}{% endif %}
+        {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: merit.homebrewFor.name } only %}{% endif %}
+        {% if not merit.isUnique %}{% include "_icon.html.twig" with {icon: 'infinity', label: 'help.not.unique'|trans } %}{% else %}{% include "_icon.html.twig" with {icon: 'unique', label: 'help.unique'|trans } %}{% endif %}
+        {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {icon : 'creation', label: 'help.creation'|trans } only %}{% endif %}
+        {% if merit.isExpanded %}{% include "_icon.html.twig" with {icon: 'notebook', label: 'help.expanded'|trans } %}{% endif %}
+        {% if merit.isFighting %}{% include "_icon.html.twig" with {icon : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
+        {% if merit.roll is not null %}{% include "_icon.html.twig" with {icon : 'd10', label: 'help.roll'|trans } only %}{% endif %}
+      </div>
+      <div class="col-6 text-strong text-end">
+        {% for i in 1..merit.min %}•{% endfor %}
+        {% if merit.min != merit.max %}
+          - {% for i in 1..merit.max %}•{% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text">{{ merit.description }}</div>
+    </div>
+
+  </div>
+</div>

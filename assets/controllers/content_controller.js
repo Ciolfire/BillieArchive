@@ -13,13 +13,18 @@ export default class extends Controller {
   }
 
   load(event) {
-    this.modalTarget.querySelector("#contentModalTitle").innerHTML = event.params.name;
+    this.modalTarget.querySelector("#contentModalTitle").innerHTML = event.params.type;
     this.linkValue = event.params.link;
 
     console.log(this.linkValue);
 
     window
-    .fetch(`${event.params.url}`)
+    .fetch(`${event.params.link}`, {
+      headers: {
+        "Content-Type": "application/json",
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
     .then((response) => response.text())
     .then((text) => {
       this.modalTarget.querySelector("#contentModalContainer").innerHTML = text;

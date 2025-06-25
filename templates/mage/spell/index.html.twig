@@ -8,24 +8,22 @@
 	{{ "label.multi"|trans }}
 {% endblock %}
 
+{% block bodyController %}{{ parent() }} search {% endblock %}
+
 {% block bodyData %}
-  data-controller="search" data-search-type-value="spell"
+  data-search-type-value="spell"
 {% endblock %}
 
 {% block body %}
   {% include "_back.html.twig" %}
   {% include "_top.html.twig" %}
-  <h1 class="user-select-none py-3">
-    {% include "_icon.html.twig" with {icon: "spell", class: "icon-lg" } only %}
-    {{ "label.multi"|trans }}
-  </h1>
-  <div class="container" data-controller="content">
-    <div class="row block">
+  {% include "_title.html.twig" with {title: "spell"} %}
+  <div class="container block">
+    <div class="row g-2 pb-2">
       {% for spell in spells %}
         {% include "mage/spell/_list_item.html.twig" %}
       {% endfor %}
     </div>
-    {% include "character_sheet/modals/content.html.twig" %}
   </div>
 {% endblock %}
 
@@ -35,6 +33,14 @@
       {% include "_icon.html.twig" with  {icon: 'search'} %}
     </span>
     <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+      <span class="fa-layers fa-fw">
+        <i class="fa-solid fa-circle"></i>
+        <span class="accent footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
+        <span class="accent footer-collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+      </span>
+    </div>
+    
     {# sorting options, for later TODO #}
     {# <h5 class="pe-none text-strong">{{ ("sort")|trans({}, 'app') }}</h5>
     <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="style" data-search-filter-param="1">
@@ -54,7 +60,20 @@
   </div>
   {# search block #}
   {# {% set search = search|merge([{ title: item.title, ... }]) %} #}
-  {# <div class="col-12 align-content-center py-3 footer-collapse collapse"> #}
+  <div class="col-12 align-content-center py-3 footer-collapse collapse">
+    <div class="text-center">
+      {% for order in mageOrders|default({}) %}
+        <a class="btn btn-primary btn-sm" role="button" data-action="click->search#switchFilter" data-search-type-param="order" data-search-filter-param="{{ order.name }}">
+          <span class="icon">
+            <img src="{{ asset(order.rune|default(order.emblem), 'organizations_emblems') }}"/>
+            {# <img src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/> #}
+          </span>
+          <span class="d-none d-lg-inline">
+            {{ order.name }}
+          </span>
+        </a>
+      {% endfor %}
+    </div>
     {# {% for key, elements in arcana %}
       {% if key == 'type' %}
         <h5 class="pe-none text-strong">{{ ("label.multi")|trans({}, 'content-type') }}</h5>
@@ -73,27 +92,14 @@
         </a>
       {% endfor %}
     {% endfor %} #}
-  {# </div> #}
+  </div>
   {# <h5 class="text-strong">{{ ("label.multi")|trans({}, 'arcanum') }}</h5> #}
   <div class="text-center">
-    {% for arcanum in arcana %}
+    {% for arcanum in arcana|default({}) %}
       <a class="btn btn-primary btn-sm" role="button" data-action="click->search#switchFilter" data-search-type-param="arcana" data-search-filter-param="{{ arcanum.name }}">
           {% include "_icon.html.twig" with { icon: "arcana/#{arcanum.identifier}"} %}
         <span class="d-none d-lg-inline">
           {{ arcanum.name }}
-        </span>
-      </a>
-    {% endfor %}
-  </div>
-  <div class="text-center">
-    {% for order in mageOrders %}
-      <a class="btn btn-primary btn-sm" role="button" data-action="click->search#switchFilter" data-search-type-param="order" data-search-filter-param="{{ order.name }}">
-        <span class="icon">
-          <img src="{{ asset(order.rune|default(order.emblem), 'organizations_emblems') }}"/>
-          {# <img src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/> #}
-        </span>
-        <span class="d-none d-lg-inline">
-          {{ order.name }}
         </span>
       </a>
     {% endfor %}

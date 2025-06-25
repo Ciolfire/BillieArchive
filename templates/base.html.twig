@@ -20,7 +20,8 @@
       {{ encore_entry_script_tags('main') }}
     {% endblock %}
   </head>
-  <body {% block bodyData %}class="position-relative"{% endblock %}>
+  <body data-controller="{% block bodyController %}content{% endblock %}"{% block bodyData %}class="position-relative"{% endblock %}>
+    {% include "modals/content.html.twig" %}
     {% if app.user %}
       {% include "header.html.twig" %}
     {% endif %}

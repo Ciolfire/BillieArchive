@@ -16,7 +16,6 @@
   <button type="button" class="character-card text-center p-0 btn btn-primary d-block w-100 h-100 {% if access.hasRight('type')|default(false) %}{% if character.lesserTemplate %}lesser-border-accent{% endif %} {{ character.type }}{% else %}human{% endif %}"
     data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
-    data-content-url-param="{{ link|default(path('fetch_character_peek', {id: character.id, peeker: access.accessor.id})) }}" 
     data-content-name-param="{{ name }}"
     data-content-link-param="{{ link|default(path('character_peek', {id: character.id, peeker: access.accessor.id})) }}"
   >

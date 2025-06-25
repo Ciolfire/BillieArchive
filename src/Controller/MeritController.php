@@ -13,7 +13,6 @@ use App\Form\MeritForm;
 use App\Service\DataService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -124,11 +123,16 @@ class MeritController extends AbstractController
   }
 
   #[Route("/{id<\d+>}", name: "merit_show", methods: ["GET"])]
-  public function show(Merit $merit): Response
+  public function show(Request $request, Merit $merit): Response
   {
     $this->dataService->loadPrerequisites($merit);
 
-    return $this->render('merit/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_card";
+    }
+
+    return $this->render("merit/$template.html.twig", [
       'merit' => $merit,
     ]);
   }

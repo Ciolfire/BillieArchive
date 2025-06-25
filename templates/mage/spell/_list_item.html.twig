@@ -1,11 +1,63 @@
 {% trans_default_domain 'spell' %}
 
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start" 
+  data-search-target="item" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
+  data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
+  data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
+
+>
+  <div class="rounded bdr p-3 h-100 spell-btn"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ spell.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+  >
+    <div class="row">
+      <div class="col text-strong text-center">
+        {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
+        {{ spell.name }}
+      </div>
+      <div class="col-auto">
+      </div>
+    </div>
+
+    <div class="row">
+      {# arcana #}
+      <div class="col text-strong text-center">
+        {% include "mage/spell/_short_arcana.html.twig" with { arcana : spell.arcana } %}
+      </div>
+      {# rotes #}
+      <div class="col-auto">
+        {% for rote in spell.rotes %}
+          {% if rote.mageOrder %}
+            <span class="icon">
+              <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ rote.mageOrder }}" src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
+            </span>
+          {% else %}
+            {% include "_icon.html.twig" with {icon: 'universal', label: 'universal'|trans({}, 'app')} %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {# description #}
+      <div class="col-12 text">{{ spell.short }}</div>
+    </div>
+
+  </div>
+</div>
+
+
+{# 
+{% trans_default_domain 'spell' %}
+
 <div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
   data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
   data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
-  role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-search-target="item" data-action="click->content#load"
+  data-search-target="item" data-action="click->content#load"
+  role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
   data-content-url-param="{{ link|default(path('mage_spell_fetch', {id: spell.id})) }}" 
   data-content-name-param="{{ spell.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
 >
   <div class="row bdr-b py-1">
@@ -34,4 +86,4 @@
       {% include "_source.html.twig" with { element: spell, isShort: true } %}
     </div>
   </div>
-</div>
+</div> #}

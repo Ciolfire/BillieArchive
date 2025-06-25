@@ -7,11 +7,15 @@
 {% set tab = "general" %}
 {% set subTab = 'description' %}
 
+{% block bodyController %}
+  {{parent() }}
+{% endblock %}
+
 {% block body %}
   <div
     class="container-fluid container-lg {% block top_margin %}character-sheet{% endblock %}"
     {% block body_attributes %}
-      data-controller="{% block data_controllers %}character--experience character--avatar character--merits character--item content{% endblock %}"
+      data-controller="{% block data_controllers %}character--experience character--avatar character--merits character--item{% endblock %}"
       data-character--experience-id-value="{{ character.id }}"
       data-character--avatar-id-value="{{ character.id }}"
       data-character--item-character-value="{{ character.id }}"
@@ -121,8 +125,6 @@
         {% include "character_sheet/modals/xp_logs.html.twig" with { 'logs': character.experienceLogs } only %}
         {% include "character_sheet/modals/add_status.html.twig" %}
         {% include "character_sheet/modals/ability_removal.html.twig" %}
-        {# Relations #}
-        {% include "character_sheet/modals/content.html.twig" %}
         {# Merit #}
         {% include "character_sheet/modals/merit_show.html.twig" %}
         {# Morality #}

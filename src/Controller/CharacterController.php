@@ -356,28 +356,36 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/{id<\d+>}/peek', name: 'character_peek', methods: ['GET'])]
-  public function peek(Request $request, Character $character): Response
+  #[Route('/{id<\d+>}/peek/{peeker}', name: 'character_peek', methods: ['GET'])]
+  public function peek(Request $request, Character $character, ?Character $peeker): Response
   {
-    if ($character->getChronicle()->getStoryteller() === $this->getUser()) {
-      return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $character->getId()]);
-    }
-
-    if ($character instanceof Character) {
-      $peeker = $character->getChronicle()->getCharacter($this->getUser());
+    if ($request->isXmlHttpRequest()) {
       if ($peeker instanceof Character) {
-        return $this->redirectToRoute('character_peek_as', ['id' => $character->getId(), 'peeker' => $peeker->getId()]);
-      }
-    }
+        $access = $peeker->getSpecificPeekingRights($character);
 
+        return $this->render("character_sheet/peek/_base.html.twig", [
+          'peeker' => $peeker,
+          'access' => $access,
+          'character' => $character,
+          'setting' => $character->getChronicle()->getType(),
+        ]);
+      }
+    } else {
+
+      if (!$peeker instanceof Character) {
+        $peeker = $character->getChronicle()->getCharacter($this->getUser());
+      }
+      return $this->peekAs($character, $peeker);
+    }
+  
     $this->addFlash('notice', 'character.peek.declined');
     if ($request->headers->get('referer')) {
       return $this->redirect($request->headers->get('referer'));
     }
+
     return $this->redirectToRoute('character_index');
   }
 
-  #[Route('/{id<\d+>}/peek/{peeker}', name: 'character_peek_as', methods: ['GET'])]
   public function peekAs(Character $character, Character $peeker): Response
   {
     if (is_null($character->getChronicle())) {
@@ -847,26 +855,6 @@ class CharacterController extends AbstractController
     return $this->render('character_sheet/elements/avatar/crop.html.twig', [
       'form' => $form->createView(),
     ]);
-  }
-
-  // ASYNC
-
-  #[Route('/{id<\d+>}/{peeker<\d+>}/a_peek', name: 'fetch_character_peek', methods: ['GET'])]
-  public function fetchPeek(Request $request, Character $character, Character $peeker): Response
-  {
-    if ($character instanceof Character && $peeker instanceof Character) {
-      $access = $peeker->getSpecificPeekingRights($character);
-
-      return $this->render("character_sheet/peek/_base.html.twig", [
-        'peeker' => $peeker,
-        'access' => $access,
-        'character' => $character,
-        'setting' => $character->getChronicle()->getType(),
-      ]);
-    }
-
-    $this->addFlash('notice', 'character.peek.declined');
-    return $this->redirect($request->headers->get('referer'));
   }
 
   #[Route('/{id<\d+>}/morality/increase', name: 'character_morality_increase', methods: ['POST'])]

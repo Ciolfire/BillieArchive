@@ -5,8 +5,13 @@
 {% block title %}{{ 'label.multi'|trans({}, 'merit') }}{% endblock %}
 
 {% set footer = true %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
 {% block bodyData %}
-  data-controller="search" data-search-type-value="merit"
+  data-search-type-value="merit"
 {% endblock %}
 
 {% block body %}
@@ -16,21 +21,18 @@
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
 
-  <h1 class="py-3">{% include "_icon.html.twig" with {icon: "merit", class: 'icon-lg' } only %} {{ 'label.multi'|trans({}, 'merit') }}</h1>
+
+  {% include "_title.html.twig" with {title: "merit"} %}
+
   <div class="container block">
-    <div class="row py-3 justify-content-center">
-      <div class="col-auto">
-        {% if description is defined and description is not null and description.value is not empty %}
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription"><h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4></a>
-        {% endif %}
-      </div>
-      <div id="collapseDescription" class="col-12 flex-grow block-neutral collapse mt-2">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
-    <div class="accordion" id="accordionMerits">
+    <div class="row g-2 pb-2">
       {% for merit in merits|sort((a, b) => a.name|lower <=> b.name|lower) %}
-        {% include "merit/card.html.twig" %}
+        {% include "merit/_list_item.html.twig" %}
       {% endfor %}
     </div>
   </div>

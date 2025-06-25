@@ -103,6 +103,8 @@ class ArcanumController extends AbstractController
     return $this->render('mage/spell/index.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
       'setting' => "mage",
+      'mageOrders' => $this->dataService->findAll(MageOrder::class),
+      'arcana' => $this->dataService->findAll(Arcanum::class),
       'spells' => $spells,
       'filter' => $filter,
       'id' => $id,
@@ -110,9 +112,14 @@ class ArcanumController extends AbstractController
   }
 
   #[Route('/wiki/spell/{id<\d+>}', name: 'mage_spell_show')]
-  public function showSpell(MageSpell $spell): Response
+  public function showSpell(Request $request, MageSpell $spell): Response
   {
-    return $this->render('mage/spell/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_card";
+    }
+
+    return $this->render("mage/spell/$template.html.twig", [
       'spell' => $spell,
     ]);
   }
@@ -199,15 +206,6 @@ class ArcanumController extends AbstractController
     return $this->render('mage/form.html.twig', [
       'action' => 'edit',
       'form' => $form,
-    ]);
-  }
-
-  #[Route("/{id<\d+>}/fetch", name:"mage_spell_fetch", methods:["GET"])]
-  public function fetch(MageSpell $spell): Response
-  {
-    return $this->render('mage/spell/_card.html.twig', [
-      'element' => 'spell',
-      'spell' => $spell,
     ]);
   }
 }

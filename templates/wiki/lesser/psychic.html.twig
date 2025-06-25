@@ -19,7 +19,7 @@
           {# tabs #}
           <ul class="nav tabs g-0">
             {# {% include "_tab.html.twig" with {name: 'infos', icon: 'info', label: 'infos'|trans(domain: 'app')} only %} #}
-            {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'label.multi'|trans(domain: 'merit') } only %}
+            {% include "_tab.html.twig" with {name: 'merits', icon: 'merit', label: 'power.label.multi'|trans(domain: 'psychic') } only %}
           </ul>
           {# content #}
           {# infos #}
@@ -29,12 +29,10 @@
           </div> #}
           {# merits #}
           <div id="merits" class="tab-content g-0 d-none" data-tabs-target="page">
-            <div class="row">
-              <div class="col-12 p-2">
-                {% for merit in powers|sort((a, b) => a.name|lower <=> b.name|lower) %}
-                {% include 'merit/card.html.twig' %}
-                {% endfor %}
-              </div>
+            <div class="row g-2">
+              {% for merit in powers|sort((a, b) => a.name|lower <=> b.name|lower) %}
+              {% include 'merit/_list_item.html.twig' %}
+              {% endfor %}
             </div>
           </div>
         </div>

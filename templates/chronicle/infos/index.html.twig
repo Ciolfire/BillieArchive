@@ -6,7 +6,7 @@
 {% block body %}
   {% include '_back.html.twig' %}
 	{% include '_top.html.twig' %}
-  <div class="container-fluid container-lg py-3" data-controller="content">
+  <div class="container-fluid container-lg py-3">
     <h1 class="strong">
       {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
       {{ chronicle.name }}
@@ -19,7 +19,6 @@
       </ul>
       <div id="characters" class="tab-content d-none" data-tabs-target="page">
         {% include 'chronicle/infos/_characters.html.twig' %}
-        {% include "character_sheet/modals/content.html.twig" %}
       </div>
       <div id="items" class="tab-content d-none p-0" data-tabs-target="page">
         {% include 'chronicle/infos/_items.html.twig' %}
