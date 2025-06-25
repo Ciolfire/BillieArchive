@@ -6,6 +6,14 @@
 
 
 {% block body %}
-  {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id, _fragment: "relation"})} %}
+  {# We redirect to the right character #}
+  {% if peeker.player == app.user %}
+    {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id, _fragment: "relation"})} %}
+  {% elseif character.player == app.user %}
+    {% include "_back.html.twig" with {link: path('character_show', {id: character.id, _fragment: "relation"})} %}
+  {% else %}
+    {# Should never happen #}
+    {% include "_back.html.twig" %}
+  {% endif %}
   {% include "/character_sheet/peek/_base.html.twig" %}
 {% endblock %}
