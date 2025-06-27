@@ -1,0 +1,8 @@
+.card-content {
+  background-color: $cardColor;
+  
+  &:hover {
+    color: $accentColor;
+    background-color: $cardHoverColor;
+  }
+}

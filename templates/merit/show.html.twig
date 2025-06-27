@@ -4,7 +4,7 @@
 
 {% block body %}
   <div class="container block py-3">
-    {% include "merit/_card.html.twig" with {options: 1} %}
+    {% include "merit/_show.html.twig" with {options: 1} %}
   </div>
   {% include "_back.html.twig" %}
   {% if is_granted('ROLE_ST') %}

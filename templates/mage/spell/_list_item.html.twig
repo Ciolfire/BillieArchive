@@ -6,7 +6,7 @@
   data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
 
 >
-  <div class="rounded bdr p-3 h-100 spell-btn"
+  <div class="rounded bdr p-3 h-100 card-content"
     role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     data-content-name-param="{{ spell.name }}"

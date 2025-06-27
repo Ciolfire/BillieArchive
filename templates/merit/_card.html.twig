@@ -1,67 +1,53 @@
 {% trans_default_domain 'merit' %}
 
-{# {% set type = merit.type|default('universal') %} #}
-<div class="row justify-content-center">
-  <div class="merit merit-{{ merit.type|default('universal') }} mb-4 bdr-b">
-    {# name #}
-    <h1>
-      {{ merit.name }}
-    </h1>
-    <h2>
-      {% if merit.type != null %}
-        {% include "_icon.html.twig" with {icon: 'type/' ~ merit.type, class:'accent text-strong', label: (merit.type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
-      {% else %}
-        {% include "_icon.html.twig" with {icon: 'universal', class:'text-strong', label: ('universal'|trans({}, 'app')~ ' ' ~ 'label.single'|trans) } only %}
-      {% endif %}
-      {% for i in 1..merit.min %}•{% endfor %}
-      {% if merit.min != merit.max %}
-      - {% for i in 1..merit.max %}•{% endfor %}
-      {% endif %}
-    </h2>
-    {# icons #}
-    <div class="col-12 text-center">
-      {% if merit.category %}{% include "_icon.html.twig" with {icon: merit.category, label: "category.#{merit.category}"|trans({}, 'app') } only %}{% endif %}
-      {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: merit.homebrewFor.name } only %}{% endif %}
-      {% if not merit.isUnique %}{% include "_icon.html.twig" with {icon: 'infinity', label: 'help.not.unique'|trans } %}{% else %}{% include "_icon.html.twig" with {icon: 'unique', label: 'help.unique'|trans } %}{% endif %}
-      {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {icon : 'creation', label: 'help.creation'|trans } only %}{% endif %}
-      {% if merit.isExpanded %}{% include "_icon.html.twig" with {icon: 'notebook', label: 'help.expanded'|trans } %}{% endif %}
-      {% if merit.isFighting %}{% include "_icon.html.twig" with {icon : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
-      {% if merit.roll is not null %}{% include "_icon.html.twig" with {icon : 'd10', label: 'help.roll'|trans } only %}{% endif %}
-    </div>
-    {# prerequisites #}
-    <div class="col-12">
-      {% if merit.prerequisites is not empty %}
-        <div class="px-2 text-end">
-          {% for prerequisite in merit.prerequisites %}
-            {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
-            {% set group = prerequisite.choiceGroup %}
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-  </div>
-  {# effect #}
-  <div class="col-12">
-    <div class="merit_{{ merit.id }} mb-2 {% block collapse %}{% endblock %}">
-      {{ merit.effect|markdown_to_html }}
-    </div>
-  </div>
-  <hr>
-  {# actions #}
-  <div class="col-auto">
-    {% block actions %}
-      {% if options|default(false) %}
-        {% if is_granted('ROLE_ST') %}
-          {# Could be used to copy a direct link to the merit #}
-          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-          {% include "element/_delete.html.twig" with {element: 'merit', 'entity': merit} %}
+{% set type = merit.type|default('universal') %}
+
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start"
+  data-search-target="item"
+  data-name="{{ merit.name ~ merit.description }}"
+  data-type="{{ type }}"
+  data-category="{{ merit.category }}"
+  data-style="{{ merit.isFighting|default(0) }}"
+
+>
+  <div class="rounded bdr p-3 h-100 merit merit-btn merit-{{ merit.type|default('universal') }}"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ merit.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('merit_show', {id: merit.id})) }}"
+  >
+    <div class="row">
+      <div class="col text-strong text-center">{{ merit.name }}</div>
+      <div class="col-auto">
+        {% if merit.type != null %}
+          {% include "_icon.html.twig" with {icon: 'type/' ~ type, class:'accent text-strong', label: (type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
+        {% else %}
+          {% include "_icon.html.twig" with {icon: type, class:'text-strong', label: ('universal'|trans({}, 'app')~ ' ' ~ 'label.single'|trans) } only %}
         {% endif %}
-      {% endif %}
-    {% endblock %}
-  </div>
-  {# source #}
-  <div class="col text-end">
-    {% include "_source_block.html.twig" with { 'element': merit, class: 'text-strong fst-italic' } only %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-strong">
+        {% if merit.category %}{% include "_icon.html.twig" with {icon: merit.category, label: "category.#{merit.category}"|trans({}, 'app') } only %}{% endif %}
+        {% if merit.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: merit.homebrewFor.name } only %}{% endif %}
+        {% if not merit.isUnique %}{% include "_icon.html.twig" with {icon: 'infinity', label: 'help.not.unique'|trans } %}{% else %}{% include "_icon.html.twig" with {icon: 'unique', label: 'help.unique'|trans } %}{% endif %}
+        {% if merit.isCreationOnly %}{% include "_icon.html.twig" with {icon : 'creation', label: 'help.creation'|trans } only %}{% endif %}
+        {% if merit.isExpanded %}{% include "_icon.html.twig" with {icon: 'notebook', label: 'help.expanded'|trans } %}{% endif %}
+        {% if merit.isFighting %}{% include "_icon.html.twig" with {icon : 'fighting-style', label: 'help.fighting'|trans } only %}{% endif %}
+        {% if merit.roll is not null %}{% include "_icon.html.twig" with {icon : 'd10', label: 'help.roll'|trans } only %}{% endif %}
+      </div>
+      <div class="col-6 text-strong text-end">
+        {% for i in 1..merit.min %}•{% endfor %}
+        {% if merit.min != merit.max %}
+          - {% for i in 1..merit.max %}•{% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text">{{ merit.description }}</div>
+    </div>
+
   </div>
 </div>
