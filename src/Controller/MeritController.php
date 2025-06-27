@@ -129,7 +129,7 @@ class MeritController extends AbstractController
 
     $template = "show";
     if ($request->isXmlHttpRequest()) {
-      $template = "_card";
+      $template = "_show";
     }
 
     return $this->render("merit/$template.html.twig", [

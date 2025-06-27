@@ -4,7 +4,7 @@
   {{ "or"|trans }}
 {% else %}
   {# {{ dump(group|default(null), prerequisite.choiceGroup) }} #}
-  {% if not loop.first %}&{% endif %}
+  {% if not loop.first %}<span class="text-strong"> + </span>{% endif %}
 {% endif %}
 <span class="d-inline-block text-strong">
   {% if prerequisite.type == 'App\\Entity\\Merit' %}
