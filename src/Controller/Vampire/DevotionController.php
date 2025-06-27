@@ -57,7 +57,7 @@ class DevotionController extends AbstractController
     sort($search['discipline']);
     sort($search['clan']);
 
-    return $this->render('vampire/devotion/index.html.twig', [
+    return $this->render('vampire/devotion/list.html.twig', [
       'devotions' => $devotions,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
@@ -74,7 +74,7 @@ class DevotionController extends AbstractController
       $this->dataService->loadPrerequisites($devotion);
     }
 
-    return $this->render('vampire/devotion/index.html.twig', [
+    return $this->render('vampire/devotion/list.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'devotion']),
       'entity' => 'devotion',
       'category' => 'character',
@@ -86,11 +86,16 @@ class DevotionController extends AbstractController
   }
 
   #[Route('/wiki/devotion/{id<\d+>}', name: 'vampire_devotion_show', methods: ['GET', 'POST'])]
-  public function devotionShow(Devotion $devotion): Response
+  public function devotionShow(Request $request, Devotion $devotion): Response
   {
     $this->dataService->loadPrerequisites($devotion);
 
-    return $this->render('vampire/devotion/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("vampire/devotion/$template.html.twig", [
       'devotion' => $devotion,
     ]);
   }

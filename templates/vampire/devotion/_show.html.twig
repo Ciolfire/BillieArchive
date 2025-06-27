@@ -1,0 +1,41 @@
+{% trans_default_domain 'vampire' %}
+
+{% set setting = "vampire" %}
+
+<div class="row justify-content-center">
+  <div class="mb-4 bdr-b">
+    {# name #}
+    <h1>
+      {{ devotion.name }}
+      {% if devotion.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+    </h1>
+    {% if devotion.bloodline %}
+      <p class="text-center text-strong accent">
+        {{ "bloodline.devotion.single"|trans({'bloodline': devotion.bloodline.name}, 'clan') }}
+      </p>
+    {% endif %}
+    <div
+      class="row justify-content-center">
+      {% for prerequisite in devotion.prerequisites %}
+        <div class="col-4 text-center text-bold">
+          <span class="text-strong">
+            {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
+            {% set group = prerequisite.choiceGroup %}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+    <p
+      class="text-center">
+      <span class="text-strong">{{ devotion.cost }}
+        {{ "xp.label"|trans([], 'character') }}</span>
+    </p>
+  </div>
+  {# description #}
+  <div class="col-12">
+    {{ devotion.description|default('???')|markdown_to_html }}
+  </div>
+  <div class="row justify-content-end pe-2 mt-2">
+    {% include "_source_block.html.twig" with { 'element': devotion, class: 'text-strong text-end' } only %}
+  </div>
+</div>
