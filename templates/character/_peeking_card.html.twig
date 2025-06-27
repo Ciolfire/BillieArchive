@@ -17,6 +17,7 @@
     data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     data-content-name-param="{{ name }}"
+    data-content-type-param="{{ 'label.single'|trans }}"
     data-content-link-param="{{ link|default(path('character_peek', {id: character.id, peeker: access.accessor.id})) }}"
   >
   {% block content %}
