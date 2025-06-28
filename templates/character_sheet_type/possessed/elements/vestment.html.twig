@@ -1,8 +1,9 @@
-<div class="block m-1 p-2 rounded position-relative h-100">
+<div class="d-flex flex-column block m-1 p-2 rounded position-relative h-100">
   <h3>{{ vestment.name }}</h3>
   <h5>{{ vestment.vice }}</h5>
   <hr>
-  {{ vestment.effect|markdown_to_html }}
+  <div class="flex-fill">{{ vestment.effect|markdown_to_html }}</div>
+  <div>
     {% if vestment.statusEffects|length > 0 %}
       <div class="bdr-t pt-1 text-center">
         {% for status in vestment.statusEffects %}
@@ -10,4 +11,5 @@
         {% endfor %}
       </div>
     {% endif %}
+  </div>
 </div>
