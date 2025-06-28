@@ -2,17 +2,50 @@
 
 {% set vices = possessed.getVices %}
 
-<div class="row p-2">
-  <h2>
-    {% include "_icon.html.twig" with {icon: 'extreme' } %}
-    {{ "vestment.label.multi"|trans }}
-  </h2>
-  {% for key, vestments in possessed.sortedVestments %}
-    <h3>{{ "vestment.level"|trans({level: key}) }}</h3>
-    {% for vestment in vestments %}
-      <div class="col-12 col-md-6 col-lg-4">
-        {% include "character_sheet_type/possessed/elements/vestment.html.twig" %}
-      </div>
-    {% endfor %}
-  {% endfor %}
+{% set vestments = possessed.sortedVestments %}
+
+<h2 class="my-2">
+  {% include "_icon.html.twig" with {icon: 'extreme' } %}
+  {{ "vestment.label.multi"|trans }}
+</h2>
+<div data-controller="tabs" data-tabs-initial-value="VestmentInner" data-tabs-parent-value="merits">
+  <ul class="nav tabs row g-0">
+    {% include "_tab.html.twig" with {name: 'VestmentInner', label: 'vestment.level'|trans({level: 1}), icon: 'extreme'} only %}
+    {% if vestments[2] is defined %}
+      {% include "_tab.html.twig" with {name: 'VestmentLesser', label: 'vestment.level'|trans({level: 2}), icon: 'extreme'} only %}
+    {% endif %}
+    {% if vestments[3] is defined %}
+      {% include "_tab.html.twig" with {name: 'VestmentGreated', label: 'vestment.level'|trans({level: 3}), icon: 'extreme'} only %}
+    {% endif %}
+  </ul>
+  <div id="VestmentInner" class="tab-content d-none" data-tabs-target="page">
+    <div class="text-center text-strong">{{ "vestment.info"|trans({level: 1})|markdown_to_html }}</div>
+    <div class="row">
+      {% for vestment in vestments[1] %}
+          <div class="col-12 col-md-6 col-lg-4">
+            {% include "character_sheet_type/possessed/elements/vestment.html.twig" %}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="VestmentLesser" class="tab-content d-none" data-tabs-target="page">
+    <div class="text-center text-strong">{{ "vestment.info"|trans({level: 2})|markdown_to_html }}</div>
+    <div class="row">
+      {% for vestment in vestments[2] %}
+          <div class="col-12 col-md-6 col-lg-4">
+            {% include "character_sheet_type/possessed/elements/vestment.html.twig" %}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="VestmentGreated" class="tab-content d-none" data-tabs-target="page">
+    <div class="text-center text-strong">{{ "vestment.info"|trans({level: 3})|markdown_to_html }}</div>
+    <div class="row">
+      {% for vestment in vestments[3] %}
+          <div class="col-12 col-md-6 col-lg-4">
+            {% include "character_sheet_type/possessed/elements/vestment.html.twig" %}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>

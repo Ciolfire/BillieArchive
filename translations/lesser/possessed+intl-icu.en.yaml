@@ -18,6 +18,15 @@ vestment:
       other {}
     }
 
+  info: >-
+    {level, plural,
+      =1 {Innate (1-dot) Vestments cost nothing to manifest. They are "**always on**".}
+      =2 {Lesser (2-dot) Vestments cost **1 Willpower** point to activate, and their effects last for a **full scene**.}
+      =3 {Greater (3-dot) Vestments cost **2 Willpower** points to activate, and their effects last for a **number of turns** equal to the **total number of Vice dots** the character possesses in all Vices.  
+      A character can push this duration of effect (whether by the human host’s own choice or by the demon wresting control), continuing it indefinitely, but doing so is bad for the mind, body and soul. It is in this way that a Possessed character may suffer Burnout — see Burnout, p. 147.}
+      other {}
+    }
+
   setup: |
     You choose Vestments based upon the dot ratings you placed in Vice.
     For each dot in a Vice, you gain one Vestment in accordance with that dot ranking.

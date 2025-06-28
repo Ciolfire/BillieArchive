@@ -13,8 +13,17 @@ vestment:
   level: >-
     {level, plural,
       =1 {Inné}
-      =2 {Mineur}
-      =3 {Majeur}
+      =2 {Inférieur}
+      =3 {Supérieur}
+      other {}
+    }
+
+  info: >-
+    {level, plural,
+      =1 {Les Ornements Innés (1-point) ne demande aucun coût pour être manifestés. Ils sont "**toujours actifs**".}
+      =2 {Les Ornements inférieurs (2-points) demandent **1 point de Volonté** pour être activés, et leurs effets sont actifs pendant une **scène entière**.}
+      =3 {Les Ornements Supérieurs (3-points) demandent **2 points de Volonté** pour être activés, et leurs effets sont actifs pendant un **nombre de tours** égal au **total de points de Vice** que le personnage possède dans tous ses Vices.  
+      Un personnage peut forcer le pouvoir à durer plus longtemps (que ce soit par le choix de l'hôte humain ou du démon prenant le contrôle), le faisant durer indéfiniment, mais cet acte est mauvaise pour l'esprit, le corps et l'âme. C'est ainsi que le personnage Possédé peut souffrir d'un Burnout — voir Burnout, p. 147.}
       other {}
     }
 
