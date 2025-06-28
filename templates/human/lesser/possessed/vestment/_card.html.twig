@@ -1,4 +1,4 @@
-<div class="block m-1 p-2 rounded position-relative">
+<div class="block m-1 p-2 rounded position-relative h-100">
   {% if is_granted('ROLE_ST') %}
     <a class="position-absolute end-0" href="{{ path('possessed_vestment_edit', {id: vestment.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
   {% endif %}
