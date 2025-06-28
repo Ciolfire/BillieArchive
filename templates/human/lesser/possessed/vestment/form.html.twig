@@ -3,7 +3,7 @@
 {% trans_default_domain 'possessed' %}
 
 {% if action is not defined %}
-{% set action = "new" %}
+  {% set action = "new" %}
 {% endif %}
 
 
@@ -35,9 +35,4 @@
   {% include "forms/_statuseffect_field.html.twig" %}
   {% block submit %}{{ parent() }}{% endblock %}
   {{ form_end(form)}}
-{% endblock %}
-
-
-{% block actions %}
-  <a class="btn btn-primary ms-4" href="{{ path('discipline_show', {'id': vestment.discipline.id}) }}">{{ 'action.back'|trans({}, "app") }}</a>
 {% endblock %}
