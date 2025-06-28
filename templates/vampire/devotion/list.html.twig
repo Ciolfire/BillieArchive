@@ -2,12 +2,12 @@
 
 {% trans_default_domain 'discipline' %}
 
+{% set setting = "vampire" %}
+{% set footer = true %}
+
 {% block title %}
   {{ "devotion.label.multi"|trans }}
 {% endblock %}
-
-{% set setting = "vampire" %}
-{% set footer = true %}
 
 {% block bodyController %}
   {{parent() }} search

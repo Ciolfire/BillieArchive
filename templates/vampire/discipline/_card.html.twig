@@ -1,0 +1,38 @@
+{% trans_default_domain 'discipline' %}
+
+
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start"
+  data-search-target="item"
+  data-name="{{ discipline.name ~ discipline.short }}{% for power in discipline.powers %}{{ power.short }}{% endfor %}"
+  {# data-clan="{{ discipline }}" #}
+>
+  <div class="rounded bdr p-3 h-100 card-content"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ discipline.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('vampire_discipline_show', {id: discipline.id})) }}"
+  >
+    <div class="row">
+      <div class="col-12 text-strong text-center">
+        <h4>{{ discipline.name }}</h4>
+        {% if discipline.homebrewFor is not null %}
+          {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: discipline.homebrewFor } only %}
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <span>{{ discipline.short }}</span>
+      </div>
+      <hr class="my-1">
+      <div class="col-12">
+        {% if discipline.isSorcery %}
+          {% include "vampire/discipline/powers/_card.html.twig" with {power: discipline.getRitual} %}
+        {% else %}
+          {% for power in discipline.powers %}
+            {% include "vampire/discipline/powers/_card.html.twig" %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

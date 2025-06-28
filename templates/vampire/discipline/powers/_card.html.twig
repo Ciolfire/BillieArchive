@@ -1,0 +1,22 @@
+{# {% if discipline.maxLevel > 1 %}
+  {% include "vampire/discipline/_table.multi.html.twig" %}
+{% elseif discipline.power %}
+  {% include "vampire/discipline/_table.single.html.twig" %}
+{% endif %} #}
+
+<div class="row">
+  <div class="col">
+    <div class="text-strong {% if discipline.isCoil %}text-center{% else %}text-start{% endif %}">
+      {{ power.getLevelDots }}
+    </div>
+  </div>
+  {% if discipline.isCoil == false %}
+    <div class="col text-end">
+      {% if power.costs is empty %}
+        <span class="text-strong">-</span>
+      {% endif %}
+      {% include "vampire/discipline/powers/_cost.html.twig" with { size: 'icon-sm' } %}
+    </div>
+  {% endif %}
+  <div class="col-12 text-center">{{ power.short }}</div>
+</div>

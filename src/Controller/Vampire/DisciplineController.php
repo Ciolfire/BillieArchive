@@ -38,7 +38,7 @@ class DisciplineController extends AbstractController
     $data = $this->service->getDisciplines();
 
     return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
+      'disciplines' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'discipline',
@@ -51,7 +51,7 @@ class DisciplineController extends AbstractController
     $data = $this->service->getDisciplines('sorcery');
 
     return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
+      'disciplines' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'sorcery',
@@ -66,7 +66,7 @@ class DisciplineController extends AbstractController
     $data = $this->service->getDisciplines('coils');
 
     return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
+      'disciplines' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'coils',
@@ -80,7 +80,7 @@ class DisciplineController extends AbstractController
     $data = $this->service->getDisciplines('thaumaturgy');
 
     return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
+      'disciplines' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
       'type' => 'thaumaturgy',
@@ -93,7 +93,7 @@ class DisciplineController extends AbstractController
     $data = $this->service->getDisciplines($type, $filter, $id);
 
     return $this->render($data['template'], [
-      'elements' => $data['disciplines'],
+      'disciplines' => $data['disciplines'],
       'description' => $data['description'],
       'entity' => 'discipline',
       'back' => $data['back'],
@@ -103,10 +103,15 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/wiki/discipline/{id<\d+>}', name: 'discipline_show', methods: ['GET'])]
-  public function discipline(Discipline $discipline): Response
+  #[Route('/wiki/discipline/{id<\d+>}', name: 'vampire_discipline_show', methods: ['GET'])]
+  public function discipline(Request $request, Discipline $discipline): Response
   {
-    return $this->render('vampire/discipline/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("vampire/discipline/$template.html.twig", [
       'discipline' => $discipline,
     ]);
   }
@@ -124,7 +129,7 @@ class DisciplineController extends AbstractController
       $this->dataService->save($discipline);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/discipline/new.html.twig', [
@@ -147,7 +152,7 @@ class DisciplineController extends AbstractController
       $this->dataService->save($discipline);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/form.html.twig', [
@@ -170,7 +175,7 @@ class DisciplineController extends AbstractController
       $this->dataService->save($discipline);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/form.html.twig', [
@@ -193,7 +198,7 @@ class DisciplineController extends AbstractController
       $this->dataService->save($discipline);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $discipline->getName()]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/form.html.twig', [
@@ -214,7 +219,7 @@ class DisciplineController extends AbstractController
       $this->dataService->update($discipline);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $discipline->getName()]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/form.html.twig', [
@@ -263,7 +268,7 @@ class DisciplineController extends AbstractController
       $this->dataService->save($power);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => "{$discipline->getName()} — {$power->getName()}"]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/discipline/powers/form.html.twig', [
@@ -287,7 +292,7 @@ class DisciplineController extends AbstractController
       $discipline = $power->getDiscipline();
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => "{$discipline->getName()} — {$power->getName()}"]]);
-      return $this->redirectToRoute('discipline_show', ['id' => $discipline->getId()]);
+      return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
     return $this->render('vampire/discipline/powers/form.html.twig', [

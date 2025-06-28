@@ -83,7 +83,7 @@ class ArcanumController extends AbstractController
       return ($spell2->getName() < $spell1->getName()) ? 1 : -1;
     });
 
-    return $this->render('mage/spell/index.html.twig', [
+    return $this->render('mage/spell/list.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'mage_spell']),
       'mageOrders' => $this->dataService->findAll(MageOrder::class),
       'arcana' => $this->dataService->findAll(Arcanum::class),
@@ -100,7 +100,7 @@ class ArcanumController extends AbstractController
       return ($spell2->getLevel() < $spell1->getLevel()) ? 1 : -1;
     });
 
-    return $this->render('mage/spell/index.html.twig', [
+    return $this->render('mage/spell/list.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'spell']),
       'setting' => "mage",
       'mageOrders' => $this->dataService->findAll(MageOrder::class),
@@ -116,7 +116,7 @@ class ArcanumController extends AbstractController
   {
     $template = "show";
     if ($request->isXmlHttpRequest()) {
-      $template = "_card";
+      $template = "_show";
     }
 
     return $this->render("mage/spell/$template.html.twig", [

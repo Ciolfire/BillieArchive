@@ -17,7 +17,9 @@
       <div class="col-12 text-strong text-end">
         {{ devotion.cost }} xp
       </div>
-      <div class="col-12 text-strong text-center">{{ devotion.name }}</div>
+      <div class="col-12">
+        <h4>{{ devotion.name }}</h4>
+      </div>
       <hr class="my-1">
       <div class="col-auto">
         {% for prerequisite in devotion.prerequisites %}
@@ -34,32 +36,3 @@
     </div>
   </div>
 </div>
-
-{# <div>
-  <div class="col-12 col-md col-lg-3">
-    <h4 class="text-strong">{{ devotion.name }}
-      {% if devotion.homebrewFor is not null %}
-        {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}
-      {% endif %}
-    </h4>
-  </div>
-  <div class="col-12 col-md col-lg-4 pb-2 pb-md-0">
-    <span>{{ devotion.short }}</span>
-  </div>
-  <div class="col col-lg-3">
-    {% for prerequisite in devotion.prerequisites %}
-      {% include "_prerequisite.html.twig" with { group: group|default(null) } %}
-      {% set group = prerequisite.choiceGroup %}
-    {% endfor %}
-  </div>
-  <div class="col col-lg-1">
-    <span class="text-strong">{{ devotion.cost }}
-      xp</span>
-  </div>
-  <div class="col col-lg-1 bdr-s">
-    <a class="btn btn-primary" href="{{ path('vampire_devotion_show', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'show'} %}</a>
-    {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
-    {% endif %}
-  </div>
-</div> #}

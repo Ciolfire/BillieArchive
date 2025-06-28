@@ -46,7 +46,7 @@
         {% elseif not loop.first %}
           ,
         {% endif %}
-        <a class="text-strong" href="{{ path('discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
+        <a class="text-strong" href="{{ path('vampire_discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
       {% endfor %}
       {% include "_icon.html.twig" with {icon: 'discipline' } %}
       {% if clan.devotions is not empty %}

@@ -9,11 +9,38 @@
 	{{ label|default('label.multi')|trans }}
 {% endblock %}
 
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
 {% block bodyData %}
-	data-controller="search" data-search-type-value="discipline"
+  data-search-type-value="discipline"
 {% endblock %}
 
 {% block body %}
+  {% if chronicle|default(false) == false %}
+    {% include "_back.html.twig" %}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+  {% endif %}
+
+  {% include "_title.html.twig" with {title: label|default('label.multi') , domain: "discipline", icon: type} %}
+
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+    <div class="row g-2 pb-2">
+      {% for discipline in disciplines|sort((a, b) => a.name|lower <=> b.name|lower) %}
+        {% include "vampire/discipline/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{# {% block body %}
 	{% include "_back.html.twig" %}
 	<div class="container block py-3  ">
 		<div class="row mb-3">
@@ -54,7 +81,7 @@
 						{{ discipline.short }}
 					</div>
 					<div class="col-2 col-md-1 text-center">
-						<a href="{{ path('discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {icon : 'show' } only %}</a>
+						<a href="{{ path('vampire_discipline_show', {'id': discipline.id}) }}">{% include "_icon.html.twig" with {icon : 'show' } only %}</a>
 					</div>
 				</div>
 				{% if discipline.maxLevel > 1 %}
@@ -65,7 +92,7 @@
 			{% endfor %}
 		</div>
 	</div>
-{% endblock %}
+{% endblock %} #}
 
 {% block footerContent %}
 	<div class="col-12 d-flex align-items-center position-relative">

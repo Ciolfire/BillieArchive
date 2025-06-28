@@ -4,7 +4,7 @@
   {% include "_icon.html.twig" with {icon: icon|default(domain), class: 'icon-lg' } only %} {{ title|default('label.multi')|trans({}, domain|default('app')) }}
   {% if description is defined and description is not null and description.value is not empty %}
   <a class="" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
-    {% include "_icon.html.twig" with {icon: 'info', class: 'icon-sm align-top'} %}
+    {% include "_icon.html.twig" with {icon: 'info', class: 'icon-sm align-top', label: ''} %}
   </a>
   {% endif %}
 </h1>

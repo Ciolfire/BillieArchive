@@ -24,7 +24,7 @@
     </a>
   {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
     {% include "_icon.html.twig" with {icon: 'discipline'} %}
-    <a href="{{ path('discipline_show', {'id': prerequisite.entityId}) }}">
+    <a href="{{ path('vampire_discipline_show', {'id': prerequisite.entityId}) }}">
       {{ prerequisite.entity.name }}
     </a>
   {% else %}

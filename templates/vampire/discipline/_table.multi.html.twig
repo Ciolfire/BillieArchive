@@ -1,25 +1,20 @@
 {% trans_default_domain 'discipline' %}
 
-<div class="container collapse discipline-{{ discipline.id }} p-2" data-bs-parent="#disciplinesTable">
+{% for power in discipline.powers %}
   <div class="row">
-    <div class="col-3 text-start"><span class="text-strong">{{ ("name")|trans({}, 'app') }}</span></div>
-    <div class="col-2 col-lg-1"><span class="text-strong">{{ ("level")|trans({}, 'app') }}</span></div>
-    {% if discipline.isCoil == false %}
-      <div class="col-2 col-lg-1 text-center"><span class="text-strong">{{ ("cost")|trans({}, 'app') }}</span></div>
-    {% endif %}
-    <div class="col"><span class="text-strong">{{ ("effect")|trans }}</span></div>
-  </div>
-  {% for power in discipline.powers %}
-    <div class="row">
-      <div class="col-3"><h5 class="text-start">{{ power.name }}</h5></div>
-      <div class="col-2 col-lg-1">{{ power.getLevelDots }}</div>
-      {% if discipline.isCoil == false %}<div class="col-2 col-lg-1 text-center">
-        {% if power.costs is empty %}
-          —
-        {% endif %}
-        {% include "vampire/discipline/powers/_cost.html.twig" %}
-      </div>{% endif %}
-      <div class="col">{{ power.short }}</div>
+    <div class="col">
+      <div class="text-strong {% if discipline.isCoil == false %}text-start{% endif %}">
+        {{ power.getLevelDots }}
+      </div>
     </div>
-  {% endfor %}
-</div>
+    {% if discipline.isCoil == false %}
+      <div class="col text-end">
+        {% if power.costs is empty %}
+          <span class="text-strong">-</span>
+        {% endif %}
+        {% include "vampire/discipline/powers/_cost.html.twig" with { size: 'icon-sm' } %}
+      </div>
+    {% endif %}
+    <div class="col-12 text-center">{{ power.short }}</div>
+  </div>
+{% endfor %}

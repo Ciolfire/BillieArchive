@@ -1,70 +1,89 @@
 {% trans_default_domain 'spell' %}
 
-<div class="col-12 g-2">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-  {% endif %}
-  <div class="block p-2">
-    <h2>
-      {{ spell.name }}
-    </h2>
-    <h4>
-      {% include "mage/spell/_arcana.html.twig" with { arcana : spell.arcana } %}
-    </h4>
-    <h5>
-      {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
-      {{ spell.skill }}
-    </h5>
-    <div class="text-center fst-italic">
-      {{ spell.short }}
-    </div>
-    <hr>
-    {{ spell.description|markdown_to_html }}
-    <p>
-      <strong>{{ "practice"|trans }}:</strong> 
-      {{ spell.practice.name }}
-    </p>
-    <p>
-      <strong>{{ "action.label.single"|trans({}, "app") }}:</strong>
-      {{ spell.actionName|trans({}, 'app') }}
-      {% if spell.isContested %}
-        ; {{ spell.contestedText }}
-      {% endif %}
-    </p>
-    <p>
-      <strong>{{ "duration"|trans }}:</strong> 
-      {{ spell.duration }}
-    </p>
-    <p>
-      <strong>{{ "aspect.label"|trans }}:</strong> 
-      {% if spell.vulgar %}
-        {{ "aspect.vulgar"|trans }}
-      {% else %}
-        {{ "aspect.covert"|trans }}
-      {% endif %}
-    </p>
-    <p>
-      <strong>{{ "cost"|trans({}, "app") }}:</strong>   
-      {{ spell.cost }}
-    </p>
-    <hr>
-    {{ spell.rules|markdown_to_html }}
-    {% block rotes %}
-      <div class="row">
-        {% for rote in spell.rotes|default(null) %}
-          {% include "mage/spell/_rote.html.twig" %}
-        {% endfor %}
-        {% if is_granted('ROLE_ST') %}
-          <div class="col-12 mt-2 text-center">
-            <a href="{{ path('mage_spell_rote_new', { spell: spell.id }) }}" class="btn btn-primary">
-              {% include "_icon.html.twig" with { icon: 'spell' } %}
-              {{ "rote.new"|trans }}
-            </a>
-          </div>
-        {% endif %}
-      </div>
-    {% endblock %}
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start" 
+  data-search-target="item" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
+  data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
+  data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
 
-    {% include "_source_block.html.twig" with { element: spell } %}
+>
+  <div class="rounded bdr p-3 h-100 card-content"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ spell.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+  >
+    <div class="row">
+      <div class="col text-strong text-center">
+        {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
+        {{ spell.name }}
+      </div>
+      <div class="col-auto">
+      </div>
+    </div>
+
+    <div class="row">
+      {# arcana #}
+      <div class="col text-strong text-center">
+        {% include "mage/spell/_short_arcana.html.twig" with { arcana : spell.arcana } %}
+      </div>
+      {# rotes #}
+      <div class="col-auto">
+        {% for rote in spell.rotes %}
+          {% if rote.mageOrder %}
+            <span class="icon">
+              <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ rote.mageOrder }}" src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
+            </span>
+          {% else %}
+            {% include "_icon.html.twig" with {icon: 'universal', label: 'universal'|trans({}, 'app')} %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {# description #}
+      <div class="col-12 text">{{ spell.short }}</div>
+    </div>
+
   </div>
 </div>
+
+
+{# 
+{% trans_default_domain 'spell' %}
+
+<div class="col-12" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
+  data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
+  data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
+  data-search-target="item" data-action="click->content#load"
+  role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+  data-content-url-param="{{ link|default(path('mage_spell_fetch', {id: spell.id})) }}" 
+  data-content-name-param="{{ spell.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+>
+  <div class="row bdr-b py-1">
+    <div class="col-6 col-lg-2 text-center text-md-end text-lg-start text-strong">
+      {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
+      {{ spell.name }}
+    </div>
+    <div class="col-6 col-lg-2">
+      {% include "mage/spell/_short_arcana.html.twig" with { arcana : spell.arcana } %}
+    </div>
+    <div class="col-2">
+      {% for rote in spell.rotes %}
+        {% if rote.mageOrder %}
+          <span class="icon">
+            <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ rote.mageOrder }}" src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
+          </span>
+        {% else %}
+          {% include "_icon.html.twig" with {icon: 'universal', label: 'universal'|trans({}, 'app')} %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-10 col-lg-4">
+      {{ spell.short }}
+    </div>
+    <div class="col-12 col-lg-2 text-end">
+      {% include "_source.html.twig" with { element: spell, isShort: true } %}
+    </div>
+  </div>
+</div> #}

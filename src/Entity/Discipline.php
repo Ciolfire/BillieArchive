@@ -123,6 +123,11 @@ class Discipline implements Translatable
     } else return null;
   }
 
+  public function getLastPower(): ?DisciplinePower
+  {
+    return $this->powers->last();
+  }
+
   public function getRitual(): ?DisciplinePower
   {
     if ($this->isSorcery()) {

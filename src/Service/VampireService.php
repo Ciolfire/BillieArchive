@@ -333,9 +333,9 @@ class VampireService
   /**
    * @return array<string, mixed>
    */
-  public function getDisciplines(string $type = "discipline", string $filter = null, int $id = null): array
+  public function getDisciplines(string $type = "discipline", ?string $filter = null, ?int $id = null): array
   {
-    $template = 'vampire/discipline/index.html.twig';
+    $template = 'vampire/discipline/list.html.twig';
     $criteria = [];
     if (!is_null($filter)) {
       switch ($filter) {
