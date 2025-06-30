@@ -4,13 +4,13 @@
   {% for tier in tiers %}
       <h3 class="pb-2">
         {{ 'coil.power.level'|trans({'%level%': tier.level, '%name%': tier.name}) }}
-        {% if is_granted('ROLE_ST') %}<a class="float-end" href="{{ path('vampire_discipline_power_edit', {'id': tier.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
+        {% if is_granted('ROLE_ST') and isNotModal|default(1) %}<a class="float-end" href="{{ path('vampire_discipline_power_edit', {'id': tier.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
       </h3>
       <div class="rule p-3 my-3">
         {{ tier.details|markdown_to_html }}
       </div>
   {% endfor %}
-  {% if is_granted('ROLE_ST') %}
+  {% if is_granted('ROLE_ST') and isNotModal|default(1) %}
     <a class="btn btn-primary w-100 my-3" href="{{ path('vampire_discipline_power_add', {'id': discipline.id}) }}">{{ 'coil.power.new'|trans }}</a>
   {% endif %}
 </div>
