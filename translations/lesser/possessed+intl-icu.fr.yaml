@@ -1,3 +1,9 @@
+immortal:
+  name: "Immortalité"
+  label: "Immortalité Infernale"
+  help: Lorsque le démon s'implante dans un hôte humain, celui-ci devient immortel. Il ne vieillit pas, tant que le démon est présent.
+
+
 setup:
   label: "{name} est soumis à une Possession"
   done: Continuer

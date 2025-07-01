@@ -1,5 +1,7 @@
 {% extends "character_sheet/show.html.twig" %}
 
+{% trans_default_domain 'possessed' %}
+
 {% set possessed = character.lesserTemplate %}
 
 {% block traits %}
@@ -15,6 +17,17 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+
+{% block status %}
+  {% include "_status_icon.html.twig" with {status: {
+    icon: "type/possessed",
+    isLocked: true,
+    value: 0,
+    name: 'immortal.name'|trans,
+    label: 'immortal.label'|trans ~ "\n" ~  'immortal.help'|trans,
+  }} %}
 {% endblock %}
 
 {% block powers %}

@@ -1,6 +1,7 @@
 {% trans_default_domain 'character' %}
 
 <div class="row my-2 px-2" data-controller="character--status">
+  {% block status %}{% endblock %}
   {% for status in character.statusEffects %}
     {% include "_status_icon.html.twig" %}
   {% endfor %}
