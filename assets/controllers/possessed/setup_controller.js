@@ -70,12 +70,9 @@ export default class extends Controller {
     Object.values(this.vicesValue).forEach(vice => {
       current = Math.max(vice, current);
       this.sumValue += vice;
-      console.log(this.sumValue, vice);
     });
-    console.log(this.sumValue);
     // Update sum value
     this.viceTotalTarget.innerText = this.sumValue;
-    console.log(current, this.viceTargets[this.primaryValue]);
     if (current > this.vicesValue[this.primaryValue]) {
       // If any vice has more dots than the main one, we display the issue, and block
       this.vicePrimaryTarget.classList.add("ko");
@@ -110,7 +107,6 @@ export default class extends Controller {
   }
 
   vestmentUpdate() {
-    console.log(this.vicesValue);
     this.vestmentTargets.forEach(vestment => {
       if (this.vicesValue[vestment.dataset.vice] >= vestment.dataset.level ) {
         vestment.classList.remove("d-none");
@@ -124,7 +120,6 @@ export default class extends Controller {
     this.vestmentTargets.forEach(vestment => {
       if (vestment.classList.contains("d-none")) {
         Array.prototype.forEach.call(vestment.getElementsByClassName("btn-check"), function(input) {
-          console.log(input);
           input.setAttribute('name', '');
         });
       }

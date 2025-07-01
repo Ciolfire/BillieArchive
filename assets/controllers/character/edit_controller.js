@@ -46,6 +46,7 @@ export default class extends Controller
       'vestment': 10,
       'possessedVice': 10
     },
+    vestments: Object,
     spendInfo: []
   }
 
@@ -337,22 +338,33 @@ export default class extends Controller
     let params = event.params;
     let key = `vestment-${params.id}`;
     let input = document.getElementById("vestment-" + params.id);
+    let vestments = this.vestmentsValue;
 
-    console.log(input);
+    console.log(vestments[params.vice][params.level]);
     if (input.checked) {
+      let cost = this.costsValue['vestment'];
+      if (vestments[params.vice][params.level] > 0) {
+        vestments[params.vice][params.level]++;
+      } else if (vestments[params.vice][params.level] == undefined || vestments[params.vice][params.level] == 0) {
+        cost = 0;
+        vestments[params.vice]
+        vestments[params.vice][params.level] = 1;
+      }
       this.spendInfoValue[key] = {
         type: params.type,
         info: {
           name: params.name,
           id: params.id,
-          cost: this.costsValue['vestment'],
+          cost: cost,
         }
       };
     } else {
       // We cancel the change, so we unset
       this.spendInfoValue[key] = undefined;
+      vestments[params.vice][params.level]--;
       delete this.spendInfoValue[key];
     }
+    this.vestmentsValue = vestments;
     // Get the cost for this specific dot
     this.updateSpend();
   }

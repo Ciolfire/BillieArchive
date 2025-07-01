@@ -189,4 +189,15 @@ class Possessed extends CharacterLesserTemplate
 
     return $this;
   }
+
+  public function getVestmentsCount()
+  {
+    $vestments = [];
+
+    foreach ($this->vices as $vice) {
+      $vestments[$vice->getVice()->getId()] = $vice->getVestmentsByLevel();
+    }
+
+    return $vestments;
+  }
 }

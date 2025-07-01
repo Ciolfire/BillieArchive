@@ -109,4 +109,17 @@ class PossessedVice
 
     return $this;
   }
+
+  public function getVestmentsByLevel()
+  {
+    $vestments = [];
+    foreach ($this->vestments as $vestment) {
+      if (!isset($vestments[$vestment->getLevel()])) {
+        $vestments[$vestment->getLevel()] = 0;
+      }
+      $vestments[$vestment->getLevel()]++;
+    }
+
+    return $vestments;
+  }
 }
