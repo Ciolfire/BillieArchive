@@ -1,11 +1,5 @@
 {% trans_default_domain 'character' %}
 
-<div class="row my-2 px-2" data-controller="character--status">
-  {% block status %}{% endblock %}
-  {% for status in character.statusEffects %}
-    {% include "_status_icon.html.twig" %}
-  {% endfor %}
-  <div class="d-inline-block position-relative icon status-wrapper status-add m-1" role="button" data-bs-toggle="modal" data-bs-target="#addStatusModal">
-    {% include "_icon.html.twig" with { icon: 'add', class: 'position-absolute top-50 start-50 translate-middle' } %}
-  </div>
-</div>
+{% for status in character.statusEffects %}
+  {% include "_status_icon.html.twig" %}
+{% endfor %}

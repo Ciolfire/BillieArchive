@@ -41,9 +41,14 @@
         {% endif %}
       </ul>
       <div id="general" class="d-none col" data-tabs-target="page">
-        {% block status %}
-          {% include "character_sheet/elements/status.html.twig" %}
-        {% endblock %}
+        <div class="row my-2 px-2" data-controller="character--status">
+          {% block status %}
+            {% include "character_sheet/elements/status.html.twig" %}
+          {% endblock %}
+          <div class="d-inline-block position-relative icon status-wrapper status-add m-1" role="button" data-bs-toggle="modal" data-bs-target="#addStatusModal">
+            {% include "_icon.html.twig" with { icon: 'add', class: 'position-absolute top-50 start-50 translate-middle' } %}
+          </div>
+        </div>
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="row h-100 p-1">
