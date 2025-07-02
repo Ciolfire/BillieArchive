@@ -30,9 +30,3 @@
 {% block specialTab %}
   {% include "_tab.html.twig" with {name: 'possessed', label: 'possessed'|trans({}, 'content-type'), icon: 'type/possessed', domain: 'content-type'} only %}
 {% endblock %}
-
-{# {% block modals %}
-  {{ parent() }}
-  {% include "character_sheet/modals/vampire/power_show.html.twig" %}
-  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
-{% endblock %} #}

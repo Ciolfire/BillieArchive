@@ -12,7 +12,7 @@
 {% block form_start %}
   {% set form_attributes = {
     class: 'container-fluid container-lg character-sheet',
-    'data-controller': 'character--merits character--edit vampire--power vampire--devotion',
+    'data-controller': 'character--merits character--edit vampire--power',
     'data-action': 'character--edit:change->character--merits#checkPrerequisite',
     'data-character--edit-total-value': character.xpTotal,
     'data-character--edit-used-value': character.xpUsed,
@@ -34,5 +34,4 @@
 {% block modals %}
   {{ parent() }}
   {% include "character_sheet/modals/vampire/power_show.html.twig" %}
-  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
 {% endblock %}

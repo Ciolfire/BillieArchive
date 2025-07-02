@@ -1,36 +1,3 @@
 {% extends "character_sheet/edit.html.twig" %}
 
 {% trans_default_domain 'character' %}
-
-{# {% set ghoulCharacter = character.lesserTemplate %}
-{% set clan = ghoulCharacter.clan %} #}
-
-{# {% block header %}
-  {% include "character_sheet_type/ghoul/header/edit.html.twig" %}
-{% endblock %} #}
-
-{# {% block form_start %}
-  {% set form_attributes = {
-      'data-controller': 'character--merits character--edit vampire--power vampire--devotion',
-      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
-      'data-character--edit-total-value': character.xpTotal,
-      'data-character--edit-used-value': character.xpUsed,
-  } %}
-  {{ form_start(form, {'attr': form_attributes}) }}
-{% endblock %} #}
-
-{# {% block special %}
-  <div id="ghoul" class="g-0" data-tabs-target="page">
-    {% include "character_sheet_type/ghoul/edit/special.html.twig" %}
-  </div>
-{% endblock %} #}
-
-{# {% block specialTab %}
-  {% include "_tab.html.twig" with {name: 'ghoul', label: 'ghoul'|trans({}, 'content-type'), icon: 'type/ghoul', domain: 'content-type'} only %}
-{% endblock %} #}
-
-{# {% block modals %}
-  {{ parent() }}
-  {% include "character_sheet/modals/vampire/power_show.html.twig" %}
-  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
-{% endblock %} #}
