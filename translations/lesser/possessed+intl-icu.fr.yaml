@@ -46,6 +46,9 @@ vestment:
 
 vice:
   label:
+  resistance: 
+    name: Résistance
+    label: Les points dans le Vice le plus fort sont ajoutés à la resistance surnaturelle.
   setup: | 
     Vous commencez avec 3 points à répartir dans les 7 Vices.
     Votre personnage ne peut jamais avoir plus de points dans un autre Vice que dans celui qui lui est principal.

@@ -28,6 +28,14 @@
     name: 'immortal.name'|trans,
     label: 'immortal.label'|trans ~ "\n" ~  'immortal.help'|trans,
   }} %}
+  {% include "_status_icon.html.twig" with {status: {
+    icon: "resistance",
+    isLocked: true,
+    value: 1,
+    realValue: possessed.primaryVice.level,
+    name: 'vice.resistance.name'|trans,
+    label: 'vice.resistance.label'|trans,
+  }} %}
   {{ parent() }}
 {% endblock %}
 

@@ -46,6 +46,9 @@ vestment:
 
 vice:
   label:
+  resistance: 
+    name: Resistance
+    label: Dots in highest Vice are added to supernatual resistance.
   setup: | 
     You begin with 3 dots to distribute across all seven Vices.
     Your character may never have more dots in another Vice than those dots possessed in that primary Vice.
