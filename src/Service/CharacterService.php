@@ -413,6 +413,7 @@ class CharacterService
 
   public function applyPossessed(Possessed $template, array $data)
   {
+    $character = $template->getSourceCharacter();
     $vices = $this->dataService->findAll(Vice::class);
     // Setup the vices
     foreach ($vices as $vice) {
@@ -428,13 +429,20 @@ class CharacterService
     for ($i=0; $i < $template->getPrimaryVice()->getLevel(); $i++) { 
       $language = new CharacterMerit($this->dataService->findOneBy(Merit::class, ['name' => "Language"]));
       $language->setChoice($this->translator->trans('merit.language.placeholder', [], 'possessed'));
-      $template->getSourceCharacter()->addMerit($language);
+      $character->addMerit($language);
+    }
+    $encyclopedic = $this->dataService->findOneBy(Merit::class, ['name' => "Encyclopedic Knowledge"]);
+    $eidetic = $this->dataService->findOneBy(Merit::class, ['name' => "Eidetic Memory"]);
+    if (!$character->hasMerit($encyclopedic->getId())) {
+      $character->addMerit(new CharacterMerit($encyclopedic, 4));
+    } else if (!$character->hasMerit($eidetic->getId())) {
+      $character->addMerit(new CharacterMerit($eidetic, 2));
     }
     $see = new CharacterMerit($this->dataService->findOneBy(Merit::class, ['name' => "Unseen Sense"]), 3);
     $see->setChoice($this->translator->trans('merit.see.placeholder', [], 'possessed'));
-    $template->getSourceCharacter()->addMerit($see);
+    $character->addMerit($see);
     
-    $this->dataService->update($template->getSourceCharacter());
+    $this->dataService->update($character);
   }
 
   /**
