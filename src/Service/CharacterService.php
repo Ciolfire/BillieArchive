@@ -414,7 +414,7 @@ class CharacterService
   public function applyPossessed(Possessed $template, array $data)
   {
     $vices = $this->dataService->findAll(Vice::class);
-    // dd($vices);
+    // Setup the vices
     foreach ($vices as $vice) {
       $pVice = new PossessedVice($vice, intval($data['vices'][$vice->getId()]));
       if (isset($data['vestment'][$vice->getId()])) {
@@ -424,6 +424,16 @@ class CharacterService
       }
       $template->addVice($pVice);
     }
+    // Setup the merits
+    for ($i=0; $i < $template->getPrimaryVice()->getLevel(); $i++) { 
+      $language = new CharacterMerit($this->dataService->findOneBy(Merit::class, ['name' => "Language"]));
+      $language->setChoice($this->translator->trans('merit.language.placeholder', [], 'possessed'));
+      $template->getSourceCharacter()->addMerit($language);
+    }
+    $see = new CharacterMerit($this->dataService->findOneBy(Merit::class, ['name' => "Unseen Sense"]), 3);
+    $see->setChoice($this->translator->trans('merit.see.placeholder', [], 'possessed'));
+    $template->getSourceCharacter()->addMerit($see);
+    
     $this->dataService->update($template->getSourceCharacter());
   }
 

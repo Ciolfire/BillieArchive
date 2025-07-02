@@ -3,6 +3,12 @@ immortal:
   label: "Hell’s Eternity"
   help: When the demon is entrenched in a human host, that human becomes ultimately immortal. He does not age, while the demon is present.
 
+merit:
+  see:
+    placeholder: "I See Demons"
+  language:
+    placeholder: "*Choose a language*"
+
 setup:
   label: "{name} has been possessed"
   done: Continue
