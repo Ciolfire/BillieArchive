@@ -1,4 +1,4 @@
-{% trans_default_domain 'vampire' %}
+{% trans_default_domain 'discipline' %}
 
 {% if devotion.usePotency %}
   {% set extra = {potency: character.potency|default(0)} %}
@@ -6,8 +6,15 @@
 
 {% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines, extra|default([])) %}
 
-<div class="col py-2" data-search-target="item" data-name="{{ devotion.name }}">
-  <div class="card devotion-card block h-100">
+<div class="col d-flex flex-column" data-search-target="item" data-name="{{ devotion.name }}">
+  <div class="rounded-top bdr p-3 h-100 card-content flex-fill"
+    role="button"
+    data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ devotion.name }}"
+    data-content-type-param="{{ "devotion.label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('vampire_devotion_show', {id: devotion.id})) }}"
+  >
     <div class="card-header">
       <span class="float-start">
         <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "_dice_pool.html.twig" with {pool : powerPool, contested : devotion.contestedText} %}</span>
@@ -20,13 +27,7 @@
     </div>
     <div class="card-body d-flex flex-column">
       <span class="accent text-strong">{% block prerequisites %}{% endblock %}</span>
-      <div type="button" class="card-text flex-grow-1"
-        data-bs-toggle="modal" data-bs-target="#devotionShowModal"
-        data-action="click->vampire--devotion#show"
-        data-vampire--devotion-id-param="{{ devotion.id }}"
-        data-vampire--devotion-name-param="{{ devotion.name }}"
-        data-vampire--devotion-effect-param="{{ devotion.description|markdown_to_html|e }}"
-      >
+      <div class="card-text flex-grow-1">
         <br>
         {% block text %}
           <div>
@@ -35,12 +36,11 @@
         {% endblock %}
       </div>
     </div>
-    {% block input %}
-    {% endblock %}
     {% block source %}
       <div class="pe-3 mb-1">
-        {% include "_source_block.html.twig" with {element: devotion, 'isShort': 1, class: 'text-end fst-italic' } only %}
+        {% include "_source_block.html.twig" with {element: devotion, 'isShort': 1, 'hasLink': 0, class: 'text-end fst-italic' } only %}
       </div>
     {% endblock %}
   </div>
+  {% block input %}{% endblock %}
 </div>

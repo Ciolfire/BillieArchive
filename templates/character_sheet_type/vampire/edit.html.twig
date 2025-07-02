@@ -13,7 +13,7 @@
 
 {% block form_start %}
   {% set controllers = {
-    'data-controller': 'character--merits vampire--power vampire--devotion character--edit',
+    'data-controller': 'character--merits vampire--power character--edit',
     'data-character--edit-coils-value': character.coilsLevel,
   } %}
   {{ parent() }}
@@ -32,5 +32,4 @@
 {% block modals %}
   {{ parent() }}
   {% include "character_sheet/modals/vampire/power_show.html.twig" %}
-  {% include "character_sheet/modals/vampire/devotion_show.html.twig" %}
 {% endblock %}
