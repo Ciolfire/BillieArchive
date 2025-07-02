@@ -87,9 +87,15 @@ class CharacterForm extends AbstractType
       ->add('lookAge', null, [
         'label' => 'age.looks.label',
       ])
-      ->add('virtue', null, ['label' => 'virtue.label.single'])
+      ->add('virtue', null, [
+        'label' => 'virtue.label.single',
+        'required' => true,
+      ])
       ->add('virtueDetail', null, ['required' => false, 'label' => 'virtue.detail', 'empty_data' => ""])
-      ->add('vice', null, ['label' => 'vice.label.single'])
+      ->add('vice', null, [
+        'label' => 'vice.label.single',
+        'required' => true,
+      ])
       ->add('viceDetail', null, ['required' => false, 'label' => 'vice.detail', 'empty_data' => ""])
       ->add('concept')
       ->add('status', ChoiceType::class, [
