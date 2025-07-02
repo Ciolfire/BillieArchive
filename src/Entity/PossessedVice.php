@@ -122,4 +122,14 @@ class PossessedVice
 
     return $vestments;
   }
+
+  public function isPrimary() : bool
+  {
+    if ($this->vice === $this->possessed->getSourceCharacter()->getVice()) {
+
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -101,7 +101,7 @@ class CharacterService
         break;
       
       case 'possessed':
-        $this->handlePossessedEdit($character->getLesserTemplate(), $extraData['vices'], $extraData['vestments']);
+        $this->handlePossessedEdit($character->getLesserTemplate(), $extraData);
         break;
     }
     if (isset($extraData['xp']) && !isset($extraData['isFree'])) {
@@ -118,12 +118,30 @@ class CharacterService
     return $xp;
   }
 
-  public function handlePossessedEdit(Possessed $possessed, $vices, $vestments)
+  public function handlePossessedEdit(Possessed $possessed, $data)
   {
+    $vices = [];
+    $vestments = [];
+
+    if (isset($data['vices'])) {
+      $vices = $data['vices'];
+    }
+    if (isset($data['vestments'])) {
+      $vestments = $data['vestments'];
+    }
+
     foreach ($vices as $id => $level) {
       if ($level > 0) {
+        // Check if main vice, to update language merit
         // Update vice value
         $vice = $possessed->getVice($id);
+        if ($vice->isPrimary()) {
+          for ($i=$vice->getLevel(); $i < $level; $i++) { 
+            $language = new CharacterMerit($this->dataService->findOneBy(Merit::class, ['name' => "Language"]));
+            $language->setChoice($this->translator->trans('merit.language.placeholder', [], 'possessed'));
+            $possessed->getSourceCharacter()->addMerit($language);
+          }
+        }
         $vice->setLevel(intval($level));
         // Add eventual new vestment
         if (isset($vestments[$id])) {
