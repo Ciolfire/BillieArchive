@@ -81,6 +81,7 @@ export default class extends Controller
           if (Object.keys(values).length > 0) {
             isValid = false;
             for (const value in values) {
+              // For each item, we check if the data match the activated filters
               if (filters[key][value] === true && item.dataset[key].includes(value)) {
                 isValid = true;
                 break;
