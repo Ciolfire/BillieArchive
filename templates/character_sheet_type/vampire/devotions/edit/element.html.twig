@@ -2,20 +2,22 @@
 
 {% trans_default_domain 'character' %}
 
-{% block controller %}data-controller="dot" role="group"{% endblock %}
+{# {% block controller %}data-controller="dot" role="group"{% endblock %} #}
 
 {% block data %}data-name="{{ devotion.name }}" data-id="{{ devotion.id }}" data-type="devotion" data-controller-base-value="{{ devotion.cost }}" {% endblock %}
 
 {% block input %}
   <div class="card-footer">
     <div class="btn btn-primary w-100 rounded-top-0" data-bs-toggle="button" aria-pressed="true"
-      data-action="click->character--edit#payDevotion"
+      data-action="click->character--edit#paySimple"
       data-character--edit-id-param="{{ devotion.id }}"
       data-character--edit-type-param="devotion"
       data-character--edit-name-param="{{ devotion.name }}"
       data-character--edit-value-param="{{ devotion.cost }}">
       {{ devotion.cost }} {% include "_icon.html.twig" with {icon: 'xp', label: 'xp'} %}
-      <input data-character--edit-target="devotionInput" data-value="{{ devotion.cost }}" data-name="{{ devotion.name }}" id ="devotion-{{ devotion.id }}" class="devotion-value" value="0" type="hidden" name="{{ form.vars.name }}[devotions][{{ devotion.id }}]">
+      <input id="devotion-{{ devotion.id }}" class="devotion-value" value="0" type="hidden" name="{{ form.vars.name }}[devotions][{{ devotion.id }}]"
+        data-character--edit-target="input" data-value="{{ devotion.cost }}" data-id="{{ devotion.id }}" data-name="{{ devotion.name }}" data-type="devotion"
+      >
     </div>
   </div>
 {% endblock %}

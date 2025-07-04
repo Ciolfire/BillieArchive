@@ -10,17 +10,20 @@ export default class extends Controller
     "specialtyInput",
     "spend",
     "xpLogs",
-    "devotionInput",
     "ritualInput",
+    "input",
   ];
   static values = {
     type: String,
     total: Number,
     used: Number,
     spend: Number,
+    // Vampire
     ritualCurrent: {},
     coilsCurrent: {},
     coils: Number,
+    // Mage
+    //
     emptyInfo: String,
     costs: {
       'attribute': 5,
@@ -42,6 +45,7 @@ export default class extends Controller
       'arcanum-ruling': 6,
       'arcanum': 7,
       'arcanum-inferior': 8,
+      //'rote': 2,
       // possessed
       'vestment': 10,
       'possessedVice': 10
@@ -92,6 +96,7 @@ export default class extends Controller
         }
       }
     });
+    // Update if the item is checked (for example, after refresh)
     this.devotionInputTargets.forEach(target => {
       let data = target.dataset;
       if (target.value == 1) {
@@ -121,6 +126,21 @@ export default class extends Controller
         this.payRitual(event, true);
       }
     });
+    this.inputTargets.forEach(target => {
+      let data = target.dataset;
+      if (target.value == 1) {
+        console.debug("checked", target);
+        let event = {};
+
+        event.params = {};
+        event.params.id = data.id;
+        event.params.type = data.type;
+        event.params.name = data.name;
+        event.params.value = +data.value;
+        event.target = target.parentElement;
+        this.paySimple(event, true);
+      }
+    });
     // Used for prerequisite, secondary
     this.dispatch("change", { detail: { type: 'skill', target: null } });
     this.dispatch("change", { detail: { type: 'attribute', target: null } });
@@ -131,14 +151,29 @@ export default class extends Controller
     }
   }
 
+  checkUpdate(type, id)
+  {
+    switch (type) {
+      case 'arcanum':
+      case 'arcanum-ruling':
+        console.log("dispatch arcana event");
+        this.dispatch("arcana", { detail: { type: type, target: id } });
+        break;
+    
+      default:
+        this.dispatch("change", { detail: { type: type, target: id } });
+        break;
+    }
+  }
+
   pay(event)
   {
     let params = event.params;
     // Get the cost for this specific dot
     let cost = this.calculateClassicCost(this.costsValue[params.type], params.base, params.value);
     this.allocate(cost, `${params.type}-${params.id}`, params);
-    // Prerequisites update
-    this.dispatch("change", { detail: { type: params.type, target: params.id } });
+    // character--edit:change->*** | used for prerequisites update, and others hook for change
+    this.checkUpdate(params.type, params.id);
   }
   
   calculateClassicCost(cost, base, target, offset = 0)
@@ -222,33 +257,34 @@ export default class extends Controller
     // this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
 
-  payDevotion(event, refresh=false)
+  paySimple(event, refresh=false)
   {
     let params = event.params;
-    let cost = params.value;
-    let input = document.getElementById("devotion-"+event.params.id);
+    let input = document.getElementById(`${params.type}-${params.id}`);
 
-      if (input.value == 0 || refresh == true) {
-        event.target.classList.add('active');
-        input.value = 1;
-        this.spendInfoValue[params.id] = {
-          type: params.type,
-          info: {
-            name: params.name,
-            id: params.id,
-            cost: cost,
-          }
-        };
-      } else {
-        event.target.classList.remove('active');
-        input.value = 0;
-        // We cancel the change, so we unset
-        this.spendInfoValue[params.id] = undefined;
-        delete this.spendInfoValue[params.id];
-      }
+    console.debug(event.params, event.params.type, params.id);
+    if (input.value == 0 || refresh == true) {
+      event.target.classList.add('active');
+      console.debug(input.value, event.target.classList);
+      input.value = 1;
+      this.spendInfoValue[`${params.type}-${params.id}`] = {
+        type: params.type,
+        info: {
+          name: params.name,
+          id: params.id,
+          cost: params.value,
+        }
+      };
+    } else {
+      event.target.classList.remove('active');
+      input.value = 0;
+      // We cancel the change, so we unset
+      this.spendInfoValue[`${params.type}-${params.id}`] = undefined;
+      delete this.spendInfoValue[`${params.type}-${params.id}`];
+    }
     // Get the cost for this specific dot
     this.updateSpend();
-    // Prerequisites update, no need, nothing depend on devotion ?
+    // Prerequisites update ?
     // this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
 
@@ -340,9 +376,9 @@ export default class extends Controller
     let input = document.getElementById("vestment-" + params.id);
     let vestments = this.vestmentsValue;
 
-    console.log(vestments[params.vice][params.level]);
     if (input.checked) {
       let cost = this.costsValue['vestment'];
+      // We check if it's a normal vestment or if it's the first one (which is free)
       if (vestments[params.vice][params.level] > 0) {
         vestments[params.vice][params.level]++;
       } else if (vestments[params.vice][params.level] == undefined || vestments[params.vice][params.level] == 0) {
@@ -416,6 +452,7 @@ export default class extends Controller
         case 'devotion':
         case 'ritual':
         case 'vestment':
+        case 'rote':
           info = current.info;
           total += info.cost;
           text += `${info['name']} (${info['cost']})</br>`;
@@ -570,6 +607,7 @@ export default class extends Controller
     this.removeElements('ritual');
     // Yes, they don't exist for non-mage, yes I don't care :)
     this.removeElements('arcanum');
+    this.removeElements('rote');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
     // console.log(document.forms);
     document.forms['character_form'].submit();
