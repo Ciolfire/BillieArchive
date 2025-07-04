@@ -150,6 +150,10 @@ export default class extends Controller
         this.dispatch("discipline", { detail: { type: type, target: id } });
         break;
 
+      case 'potency':
+        this.dispatch("potency");
+        break;
+
       default:
         this.dispatch("change", { detail: { type: type, target: id } });
         break;

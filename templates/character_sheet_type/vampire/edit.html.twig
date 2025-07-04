@@ -16,7 +16,11 @@
     'data-controller': 'character--merits vampire--power character--edit vampire--edit',
   } %}
   {% set data = {
-    'data-action': "character--edit:change->character--merits#checkPrerequisite character--edit:discipline->vampire--edit#updateDisciplines",
+    'data-action': "
+      character--edit:change->character--merits#checkPrerequisite
+      character--edit:discipline->vampire--edit#updateDisciplines
+      character--edit:potency->vampire--edit#updatePotency
+    ",
     'data-vampire--edit-discipline-value': character.disciplinesLevel|json_encode,
     'data-character--edit-coils-value': character.coilsLevel,
   } %}

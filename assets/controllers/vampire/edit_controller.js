@@ -11,6 +11,18 @@ export default class extends Controller {
   }
   connect() {
     this.updateDisciplines();
+    this.updatePotency();
+  }
+
+  updatePotency()
+  {
+    for (const devotion of this.devotionTargets) {
+      if (devotion.dataset.potency > this.potencyTarget.value) {
+        devotion.classList.add("collapse");
+      } else {
+        devotion.classList.remove("collapse");
+      }
+    }
   }
 
   updateDisciplines()
@@ -21,12 +33,13 @@ export default class extends Controller {
     }
 
     this.disciplinesValue = disciplines;
-    this.displayDevotions();
+    this.checkDevotionsDisciplines();
   }
 
-  displayDevotions() {
+  // Make sure the character has the required disciplines
+  checkDevotionsDisciplines() {
     for (const devotion of this.devotionTargets) {
-      if (this.matchDiscipline(devotion)) {
+      if (this.devotionMatchDisciplines(devotion)) {
         devotion.classList.remove("collapse");
       } else {
         devotion.classList.add("collapse");
@@ -34,11 +47,11 @@ export default class extends Controller {
     }
   }
 
-  matchDiscipline(devotion)
+  devotionMatchDisciplines(devotion)
   {
     let devotionDisciplines = JSON.parse(devotion.dataset.disciplines);
     for (const discipline of Object.keys(devotionDisciplines)) {
-      if ( devotionDisciplines[discipline] > this.disciplinesValue[discipline] || this.disciplinesValue[discipline] == undefined) {
+      if (devotionDisciplines[discipline] > this.disciplinesValue[discipline] || this.disciplinesValue[discipline] == undefined) {
         return false;
       }
     }
