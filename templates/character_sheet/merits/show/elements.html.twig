@@ -21,19 +21,19 @@
 <div data-controller="tabs" data-tabs-initial-value={{activeTab}} data-tabs-parent-value="merits">
   <ul class="nav tabs row g-0">
     {% if mental is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritMental', label: 'category.mental'|trans({}, 'app'), icon: 'mental'} only %}
+      {% include "_tab.html.twig" with {name: 'meritMental', label: 'category.mental'|trans({}, 'app') ~ " [" ~ mental|length ~ "]", icon: 'mental'} only %}
     {% endif %}
     {% if physical is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritPhysical', label: 'category.physical'|trans({}, 'app'), icon: 'physical'} only %}
+      {% include "_tab.html.twig" with {name: 'meritPhysical', label: 'category.physical'|trans({}, 'app') ~ " [" ~ physical|length ~ "]", icon: 'physical'} only %}
     {% endif %}
     {% if social is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritSocial', label: 'category.social'|trans({}, 'app'), icon: 'social'} only %}
+      {% include "_tab.html.twig" with {name: 'meritSocial', label: 'category.social'|trans({}, 'app') ~ " [" ~ (social|length - relation|length) ~ "]", icon: 'social'} only %}
     {% endif %}
     {% if relation is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritRelation', label: 'relation'|trans({}, 'character'), icon: 'characters'} only %}
+      {% include "_tab.html.twig" with {name: 'meritRelation', label: 'relation'|trans({}, 'character') ~ " [" ~ relation|length ~ "]", icon: 'characters'} only %}
     {% endif %}
     {% if location is not empty %}
-      {% include "_tab.html.twig" with {name: 'meritLocation', label: 'category.location'|trans({}, 'app'), icon: 'location'} only %}
+      {% include "_tab.html.twig" with {name: 'meritLocation', label: 'category.location'|trans({}, 'app') ~ " [" ~ location|length ~ "]", icon: 'location'} only %}
     {% endif %}
   </ul>
   <div id="meritMental" class="tab-content d-none" data-tabs-target="page">
