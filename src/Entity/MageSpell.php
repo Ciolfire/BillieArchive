@@ -347,4 +347,16 @@ class MageSpell implements Translatable
 
     return $list;
   }
+
+  public function getArcanaLevel($withOptional = false)
+  {
+    $list = [];
+    foreach ($this->arcana as $arcanum) {
+      if (!$arcanum->isOptional() || $arcanum->isOptional() && $withOptional) {
+        $list[$arcanum->getArcanum()->getId()] = $arcanum->getLevel();
+      }
+    }
+
+    return $list;
+  }
 }

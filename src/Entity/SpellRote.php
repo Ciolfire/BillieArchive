@@ -40,6 +40,9 @@ class SpellRote implements Translatable
   #[ORM\JoinColumn(nullable: false)]
   private ?Attribute $attribute = null;
 
+  #[ORM\ManyToOne(inversedBy: 'createdRotes')]
+  private ?Mage $creator = null;
+
   public function __construct(MageSpell $spell)
   {
     $this->spell = $spell;
@@ -116,5 +119,17 @@ class SpellRote implements Translatable
   public function getLevel()
   {
     return $this->getSpell()->getLevel();
+  }
+
+  public function getCreator(): ?Mage
+  {
+      return $this->creator;
+  }
+
+  public function setCreator(?Mage $creator): static
+  {
+      $this->creator = $creator;
+
+      return $this;
   }
 }

@@ -7,6 +7,12 @@
   'data-controller': 'character--merits character--edit',
 } %}
 
+{% set actions = {
+  'data-action': "character--edit:change->character--merits#checkPrerequisite"
+} %}
+
+{% set data = {} %}
+
 {% block title %}
   {{ character.name }}
 {% endblock %}
@@ -19,13 +25,12 @@
     {# generic attributes, common to all #}
     {% set form_attributes = {
       class: 'container-fluid container-lg character-sheet',
-      'data-action': 'character--edit:change->character--merits#checkPrerequisite',
       'data-character--edit-total-value': character.xpTotal,
       'data-character--edit-used-value': character.xpUsed,
       'data-character--edit-type-value': character.type,
     } %}
-    {# merge all atributes together #}
-    {{ form_start(form, {'attr': form_attributes|merge(controllers)}) }}
+    {# merge all attributes together #}
+    {{ form_start(form, {'attr': form_attributes|merge(controllers)|merge(actions)|merge(data)}) }}
   {% endblock %}
 
   <input class="xpLogs" value="" type="hidden" name="{{ form.vars.name }}[xpLogs]" data-character--edit-target="xpLogs">

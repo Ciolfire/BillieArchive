@@ -21,6 +21,9 @@ awakening:
 
 gnosis:
   label: Gnosis
+
+magic: Magie
+
 mana:
   label: Mana
   max: Mana max

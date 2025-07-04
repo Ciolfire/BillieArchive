@@ -36,6 +36,18 @@ class Mage extends Character
   #[ORM\OrderBy(["level" => "DESC"])]
   private Collection $arcana;
 
+  /**
+   * @var Collection<int, SpellRote>
+   */
+  #[ORM\ManyToMany(targetEntity: SpellRote::class)]
+  private Collection $rotes;
+
+  /**
+   * @var Collection<int, SpellRote>
+   */
+  #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'creator')]
+  private Collection $createdRotes;
+
 
   public function __construct(?Character $character = null)
   {
@@ -48,6 +60,8 @@ class Mage extends Character
     }
     // $this->devotions = new ArrayCollection();
     // $this->rituals = new ArrayCollection();
+    $this->rotes = new ArrayCollection();
+    $this->createdRotes = new ArrayCollection();
   }
 
   public function __clone()
@@ -258,6 +272,16 @@ class Mage extends Character
     return false;
   }
 
+  public function getArcanaLevel() : array
+  {
+    $arcana = [];
+    foreach ($this->arcana as $arcanum) {
+      $arcana[$arcanum->getArcanum()->getId()] = $arcanum->getLevel();
+    }
+
+    return $arcana;
+  }
+
   public function maxArcanumMastery(Arcanum $arcanum)
   {
     // TODO Maybe ?
@@ -279,5 +303,123 @@ class Mage extends Character
       default:
         return $this->gnosis;
     }
+  }
+
+  /**
+   * @return Collection<int, SpellRote>
+   */
+  public function getRotes(): Collection
+  {
+    return $this->rotes;
+  }
+
+  public function addRote(SpellRote $rote): static
+  {
+    if (!$this->rotes->contains($rote)) {
+      $this->rotes->add($rote);
+    }
+
+    return $this;
+  }
+
+  public function removeRote(SpellRote $rote): static
+  {
+    $this->rotes->removeElement($rote);
+
+    return $this;
+  }
+
+  public function hasRote(SpellRote $rote) : bool
+  {
+    if ($this->rotes->contains($rote) || $this->createdRotes->contains($rote)) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  /**
+   * @return Collection<int, SpellRote>
+   */
+  public function getCreatedRotes(): Collection
+  {
+    return $this->createdRotes;
+  }
+
+  public function addCreatedRote(SpellRote $createdRote): static
+  {
+    if (!$this->createdRotes->contains($createdRote)) {
+      $this->createdRotes->add($createdRote);
+      $createdRote->setCreator($this);
+    }
+
+    return $this;
+  }
+
+  public function removeCreatedRote(SpellRote $createdRote): static
+  {
+    if ($this->createdRotes->removeElement($createdRote)) {
+      // set the owning side to null (unless already changed)
+      if ($createdRote->getCreator() === $this) {
+        $createdRote->setCreator(null);
+      }
+    }
+
+    return $this;
+  }
+
+    /**
+   * @param array<string, int> $modifiers
+   * @return array<string, mixed>
+   */
+  public function spellDicePool(SpellRote $rote): array
+  {
+    $details = [
+      'total' => 0,
+      'string' => '',
+      'modifiers' => [],
+    ];
+
+    // Arcanum
+    $value = 0;
+    foreach ($rote->getSpell()->getArcana() as $spellArcanum) {
+      if (!$spellArcanum->isOptional() && $this->hasArcanum($spellArcanum->getArcanum()->getId())) {
+        $level = $this->getArcanum($spellArcanum->getArcanum()->getId())->getLevel();
+        if ($level > $value) {
+          $value = $level;
+          $id = $spellArcanum->getName();
+        }
+      }
+    }
+    if (isset($id)) {
+      $details['arcanum'] = $id;
+      $details['total'] += $value;
+      $details['string'] .= " {$id} {$value}";
+    }
+
+    // Attribute
+    $attribute = $rote->getAttribute();
+    $value = $this->attributes->get($attribute->getIdentifier());
+    
+    $details[$attribute->getIdentifier()] = $value;
+    $details['total'] += $value;
+    $details['string'] .= " {$attribute->getName()} {$value}";
+    
+    // Skill
+    $skill = $rote->getSpell()->getSkill();
+    $value = $this->skills->get($skill->getIdentifier());
+    if ($value == 0) {
+      if ($skill->getCategory() == "mental") {
+        $value = -3;
+      } else {
+        $value = -1;
+      }
+    }
+    $details[$skill->getIdentifier()] = $value;
+    $details['total'] += $value;
+    $details['string'] .= " {$skill->getName()} {$value}";
+
+    return $details;
   }
 }

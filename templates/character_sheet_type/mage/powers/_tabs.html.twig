@@ -1,5 +1,7 @@
-{% trans_default_domain 'arcanum' %}
+{% trans_default_domain 'mage' %}
 
   <ul class="nav tabs row g-0">
-    {% include "_tab.html.twig" with {name: 'arcana', icon:'arcanum', label: 'label.multi'|trans} only %}
+    {% include "_tab.html.twig" with {name: 'arcana', icon:'arcanum', label: 'label.multi'|trans({}, 'arcanum')} only %}
+    {% include "_tab.html.twig" with {name: 'magic', icon:'magic-palm', label: 'magic'|trans} only %}
+    {% include "_tab.html.twig" with {name: 'rotes', icon:'spell', label: 'rote.label.multi'|trans({}, 'spell')} only %}
   </ul>

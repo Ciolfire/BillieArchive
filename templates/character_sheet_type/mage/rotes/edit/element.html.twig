@@ -1,0 +1,24 @@
+{% extends "character_sheet_type/mage/rotes/element.html.twig" %}
+
+{% trans_default_domain 'spell' %}
+
+{% block data %}
+data-arcana="{{ spell.arcanaLevel|json_encode }}"
+data-mage--edit-target="rote"
+{% endblock %}
+
+{% block input %}
+  <div class="card-footer">
+    <div class="btn btn-primary w-100 rounded-top-0" data-bs-toggle="button" aria-pressed="true"
+      data-action="click->character--edit#paySimple"
+      data-character--edit-id-param="{{ rote.id }}"
+      data-character--edit-type-param="rote"
+      data-character--edit-name-param="{{ rote.name }}"
+      data-character--edit-value-param="{{ spell.level * 2 }}">
+      {{ spell.level * 2 }} {% include "_icon.html.twig" with {icon: 'xp', label: 'xp'} %}
+      <input id="rote-{{ rote.id }}" class="rote-value" value="0" type="hidden" name="{{ form.vars.name }}[rotes][{{ rote.id }}]"
+        data-character--edit-target="input" data-value="{{ rote.level * 2 }}" data-name="{{ rote.name }}" data-type="rote" data-id="{{ rote.id }}" 
+      >
+    </div>
+  </div>
+{% endblock %}

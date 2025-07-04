@@ -1,0 +1,11 @@
+{% extends "character_sheet_type/mage/rotes/elements.html.twig" %}
+
+{% trans_default_domain 'spell' %}
+
+{# {% block attributes %}{{ parent() }} data-action="character--edit:arcana@window->mage--edit#display"{% endblock %} #}
+
+{% block list %}
+  {% for rote in mage.rotes %}
+    {% include "character_sheet_type/mage/rotes/edit/element.html.twig" %}
+  {% endfor %}
+{% endblock %}

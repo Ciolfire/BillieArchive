@@ -40,5 +40,6 @@ rote:
   label: 
     single: Rote
     multi: Rotes
+  create: Créer un Rote
   new: Nouveau Rote
   edit: Modifier Rote

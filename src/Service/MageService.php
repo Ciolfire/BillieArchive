@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
-use App\Entity\Description;
 
 use App\Entity\Mage;
-use App\Entity\Arcana;
 use App\Entity\Arcanum;
 use App\Entity\MageArcanum;
 use App\Entity\MageOrder;
 use App\Entity\Path;
+use App\Entity\SpellRote;
 use Symfony\Component\Form\FormInterface;
 
 class MageService
@@ -87,28 +85,10 @@ class MageService
   {
     /** @var array<int, Arcanum> */
     $arcana = $this->filterArcana($this->dataService->findAll(Arcanum::class), $mage);
-    // $arcana = $this->dataService->findBy(Arcanum::class, ['isCoil' => false, 'isThaumaturgy' => false, 'isSorcery' => false]);
-    // /** @var array<int, Arcanum> */
-    // $sorcery = $this->dataService->findBy(Arcanum::class, ['isSorcery' => true]);
-    // $sorcery = $this->filterArcana($sorcery, $mage);
-    // /** @var array<int, Arcanum> */
-    // $coils = $this->dataService->findBy(Arcanum::class, ['isCoil' => true]);
-    // $coils = $this->filterArcana($coils, $mage);
-    // /** @var array<int, Arcanum> */
-    // $thaumaturgy = $this->dataService->findBy(Arcanum::class, ['isThaumaturgy' => true]);
-    // $thaumaturgy = $this->filterArcana($thaumaturgy, $mage);
-
-    // $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
-    // foreach ($devotions as $key => $devotion) {
-    //   /** @var Devotion $devotion */
-    //   if ($mage->hasDevotion($devotion->getId()) || !$devotion->isAvailable($mage->getChronicle())) {
-    //     unset($devotions[$key]);
-    //   }
-    //   $this->dataService->loadPrerequisites($devotion);
-    // }
+    $rotes = $this->filterRotes($this->dataService->findAll(SpellRote::class), $mage);
     return [
       'arcana' => $arcana,
-      // 'spells' => $spells,
+      'rotes' => $rotes,
     ];
   }
 
@@ -124,31 +104,44 @@ class MageService
     return $arcana;
   }
 
-  /** @param array<string, mixed> $data */
-  public function handleEdit(Mage $mage, array $data): void
+  private function filterRotes(array $rotes, Mage $mage): array
   {
-    if (isset($data['gnosis']) && $data['gnosis'] > $mage->getGnosis()) {
-      $mage->setGnosis((int)$data['gnosis']);
+    foreach ($rotes as $key => $rote) {
+      /** @var SpellRote $rote */
+      if (
+        // Not owned rote
+        $mage->hasRote($rote) ||
+        !is_null($rote->getHomebrewFor()) && $rote->getHomebrewFor() != $mage->getChronicle() ||
+        !is_null($rote->getMageOrder()) && $rote->getMageOrder() != $mage->getOrder() 
+      ) {
+        unset($rotes[$key]);
+      }
+    }
+
+    return $rotes;
+  }
+
+  /** @param array<string, mixed> $data */
+  public function handleEdit(Mage $character, array $data): void
+  {
+    if (isset($data['gnosis']) && $data['gnosis'] > $character->getGnosis()) {
+      $character->setGnosis((int)$data['gnosis']);
     }
     
     if (isset($data['arcanaUp'])) {
       foreach ($data['arcanaUp'] as $id => $level) {
-        $arcanum = $mage->getArcanum($id);
+        $arcanum = $character->getArcanum($id);
         if ($arcanum) {
           $arcanum->setLevel((int)$level);
         }
       }
     }
     if (isset($data['arcana'])) {
-      $this->addArcana($mage, $data['arcana']);
+      $this->addArcana($character, $data['arcana']);
     }
-    // if (isset($data['devotions'])) {
-    //   $this->addDevotions($mage, $data['devotions']);
-    // }
-
-    // if (isset($data['rituals'])) {
-    //   $this->addRituals($mage, $data['rituals']);
-    // }
+    if (isset($data['rotes'])) {
+      $this->addRotes($character, $data['rotes']);
+    }
   }
 
   /** @param array<int, int> $arcana */
@@ -161,13 +154,28 @@ class MageService
           $newArcanum = new MageArcanum($character, $arcanum, (int)$level);
         }
         // else {
-        //   $newArcanum = new GhoulArcanum($character, $arcanum, (int)$level);
+        //   $newArcanum = new ????Arcanum($character, $arcanum, (int)$level);
         // }
       } else {
         throw new \Exception("\$arcanum not an Arcanum");
       }
       $this->dataService->add($newArcanum);
       $character->addArcanum($newArcanum);
+    }
+  }
+
+  /** @param array<int, int> $arcana */
+  public function addRotes(Mage $character, array $rotes): void
+  {
+    foreach ($rotes as $roteId) {
+      $rote = $this->dataService->find(SpellRote::class, $roteId);
+      if ($rote instanceof SpellRote) {
+        if ($character instanceof Mage) {
+          $character->addRote($rote);
+        }
+      } else {
+        throw new \Exception("\$rote not a rote");
+      }
     }
   }
 
@@ -211,9 +219,9 @@ class MageService
   public function getRemovableAttributes()
   {
     $removables = [
-      // 'potency' => ['label' => 'potency.label', 'domain' => 'mage'],
+      // 'gnosis' => ['label' => 'gnosis.label', 'domain' => 'mage'],
       // 'arcanum' => ['label' => 'label.single', 'domain' => 'arcanum'],
-      // 'devotion' => ['label' => 'devotion.label.single', 'domain' => 'arcanum'],
+      // 'rote' => ['label' => 'devotion.label.single', 'domain' => 'arcanum'],
       // 'merit' => [],
       // 'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
       // 'derangement' => [],

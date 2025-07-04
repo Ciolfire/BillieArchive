@@ -10,7 +10,11 @@
 
 {% block form_start %}
   {% set controllers = {
-      'data-controller': 'character--merits mage--power mage--spell character--edit',
+      'data-controller': "character--merits character--edit mage--edit",
+  } %}
+  {% set data = {
+    'data-action': "character--edit:change->character--merits#checkPrerequisite character--edit:arcana->mage--edit#updateArcana",
+    'data-mage--edit-arcana-value': character.arcanaLevel|json_encode
   } %}
   {{ parent() }}
 {% endblock %}

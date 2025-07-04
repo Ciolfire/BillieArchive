@@ -1,0 +1,15 @@
+{% trans_default_domain 'spell' %}
+
+{% block rotes %}
+{% block creation %}{% endblock %}
+<div data-controller="search" data-search-type-value="rote">
+  <div class="col-12 sticky-element">
+    <input type="text" class="search-field text-strong rounded mt-3" data-search-target="query" data-action="search#getResults"/>
+    {% include "_icon.html.twig" with {icon : 'search' } only %}
+  </div>
+  <div {% block attributes %}class="row mt-3"{% endblock %}>
+    {% block list %}
+    {% endblock %}
+  </div>
+</div>
+{% endblock %}
