@@ -3,17 +3,6 @@
 {% trans_default_domain 'spell' %}
 
 {% block list %}
-  
-  {# 
-  - Only masters can formularize an improvised spell into a rote. If the mage has less than five dots in an Arcanum, he cannot make a rote that uses that Arcanum as its primary Arcanum.
-  - If the rote is a conjunctional spell, he also needs dots in the other Arcana equal to or higher than those used by the spell. 
-  - Most of these signs are of ancient lineage, and all of them are considered to be “trade secrets.” It is forbidden to teach them to other orders, for they are one of the keys to providing an order’s Rote Specialties. Apostates lack this store of ancient knowledge, so cannot easily create rotes. It is said that new mudras can be created by archmasters, but few attain that rank without the aid of an order.
-    In addition to the proprietary order mudras, the rote creator adds a few flairs of his own to the spell based on his unique interpretation of the Imago. Thus, each rote is a product of its creator and his order.
-  - In addition to order-specific mudras, the rote creator can encode his rote with his order’s Rote Specialties. This allows members of his order to gain the advantage of their Rote Specialties when casting rotes that use their specialties’ Skills (see “Rote Specialties,” p. 75). Mages from other orders who learn the rote do not gain the Rote Specialty benefits; only a mage who knows that order’s secrets can exploit them when casting the rote.
-  - The other requirements for creating a rote are that the mage must cast the improvised spell at least 10 times and reach a deep understanding of it. Achieving that understanding means he must succeed in an extended action whereby he studies and contemplates the spell. Gnosis + the primary Arcanum is rolled. The target number is equal to the combined dots of all the Arcana used in the spell, and one roll can be made per hour of study. If the mage has a dot in the Library Merit (p. 85) dedicated to the primary Arcanum of the rote, +1 die is added to the roll.
-  - Finally, to create a rote a mage must sacrifice a dot of Willpower — not a point, but a dot. A piece of his enlightened will must go into weaving the rote to give it metaphysical weight. He can later restore this lost dot with the expendi- ture of eight experience points.
-  #}
-  <a href="">{{ "rote.create"|trans }}</a>
   {% for rote in character.rotes %}
     {% include "character_sheet_type/mage/rotes/element.html.twig" %}
   {% endfor %}
