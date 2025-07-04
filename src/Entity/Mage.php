@@ -48,6 +48,9 @@ class Mage extends Character
   #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'creator')]
   private Collection $createdRotes;
 
+  #[ORM\ManyToOne]
+  private ?Legacy $legacy = null;
+
 
   public function __construct(?Character $character = null)
   {
@@ -421,5 +424,17 @@ class Mage extends Character
     $details['string'] .= " {$skill->getName()} {$value}";
 
     return $details;
+  }
+
+  public function getLegacy(): ?Legacy
+  {
+      return $this->legacy;
+  }
+
+  public function setLegacy(?Legacy $legacy): static
+  {
+      $this->legacy = $legacy;
+
+      return $this;
   }
 }

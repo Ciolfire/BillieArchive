@@ -9,7 +9,7 @@
       <h1 class="py-2 text-stylized">
         <img class="no-filter pe-2" src="{{ asset(character.path.symbol|default(character.path.emblem), 'paths_emblems') }}" style="height:2.6em;"/>
         <span class="text-strong">{{ character.name }}</span>
-        {# <img class="no-filter ps-4" src="{% if character.legacy %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:2.6em;"/> #}
+        <img class="no-filter ps-4" {% if character.legacy and character.legacy.emblem != null %}src="{{ asset(character.legacy.emblem, 'clans_emblems') }}"{% endif %} style="height:2.6em;"/>
       </h1>
       {% block premade %}{{ parent() }}{% endblock %}
     </div>
@@ -20,10 +20,19 @@
 {% block leftCol %}
   <div class="row">
     <div class="col-12">
+      {% include "_icon.html.twig" with {icon: 'path'} %}
       <a href="{{ path("mage_path_show", {'id': character.path.id}) }}">
         {{ character.path.name }}
       </a>
     </div>
+    {% if character.legacy %}
+      <div class="col-12">
+        {% include "_icon.html.twig" with {icon: 'legacy'} %}
+        <a href="{{ path("mage_legacy_show", {'id': character.legacy.id}) }}">
+          {{ character.legacy.name }}
+        </a>
+      </div>
+    {% endif %}
     <div class="col-12">
       {% block age %}{{ parent() }}{% endblock %}
     </div>

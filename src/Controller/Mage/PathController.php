@@ -7,6 +7,7 @@ namespace App\Controller\Mage;
 use App\Entity\Path;
 use App\Entity\Description;
 use App\Entity\Legacy;
+use App\Entity\Mage;
 use App\Form\Mage\LegacyForm;
 use App\Form\Mage\PathForm;
 use App\Service\DataService;
@@ -207,6 +208,36 @@ class PathController extends AbstractController
 
     return $this->render('mage/legacy/form.html.twig', [
       'form' => $form,
+    ]);
+  }
+
+  #[Route('/{id<\d+>}/legacy/join', name: 'mage_legacy_join', methods: ['GET', 'POST'])]
+  public function bloodlineJoin(Request $request, Mage $mage): Response
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    if ($mage->getPlayer() != $this->getUser() && ($mage->getChronicle() && $mage->getChronicle()->getStoryteller() != $this->getUser())) {
+      $this->addFlash('notice', 'denied');
+      return $this->redirectToRoute('character_index');
+    }
+
+    // Form submited
+    if ($request->request->get('legacy')) {
+      $legacy = $this->dataService->find(Legacy::class, $request->request->get('legacy'));
+      if ($legacy instanceof Legacy) {
+        $mage->setLegacy($legacy);
+        $this->dataService->flush();
+      }
+
+      $this->addFlash('success', ["legacy.join", ['%name%' => $mage->getName(), '%legacy%' => $legacy]]);
+      return $this->redirectToRoute('character_show', ['id' => $mage->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    $legacies = $this->dataService->findAll(Legacy::class);
+
+    return $this->render('mage/legacy/join.html.twig', [
+      'mage' => $mage,
+      'legacies' => $legacies,
     ]);
   }
 }

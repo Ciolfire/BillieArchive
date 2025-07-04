@@ -13,7 +13,7 @@ use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: LegacyRepository::class)]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "legacies"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "legacies")])]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "legacies"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "legacies")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\LegacyTranslation")]
 class Legacy implements Translatable
 {
@@ -70,7 +70,12 @@ class Legacy implements Translatable
 
   public function __construct()
   {
-      $this->attainments = new ArrayCollection();
+    $this->attainments = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return $this->getName();
   }
 
   public function getId(): ?int
@@ -195,40 +200,40 @@ class Legacy implements Translatable
    */
   public function getAttainments(): Collection
   {
-      return $this->attainments;
+    return $this->attainments;
   }
 
   public function addAttainment(Attainment $attainment): static
   {
-      if (!$this->attainments->contains($attainment)) {
-          $this->attainments->add($attainment);
-          $attainment->setLegacy($this);
-      }
+    if (!$this->attainments->contains($attainment)) {
+      $this->attainments->add($attainment);
+      $attainment->setLegacy($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeAttainment(Attainment $attainment): static
   {
-      if ($this->attainments->removeElement($attainment)) {
-          // set the owning side to null (unless already changed)
-          if ($attainment->getLegacy() === $this) {
-              $attainment->setLegacy(null);
-          }
+    if ($this->attainments->removeElement($attainment)) {
+      // set the owning side to null (unless already changed)
+      if ($attainment->getLegacy() === $this) {
+        $attainment->setLegacy(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
   public function isLeftHanded(): ?bool
   {
-      return $this->isLeftHanded;
+    return $this->isLeftHanded;
   }
 
   public function setIsLeftHanded(bool $isLeftHanded): static
   {
-      $this->isLeftHanded = $isLeftHanded;
+    $this->isLeftHanded = $isLeftHanded;
 
-      return $this;
+    return $this;
   }
 }

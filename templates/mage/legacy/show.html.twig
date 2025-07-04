@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% set setting = "mage" %}
+
+{% block body %}
+  <div class="container block py-5">
+    {% include "mage/legacy/_show.html.twig" with {isShown: 1} %}
+  </div>
+{% endblock %}

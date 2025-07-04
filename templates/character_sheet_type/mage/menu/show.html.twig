@@ -1,0 +1,12 @@
+{% trans_default_domain 'mage' %}
+
+{% if app.user == character.player or is_granted('ROLE_ST') %}
+  {% if character.gnosis > 1 and character.legacy is null %}
+    <div class="col-2 col-md-4">
+        <a class="mage-btn btn btn-sm btn-menu btn-primary w-100" href="{{ path('mage_legacy_join', {'id': character.id}) }}">
+          {% include "_icon.html.twig" with {icon: 'legacy'} only %}
+          <span class="d-none d-md-inline">{{ "legacy.join"|trans({}, 'path') }}</span>
+        </a>
+    </div>
+  {% endif %}
+{% endif %}
