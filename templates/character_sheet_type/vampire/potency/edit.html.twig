@@ -31,7 +31,10 @@
 {% block data %}data-name="{{ 'potency.label'|trans }}" data-id="{{ trait }}" data-type="{{ trait }}" data-dot-base-value="{{ current }}" data-dot-min-value="{{ current }}"{% endblock %}
 
 {% block input %}
-  <input class="{{ trait }}-value" value="{{ current }}" type="hidden" name="{{ form.vars.name }}[{{ trait }}]" data-dot-target="input" data-character--edit-target="dot">
+  <input
+    class="{{ trait }}-value" value="{{ current }}" type="hidden" name="{{ form.vars.name }}[{{ trait }}]" 
+    data-dot-target="input" data-character--edit-target="dot" data-vampire--edit-target="potency"
+  >
 {% endblock %}
 
 {% block dot %}

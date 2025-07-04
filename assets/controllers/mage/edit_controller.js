@@ -10,6 +10,7 @@ export default class extends Controller {
     arcana: {},
   }
   connect() {
+    this.updateArcana();
   }
 
   updateArcana()
@@ -20,13 +21,12 @@ export default class extends Controller {
     }
 
     this.arcanaValue = arcana;
-    this.display();
+    this.displayRotes();
   }
 
-  display() {
+  displayRotes() {
     for (const rote of this.roteTargets) {
-      if (this.matchArcana(rote)) {
-        console.log(this.matchArcana(rote));
+      if (this.roteMatchArcana(rote)) {
         rote.classList.remove("collapse");
       } else {
         rote.classList.add("collapse");
@@ -34,7 +34,7 @@ export default class extends Controller {
     }
   }
 
-  matchArcana(rote)
+  roteMatchArcana(rote)
   {
     let roteArcana = JSON.parse(rote.dataset.arcana);
     for (const arcanum of Object.keys(roteArcana)) {

@@ -4,7 +4,15 @@
 
 {# {% block controller %}data-controller="dot" role="group"{% endblock %} #}
 
-{% block data %}data-name="{{ devotion.name }}" data-id="{{ devotion.id }}" data-type="devotion" data-controller-base-value="{{ devotion.cost }}" {% endblock %}
+{% block data %}
+data-name="{{ devotion.name }}"
+data-id="{{ devotion.id }}"
+data-type="devotion"
+data-controller-base-value="{{ devotion.cost }}"
+data-disciplines="{{ devotion.disciplinesLevel|json_encode }}"
+data-potency="{{ devotion.minPotency }}"
+data-vampire--edit-target="devotion"
+{% endblock %}
 
 {% block input %}
   <div class="card-footer">

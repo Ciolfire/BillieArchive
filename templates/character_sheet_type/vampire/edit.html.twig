@@ -13,7 +13,11 @@
 
 {% block form_start %}
   {% set controllers = {
-    'data-controller': 'character--merits vampire--power character--edit',
+    'data-controller': 'character--merits vampire--power character--edit vampire--edit',
+  } %}
+  {% set data = {
+    'data-action': "character--edit:change->character--merits#checkPrerequisite character--edit:discipline->vampire--edit#updateDisciplines",
+    'data-vampire--edit-discipline-value': character.disciplinesLevel|json_encode,
     'data-character--edit-coils-value': character.coilsLevel,
   } %}
   {{ parent() }}

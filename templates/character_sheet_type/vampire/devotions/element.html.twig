@@ -6,7 +6,7 @@
 
 {% set powerPool = character.detailedDicePool(devotion.attributes, devotion.skills, devotion.disciplines, extra|default([])) %}
 
-<div class="col" data-search-target="item" data-name="{{ devotion.name }}">
+<div class="col-12 col-md-6 col-xl-4 mt-3" data-search-target="item" data-name="{{ devotion.name }}" {% block data %}{% endblock %}>
   <div class="h-100 d-flex flex-column">
     <div class="rounded-top bdr p-3 card-content flex-fill"
       role="button"

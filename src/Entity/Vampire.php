@@ -231,7 +231,18 @@ class Vampire extends Character
     return $this->disciplines;
   }
 
-  public function getFilteredDisciplines(string $filter = null): mixed
+  public function getDisciplinesLevel() : array
+  {
+    $disciplines = [];
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      $disciplines[$discipline->getDiscipline()->getId()] = $discipline->getLevel();
+    }
+
+    return $disciplines;
+  }
+
+  public function getFilteredDisciplines(?string $filter = null): mixed
   {
     switch ($filter) {
       case 'discipline':

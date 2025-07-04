@@ -97,20 +97,6 @@ export default class extends Controller
       }
     });
     // Update if the item is checked (for example, after refresh)
-    this.devotionInputTargets.forEach(target => {
-      let data = target.dataset;
-      if (target.value == 1) {
-        let event = {};
-
-        event.params = {};
-        event.params.id = target.id.replace('devotion-','');;
-        event.params.type = "devotion";
-        event.params.name = data.name;
-        event.params.value = +data.value;
-        event.target = target.parentElement;
-        this.payDevotion(event, true);
-      }
-    });
     this.ritualInputTargets.forEach(target => {
       let data = target.dataset;
       if (target.value == 1) {
@@ -156,10 +142,14 @@ export default class extends Controller
     switch (type) {
       case 'arcanum':
       case 'arcanum-ruling':
-        console.log("dispatch arcana event");
         this.dispatch("arcana", { detail: { type: type, target: id } });
         break;
     
+      case 'discipline':
+      case 'favoredDiscipline':
+        this.dispatch("discipline", { detail: { type: type, target: id } });
+        break;
+
       default:
         this.dispatch("change", { detail: { type: type, target: id } });
         break;
@@ -254,6 +244,7 @@ export default class extends Controller
     console.log(this.coilsCurrentValue);
     this.updateSpend();
     // Prerequisites update
+    this.checkUpdate(params.type, params.id);
     // this.dispatch("change", { detail: { type: params.type, target: params.id } });
   }
 

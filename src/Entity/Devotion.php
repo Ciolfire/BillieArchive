@@ -335,4 +335,29 @@ class Devotion implements Translatable
     }
     return $prerequisites;
   }
+
+  public function getDisciplinesLevel()
+  {
+    $disciplines = [];
+    foreach ($this->prerequisites as $prerequisite) {
+      /** @var Prerequisite $prerequisite */
+      $entity = $prerequisite->getEntity();
+      if ($entity instanceof Discipline && !$prerequisite->getChoiceGroup()) {
+        $disciplines[$entity->getId()] = $prerequisite->getValue();
+      }
+    }
+    return $disciplines;
+  }
+
+  public function getMinPotency()
+  {
+    foreach ($this->prerequisites as $prerequisite) {
+      /** @var Prerequisite $prerequisite */
+      if ($prerequisite->getType() == "potency") {
+        return $prerequisite->getValue();
+      }
+    }
+
+    return 0;
+  }
 }
