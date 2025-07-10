@@ -119,7 +119,7 @@ class ChronicleController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $chronicle);
     /** @var UserRepository */
     $userRepository = $this->doctrine->getRepository(User::class);
-    $availablePlayers = $userRepository->getAvailablePlayersForChronicle($chronicle->getStoryteller(), $chronicle->getPlayers());
+    $availablePlayers = $userRepository->getAvailablePlayersForChronicle($chronicle->getPlayers(), $chronicle->getStoryteller());
     if ($availablePlayers) {
       $form = $this->createFormBuilder()
         ->add('player', ChoiceType::class, [

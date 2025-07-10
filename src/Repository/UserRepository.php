@@ -41,7 +41,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @param Collection<int, User> $players
      */
-    public function getAvailablePlayersForChronicle(?User $storyteller = null, Collection $players) : ?array
+    public function getAvailablePlayersForChronicle(Collection $players, ?User $storyteller = null) : ?array
     {
         $playersId = "0";
         foreach ($players as $player) {
