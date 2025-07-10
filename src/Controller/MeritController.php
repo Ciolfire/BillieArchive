@@ -31,7 +31,7 @@ class MeritController extends AbstractController
   }
 
   #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "merit_list", methods: ["GET"])]
-  public function list(?string $filter = null, int|string $id = null) : Response
+  public function list(?string $filter = null, mixed $id = null) : Response
   {
     $chronicle = false;
     $search = ['category' => $this->categories];

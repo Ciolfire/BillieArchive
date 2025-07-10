@@ -411,7 +411,7 @@ class VampireService
   /**
    * @return array<string, mixed>
    */
-  public function getRituals(string $filter = null, int $id = null): array
+  public function getRituals(?string $filter = null, ?int $id = null): array
   {
     $criteria = [];
 
