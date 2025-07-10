@@ -167,7 +167,7 @@ class MageService
   /** @param array<int, int> $arcana */
   public function addRotes(Mage $character, array $rotes): void
   {
-    foreach ($rotes as $roteId) {
+    foreach ($rotes as $roteId => $value) {
       $rote = $this->dataService->find(SpellRote::class, $roteId);
       if ($rote instanceof SpellRote) {
         if ($character instanceof Mage) {
