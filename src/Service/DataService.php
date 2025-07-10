@@ -194,7 +194,7 @@ class DataService
     return  $this->getRepository($class)->findAll();
   }
 
-  public function upload(UploadedFile $file, string $target, string $filename=null) : ?string
+  public function upload(UploadedFile $file, string $target, ?string $filename=null) : ?string
   {
     if (is_null($filename)) {
       $originalFilename = pathinfo($file->getBasename(), PATHINFO_FILENAME);

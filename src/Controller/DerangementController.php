@@ -32,7 +32,7 @@ class DerangementController extends AbstractController
   }
 
   #[Route("/list/{filter<\w+>}/{id<\w+>}", name: "derangement_list", methods: ["GET"])]
-  public function list(string $filter = null, int $id = null) : Response
+  public function list(?string $filter = null, ?int $id = null) : Response
   {
     /** @var DerangementRepository $repo */
     $repo = $this->dataService->getRepository(Derangement::class);
