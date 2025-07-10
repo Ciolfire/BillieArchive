@@ -19,7 +19,7 @@
             <input type="radio" class="btn-check" name="legacy" id="{{ legacy.id }}" autocomplete="off" value="{{ legacy.id }}">
             <label class="btn btn-primary h-100" for="{{ legacy.id }}">
               {% if legacy.emblem is not null %}
-                <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'clans_emblems') }}" alt="{{ legacy.name}}" height="200"/>
+                <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="200"/>
               {% endif %}
               {{ legacy.name }}
               <div class="text p-3">{{ legacy.short|markdown_to_html }}</div>
