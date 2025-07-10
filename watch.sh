@@ -1,2 +1,2 @@
-yarn install
-yarn watch
+npm install
+npm run watch
