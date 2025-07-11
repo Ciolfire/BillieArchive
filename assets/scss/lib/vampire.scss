@@ -117,7 +117,7 @@ $stylizedAltFont    : "Supernatural_Knight";
 }
 
 body {
-  a {
+  a, .link {
     color          : $linkColor;
     text-decoration: none;
 

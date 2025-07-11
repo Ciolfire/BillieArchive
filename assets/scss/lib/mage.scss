@@ -135,7 +135,7 @@ $stylizedAltFont    : "Cezanne";
 }
 
 body {
-  a {
+  a, .link {
     color          : $linkColor;
     text-decoration: none;
 
