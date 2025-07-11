@@ -6,8 +6,8 @@
   {% set collapse = "collapse" %}
 {% endif %}
 
-<div id="{{ legacy.name }}" class="col-12" data-search-target="item" data-name="{{ legacy.name }}">
-  <div class="group-card position-relative">
+<div id="{{ legacy.name }}" class="col-12">
+  <div class="group-card">
     {# Header #}
     <blockquote class="text-center mb-2 legacy-card-header rounded-bottom-0">
       <h3>
@@ -18,12 +18,11 @@
         
         {% if legacy.path %}
           {# {{ legacy.path }} #}
-          <img class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
+          <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.path }}" class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
         {% endif %}
         {% if legacy.parentOrder %}
           {# {{ legacy.parentOrder }} #}
-          <img class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'paths_emblems') }}" style="height:2em;"/>
-        {% else %}
+          <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy }}" class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'organizations_emblems') }}" style="height:2em;"/>
         {% endif %}
 
         {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}

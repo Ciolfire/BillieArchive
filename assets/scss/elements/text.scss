@@ -25,6 +25,10 @@
     color: $mainDarkColor;
   }
 
+  &-bright {
+    color: $mainBrightColor!important;
+  }
+
   &-strong {
     text-shadow:
       $textShadowColor 0px 0px 3px,

@@ -295,6 +295,8 @@ strong {
     border-color: $borderColor;
     background-color: $inputBackColor;
     color: $mainColor;
+    line-height: 1.4em;
+    border-color: $mainColor;
   }
 }
 
@@ -304,6 +306,7 @@ strong {
   top: 6em;
   .search-field {
     background-color: $darkBlockColor;
+    line-height: 1.4em;
   }
 }
 

@@ -21,27 +21,27 @@ framework:
   assets:
     packages:
       images:
-        base_path: '/images/'
+        base_path: /images/
       books:
-        base_path: '/images/books/'
+        base_path: /images/books/
       items:
-        base_path: '/images/items/'
+        base_path: /images/items/
       characters:
-        base_path: '/images/characters/'
+        base_path: /images/characters/
       organizations_emblems:
-        base_path: '/images/organizations/emblems/'
+        base_path: /images/organizations/emblems/
       # Vampire
       clans:
-        base_path: '/images/clans/'
+        base_path: /images/clans/
       clans_emblems:
-        base_path: '/images/clans/emblems/'
+        base_path: /images/clans/emblems/
       ghoul_family_emblems:
-        base_path: '/images/ghoul/emblems/'
+        base_path: /images/ghoul/emblems/
       # Mage
       paths_emblems:
-        base_path: '/images/paths/emblems/'
+        base_path: /images/paths/emblems/
       icons:
-        base_path: '/icons/'
+        base_path: /icons/
 when@test:
   framework:
     test: true

@@ -134,14 +134,12 @@ class PathController extends AbstractController
     ]);
   }
 
-
   #[Route('/wiki/legacies', name: 'mage_legacies', methods: ['GET'])]
   public function legacies(): Response
   {
-    return $this->render('mage/legacy/list.html.twig', [
-      'legacies' => $this->dataService->findBy(Legacy::class, ['homebrewFor' => null], ['name' => "ASC"]),
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
-    ]);
+    $legacies = $this->dataService->findBy(Legacy::class, ['homebrewFor' => null], ['name' => "ASC"]);
+
+    return $this->legaciesFilter($legacies);
   }
 
   #[Route("/wiki/legacies/list/{filter<\w+>}/{id<\w+>}", name: "mage_legacies_list", methods: ["GET"])]
@@ -149,15 +147,8 @@ class PathController extends AbstractController
   {
     $legacies = $this->dataService->getList($filter, $id, Legacy::class, 'getLegacies');
 
-    return $this->render('mage/legacy/list.html.twig', [
-      'setting' => "mage",
-      'legacies' => $legacies,
-      'filter' => $filter,
-      'id' => $id,
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
-    ]);
+    return $this->legaciesFilter($legacies, $filter, $id);
   }
-
 
   #[Route('/wiki/legacy/{id<\d+>}', name: 'mage_legacy_show', methods: ['GET'])]
   public function legacyShow(Request $request, Legacy $legacy): Response
@@ -244,7 +235,7 @@ class PathController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $mage->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $legacies = $this->dataService->findAll(Legacy::class);
+    $legacies = $this->dataService->findBy(Legacy::class, ['homebrewFor' => [null, $mage->getChronicle()]]);
 
     return $this->render('mage/legacy/join.html.twig', [
       'mage' => $mage,
@@ -262,6 +253,44 @@ class PathController extends AbstractController
     
     return $this->render("mage/legacy/attainment/$template.html.twig", [
       'attainment' => $attainment,
+    ]);
+  }
+
+
+  // Methods
+  private function legaciesFilter($legacies, $filter=null, $id=null)  {
+    $arcana = [];
+    foreach ($legacies as $legacy) {
+      if ($arcanum = $legacy->getArcanum()) {
+        $arcana[$arcanum->getId()] = $arcanum;
+      }
+    }
+
+    $orders = [];
+    foreach ($legacies as $legacy) {
+      if ($order = $legacy->getParentOrder()) {
+        $orders[$order->getId()] = $order;
+      }
+    }
+    
+    $paths = [];
+    foreach ($legacies as $legacy) {
+      if ($path = $legacy->getPath()) {
+        $paths[$path->getId()] = $path;
+      }
+    }
+
+    return $this->render('mage/legacy/list.html.twig', [
+      'setting' => "mage",
+      'legacies' => $legacies,
+      'filter' => $filter,
+      'id' => $id,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
+      'search' => [
+        'arcana' => $arcana,
+        'orders' => $orders,
+        'paths' => $paths,
+      ],
     ]);
   }
 }

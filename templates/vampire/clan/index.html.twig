@@ -88,11 +88,9 @@
 
 {% block footerContent %}
 	<div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon">
-      {% include "_icon.html.twig" with  {icon: 'search'} %}
-    </span>
-    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
-		<div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+    {% include "_search.html.twig" %}
+    
+    <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
 			<span class="fa-layers fa-fw">
 				<i class="fa-solid fa-circle"></i>
 				<span class="ok footer-collapse collapse">
@@ -103,6 +101,7 @@
 				</span>
 			</span>
 		</div>
+
 		{% if is_granted('ROLE_ST') %}
 			<div class="ms-auto">
 				<a class="btn btn-primary" href="{{ path('vampire_clan_new') }}">
@@ -116,8 +115,9 @@
 			</div>
 		{% endif %}
 	</div>
+
 	{% if bloodlines is defined %}
-		<div class="col-auto py-3 footer-collapse collapse">
+		<div class="col-auto py-3 text-center w-100 footer-collapse collapse">
 			{% for key, elements in search %}
 				{% if key != 'parent' %}
 					<h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>

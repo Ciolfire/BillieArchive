@@ -43,17 +43,74 @@
 
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon">
-      {% include "_icon.html.twig" with  {icon: 'search'} %}
-    </span>
-    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('mage_legacy_new', {filter: filter|default(null), id: id|default(null)}) }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
-          {% include "_icon.html.twig" with {icon: 'legacy' } only %}
-        </a>
-      </div>
-    {% endif %}
+    {% include "_search.html.twig" %}
+
+    <div id="expand_btn" class="text-bright position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+      <span class="fa-layers fa-fw">
+        <i class="fa-solid fa-circle"></i>
+        <span class="ok footer-collapse collapse">
+          <i class="fa-solid fa-lg fa-circle-chevron-down"></i>
+        </span>
+        <span class="ok footer-collapse collapse show ">
+          <i class="fa-solid fa-lg fa-circle-chevron-up"></i>
+        </span>
+      </span>
+    </div>
+
+      {% if is_granted('ROLE_ST') %}
+        <div class="ms-auto">
+          <a class="btn btn-primary" href="{{ path('mage_legacy_new', {filter: filter|default(null), id: id|default(null)}) }}">
+            <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+            {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    {# filters #}
+    <div class="col-auto py-3 text-center w-100 footer-collapse collapse">
+      <h5 class="pe-none">
+        {{ ("label.multi")|trans }}
+        {% include "_icon.html.twig" with {icon: "path"} %}
+      </h5>
+      {% for path in search['paths'] %}
+        {% if path %}
+          <div class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="path" data-search-filter-param="{{ path }}">
+            <span class="d-none d-md-inline">
+              {{ path }}
+            </span>
+            <img class="no-filter pe-2" src="{{ asset(path.symbol|default(path.emblem), 'paths_emblems') }}" style="height:1em;"/>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <h5 class="pe-none">
+        {{ ("label.multi")|trans({}, domain: 'order') }}
+        {% include "_icon.html.twig" with {icon: "order"} %}
+      </h5>
+      {% for order in search['orders'] %}
+        {% if order %}
+          <div class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="order" data-search-filter-param="{{ order }}">
+            <span class="d-none d-md-inline">
+              {{ order }}
+            </span>
+            <img class="no-filter pe-2" src="{{ asset(order.symbol|default(order.emblem), 'organizations_emblems') }}" style="height:1em;"/>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <h5 class="pe-none">
+        {{ ("label.single")|trans({}, domain: 'arcanum') }}
+        {% include "_icon.html.twig" with {icon: "arcanum"} %}
+      </h5>
+      {% for arcanum in search['arcana'] %}
+        {% if arcanum %}
+          <div class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="arcanum" data-search-filter-param="{{ arcanum }}">
+            <span class="d-none d-md-inline">
+              {{ arcanum }}
+            </span>
+            {% include "_icon.html.twig" with {icon: "arcana/#{arcanum.identifier}"} %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
