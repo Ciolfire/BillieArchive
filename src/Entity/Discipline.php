@@ -14,7 +14,7 @@ use Gedmo\Translatable\Translatable;
 
 
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "disciplines"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "disciplines")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\DisciplineTranslation")]
 class Discipline implements Translatable

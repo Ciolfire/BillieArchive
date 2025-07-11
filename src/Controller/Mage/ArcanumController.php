@@ -41,11 +41,16 @@ class ArcanumController extends AbstractController
     ]);
   }
 
-  #[Route('/wiki/arcanum/{id<\d+>}', name: 'arcanum_show')]
-  public function show(Arcanum $arcanum): Response
+  #[Route('/wiki/arcanum/{id<\d+>}', name: 'mage_arcanum_show')]
+  public function show(Request $request, Arcanum $arcanum): Response
   {
-    return $this->render('mage/arcanum/index.html.twig', [
-      'arcana' => $this->dataService->findAll(Arcanum::class),
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("mage/arcanum/$template.html.twig", [
+      'arcanum' => $arcanum,
     ]);
   }
 
