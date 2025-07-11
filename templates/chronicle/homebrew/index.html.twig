@@ -123,7 +123,7 @@
       </a>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
-      <a class="btn btn-primary w-100 m-2" href="{{path('path_list', {filter: 'chronicle', id: chronicle.id })}}">
+      <a class="btn btn-primary w-100 m-2" href="{{path('mage_path_list', {filter: 'chronicle', id: chronicle.id })}}">
         {% include "_icon.html.twig" with {icon: 'path' } only %}
         <span class="accent">{{ chronicle.paths|length }}</span>
         <span>{{ "label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>

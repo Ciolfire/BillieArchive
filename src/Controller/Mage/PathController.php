@@ -34,18 +34,18 @@ class PathController extends AbstractController
   #[Route('/wiki/paths', name: 'mage_paths', methods: ['GET'])]
   public function paths(): Response
   {
-    return $this->render('mage/path/index.html.twig', [
+    return $this->render('mage/path/list.html.twig', [
       'paths' => $this->dataService->findAll(Path::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'path']),
     ]);
   }
 
-  #[Route("/wiki/paths/list/{filter<\w+>}/{id<\w+>}", name: "path_list", methods: ["GET"])]
+  #[Route("/wiki/paths/list/{filter<\w+>}/{id<\w+>}", name: "mage_path_list", methods: ["GET"])]
   public function pathList(string $filter, int $id): Response
   {
     $paths = $this->dataService->getList($filter, $id, Path::class, 'getPaths');
 
-    return $this->render('mage/path/index.html.twig', [
+    return $this->render('mage/path/list.html.twig', [
       'setting' => "mage",
       'paths' => $paths,
       'filter' => $filter,
@@ -56,9 +56,14 @@ class PathController extends AbstractController
 
 
   #[Route('/wiki/path/{id<\d+>}', name: 'mage_path_show', methods: ['GET'])]
-  public function pathShow(Path $path): Response
+  public function pathShow(Request $request, Path $path): Response
   {
-    return $this->render('mage/path/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    
+    return $this->render("mage/path/$template.html.twig", [
       'path' => $path,
     ]);
   }

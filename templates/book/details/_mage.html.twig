@@ -5,7 +5,7 @@
     {% include "_icon.html.twig" with {icon: 'path'} %}
   </div>
   <div class="col-8">
-    <a href="{{ path('path_list', {filter: "book", id: book.id}) }}">{{ "count"|trans({'%count%': book.paths|length}, 'path') }}</a>
+    <a href="{{ path('mage_path_list', {filter: "book", id: book.id}) }}">{{ "count"|trans({'%count%': book.paths|length}, 'path') }}</a>
   </div>
 {% endif %}
 {% if book.legacies|length > 0 %}
