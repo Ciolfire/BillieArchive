@@ -8,11 +8,16 @@
 
 {% block data %}data-content-target="modal"{% endblock %}
 
-{% block title %}{% endblock %}
-
-
 {% block body %}
   <div id="contentModalContainer"></div>
+{% endblock %}
+
+{% block header %}
+  <button type="button" class="btn btn-primary btn-sm btn-lg" data-action="content#open">
+    {% include "_icon.html.twig" with {icon: 'wiki'} only %}
+  </button>
+  <h5 class="modal-title modal-title flex-fill text-center" id="{{ id }}Title">{% block title %}{% endblock %}</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {% endblock %}
 
 {% block footer %}
