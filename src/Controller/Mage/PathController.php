@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Mage;
 
+use App\Entity\Attainment;
 use App\Entity\Path;
 use App\Entity\Description;
 use App\Entity\Legacy;
@@ -132,7 +133,7 @@ class PathController extends AbstractController
   #[Route('/wiki/legacies', name: 'mage_legacies', methods: ['GET'])]
   public function legacies(): Response
   {
-    return $this->render('mage/legacy/index.html.twig', [
+    return $this->render('mage/legacy/list.html.twig', [
       'legacies' => $this->dataService->findBy(Legacy::class, ['homebrewFor' => null], ['name' => "ASC"]),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'legacy']),
     ]);
@@ -143,7 +144,7 @@ class PathController extends AbstractController
   {
     $legacies = $this->dataService->getList($filter, $id, Legacy::class, 'getLegacies');
 
-    return $this->render('mage/legacy/index.html.twig', [
+    return $this->render('mage/legacy/list.html.twig', [
       'setting' => "mage",
       'legacies' => $legacies,
       'filter' => $filter,
@@ -154,9 +155,14 @@ class PathController extends AbstractController
 
 
   #[Route('/wiki/legacy/{id<\d+>}', name: 'mage_legacy_show', methods: ['GET'])]
-  public function legacyShow(Legacy $legacy): Response
+  public function legacyShow(Request $request, Legacy $legacy): Response
   {
-    return $this->render('mage/legacy/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    
+    return $this->render("mage/legacy/$template.html.twig", [
       'legacy' => $legacy,
     ]);
   }
@@ -238,6 +244,19 @@ class PathController extends AbstractController
     return $this->render('mage/legacy/join.html.twig', [
       'mage' => $mage,
       'legacies' => $legacies,
+    ]);
+  }
+
+  #[Route('/wiki/legacy/attainment/{id<\d+>}', name: 'mage_attainment_show', methods: ['GET'])]
+  public function attainmentShow(Request $request, Attainment $attainment): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    
+    return $this->render("mage/legacy/attainment/$template.html.twig", [
+      'attainment' => $attainment,
     ]);
   }
 }

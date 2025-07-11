@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% set setting = 'mage' %}
+
+{% block body %}
+  {% include "_back_entity.html.twig" with {
+    element: attainment.legacy,
+    name: 'mage_legacies'
+  } %}
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-4 p-1">
+      {% include "mage/legacy/attainment/_card.html.twig" %}
+    </div>
+  </div>
+{% endblock %}

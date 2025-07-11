@@ -2,8 +2,11 @@
 
 {% set isInferior = arcanum is same as(character.path.inferiorArcanum) %}
 {% set isRuling = character.rulingArcanum(arcanum) %}
+{% if character.legacy and character.legacy.arcanum == arcanum %}
+  {% set isPrimary = true %}
+{% endif %}
 
-<div class="col-12 col-md-6 col-xl-4 justify-content-center py-2 {% if isRuling %}order-first{% elseif isInferior %}order-last{% endif %}">
+<div class="col-12 col-md-6 col-xl-4 justify-content-center py-2 {% if isRuling or isPrimary|default(false) %}order-first{% elseif isInferior %}order-last{% endif %}">
   <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}block text-color p-2{% endif %}">
     <div class="row align-items-center user-select-none">
       <div class="col-12 arcana-header text-center py-2">
@@ -11,7 +14,7 @@
           {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
           {{ arcanum.name }}
         </h2>
-        {% if isRuling %}
+        {% if isRuling or isPrimary|default(false) %}
           <span class="text-strong">
             {{ "ruling"|trans }}
             ({{ "max.ruling"|trans }})

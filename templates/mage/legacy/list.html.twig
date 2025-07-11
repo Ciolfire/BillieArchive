@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'path' %}
+
+{% set setting = "mage" %}
+{% set footer = true %}
+
+{% block title %}
+  {{ "legacy.label.multi"|trans([], 'path') }}
+{% endblock %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="legacy"
+{% endblock %}
+
+{% block body %}
+  {% if chronicle|default(false) == false %}
+    {% include "_back.html.twig" %}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+  {% endif %}
+
+  {% include "_title.html.twig" with {title: "legacy.label.multi" , domain: "path", icon: 'legacy'} %}
+
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+    <div class="row g-2 pb-2">
+      {% for legacy in legacies|sort((a, b) => a.name|lower <=> b.name|lower) %}
+        {% include "mage/legacy/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    {% if is_granted('ROLE_ST') %}
+      <div class="ms-auto">
+        <a class="btn btn-primary" href="{{ path('mage_legacy_new', {filter: filter|default(null), id: id|default(null)}) }}">
+          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+          {% include "_icon.html.twig" with {icon: 'legacy' } only %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

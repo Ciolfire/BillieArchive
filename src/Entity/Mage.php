@@ -51,6 +51,9 @@ class Mage extends Character
   #[ORM\ManyToOne]
   private ?Legacy $legacy = null;
 
+  #[ORM\Column]
+  private ?bool $hasOwnLegacy = null;
+
 
   public function __construct(?Character $character = null)
   {
@@ -275,7 +278,7 @@ class Mage extends Character
     return false;
   }
 
-  public function getArcanaLevel() : array
+  public function getArcanaLevel(): array
   {
     $arcana = [];
     foreach ($this->arcana as $arcanum) {
@@ -332,7 +335,7 @@ class Mage extends Character
     return $this;
   }
 
-  public function hasRote(SpellRote $rote) : bool
+  public function hasRote(SpellRote $rote): bool
   {
     if ($this->rotes->contains($rote) || $this->createdRotes->contains($rote)) {
       return true;
@@ -372,7 +375,7 @@ class Mage extends Character
     return $this;
   }
 
-    /**
+  /**
    * @param array<string, int> $modifiers
    * @return array<string, mixed>
    */
@@ -404,11 +407,11 @@ class Mage extends Character
     // Attribute
     $attribute = $rote->getAttribute();
     $value = $this->attributes->get($attribute->getIdentifier());
-    
+
     $details[$attribute->getIdentifier()] = $value;
     $details['total'] += $value;
     $details['string'] .= " {$attribute->getName()} {$value}";
-    
+
     // Skill
     $skill = $rote->getSpell()->getSkill();
     $value = $this->skills->get($skill->getIdentifier());
@@ -428,13 +431,49 @@ class Mage extends Character
 
   public function getLegacy(): ?Legacy
   {
-      return $this->legacy;
+    return $this->legacy;
   }
 
   public function setLegacy(?Legacy $legacy): static
   {
-      $this->legacy = $legacy;
+    $this->legacy = $legacy;
 
-      return $this;
+    return $this;
+  }
+
+  public function hasOwnLegacy(): ?bool
+  {
+    return $this->hasOwnLegacy;
+  }
+
+  public function setHasOwnLegacy(bool $hasOwnLegacy): static
+  {
+    $this->hasOwnLegacy = $hasOwnLegacy;
+
+    return $this;
+  }
+
+  public function getAttainments(): ?array
+  {
+    if ($this->legacy) {
+      $attainments = [];
+      $base = $this->gnosis - 1;
+      if ($this->hasOwnLegacy()) {
+        $base-= 1;
+      }
+      $base/=2;
+      foreach ($this->legacy->getAttainments() as $attainment) {
+        // 1 = 3/4, 2 = 5/6, 3 = 7/8
+        if ($attainment->getLevel() <= $base) {
+          # 1  2    3  4    5  6   7
+          # 0, 0.5, 1, 1.5, 2, 2.5 3
+          $attainments[] = $attainment;
+        }
+      }
+
+      return $attainments;
+    }
+
+    return null;
   }
 }

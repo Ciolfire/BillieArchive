@@ -13,4 +13,9 @@
   <div id="rotes" class="tab-content d-none" data-tabs-target="page">
     {% include 'character_sheet_type/mage/rotes/show/elements.html.twig' with {characterArcana: arcana} %}
   </div>
+  {% if character.legacy %}
+    <div id="attainments" class="tab-content d-none" data-tabs-target="page">
+    {% include 'character_sheet_type/mage/elements/attainments.html.twig' %}
+    </div>
+  {% endif %}
 </div>
