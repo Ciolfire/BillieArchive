@@ -1,7 +1,8 @@
 {% trans_default_domain 'merit' %}
 
-<div class="row justify-content-center">
-  <div class="merit merit-{{ merit.type|default('universal') }} mb-4 bdr-b">
+<div class="block rounded">
+  {# header #}
+  <div class="merit merit-{{ merit.type|default('universal') }} bdr-b rounded-top">
     {# name #}
     <h1>
       {{ merit.name }}
@@ -39,28 +40,14 @@
       {% endif %}
     </div>
   </div>
-  {# effect #}
-  <div class="col-12">
+  {# content #}
+  <div class="col-12 p-2 bdr-b">
     <div class="merit_{{ merit.id }} mb-2 {% block collapse %}{% endblock %}">
       {{ merit.effect|markdown_to_html }}
     </div>
   </div>
-  <hr>
-  {# actions #}
-  <div class="col-auto">
-    {% block actions %}
-      {% if options|default(false) %}
-        {% if is_granted('ROLE_ST') %}
-          {# Could be used to copy a direct link to the merit #}
-          <a class="btn btn-primary" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-          {% include "element/_delete.html.twig" with {element: 'merit', 'entity': merit} %}
-        {% endif %}
-      {% endif %}
-    {% endblock %}
-  </div>
-  {# source #}
-  <div class="col text-end">
+  {# footer #}
+  <div class="col text-end p-2">
     {% include "_source_block.html.twig" with { 'element': merit, class: 'text-strong fst-italic' } only %}
   </div>
 </div>

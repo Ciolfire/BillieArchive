@@ -173,6 +173,10 @@ class MeritController extends AbstractController
       $this->addFlash('success', ["general.delete.done", ['%name%' => $merit->getName()]]);
     }
 
+    if ($merit->getHomebrewFor()) {
+      return $this->redirectToRoute('homebrew_index', ['id' => $merit->getHomebrewFor()->getId()]);
+    }
+
     return $this->redirectToRoute('merit_list', [], Response::HTTP_SEE_OTHER);
   }
 

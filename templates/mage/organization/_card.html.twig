@@ -9,7 +9,7 @@
 {% endif %}
 
 <div id="{{ order.name }}" class="col-12" data-search-target="item" data-name="{{ order.name }}">
-  <div class="path-card position-relative">
+  <div class="group-card position-relative">
   {% if is_granted('ROLE_ST') %}
     <a class="position-absolute end-0" href="{{ path('organization_edit', {id: order.id, setting: 'mage'}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
   {% endif %}

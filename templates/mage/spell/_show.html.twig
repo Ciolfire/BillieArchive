@@ -1,70 +1,71 @@
 {% trans_default_domain 'spell' %}
 
 <div class="col-12 g-2">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-  {% endif %}
-  <div class="block p-2">
-    <h2>
-      {{ spell.name }}
-    </h2>
-    <h4>
-      {% include "mage/spell/_arcana.html.twig" with { arcana : spell.arcana } %}
-    </h4>
-    <h5>
-      {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
-      {{ spell.skill }}
-    </h5>
-    <div class="text-center fst-italic">
-      {{ spell.short }}
-    </div>
-    <hr>
-    {{ spell.description|markdown_to_html }}
-    <p>
-      <strong>{{ "practice"|trans }}:</strong> 
-      {{ spell.practice.name }}
-    </p>
-    <p>
-      <strong>{{ "action.label.single"|trans({}, "app") }}:</strong>
-      {{ spell.actionName|trans({}, 'app') }}
-      {% if spell.isContested %}
-        ; {{ spell.contestedText }}
-      {% endif %}
-    </p>
-    <p>
-      <strong>{{ "duration"|trans }}:</strong> 
-      {{ spell.duration }}
-    </p>
-    <p>
-      <strong>{{ "aspect.label"|trans }}:</strong> 
-      {% if spell.vulgar %}
-        {{ "aspect.vulgar"|trans }}
-      {% else %}
-        {{ "aspect.covert"|trans }}
-      {% endif %}
-    </p>
-    <p>
-      <strong>{{ "cost"|trans({}, "app") }}:</strong>   
-      {{ spell.cost }}
-    </p>
-    <hr>
-    {{ spell.rules|markdown_to_html }}
-    {% block rotes %}
-      <div class="row">
-        {% for rote in spell.rotes|default(null) %}
-          {% include "mage/spell/_rote.html.twig" %}
-        {% endfor %}
-        {% if is_granted('ROLE_ST') %}
-          <div class="col-12 mt-2 text-center">
-            <a href="{{ path('mage_spell_rote_new', { spell: spell.id }) }}" class="btn btn-primary">
-              {% include "_icon.html.twig" with { icon: 'spell' } %}
-              {{ "rote.new"|trans }}
-            </a>
-          </div>
-        {% endif %}
+  <div class="block rounded">
+    <div class="card-header rounded-top">
+      <h2>
+        {{ spell.name }}
+      </h2>
+      <h4>
+        {% include "mage/spell/_arcana.html.twig" with { arcana : spell.arcana } %}
+      </h4>
+      <h5>
+        {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
+        {{ spell.skill }}
+      </h5>
+      <div class="text-center fst-italic">
+        {{ spell.short }}
       </div>
-    {% endblock %}
+      <hr>
+    </div>
+    <div class="p-2">
+      {{ spell.description|markdown_to_html }}
+      <p>
+        <strong>{{ "practice"|trans }}:</strong> 
+        {{ spell.practice.name }}
+      </p>
+      <p>
+        <strong>{{ "action.label.single"|trans({}, "app") }}:</strong>
+        {{ spell.actionName|trans({}, 'app') }}
+        {% if spell.isContested %}
+          ; {{ spell.contestedText }}
+        {% endif %}
+      </p>
+      <p>
+        <strong>{{ "duration"|trans }}:</strong> 
+        {{ spell.duration }}
+      </p>
+      <p>
+        <strong>{{ "aspect.label"|trans }}:</strong> 
+        {% if spell.vulgar %}
+          {{ "aspect.vulgar"|trans }}
+        {% else %}
+          {{ "aspect.covert"|trans }}
+        {% endif %}
+      </p>
+      <p>
+        <strong>{{ "cost"|trans({}, "app") }}:</strong>   
+        {{ spell.cost }}
+      </p>
+      <hr>
+      {{ spell.rules|markdown_to_html }}
+      {% block rotes %}
+        <div class="row">
+          {% for rote in spell.rotes|default(null) %}
+            {% include "mage/spell/_rote.html.twig" %}
+          {% endfor %}
+          {% if is_granted('ROLE_ST') and not isModal|default(1) %}
+            <div class="col-12 mt-2 text-center">
+              <a href="{{ path('mage_spell_rote_new', { spell: spell.id }) }}" class="btn btn-primary">
+                {% include "_icon.html.twig" with { icon: 'spell' } %}
+                {{ "rote.new"|trans }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endblock %}
 
-    {% include "_source_block.html.twig" with { element: spell } %}
+      {% include "_source_block.html.twig" with { element: spell } %}
+    </div>
   </div>
 </div>

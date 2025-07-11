@@ -7,7 +7,7 @@
 {% endif %}
 
 <div id="{{ legacy.name }}" class="col-12" data-search-target="item" data-name="{{ legacy.name }}">
-  <div class="path-card position-relative">
+  <div class="group-card position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path('mage_legacy_edit', {id: legacy.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
@@ -16,7 +16,17 @@
       <h3>
         {{ legacy.name }}
         {% if legacy.isLeftHanded %}
-        ({{"legacy.left-handed"|trans }})
+          ({{"legacy.left-handed"|trans }})
+        {% endif %}
+
+        {% if legacy.path %}
+          {# {{ legacy.path }} #}
+          <img class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
+        {% endif %}
+        {% if legacy.parentOrder %}
+          {# {{ legacy.parentOrder }} #}
+          <img class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'paths_emblems') }}" style="height:2em;"/>
+        {% else %}
         {% endif %}
         
         {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
@@ -34,14 +44,16 @@
       </div>
       <div class="col-12 pb-2 text-center">
         <div class="text-strong mb-0">{{ "primary"|trans([], 'arcanum') }}</div>
-          <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-            data-action="click->content#load"
-            data-content-name-param="{{ legacy.arcanum.name }}"
-            data-content-type-param="{{ "arcanum.label.single"|trans }}"
-            data-content-link-param="{{ path('mage_arcanum_show', {id: legacy.arcanum.id}) }}"
-          >
-            {{ legacy.arcanum.name }}
-          </div>
+          {% if not isModal|default(1) %}
+            <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+              data-action="click->content#load"
+              data-content-name-param="{{ legacy.arcanum.name }}"
+              data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
+              data-content-link-param="{{ path('mage_arcanum_show', {id: legacy.arcanum.id}) }}"
+            >
+              {{ legacy.arcanum.name }}
+            </div>
+          {% endif %}
       </div>
       <div class="col-12 pb-2 text-center text-strong">{{ "legacy.attainment.label.multi"|trans([], 'path') }}</div>
       {% for attainment in legacy.attainments %}
@@ -65,8 +77,8 @@
     >
       <div class="row g-0 back-fluff legacy-card-footer">
         {{ legacy.short|default("")|markdown_to_html }}
-        <div class="col">
-          {% include "_icon.html.twig" with {icon: 'wiki', label: 'universal'|trans({}, 'app')} %}
+        <div class="col text-end">
+          {% include "_icon.html.twig" with {icon: 'wiki'} %}
         </div>
         <div class="col text-end">
           {% include "_source.html.twig" with {element: legacy } only %}

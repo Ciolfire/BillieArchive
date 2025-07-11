@@ -4,6 +4,9 @@
 
 {% block body %}
   <div class="container block py-5">
-    {% include "mage/arcanum/_show.html.twig" with {isShown: 1} %}
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('mage_arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
+    {% endif %}
+    {% include "mage/arcanum/_show.html.twig" with {isNotModal: 1} %}
   </div>
 {% endblock %}

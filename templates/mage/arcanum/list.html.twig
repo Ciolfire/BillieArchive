@@ -3,34 +3,24 @@
 {% trans_default_domain 'arcanum' %}
 {% set setting = 'mage' %}
 
-{% block title %}
-	{{ "label.multi"|trans }}
-{% endblock %}
+{% block title %}{{ "label.multi"|trans }}{% endblock %}
 
 
 {% block body %}
   {% include "_back.html.twig" %}
-  <h1 class="user-select-none py-3">
-    {% include "_icon.html.twig" with {icon: "arcanum", class: "icon-lg" } only %}
-    {{ "label.multi"|trans }}
-  </h1>
-  <div class="container">
-    <div class="row">
+
+  {% include "_title.html.twig" with { domain: "arcanum" } %}
+
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 py-2">
       {% for arcanum in arcana %}
-        <div class="col-12 col-lg-6 g-2">
-          <div class="block p-2">
-            {% if is_granted('ROLE_ST') %}
-              <a class="float-end" href="{{ path('mage_arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-            {% endif %}
-            <h2>
-              {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
-              {{ arcanum.name }}
-            </h2>
-            {{ arcanum.purview|markdown_to_html }}
-            <hr>
-            {{ arcanum.realm|markdown_to_html }}
-          </div>
-        </div>
+        {% include "mage/arcanum/_card.html.twig" %}
       {% endfor %}
     </div>
   </div>

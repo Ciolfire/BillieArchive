@@ -1,7 +1,4 @@
 <div class="block p-2">
-  {% if is_granted('ROLE_ST') %}
-    <a class="float-end" href="{{ path('mage_arcanum_edit', {'id': arcanum.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-  {% endif %}
   <h2>
     {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
     {{ arcanum.name }}

@@ -4,6 +4,10 @@
 
 {% block body %}
   <div class="container block py-5">
-    {% include "mage/legacy/_show.html.twig" with {isShown: 1} %}
+    {% if is_granted('ROLE_ST') %}
+      <a class="position-absolute end-0" href="{{ path('mage_legacy_edit', {id: legacy.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "mage/legacy/_show.html.twig" with {isModal: 0} %}
   </div>
 {% endblock %}

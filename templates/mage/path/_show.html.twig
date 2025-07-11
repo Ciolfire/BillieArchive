@@ -7,12 +7,12 @@
 {% endif %}
 
 <div id="{{ path.name }}" class="col-12" data-search-target="item" data-name="{{ path.name }}">
-  <div class="path-card position-relative">
+  <div class="group-card position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     {# Header #}
-    <blockquote class="text-center mb-2 path-card-header">
+    <blockquote class="text-center mb-2 group-card-header">
       <h3>
         {{ path.name }}
         {% if path.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
@@ -42,7 +42,7 @@
         {% include "_icon.html.twig" with {icon: 'resistance'} only %} {{ path.attribute }}
       </div>
     </div>
-    <div class="path-card-body p-2">
+    <div class="group-card-body p-2">
       <h5>{{ "nimbus"|trans }}</h5>
       {{ path.nimbus|markdown_to_html }}
       <h5>{{ "description"|trans([], 'app') }}</h5>
@@ -50,7 +50,7 @@
     </div>
     {# Footer #}
     <div>
-      <div class="back-fluff path-card-footer">{{ path.short|default("")|markdown_to_html }}
+      <div class="back-fluff group-card-footer">{{ path.short|default("")|markdown_to_html }}
         <div class="text-end">
           {% include "_source.html.twig" with {element: path } only %}
         </div>

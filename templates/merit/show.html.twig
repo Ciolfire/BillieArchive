@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Merit{% endblock %}
+{% trans_default_domain "merit" %}
+
+{% block title %}{{ merit.name }}{% endblock %}
 
 {% block body %}
-  <div class="container block py-3">
-    {% include "merit/_show.html.twig" with {options: 1} %}
-  </div>
   {% include "_back.html.twig" %}
-  {% if is_granted('ROLE_ST') %}
-    {% include "element/_delete.html.twig" with {element: 'merit', entity: merit} %}
-  {% endif %}
+
+  <div class="container block pt-5 pb-1">
+    {# Could be used to copy a direct link to the merit #}
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('merit_edit', {'id': merit.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
+    {% endif %}
+    
+    {% include "merit/_show.html.twig" %}
+
+    {% if is_granted('ROLE_ST') %}
+      <div class="col text-center mt-5">
+        <button type="button" class="btn btn-warning w-25" data-bs-toggle="modal" data-bs-target="#deleteModal-merit-{{merit.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
+      </div>
+      {% include "element/_delete.html.twig" with {element: 'merit', 'entity': merit} %}
+    {% endif %}
+  </div>
 {% endblock %}

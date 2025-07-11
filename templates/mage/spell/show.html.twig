@@ -1,14 +1,29 @@
 {% extends "base.html.twig" %}
 
-
 {% set setting = 'mage' %}
+
+{% trans_default_domain "spell" %}
+
+{% block title %}{{ spell.name }}{% endblock %}
 
 {% block body %}
   {% include "_back_entity.html.twig" with {
     element: spell,
     name: 'mage_spell'
   } %}
-  <div class="row justify-content-center">
-    {% include "mage/spell/_card.html.twig" %}
+
+  <div class="container block pt-5 pb-1">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "mage/spell/_show.html.twig" with {isModal: 0} %}
+
+    {% if is_granted('ROLE_ST') %}
+      <div class="col text-center mt-5">
+        <button type="button" class="btn btn-warning w-25" data-bs-toggle="modal" data-bs-target="#deleteModal-mage_spell-{{spell.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
+      </div>
+      {% include "element/_delete.html.twig" with {element: 'mage_spell', 'entity': spell} %}
+    {% endif %}
   </div>
 {% endblock %}

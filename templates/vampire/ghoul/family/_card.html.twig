@@ -7,11 +7,11 @@
 {% endif %}
 
 <div id="{{ family.name }}" class="col-12" data-search-target="item" data-name="{{ family.name }}" data-clan="{{ family.clan.name|default("") }}">
-  <div class="clan-card position-relative">
+  <div class="group-card position-relative">
     {% if is_granted('ROLE_ST') %}
       <a class="position-absolute end-0" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
-    <blockquote class="text-center mb-2 clan-card-header">
+    <blockquote class="text-center mb-2 group-card-header">
       <h3>
         {{ family.name }} {% if family.clan %}({{ family.clan.name }}){% endif %}
         
@@ -23,7 +23,7 @@
     {% if family.emblem is not null %}
       <img class="mx-auto d-block mw-100" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
     {% endif %}
-    <div class="clan-{{ family.id }} clan-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
+    <div class="clan-{{ family.id }} group-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
       <div class="text">{{ family.description|default("")|markdown_to_html }}</div>
       <h5>{{ "family.strength"|trans }}</h5>
       <blockquote class="text">{{ family.strength|default("")|markdown_to_html }}</blockquote>
@@ -40,7 +40,7 @@
       </div>
     {% endif %}
     <div class="clan-{{ family.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
-      <div class="fluff clan-card-footer">{{ family.short|default("")|markdown_to_html }}
+      <div class="fluff group-card-footer">{{ family.short|default("")|markdown_to_html }}
         <div class="text-end">
           {% include "_source.html.twig" with {element: family } only %}
         </div>

@@ -6,7 +6,6 @@ namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
 use App\Entity\Description;
-use App\Entity\MageArcanum;
 use App\Entity\MageOrder;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
@@ -20,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/{_locale<%supported_locales%>?%default_locale%}/mage')]
 class ArcanumController extends AbstractController
@@ -36,7 +36,7 @@ class ArcanumController extends AbstractController
   #[Route('/wiki/arcana', name: 'mage_arcanum_index')]
   public function index(): Response
   {
-    return $this->render('mage/arcanum/index.html.twig', [
+    return $this->render('mage/arcanum/list.html.twig', [
       'arcana' => $this->dataService->findBy(Arcanum::class, [], ['name' => 'ASC']),
     ]);
   }
@@ -170,6 +170,26 @@ class ArcanumController extends AbstractController
       'action' => 'edit',
       'form' => $form,
     ]);
+  }
+
+  #[IsGranted('ROLE_ST')]
+  #[Route("/{id<\d+>}/delete", name: "mage_spell_delete", methods: ["POST"])]
+  public function delete(Request $request, MageSpell $spell): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    $token = $request->request->get('_token');
+    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $spell->getId(), $token)) {
+      $this->dataService->remove($spell);
+      $this->dataService->flush();
+      $this->addFlash('success', ["general.delete.done", ['%name%' => $spell->getName()]]);
+    }
+
+    if ($spell->getHomebrewFor()) {
+      return $this->redirectToRoute('homebrew_index', ['id' => $spell->getHomebrewFor()->getId()]);
+    }
+
+    return $this->redirectToRoute('mage_spell_index', [], Response::HTTP_SEE_OTHER);
   }
 
   #[Route('/spell/{spell<\d+>}/rote/new', name: 'mage_spell_rote_new', methods: ['GET', 'POST'])]

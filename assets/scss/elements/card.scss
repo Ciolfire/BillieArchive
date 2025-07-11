@@ -1,8 +1,37 @@
-.card-content {
-  background-color: $cardColor;
-  
-  &:hover {
-    color: $accentColor;
-    background-color: $cardHoverColor;
+.card {
+  &-content {
+    background-color: $cardColor;
+    
+    &:hover {
+      color: $accentColor;
+      background-color: $cardHoverColor;
+    }
+  }
+
+  &-header {
+    background-color: $cardColor;
+  }
+}
+
+.group-card {
+  background-color: #bffcffb5;
+  border          : 1px solid $mainColor;
+  box-shadow      : $mainColor 0px 0px 7px 3px;
+  margin-bottom   : 1em;
+  border-radius   : 0.5em;
+
+  &-header {
+    border-bottom-left-radius : 0;
+    border-bottom-right-radius: 0;
+  }
+
+  & .group-card-footer {
+    border-top-left-radius : 0;
+    border-top-right-radius: 0;
+  }
+
+  & .group-card-body {
+    background-color: $blockColor;
+    border-top      : 1px solid $mainColor;
   }
 }

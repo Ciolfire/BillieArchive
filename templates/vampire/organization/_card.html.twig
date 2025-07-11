@@ -9,11 +9,11 @@
 {% endif %}
 
 <div id="{{ covenant.name }}" class="col-12" data-search-target="item" data-name="{{ covenant.name }}">
-  <div class="clan-card position-relative">
+  <div class="group-card position-relative">
   {% if is_granted('ROLE_ST') %}
     <a class="position-absolute end-0" href="{{ path('organization_edit', {id: covenant.id, setting: 'vampire'}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
   {% endif %}
-  <blockquote class="text-center mb-2 clan-card-header">
+  <blockquote class="text-center mb-2 group-card-header">
     <h1>{{ covenant.name }}</h1>
   </blockquote>
   {% if covenant.emblem is not null %}
@@ -75,7 +75,7 @@
       {% endfor %}
     {% endif %}
   </div>
-  <div class="covenant-{{ covenant.id }} clan-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
+  <div class="covenant-{{ covenant.id }} group-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".covenant-{{ covenant.id }}" aria-expanded="false" aria-controls="{{ covenant.id }}">
       <div class="text">{{ covenant.description|default("")|markdown_to_html }}</div>
       <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
       {{ covenant.overview|default("")|markdown_to_html }}

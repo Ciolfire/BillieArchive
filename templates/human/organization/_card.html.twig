@@ -11,7 +11,7 @@
   {% if is_granted('ROLE_ST') %}
     <a class="position-absolute end-0" href="{{ path('organization_edit', {id: organization.id, setting: 'human'}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
   {% endif %}
-  <blockquote class="text-center mb-2 clan-card-header">
+  <blockquote class="text-center mb-2 group-card-header">
     <h1>{{ organization.name }}</h1>
   </blockquote>
   {% if organization.emblem is not null %}
@@ -20,7 +20,7 @@
   <div class="text-center mb-2 fst-italic">
     {% block bonus %}{% endblock %}
   </div>
-  <div class="organization-{{ organization.id }} clan-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".organization-{{ organization.id }}" aria-expanded="false" aria-controls="{{ organization.id }}">
+  <div class="organization-{{ organization.id }} group-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".organization-{{ organization.id }}" aria-expanded="false" aria-controls="{{ organization.id }}">
       <div class="text">{{ organization.description|default("")|markdown_to_html }}</div>
       <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
       {{ organization.overview|default("")|markdown_to_html }}
