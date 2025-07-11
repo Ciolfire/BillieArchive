@@ -1,7 +1,7 @@
 {% trans_default_domain 'arcanum' %}
 
 <div class="col-12 col-lg-6">
-  <div class="block p-2"
+  <div class="block p-2 h-100"
     role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
     data-action="click->content#load"
     data-content-name-param="{{ arcanum.name }}"
@@ -12,5 +12,6 @@
       {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
       {{ arcanum.name }}
     </h2>
+    <p>{{ arcanum.short }}</p>
   </div>
 </div>
