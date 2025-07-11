@@ -64,7 +64,7 @@ class ArcanumController extends AbstractController
       $this->dataService->update($arcanum);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $arcanum->getName()]]);
-      return $this->redirectToRoute('arcanum_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('mage_arcanum_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('element/new.html.twig', [
