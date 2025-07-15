@@ -353,6 +353,8 @@ class MageSpell implements Translatable
     $list = [];
     foreach ($this->arcana as $arcanum) {
       if (!$arcanum->isOptional() || $arcanum->isOptional() && $withOptional) {
+        // We only get the lowest level of the arcana, in case it's something like 1/5 or 2/3
+        if (!isset($list[$arcanum->getArcanum()->getId()]) || $list[$arcanum->getArcanum()->getId()] && $list[$arcanum->getArcanum()->getId()] > $arcanum->getLevel())
         $list[$arcanum->getArcanum()->getId()] = $arcanum->getLevel();
       }
     }
