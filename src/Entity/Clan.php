@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 #[ORM\Entity(repositoryClass: ClanRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "clans"),new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "clans")])]
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\ClanTranslation")]
 class Clan implements Translatable
@@ -43,6 +43,9 @@ class Clan implements Translatable
 
   #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
   private ?string $emblem;
+
+  #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+  private ?string $symbol;
 
   #[Gedmo\Translatable]
   #[ORM\Column(length: 50)]
@@ -83,9 +86,15 @@ class Clan implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $ghoulFamilies;
 
-  public function __construct(bool $isBloodline = false)
+  public function __construct(bool $isBloodline = false, $element = null)
   {
     $this->isBloodline = $isBloodline;
+
+    if ($element instanceof Chronicle) {
+      $this->setHomebrewFor($element);
+    } else if ($element instanceof Book) {
+      $this->setBook($element);
+    }
 
     $this->attributes = new ArrayCollection();
     $this->disciplines = new ArrayCollection();
@@ -271,6 +280,18 @@ class Clan implements Translatable
   public function setEmblem(?string $emblem): self
   {
     $this->emblem = $emblem;
+
+    return $this;
+  }
+
+  public function getSymbol(): ?string
+  {
+    return $this->symbol;
+  }
+
+  public function setSymbol(?string $symbol): self
+  {
+    $this->symbol = $symbol;
 
     return $this;
   }

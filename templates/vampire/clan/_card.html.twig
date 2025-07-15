@@ -1,88 +1,96 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = clan %}
+
 {% trans_default_domain 'clan' %}
 
-{% if isShown|default(false) == true %}
-  {% set collapse = "" %}
-{% else %}
-  {% set collapse = "collapse" %}
-{% endif %}
+{% block data %}
+  data-name="{{ clan.name }}"
+  data-parent="{{ clan.parentClan }}"
+{% endblock %}
 
-<div id="{{ clan.name }}" class="col-12" data-search-target="item" data-name="{{ clan.name }}" data-parent="{{ clan.parentClan }}">
-  <div class="group-card position-relative">
-    {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('vampire_clan_edit', {id: clan.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+{% block name %}
+  {{ clan.name }}
+  {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  {% if clan.isBloodline is same as(true) %}
+    {% if clan.parentClan %}
+      <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ clan.parentClan }}" class="no-filter pe-2" src="{{ asset(clan.parentClan.symbol|default(clan.parentClan.emblem), 'clans_emblems') }}" style="height:2em;"/>
+    {% else %}
+      {{ "bloodline.parent.any"|trans }}
     {% endif %}
-    <blockquote class="text-center mb-2 group-card-header">
-      <h1>
-        {{ clan.name }}
-        {% if clan.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
-      </h1>
-      <h4>
-        {% if clan.isBloodline is same as(true) %}({{ clan.parentClan.name|default("bloodline.parent.any"|trans) }}){% endif %}
-      </h4>
-      <h5>{{ clan.nickname }}</h5>
-      {{ clan.quote }}
-    </blockquote>
-    {% if clan.emblem is not null %}
-      <img class="mx-auto d-block mw-100" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="400"/>
-    {% endif %}
-    <div class="text-center mb-2 fst-italic">
-      {{ clan.keywords }}
-      <br>
-      {% if clan.parentClan is null %}
-        {% for attribute in clan.attributes %}
-          {% if not loop.first %}
-            <span class="text-strong">|</span>
-          {% endif %}
-          <span class="text-strong">
-            {{ attribute.name }}
-          </span>
-        {% endfor %}
-        <br>
+  {% elseif clan.symbol %}
+    <img class="no-filter pe-2" src="{{ asset(clan.symbol, 'clans_emblems') }}" style="height:2em;"/>
+  {% endif %}
+  <h5>{{ clan.nickname }}</h5>
+  <blockquote>{{ clan.quote }}</blockquote>
+{% endblock %}
+
+{% block image %}
+  {% if clan.emblem is not null %}
+    <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  {# <span class="text-dark">{{ clan.keywords }}</span> #}
+  {% if clan.parentClan is null %}
+    {% for attribute in clan.attributes %}
+      {% if not loop.first %}
+        <span class="text-strong">|</span>
       {% endif %}
-      {% include "_icon.html.twig" with {icon: 'discipline' } %}
-      {% for discipline in clan.disciplines %}
-        {% if loop.last %}
-          &
-        {% elseif not loop.first %}
-          ,
-        {% endif %}
-        <a class="text-strong" href="{{ path('vampire_discipline_show', {'id': discipline.id}) }}">{{ discipline.name }}</a>
-      {% endfor %}
-      {% include "_icon.html.twig" with {icon: 'discipline' } %}
-      {% if clan.devotions is not empty %}
-        <br>
-        {% include "_icon.html.twig" with {icon: 'devotion' } %}
-        {% for devotion in clan.devotions %}
-          {% if loop.last and not loop.first %}
-            &
-          {% elseif not loop.first %}
-            ,
-          {% endif %}
-          <a class="text-strong" href="{{ path('vampire_devotion_show', {id: devotion.id}) }}">{{ devotion.name }}</a>
-        {% endfor %}
-        {% include "_icon.html.twig" with {icon: 'devotion' } %}
-      {% endif %}
-    </div>
-    <div class="clan-{{ clan.id }} group-card-body {{ collapse }} p-2" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <div class="text">{{ clan.description|default("")|markdown_to_html }}</div>
-      <h5>{{ "weakness"|trans }}</h5>
-      <blockquote class="text">{{ clan.weakness|default("")|markdown_to_html }}</blockquote>
-    </div>
-    {% if isShown|default(false) != true %}
-      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-        <span class="fa-layers fa-fw">
-          <i class="fa-solid fa-circle"></i>
-          <span class="ok clan-{{ clan.id }} {{ collapse }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-          <span class="ok clan-{{ clan.id }} {{ collapse }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-        </span>
-      </div>
+      <span class="text-strong">
+        {{ attribute.name }}
+      </span>
+    {% endfor %}
+  {% endif %}
+
+  <div class="col-12">{% include "_icon.html.twig" with {icon: 'discipline' } %}</div>
+  {% for discipline in clan.disciplines %}
+    {% if loop.last %}
+      <span class="text-strong">&</span>
+    {% elseif not loop.first %}
+      <span class="text-strong">,</span>
     {% endif %}
-    <div class="clan-{{ clan.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse }}" data-bs-target=".clan-{{ clan.id }}" aria-expanded="false" aria-controls="{{ clan.id }}">
-      <div class="fluff group-card-footer">{{ clan.short|default("")|markdown_to_html }}
-        <div class="text-end">
-          {% include "_source.html.twig" with {element: clan } only %}
-        </div>
-      </div>
+    <div class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load"
+      data-content-name-param="{{ discipline.name }}"
+      data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"
+      data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+    >
+      {{ discipline.name }}
     </div>
-  </div>
-</div>
+  {% endfor %}
+  {% if clan.devotions is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'devotion' } %}</div>
+    {% for devotion in clan.devotions %}
+      {% if loop.last and not loop.first %}
+        <span class="text-strong">&</span>
+      {% elseif not loop.first %}
+        <span class="text-strong">,</span>
+      {% endif %}
+      <div class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        data-action="click->content#load"
+        data-content-name-param="{{ devotion.name }}"
+        data-content-type-param="{{ "devotion.label.single"|trans({}, 'discipline') }}"
+        data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+      >
+        {{ devotion.name }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block action %}
+  data-bs-toggle="modal" data-bs-target="#contentModal"
+  data-action="click->content#load"
+  data-content-name-param="{{ clan.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path('vampire_clan_show', {id: clan.id}) }}"
+{% endblock %}
+
+{% block short %}
+  {{ clan.short|default("")|markdown_to_html }}
+{% endblock %}

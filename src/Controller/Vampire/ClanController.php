@@ -44,7 +44,7 @@ class ClanController extends AbstractController
   #[Route('/wiki/clans', name: 'vampire_clan_index', methods: ['GET'])]
   public function clans(): Response
   {
-    return $this->render('vampire/clan/index.html.twig', [
+    return $this->render('vampire/clan/list.html.twig', [
       'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
@@ -58,15 +58,7 @@ class ClanController extends AbstractController
   #[Route('/wiki/bloodlines', name: 'vampire_bloodline_index', methods: ['GET'])]
   public function bloodlines(): Response
   {
-    return $this->render('vampire/clan/index.html.twig', [
-      'bloodlines' => $this->service->getBloodlines(),
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'bloodline']),
-      'entity' => 'bloodline',
-      'category' => 'character',
-      'search' => [
-        'parent' => ['Daeva', 'Gangrel', 'Mekhet', 'Nosferatu', 'Ventrue'],
-      ],
-    ]);
+    return $this->bloodlinesFilter($this->service->getBloodlines());
   }
 
   #[Route("/wiki/clans/list/{filter<\w+>}/{id<\w+>}", name: "vampire_clan_list", methods: ["GET"])]
@@ -89,23 +81,19 @@ class ClanController extends AbstractController
           '_fragment' => $id
         ]];
     }
-
-    return $this->render('vampire/clan/index.html.twig', [
-      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
-      'entity' => 'clan',
-      'category' => 'character',
-      'clans' => $item->getClans(),
-      'bloodlines' => $item->getBloodlines(),
-      'search' => [],
-      'back' => $back,
-    ]);
+    return $this->bloodlinesFilter($item->getBloodlines(), $item->getClans(), $filter, $id);
   }
 
 
   #[Route('/wiki/clan/{id<\d+>}', name: 'vampire_clan_show', methods: ['GET'])]
-  public function clanShow(Clan $clan): Response
+  public function clanShow(Request $request, Clan $clan): Response
   {
-    return $this->render('vampire/clan/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    
+    return $this->render("vampire/clan/$template.html.twig", [
       'clan' => $clan,
       'entity' => 'clan',
     ]);
@@ -116,17 +104,24 @@ class ClanController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $clan = new Clan($bloodline);
+    $clan = new Clan($bloodline, $this->dataService->getItem($request->get('filter'), $request->get('id')));
     $form = $this->createForm(ClanForm::class, $clan);
 
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $filePath = $this->getParameter('clans_emblems_directory');
+      
       $emblem = $form->get('emblem')->getData();
-      $path = $this->getParameter('clans_emblems_directory');
-      if ($emblem instanceof UploadedFile && is_string($path)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $path));
+      if ($emblem instanceof UploadedFile && is_string($filePath)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $filePath));
       }
+      
+      $symbol = $form->get('symbol')->getData();
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $clan->setSymbol($this->dataService->upload($symbol, $filePath));
+      }
+      
       $this->dataService->save($clan);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $clan->getName()]]);
@@ -153,11 +148,18 @@ class ClanController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $filePath = $this->getParameter('clans_emblems_directory');
+      
       $emblem = $form->get('emblem')->getData();
-      $path = $this->getParameter('clans_emblems_directory');
-      if ($emblem instanceof UploadedFile && is_string($path)) {
-        $clan->setEmblem($this->dataService->upload($emblem, $path));
+      if ($emblem instanceof UploadedFile && is_string($filePath)) {
+        $clan->setEmblem($this->dataService->upload($emblem, $filePath));
       }
+      
+      $symbol = $form->get('symbol')->getData();
+      if ($symbol instanceof UploadedFile && is_string($filePath)) {
+        $clan->setSymbol($this->dataService->upload($symbol, $filePath));
+      }
+      
       $this->dataService->update($clan);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $clan->getName()]]);
@@ -231,6 +233,29 @@ class ClanController extends AbstractController
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
       'bloodlines' => $bloodlines,
+    ]);
+  }
+
+  // Methods
+  private function bloodlinesFilter($bloodlines, $clans=null, $filter=null, $id=null)  {
+    $parents = [];
+    foreach ($bloodlines as $bloodline) {
+      /** @var Clan $bloodline */
+      if ($clan = $bloodline->getParentClan()) {
+        $parents[$clan->getId()] = $clan;
+      }
+    }
+
+    return $this->render('vampire/clan/list.html.twig', [
+      'bloodlines' => $bloodlines,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'bloodline']),
+      'setting' => "vampire",
+      'clans' => $clans,
+      'filter' => $filter,
+      'id' => $id,
+      'search' => [
+        'parents' => $parents,
+      ],
     ]);
   }
 }

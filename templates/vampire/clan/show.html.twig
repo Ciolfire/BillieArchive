@@ -4,10 +4,17 @@
 
 {% set setting = "vampire" %}
 
+{% set element = clan %}
+
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
 {% block body %}
-  <div class="container">
-    {% include "vampire/clan/_card.html.twig" with {clan : clan, 'isShown': true} %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('vampire_clan_edit', {id: clan.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "vampire/clan/_show.html.twig" with {clan : clan, isModal: 0} %}
+    {% include "_back_entity.html.twig" with {name: 'vampire_clan'} %}
   </div>
 {% endblock %}

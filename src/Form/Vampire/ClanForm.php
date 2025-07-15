@@ -44,6 +44,7 @@ class ClanForm extends AbstractType
         'mapped' => false,
         'required' => false,
         'translation_domain' => 'app',
+        'attr' => ['placeholder' => 'upload'],
         'constraints' => [
           new File([
             'mimeTypes' => [
