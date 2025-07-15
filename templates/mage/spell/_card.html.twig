@@ -1,7 +1,7 @@
 {% trans_default_domain 'spell' %}
 
 <div class="col-12 col-md-6 col-xl-4 text-center text-md-start" 
-  data-search-target="item" data-name="{{ spell.name }}" data-level="{{ spell.level }}" 
+  data-search-target="item" data-name="{{ spell.name ~ " " ~ spell.short }}" data-level="{{ spell.level }}" 
   data-arcana="{% for key, arcanum in spell.arcanaList %}{{ arcanum }} {% endfor %}"
   data-order="{% for rote in spell.rotes %}{% if rote.mageOrder is not null %}{{ rote.mageOrder.name }} {% endif %}{% endfor %}"
 
