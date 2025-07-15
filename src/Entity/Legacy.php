@@ -68,8 +68,14 @@ class Legacy implements Translatable
   #[ORM\Column]
   private ?bool $isLeftHanded = false;
 
-  public function __construct()
+  public function __construct($element = null)
   {
+    if ($element instanceof Chronicle) {
+      $this->setHomebrewFor($element);
+    } else if ($element instanceof Book) {
+      $this->setBook($element);
+    }
+
     $this->attainments = new ArrayCollection();
   }
 

@@ -1,50 +1,36 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = family %}
+
 {% trans_default_domain 'ghoul' %}
 
-{% if isShown|default(false) == true %}
-  {% set collapse = "" %}
-{% else %}
-  {% set collapse = "collapse" %}
-{% endif %}
+{% block data %}
+  data-name="{{ family.name ~ " " ~ family.nickname ~ " " ~ family.short }}"
+{% endblock %}
 
-<div id="{{ family.name }}" class="col-12" data-search-target="item" data-name="{{ family.name }}" data-clan="{{ family.clan.name|default("") }}">
-  <div class="group-card position-relative">
-    {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-    <blockquote class="text-center mb-2 group-card-header">
-      <h3>
-        {{ family.name }} {% if family.clan %}({{ family.clan.name }}){% endif %}
-        
-        {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
-      </h3>
-      <h5>{{ family.nickname }}</h5>
-      {{ family.quote }}
-    </blockquote>
-    {% if family.emblem is not null %}
-      <img class="mx-auto d-block mw-100" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
-    {% endif %}
-    <div class="clan-{{ family.id }} group-card-body {{ collapse   }} p-2" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
-      <div class="text">{{ family.description|default("")|markdown_to_html }}</div>
-      <h5>{{ "family.strength"|trans }}</h5>
-      <blockquote class="text">{{ family.strength|default("")|markdown_to_html }}</blockquote>
-      <h5>{{ "family.weakness"|trans }}</h5>
-      <blockquote class="text">{{ family.weakness|default("")|markdown_to_html }}</blockquote>
-    </div>
-    {% if isShown|default(false) != true %}
-      <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
-        <span class="fa-layers fa-fw">
-          <i class="fa-solid fa-circle"></i>
-          <span class="ok clan-{{ family.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-          <span class="ok clan-{{ family.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-        </span>
-      </div>
-    {% endif %}
-    <div class="clan-{{ family.id }} {{ collapse  }} show" type="button" data-bs-toggle="{{ collapse   }}" data-bs-target=".clan-{{ family.id }}" aria-expanded="false" aria-controls="{{ family.id }}">
-      <div class="fluff group-card-footer">{{ family.short|default("")|markdown_to_html }}
-        <div class="text-end">
-          {% include "_source.html.twig" with {element: family } only %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{% block name %}
+  {{ family.name }}
+  {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  <h5>{{ family.nickname }}</h5>
+{% endblock %}
+
+{% block image %}
+  {% if family.emblem is not null %}
+    <img class="mx-auto d-block mw-100" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
+  {% endif %}
+{% endblock %}
+
+{% block action %}
+  data-bs-toggle="modal" data-bs-target="#contentModal"
+  data-action="click->content#load"
+  data-content-name-param="{{ family.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path('ghoul_family_show', {id: family.id}) }}"
+{% endblock %}
+
+{% block short %}
+  {{ family.short|default("")|markdown_to_html }}
+{% endblock %}

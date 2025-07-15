@@ -1,0 +1,46 @@
+{% extends "_group_show.html.twig" %}
+
+{% trans_default_domain 'ghoul' %}
+
+{% set element = family %}
+
+{% block name %}
+  {{ family.name }}
+  {% if family.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  <h3>{{ family.nickname }}</h3>
+{% endblock %}
+
+{% block image %}
+  {% if family.emblem is not null %}
+    <img class="mx-auto d-block mw-100" src="{{ asset(family.emblem, 'ghoul_family_emblems') }}" alt="{{ family.name}}" height="200"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  <div class="row g-0">
+    <div class="col-6 p-1">
+      <div class="block user-select-none h-100 p-3">
+        <h4>{{ "family.strength"|trans }}</h4>
+        {{ family.strength|default("")|markdown_to_html }}
+      </div>
+    </div>
+    <div class="col-6 p-1">
+      <div class="block user-select-none h-100 p-3">
+        <h4>{{ "family.weakness"|trans }}</h4>
+        {{ family.weakness|default("")|markdown_to_html }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+  <h4>{{ "description"|trans([], 'app') }}</h4>
+  <div>{{ family.description|default("")|markdown_to_html }}</div>
+{% endblock %}
+
+{% block short %}
+  {{ family.short|default("")|markdown_to_html }}
+{% endblock %}

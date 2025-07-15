@@ -7,7 +7,13 @@
 {% block title %}{{ "family.label.single"|trans }}{% endblock %}
 
 {% block body %}
-  <div class="container">
-    {% include "vampire/ghoul/family/_card.html.twig" with {isShown: true} %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "vampire/ghoul/family/_show.html.twig" with {isModal: 0} %}
+  
+    {% include "_back.html.twig" %}
   </div>
 {% endblock %}

@@ -85,14 +85,12 @@
         {% elseif not loop.first %}
           ,
         {% endif %}
-        <span
-          {% if not isModal|default(1) %}
+        <span {% if not isModal|default(1) %}
             class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
             data-content-name-param="{{ discountMerit.name }}"
             data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
             data-content-link-param="{{ path('merit_show', {id: discountMerit.id}) }}"
-          {% endif %}
-        >
+        {% endif %} >
           {{ discountMerit.name }}
         </span>
       {% endfor %}

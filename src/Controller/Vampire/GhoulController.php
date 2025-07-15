@@ -58,9 +58,13 @@ class GhoulController extends AbstractController
   }
 
   #[Route('/wiki/family/{id<\d+>}', name: 'ghoul_family_show', methods: ['GET'])]
-  public function familyShow(GhoulFamily $family): Response
+  public function familyShow(Request $request, GhoulFamily $family): Response
   {
-    return $this->render('vampire/ghoul/family/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    return $this->render("vampire/ghoul/family/$template.html.twig", [
       'family' => $family,
       'entity' => 'ghoul_family',
     ]);
