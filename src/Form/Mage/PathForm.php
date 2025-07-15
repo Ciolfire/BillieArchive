@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\Type\RichTextEditorForm;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class PathForm extends AbstractType
@@ -38,17 +39,33 @@ class PathForm extends AbstractType
       ])
       ->add('emblem', DropzoneType::class, [
         'label' => 'emblem',
-        'translation_domain' => 'app',
-        'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
+        'translation_domain' => 'app',
+        'attr' => ['placeholder' => 'upload'],
+        'constraints' => [
+          new File([
+            'mimeTypes' => [
+              'image/*',
+            ],
+            'mimeTypesMessage' => 'image.invalid',
+          ])
+        ],
       ])
       ->add('symbol', DropzoneType::class, [
         'label' => 'symbol.label',
-        'translation_domain' => 'mage',
-        'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
+        'translation_domain' => 'mage',
+        'attr' => ['placeholder' => 'upload'],
+        'constraints' => [
+          new File([
+            'mimeTypes' => [
+              'image/*',
+            ],
+            'mimeTypesMessage' => 'image.invalid',
+          ])
+        ],
       ])
       ->add('rune', DropzoneType::class, [
         'label' => 'rune.label',

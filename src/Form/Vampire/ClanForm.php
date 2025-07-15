@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use App\Form\Type\RichTextEditorForm;
-
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class ClanForm extends AbstractType
 {
@@ -39,8 +39,22 @@ class ClanForm extends AbstractType
         'label' => 'source.label',
         'translation_domain' => "book"
       ])
-      ->add('emblem', FileType::class, [
+      ->add('emblem', DropzoneType::class, [
         'label' => 'emblem',
+        'mapped' => false,
+        'required' => false,
+        'translation_domain' => 'app',
+        'constraints' => [
+          new File([
+            'mimeTypes' => [
+              'image/*',
+            ],
+            'mimeTypesMessage' => 'image.invalid',
+          ])
+        ],
+      ])
+      ->add('symbol', DropzoneType::class, [
+        'label' => 'symbol',
         'mapped' => false,
         'required' => false,
         'translation_domain' => 'app',
