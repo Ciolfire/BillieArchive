@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% trans_default_domain 'path' %}
+
 {% set setting = "mage" %}
 
 {% block body %}
@@ -10,4 +12,6 @@
 
     {% include "mage/legacy/_show.html.twig" with {isModal: 0} %}
   </div>
+
+  {% include "_back.html.twig" %}
 {% endblock %}

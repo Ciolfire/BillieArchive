@@ -1,52 +1,51 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = legacy %}
+
 {% trans_default_domain 'path' %}
 
-{% if isShown|default(false) == true %}
-  {% set collapse = "" %}
-{% else %}
-  {% set collapse = "collapse" %}
-{% endif %}
-
-<div id="{{ legacy.name }}" class="col-12" 
-  data-search-target="item"
+{% block data %}
   data-name="{{ legacy.name ~ " " ~ legacy.nickname }}"
   data-arcanum="{{ legacy.arcanum }}"
   data-order="{{ legacy.parentOrder }}"
   data-path="{{ legacy.path }}"
->
-  <div class="group-card position-relative">
-    {# Header #}
-    <blockquote class="text-center mb-2 legacy-card-header rounded-bottom-0">
-      <h3>
-        {{ legacy.name }}
-        {% if legacy.isLeftHanded %}
-          ({{"legacy.left-handed"|trans }})
-        {% endif %}
+{% endblock %}
 
-        {% if legacy.path %}
-          {# {{ legacy.path }} #}
-          <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.path }}" class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
-        {% endif %}
-        {% if legacy.parentOrder %}
-          {# {{ legacy.parentOrder }} #}
-          <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.parentOrder }}" class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'organizations_emblems') }}" style="height:2em;"/>
-        {% else %}
-        {% endif %}
-        
-        {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
-      </h3>
-      <h5>{{ legacy.nickname }}</h5>
-      {{ legacy.quote }}
-    </blockquote>
-    {# Body #}
-    {% if legacy.emblem is not null %}
-      <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="400"/>
-    {% endif %}
-    <div class="row">
-      <div class="col-12 text-center">
-        {% include "_icon.html.twig" with {icon: 'arcanum' } %}
-      </div>
-      <div class="col-12 pb-2 text-center">
-        <div class="text-strong mb-0">{{ "primary"|trans([], 'arcanum') }}</div>
+{% block name %}
+  {% if legacy.path %}
+    {# {{ legacy.path }} #}
+    <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.path }}" class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
+  {% endif %}
+  {{ legacy.name }}
+  {% if legacy.isLeftHanded %}
+    ({{"legacy.left-handed"|trans }})
+  {% endif %}
+  {% if legacy.parentOrder %}
+    {# {{ legacy.parentOrder }} #}
+    <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.parentOrder }}" class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'organizations_emblems') }}" style="height:2em;"/>
+  {% endif %}
+
+  {% if legacy.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  <h2>{{ legacy.nickname }}</h2>
+  {{ legacy.quote }}
+{% endblock %}
+
+{% block image %}
+  {% if legacy.emblem is not null %}
+    <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  <div class="row g-0">
+    <div class="col-12 text-center">
+      {% include "_icon.html.twig" with {icon: 'arcanum' } %}
+    </div>
+    <div class="col-12 pb-2 text-center">
+      <div class="text-strong mb-0">{{ "primary"|trans([], 'arcanum') }}</div>
         <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
           data-action="click->content#load"
           data-content-name-param="{{ legacy.arcanum.name }}"
@@ -55,8 +54,8 @@
         >
           {{ legacy.arcanum.name }}
         </div>
-      </div>
-      <div class="col-12 pb-2 text-center text-strong">{{ "legacy.attainment.label.multi"|trans([], 'path') }}</div>
+    </div>
+    <div class="col-12 pb-2 text-center text-strong">{{ "legacy.attainment.label.multi"|trans([], 'path') }}</div>
       {% for attainment in legacy.attainments %}
         <div class="col text-center">
           <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
@@ -67,24 +66,16 @@
           >{{ attainment.name }}</div>
         </div>
       {% endfor %}
-    </div>
-    {# {% include "mage/legacy/attainment/_card.html.twig" %} #}
-    {# Footer #}
-    <div role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-      data-action="click->content#load"
-      data-content-name-param="{{ legacy.name }}"
-      data-content-type-param="{{ "legacy.label.single"|trans }}"
-      data-content-link-param="{{ path('mage_legacy_show', {id: legacy.id}) }}"
-    >
-      <div class="row g-0 back-fluff legacy-card-footer">
-        {{ legacy.short|default("")|markdown_to_html }}
-        <div class="col text-end">
-          {% include "_icon.html.twig" with {icon: 'wiki'} %}
-        </div>
-        <div class="col text-end">
-          {% include "_source.html.twig" with {element: legacy } only %}
-        </div>
-      </div>
-    </div>
   </div>
-</div>
+{% endblock %}
+
+{% block action %}
+  data-action="click->content#load"
+  data-content-name-param="{{ legacy.name }}"
+  data-content-type-param="{{ "legacy.label.single"|trans }}"
+  data-content-link-param="{{ path('mage_legacy_show', {id: legacy.id}) }}"
+{% endblock %}
+
+{% block short %}
+  {{ legacy.short|default("")|markdown_to_html }}
+{% endblock %}
