@@ -13,7 +13,6 @@
 
 {% block name %}
   {% if legacy.path %}
-    {# {{ legacy.path }} #}
     <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.path }}" class="no-filter pe-2" src="{{ asset(legacy.path.symbol|default(legacy.path.emblem), 'paths_emblems') }}" style="height:2em;"/>
   {% endif %}
   {{ legacy.name }}
@@ -21,7 +20,6 @@
     ({{"legacy.left-handed"|trans }})
   {% endif %}
   {% if legacy.parentOrder %}
-    {# {{ legacy.parentOrder }} #}
     <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ legacy.parentOrder }}" class="no-filter pe-2" src="{{ asset(legacy.parentOrder.symbol|default(legacy.parentOrder.emblem), 'organizations_emblems') }}" style="height:2em;"/>
   {% endif %}
 

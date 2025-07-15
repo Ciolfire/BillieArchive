@@ -24,9 +24,7 @@
 {% endblock %}
 
 {% block bonus %}
-  <div class="col-12 text-center">
-    {% include "_icon.html.twig" with {icon: 'arcanum' } %}
-  </div>
+  <div class="col-12">{% include "_icon.html.twig" with {icon: 'arcanum' } %}</div>
   <div class="row">
     <div class="col pb-2 text-end">
       <div class="text-strong mb-0">{{ "ruling"|trans([], 'arcanum') }}</div>
