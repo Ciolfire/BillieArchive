@@ -1,0 +1,116 @@
+{% extends "organization/_show.html.twig" %}
+
+{% set element = organization %}
+
+{% block bonus %}
+{# Disciplines #}
+  {% if organization.disciplines is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'discipline' } %}</div>
+    <span class="text-strong">
+      {% for discipline in organization.disciplines %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span 
+          {% if not isModal|default(1) %}
+            class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ discipline.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, domain: "discipline") }}"
+            data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+          {% endif %} 
+        >
+          {{ discipline.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Devotions #}
+  {% if organization.devotions is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'devotion' } %}</div>
+    <span class="text-strong">
+      {% for devotion in organization.devotions %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+          <span 
+            {% if not isModal|default(1) %}
+              class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+              data-content-name-param="{{ devotion.name }}"
+              data-content-type-param="{{ "devotion.label.single"|trans({}, domain: "discipline") }}"
+              data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+            {% endif %}
+          >
+            {{ devotion.name }}
+          </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Merits #}
+  {% if organization.merits is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'merit' } %}</div>
+    <span class="text-strong">
+      {% for merit in organization.merits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span
+          {% if not isModal|default(1) %}
+            class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ merit.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
+            data-content-link-param="{{ path('merit_show', {id: merit.id}) }}"
+          {% endif %}
+        >
+          {{ merit.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Discount Merits #}
+  {% if organization.discountMerits is not empty %}
+    <div class="col-12">
+      {% include "_icon.html.twig" with {icon: 'cost' } %}
+      {% include "_icon.html.twig" with {icon: 'merit' } %}
+    </div>
+    <span class="text-strong">
+      {% for discountMerit in organization.discountMerits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span
+          {% if not isModal|default(1) %}
+            class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ discountMerit.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
+            data-content-link-param="{{ path('merit_show', {id: discountMerit.id}) }}"
+          {% endif %}
+        >
+          {{ discountMerit.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {{ parent() }}
+  <div class="text">{{ organization.description|default("")|markdown_to_html }}</div>
+  <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
+  {{ organization.overview|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "members"|trans }}</h2>
+  {{ organization.members|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "philosophy"|trans }}</h2>
+  {{ organization.philosophy|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "observances"|trans }}</h2>
+  {{ organization.observances|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "titles"|trans }}</h2>
+  {{ organization.titles|default("")|markdown_to_html }}
+{% endblock %}

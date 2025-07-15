@@ -1,0 +1,20 @@
+{% extends "organization/_card.html.twig" %}
+
+{% trans_default_domain 'organization' %}
+
+{% set order = organization %}
+
+{% block bonus %}
+  {% if order.roteSpecialties is not empty %}
+    <br>
+    {% include "_icon.html.twig" with {icon: 'skill' } %}
+    {% for skill in order.roteSpecialties %}
+      {% if loop.last and not loop.first %}
+        &
+      {% elseif not loop.first %}
+        ,
+      {% endif %}
+      <span class="text-strong">{{ skill.name }}</span>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

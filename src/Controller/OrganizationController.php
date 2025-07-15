@@ -26,7 +26,7 @@ class OrganizationController extends AbstractController
   #[Route("/{id<\d+>}/fetch", name:"organization_fetch", methods:["GET"])]
   public function fetch(Organization $organization): Response
   {
-    return $this->render("{$organization->getSetting()}/organization/_card.html.twig", [
+    return $this->render("organization/{$organization->getSetting()}/_card.html.twig", [
       'element' => 'roll',
       'organization' => $organization,
       'isShown' => true,
@@ -54,7 +54,7 @@ class OrganizationController extends AbstractController
       break;
     }
 
-    return $this->render('organization/index.html.twig', [
+    return $this->render('organization/list.html.twig', [
       'organizations' => $organizations,
       'type' => $type,
       'setting' => $setting,
@@ -70,19 +70,19 @@ class OrganizationController extends AbstractController
     switch ($setting) {
       case 'vampire':
         $type = "covenant";
-        $organizations = $result['item']->getCovenants();
         break;
+
       case 'mage':
         $type = "order";
-        $organizations = $result['item']->getOrders();
         break;
-        default:
+
+      default:
         $type= "organization";
-        $organizations = $result['item']->getOrganizations();
         break;
     }
+    $organizations = $result['item']->getOrganizations($this->getUser(), $type);
 
-    return $this->render("organization/index.html.twig", [
+    return $this->render("organization/list.html.twig", [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'organization']),
       'organizations' => $organizations,
       'item' => [
@@ -96,19 +96,15 @@ class OrganizationController extends AbstractController
     ]);
   }
 
-
-  // #[Route('/organization/{id<\d+>}', name: 'organization_show', methods: ['GET'])]
-  // public function organizationShow(Organization $clan): Response
-  // {
-  //   return $this->render('mage/organization/show.html.twig', [
-  //     'organization' => $clan,
-  //   ]);
-  // }
-
   #[Route('/{id<\d+>}', name: 'organization_show', methods: ['GET'])]
-  public function show(Organization $organization): Response
+  public function show(Request $request, Organization $organization): Response
   {
-    return $this->render('organization/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "{$organization->getSetting()}/_show";
+    }
+
+    return $this->render("organization/$template.html.twig", [
       'organization' => $organization,
       'setting' => $organization->getSetting(),
     ]);
@@ -164,7 +160,7 @@ class OrganizationController extends AbstractController
     }
 
     if ($setting) {
-      return $this->render("{$setting}/organization/form.html.twig", [
+      return $this->render("organization/{$setting}/form.html.twig", [
         'form' => $form,
       ]);
     }
@@ -198,11 +194,19 @@ class OrganizationController extends AbstractController
       }
       $this->dataService->update($organization);
       $this->addFlash('success', ["general.edit.done", ['%name%' => $organization->getName()]]);
+      if ($organization->getHomebrewFor()) {
+        return $this->redirectToRoute('organization_list', [
+          'id' => $organization->getHomebrewFor()->getId(),
+          'filter' => 'chronicle',
+          'setting' => $setting,
+          '_fragment' => $organization->getName()
+        ]);
+      }
       return $this->redirectToRoute('organization_index', ['setting' => $setting, '_fragment' => $organization->getName()]);
     }
 
     if ($setting) {
-      return $this->render("{$setting}/organization/form.html.twig", [
+      return $this->render("organization/{$setting}/form.html.twig", [
         'form' => $form,
       ]);
     }

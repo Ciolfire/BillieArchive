@@ -1,0 +1,92 @@
+{% extends "organization/_card.html.twig" %}
+
+{% trans_default_domain 'organization' %}
+
+{% set covenant = organization %}
+
+{% block bonus %}
+  {# Disciplines #}
+  {% if covenant.disciplines is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'discipline' } %}</div>
+    <span class="text-strong">
+      {% for discipline in covenant.disciplines %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+          data-content-name-param="{{ discipline.name }}"
+          data-content-type-param="{{ "label.single"|trans({}, domain: "discipline") }}"
+          data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+        >
+          {{ discipline.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Devotions #}
+  {% if covenant.devotions is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'devotion' } %}</div>
+    <span class="text-strong">
+      {% for devotion in covenant.devotions %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+          <span class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ devotion.name }}"
+            data-content-type-param="{{ "devotion.label.single"|trans({}, domain: "discipline") }}"
+            data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+          >
+            {{ devotion.name }}
+          </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Merits #}
+  {% if covenant.merits is not empty %}
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'merit' } %}</div>
+    <span class="text-strong">
+      {% for merit in covenant.merits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ merit.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
+            data-content-link-param="{{ path('merit_show', {id: merit.id}) }}"
+        >
+          {{ merit.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {# Discount Merits #}
+  {% if covenant.discountMerits is not empty %}
+    <div class="col-12">
+      {% include "_icon.html.twig" with {icon: 'cost' } %}
+      {% include "_icon.html.twig" with {icon: 'merit' } %}
+    </div>
+    <span class="text-strong">
+      {% for discountMerit in covenant.discountMerits %}
+        {% if loop.last and not loop.first %}
+          &
+        {% elseif not loop.first %}
+          ,
+        {% endif %}
+        <span class="link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load"
+            data-content-name-param="{{ discountMerit.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
+            data-content-link-param="{{ path('merit_show', {id: discountMerit.id}) }}"
+        >
+          {{ discountMerit.name }}
+        </span>
+      {% endfor %}
+    </span>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% extends "organization/_show.html.twig" %}
+
+{% set element = organization %}
+
+{% block bonus %}
+  {% if organization.roteSpecialties is not empty %}
+    <br>
+    {% include "_icon.html.twig" with {icon: 'skill' } %}
+    {% for skill in organization.roteSpecialties %}
+      {% if loop.last and not loop.first %}
+        &
+      {% elseif not loop.first %}
+        ,
+      {% endif %}
+      <span class="text-strong">{{ skill.name }}</span>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {{ parent() }}
+  <div class="text">{{ order.description|default("")|markdown_to_html }}</div>
+  <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
+  {{ order.overview|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "members"|trans }}</h2>
+  {{ order.members|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "philosophy"|trans }}</h2>
+  {{ order.philosophy|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "observances"|trans }}</h2>
+  {{ order.observances|default("")|markdown_to_html }}
+  <h2 class="text-stylized-alt">{{ "titles"|trans }}</h2>
+  {{ order.titles|default("")|markdown_to_html }}
+{% endblock %}

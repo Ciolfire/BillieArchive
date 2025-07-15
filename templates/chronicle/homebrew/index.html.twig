@@ -25,7 +25,7 @@
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary human-btn w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'human' , id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-          <span class="accent">{{ chronicle.organizations|length }}</span>
+          <span class="accent">{{ chronicle.organizations(app.user, "organization")|length }}</span>
           <span>{{ "label.multi"|trans([], "organization") }}</span>
         </a>
       </div>
@@ -48,7 +48,7 @@
       <div class="col-12 col-sm-6 col-lg-3">
         <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'vampire' , id: chronicle.id })}}">
           {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-          <span class="accent">{{ chronicle.covenants|length }}</span>
+          <span class="accent">{{ chronicle.organizations(app.user, "covenant")|length }}</span>
           <span>{{ "covenant.label.multi"|trans([], "organization") }}</span>
         </a>
       </div>
@@ -118,7 +118,7 @@
     <div class="col-12 col-sm-6 col-lg-3">
       <a class="btn btn-primary w-100 m-2" href="{{path('organization_list', {filter: 'chronicle', setting: 'mage' , id: chronicle.id })}}">
         {% include "_icon.html.twig" with {icon: 'order' } only %}
-        <span class="accent">{{ chronicle.paths|length }}</span>
+        <span class="accent">{{ chronicle.organizations(app.user, "order")|length }}</span>
         <span>{{ "order.label.multi"|trans({}, 'organization')}}</span><span class="d-none d-sm-inline"></span>
       </a>
     </div>

@@ -32,6 +32,7 @@
 
 {% block form %}
 {{ form_row(form.name) }}
+{{ form_row(form.isPrivate) }}
 {{ form_row(form.emblem) }}
 {{ form_row(form.rune) }}
 {% if form.source|default(null) %}

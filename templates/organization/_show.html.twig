@@ -1,0 +1,31 @@
+{% extends "_group_show.html.twig" %}
+
+{% set element = organization %}
+
+{% trans_default_domain 'organization' %}
+
+{% block name %}
+  {{ organization.name }}
+  
+  {% if organization.isPrivate %}{% include "_icon.html.twig" with {icon: 'spy'} %}{% endif %}
+
+  {% if organization.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+{% endblock %}
+
+{% block image %}
+  {% if organization.emblem is not null %}
+    <img class="mx-auto d-block" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <h5>{{ "description"|trans([], 'app') }}</h5>
+  <div>{{ organization.description|default("")|markdown_to_html }}</div>
+{% endblock %}
+
+{% block short %}
+  {{ organization.short|default("")|markdown_to_html }}
+{% endblock %}

@@ -56,6 +56,7 @@ class OrganizationForm extends AbstractType
         'required' => false,
       ])
       ->add('short')
+      ->add('isPrivate')
       ->add('description', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',

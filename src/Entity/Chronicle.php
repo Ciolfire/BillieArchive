@@ -313,14 +313,18 @@ class Chronicle
     return $this;
   }
 
-  /**
-   * @return array<Organization>
-   */
-  public function getOrganizations(): array
+
+  private function getFilteredOrganizations(User $user): array
   {
     $list = [];
+    $isHidden = false;
+    
+    if ($user != $this->storyteller) {
+      $isHidden = true;
+    }
     foreach ($this->organizations as $organization) {
-      if ($organization->getType() == "organization") {
+      /** @var Organization $organization */
+      if (!($organization->isPrivate() && $isHidden)) {
         $list[] = $organization;
       }
     }
@@ -329,31 +333,40 @@ class Chronicle
   }
 
   /**
-   * @return array<Covenant>
+   * @return array<Organization>
+   * Return a list of the organizations available to the user based on an eventual filter
    */
-  public function getCovenants(): array
+  public function getOrganizations(?User $user = null, ?string $type = null): array
   {
-    $covenants = [];
-    foreach ($this->organizations as $organization) {
-      if ($organization instanceof Covenant) {
-        $covenants[] = $organization;
-      }
+    $list = [];
+    $organizations = $this->organizations;
+    if ($user) {
+      $organizations = $this->getFilteredOrganizations($user);
     }
-    return $covenants;
-  }
 
-  /**
-   * @return array<MageOrder>
-   */
-  public function getOrders(): array
-  {
-    $orders = [];
-    foreach ($this->organizations as $organization) {
-      if ($organization instanceof MageOrder) {
-        $orders[] = $organization;
+    foreach ($organizations as $organization) {
+      switch ($type) {
+        case "covenant":
+          if ($organization instanceof Covenant) {
+            $list[] = $organization;
+          }
+          break;
+
+        case "order":
+          if ($organization instanceof MageOrder) {
+            $list[] = $organization;
+          }
+          break;
+
+        default:
+          if ($organization->getType() == "organization") {
+            $list[] = $organization;
+          }
+          break;
       }
     }
-    return $orders;
+    
+    return $list;
   }
 
   /**

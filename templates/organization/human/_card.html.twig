@@ -1,11 +1,10 @@
 {% trans_default_domain 'organization' %}
 
-{% if isShown|default(false) == true %}
-  {% set collapse = "" %}
-{% else %}
-  {% set collapse = "collapse" %}
-{% endif %}
+{% extends "organization/_card.html.twig" %}
 
+
+
+{% block hidden %}
 <div id="{{ organization.name }}" class="col-12" data-search-target="item" data-name="{{ organization.name }}">
   <div class="block position-relative">
   {% if is_granted('ROLE_ST') %}
@@ -49,3 +48,4 @@
     </div>
   </div>
 </div>
+{% endblock %}

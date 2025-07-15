@@ -1,0 +1,33 @@
+<div id="{% block id %}{% endblock %}" class="col-12" 
+  data-search-target="item"
+  data-name="{% block search %}{% endblock %}"
+>
+  <div class="group-card">
+    {# Header #}
+    <blockquote class="text-center mb-2 rounded-bottom-0">
+    <h1>
+      {% block name %}{% endblock %}
+    </h1>
+    {% block subname %}{% endblock %}
+  </blockquote>
+  {% block image %}{% endblock %}
+  <div class="text-center mb-2 fst-italic">
+    {% block bonus %}{% endblock %}
+  </div>
+  <div class="group-card-body p-2">
+    {% block body %}{% endblock %}
+  </div>
+  {# Footer #}
+  <div>
+    <div class="row g-0 back-fluff">
+      {% block short %}{% endblock %}
+      {% if isModal|default(0) %}
+        <div class="col text-end">
+          {% include "_source.html.twig" with {element: legacy } only %}
+        </div>
+      {% else %}
+        {% include "_source_block.html.twig" with {class: "text-end"} %}
+      {% endif %}
+    </div>
+  </div>
+</div>

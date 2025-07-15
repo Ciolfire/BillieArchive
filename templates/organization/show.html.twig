@@ -3,5 +3,13 @@
 {% trans_default_domain 'organization' %}
 
 {% block body %}
-  {% include setting ~ "/organization/_card.html.twig" with {organization: organization} only %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('organization_edit', {id: organization.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    
+    {% include "/organization/#{setting}/_show.html.twig" with {isModal: 0} %}
+  </div>
+
+  {% include "_back.html.twig" %}
 {% endblock %}

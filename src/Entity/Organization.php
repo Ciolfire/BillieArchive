@@ -63,6 +63,9 @@ class Organization implements Translatable
   #[ORM\Column(type: Types::TEXT)]
   private ?string $short = "";
 
+  #[ORM\Column]
+  private ?bool $isPrivate = null;
+
   public function __toString()
   {
     return $this->name;
@@ -217,6 +220,18 @@ class Organization implements Translatable
   public function setShort(string $short): static
   {
       $this->short = $short;
+
+      return $this;
+  }
+
+  public function isPrivate(): ?bool
+  {
+      return $this->isPrivate;
+  }
+
+  public function setIsPrivate(bool $isPrivate): static
+  {
+      $this->isPrivate = $isPrivate;
 
       return $this;
   }

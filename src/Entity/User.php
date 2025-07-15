@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+// #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
 #[UniqueEntity("username")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   private Collection $characters;
 
   #[ORM\ManyToMany(targetEntity: Chronicle::class, inversedBy: 'players')]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $chronicles;
 
   #[ORM\OneToMany(targetEntity: Chronicle::class, mappedBy: 'storyteller')]

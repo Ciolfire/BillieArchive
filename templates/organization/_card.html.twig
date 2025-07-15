@@ -1,0 +1,32 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = organization %}
+
+{% trans_default_domain 'organization' %}
+
+{% block data %}
+  data-name="{{ organization.name ~ " " ~ organization.short }}"
+{% endblock %}
+
+{% block name %}
+  {{ organization.name }}
+  {% if organization.isPrivate %}
+    {% include "_icon.html.twig" with {icon: 'spy'} %}
+  {% endif %}
+{% endblock %}
+
+{% block image %}
+  {% if organization.emblem is not null %}
+    <img class="mx-auto d-block mw-100" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block action %}
+  data-content-name-param="{{ organization.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path('organization_show', {id: organization.id}) }}"
+{% endblock %}
+
+{% block short %}
+  {{ organization.short|default("")|markdown_to_html }}
+{% endblock %}
