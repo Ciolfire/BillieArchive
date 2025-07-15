@@ -43,10 +43,8 @@
 
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon">
-      {% include "_icon.html.twig" with  {icon: 'search'} %}
-    </span>
-    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    {% include "_search.html.twig" %}
+
     {% if is_granted('ROLE_ST') %}
       <div class="ms-auto">
         <a class="btn btn-primary" href="{{ path('mage_path_new', {filter: filter|default(null), id: id|default(null)}) }}">

@@ -1,60 +1,82 @@
+{% extends "_group_show.html.twig" %}
+
 {% trans_default_domain 'path' %}
 
-{% if isShown|default(false) == true %}
-  {% set collapse = "" %}
-{% else %}
-  {% set collapse = "collapse" %}
-{% endif %}
+{% set element = path %}
 
-<div id="{{ path.name }}" class="col-12" data-search-target="item" data-name="{{ path.name }}">
-  <div class="group-card position-relative">
-    {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-    {# Header #}
-    <blockquote class="text-center mb-2 group-card-header">
-      <h3>
-        {{ path.name }}
-        {% if path.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
-      </h3>
-      <h5>{{ path.title }}</h5>
-    </blockquote>
-    {# Body #}
-    {% if path.emblem is not null %}
-      <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
-    {% endif %}
-    <div class="row text-strong">
-      <div class="col-12 text-center">
-        {% include "_icon.html.twig" with {icon: 'arcanum' } %}
-      </div>
-      <div class="col pb-2 text-end">
-        <div class="text-strong mb-0">{{ "ruling"|trans([], 'arcanum') }}</div>
-        {% for arcanum in path.rulingArcana %}
-          {% if loop.last %}/{% endif %}
-          <a href="{{ path('mage_arcanum_show', {id: arcanum.id}) }}">{{ arcanum.name }}</a>
-        {% endfor %}
-      </div>
-      <div class="col pb-2 text-start">
-        <div class="text-strong">{{ "inferior"|trans([], 'arcanum') }}</div>
-          <a class="warning" href="{{ path('mage_arcanum_show', {id: path.inferiorArcanum.id}) }}">{{ path.inferiorArcanum.name }}</a>
-      </div>
-      <div class="col-12 text-center pb-2">
-        {% include "_icon.html.twig" with {icon: 'resistance'} only %} {{ path.attribute }}
-      </div>
+{% block name %}
+  {{ path.name }}
+  {% if path.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  <h5>{{ path.title }}</h5>
+{% endblock %}
+
+{% block image %}
+  {% if path.emblem is not null %}
+    <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  <div class="col-12 text-center">
+    {% include "_icon.html.twig" with {icon: 'arcanum' } %}
+  </div>
+  <div class="row">
+    <div class="col-6 pb-2 text-end">
+      <div class="text-strong mb-0">{{ "ruling"|trans([], 'arcanum') }}</div>
+      {% for arcanum in path.rulingArcana %}
+        {% if not loop.first %}/{% endif %}
+        {% if not isModal|default(1) %}
+          <span class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+            data-action="click->content#load"
+            data-content-name-param="{{ arcanum.name }}"
+            data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
+            data-content-link-param="{{ path('mage_arcanum_show', {id: arcanum.id}) }}"
+          >
+            {{ arcanum.name }}
+          </span>
+        {% else %}
+          <span class="text-glow">
+            {{ arcanum.name }}
+          </span>
+        {% endif %}
+      {% endfor %}
     </div>
-    <div class="group-card-body p-2">
-      <h5>{{ "nimbus"|trans }}</h5>
-      {{ path.nimbus|markdown_to_html }}
-      <h5>{{ "description"|trans([], 'app') }}</h5>
-      <div>{{ path.description|default("")|markdown_to_html }}</div>
-    </div>
-    {# Footer #}
-    <div>
-      <div class="back-fluff group-card-footer">{{ path.short|default("")|markdown_to_html }}
-        <div class="text-end">
-          {% include "_source.html.twig" with {element: path } only %}
+    <div class="col-6 pb-2 text-start">
+      <div class="text-strong">{{ "inferior"|trans([], 'arcanum') }}</div>
+      {% if not isModal|default(1) %}
+        <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+          data-action="click->content#load"
+          data-content-name-param="{{ path.inferiorArcanum.name }}"
+          data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
+          data-content-link-param="{{ path('mage_arcanum_show', {id: path.inferiorArcanum.id}) }}"
+        >
+          {{ path.inferiorArcanum.name }}
         </div>
-      </div>
+      {% else %}
+        <span class="text-glow">
+          {{ path.inferiorArcanum.name }}
+        </span>
+      {% endif %}
     </div>
   </div>
-</div>
+{% endblock %}
+
+{% block body %}
+  <h5>{{ "nimbus"|trans }}</h5>
+  {{ path.nimbus|markdown_to_html }}
+  <h5>{{ "description"|trans([], 'app') }}</h5>
+  <div>{{ path.description|default("")|markdown_to_html }}</div>
+{% endblock %}
+
+{% block short %}
+  {{ path.short|default("")|markdown_to_html }}
+{% endblock %}
+
+{% block hidden %}
+    <div class="group-card-body p-2">
+
+    </div>
+{% endblock %}
