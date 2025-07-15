@@ -14,7 +14,7 @@
 }
 
 .group-card {
-  background-color: #bffcffb5;
+  background-color: $cardBackgroundColor;
   border          : 1px solid $mainColor;
   box-shadow      : $mainColor 0px 0px 7px 3px;
   margin-bottom   : 1em;
