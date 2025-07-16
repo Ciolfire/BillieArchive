@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'attribute' %}
+
+{% set footer = false %}
+
+{% block title %}
+  {{ "label.multi"|trans }}
+{% endblock %}
+
+{% block body %}
+  {% include "_back.html.twig" %}
+
+  {% include "_title.html.twig" with {title: "label.multi" , domain: "attribute", icon: 'attribute'} %}
+
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 pb-2">
+      {% set category = attributes|first.category %}
+      <h1>
+        {% include "_icon.html.twig" with {icon: category } only %}
+        {{ "category.#{category}"|trans({}, "app") }}
+      </h1>
+      {% for attribute in attributes %}
+        {% if attribute.category != category %}
+          {% set category = attribute.category %}
+          <h1>
+            {% include "_icon.html.twig" with {icon: category } only %}
+            {{ "category.#{category}"|trans({}, "app") }}
+          </h1>
+        {% endif %}
+        <div class="col-4">
+          {% include "attribute/_card.html.twig" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

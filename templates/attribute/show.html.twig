@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'attribute' %}
+
+{% block title %}{{ attribute.name }}{% endblock %}
+
+{% block body %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('attribute_edit', {id: attribute.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    
+    {% include "attribute/_show.html.twig" with {isModal: 0} %}
+  </div>
+
+  {% include "_back.html.twig" %}
+{% endblock %}

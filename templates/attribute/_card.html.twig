@@ -1,18 +1,21 @@
-<div id="{{ attribute.id }}">
-	<div class=" block block-wiki p-2">
-		{% if is_granted('ROLE_ST') %}
-			<a class="float-end" href="{{ path(entity ~ '_edit', {'id': attribute.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-		{% endif %}
-    <div data-bs-toggle="collapse" data-bs-target=".details{{ attribute.id }}" role="button">
-      <h2>
-        {% include "_icon.html.twig" with {icon: attribute.category } %}
-        {{ attribute.name }}
-        {% include "_icon.html.twig" with {icon: attribute.type } %}
-      </h2>
-    </div>
-		<div class="details{{ attribute.id }} collapse" data-bs-parent="#attributeList">
-      <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
-      <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
-    </div>
-	</div>
-</div>
+{% extends "_simple_card.html.twig" %}
+
+{% trans_default_domain 'attribute' %}
+
+{% block data %}
+  data-content-name-param="{{ attribute.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('attribute_show', {id: attribute.id})) }}"
+{% endblock %}
+
+{% block title %}
+  <div class="col">
+    {{ attribute.name }}
+  </div>
+  <div class="col">
+    {% include "_icon.html.twig" with {icon: attribute.type , class: "icon" } only %}
+  </div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
