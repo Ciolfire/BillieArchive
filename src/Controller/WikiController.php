@@ -40,13 +40,22 @@ class WikiController extends AbstractController
   public function attributes(): Response
   {
     
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findAll(Attribute::class),
-      'entity' => 'attribute',
-      'category' => 'character',
-      'setting' => 'human',
+    return $this->render('attribute/list.html.twig', [
+      'attributes' => $this->dataService->findAll(Attribute::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'attribute']),
-      'isFixed' => true
+    ]);
+  }
+
+  #[Route('/attribute/{id<\d+>}/show', name: 'attribute_show', methods: ['GET', 'POST'])]
+  public function attributeShow(Request $request, Attribute $attribute): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("attribute/$template.html.twig", [
+      'attribute' => $attribute,
     ]);
   }
 
@@ -75,12 +84,22 @@ class WikiController extends AbstractController
   #[Route('/skills', name: 'skill_index', methods: ['GET'])]
   public function skills(): Response
   {
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findAll(Skill::class),
-      'entity' => 'skill',
-      'category' => 'character',
+    return $this->render('skill/list.html.twig', [
+      'skills' => $this->dataService->findAll(Skill::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'skill']),
-      'isFixed' => true
+    ]);
+  }
+
+  #[Route('/skill/{id<\d+>}/show', name: 'skill_show', methods: ['GET', 'POST'])]
+  public function skillShow(Request $request, Skill $skill): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("skill/$template.html.twig", [
+      'skill' => $skill,
     ]);
   }
 
@@ -110,13 +129,22 @@ class WikiController extends AbstractController
   #[Route('/virtues', name: 'virtue_index', methods: ['GET'])]
   public function virtues(): Response
   {
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findAll(Virtue::class),
-      'entity' => 'virtue',
-      'category' => 'character',
+    return $this->render('virtue/list.html.twig', [
+      'virtues' => $this->dataService->findAll(Virtue::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'virtue']),
-      'isFixed' => true,
-      'domain' => 'character',
+    ]);
+  }
+
+  #[Route('/virtue/{id<\d+>}/show', name: 'virtue_show', methods: ['GET', 'POST'])]
+  public function virtueShow(Request $request, Virtue $virtue): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("virtue/$template.html.twig", [
+      'virtue' => $virtue,
     ]);
   }
 
@@ -138,6 +166,7 @@ class WikiController extends AbstractController
     return $this->render('wiki/edit.html.twig', [
       'action' => 'edit',
       'entity' => 'virtue',
+      'domain' => 'character',
       'form' => $form,
       'footer' => false,
     ]);
@@ -146,13 +175,22 @@ class WikiController extends AbstractController
   #[Route('/vices', name: 'vice_index', methods: ['GET'])]
   public function vices(): Response
   {
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findAll(Vice::class),
-      'entity' => 'vice',
-      'category' => 'character',
+    return $this->render('virtue/list.html.twig', [
+      'vices' => $this->dataService->findAll(Vice::class),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'vice']),
-      'isFixed' => true,
-      'domain' => 'character',
+    ]);
+  }
+
+  #[Route('/vice/{id<\d+>}/show', name: 'vice_show', methods: ['GET', 'POST'])]
+  public function viceShow(Request $request, Vice $vice): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("virtue/$template.html.twig", [
+      'vice' => $vice,
     ]);
   }
 
@@ -173,6 +211,7 @@ class WikiController extends AbstractController
 
     return $this->render('wiki/edit.html.twig', [
       'action' => 'edit',
+      'domain' => 'character',
       'entity' => 'vice',
       'form' => $form,
       'footer' => false,

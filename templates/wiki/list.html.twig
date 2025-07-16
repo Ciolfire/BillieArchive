@@ -6,17 +6,28 @@
 	{% set footer = false %}
 {% endif %}
 
+{% block title %}
+  {{"label.multi"}}
+{% endblock %}
 
-{% block title %}Wiki
+{% block bodyController %}
+  {{parent() }} search
 {% endblock %}
 
 {% block bodyData %}
-	data-controller="search" data-search-type-value="{{ entity }}"
+  data-search-type-value="{{ entity }}"
 {% endblock %}
 
 {% block body %}
-	{% include "_back.html.twig" with {link: path('wiki_index')} %}
-	{% include "_top.html.twig" %}
+  {% if chronicle|default(false) == false %}
+    {% include "_back.html.twig" %}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+  {% endif %}
+  {% include "_top.html.twig" %}
+  
+  {# {% include "_title.html.twig" with {title: "label.multi" , domain: "path", icon: 'path'} %} #}
+
 	<h1 class="py-3">
 		{% include "_icon.html.twig" with {icon: entity, class: 'icon-lg' } only %}
 		{% if domain is defined %}
@@ -29,45 +40,22 @@
 			{{ (setting ~ ".label")|trans({}, "setting") }}
 		{% endif %}
 	</h1>
-	<div class="container">
-		<div class="row py-3">
-			<div class="col-12">
-				<div class="col-auto">
-					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseToc" role="button" aria-expanded="true" aria-controls="collapseToc">
-						<h4 class="d-inline-block text-start">{{ "toc"|trans({}, 'wiki') }}</h4>
-					</a>
-					{% if description is defined and description is not null and description.value is not empty %}
-						<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
-							<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
-						</a>
-					{% endif %}
-				</div>
-				<div class="row my-3">
-					<div id="collapseToc" class="col-auto collapse">
-						<ul class="toc block p-5">
-							{% for element in elements %}
-								<li>
-									<a href="#{{ element.id }}">{{ element.name }}</a>
-								</li>
-							{% endfor %}
-						</ul>
-					</div>
-					<div id="collapseDescription" class="collapse col">
-						<div class="block block-wiki p-2">
-							{{ description.value|default("")|markdown_to_html }}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row accordion" id="{{ entity }}List">
-				{% for element in elements %}
-          <div class="col-12 col-lg-6 py-2">
-            {% include entity ~ "/_card.html.twig" with { (entity): element} %}
-          </div>
-				{% endfor %}
-			</div>
-		</div>
-	{% endblock %}
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 pb-2">
+      {% for element in elements %}
+        {# <div class="col-12 col-lg-6 py-2"> #}
+          {% include entity ~ "/_card.html.twig" with { (entity): element} %}
+        {# </div> #}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
 
 	{% block footerContent %}
 		<div class="col-12 d-flex align-items-center position-relative">

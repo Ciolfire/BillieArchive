@@ -2,19 +2,20 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ (entity ~ '.edit')|trans }}
+{% block title %}
+  {{  "action.#{action}"|trans }}
 {% endblock %}
 
 {% block body %}
   <div class="container block-neutral">
     <h1 class="py-3">
       {% include "_icon.html.twig" with {icon : entity, class: 'icon-lg' } only %}
-      {{ (entity ~ '.edit')|trans({"element": form.vars.data.name}) }}
+      {{  "#{form.vars.data.name} — " ~ "action.edit"|trans }}
     </h1>
 
     <div class="row block">
       <div class="col p-3">
-        {{ include('wiki/_form.html.twig', {'button_label': action|default(null)}) }}
+        {{ include('_form.html.twig', {'button_label': action|default(null)}) }}
         {{ include('_back.html.twig') }}
       </div>
     </div>

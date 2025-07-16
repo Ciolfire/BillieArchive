@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'app' %}
 
-{% block title %}{{ ('action.new')|trans }} {{ 'label.single'|trans([], entity) }}
+{% block title %}{{ ('action.new')|trans }} {{ 'label.single'|trans([], domain|default(entity)) }}
 {% endblock %}
 
 {% block body %}
@@ -15,7 +15,7 @@
   <div class="container py-3 mt-5 g-0">
     <div class="row block">
       <div class="col p-3">
-        {{ include('wiki/_form.html.twig', {'button_label': action|default(null)}) }}
+        {{ include('_form.html.twig', {'button_label': action|default(null)}) }}
       </div>
     </div>
   </div>
