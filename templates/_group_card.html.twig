@@ -3,6 +3,9 @@
   {% block data %}{% endblock %}
 >
   <div class="group-card">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path("#{route}_edit", {id: element.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
     {# Header #}
     <blockquote class="text-center mb-2 rounded-bottom-0">
       <h1>
