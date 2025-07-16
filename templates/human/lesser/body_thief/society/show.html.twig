@@ -5,8 +5,13 @@
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
 {% block body %}
-  <div class="container">
-    {% include "human/lesser/body_thief/society/_card.html.twig" with {society : society, shown: true} %}
+  <div class="container block py-5">
+
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('body_thief_society_edit', {id: society.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "human/lesser/body_thief/society/_show.html.twig" with {society : society, shown: true} %}
   </div>
 
   {% include "_back.html.twig" %}

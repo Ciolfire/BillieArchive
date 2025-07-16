@@ -1,12 +1,8 @@
-{% extends "_group_card.html.twig" %}
+{% extends "_group_show.html.twig" %}
 
 {% set element = society %}
-{% set route = "body_thief_society" %}
-
 
 {% trans_default_domain 'body-thief' %}
-
-{% block class %}lesser-card{% endblock %}
 
 {% block name %}
   {{ society.name }}
@@ -34,12 +30,25 @@
   {% endif %}
 {% endblock %}
 
-{% block action %}
-  data-bs-toggle="modal" data-bs-target="#contentModal"
-  data-action="click->content#load"
-  data-content-name-param="{{ society.name }}"
-  data-content-type-param="{{ "label.single"|trans }}"
-  data-content-link-param="{{ path('body_thief_society_show', {id: society.id}) }}"
+{% block body %}
+  <div class="row g-0">
+    <div class="col-12 col-md-6 p-1">
+      <div class="block h-100 p-3">
+        <h4>{{ "society.advantage.label"|trans}}:</h4>
+        <p>{{ society.advantage|markdown_to_html }}</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 p-1">
+      <div class="block h-100 p-3">
+        <h4>{{ "society.weakness.label"|trans}}:</h4>
+        <p>{{ society.weakness|markdown_to_html }}</p>
+      </div>
+    </div>
+  </div>
+  <p>{{ society.description|markdown_to_html }}</p>
+  <hr>
+  <h4>{{ "society.creation"|trans}}:</h4>
+  <p>{{ society.creation|markdown_to_html }}</p>
 {% endblock %}
 
 {% block short %}
