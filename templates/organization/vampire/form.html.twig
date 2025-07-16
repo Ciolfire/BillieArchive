@@ -1,10 +1,8 @@
-{% extends 'form.html.twig' %}
+{% extends 'organization/form.html.twig' %}
 
 {% trans_default_domain 'app' %}
 
 {% set setting = 'vampire' %}
-
-{% block title %}{% endblock %}
 
 {% block form %}
 {{ form_row(form.name) }}

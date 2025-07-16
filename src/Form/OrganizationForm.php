@@ -55,8 +55,13 @@ class OrganizationForm extends AbstractType
         'mapped' => false,
         'required' => false,
       ])
-      ->add('short')
-      ->add('isPrivate')
+      ->add('short', null, [
+        'label' => "short",
+        'translation_domain' => 'app',
+      ])
+      ->add('isPrivate', null, [
+        'label' => "private",
+      ])
       ->add('description', RichTextEditorForm::class, [
         'label_attr' => [
           'class' => 'col-sm-12 text-strong text-center',

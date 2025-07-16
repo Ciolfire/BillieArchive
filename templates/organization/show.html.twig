@@ -5,7 +5,7 @@
 {% block body %}
   <div class="container block py-5">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('organization_edit', {id: organization.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="float-end" href="{{ path('organization_edit', {id: organization.id, setting: organization.setting }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     
     {% include "/organization/#{setting}/_show.html.twig" with {isModal: 0} %}

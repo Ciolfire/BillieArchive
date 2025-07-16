@@ -8,6 +8,7 @@ use App\Form\OrganizationForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
@@ -29,16 +30,26 @@ class MageOrderForm extends OrganizationForm
     $builder
       ->add('rune', DropzoneType::class, [
         'label' => 'rune.label',
-        'translation_domain' => 'mage',
-        'attr' => ['placeholder' => 'upload'],
         'mapped' => false,
         'required' => false,
+        'translation_domain' => 'mage',
+        'attr' => ['placeholder' => 'upload'],
+        'constraints' => [
+          new File([
+            'mimeTypes' => [
+              'image/*',
+            ],
+            'mimeTypesMessage' => 'image.invalid',
+          ])
+        ],
       ])
       ->add('RoteSpecialties', EntityType::class, [
         'class' => Skill::class,
         'choice_label' => 'id',
         'multiple' => true,
         'expanded' => true,
+        'label' => "rote.specialities",
+        'translation_domain' => "order",
         'choice_label'  => function ($choice): string {
           return $choice->getName();
         },
