@@ -1,0 +1,23 @@
+<div id="{{ skill.id }}">
+	<div class="block p-2">
+    <h2>
+      {% include "_icon.html.twig" with {icon: skill.category } %}
+      {{ skill.name }}
+    </h2>
+    <p class="text">{{ skill.description|default("")|markdown_to_html }}</p>
+    <div class="fluff">{{ skill.fluff|default("")|markdown_to_html }}</div>
+    <div class="row g-0">
+      {% for roll in skill.rolls %}
+        {% if not roll.isLinked %}
+          <div class="col-6 p-2">
+            {% if not isModal|default(1) %}
+              {% include "roll/_card.html.twig" %}
+            {% else %}
+              {% include "roll/_card.html.twig" with {isModal: 1} %}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+	</div>
+</div>

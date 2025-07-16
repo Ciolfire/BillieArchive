@@ -1,17 +1,21 @@
-<div id="{{ skill.id }}" class="col-12 mb-3">
-	<div class="block block-wiki p-2">
-		{% if is_granted('ROLE_ST') %}
-			<a class="float-end" href="{{ path(entity ~ '_edit', {'id': skill.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-		{% endif %}
-    <div data-bs-toggle="collapse" data-bs-target=".details{{ skill.id }}" role="button">
-      <h2>
-        {% include "_icon.html.twig" with {icon: skill.category } %}
-        {{ skill.name }}
-      </h2>
-    </div>
-		<div class="details{{ skill.id }} collapse" data-bs-parent="#skillList">
-      <div class="fluff">{{ element.fluff|default("")|markdown_to_html }}</div>
-      <p class="text">{{ element.description|default("")|markdown_to_html }}</p>
-    </div>
-	</div>
-</div>
+{% extends "_simple_card.html.twig" %}
+
+{% trans_default_domain 'skill' %}
+
+{% block data %}
+  data-content-name-param="{{ skill.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('skill_show', {id: skill.id})) }}"
+{% endblock %}
+
+{% block title %}
+  <div class="col">
+    {% include "_icon.html.twig" with {icon: "skills/#{skill.identifier}" } only %}
+  </div>
+  <div class="col">
+    {{ skill.name }}
+  </div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
