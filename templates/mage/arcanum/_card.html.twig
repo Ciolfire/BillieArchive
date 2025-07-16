@@ -1,17 +1,18 @@
+{% extends "_simple_card.html.twig" %}
+
 {% trans_default_domain 'arcanum' %}
 
-<div class="col-12 col-lg-6">
-  <div class="block p-2 h-100"
-    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-    data-action="click->content#load"
-    data-content-name-param="{{ arcanum.name }}"
-    data-content-type-param="{{ "label.single"|trans }}"
-    data-content-link-param="{{ link|default(path('mage_arcanum_show', {id: arcanum.id})) }}"
-  >
-    <h2>
-      {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
-      {{ arcanum.name }}
-    </h2>
-    <p class="text-center">{{ arcanum.short }}</p>
-  </div>
-</div>
+{% block data %}
+  data-content-name-param="{{ arcanum.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('mage_arcanum_show', {id: arcanum.id})) }}"
+{% endblock %}
+
+{% block title %}
+  {% include "_icon.html.twig" with {icon: 'arcana/' ~ arcanum.identifier , class: "icon-lg" } only %}
+  {{ arcanum.name }}
+{% endblock %}
+
+{% block content %}
+  {{ arcanum.short }}
+{% endblock %}
