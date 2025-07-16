@@ -13,7 +13,10 @@ philosophy: Philosophy
 observances: Rituals and Observances
 titles: Titles and Duties
 
+private: Shared with the players
+
 society.help: Having a linked organization will update all character's current organization if it match their template.
+
 
 covenant:
   label:
