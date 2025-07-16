@@ -143,6 +143,10 @@ footer.footer {
   }
 }
 
+.outline {
+  outline: 1px solid $main75pColor;
+}
+
 .block-wiki {
   font-size: 1.2em;
   color: #e8e8e8;
@@ -176,6 +180,18 @@ footer.footer {
   &-left {
     background-position: left;
   }
+}
+
+.fit-contain {
+  object-fit: contain;
+}
+
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .fluff,

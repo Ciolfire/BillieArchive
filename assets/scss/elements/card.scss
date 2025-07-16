@@ -15,7 +15,7 @@
 
 .group-card {
   background-color: $cardBackgroundColor;
-  border          : 1px solid $mainColor;
+  outline          : 1px solid $mainColor;
   box-shadow      : $mainColor 0px 0px 7px 3px;
   margin-bottom   : 1em;
   border-radius   : 0.5em;
@@ -33,5 +33,14 @@
   & .group-card-body {
     background-color: $blockColor;
     border-top      : 1px solid $mainColor;
+  }
+
+  &.lesser-card {
+    outline-color: $lesserColor;
+    box-shadow: $lesserColor 0px 0px 7px 3px;
+
+    blockquote, .back-fluff {
+      background-color: rgba(12, 0, 47, 0.83);
+    }
   }
 }
