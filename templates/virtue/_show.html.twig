@@ -1,0 +1,23 @@
+{% if virtue is defined %}
+  {% set type = "virtue" %}
+  {% set element = virtue %}
+{% else %}
+  {% set type = "vice" %}
+  {% set element = vice %}
+{% endif %}
+
+
+<div id="{{ element.id }}">
+	<div class="block rounded">
+    <div class="card-header rounded-top p-2">
+      <h2>
+        {% include "_icon.html.twig" with {icon: type} %}
+        {{ element.name }}
+      </h2>
+      <h3>{{ element.otherNames }}</h3>
+    </div>
+    <div class="p-2">
+      <p class="details">{{ element.details|default("")|markdown_to_html }}</p>
+    </div>
+	</div>
+</div>

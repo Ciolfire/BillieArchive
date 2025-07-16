@@ -1,9 +1,17 @@
-<div id="{{ virtue.id }}" class="col-12 mb-4">
-  <div class="block block-wiki p-2">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path(entity ~ '_edit', {'id': virtue.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-    <h2>{{ virtue.name }}</h2>
-    <p class="text">{{ virtue.details|default("")|markdown_to_html }}</p>
-  </div>
-</div>
+{% extends "_simple_card.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block data %}
+  data-content-name-param="{{ element.name }}"
+  data-content-type-param="{{ "#{type}.label.single"|trans }}"
+  data-content-link-param="{{ path("#{type}_show", {id: element.id}) }}"
+{% endblock %}
+
+{% block title %}
+  {{ element.name }}
+{% endblock %}
+
+{% block content %}
+  {{ element.otherNames }}
+{% endblock %}

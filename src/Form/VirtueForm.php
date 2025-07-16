@@ -17,15 +17,16 @@ class VirtueForm extends AbstractType
     $virtue = $options['data'];
     
     $builder
-      ->add('name', null, ['label' => 'name'])
-      ->add('details', RichTextEditorForm::class, ['label' => 'description.fluff', 'data' => $virtue->getDetails()]);
+      ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
+      ->add('otherNames', null, ['label' => 'vice.detail'])
+      ->add('details', RichTextEditorForm::class, ['label' => 'description', 'translation_domain' => "app"]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Virtue::class,
-      'translation_domain' => 'app',
+      'translation_domain' => 'character',
     ]);
   }
 }

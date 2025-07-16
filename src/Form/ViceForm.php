@@ -17,15 +17,16 @@ class ViceForm extends AbstractType
     $vice = $options['data'];
     
     $builder
-      ->add('name', null, ['label' => 'name'])
-      ->add('details', RichTextEditorForm::class, ['label' => 'description.fluff', 'data' => $vice->getDetails()]);
+      ->add('name', null, ['label' => 'name', 'translation_domain' => "app"])
+      ->add('otherNames', null, ['label' => 'vice.detail'])
+      ->add('details', RichTextEditorForm::class, ['label' => 'description', 'translation_domain' => "app"]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => Vice::class,
-      'translation_domain' => 'app',
+      'translation_domain' => 'character',
     ]);
   }
 }
