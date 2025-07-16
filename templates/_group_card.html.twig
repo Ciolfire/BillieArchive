@@ -2,7 +2,7 @@
   data-search-target="item"
   {% block data %}{% endblock %}
 >
-  <div class="group-card">
+  <div class="group-card {% block class %}{% endblock %}">
     {% if is_granted('ROLE_ST') %}
       <a class="float-end" href="{{ path("#{route}_edit", {id: element.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}

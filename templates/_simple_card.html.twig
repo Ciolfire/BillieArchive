@@ -1,0 +1,13 @@
+<div class="p-2 h-100 outline card-content rounded"
+  {% if not isModal|default(0) %}
+    role="button" 
+    data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+  {% endif %}
+  {% block data %}{% endblock %}
+>
+  <h2>
+    {% block title %}{% endblock %}
+  </h2>
+  <p class="text-center">{% block content %}{% endblock %}</p>
+</div>
