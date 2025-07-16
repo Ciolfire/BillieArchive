@@ -4,7 +4,7 @@
 >
   <div class="group-card {% block class %}{% endblock %}">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path("#{route}_edit", {id: element.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="float-end" href="{% block edit %}{{ path("#{route}_edit", {id: element.id}) }}{% endblock %}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     {# Header #}
     <blockquote class="text-center mb-2 rounded-bottom-0">
@@ -19,7 +19,7 @@
     </div>
     {# Footer #}
     <div role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" {% block action %}{% endblock %}>
-      <div class="row g-0 back-fluff">
+      <div class="row g-0 back-fluff rounded-bottom">
         {% block short %}{% endblock %}
         <div class="col text-end">
           {% include "_icon.html.twig" with {icon: 'wiki'} %}

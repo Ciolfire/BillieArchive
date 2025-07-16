@@ -1,5 +1,5 @@
 {% if rote.isAvailable(chronicle|default(null)) %}
-  <div class="col-12 my-1">
+  <div class="col-12 col-lg-6 my-1">
     {% if is_granted('ROLE_ST') and not isModal|default(1) %}
       <a class="float-end" href="{{ path('mage_spell_rote_edit', {'id': rote.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
     {% endif %}

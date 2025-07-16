@@ -7,9 +7,9 @@
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
 {% block body %}
-  <div class="container">
+  <div class="container block py-5">
     {% if is_granted('ROLE_ST') %}
-      <a class="position-absolute end-0" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="float-end" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     
     {% include "mage/path/_show.html.twig" with {isModal: 0} %}

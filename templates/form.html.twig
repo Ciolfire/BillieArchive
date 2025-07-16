@@ -9,7 +9,13 @@
   {% set isLight = true %}
 {% endif %}
 
-{% block title %}{% endblock %}
+{% if action is not defined %}
+  {% set action = "edit" %}
+{% endif %}
+
+{% block title %}
+  {{  "action.#{action}"|trans }}
+{% endblock %}
 
 {% block body %}
   <h1 class="pt-4">{% block header %}{% endblock %}</h1>

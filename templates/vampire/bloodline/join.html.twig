@@ -19,7 +19,7 @@
             <input type="radio" class="btn-check" name="bloodline" id="{{ bloodline.id }}" autocomplete="off" value="{{ bloodline.id }}">
             <label class="btn btn-primary h-100" for="{{ bloodline.id }}">
               {% if bloodline.emblem is not null %}
-                <img class="mx-auto d-block" src="{{ asset(bloodline.emblem, 'clans_emblems') }}" alt="{{ bloodline.name}}" height="200"/>
+                <img class="logo" src="{{ asset(bloodline.emblem, 'clans_emblems') }}" alt="{{ bloodline.name}}" height="200"/>
               {% endif %}
               {{ bloodline.name }}
               <div class="text p-3">{{ bloodline.short|markdown_to_html }}</div>
