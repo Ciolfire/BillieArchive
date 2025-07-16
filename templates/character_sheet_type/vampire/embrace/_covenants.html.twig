@@ -5,7 +5,7 @@
 {% for covenant in covenants %}
   <div class="block block-solid covenant-{{ covenant.id }} text-dark d-none p-2 mb-3" data-character--embrace-target="covenantDescription">
     {% if covenant.emblem is not null %}
-      <img class="mx-auto d-block p-2" src="{{ asset(covenant.emblem, 'organizations_emblems') }}" alt="{{ covenant.name}}" height="200"/>
+      <img class="logo" src="{{ asset(covenant.emblem, 'organizations_emblems') }}" alt="{{ covenant.name}}" height="200"/>
       {{ covenant.description|markdown_to_html }}
       {% if covenant.devotions is not empty %}
         <h3>{% include "_icon.html.twig" with {icon: 'devotion'} only %} {{ 'covenant.devotion.limited'|trans }}</h3>

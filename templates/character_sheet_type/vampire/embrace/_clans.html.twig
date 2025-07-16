@@ -3,7 +3,7 @@
     {% for clan in clans %}
       <div class="block block-solid {{ clan.name }} d-none mb-3" data-character--embrace-target="clanDescription">
         {% if clan.emblem is not null %}
-          <img class="mx-auto d-block p-2" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
+          <img class="logo" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
         {% endif %}
         <div class="text-dark m-2">{{ clan.short|markdown_to_html }}</div>
       </div>

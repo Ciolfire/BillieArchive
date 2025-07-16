@@ -29,7 +29,7 @@
 
 {% block image %}
   {% if legacy.emblem is not null %}
-    <img class="mx-auto d-block" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="400"/>
+    <img class="logo" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="400"/>
   {% endif %}
 {% endblock %}
 

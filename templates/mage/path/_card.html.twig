@@ -20,7 +20,7 @@
 
 {% block image %}
   {% if path.emblem is not null %}
-    <img class="mx-auto d-block" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
+    <img class="logo" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
   {% endif %}
 {% endblock %}
 

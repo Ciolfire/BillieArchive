@@ -9,6 +9,10 @@
   data-name="{{ organization.name ~ " " ~ organization.short }}"
 {% endblock %}
 
+{% block edit %}
+  {{ path("organization_edit", {id: organization.id, setting: organization.setting }) }}
+{% endblock %}
+
 {% block name %}
   {{ organization.name }}
   {% if organization.isPrivate %}
@@ -18,7 +22,7 @@
 
 {% block image %}
   {% if organization.emblem is not null %}
-    <img class="mx-auto d-block mw-100" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
+    <img class="logo" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
   {% endif %}
 {% endblock %}
 

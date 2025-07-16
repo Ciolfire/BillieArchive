@@ -14,7 +14,7 @@
     <h1>{{ organization.name }}</h1>
   </blockquote>
   {% if organization.emblem is not null %}
-    <img class="mx-auto d-block mw-100" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
+    <img class="logo" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="400"/>
   {% endif %}
   <div class="text-center mb-2 fst-italic">
     {% block bonus %}{% endblock %}

@@ -5,7 +5,7 @@
 {% for order in orders %}
   <div class="block-light mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
     {% if order.emblem is not null %}
-      <img class="mx-auto d-block" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="200"/>
+      <img class="logo" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="200"/>
     {% endif %}
     {{ order.description|markdown_to_html }}
     <h4>{{ "rote.specialities"|trans({}, 'order') }}</h4>

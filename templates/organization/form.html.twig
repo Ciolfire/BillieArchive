@@ -1,6 +1,6 @@
 {% extends 'form.html.twig' %}
 
-{% trans_default_domain 'organization' %}
+{% trans_default_domain 'app' %}
 
 {% if form.vars.data.id|default(null) != null %}
   {% set action = 'edit' %}
@@ -9,14 +9,14 @@
 {% endif %}
 {% set organization = form.vars.data %}
 
-{% block title %}{{ action|trans }}{% endblock %}
-{% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
+{% block title %}{{  "action.#{action}"|trans }}{% endblock %}
+{% block header %}{{  "action.#{action}"|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
 
 {% block content_start %}
   <div class="row">
     <div class="col">
       {% if organization.emblem is not null %}
-        <img class="mx-auto d-block" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
+        <img class="logo" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
       {% endif %}
     </div>
   </div>

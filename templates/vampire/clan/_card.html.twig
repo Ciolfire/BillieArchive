@@ -31,7 +31,7 @@
 
 {% block image %}
   {% if clan.emblem is not null %}
-    <img class="mx-auto d-block" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="400"/>
+    <img class="logo" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="400"/>
   {% endif %}
 {% endblock %}
 
