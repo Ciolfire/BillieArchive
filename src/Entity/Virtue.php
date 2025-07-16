@@ -29,6 +29,9 @@ class Virtue implements Translatable
   #[ORM\Column(type: Types::TEXT, nullable: true)]
   private string $details;
 
+  #[ORM\Column(length: 255)]
+  private ?string $otherNames = null;
+
   public function getId(): ?int
   {
     return $this->id;
@@ -65,5 +68,17 @@ class Virtue implements Translatable
     }
 
     return $this;
+  }
+
+  public function getOtherNames(): ?string
+  {
+      return $this->otherNames;
+  }
+
+  public function setOtherNames(string $otherNames): static
+  {
+      $this->otherNames = $otherNames;
+
+      return $this;
   }
 }

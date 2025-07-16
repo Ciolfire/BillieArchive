@@ -37,6 +37,9 @@ class Vice implements Translatable
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
   private Collection $possessedVestments;
 
+  #[ORM\Column(length: 255)]
+  private ?string $otherNames = null;
+
   public function __construct()
   {
       $this->possessedVestments = new ArrayCollection();
@@ -106,6 +109,18 @@ class Vice implements Translatable
               $possessedVestment->setVice(null);
           }
       }
+
+      return $this;
+  }
+
+  public function getOtherNames(): ?string
+  {
+      return $this->otherNames;
+  }
+
+  public function setOtherNames(string $otherNames): static
+  {
+      $this->otherNames = $otherNames;
 
       return $this;
   }
