@@ -47,18 +47,14 @@ class RollController extends AbstractController
   }
 
   #[Route("/{id<\d+>}", name:"roll_show", methods:["GET"])]
-  public function show(Roll $roll): Response
+  public function show(Request $request, Roll $roll): Response
   {
-    return $this->render('roll/show.html.twig', [
-      'element' => 'roll',
-      'roll' => $roll,
-    ]);
-  }
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_element";
+    }
 
-  #[Route("/{id<\d+>}/fetch", name:"roll_fetch", methods:["GET"])]
-  public function fetch(Roll $roll): Response
-  {
-    return $this->render('roll/_element.html.twig', [
+    return $this->render("roll/$template.html.twig", [
       'element' => 'roll',
       'roll' => $roll,
     ]);

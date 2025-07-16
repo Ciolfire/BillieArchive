@@ -1,0 +1,27 @@
+{% extends "_simple_card.html.twig" %}
+
+{% trans_default_domain 'roll' %}
+
+{% block data %}
+  data-content-name-param="{{ roll.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('roll_show', {id: roll.id})) }}"
+{% endblock %}
+
+{% block title %}
+  {{ roll.name }}
+{% endblock %}
+
+{% block content %}
+  <span class="text-strong">
+    {% for attribute in roll.attributes %}
+      {% if not loop.first %}+{% endif %}
+    {{ attribute }}
+    {% endfor %}
+    {% for skill in roll.skills %}
+      {% if roll.attributes|length > 0 or not loop.first %}+{% endif %}
+      {% include "_icon.html.twig" with {icon: "skills/#{skill.identifier}"} %}
+      {{ skill }}
+    {% endfor %}
+  </span>
+{% endblock %}
