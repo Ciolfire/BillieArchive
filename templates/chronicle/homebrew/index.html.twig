@@ -130,7 +130,7 @@
       </a>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
-      <a class="btn btn-primary w-100 m-2" href="{{path('mage_legacies_list', {filter: 'chronicle', id: chronicle.id })}}">
+      <a class="btn btn-primary w-100 m-2" href="{{path('mage_legacy_list', {filter: 'chronicle', id: chronicle.id })}}">
         {% include "_icon.html.twig" with {icon: 'legacy' } only %}
         <span class="accent">{{ chronicle.legacies|length }}</span>
         <span>{{ "legacy.label.multi"|trans({}, 'path')}}</span><span class="d-none d-sm-inline"></span>

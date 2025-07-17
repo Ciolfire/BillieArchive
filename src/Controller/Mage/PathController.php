@@ -142,7 +142,7 @@ class PathController extends AbstractController
     return $this->legaciesFilter($legacies);
   }
 
-  #[Route("/wiki/legacies/list/{filter<\w+>}/{id<\w+>}", name: "mage_legacies_list", methods: ["GET"])]
+  #[Route("/wiki/legacies/list/{filter<\w+>}/{id<\w+>}", name: "mage_legacy_list", methods: ["GET"])]
   public function legaciesList(string $filter, int $id): Response
   {
     $legacies = $this->dataService->getList($filter, $id, Legacy::class, 'getLegacies');
