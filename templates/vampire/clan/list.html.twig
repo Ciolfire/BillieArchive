@@ -3,7 +3,9 @@
 {% trans_default_domain 'clan' %}
 
 {% set setting = "vampire" %}
-{% set footer = true %}
+{% if bloodlines is defined %}
+  {% set footer = true %}
+{% endif %}
 {% if bloodlines is defined and bloodlines is not empty %}
   {% set label = "bloodline.label.multi" %}
 {% endif %}
@@ -29,14 +31,14 @@
 
   {% include "_title.html.twig" with {title: label|default("label.multi") , domain: "clan"} %}
 
-  <div class="container block">
+  <div class="container-fluid block">
     <div id="collapseDescription" class="row justify-content-center collapse p-2">
       <div class="col-12 col-lg-10 col-xl-8">
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
 
-    <div class="row g-2 pb-2">
+    <div class="row g-2 py-2">
       {% if clans is defined and clans is not empty %}
         {% for clan in clans|sort((a, b) => a.name|lower <=> b.name|lower) %}
           {% include "vampire/clan/_card.html.twig" %}

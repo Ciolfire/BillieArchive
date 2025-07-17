@@ -1,25 +1,27 @@
-<div id="{% block id %}{% endblock %}" class="col-12" 
+<div id="{% block id %}{% endblock %}" class="{% block col_class %}col-12{% endblock %}" 
   data-search-target="item"
   {% block data %}{% endblock %}
 >
-  <div class="group-card {% block class %}{% endblock %}">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{% block edit %}{{ path("#{route}_edit", {id: element.id}) }}{% endblock %}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
+  <div class="group-card d-flex flex-column h-100 {% block class %}{% endblock %}">
     {# Header #}
     <blockquote class="text-center mb-2 rounded-bottom-0">
+      {% if is_granted('ROLE_ST') %}
+        <a class="float-end" href="{% block edit %}{{ path("#{route}_edit", {id: element.id}) }}{% endblock %}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      {% endif %}
       <h1>
         {% block name %}{% endblock %}
       </h1>
       {% block subname %}{% endblock %}
     </blockquote>
-    {% block image %}{% endblock %}
-    <div class="text-center mb-2 fst-italic">
-      {% block bonus %}{% endblock %}
+    <div class="flex-grow-1">
+      {% block image %}{% endblock %}
+      <div class="text-center mb-2 fst-italic">
+        {% block bonus %}{% endblock %}
+      </div>
     </div>
     {# Footer #}
-    <div role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" {% block action %}{% endblock %}>
-      <div class="row g-0 back-fluff rounded-bottom">
+    <div class="rounded-bottom back-fluff" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" {% block action %}{% endblock %}>
+      <div class="row g-0">
         {% block short %}{% endblock %}
         <div class="col text-end">
           {% include "_icon.html.twig" with {icon: 'wiki'} %}

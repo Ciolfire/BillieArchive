@@ -26,14 +26,14 @@
 
   {% include "_title.html.twig" with {title: "label.multi" , domain: "path", icon: 'path'} %}
 
-  <div class="container block">
+  <div class="container-fluid block">
     <div id="collapseDescription" class="row justify-content-center collapse p-2">
       <div class="col-12 col-lg-10 col-xl-8">
         {{ description.value|default("")|markdown_to_html }}
       </div>
     </div>
 
-    <div class="row g-2 pb-2">
+    <div class="row g-2 py-2">
       {% for path in paths|sort((a, b) => a.name|lower <=> b.name|lower) %}
         {% include "mage/path/_card.html.twig" %}
       {% endfor %}

@@ -5,6 +5,8 @@
 
 {% trans_default_domain 'clan' %}
 
+{% block col_class %}col-12 col-lg{% endblock %}
+
 {% block data %}
   data-name="{{ clan.name }}"
   data-parent="{{ clan.parentClan }}"
@@ -26,10 +28,10 @@
     <img class="no-filter pe-2" src="{{ asset(clan.symbol, 'clans_emblems') }}" style="height:2em;"/>
   {% endif %}
   <h5>{{ clan.nickname }}</h5>
-  <blockquote>{{ clan.quote }}</blockquote>
 {% endblock %}
 
 {% block image %}
+  {# <blockquote class="m-2">{{ clan.quote }}</blockquote> #}
   {% if clan.emblem is not null %}
     <img class="logo" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="400"/>
   {% endif %}

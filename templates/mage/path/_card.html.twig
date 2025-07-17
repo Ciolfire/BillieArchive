@@ -5,6 +5,8 @@
 
 {% trans_default_domain 'path' %}
 
+{% block col_class %}col-12 col-lg{% endblock %}
+
 {% block data %}
   data-name="{{ path.name }}"
 {% endblock %}
@@ -15,10 +17,10 @@
 {% endblock %}
 
 {% block subname %}
-  <h5>{{ path.title }}</h5>
 {% endblock %}
 
 {% block image %}
+  <blockquote class="m-2">{{ path.title }}</blockquote>
   {% if path.emblem is not null %}
     <img class="logo" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="400"/>
   {% endif %}
