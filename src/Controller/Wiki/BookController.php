@@ -31,12 +31,9 @@ class BookController extends AbstractController
       $search['type'] = $types;
     }
 
-    return $this->render('wiki/list.html.twig', [
-      'elements' => $this->dataService->findBy(Book::class, ['setting' => $setting], ['displayFirst' => 'DESC', 'name' => 'ASC']),
-      'entity' => 'book',
-      'category' => 'character',
+    return $this->render('book/list.html.twig', [
+      'books' => $this->dataService->findBy(Book::class, ['setting' => $setting], ['displayFirst' => 'DESC', 'name' => 'ASC']),
       'setting' => $setting,
-      'footer' => true,
       'search' => $search,
     ]);
   }
@@ -71,9 +68,14 @@ class BookController extends AbstractController
   }
 
   #[Route('/book/{id<\d+>}', name: 'book_show', methods: ['GET'])]
-  public function show(Book $book): Response
+  public function show(Request $request, Book $book): Response
   {
-    return $this->render('book/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("book/$template.html.twig", [
       'book' => $book,
     ]);
   }

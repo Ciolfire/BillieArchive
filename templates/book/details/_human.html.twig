@@ -1,32 +1,7 @@
 {% trans_default_domain 'book' %}
 
-{% if book.merits|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'merit'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('merit_list', {filter: 'book', id: book.id}) }}">
-      {{ "count"|trans({'count': book.merits|length}, 'merit') }}
-    </a>
-  </div>
-{% endif %}
-{% if book.derangements|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'derangement'} %}
-  </div>
-  <div class="col-8">
-      <a href="{{ path('derangement_list', {filter: 'book', id: book.id}) }}">
-      {{ "count"|trans({'count': book.derangements|length}, 'derangement') }}
-    </a>
-  </div>
-{% endif %}
-{% if book.items|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'item'} %}
-  </div>
-  <div class="col-8">
-      <a href="{{ path('item_list', {filter: 'book', id: book.id}) }}">
-      {{ "count"|trans({'count': book.items|length}, 'item') }}
-    </a>
-  </div>
-{% endif %}
+{% include "book/details/_block.html.twig" with { type: "character", path: "character_list", elements: book.characters } %}
+{% include "book/details/_block.html.twig" with { type: "merit", path: "merit_list", elements: book.merits } %}
+{% include "book/details/_block.html.twig" with { type: "derangement", path: "derangement_list", elements: book.derangements } %}
+{% include "book/details/_block.html.twig" with { type: "item", path: "item_list", elements: book.items } %}
+

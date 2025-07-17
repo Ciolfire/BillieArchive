@@ -1,51 +1,49 @@
 {% trans_default_domain 'vampire' %}
 
 {% if book.clans|length > 0 or book.bloodlines|length > 0 %}
-  <div class="col-4 text-end">
-    {% if book.clans|length > 0 %}
-      {% include "_icon.html.twig" with {icon: 'clan'} %}
-    {% endif %}
-    {% if book.bloodlines|length > 0 %}
-      <div>{% include "_icon.html.twig" with {icon: 'bloodline'} %}</div>
-    {% endif %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('vampire_clan_list', {filter: 'book', id: book.id}) }}">
-      {% if book.clans|length > 0 %}{{ "count"|trans({'%count%': book.clans|length}, 'clan') }}{% endif %}
-      {% if book.clans|length > 0 and book.bloodlines|length > 0 %}<br>{% endif %}
-      {% if book.bloodlines|length > 0 %}{{ "bloodline.count"|trans({'%count%': book.bloodlines|length}, 'clan') }}{% endif %}
-    </a>
-  </div>
-{% endif %}
-{% if book.disciplines|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'discipline'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('vampire_discipline_list', {type: 'all', filter: 'book', id: book.id}) }}">{{ "count"|trans({'%count%': book.disciplines|length}, 'discipline') }}</a>
-  </div>
-{% endif %}
-{% if book.devotions|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'devotion'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('vampire_devotion_list', {filter: "book", id: book.id}) }}">{{ "devotion.count"|trans({'%count%': book.devotions|length}, 'discipline') }}</a>
-  </div>
-{% endif %}
-{% if book.rituals|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'pentacle'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('vampire_ritual_list', {filter: "book", id: book.id}) }}">{{ "sorcery.power.count"|trans({'%count%': book.rituals|length}, 'discipline') }}</a>
+  <div class="d-flex align-items-center align-self-center align-self-md-start">
+    <div class="d-flex flex-column">
+    </div>
+    <div class="flex-grow-1">
+      <a href="{{ path("vampire_clan_list", {filter: 'book', id: book.id}) }}">
+        <span class="d-inline-block d-lg-none">
+          {% if book.clans|length > 0 %}
+            {% include "_icon.html.twig" with {icon: 'clan', class: "text-default"} %}
+          {% endif %}
+          {% if book.clans|length > 0 %}{{ book.clans|length }}{% endif %}
+          {% if book.clans|length > 0 and book.bloodlines|length > 0 %}<br>{% endif %}
+          {% if book.bloodlines|length > 0 %}
+            {% include "_icon.html.twig" with {icon: 'bloodline', class: "text-default"} %}
+          {% endif %}
+          {% if book.bloodlines|length > 0 %}{{ book.bloodlines|length}}{% endif %}
+        </span>
+        <span class="d-lg-inline-block d-none">
+          {% if book.clans|length > 0 %}
+            {% include "_icon.html.twig" with {icon: 'clan', class: "text-default"} %}
+          {% endif %}
+          {% if book.clans|length > 0 %}{{ "count"|trans({'%count%': book.clans|length}, 'clan') }}{% endif %}
+          {% if book.clans|length > 0 and book.bloodlines|length > 0 %}<br>{% endif %}
+          {% if book.bloodlines|length > 0 %}
+            {% include "_icon.html.twig" with {icon: 'bloodline', class: "text-default"} %}
+          {% endif %}
+          {% if book.bloodlines|length > 0 %}{{ "bloodline.count"|trans({'%count%': book.bloodlines|length}, 'clan') }}{% endif %}
+        </span>
+      </a>
+    </div>
   </div>
 {% endif %}
-{% if book.ghoulFamilies|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'ghoul_family'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('ghoul_family_list', {filter: "book", id: book.id}) }}">{{ "family.count"|trans({'%count%': book.ghoulFamilies|length}, 'ghoul') }}</a>
-  </div>
-{% endif %}
+{% include "book/details/_block.html.twig" with { type: "discipline", path: "vampire_discipline_list", elements: book.disciplines } %}
+{% include "book/details/_block.html.twig" with {
+  type: "devotion",
+  path: "vampire_devotion_list",
+  elements: book.devotions,
+  trans: "devotion.count",
+  domain: "discipline"
+} %}
+{% include "book/details/_block.html.twig" with {
+  type: "sorcery",
+  path: "vampire_ritual_list",
+  elements: book.rituals,
+  trans: "sorcery.power.count",
+  domain: "discipline"
+} %}

@@ -1,0 +1,38 @@
+{% trans_default_domain 'app' %}
+
+<div id="{{ book.id }}">
+
+  <div class="rounded outline h-100">
+    <div class="card-header p-1">
+      <h4 class="text-truncate">
+        {% if book.type %}
+          {% include "_icon.html.twig" with {icon: book.type} only %}
+        {% else %}
+          {% include "_icon.html.twig" with {icon: "type/" ~ book.setting} only %}
+        {% endif %}
+        {{ book.name }}
+      </h4>
+      <div class="text-center text-strong">{{ book.releasedAt|format_date(pattern="MMM y") }}</div>
+    </div>
+    <div class="flex-wrap flex-md-nowrap d-flex bdr-t">
+      {% if book.cover is not null %}
+        <img class="logo" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="400"/>
+      {% endif %}
+      {% if not isModal|default(1) %}
+        <div class="flex-fill flex-grow-1 text-nowrap px-1">
+          <div class="text-strong d-flex flex-column h-100 justify-content-center text-truncat">
+            {% include "book/details/_human.html.twig" %}
+            {% include "book/details/_vampire.html.twig" %}
+            {% include "book/details/_mage.html.twig" %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="flex-grow-1 ps-1 outline">
+        <div class="text-strong d-flex flex-column">
+          {{ book.description|markdown_to_html }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

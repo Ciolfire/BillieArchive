@@ -1,37 +1,46 @@
 {% trans_default_domain 'app' %}
 
-<div id="{{ book.id }}" data-search-target="item" data-name="{{ book.name }}" data-type="{{ book.type|default('other') }}" data-setting-="{{ book.setting }}">
-  <div class="book rounded h-100">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('book_edit', {'id': book.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-    {% endif %}
-    {% if book.type %}{% include "_icon.html.twig" with {icon: book.type, class: 'p-1'} only %}{% endif %}
-    <h3>{{ book.name }}</h3>
-    <div class="row">
-      <div class="col-12 col-md-6 left-panel">
-        {% if book.cover is not null %}
-          <img class="logo" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
+<div id="{{ book.id }}" class="col-6 col-md-4 col-xxl-3 h-100"
+  data-search-target="item"
+  data-name="{{ book.name }}"
+  data-type="{{ book.type|default('other') }}"
+  data-setting-="{{ book.setting }}"
+>
+
+  <div class="rounded outline h-100">
+    <div class="card-header p-1">
+      <h4 class="text-truncate">
+        {% if book.type %}
+          {% include "_icon.html.twig" with {icon: book.type} only %}
+        {% else %}
+          {% include "_icon.html.twig" with {icon: "type/" ~ book.setting} only %}
         {% endif %}
-        <h5 class="">{{ book.releasedAt|format_date(pattern="MMM y") }}</h5>
-        <div class="book-content text-strong row">
+        {{ book.name }}
+      </h4>
+      <div class="text-center text-strong">{{ book.releasedAt|format_date(pattern="MMM y") }}</div>
+    </div>
+    <div class="d-flex bdr-t">
+      {% if book.cover is not null %}
+        <img class="logo" src="{{ asset(book.cover, 'books') }}" alt="{{ book.name}}" height="200"/>
+      {% endif %}
+      <div class="flex-grow-1 ps-1">
+        <div class="text-strong d-flex flex-column h-100 justify-content-center">
           {% include "book/details/_human.html.twig" %}
           {% include "book/details/_vampire.html.twig" %}
           {% include "book/details/_mage.html.twig" %}
-          {% if book.characters|length > 0 %}
-            <div class="col-4 text-end">
-              {% include "_icon.html.twig" with {icon: 'character'} %}
-            </div>
-            <div class="col-8">
-                <a href="{{ path('character_list', {filter: 'book', id: book.id}) }}">
-                {{ "count"|trans({'count': book.characters|length}, 'character') }}
-              </a>
-            </div>
-          {% endif %}
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="small text-strong" style="overflow-y:auto;height:450px;">{{ book.description|markdown_to_html }}</div>
-      </div>
+    </div>
+    <div class="btn btn-primary w-100 rounded-top-0"
+      role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load"
+      data-content-name-param="{{ book.name }}"
+      data-content-type-param="{{ "label.single"|trans({}, 'book') }}"
+      data-content-link-param="{{ path('book_show', {id: book.id}) }}"
+    
+    >
+      {% include "_icon.html.twig" with {icon: "wiki"} %}
     </div>
   </div>
+
 </div>

@@ -4,11 +4,15 @@
 
 {% set setting = book.setting %}
 
-{% block title %}{{ "label.single"|trans }}{% endblock %}
+{% block title %}{{ book.name }}{% endblock %}
 
 {% block body %}
-  <div class="container">
-    {% include "book/_card.html.twig" with {book : book, isShown: true} %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('book_edit', {id: book.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "book/_show.html.twig" with {book : book, isModal: 0} %}
   </div>
 
   {% include "_back.html.twig" %}

@@ -1,28 +1,5 @@
 {% trans_default_domain 'mage' %}
 
-{% if book.paths|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'path'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('mage_path_list', {filter: "book", id: book.id}) }}">{{ "count"|trans({'%count%': book.paths|length}, 'path') }}</a>
-  </div>
-{% endif %}
-{% if book.legacies|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'legacy'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('mage_legacies_list', {filter: "book", id: book.id}) }}">{{ "legacy.count"|trans({'%count%': book.legacies|length}, 'path') }}</a>
-  </div>
-{% endif %}
-{% if book.spells|length > 0 %}
-  <div class="col-4 text-end">
-    {% include "_icon.html.twig" with {icon: 'spell'} %}
-  </div>
-  <div class="col-8">
-    <a href="{{ path('mage_spell_list', {filter: 'book', id: book.id}) }}">
-      {% if book.spells|length > 0 %}{{ "count"|trans({'%count%': book.spells|length}, 'spell') }}{% endif %}
-    </a>
-  </div>
-{% endif %}
+{% include "book/details/_block.html.twig" with { type: "path", path: "mage_path_list", elements: book.paths } %}
+{% include "book/details/_block.html.twig" with { type: "legacy", path: "mage_legacy_list", elements: book.legacies, trans: "legacy.count", domain: "path" } %}
+{% include "book/details/_block.html.twig" with { type: "spell", path: "mage_spell_list", elements: book.spells } %}
