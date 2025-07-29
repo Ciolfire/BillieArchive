@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Society;
 use App\Entity\Types\SettingType;
-use App\Entity\Types\SocietyForm as SocietyCategory;
+use App\Entity\Types\SocietyType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -62,7 +62,7 @@ class SocietyForm extends AbstractType
         ->add('type', ChoiceType::class, [
           'label' => 'type.label',
           'required' => false,
-          'choices' => get_class_vars(SocietyCategory::class),
+          'choices' => get_class_vars(SocietyType::class),
           'choice_label' => function ($choice, $key, $value) {
             return "type.{$key}";
           }
