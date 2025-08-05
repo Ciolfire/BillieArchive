@@ -12,10 +12,12 @@
     <div class="col-12 p-5">
       {{ form_start(form) }}
         {{ form_rest(form) }}
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-          {% include "_icon.html.twig" with {icon: 'save'} only %}
+        <div class="text-center fixed-bottom">
+          <button class="btn btn-primary btn-lg btn-submit" type="submit">
+            {% include "_icon.html.twig" with {icon: 'save'} only %}
             {{ 'avatar.crop'|trans }}
-        </button>
+          </button>
+        </div>
       {{ form_end(form) }}
     </div>
   </div>

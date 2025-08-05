@@ -1,0 +1,140 @@
+:root {
+  --help-color                : rgb(192, 192, 192);
+  
+  --input-bg                  : rgba(0, 0, 0, 0.6);
+  --input-active-bg           : rgba(255, 255, 255, 0.02);
+  --input-font                : "goudy";
+  
+  --label-color               : var(--text-color);
+  --label-font                : "goudy";
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin            : 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance     : textfield;
+  -moz-appearance: textfield;
+}
+
+.block-light .form-control {
+  color           : var(--label-color);
+}
+
+.form-control {
+  border: none;
+  
+  color           : var(--text-color);
+  background-color: var(--input-bg);
+
+  &:focus {
+    color           : var(--main-bright-color);
+    background-color: var(--input-active-bg);
+    box-shadow      : var(--main) 0px 0px 4px 1px;
+  }
+}
+
+
+/* honeypot for bots :) */
+.form-miel {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
+.form-switch {
+  cursor: ew-resize;
+  .form-check-input {
+    background-color: darkgray;
+    border: 1px solid black;
+    &:focus {
+      box-shadow: none;
+    }
+    &:checked {
+      background-color: var(--btn-active-color);
+    }
+  }
+}
+
+.form-check:not(.form-switch) {
+  input {
+    border-color: var(--btn-border-color);
+    background-color: var(--main-50a);
+    height: 2em;
+    width: 2em;
+    &:checked {
+      background-color: var(--btn-active-color);
+      border-color: var(--btn-border-color);
+    }
+  }
+  label {
+    height: 2em;
+    line-height: 2em;
+    padding-left: 0.5em;
+    margin-top: 0.25em;
+  }
+
+  &:has(img.form-select-item-avatar) {
+    label {
+      min-height: 45px;
+    }
+  }
+}
+
+.form-choice-width {
+  width: 160px;
+  font-size: small;
+}
+
+.block-light label,
+.block-light legend {
+  font-family: var(--label-font);
+  color      : var(--label-color);
+}
+
+label,
+legend {
+  font-family: var(--label-font);
+  font-weight: bold;
+  color      : var(--label-color);
+}
+
+input,
+textarea {
+  font-family   : "arial";
+  &:focus-visible {
+    outline: 2px solid var(--outline);
+  }
+}
+
+.form-select {
+  background-color: var(--input-bg);
+  color           : var(--main-bright);
+  border-color    : var(--main);
+}
+
+.form-select-item-avatar {
+  height: 40px;
+  width: 40px;
+  object-position: top;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #000000d6;
+  opacity         : 1;
+}
+
+.rich-editor {
+  visibility: collapse;
+}

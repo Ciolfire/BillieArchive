@@ -1,0 +1,86 @@
+:root {
+  --mage-btn-focus-outline-color           : var(--mage-main-bright);
+  /* Primary */
+  --mage-btn-bg                            : var(--mage-main-bg-75a);
+  --mage-btn-color                         : var(--mage-accent-bright);
+  --mage-btn-outline-color                 : var(--mage-main-75a);
+  --mage-btn-shadow                        : var(--mage-dark);
+  --mage-btn-stroke                        : var(--mage-dark);
+  
+  --mage-btn-hover-bg                      : var(--mage-main-75a);
+  --mage-btn-hover-color                   : var(--mage-light);
+  --mage-btn-hover-outline-color           : var(--mage-main-dark-75a);
+  --mage-btn-hover-shadow                  : var(--mage-dark);
+  --mage-btn-hover-stroke                  : var(--mage-dark);
+  
+  --mage-btn-active-bg                     : var(--mage-main-75a);
+  --mage-btn-active-color                  : var(--mage-accent);
+  --mage-btn-active-outline-color          : var(--mage-accent);
+  --mage-btn-active-shadow                 : var(--mage-main-dark);
+  --mage-btn-active-stroke                 : var(--mage-main-dark);
+}
+
+.mage .btn.btn-primary,
+.btn.btn-primary.btn-mage,
+.btn.btn-primary.mage {
+  background-color: var(--mage-btn-bg);
+  color: var(--mage-btn-color);
+  font-weight: bold;
+  border: 1px solid var(--mage-btn-outline-color);
+  -webkit-text-stroke: 2px var(--mage-btn-stroke);
+  paint-order: stroke fill;
+
+  &:focus, &:focus-visible {
+    box-shadow: 0 0 0 2px var(--mage-btn-focus-outline-color);
+  }
+
+  .icon svg, .icon img {
+    filter: 
+      drop-shadow(-1px 1px 0 var(--mage-btn-shadow))
+      drop-shadow(-1px -1px 0 var(--mage-btn-shadow))
+      drop-shadow(1px -1px 0 var(--mage-btn-shadow))
+      drop-shadow(1px 1px 0 var(--mage-btn-shadow))
+    ;
+  }
+
+  &:hover {
+    background-color: var(--mage-btn-hover-bg);
+    color: var(--mage-btn-hover-color);
+    border: 1px solid var(--mage-btn-hover-outline-color);
+
+    -webkit-text-stroke: 0.2rem var(--mage-btn-hover-stroke);
+    paint-order: stroke fill;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--mage-btn-hover-shadow))
+        drop-shadow(-1px -1px 0 var(--mage-btn-hover-shadow))
+        drop-shadow(1px -1px 0 var(--mage-btn-hover-shadow))
+        drop-shadow(1px 1px 0 var(--mage-btn-hover-shadow))
+      ;
+    }
+  }
+
+  &:active, &.active {
+    scale: 90%;
+    background-color: var(--mage-btn-active-bg);
+    color: var(--mage-btn-active-color);
+    border: 1px solid var(--mage-btn-active-outline-color);
+    -webkit-text-stroke: 0.2rem var(--mage-btn-active-stroke);
+    paint-order: stroke fill;
+    box-shadow: 0 0 0 2px var(--mage-btn-active-outline-color)!important;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--mage-btn-active-shadow))
+        drop-shadow(-1px -1px 0 var(--mage-btn-active-shadow))
+        drop-shadow(1px -1px 0 var(--mage-btn-active-shadow))
+        drop-shadow(1px 1px 0 var(--mage-btn-active-shadow))
+      ;
+    }
+  }
+
+  &.accent:not(.disabled) {
+    color: var(--accent);
+  }
+}

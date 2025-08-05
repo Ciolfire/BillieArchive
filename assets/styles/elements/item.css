@@ -1,0 +1,25 @@
+:root {
+  --item-bg                   : var(--block-light-bg-25a);
+}
+
+.item-card .block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+  }
+
+.item-preview img, .item-preview svg {
+  object-fit: contain;
+  max-height: 200px;
+}
+
+.item-detail {
+  margin: 1px;
+  background-color: var(--item-bg);
+
+  .item-header {
+    margin: 1px;
+    background-color: var(--item-bg);
+  }
+}

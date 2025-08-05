@@ -3,6 +3,7 @@
 {% trans_default_domain 'spell' %}
 {% set setting = 'mage' %}
 {% set footer = true %}
+{% set hasExtraContent = true %}
 
 {% block title %}
 	{{ "label.multi"|trans }}
@@ -30,13 +31,6 @@
 {% block footerContent %}
   <div class="col-12 d-flex align-items-center position-relative">
     {% include "_search.html.twig" %}
-    <div id="expand_btn" class="text-bright position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
-      <span class="fa-layers fa-fw">
-        <i class="fa-solid fa-circle"></i>
-        <span class="ok footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-        <span class="ok footer-collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-      </span>
-    </div>
     
     {# sorting options, for later TODO #}
     {# <h5 class="pe-none text-strong">{{ ("sort")|trans({}, 'app') }}</h5>

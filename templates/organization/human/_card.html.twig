@@ -36,8 +36,12 @@
       <div id="expand_btn" class="position-absolute top-100 start-50 translate-middle" data-bs-toggle="{{ collapse  }}" data-bs-target=".organization-{{ organization.id }}" aria-expanded="false" aria-controls="{{ organization.id }}">
         <span class="fa-layers fa-fw">
           <i class="fa-solid fa-circle"></i>
-          <span class="ok organization-{{ organization.id }} {{ collapse  }} show"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-          <span class="ok organization-{{ organization.id }} {{ collapse  }}"><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
+          <span class="ok organization-{{ organization.id }} {{ collapse  }} show">
+            ▴
+          </span>
+          <span class="ok organization-{{ organization.id }} {{ collapse  }}">
+            ▾
+          </span>
         </span>
       </div>
     {% endif %}

@@ -1,0 +1,18 @@
+:root {
+  --vampire-merit-bg          : var(--vampire-main-dark-25a);
+}
+
+.merit {
+  &.merit-vampire,
+  &.merit-ghoul {
+    color: silver;
+    background-color: var(--vampire-merit-bg);
+    strong {
+      color: var(--vampire-main);
+    }
+
+    &:hover {
+      background-color: var(--vampire-main-dark-75a);
+    }
+  }
+}

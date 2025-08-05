@@ -1,0 +1,267 @@
+@import url("rabbit.css");
+@import url("elements/all.css");
+@import url("libs.css");
+
+:root {
+  /* This CSS line enable smooth scroll for all the links in whole page. */
+  /* It’s OK, because it’s useful for most situations. */
+  scroll-behavior: smooth;
+
+  --background                : url('../images/back1.jpg');
+
+  /* bootstrap overload */
+  --tooltip-max-width: 400px;
+
+  /* Main */
+  --dark                      : black;
+  --light                     : white;
+  
+  --main                      : rgba(111, 128, 197, 1);
+  --main-75a                  : rgba(111, 128, 197, .75);
+  --main-50a                  : rgba(111, 128, 197, .50);
+  --main-25a                  : rgba(111, 128, 197, .25);
+  
+  --main-bright               : rgba(144, 166, 255, 1);
+  --main-bright-75a           : rgba(144, 166, 255, .75);
+  --main-bright-50a           : rgba(144, 166, 255, .50);
+  --main-bright-25a           : rgba(144, 166, 255, .25);
+
+  --main-dark                 : rgba(19, 22, 35, 1);
+  --main-dark-75a             : rgba(19, 22, 35, .75);
+  --main-dark-50a             : rgba(19, 22, 35, .50);
+  --main-dark-25a             : rgba(19, 22, 35, .25);
+  
+  --main-bg                   : rgba(26, 33, 57, 1);
+  --main-bg-75a               : rgba(26, 33, 57, .75);
+  --main-bg-50a               : rgba(26, 33, 57, .50);
+  --main-bg-25a               : rgba(26, 33, 57, .25);
+
+  --secondary                 : rgba(191, 191, 191, 1);
+
+  --warning                   : rgba(181, 119, 52, 1);
+  --warning-dark              : rgb(147, 85, 19);
+  --warning-bright            : rgb(223, 144, 60);
+  
+  --danger                    : rgb(181, 52, 52);
+  --danger-dark               : rgb(96, 27, 27);
+  --danger-bright             : rgb(224, 63, 63);
+
+  --accent                    : rgb(255, 215, 0);
+  --accent-dark               : rgb(255, 179, 0);
+  --accent-bright             : rgb(246, 195, 142);
+  --accent-bg                 : rgb(22, 28, 49);
+
+  --page-bg                   : rgb(37, 37, 37);
+  --footer-bg                 : rgba(19, 24, 40, 0.859);
+
+  --border                    : rgb(59, 73, 132);
+  --outline                   : var(--main-25p);
+}
+
+html {
+  scroll-padding-top: 60px;
+}
+
+body {
+  background-color: var(--page-bg);
+  background-image: var(--background);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--text-color);
+  font-family: var(--main-font);
+  margin-bottom: 10rem;
+}
+
+.header-navbar {
+  height: 3.8rem;
+  /* max-height: 3.8em; */
+
+  .thumbnail {
+    object-fit: cover;
+    object-position: top;
+    aspect-ratio: 1/1;
+  }
+
+  .nav-item {
+    min-width: 4rem;
+    text-align: center;
+    border-color: rgba(255, 255, 255, 0.25)!important;
+
+    .dropdown-item {
+      img {
+        filter: drop-shadow(-1px 1px 0 current-color) drop-shadow(-1px -1px 0 current-color) drop-shadow(1px -1px 0 current-color) drop-shadow(1px 1px 0 current-color);
+      }
+    }
+  }
+}
+
+.toast-container {
+  left: auto;
+}
+
+footer.footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  background-color: var(--footer-bg);
+  outline: 1px solid var(--outline);
+  border-bottom-width: 0px;
+  padding: 3px;
+  padding-top: 5px;
+
+  #expand_btn {
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  margin-top: -15px;
+  z-index: 1;
+  
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--main-bright);
+      background-color: var(--main-dark);
+      border-radius: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    cursor: pointer;
+
+    &:hover {
+      color: var(--main-bright);
+    }
+  }
+}
+
+.d-hide {
+  visibility: hidden;
+}
+
+.flex-basis-0 {
+  flex-basis: 0;
+}
+
+.bdr {
+  border: 1px solid var(--border);
+  &.bdr-accent {
+    border-color: var(--accent);
+  }
+
+  &-s,&-x {
+    border-left: 1px solid var(--main-75a);
+  }
+
+  &-t,&-y {
+    border-top: 1px solid var(--main-75a);
+  }
+
+  &-e,&-x {
+    border-right: 1px solid var(--main-75a);
+  }
+
+  &-b,&-y {
+    border-bottom: 1px solid var(--main-75a);
+  }
+}
+
+.outline {
+  outline: 1px solid var(--main-75a);
+}
+
+.block-wiki {
+  font-size: 1.2em;
+  color: #e8e8e8;
+}
+
+.title-block {
+  background-color: var(--input-back-color);
+  padding: 0.2rem 1.5rem;
+  border-radius: 0.2rem;
+}
+
+.ok {
+  color: var(--main);
+  font-weight: bold;
+}
+
+.ko {
+  color: var(--warning);
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+.back-img {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../images/rabbit_idle.gif");
+
+  &-left {
+    background-position: left;
+  }
+}
+
+.fit-contain {
+  object-fit: contain;
+}
+
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.invert {
+  filter: invert(0.8);
+}
+
+.grayscale {
+  filter: grayscale(1);
+}
+
+.search-icon {
+  color: var(--main-dark);
+  background: var(--main);
+  border-radius: 50% 0% 0% 50%;
+  border: 2px solid var(--main);
+  width: 27px;
+  line-height: 0;
+  margin-top: 0px;
+  padding: 1px 3px;
+  z-index: 2;
+
+  .icon svg {
+    filter: none;
+  }
+}
+
+.search-field {
+  z-index: 1;
+  margin-left: -1px;
+  border-color: var(--border);
+  background-color: var(--input-back-color);
+  color: var(--main);
+  line-height: 1.4em;
+  border-color: var(--main);
+}
+
+.sticky-element {
+  z-index: 1;
+  position: sticky;
+  top: 6em;
+  .search-field {
+    background-color: var(--block-dark-bg);
+    line-height: 1.4em;
+  }
+}
+
+.tooltip-inner {
+  white-space:pre-wrap;
+}

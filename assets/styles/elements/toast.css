@@ -1,0 +1,51 @@
+:root {
+  
+}
+
+.toast {
+  background-color: #212529;
+  border: solid #727272;
+  border-width: 0px 4px 4px 1px;
+  border-right-color: #3f3f3f;
+  color: #c0c0c0;
+
+  .toast-header {
+    background-color: #c6c6c6;
+
+    strong {
+      color: #c0c0c0;
+    }
+  }
+
+  &.toast-success {
+    color: greenyellow;
+    .toast-header {
+      background-color: green;
+
+      strong {
+        color: #e5e5e5;
+      }
+    }
+  }
+
+  &.toast-warning {
+    color: #ffa500;
+    .toast-header {
+      background-color: #855600;
+
+      strong {
+        color: #e5e5e5;
+      }
+    }
+  }
+  &.toast-error {
+    color: #ff0000;
+    .toast-header {
+      background-color: #910000;
+
+      strong {
+        color: #e5e5e5;
+      }
+    }
+  }
+}

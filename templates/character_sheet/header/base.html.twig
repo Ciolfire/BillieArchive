@@ -1,0 +1,14 @@
+{% trans_default_domain 'character' %}
+
+{% block header %}
+<div class="block block-light row p-2 pb-4">
+  {% block name %}{% endblock %}
+  <div class="order-2 order-md-1 col-6 col-md text-strong align-content-center">
+    {% block leftCol %}{% endblock %}
+  </div>
+  {% block midCol %}{% endblock %}
+  <div class="order-3 order-md-3 col-6 col-md text-end text-strong align-content-center">
+    {% block right %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

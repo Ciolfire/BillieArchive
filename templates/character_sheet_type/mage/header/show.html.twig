@@ -3,18 +3,14 @@
 {% extends "character_sheet/header/show.html.twig" %}
 
 {% block name %}
-<div class="col-12">
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <h1 class="py-2 text-stylized">
-        <img class="no-filter pe-2" src="{{ asset(character.path.symbol|default(character.path.emblem), 'paths_emblems') }}" style="height:2.6em;"/>
-        <span class="text-strong">{{ character.name }}</span>
-        <img class="no-filter ps-4" {% if character.legacy and character.legacy.emblem != null %}src="{{ asset(character.legacy.emblem, 'paths_emblems') }}"{% endif %} style="height:2.6em;"/>
-      </h1>
-      {% block premade %}{{ parent() }}{% endblock %}
-    </div>
+  <div class="col-12">
+    <h1 class="py-2 text-stylized d-flex justify-content-center">
+      <div class="flex-grow-1 flex-basis-0 text-end"><img class="no-filter pe-2" src="{{ asset(character.path.symbol|default(character.path.emblem), 'paths_emblems') }}" style="height:8rem;"/></div>
+      <span class="text-strong m-auto">{{ character.name }}</span>
+      <div class="flex-grow-1 flex-basis-0 text-start"><img class="no-filter ps-4" {% if character.legacy and character.legacy.emblem != null %}src="{{ asset(character.legacy.emblem, 'paths_emblems') }}"{% endif %} style="height:8rem;"/></div>
+    </h1>
+    {% block premade %}{{ parent() }}{% endblock %}
   </div>
-</div>
 {% endblock %}
 
 {% block leftCol %}

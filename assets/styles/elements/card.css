@@ -1,0 +1,52 @@
+:root {
+  --card-color                : rgba(47,47,47,.478);
+  --card-background-color     : rgba(149, 149, 149, 0.71);
+  --card-hover-color          : rgba(23, 23, 23, 0.478);
+}
+
+.card-content {
+  background-color: var(--card-color);
+  
+  &:hover {
+    color: var(--accent-color);
+    background-color: var(--card-hover-color);
+  }
+}
+
+.card-header {
+  background-color: var(--card-color);
+  color: var(--text-color);
+  padding: 1em;
+}
+
+.group-card {
+  background-color: var(--card-background-color);
+  outline          : 1px solid var(--main);
+  box-shadow      : var(--main) 0px 0px 7px 3px;
+  margin-bottom   : 1em;
+  border-radius   : 0.5em;
+
+  & .group-card-header {
+    border-bottom-left-radius : 0;
+    border-bottom-right-radius: 0;
+  }
+
+  & .group-card-footer {
+    border-top-left-radius : 0;
+    border-top-right-radius: 0;
+  }
+
+  & .group-card-body {
+    background-color: var(--block-color);
+    border-top      : 1px solid var(--main);
+  }
+
+  &.lesser-card {
+    outline-color: var(--lesser-75a);
+    box-shadow: var(--lesser-75a) 0px 0px 7px 3px;
+
+    blockquote, .back-fluff {
+      background-color: rgba(12, 0, 47, 0.83);
+    }
+  }
+}

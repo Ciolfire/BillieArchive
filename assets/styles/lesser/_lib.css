@@ -1,0 +1,17 @@
+@import url("btn.css");
+
+:root {
+  --lesser                    : rgba(151, 54, 218, 1);
+  --lesser-75a                : rgba(151, 54, 218, .75);
+  --lesser-50a                : rgba(151, 54, 218, .50);
+  --lesser-25a                : rgba(151, 54, 218, .25);
+  
+  --lesser-dark               : rgba(26, 11, 37, 1);
+  --lesser-dark-75a           : rgba(26, 11, 37, .75);
+  --lesser-dark-50a           : rgba(26, 11, 37, .50);
+  --lesser-dark-25a           : rgba(26, 11, 37, .25);
+}
+
+.lesser {
+  color: var(--lesser);
+}

@@ -11,13 +11,23 @@
       {% set setting = "human" %}
     {% endif %}
     {% block stylesheets %}
-      {{ encore_entry_link_tags(setting) }}
-      {{ encore_entry_link_tags('main') }}
+      {# {{ encore_entry_link_tags(setting) }} #}
+      {# {{ encore_entry_link_tags('main') }} #}
     {% endblock %}
 
     {% block javascripts %}
-      {{ encore_entry_script_tags(setting) }}
-      {{ encore_entry_script_tags('main') }}
+      {% block importmap %}
+        {{ importmap('app') }}
+        {% if setting == "vampire" %}
+          {{ importmap('vampire') }}
+        {% elseif setting == "mage" %}
+          {{ importmap('mage') }}
+        {# {% else %}
+          {{ importmap('human') }} #}
+        {% endif %}
+      {% endblock %}
+      {# {{ encore_entry_script_tags(setting) }} #}
+      {# {{ encore_entry_script_tags('main') }} #}
     {% endblock %}
   </head>
   <body data-controller="{% block bodyController %}content{% endblock %}"{% block bodyData %}class="position-relative"{% endblock %}>
@@ -74,10 +84,26 @@
       {% endfor %}
     </div>
     {% block body %}{% endblock %}
-    {% if footer|default(false) == true %}
+    {% if footer|default(false) %}
       {% block footer %}
         <footer class="container footer translate-middle-x">
           <div class="row mb-0">
+            {% if hasExtraContent|default(false) %}
+              <div class="col-12">
+                <div id="expand_btn" class="w-100 position-absolute left-50 collapsed" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
+                  <div class="btn btn-primary position-absolute">
+                    <span class="footer-collapse collapse">
+                      {# ▼ #}
+                      ▾
+                    </span>
+                    <span class="footer-collapse show ">
+                      {# ▲ #}
+                      ▴
+                    </span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
             {% block footerContent %}
               <div class="col-12 d-flex align-items-center position-relative justify-content-center">
                 <span class="search-icon">

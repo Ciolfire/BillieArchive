@@ -1,0 +1,142 @@
+:root {
+  --background                : url('../images/back2.jpg');
+  /* S Main */
+  --dark                      : var(--vampire-dark);
+  --light                     : var(--vampire-light);
+  
+  --main                      : var(--vampire-main);
+  --main-75a                  : var(--vampire-main-75a);
+  --main-50a                  : var(--vampire-main-50a);
+  --main-25a                  : var(--vampire-main-25a);
+  
+  --main-bright               : var(--vampire-main-bright);
+  --main-bright-75a           : var(--vampire-main-bright-75a);
+  --main-bright-50a           : var(--vampire-main-bright-50a);
+  --main-bright-25a           : var(--vampire-main-bright-25a);
+
+  --main-dark                 : var(--vampire-main-dark);
+  --main-dark-75a             : var(--vampire-main-dark-75a);
+  --main-dark-50a             : var(--vampire-main-dark-50a);
+  --main-dark-25a             : var(--vampire-main-dark-25a);
+  
+  --main-bg                   : var(--vampire-main-bg);
+  --main-bg-75a               : var(--vampire-main-bg-75a);
+  --main-bg-50a               : var(--vampire-main-bg-50a);
+  --main-bg-25a               : var(--vampire-main-bg-25a);
+
+  --secondary                 : var(--vampire-secondary);
+
+  --warning                   : var(--vampire-warning);
+  --warning-dark              : var(--vampire-warning-dark);
+  --warning-bright            : var(--vampire-warning-bright);
+  
+  --danger                    : var(--vampire-danger);
+  --danger-dark               : var(--vampire-danger-dark);
+  --danger-bright             : var(--vampire-danger-bright);
+
+  --accent                    : var(--vampire-accent);
+  --accent-dark               : var(--vampire-accent-dark);
+  --accent-bright             : var(--vampire-accent-bright);
+  --accent-bg                 : var(--vampire-accent-bg);
+
+  --page-bg                   : var(--vampire-page-bg);
+  --footer-bg                 : var(--vampire-footer-bg);
+  
+  --border                    : var(--vampire-border);
+  --outline                   : var(--vampire-outline);
+  /* E Main */
+
+  --blockquote-color          : var(--vampire-blockquote-color);
+  --help-color                : var(--vampire-help-color);
+  --label-color               : var(--vampire-label-color);
+  --link-color                : var(--vampire-link-color);
+  --link-hover-color          : var(--vampire-link-hover-color);
+  --subtext-color             : var(--vampire-subtext-color);
+  --text-strong-color         : var(--vampire-text-strong-color);
+  /* --outline-color             : var(--vampire-outline-color); */
+
+  /* S Block */
+  --block-bg                  : var(--vampire-block-bg);
+  --block-neutral-bg          : var(--vampire-block-neutral-bg);
+  --block-neutral-bg-25a      : var(--vampire-block-neutral-bg-25a);
+  --block-dark-bg             : var(--vampire-block-dark-bg);
+  --block-light-bg            : var(--vampire-block-light-bg);
+  --block-light-bg-25a        : var(--vampire-block-light-bg-25a);
+  --block-solid-bg            : var(--vampire-block-solid-bg);
+  --block-outline-color       : var(--vampire-block-outline-color);
+  /* E Block */
+  /* S Btn */
+  --btn-focus-outline-color   : var(--vampire-btn-focus-outline-color);
+  /* Primary */
+  --btn-bg                    : var(--vampire-btn-bg);
+  --btn-color                 : var(--vampire-btn-color);
+  --btn-outline-color         : var(--vampire-btn-outline-color);
+  --btn-shadow                : var(--vampire-btn-shadow);
+  --btn-stroke                : var(--vampire-btn-stroke);
+  
+  --btn-hover-bg              : var(--vampire-btn-hover-bg);
+  --btn-hover-color           : var(--vampire-btn-hover-color);
+  --btn-hover-outline-color   : var(--vampire-btn-hover-outline-color);
+  --btn-hover-shadow          : var(--vampire-btn-hover-shadow);
+  --btn-hover-stroke          : var(--vampire-btn-hover-stroke);
+  
+  --btn-active-bg             : var(--vampire-btn-active-bg);
+  --btn-active-color          : var(--vampire-btn-active-color);
+  --btn-active-outline-color  : var(--vampire-btn-active-outline-color);
+  --btn-active-shadow         : var(--vampire-btn-active-shadow);
+  --btn-active-stroke         : var(--vampire-btn-active-stroke);
+  /* E Btn */
+  /* S Fonts */
+  --main-font                 :var(--vampire-main-font);
+  --text-font                 :var(--vampire-text-font);
+  --sub-text-font             :var(--vampire-sub-text-font);
+  --stylized-font             :var(--vampire-stylized-font);
+  --stylized-font-alt         :var(--vampire-stylized-font-alt);
+  /* E Fonts */
+  /* S Form */
+  --help-color                : var(--vampire-help-color);
+  
+  --input-bg                  : var(--vampire-input-bg);
+  --input-active-bg           : var(--vampire-input-active-bg);
+  --input-font                : var(--vampire-input-font);
+  
+  --label-color               : var(--vampire-label-color);
+  --label-font                : var(--vampire-label-font);
+  /* E Form */
+  /* S Heading */
+
+  --h1-font                   : var(--vampire-h1-font);
+  --h2-font                   : var(--vampire-h2-font);
+  --h3-font                   : var(--vampire-h3-font);
+  --h4-font                   : var(--vampire-h4-font);
+  --h5-font                   : var(--vampire-h5-font);
+  /* E Heading */
+}
+
+.collapse-block {
+  background-color: rgba(143, 143, 143, 0.29);
+}
+
+body {
+  a, .link {
+    color          : var(--link-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link-hover-color);
+
+      .link-icon img {
+        background-color: var(--link-hover-color);
+      }
+    }
+
+    & .link-icon img {
+      background-color: silver;
+      border-radius   : 15%;
+      max-height      : 1.5em;
+      width           : 1.5em;
+      padding         : 0.1rem;
+      object-fit      : contain;
+    }
+  }
+}

@@ -1,0 +1,353 @@
+:root {
+  --default-color: #6f80c5;
+
+  --path-width                : 2px;
+  --list-size                 : calc(100px * (1 + 0.05 * 2));
+  --list-padding              : calc(var(--list-size) - var(--path-width));
+  
+  --avatar-size               : calc(200px * (1 + 0.05 * 2));
+  --avatar-padding            : calc(var(--avatar-size) - var(--path-width));
+}
+
+.character {
+  &-background-avatar {
+    filter: grayscale(100%);
+    opacity: 60%;
+  }
+}
+
+.character-card {
+  &.btn {
+    color: var(--default-color);
+    &:hover {
+      color: silver;
+    }
+  }
+  .text-strong {
+    text-shadow:
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px;
+  }
+
+  & .character-card-name {
+    height: 50px;
+    text-shadow:
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px,
+    #000 0px 0px 3px;
+    overflow: hidden;
+  }
+
+  & .character-card-header {
+    display: flex;
+    padding: 0;
+  }
+
+  & .character-card-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-top: 1px solid var(--main-dark);
+    border-bottom: 1px solid var(--main-dark);
+    background-color: rgba(#000, 0.3);
+    
+    img {
+      filter: none!important;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-position: top;
+      aspect-ratio: 1/1;
+    }
+  }
+}
+
+.character-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  object-fit: contain;
+  background: silver;
+  border-radius: 15%;
+  margin: 2px;
+
+  svg {
+    max-width: 100%;
+    max-height: 90%;
+  }
+
+  &.lesser-icon {
+    color: black !important;
+    svg {
+      filter: none !important;
+    }
+  }
+}
+
+.character-frame {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(var(--main), 0.5);
+
+  &::before,
+  &::after {
+    box-shadow: inset 0 0 7px 0;
+    content: "";
+    margin: calc(-1 * 0.05 * 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+  }
+
+  &.character-frame-avatar {
+    width: 200px;
+    height: 200px;
+    color: var(--main);
+
+    &::before,
+    &::after {
+      animation: clipAvatar 8s linear infinite;
+    }
+
+    &::before {
+      color: var(--main-dark);
+      animation-delay: calc(8s * -0.5);
+    }
+
+    &::after {
+      color: var(--main-dark);
+    }
+  }
+
+  &.character-frame-list {
+    height: 100px;
+    max-width: 100px;
+  
+    &::before,
+    &::after {
+      animation: clipList 8s linear infinite;
+    }
+
+    &::before {
+      animation-delay: calc(8s * -0.5);
+    }
+  }
+}
+
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &.avatar-overlay-dead {
+    object-fit: contain!important;
+    opacity: 0.5;
+    background-color: #fff;
+  }
+
+  &.avatar-overlay-unknown {
+    color: #8c8c8c;
+    background-color: #00000080;
+  }
+
+  &.avatar-overlay-locked {
+    color: #595959;
+    opacity: 0.8;
+    background-color: #00000063;
+  }
+
+  &.avatar-overlay-torpor {
+    color: #5b0000;
+    opacity: 0.4;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.avatar-status-dead {
+  filter: blur(0.05em) grayscale(1);
+}
+
+.avatar-update {
+  max-height: 65vh;
+  object-fit: contain;
+}
+
+.dot {
+  background-color: transparent;
+  border-color: black;
+  color: black !important;
+  margin-left: 1px !important;
+  margin-right: 1px !important;
+  border-radius: 50% !important;
+  padding: 8px 7px;
+  border-width: 2px;
+
+  &.dot-disabled {
+    background-color: rgba(225, 195, 188, 0.26);
+  }
+
+  &.dot-selectable {
+    background-color: rgba(255, 255, 255, 0.548);
+  }
+
+  &:hover.btn:not(.dot-locked) {
+    border-color: var(--main-dark);
+    background-color: var(--main);
+  }
+
+  &::first-child {
+    margin-left: 0px !important;
+  }
+
+  &::last-child {
+    margin-right: 0px !important;
+  }
+}
+
+.btn-check:active,
+.btn-check:checked {
+  + .dot {
+    background-color: var(--main);
+
+    &:hover.btn:not(.dot-locked) {
+      border-color: rgba(255, 255, 255, 0.548);
+      background-color: var(--main);
+    }
+
+    &.dot-locked {
+      background-color: black;
+      color: #232323 !important;
+    }
+  }
+}
+
+.dots {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.health-box,
+.trait-box {
+  height: 1.5rem;
+  width: 1.5rem;
+  background: #ffffff94;
+
+  &.disabled {
+    background-color: rgba(90, 90, 90, 0.342);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .trait-fill {
+    fill: var(--main-dark);
+    stroke: var(--main-dark);
+    stroke-width: 10;
+  }
+
+  .health-fill {
+    stroke: var(--main-dark);
+    stroke-width: 10;
+  }
+}
+
+.info-card {
+  background-color: var(--lightBlock-color);
+
+  .card-header, .card-footer {
+    background-color: var(--tab-color);
+  }
+  .card-body {
+    background-color: var(--block-light-bg-25a);
+  }
+}
+
+.morality-derangement {
+  border-bottom: 1px solid var(--backAccent-color);
+}
+
+.malus-box {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/* Edit */
+
+#menu {
+  z-index: 10;
+  top: 3.8em;
+
+  .btn-menu {
+    border-top: 0;
+    border-radius: 0;
+
+    .menu-cancel {
+      position: absolute;
+      opacity: 50%;
+
+      svg {
+        fill: #b53434 !important;
+      }
+    }
+
+    svg {
+      fill: var(--text-color) !important;
+    }
+  }
+}
+
+@keyframes clipList {
+  0%,
+  100% {
+    clip-path: rect(0px var(--list-size) var(--path-width) 0px round 5%);
+  }
+  25% {
+    clip-path: rect(0px var(--path-width) var(--list-size) 0px round 5%);
+  }
+  50% {
+    clip-path: rect(var(--list-padding) var(--list-size) var(--list-size) 0px round 5%);
+  }
+  75% {
+    clip-path: rect(0px var(--list-size) var(--list-size) var(--list-padding) round 5%);
+  }
+}
+
+@keyframes clipAvatar {
+  0%,
+  100% {
+    clip-path: rect(0px var(--avatar-size) var(--path-width) 0px round 5%);
+  }
+
+  25% {
+    clip-path: rect(0px var(--path-width) var(--avatar-size) 0px round 5%);
+  }
+
+  50% {
+    clip-path: rect(var(--avatar-padding) var(--avatar-size) var(--avatar-size) 0px round 5%);
+  }
+
+  75% {
+    clip-path: rect(0px var(--avatar-size) var(--avatar-size) var(--avatar-padding) round 5%);
+  }
+}

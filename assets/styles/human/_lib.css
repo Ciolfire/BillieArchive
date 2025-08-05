@@ -1,0 +1,48 @@
+@import url("btn.css");
+
+
+:root {
+  --human-dark                      : black;
+  --human-light                     : white;
+  
+  --human-main                      : rgba(111, 128, 197, 1);
+  --human-main-75a                  : rgba(111, 128, 197, .75);
+  --human-main-50a                  : rgba(111, 128, 197, .50);
+  --human-main-25a                  : rgba(111, 128, 197, .25);
+  
+  --human-main-bright               : rgba(144, 166, 255, 1);
+  --human-main-bright-75a           : rgba(144, 166, 255, .75);
+  --human-main-bright-50a           : rgba(144, 166, 255, .50);
+  --human-main-bright-25a           : rgba(144, 166, 255, .25);
+
+  --human-main-dark                 : rgba(19, 22, 35, 1);
+  --human-main-dark-75a             : rgba(19, 22, 35, .75);
+  --human-main-dark-50a             : rgba(19, 22, 35, .50);
+  --human-main-dark-25a             : rgba(19, 22, 35, .25);
+  
+  --human-main-bg                   : rgba(26, 33, 57, 1);
+  --human-main-bg-75a               : rgba(26, 33, 57, .75);
+  --human-main-bg-50a               : rgba(26, 33, 57, .50);
+  --human-main-bg-25a               : rgba(26, 33, 57, .25);
+
+  --human-secondary                 : rgba(191, 191, 191, 0);
+
+  --human-warning                   : rgba(181, 119, 52, 1);
+  --human-warning-dark              : rgb(147, 85, 19);
+  --human-warning-bright            : rgb(223, 144, 60);
+  
+  --human-danger                    : rgb(181, 52, 52);
+  --human-danger-dark               : rgb(96, 27, 27);
+  --human-danger-bright             : rgb(224, 63, 63);
+
+  --human-accent                    : rgb(255, 215, 0);
+  --human-accent-dark               : rgb(255, 179, 0);
+  --human-accent-bright             : rgb(246, 195, 142);
+  --human-accent-bg                 : rgb(22, 28, 49);
+
+  --human-page-bg                   : rgb(37, 37, 37);
+  --human-footer-bg                 : rgba(19, 24, 40, 0.859);
+
+  --human-border                    : rgb(59, 73, 132);
+  --human-outline                   : var(--main-25p);
+}

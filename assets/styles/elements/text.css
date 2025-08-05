@@ -1,0 +1,141 @@
+:root {
+  --text-color                : rgb(161, 165, 185);
+  --text-strong-color         : rgb(161, 165, 185);
+  --text-dark-color           : rgb(0, 0, 0);
+  --text-bright-color         : rgb(192, 192, 192);
+  --text-stroke               : rgb(0, 0, 0);
+  --image-shadow              : var(--main);
+
+  --blockquote                : var(--main-dark-75a);
+
+  --subtext-color             : rgba(161, 165, 185, 0.631);
+  --strong                    : var(--main-bright);
+}
+
+.strong {
+  color: var(--text-strong-color);
+  -webkit-text-stroke: 3px var(--text-stroke);
+  paint-order: stroke fill;
+}
+
+.accent {
+  color: var(--accent-color);
+}
+
+.accent-pale {
+  color: #ffe271;
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.error {
+  color: var(--wrong);
+}
+
+.text {
+  font-family: var(--text-font);
+}
+
+.text-color {
+  color: var(--main-dark);
+}
+
+.text-bright {
+  color: var(--main-bright-color)!important;
+}
+
+.text-strong {
+  color: var(--text-strong-color);
+  -webkit-text-stroke: 3px var(--text-stroke);
+  paint-order: stroke fill;
+  img {
+    filter: drop-shadow(-1px 1px 0 var(--main-bright)) drop-shadow(-1px -1px 0 var(--main-bright)) drop-shadow(1px -1px 0 var(--main-bright))
+      drop-shadow(1px 1px 0 var(--main-bright));
+  }
+}
+.text-glow {
+  text-shadow:
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px,
+    #ffffff99 0px 0px 3px;
+  svg {
+    filter: drop-shadow(-1px 1px 0 #ffffff99) drop-shadow(-1px -1px 0 #ffffff99) drop-shadow(1px -1px 0 #ffffff99)
+      drop-shadow(1px 1px 0 #ffffff99);
+  }
+}
+
+.text-sub {
+  font-family: var(--sub-text-font);
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-default {
+  color: var(--text);
+}
+
+.text-stylized {
+  font-family: var(--stylized-font);
+
+}
+
+.text-stylized-alt {
+  font-family: var(--stylized-font-alt);
+}
+
+.text-muted {
+  color: var(--help-color)!important;
+  svg {
+    filter: none;
+  }
+}
+
+.help-text {
+  color: var(--help-color);
+}
+
+.fluff,
+blockquote {
+  font-style: italic;
+  background-color: var(--blockquote-color);
+  color: silver;
+  padding: 0.5rem;
+  border-radius: 0.5em;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.back-fluff {
+  color: silver;
+  background-color: var(--blockquote-color);
+  padding: 0.5rem;
+}
+
+.rule {
+  font-family: var(--text-font);
+  font-size: 1.2rem;
+  background-color: var(--dark-block-color);
+  padding: 0.5rem;
+  border-radius: 0.5em;
+
+  &-bright {
+    color: var(--text-bright-color);
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+}

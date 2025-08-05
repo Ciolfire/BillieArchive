@@ -1,0 +1,60 @@
+:root {
+  --tab-bg                    : rgba(255, 255, 255, .1);
+  --tab-color                 : rgba(255, 255, 255, .5);
+  
+  --tab-active-bg             : rgba(0, 0, 0, 0.5);
+  --tab-active-color          : var(--main-bright);
+}  
+
+.tabs {
+  border: none;
+
+  li:first-child>.nav-link {
+    border-left-width: 0 !important;
+  }
+
+  li:last-child>.nav-link {
+    border-right-width: 0 !important;
+  }
+
+  .nav-item {
+    .nav-icon {
+      height: 1.4em;
+      width: 1.4em;
+      border-radius: 25%;
+      object-fit: cover;
+      opacity: 0.8;
+      filter: none;
+      border: 1px solid currentColor;
+    }
+    &.nav-btn {
+      border-radius: 0;
+    }
+    .nav-link {
+      background-color: var(--tab-bg);
+      border-color: var(--tab-bg);
+      border-style: solid;
+      border-width: 1px 1px 0 1px;
+      color: var(--tab-color);
+      -webkit-text-stroke: 3px var(--text-stroke);
+      paint-order: stroke fill;
+
+      &.active,
+      &:focus ,
+      &:hover {
+        background-color: transparent;
+        border-bottom-color: transparent;
+        color: var(--tab-active-color);
+        &:not(.active) {
+          background-color: var(--tab-active-bg);
+          color: var(--tab-active-color);
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  padding: 1em;
+  padding-top: 2em;
+}

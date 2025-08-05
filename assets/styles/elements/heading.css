@@ -1,0 +1,76 @@
+:root {
+  --heading-color             : var(--main-bright);
+  --heading-stroke            : var(--main-dark);
+
+  --h1-font                   : "goudy";
+  --h2-font                   : "goudy";
+  --h3-font                   : "goudy";
+  --h4-font                   : "goudy";
+  --h5-font                   : "goudy";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.heading {
+  color: var(--heading-color);
+  text-align: center;
+  -webkit-text-stroke: 0.1em var(--heading-stroke);
+  paint-order: stroke fill;
+  font-weight: bold;
+
+  .icon svg {
+    stroke: var(--heading-stroke);
+    stroke-width: 0.1em;
+    padding: 0.1rem;
+  }
+
+  img {
+    filter: 
+      drop-shadow(-1px 1px 0 var(--image-shadow))
+      drop-shadow(-1px -1px 0 var(--image-shadow))
+      drop-shadow(1px -1px 0 var(--image-shadow))
+      drop-shadow(1px 1px 0 var(--image-shadow));
+
+    &.no-filter {
+      filter: none;
+    }
+  }
+
+  .icon {
+    color: var(--main) default;
+    &.accent {
+      color: var(--accent)!important;
+    }
+    &.warning {
+      color: var(--warning);
+    }
+  }
+}
+
+h1 {
+  color      : var(--light);
+  font-family: var(--h1-font);
+}
+
+h2 {
+  font-size  : 1.6rem;
+  font-family: var(--h2-font);
+}
+
+h3 {
+  font-size  : 1.4rem;
+  font-family: var(--h3-font);
+}
+
+h4 {
+  font-size  : 1.2rem;
+  font-family: var(--h4-font);
+}
+
+h5 {
+  font-size  : 1rem;
+  font-family: var(--h5-font);
+}

@@ -1,0 +1,59 @@
+:root {
+  --discipline-bg           : var(--vampire-block-light-bg);
+  --discipline-header-color : var(--vampire-light);
+  --discipline-header-bg    : var(--vampire-block-dark-bg);
+}
+
+.discipline-block {
+  background-color: var(--discipline-bg);
+  margin: 0.5em 0;
+  box-shadow: 0px 0px 5px 0px #000;
+
+  .collapsed {
+    background-color: #0000002b;
+  }
+
+  .discipline-header {
+    background-color: var(--discipline-header-bg);
+    border: none;
+    h2 {
+      -webkit-text-stroke-color: var(--discipline-header-color);
+    }
+  }
+
+  .text {
+    font-family: var(--vampire-text-font);
+  }
+
+  .fluff,
+  blockquote {
+    color: var(--vampire-text-bright-color);
+    background-color: var(--vampire-block-dark-bg);
+  }
+}
+
+.discipline-new-block {
+  background-color: var(--vampire-block-bg);
+  color: var(--vampire-text-color);
+  margin: 0.5em 0;
+  box-shadow: 0px 0px 5px 0px #000;
+
+  .collapsed {
+    background-color: #0000002b;
+  }
+
+  .discipline-header {
+    background-color: var(--vampire-block-dark-bg);
+    border: none;
+  }
+
+  .fluff,
+  blockquote {
+    color: var(--vampire-text-bright-color);
+    background-color: var(--vampire-block-dark-bg);
+  }
+}
+
+.power-header-zebra {
+  background-color: var(--neutral-block-bg-25a);
+}

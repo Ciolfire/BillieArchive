@@ -2,7 +2,7 @@
 
 <div class="modal {% if isLarge|default(false) %}modal-xl{% endif %} fade" id="{{ id }}" tabindex="-1"  aria-labelledby="{{ id }}Title" aria-hidden="true" {% block data %}{% endblock %}>
   <div class="modal-dialog modal-dialog-centered {% block class %}{% endblock %}">
-    <div class="modal-content modal-block">
+    <div class="modal-content">
       <div class="modal-header">
         {% block header %}
           <h5 class="modal-title" id="{{ id }}Title">{% block title %}{% endblock %}</h5>

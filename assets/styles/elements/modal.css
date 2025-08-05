@@ -1,0 +1,18 @@
+:root {
+  /* --modal-color               : rgb(0, 0, 0); */
+  --modal-block-color         : rgba(24, 24, 29, 0.8);
+  --modal-margin-color        : rgb(44, 52, 68);
+}
+
+/* modal */
+.modal {
+  .modal-content {
+    color: currentColor;
+    background-color: var(--modal-block-color);
+
+    .modal-header, .modal-footer {
+      background-color: var(--modal-margin-color);
+    }
+  }
+}
+

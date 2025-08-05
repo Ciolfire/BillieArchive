@@ -1,0 +1,141 @@
+:root {
+  --background                : url('../images/back4.png');
+  /* S Main */
+  --dark                      : var(--mage-dark);
+  --light                     : var(--mage-light);
+  
+  --main                      : var(--mage-main);
+  --main-75a                  : var(--mage-main-75a);
+  --main-50a                  : var(--mage-main-50a);
+  --main-25a                  : var(--mage-main-25a);
+  
+  --main-bright               : var(--mage-main-bright);
+  --main-bright-75a           : var(--mage-main-bright-75a);
+  --main-bright-50a           : var(--mage-main-bright-50a);
+  --main-bright-25a           : var(--mage-main-bright-25a);
+
+  --main-dark                 : var(--mage-main-dark);
+  --main-dark-75a             : var(--mage-main-dark-75a);
+  --main-dark-50a             : var(--mage-main-dark-50a);
+  --main-dark-25a             : var(--mage-main-dark-25a);
+  
+  --main-bg                   : var(--mage-main-bg);
+  --main-bg-75a               : var(--mage-main-bg-75a);
+  --main-bg-50a               : var(--mage-main-bg-50a);
+  --main-bg-25a               : var(--mage-main-bg-25a);
+
+  --secondary                 : var(--mage-secondary);
+
+  --warning                   : var(--mage-warning);
+  --warning-dark              : var(--mage-warning-dark);
+  --warning-bright            : var(--mage-warning-bright);
+  
+  --danger                    : var(--mage-danger);
+  --danger-dark               : var(--mage-danger-dark);
+  --danger-bright             : var(--mage-danger-bright);
+
+  --accent                    : var(--mage-accent);
+  --accent-dark               : var(--mage-accent-dark);
+  --accent-bright             : var(--mage-accent-bright);
+  --accent-bg                 : var(--mage-accent-bg);
+
+  --page-bg                   : var(--mage-page-bg);
+  --footer-bg                 : var(--mage-footer-bg);
+  
+  --border                    : var(--mage-border);
+  --outline                   : var(--mage-outline);
+  /* E Main */
+
+  --blockquote-color          : var(--mage-blockquote-color);
+  --help-color                : var(--mage-help-color);
+  --label-color               : var(--mage-label-color);
+  --link-color                : var(--mage-link-color);
+  --link-hover-color          : var(--mage-link-hover-color);
+  --subtext-color             : var(--mage-subtext-color);
+  --text-strong-color         : var(--mage-text-strong-color);
+  /* --outline-color             : var(--mage-outline-color); */
+
+  /* S Block */
+  --block-bg                  : var(--mage-block-bg);
+  --block-neutral-bg          : var(--mage-block-neutral-bg);
+  --block-neutral-bg-25a      : var(--mage-block-neutral-bg-25a);
+  --block-dark-bg             : var(--mage-block-dark-bg);
+  --block-light-bg            : var(--mage-block-light-bg);
+  --block-light-bg-25a        : var(--mage-block-light-bg-25a);
+  --block-solid-bg            : var(--mage-block-solid-bg);
+  --block-outline-color       : var(--mage-block-outline-color);
+  /* E Block */
+  /* S Btn */
+  --btn-focus-outline-color           : var(--mage-btn-focus-outline-color);
+  /* Primary */
+  --btn-bg                            : var(--mage-btn-bg);
+  --btn-color                         : var(--mage-btn-color);
+  --btn-outline-color                 : var(--mage-btn-outline-color);
+  --btn-shadow                        : var(--mage-btn-shadow);
+  --btn-stroke                        : var(--mage-btn-stroke);
+  
+  --btn-hover-bg                      : var(--mage-btn-hover-bg);
+  --btn-hover-color                   : var(--mage-btn-hover-color);
+  --btn-hover-outline-color           : var(--mage-btn-hover-outline-color);
+  --btn-hover-shadow                  : var(--mage-btn-hover-shadow);
+  --btn-hover-stroke                  : var(--mage-btn-hover-stroke);
+  
+  --btn-active-bg                     : var(--mage-btn-active-bg);
+  --btn-active-color                  : var(--mage-btn-active-color);
+  --btn-active-outline-color          : var(--mage-btn-active-outline-color);
+  --btn-active-shadow                 : var(--mage-btn-active-shadow);
+  --btn-active-stroke                 : var(--mage-btn-active-stroke);
+  /* E Btn */
+  /* S Fonts */
+  --main-font                 :var(--mage-main-font);
+  --text-font                 :var(--mage-text-font);
+  --sub-text-font             :var(--mage-sub-text-font);
+  --stylized-font             :var(--mage-stylized-font);
+  --stylized-font-alt         :var(--mage-stylized-font-alt);
+  /* E Fonts */
+  /* S Form */
+  --help-color                : var(--mage-help-color);
+  
+  --input-bg                  : var(--mage-input-bg);
+  --input-active-bg           : var(--mage-input-active-bg);
+  --input-font                : var(--mage-input-font);
+  
+  --label-color               : var(--mage-label-color);
+  --label-font                : var(--mage-label-font);
+  /* E Form */
+  /* S Heading */
+  --h1-font                   : var(--mage-h1-font);
+  --h2-font                   : var(--mage-h2-font);
+  --h3-font                   : var(--mage-h3-font);
+  --h4-font                   : var(--mage-h4-font);
+  --h5-font                   : var(--mage-h5-font);
+  /* E Heading */
+}
+
+.collapse-block {
+  background-color: rgba(143, 143, 143, 0.29);
+}
+
+body {
+  a, .link {
+    color          : var(--link-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link-hover-color);
+
+      .link-icon img {
+        background-color: var(--link-hover-color);
+      }
+    }
+
+    & .link-icon img {
+      background-color: silver;
+      border-radius   : 15%;
+      max-height      : 1.5em;
+      width           : 1.5em;
+      padding         : 0.1rem;
+      object-fit      : contain;
+    }
+  }
+}

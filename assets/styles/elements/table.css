@@ -1,0 +1,19 @@
+:root {
+  --table-accent-color        : var(--main-75a);
+  --table-header-color        : var(--text-color);
+}
+
+table {
+  th, td {
+    padding: 5px 14px 5px 12px;
+    border: 1px solid var(--table-accent-color);
+  }
+  th {
+    background-color: var(--table-accent-color);
+    color: var(--table-header-color);
+  }
+
+  td {
+    color: inherit;
+  }
+}

@@ -1,0 +1,13 @@
+:root {
+  --mage-text-color          : var(--mage-light);
+  --mage-strong-color        : var(--mage-main-bright);
+  --mage-text-dark-color     : #000000;
+  --mage-text-bright-color   : #61eaff;
+  --mage-text-shadow-color   : #000;
+  --mage-image-shadow        : rgb(43, 0, 0);
+  
+  --mage-blockquote          : var(--mage-main-dark-75a);
+
+  --mage-subtext-color       : #a1a5b9a1;
+
+}

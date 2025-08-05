@@ -1,0 +1,53 @@
+:root {
+  --main-font                 : "Trebuchet MS";
+  --text-font                 : "goudy";
+  --sub-text-font             : "goudy";
+  --stylized-font             : "CaslonAntique";
+  --stylized-font-alt         : "PlasticMan";
+}
+
+@font-face {
+  font-family: "hopper_edward";
+  src: url("../../fonts/P22_Hopper_Edward.ttf");
+}
+
+@font-face {
+  font-family: "get_show";
+  src: url("../../fonts/Get Show.ttf");
+}
+
+@font-face {
+  font-family: "roustel";
+  src: url("../../fonts/Roustel.ttf");
+}
+
+@font-face {
+  font-family: "JMHtypewriter";
+  src: url("../../fonts/JMH Typewriter.ttf");
+}
+
+@font-face {
+  font-family: 'CaslonAntique';
+  src        : url("../../fonts/CaslonAntique.ttf");
+}
+
+@font-face {
+  font-family: 'PlasticMan';
+  src        : url("../../fonts/PlasticMan.ttf");
+}
+
+@font-face {
+  font-family: 'escalidogothico';
+  src        : url("../../fonts/escalidogothico.ttf");
+}
+
+@font-face {
+  font-family: 'goudy';
+  src        : url("../../fonts/goudy.ttf");
+}
+
+@font-face {
+  font-family: 'goudy';
+  src        : url("../../fonts/GoudyItalic.ttf");
+  font-style : italic, oblique;
+}

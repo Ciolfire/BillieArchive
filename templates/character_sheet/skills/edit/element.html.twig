@@ -7,12 +7,9 @@
 {% block data %}data-dot-base-value="{{ base }}" data-dot-min-value="{{ min }}"  data-id="{{ "skill." ~ skill }}" data-type="skill" data-name="{{ name }}"{% endblock %}
 
 {% block specialty %}
-  <span role="button" data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" data-character--edit-trans-param="{{ name }}">
-    <span class="fa-stack fa-2xs" style="font-size: 0.45rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "specialty.new"|trans }}">
-      <i class="fa-solid fa-star fa-stack-2x"></i>
-      <i class="fa-solid fa-lg fa-circle-plus fa-stack-1x" style="color:black;padding-top:1px;"></i>
-      <i class="fa-solid fa-lg fa-plus fa-stack-1x" style="color:white;padding-top:1px;"></i>
-    </span>
+  <span class="text-strong" role="button" data-action="click->character--edit#newSpecialty" data-character--edit-skill-param="{{ skill }}" data-character--edit-trans-param="{{ name }}">
+    +
+  </span>
 {% endblock %}
 
 {% block input %}

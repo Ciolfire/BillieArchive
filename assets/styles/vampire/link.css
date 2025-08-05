@@ -1,0 +1,4 @@
+:root {
+  --vampire-link-color          : var(--main-bright);
+  --vampire-link-hover-color    : #ce8904;
+}

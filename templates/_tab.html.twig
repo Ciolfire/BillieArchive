@@ -2,7 +2,7 @@
 
 <li class="nav-item col text-center g-0">
   <a id="{{ name }}Tab" type="button" class="tab nav-link h-100 user-select-none p-0" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">
-    <div class="pe-none d-flex justify-content-center text-strong p-2">
+    <div class="pe-none d-flex justify-content-center p-2">
         {% if img is defined and img is not null and imgType is defined %}
           <img class="nav-icon" src="{{ asset(img, imgType) }}"/>
         {% elseif (icon is defined and icon is not same as ('')) or icon is not defined %}

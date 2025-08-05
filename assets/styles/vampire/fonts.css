@@ -1,0 +1,28 @@
+:root {
+  --vampire-main-font                 : "mrsEaves-bold";
+  --vampire-text-font                 : "goudy";
+  --vampire-sub-text-font             : "goudy";
+  --vampire-stylized-font             : "Cezanne";
+  --vampire-stylized-font-alt         : "Supernatural_Knight";
+}
+
+@font-face {
+  font-family: 'Cezanne';
+  src        : url('../../fonts/P22CezanneRegular.ttf');
+  size-adjust: 150%;
+}
+
+@font-face {
+  font-family: 'HopperEdward';
+  src        : url('../../fonts/P22_Hopper_Edward.ttf');
+}
+
+@font-face {
+  font-family: 'MrsEavesBold';
+  src        : url('../../fonts/MrsEavesBold.otf');
+}
+
+@font-face {
+  font-family: 'Supernatural_Knight';
+  src        : url('../../fonts/Supernatural_Knight.ttf');
+}

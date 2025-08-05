@@ -1,0 +1,73 @@
+@import url("block.css");
+@import url("btn.css");
+@import url("fonts.css");
+@import url("form.css");
+@import url("heading.css");
+@import url("link.css");
+@import url("text.css");
+
+@import url("merit.css");
+
+:root {
+  /* Main */
+  --mage-dark              : black;
+  --mage-light             : silver;
+  
+  --mage-main              : rgb(8, 30, 25);
+  --mage-main-75a          : rgba(8, 30, 25, .75);
+  --mage-main-50a          : rgba(8, 30, 25, .50);
+  --mage-main-25a          : rgba(8, 30, 25, .25);
+
+  --mage-main-bright       : rgb(0, 136, 134);
+  --mage-main-bright-75a   : rgba(0, 136, 134, .75);
+  --mage-main-bright-50a   : rgba(0, 136, 134, .50);
+  --mage-main-bright-25a   : rgba(0, 136, 134, .25);
+
+  --mage-main-dark         : rgb(4, 35, 28);
+  --mage-main-dark-75a     : rgba(4, 35, 28, .75);
+  --mage-main-dark-50a     : rgba(4, 35, 28, .50);
+  --mage-main-dark-25a     : rgba(4, 35, 28, .25);
+
+  --mage-main-bg           : rgba(0,135,133, 1);
+  --mage-main-bg-75a       : rgba(0,135,133, .75);
+  --mage-main-bg-50a       : rgba(0,135,133, .50);
+  --mage-main-bg-25a       : rgba(0,135,133, .25);
+
+  --mage-secondary         : rgba(0, 117, 152, 0.711);
+
+  --mage-warning           : rgb(251, 145, 80);
+  --mage-warning-dark      : rgb(138, 65, 19);
+  --mage-warning-bright    : rgb(255, 115, 27);
+  
+  --mage-danger            : rgb(181, 52, 52);
+  --mage-danger-dark       : rgb(96, 27, 27);
+  --mage-danger-bright     : rgb(224, 63, 63);
+
+  --mage-accent            : rgb(255, 215, 0);
+  --mage-accent-dark       : rgb(255, 179, 0);
+  --mage-accent-bright     : rgb(246, 195, 142);
+  --mage-accent-bg         : #1f1f1f;
+
+
+  --mage-page-bg           : rgb(37, 37, 37);
+  --mage-footer-bg         : rgba(142, 142, 142, 0.71);
+  
+  --mage-border            : #008886;
+  --mage-outline           : #0088865a;
+  
+  --mage-wrong             : #000968;
+
+  /* Card */
+  --mage-card              : #233d4acf;
+  --mage-card-background   : #bffcffb5;
+  --mage-card-hover        : var(--mage-main-25a);
+
+  /* Modal */
+  --mage-modal             : rgb(0, 0, 0);
+  --mage-modal-block       : rgba(132, 161, 160, 0.95);
+  --mage-modal-margin      : rgb(4, 62, 62);
+
+  /* Table */
+  --mage-table-accent      : var(--mage-main-dark-75a);
+  --mage-table-header      : var(--mage-text-color);
+}

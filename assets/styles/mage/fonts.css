@@ -1,0 +1,18 @@
+:root {
+  --mage-main-font                 : "mrsEaves-bold";
+  --mage-text-font                 : "goudy";
+  --mage-sub-text-font             : "goudy";
+  --mage-stylized-font             : "ZapfinoLinotypeThree";
+  --mage-stylized-font-alt         : "Cezanne";
+}
+
+@font-face {
+  font-family: 'Cezanne';
+  src        : url('../../fonts/P22CezanneRegular.ttf');
+  size-adjust: 150%;
+}
+
+@font-face {
+  font-family: 'ZapfinoLinotypeThree';
+  src        : url('../../fonts/Zapfino_Linotype_Three.ttf');
+}

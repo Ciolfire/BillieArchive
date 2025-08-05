@@ -1,0 +1,4 @@
+:root {
+  --mage-link-color          : var(--mage-main-bright);
+  --mage-link-hover-color    : #ce8904;
+}

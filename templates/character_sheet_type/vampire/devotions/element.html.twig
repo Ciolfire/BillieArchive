@@ -8,7 +8,7 @@
 
 <div class="col-12 col-md-6 col-xl-4 mt-3" data-search-target="item" data-name="{{ devotion.name }}" {% block data %}{% endblock %}>
   <div class="h-100 d-flex flex-column">
-    <div class="rounded-top bdr p-3 card-content flex-fill"
+    <div class="rounded-top bdr card-content flex-fill"
       role="button"
       data-bs-toggle="modal" data-bs-target="#contentModal"
       data-action="click->content#load"
@@ -16,15 +16,23 @@
       data-content-type-param="{{ "devotion.label.single"|trans }}"
       data-content-link-param="{{ link|default(path('vampire_devotion_show', {id: devotion.id})) }}"
     >
-      <div class="card-header">
-        <span class="float-start">
-          <span {% if devotion.attributes is empty and devotion.skills is empty %}class="d-hide"{% endif %}>{% include "_dice_pool.html.twig" with {pool : powerPool, contested : devotion.contestedText} %}</span>
-        </span>
-        <span class="float-end">
-          {% include "vampire/discipline/powers/_cost.html.twig" with {costs: devotion.costs} only %}
-        </span>
+      <div class="card-header rounded-top">
         <h4>{{ devotion.name }}{% if devotion.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}{% endif %}</h4>
-        <span class="float-end">{% if devotion.bloodline is not null %}<span class="accent">{{ devotion.bloodline.name }}</span>{% endif %}</span>
+        <div class="row justify-content-between">
+          <div class="col">
+            {% if devotion.attributes is not empty or devotion.skills is not empty %}
+              {% include "_dice_pool.html.twig" with {pool : powerPool, contested : devotion.contestedText} %}
+            {% endif %}
+          </div>
+          {% if devotion.bloodline is not null %}
+            <div class="col-auto text-strong">{{ devotion.bloodline.name }}</div>
+          {% endif %}
+          <div class="col text-end">
+            {% if devotion.costs is not null %}
+              {% include "vampire/discipline/powers/_cost.html.twig" with {costs: devotion.costs} only %}
+            {% endif %}
+          </div>
+        </div>
       </div>
       <div class="card-body d-flex flex-column">
         <span class="accent text-strong">{% block prerequisites %}{% endblock %}</span>

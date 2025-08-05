@@ -1,0 +1,87 @@
+:root {
+  --human-btn-focus-outline-color           : var(--human-main-bright);
+  /* Primary */
+  --human-btn-bg                            : var(--human-main-bg-75a);
+  --human-btn-color                         : var(--human-accent-bright);
+  --human-btn-outline-color                 : var(--human-main-75a);
+  --human-btn-shadow                        : var(--human-dark);
+  --human-btn-stroke                        : var(--human-dark);
+  
+  --human-btn-hover-bg                      : var(--human-main-75a);
+  --human-btn-hover-color                   : var(--light);
+  --human-btn-hover-outline-color           : var(--human-main-dark-75a);
+  --human-btn-hover-shadow                  : var(--human-dark);
+  --human-btn-hover-stroke                  : var(--human-dark);
+  
+  --human-btn-active-bg                     : var(--human-main-75a);
+  --human-btn-active-color                  : var(--human-accent);
+  --human-btn-active-outline-color          : var(--human-accent);
+  --human-btn-active-shadow                 : var(--human-main-dark);
+  --human-btn-active-stroke                 : var(--human-main-dark);
+}
+
+.human .btn.btn-primary,
+.human.btn.btn-primary.btn-human,
+.btn.btn-primary.btn-human,
+.btn.btn-primary.human {
+  background-color: var(--human-btn-bg);
+  color: var(--human-btn-color);
+  font-weight: bold;
+  border: 1px solid var(--human-btn-outline-color);
+  -webkit-text-stroke: 2px var(--human-btn-stroke);
+  paint-order: stroke fill;
+
+  &:focus, &:focus-visible {
+    box-shadow: 0 0 0 2px var(--human-btn-focus-outline-color);
+  }
+
+  .icon svg, .icon img {
+    filter: 
+      drop-shadow(-1px 1px 0 var(--human-btn-shadow))
+      drop-shadow(-1px -1px 0 var(--human-btn-shadow))
+      drop-shadow(1px -1px 0 var(--human-btn-shadow))
+      drop-shadow(1px 1px 0 var(--human-btn-shadow))
+    ;
+  }
+
+&:hover {
+    background-color: var(--human-btn-hover-bg);
+    color: var(--human-btn-hover-color);
+    border: 1px solid var(--human-btn-hover-outline-color);
+
+    -webkit-text-stroke: 0.2rem var(--human-btn-hover-stroke);
+    paint-order: stroke fill;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--human-btn-hover-shadow))
+        drop-shadow(-1px -1px 0 var(--human-btn-hover-shadow))
+        drop-shadow(1px -1px 0 var(--human-btn-hover-shadow))
+        drop-shadow(1px 1px 0 var(--human-btn-hover-shadow))
+      ;
+    }
+  }
+
+  &:active, &.active {
+    scale: 90%;
+    background-color: var(--human-btn-active-bg);
+    color: var(--human-btn-active-color);
+    border: 1px solid var(--human-btn-active-outline-color);
+    -webkit-text-stroke: 0.2rem var(--human-btn-active-stroke);
+    paint-order: stroke fill;
+    box-shadow: 0 0 0 2px var(--human-btn-active-outline-color)!important;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--human-btn-active-shadow))
+        drop-shadow(-1px -1px 0 var(--human-btn-active-shadow))
+        drop-shadow(1px -1px 0 var(--human-btn-active-shadow))
+        drop-shadow(1px 1px 0 var(--human-btn-active-shadow))
+      ;
+    }
+  }
+
+  &.accent:not(.disabled) {
+    color: var(--accent);
+  }
+}

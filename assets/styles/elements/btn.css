@@ -1,0 +1,265 @@
+:root {
+  --btn-focus-outline-color           : var(--main-bright);
+  /* Primary */
+  --btn-bg                            : var(--main-bg-75a);
+  --btn-color                         : var(--main);
+  --btn-outline-color                 : var(--main-75a);
+  --btn-shadow                        : var(--main-bright);
+  --btn-stroke                        : var(--main-dark);
+  
+  --btn-hover-bg                      : var(--main-75a);
+  --btn-hover-color                   : var(--main-dark);
+  --btn-hover-outline-color           : var(--main-dark-75a);
+  --btn-hover-shadow                  : var(--main);
+  --btn-hover-stroke                  : var(--main);
+  
+  --btn-active-bg                     : var(--main-75a);
+  --btn-active-color                  : var(--accent);
+  --btn-active-outline-color          : var(--accent);
+  --btn-active-shadow                 : var(--main-dark);
+  --btn-active-stroke                 : var(--main-dark);
+
+  /* Warning */
+  --btn-warning-bg                    : var(--warning);
+  --btn-warning-color                 : var(--dark);
+  --btn-warning-outline-color         : var(--warning-dark);
+  --btn-warning-shadow                : var(--warning-bright);
+  --btn-warning-stroke                : var(--warning-bright);
+
+  --btn-warning-hover-bg              : var(--warning-dark);
+  --btn-warning-hover-color           : var(--dark);
+  --btn-warning-hover-outline-color   : var(--warning-dark);
+  --btn-warning-hover-shadow          : var(--warning-bright);
+  --btn-warning-hover-stroke          : var(--warning-bright);
+
+  /* Danger */
+  --btn-danger-bg                    : var(--danger);
+  --btn-danger-color                 : var(--dark);
+  --btn-danger-outline-color         : var(--danger-dark);
+  --btn-danger-shadow                : var(--danger-bright);
+  --btn-danger-stroke                : var(--danger-bright);
+
+  --btn-danger-hover-bg              : var(--danger-dark);
+  --btn-danger-hover-color           : var(--dark);
+  --btn-danger-hover-outline-color   : var(--danger-dark);
+  --btn-danger-hover-shadow          : var(--danger-bright);
+  --btn-danger-hover-stroke          : var(--danger-bright);
+}
+
+.btn {
+  &:focus, &:focus-visible {
+    box-shadow: 0 0 0 2px var(--btn-focus-outline-color);
+  }
+
+  &.btn-primary {
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+    font-weight: bold;
+    border: 1px solid var(--btn-outline-color);
+    -webkit-text-stroke: 2px var(--btn-stroke);
+    paint-order: stroke fill;
+
+    .icon {
+      img {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-shadow))
+          drop-shadow(-1px -1px 0 var(--btn-shadow))
+          drop-shadow(1px -1px 0 var(--btn-shadow))
+          drop-shadow(1px 1px 0 var(--btn-shadow))
+        ;
+      }
+      svg {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-stroke))
+          drop-shadow(-1px -1px 0 var(--btn-stroke))
+          drop-shadow(1px -1px 0 var(--btn-stroke))
+          drop-shadow(1px 1px 0 var(--btn-stroke))
+        ;
+      }
+    }
+
+    &:hover {
+      background-color: var(--btn-hover-bg);
+      color: var(--btn-hover-color);
+      border: 1px solid var(--btn-hover-outline-color);
+
+      -webkit-text-stroke: 0.2rem var(--btn-hover-stroke);
+      paint-order: stroke fill;
+
+      .icon svg, .icon img {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-hover-shadow))
+          drop-shadow(-1px -1px 0 var(--btn-hover-shadow))
+          drop-shadow(1px -1px 0 var(--btn-hover-shadow))
+          drop-shadow(1px 1px 0 var(--btn-hover-shadow))
+        ;
+      }
+    }
+
+    &:active, &.active {
+      scale: 90%;
+      transform-origin:bottom center;
+      background-color: var(--btn-active-bg);
+      color: var(--btn-active-color);
+      border: 1px solid var(--btn-active-outline-color);
+      -webkit-text-stroke: 0.2rem var(--btn-active-stroke);
+      paint-order: stroke fill;
+      box-shadow: 0 0 0 2px var(--btn-active-outline-color)!important;
+
+      .icon svg, .icon img {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-active-shadow))
+          drop-shadow(-1px -1px 0 var(--btn-active-shadow))
+          drop-shadow(1px -1px 0 var(--btn-active-shadow))
+          drop-shadow(1px 1px 0 var(--btn-active-shadow))
+        ;
+      }
+    }
+
+    &.accent:not(.disabled) {
+      color: var(--accent);
+    }
+  }
+
+  /* &.btn-secondary {
+
+  } */
+
+  &.btn-warning {
+    background-color: var(--btn-warning-bg);
+    color: var(--btn-warning-color);
+    font-weight: bold;
+    border: 1px solid var(--btn-warning-outline-color);
+    -webkit-text-stroke: 2px var(--btn-warning-stroke);
+    paint-order: stroke fill;
+    
+    svg, img {
+      filter:
+        drop-shadow(-1px 1px 0 var(--btn-warning-shadow))
+        drop-shadow(-1px -1px 0 var(--btn-warning-shadow))
+        drop-shadow(1px -1px 0 var(--btn-warning-shadow))
+        drop-shadow(1px 1px 0 var(--btn-warning-shadow))
+      ;
+    }
+
+    &:hover,
+    &:active,
+    &.active {
+      background-color: var(--btn-warning-hover-bg);
+      border: 1px solid var(--btn-warning-hover-outline-color);
+      color: var(--btn-warning-hover-color);
+    }
+
+    &:focus, &:focus-visible {
+      box-shadow: 0 0 0 4px var(--dark);
+    }
+  }
+
+  &.btn-danger {
+    background-color: var(--btn-danger-bg);
+    color: var(--btn-danger-color);
+    font-weight: bold;
+    border: 1px solid var(--btn-danger-outline-color);
+    -webkit-text-stroke: 2px var(--btn-danger-stroke);
+    paint-order: stroke fill;
+    
+    svg, img {
+      filter:
+        drop-shadow(-1px 1px 0 var(--btn-danger-shadow))
+        drop-shadow(-1px -1px 0 var(--btn-danger-shadow))
+        drop-shadow(1px -1px 0 var(--btn-danger-shadow))
+        drop-shadow(1px 1px 0 var(--btn-danger-shadow))
+      ;
+    }
+
+    &:hover,
+    &:active,
+    &.active {
+      background-color: var(--btn-danger-hover-bg);
+      border: 1px solid var(--btn-danger-hover-outline-color);
+      color: var(--btn-danger-hover-color);
+    }
+
+    &:focus, &:focus-visible {
+      box-shadow: 0 0 0 4px var(--dark);
+    }
+  }
+}
+
+.btn-primary.btn-submit {
+  width: 100%;
+  border-radius:0.5 0.5 0 0;
+  color: var(--text);
+
+  &:not(.disabled) {
+    color: var(--accent);
+  }
+}
+
+.btn.btn-back {
+  border-right: none!important;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-weight: bold;
+}
+
+/* 
+
+.btn.btn-secondary,
+.human-btn.btn-primary {
+  background-color: #1a2139f5;
+  border-color: #3b4984;
+  color: #6f80c5;
+  font-weight: bold;
+  text-shadow: black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow: 0 0 0 0.25rem #3b498480;
+    color: #a1a5b9;
+    background-color: rgba(131, 155, 253, 0.5);
+    border: 1px solid #161c31;
+  }
+}
+
+.btn.btn-lesser {
+  background-color: #1a2139f5;
+  border-color: var(--lesser-color);
+  color: #6f80c5;
+  font-weight: bold;
+  text-shadow: black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px,  black 0px 0px 3px;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    box-shadow: 0 0 0 0.25rem #3b498480;
+    color: #a1a5b9;
+    background-color: rgba(131, 155, 253, 0.5);
+    border: 1px solid #471967d4;
+  }
+}*/
+
+.btn-check {
+  & + .btn-primary {
+    font-weight: normal;
+  }
+
+  &:checked + .btn-primary,
+  &:active + .btn-primary {
+    background-color: var(--border);
+    border: 1px solid var(--btn-outline-color);
+    color: var(--text-color);
+    font-weight: bold;
+  }
+
+  &:focus + .btn-primary,
+  .btn.btn-primary:focus {
+    background-color: var(--btn-active-color);
+    border: 1px solid var(--main-dark);
+    box-shadow: 0 0 0 0.25rem var(--btn-active-shadow);
+    color: var(--btn-active-text-color);
+  }
+}

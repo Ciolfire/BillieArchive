@@ -5,8 +5,8 @@
 {% if roll is not null %}
   <div class="row">
     <div class="col-12">
-      <h1 class="lesser-color">{{ roll.name }}</h1>
-      <h2 class="lesser-color">
+      <h1 class="lesser">{{ roll.name }}</h1>
+      <h2 class="lesser">
         {% include "_dice_pool.html.twig" with {
           pool: character.detailedDicePool(roll.attributes, roll.skills), 
           contested: roll.contestedText,

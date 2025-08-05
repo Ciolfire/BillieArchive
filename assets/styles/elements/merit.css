@@ -1,0 +1,85 @@
+.merit {
+  padding: 1rem 0;
+  background-color: #2f2f2f7a;
+
+  &.merit-btn:hover {
+    color: var(--accent-color);
+    background-color: #1717177a;
+  }
+
+  &.merit-mage {
+    background-color: #0087855c;
+  }
+
+  &.merit-human {
+    background-color: var(--main-dark-75a);
+    &.merit-btn:hover {
+      background-color: var(--main-dark-50a)
+    }
+  }
+
+  &.merit-blood_bather,
+  &.merit-body_thief,
+  &.merit-feral,
+  &.merit-innocents,
+  &.merit-possessed,
+  &.merit-psychic,
+  &.merit-purified,
+  &.merit-thaumaturge
+  {
+    background-color: var(--lesser-dark-50a);
+    border-color: var(--lesser);
+
+    &.merit-btn:hover {
+      background-color: var(--lesser-dark-75a);
+    }
+  }
+}
+
+.merit-card {
+  border: none;
+  color: var(--text-color);
+  min-height: 220px;
+
+  &.merit-card-sm {
+    min-height: 0;
+  }
+
+  &.merit-owned {
+    background-color: var(--block-light-bg);
+    color: var(--main-dark);
+  }
+
+  .merit-detail {
+    border: 1px solid var(--border);
+    border-top: 0;
+  }
+
+  .merit-body {
+    height: 150px;
+    overflow: auto;
+  }
+}
+
+.merit-card-filters {
+  z-index: 1;
+  position: sticky;
+  top: 8em;
+}
+
+#merit-hide {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  height: 100%;
+  min-height: 60px;
+  width: auto;
+  background-color: var(--main-50a);
+  border: 1px solid var(--main);
+  border-left: none;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  &.collapsed {
+    color: var(--subtext-color);
+  }
+}

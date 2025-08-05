@@ -86,8 +86,8 @@
   <hr>
   {# Lesser Templates #}
   <a {% if isCollapsed %}data-bs-toggle="collapse" href="#collapseLesserTemplateWiki" role="button" aria-expanded="false" aria-controls="collapseLesserTemplateWiki"{% endif %}>
-    <h3 class="pe-none text-strong lesser-color">
-      {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser-color' } only %}
+    <h3 class="pe-none text-strong lesser">
+      {% include "_icon.html.twig" with {icon: 'lesser-template', class: 'lesser' } only %}
       <span>{{ "lesser.multi"|trans({}, 'content-type') }}</span>
     </h3>
   </a>

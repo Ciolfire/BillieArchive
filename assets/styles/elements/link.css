@@ -1,0 +1,32 @@
+:root {
+  --link-color                : var(--main-bright);
+  --link-hover-color          : var(--accent);
+}
+
+body {
+  a, .link {
+    color: var(--link-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link-hover-color);
+
+      .link-icon {
+        background-color: var(--link-hover-color);
+      }
+    }
+
+    &.link-icon {
+      background-color: var(--link-color);
+      border-radius   : 50%;
+      height          : 1.5em;
+      width           : 1.5em;
+
+      & img {
+        height : 100%;
+        padding: 2px;
+        filter : invert(1);
+      }
+    }
+  }
+}

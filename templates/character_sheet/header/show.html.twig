@@ -1,114 +1,113 @@
+{% extends "character_sheet/header/base.html.twig" %}
+
 {% trans_default_domain 'character' %}
 
-{% block header %}
-<div class="row block-light p-2 pb-4">
-  {% block name %}
-    <h1 class="py-2 text-stylized">
-      {% if character.type != 'human' %}
-        {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
+{% block name %}
+  <h1 class="py-2 text-stylized">
+    {% if character.type != 'human' %}
+      {% include "_icon.html.twig" with {icon: 'type/' ~ character.type, class: 'icon-lg' } only %}
+    {% endif %}
+    {{ character.name }}
+  </h1>
+  {% block premade %}
+    <h2>
+      {% if character.player is not null and app.user != character.player %}
+        ({{ character.player }})
+      {% elseif character.isPremade == true %}
+        {% include "_icon.html.twig" with {icon: 'premade',  label: "premade.label.single"|trans} %}
       {% endif %}
-      {{ character.name }}
-    </h1>
-    {% block premade %}
-      <h2>
-        {% if character.player is not null and app.user != character.player %}
-          ({{ character.player }})
-        {% elseif character.isPremade == true %}
-          {% include "_icon.html.twig" with {icon: 'premade',  label: "premade.label.single"|trans} %}
-        {% endif %}
-      </h2>
-    {% endblock %}
+    </h2>
   {% endblock %}
-  <div class="order-2 order-md-1 col-6 col-md text-center text-strong">
-    {% block leftCol %}
-      <div class="row">
-        <div class="col-12">
-          {% block age %}
-            {% if character.lookAge is defined and character.lookAge != character.age %}
-              {{ "age.normal"|trans({"%age%": character.age|default(0)}) }}
-              ({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})
-            {% elseif character.age is defined %}
-              {{ "age.normal"|trans({"%age%": character.age}) }}
-            {% endif %}
-            <br>
-            {% if character.birthday is not null %}
-              {% include "_icon.html.twig" with {icon: 'birthday'} %}
-              {{ character.birthday|format_date("long") }}
-            {% endif %}
-          {% endblock %}
-        </div>
-        <div class="col-12">
-          {% block virtue %}
-            {% include "_icon.html.twig" with {icon: 'virtue'} %}
-            {{ "virtue.label.single"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
-          {% endblock %}
-        </div>
-        <div class="col-12">
-          {% block vice %}
-            {% include "_icon.html.twig" with {icon: 'vice'} %}
-            {{ "vice.label.single"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
-          {% endblock %}
-        </div>
-      </div>
-    {% endblock %}
+{% endblock %}
+
+{% block leftCol %}
+  <div class="row">
+    <div class="col-12">
+      {% block age %}
+        {% if character.lookAge is defined and character.lookAge != character.age %}
+          {{ "age.normal"|trans({"%age%": character.age|default(0)}) }}
+          ({{ "age.looks.value"|trans({"%looks%": character.lookAge}) }})
+        {% elseif character.age is defined %}
+          {{ "age.normal"|trans({"%age%": character.age}) }}
+        {% endif %}
+        <br>
+        {% if character.birthday is not null %}
+          {% include "_icon.html.twig" with {icon: 'birthday'} %}
+          {{ character.birthday|format_date("long") }}
+        {% endif %}
+      {% endblock %}
+    </div>
+    <div class="col-12">
+      {% block virtue %}
+        {% include "_icon.html.twig" with {icon: 'virtue'} %}
+        {{ "virtue.label.single"|trans }}: {{ character.virtue }} {% if character.virtueDetail %}({{ character.virtueDetail }}){% endif %}
+      {% endblock %}
+    </div>
+    <div class="col-12">
+      {% block vice %}
+        {% include "_icon.html.twig" with {icon: 'vice'} %}
+        {{ "vice.label.single"|trans }}: {{ character.vice }} {% if character.viceDetail %}({{ character.viceDetail }}){% endif %}
+      {% endblock %}
+    </div>
   </div>
-  {% block midCol %}
-    <div class="order-1 order-md-2 col-12 col-md">
-      <div class="row text-center">
-        {% block details %}{% endblock %}
-        <div class="col-12 d-flex my-2">
-          <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative rounded">
-            <img class="p-1 rounded avatar-status-{{ character.status }}" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
-            {% if character.status == "dead" %}
-              <img class="p-1 rounded avatar-overlay avatar-overlay-dead" src={% include "_setting_src.html.twig" with {setting: character.type} %}  />
-            {% elseif character.status == "locked" %}
-              {% include "_icon.html.twig" with {icon: 'prison', class: 'avatar-overlay avatar-overlay-locked icon-100'} %}
-            {% elseif character.status == "unknown" %}
-              {% include "_icon.html.twig" with {icon: 'question', class: 'avatar-overlay avatar-overlay-unknown icon-100'} %}
-            {% elseif character.status == "torpor" %}
-              {% include "_icon.html.twig" with {icon: 'stake', class: 'avatar-overlay avatar-overlay-torpor icon-100'} %}
-            {% endif %}
-          </div>
+{% endblock %}
+
+{% block midCol %}
+  <div class="order-1 order-md-2 col-12 col-md">
+    <div class="row text-center">
+      {% block details %}{% endblock %}
+      <div class="col-12 d-flex my-2">
+        <div role="button" data-bs-toggle="modal" data-bs-target="#avatarModal" class="character-frame character-frame-avatar position-relative rounded">
+          <img class="p-1 rounded avatar-status-{{ character.status }}" data-character--avatar-target="avatar" src="{{ asset(character.avatar , 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="100">
+          {% if character.status == "dead" %}
+            <img class="p-1 rounded avatar-overlay avatar-overlay-dead" src={% include "_setting_src.html.twig" with {setting: character.type} %}  />
+          {% elseif character.status == "locked" %}
+            {% include "_icon.html.twig" with {icon: 'prison', class: 'avatar-overlay avatar-overlay-locked icon-100'} %}
+          {% elseif character.status == "unknown" %}
+            {% include "_icon.html.twig" with {icon: 'question', class: 'avatar-overlay avatar-overlay-unknown icon-100'} %}
+          {% elseif character.status == "torpor" %}
+            {% include "_icon.html.twig" with {icon: 'stake', class: 'avatar-overlay avatar-overlay-torpor icon-100'} %}
+          {% endif %}
         </div>
       </div>
-    </div>
-  {% endblock %}
-  {% block right %}
-    <div class="order-3 order-md-3 col-6 col-md text-center text-strong">
-      <div class="row">
-        <div class="col-12">
-          {{ "Concept"|trans }}: {{ character.concept }}
-        </div>
-        {% if character.chronicle %}
-          <div class="col-12">
-            {{ "Chronicle"|trans }}: {{ character.chronicle }}
-          </div>
-        {% endif %}
-        {% if character.organization %}
-          <div class="col-12">
-            {{ "label.single"|trans({}, 'organization') }}:
-            <a href="{{ path("organization_show", {'id': character.organization.id}) }}">
-              {{ character.organization }}
-              <span class="icon"><img src="{{ asset(character.organization.emblem, 'organizations_emblems') }}"></span>
-            </a>
-          </div>
-        {% endif %}
-        <div class="col-12">
-          {% block organization %}
-          {% endblock %}
-        </div>
-        {% if character.faction %}
-          <div class="col-12">
-            {{ "faction"|trans }}: {{ character.faction }}
-          </div>
-        {% endif %}
-        {% if character.groupName %}
-          <div class="col-12">
-            {{ "group"|trans }}: {{ character.groupName }}
-          </div>
-        {% endif %}
+      <div class="col-12">
+        <h5 class="text-strong pt-2">
+          {{ character.concept }}
+        </h5>
       </div>
     </div>
-  {% endblock %}
-</div>
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="row">
+    {% if character.chronicle %}
+      <div class="col-12">
+        {{ "Chronicle"|trans }}: {{ character.chronicle }}
+      </div>
+    {% endif %}
+    {% if character.organization %}
+      <div class="col-12">
+        {{ "label.single"|trans({}, 'organization') }}:
+        <a href="{{ path("organization_show", {'id': character.organization.id}) }}">
+          {{ character.organization }}
+          <span class="icon"><img src="{{ asset(character.organization.emblem, 'organizations_emblems') }}"></span>
+        </a>
+      </div>
+    {% endif %}
+    <div class="col-12">
+      {% block organization %}
+      {% endblock %}
+    </div>
+    {% if character.faction %}
+      <div class="col-12">
+        {{ "faction"|trans }}: {{ character.faction }}
+      </div>
+    {% endif %}
+    {% if character.groupName %}
+      <div class="col-12">
+        {{ "group"|trans }}: {{ character.groupName }}
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

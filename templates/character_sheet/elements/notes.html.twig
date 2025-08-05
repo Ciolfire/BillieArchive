@@ -64,7 +64,7 @@
   </div>
   {% if character.notes is not empty %}
     <div class="position-sticky bottom-0 text-center">
-      <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-up-long"></i></a>
+      <a href="#" class="btn btn-primary btn-sm">{% include "_icon.html.twig" with {icon: 'up'} %}</a>
     </div>
   {% else %}
     <p>{{ "none"|trans({}, 'note') }}</p>

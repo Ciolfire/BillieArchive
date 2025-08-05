@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container block-neutral">
+  <div class="block block-neutral container">
     <h1 class="py-3">
       {% include "_icon.html.twig" with {icon : entity, class: 'icon-lg' } only %}
       {{  "#{form.vars.data.name} — " ~ "action.edit"|trans }}

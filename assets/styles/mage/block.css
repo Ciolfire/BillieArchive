@@ -1,0 +1,24 @@
+:root {
+  --mage-block-bg                  : rgba(92, 112, 117, .75);
+  --mage-block-neutral-bg          : rgba(48, 48, 48, .75);
+  --mage-block-neutral-bg-25a      : rgba(48, 48, 48, .25);
+  --mage-block-dark-bg             : rgb(4, 62, 62);
+  --mage-block-light-bg            : rgba(225, 193, 69, .5);
+  --mage-block-light-bg-25a        : rgba(225, 193, 69, .25);
+  --mage-block-solid-bg            : rgb(106, 106, 106);
+  --mage-block-outline-color       : var(--mage-main-75a);
+}
+
+.mage {
+  color: white;
+  
+  &.block {
+    box-shadow: 0px 0px 5px 0px var( --mage-block-outline-color);
+    background-color: #151515b5;
+    outline: solid 1px var( --mage-block-outline-color);
+
+    &.block-solid {
+      background-color: var(--mage-block-solid-bg);
+    }
+  }
+}

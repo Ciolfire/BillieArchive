@@ -1,0 +1,11 @@
+:root {
+  
+  --mage-help-color          : #13312f;
+  
+  --mage-input-bg            : rgba(26, 49, 51, .75);
+  --mage-input-active-bg     : rgba(27, 31, 31, 0.75);
+  --mage-input-font          : "goudy";
+  
+  --mage-label-color         : var(--main);
+  --mage-label-font          : "goudy";
+}

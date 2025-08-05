@@ -1,1 +1,0 @@
-import '../scss/human.scss';

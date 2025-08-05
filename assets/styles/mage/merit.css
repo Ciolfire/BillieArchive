@@ -1,0 +1,18 @@
+:root {
+  --mage-merit-bg          : var(--mage-main-dark-25a);
+}
+
+.merit {
+  &.merit-mage,
+  &.merit-proximus {
+    color: silver;
+    background-color: var(--mage-merit-bg);
+    strong {
+      color: var(--mage-main);
+    }
+
+    &:hover {
+      background-color: var(--mage-main-dark-75a);
+    }
+  }
+}

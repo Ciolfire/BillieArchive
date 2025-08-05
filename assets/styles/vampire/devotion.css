@@ -1,0 +1,6 @@
+.card {
+  &.devotion-card {
+      min-height: 220px;
+      color: var(--vampire-text-color);
+  }
+}

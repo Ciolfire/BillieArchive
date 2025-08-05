@@ -64,6 +64,7 @@
         {{ merit.description }}
       </div>
     </div>
+    {% block footer %}
     <div class="card-footer text py-1">
       {% block footer_content %}
       <div>{% include "character_sheet/merits/prerequisites.html.twig" %}</div>
@@ -88,5 +89,6 @@
       </div>
       {% endblock %}
     </div>
+    {% endblock %}
   </div>
 </div>

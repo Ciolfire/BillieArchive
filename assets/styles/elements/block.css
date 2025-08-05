@@ -1,0 +1,36 @@
+:root {
+  --block-bg                  : rgba(24, 24, 29, .75);/* //#1a1b24cc;//#1a2139f5; //#131828db; */
+  --block-neutral-bg          : rgba(21, 21, 21, .75);
+  --block-neutral-bg-25a      : rgba(21, 21, 21, .25);
+  --block-dark-bg             : rgba(11, 11, 11, .50);
+  --block-light-bg            : rgba(255, 255, 255, .50);
+  --block-light-bg-25a        : rgba(255, 255, 255, .25);
+  --block-solid-bg            : rgb(19, 24, 40);
+  --block-outline-color       : var(--main-75a);
+}
+
+.block {
+  background-color: var(--block-bg);
+  box-shadow: 0px 0px 5px 0px var(--main);
+  outline: 1px solid var(--block-outline-color);
+
+  &.block-backdrop {
+    backdrop-filter: blur(2px);
+  }
+
+  &.block-solid {
+    background-color: var(--block-solid-bg);
+  }
+
+  &.block-light {
+    background-color: var(--block-light-bg);
+  }
+
+  &.block-dark {
+    background-color: var(--block-bg);
+  }
+
+  &.block-neutral {
+    background-color: var(--block-neutral-bg);
+  }
+}

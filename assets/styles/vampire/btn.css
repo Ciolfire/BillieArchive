@@ -1,0 +1,86 @@
+:root {
+  --vampire-btn-focus-outline-color           : var(--vampire-main-bright);
+  /* Primary */
+  --vampire-btn-bg                            : var(--vampire-main-bg-75a);
+  --vampire-btn-color                         : var(--vampire-accent-bright);
+  --vampire-btn-outline-color                 : var(--vampire-main-75a);
+  --vampire-btn-shadow                        : var(--vampire-dark);
+  --vampire-btn-stroke                        : var(--vampire-dark);
+  
+  --vampire-btn-hover-bg                      : var(--vampire-main-75a);
+  --vampire-btn-hover-color                   : var(--vampire-light);
+  --vampire-btn-hover-outline-color           : var(--vampire-main-dark-75a);
+  --vampire-btn-hover-shadow                  : var(--vampire-dark);
+  --vampire-btn-hover-stroke                  : var(--vampire-dark);
+  
+  --vampire-btn-active-bg                     : var(--vampire-main-75a);
+  --vampire-btn-active-color                  : var(--vampire-accent);
+  --vampire-btn-active-outline-color          : var(--vampire-accent);
+  --vampire-btn-active-shadow                 : var(--vampire-main-dark);
+  --vampire-btn-active-stroke                 : var(--vampire-main-dark);
+}
+
+.vampire .btn.btn-primary,
+.btn.btn-primary .btn-vampire,
+.btn.btn-primary.vampire {
+  background-color: var(--vampire-btn-bg);
+  color: var(--vampire-btn-color);
+  font-weight: bold;
+  border: 1px solid var(--vampire-btn-outline-color);
+  -webkit-text-stroke: 2px var(--vampire-btn-stroke);
+  paint-order: stroke fill;
+
+  &:focus, &:focus-visible {
+    box-shadow: 0 0 0 2px var(--vampire-btn-focus-outline-color);
+  }
+
+  .icon svg, .icon img {
+    filter: 
+      drop-shadow(-1px 1px 0 var(--vampire-btn-shadow))
+      drop-shadow(-1px -1px 0 var(--vampire-btn-shadow))
+      drop-shadow(1px -1px 0 var(--vampire-btn-shadow))
+      drop-shadow(1px 1px 0 var(--vampire-btn-shadow))
+    ;
+  }
+
+  &:hover {
+    background-color: var(--vampire-btn-hover-bg);
+    color: var(--vampire-btn-hover-color);
+    border: 1px solid var(--vampire-btn-hover-outline-color);
+
+    -webkit-text-stroke: 0.2rem var(--vampire-btn-hover-stroke);
+    paint-order: stroke fill;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--vampire-btn-hover-shadow))
+        drop-shadow(-1px -1px 0 var(--vampire-btn-hover-shadow))
+        drop-shadow(1px -1px 0 var(--vampire-btn-hover-shadow))
+        drop-shadow(1px 1px 0 var(--vampire-btn-hover-shadow))
+      ;
+    }
+  }
+
+  &:active, &.active {
+    scale: 90%;
+    background-color: var(--vampire-btn-active-bg);
+    color: var(--vampire-btn-active-color);
+    border: 1px solid var(--vampire-btn-active-outline-color);
+    -webkit-text-stroke: 0.2rem var(--vampire-btn-active-stroke);
+    paint-order: stroke fill;
+    box-shadow: 0 0 0 2px var(--vampire-btn-active-outline-color)!important;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--vampire-btn-active-shadow))
+        drop-shadow(-1px -1px 0 var(--vampire-btn-active-shadow))
+        drop-shadow(1px -1px 0 var(--vampire-btn-active-shadow))
+        drop-shadow(1px 1px 0 var(--vampire-btn-active-shadow))
+      ;
+    }
+  }
+
+  &.accent:not(.disabled) {
+    color: var(--accent);
+  }
+}

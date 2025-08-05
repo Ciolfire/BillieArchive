@@ -1,0 +1,11 @@
+:root {
+  
+  --vampire-help-color          : #3f3f3f;
+  
+  --vampire-input-bg            : #00000033;
+  --vampire-input-active-bg     : #b5b5b5ed;
+  --vampire-input-font          : "goudy";
+  
+  --vampire-label-color         : var(--main);
+  --vampire-label-font          : "goudy";
+}

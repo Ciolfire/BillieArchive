@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 
-import Editor from '@toast-ui/editor';
+import { Editor } from '@toast-ui/editor';
 
 import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css'; // Editor's Style

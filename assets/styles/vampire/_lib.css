@@ -1,0 +1,76 @@
+@import url("block.css");
+@import url("btn.css");
+@import url("fonts.css");
+@import url("form.css");
+@import url("heading.css");
+@import url("link.css");
+@import url("text.css");
+
+@import url("merit.css");
+
+@import url("devotion.css");
+@import url("discipline.css");
+
+:root {
+  /* Main */
+  --vampire-dark              : black;
+  --vampire-light             : silver;
+  
+  --vampire-main              : rgb(125, 0, 0);
+  --vampire-main-75a          : rgba(128, 0, 0, .75);
+  --vampire-main-50a          : rgba(125, 0, 0, .50);
+  --vampire-main-25a          : rgba(125, 0, 0, .25);
+
+  --vampire-main-bright       : rgba(202, 0, 0, 1);
+  --vampire-main-bright-75a   : rgba(202, 0, 0, .75);
+  --vampire-main-bright-50a   : rgba(202, 0, 0, .50);
+  --vampire-main-bright-25a   : rgba(202, 0, 0, .25);
+
+  --vampire-main-dark         : rgb(42, 0, 0);
+  --vampire-main-dark-75a     : rgba(42, 0, 0, .75);
+  --vampire-main-dark-50a     : rgba(42, 0, 0, .50);
+  --vampire-main-dark-25a     : rgba(42, 0, 0, .25);
+
+  --vampire-main-bg           : rgba(32, 0 , 0, 1);
+  --vampire-main-bg-75a       : rgba(32, 0 , 0, .75);
+  --vampire-main-bg-50a       : rgba(32, 0 , 0, .50);
+  --vampire-main-bg-25a       : rgba(32, 0 , 0, .25);
+
+  --vampire-secondary         : #6f592fe0;
+
+  --vampire-warning           : rgb(251, 145, 80);
+  --vampire-warning-dark      : rgb(138, 65, 19);
+  --vampire-warning-bright    : rgb(255, 115, 27);
+  
+  --vampire-danger            : rgb(181, 52, 52);
+  --vampire-danger-dark       : rgb(96, 27, 27);
+  --vampire-danger-bright     : rgb(224, 63, 63);
+
+  --vampire-accent            : rgb(255, 215, 0);
+  --vampire-accent-dark       : rgb(255, 179, 0);
+  --vampire-accent-bright     : rgb(246, 195, 142);
+  --vampire-accent-bg         : #1f1f1f;
+
+
+  --vampire-page-bg           : rgb(37, 37, 37);
+  --vampire-footer-bg         : rgba(142, 142, 142, 0.71);
+  
+  --vampire-border            : #7d0000;
+  --vampire-outline           : #af000052;
+  
+  --vampire-wrong             : #000968;
+
+  /* Card */
+  --vampire-card              : rgba(23, 23, 23, 0.478);
+  --vampire-card-background   : rgba(193, 193, 193, 0.71);
+  --vampire-card-hover        : rgba(44, 6, 6, 0.32);
+
+  /* Modal */
+  --vampire-modal             : rgb(0, 0, 0);
+  --vampire-modal-block       : rgba(50, 50, 50, 0.96);
+  --vampire-modal-margin      : rgba(18, 18, 18, 0.8);
+
+  /* Table */
+  --vampire-table-accent      : var(--vampire-main-dark-50a);
+  --vampire-table-header      : var(--vampire-text);
+}

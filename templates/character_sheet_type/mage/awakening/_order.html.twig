@@ -3,7 +3,7 @@
 <h2>{{ 'order.label.single'|trans }}</h2>
 {{form_row(form.order)}}
 {% for order in orders %}
-  <div class="block-light mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
+  <div class="block block-light mage-order-{{ order.id }} d-none mb-3 text-center p-2" data-character--awakening-target="orderDescription">
     {% if order.emblem is not null %}
       <img class="logo" src="{{ asset(order.emblem, 'organizations_emblems') }}" alt="{{ order.name}}" height="200"/>
     {% endif %}
