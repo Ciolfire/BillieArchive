@@ -48,9 +48,9 @@ RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-set
         && php composer-setup.php && rm composer-setup.php* \
         && chmod +x composer.phar && mv composer.phar /usr/bin/composer
 
-COPY build/php/symfony.ini /etc/php8.2/conf.d/
-COPY build/php/symfony.ini /etc/php8.2/cli/conf.d/
-COPY build/php/symfony.pool.conf /etc/php8.2/php-fpm.d/
+COPY build/php/symfony.ini /usr/local/etc/php/conf.d/
+# COPY build/php/symfony.ini /etc/php8.2/cli/conf.d/
+# COPY build/php/symfony.pool.conf /etc/php8.2/php-fpm.d/
 #COPY build/php/xdebug.ini  /etc/php/8.2/conf.d/
 
 WORKDIR /var/www/darkness
