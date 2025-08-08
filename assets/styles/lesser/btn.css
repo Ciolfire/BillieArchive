@@ -2,14 +2,14 @@
   --lesser-btn-focus-outline-color           : var(--accent);
   /* Primary */
   --lesser-btn-bg                            : var(--lesser-dark-50a);
-  --lesser-btn-color                         : var(--lesser);
+  --lesser-btn-color                         : var(--lesser-light);
   --lesser-btn-outline-color                 : var(--lesser-75a);
   --lesser-btn-shadow                        : var(--lesser-dark);
   --lesser-btn-stroke                        : var(--lesser-dark);
   
   --lesser-btn-hover-bg                      : var(--lesser-75a);
   --lesser-btn-hover-color                   : var(--light);
-  --lesser-btn-hover-outline-color           : var(--lesser-dark-75a);
+  --lesser-btn-hover-outline-color           : var(--lesser-bright-75a);
   --lesser-btn-hover-shadow                  : var(--lesser-dark);
   --lesser-btn-hover-stroke                  : var(--lesser-dark);
   

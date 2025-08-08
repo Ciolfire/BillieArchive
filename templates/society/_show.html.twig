@@ -1,0 +1,36 @@
+{% trans_default_domain 'society' %}
+
+{% block body %}
+  <div class="container block py-3">
+    <h1>
+      {% include "_icon.html.twig" with {icon : 'society', class: 'icon-lg' } only %}
+      {{ society.name }}
+    </h1>
+    {% if society.type %}
+      <h2>
+        <span class="accent">
+          {% include "_icon.html.twig" with {icon : society.type, class: 'icon-lg accent' } only %}
+          {{ ('type.' ~ society.type)|trans }}
+        </span>
+      </h2>
+    {% endif %}
+    {% if society.organization is not null %}
+      <div class="text-center">
+        <img src="{{ asset(society.organization.emblem, 'organizations_emblems') }}" height="400">
+      </div>
+      <h3>
+        <a href="{{ path("organization_show", {'id': society.organization.id}) }}">
+          {% include "_icon.html.twig" with {icon : 'covenant' } only %}
+          {{ society.organization }}
+        </a>
+      </h3>
+    {% endif %}
+    <p>{{ society.description }}</p>
+    <div class="row">
+      {% for character in society.characters %}
+        {% include "character/_card.html.twig" with {showChronicle: 0} %}
+      {% endfor %}
+    </div>
+  </div>
+  {% include "element/_delete.html.twig" with {element: 'society', 'entity': society} %}
+{% endblock %}

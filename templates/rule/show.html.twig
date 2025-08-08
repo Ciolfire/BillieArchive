@@ -4,6 +4,10 @@
 
 {% block title %}{{ rule.title }}{% endblock %}
 
+{% block shortcuts %}
+  {% include "_back.html.twig" with {link: path('rule_index')} %}
+{% endblock %}
+
 {% block body %}
   <div class="container mt-5">
     <div class="row">
@@ -12,28 +16,26 @@
           <a class="float-end" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
         {% endif %}
         <h1>{{ rule.title }}</h1>
-        <span>
-          <div>
-            {{ rule.details|markdown_to_html }}
-          </div>
-          <div class="row">
-            {% for subrule in rule.subrules %}
-              <div class="col-6 {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
-              {% if is_granted('ROLE_ST') %}
-                <a class="float-end" href="{{ path('rule_edit', {'id': subrule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-              {% endif %}
-                <h2>
-                  {{ subrule.title }}
-                  <span class="text-sub fs-6">
-                    {% include "_source_block.html.twig" with {element: subrule} %}
-                  </span>
-                </h2>
-                {{ subrule.details|markdown_to_html }}
-              </div>
-            {% endfor %}
-          </div>
+        <div>
+          {{ rule.details|markdown_to_html }}
+        </div>
+        <div class="row">
+          {% for subrule in rule.subrules %}
+            <div class="col-6 {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
+            {% if is_granted('ROLE_ST') %}
+              <a class="float-end" href="{{ path('rule_edit', {'id': subrule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+            {% endif %}
+              <h2>
+                {{ subrule.title }}
+                <span class="text-sub fs-6">
+                  {% include "_source_block.html.twig" with {element: subrule} %}
+                </span>
+              </h2>
+              {{ subrule.details|markdown_to_html }}
+            </div>
+          {% endfor %}
         </div>
       </div>
     </div>
-    {% include "_back.html.twig" with {link: path('rule_index')} %}
-  {% endblock %}
+  </div>
+{% endblock %}

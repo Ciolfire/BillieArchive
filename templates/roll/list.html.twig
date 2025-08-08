@@ -8,8 +8,11 @@
   data-controller="search" data-search-type-value="roll"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
+{% endblock %}
+
+{% block body %}
   <div class="block block-neutral container py-3">
     <div class="row py-3">
       <h1 class="text-strong">

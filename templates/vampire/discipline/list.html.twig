@@ -17,13 +17,15 @@
   data-search-type-value="discipline"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% if chronicle|default(false) == false %}
-    {% include "_back.html.twig" %}
+    
   {% else %}
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
+{% endblock %}
 
+{% block body %}
   {% include "_title.html.twig" with {title: label|default('label.multi') , domain: "discipline", icon: type} %}
 
   <div class="container block">
@@ -41,7 +43,7 @@
 {% endblock %}
 
 {# {% block body %}
-	{% include "_back.html.twig" %}
+	
 	<div class="container block py-3  ">
 		<div class="row mb-3">
 			<div class="col-12">

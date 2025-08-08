@@ -4,16 +4,18 @@
 
 {% block title %}{{ "peek.label"|trans }}{% endblock %}
 
-
-{% block body %}
-  {# We redirect to the right character #}
+{% block shortcuts %}
   {% if peeker.player == app.user %}
     {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id, _fragment: "relation"})} %}
   {% elseif character.player == app.user %}
     {% include "_back.html.twig" with {link: path('character_show', {id: character.id, _fragment: "relation"})} %}
   {% else %}
     {# Should never happen #}
-    {% include "_back.html.twig" %}
+    
   {% endif %}
+{% endblock %}
+
+{% block body %}
+  {# We redirect to the right character #}
   {% include "/character_sheet/peek/_base.html.twig" %}
 {% endblock %}

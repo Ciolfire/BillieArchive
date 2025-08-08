@@ -10,8 +10,11 @@
   data-controller="search" data-search-type-value="derangement"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
+{% endblock %}
+
+{% block body %}
   <div class="container block py-3">
     <div class="row">
       <h1>

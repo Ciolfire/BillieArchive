@@ -5,7 +5,13 @@
 
 {% trans_default_domain 'clan' %}
 
-{% block col_class %}col-12 col-lg{% endblock %}
+{% block col_class %}
+{% if hasFew|default(false) %}
+  col-12 col-md-6 col-lg
+{% else %}
+  col-12 col-lg-4 col-xl-3
+{% endif %}
+{% endblock %}
 
 {% block data %}
   data-name="{{ clan.name }}"

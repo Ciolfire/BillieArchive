@@ -10,6 +10,10 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block shortcuts %}
+  {% include "_back.html.twig" with {link: path('chronicle_show', {id: chronicle.id}) } %}
+{% endblock %}
+
 {% block body %}
 <div class="container py-3 mt-5">
   <div class="row mb-3 justify-content-end">

@@ -45,7 +45,10 @@ class ClanController extends AbstractController
   public function clans(): Response
   {
     return $this->render('vampire/clan/list.html.twig', [
-      'clans' => $this->dataService->findBy(Clan::class, ['isBloodline' => false]),
+      'clans' => $this->dataService->findBy(Clan::class, [
+        'isBloodline' => false,
+        'homebrewFor' => null,
+      ]),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'entity' => 'clan',
       'category' => 'character',

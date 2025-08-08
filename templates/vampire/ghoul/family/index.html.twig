@@ -14,8 +14,11 @@
 	data-controller="search" data-search-type-value="clan"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
+{% endblock %}
+
+{% block body %}
   <div class="container">
     <div class="row mb-3">
       <div class="col-12">

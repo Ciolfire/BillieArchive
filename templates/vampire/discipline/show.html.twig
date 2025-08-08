@@ -6,6 +6,21 @@
 
 {% block title %}{{ discipline.name }}{% endblock %}
 
+{% block shortcuts %}
+  {% if discipline.isSorcery %}
+    {% include "_back.html.twig" with {link: path('vampire_sorcery_index')} %}
+  {% elseif discipline.isCoil %}
+    {% include "_back.html.twig" with {link: path('vampire_coils_index')} %}
+  {% elseif discipline.isThaumaturgy %}
+    {% include "_back.html.twig" with {link: path('vampire_thaumaturgy_index')} %}
+  {% else %}
+    {% include "_back_entity.html.twig" with {
+      element: discipline,
+      name: 'vampire_discipline'
+    } %}
+  {% endif %}
+{% endblock %}
+
 {% block body %}
   <div class="block block-light container py-2 mt-2 rounded">
     {% if is_granted('ROLE_ST') %}
@@ -19,13 +34,10 @@
         {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic text-strong' } only %}
         {% if discipline.isSorcery %}
           {% include "vampire/discipline/powers/_sorcery.html.twig" with {rituals: discipline.powers} %}
-          {% include "_back.html.twig" with {link: path('vampire_sorcery_index')} %}
         {% elseif discipline.isCoil %}
           {% include "vampire/discipline/powers/_coil.html.twig" with {tiers: discipline.powers} %}
-          {% include "_back.html.twig" with {link: path('vampire_coils_index')} %}
         {% elseif discipline.isThaumaturgy %}
           {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
-          {% include "_back.html.twig" with {link: path('vampire_thaumaturgy_index')} %}
           {# {% include "vampire/discipline/powers/thaumaturgy.html.twig" with {powers: discipline.powers} %} #}
         {% else %}
           {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
@@ -33,8 +45,6 @@
               element: discipline,
               name: 'vampire_discipline'
             } %}
-          {# {% include "_back.html.twig" with {link: path('vampire_discipline_index')} %} #}
-          {% include "_top.html.twig" %}
         {% endif %}
       </div>
     </div>

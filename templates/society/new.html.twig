@@ -13,7 +13,7 @@
   {% if society.chronicle is defined and method == "new" %}
     {% include "_back.html.twig" with {link: path('chronicle_society_index', {'id': society.chronicle.id })} %}
   {% else %}
-    {% include "_back.html.twig" %}
+    
   {% endif %}
   <h1>
     {% include "_icon.html.twig" with {icon : 'society', class: 'icon-lg' } only %}

@@ -2,14 +2,14 @@
   --human-btn-focus-outline-color           : var(--human-main-bright);
   /* Primary */
   --human-btn-bg                            : var(--human-main-bg-75a);
-  --human-btn-color                         : var(--human-accent-bright);
+  --human-btn-color                         : var(--human-main-bright);
   --human-btn-outline-color                 : var(--human-main-75a);
   --human-btn-shadow                        : var(--human-dark);
   --human-btn-stroke                        : var(--human-dark);
   
   --human-btn-hover-bg                      : var(--human-main-75a);
   --human-btn-hover-color                   : var(--light);
-  --human-btn-hover-outline-color           : var(--human-main-dark-75a);
+  --human-btn-hover-outline-color           : var(--human-main-bright-75a);
   --human-btn-hover-shadow                  : var(--human-dark);
   --human-btn-hover-stroke                  : var(--human-dark);
   
@@ -20,9 +20,10 @@
   --human-btn-active-stroke                 : var(--human-main-dark);
 }
 
-.human .btn.btn-primary,
-.human.btn.btn-primary.btn-human,
-.btn.btn-primary.btn-human,
+.human .btn.btn,
+.human .btn.btn.btn-primary.btn-human,
+.btn.btn-human,
+.human.btn,
 .btn.btn-primary.human {
   background-color: var(--human-btn-bg);
   color: var(--human-btn-color);

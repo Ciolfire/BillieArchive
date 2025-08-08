@@ -2,10 +2,6 @@
 
 {% trans_default_domain 'character' %}
 
-{% block stylesheets %}
-  {{ parent() }}
-{% endblock %}
-
 {% block title %}{{ 'action.duplicate'|trans({}, 'app') }}{{ "premade.label.single"|trans }}{% endblock %}
 
 
@@ -19,7 +15,7 @@
     <h2>{{ character.name }}</h2>
     {{ form(form) }}
   </div>
-  {% include "_back.html.twig" %}
+  
 {% endblock %}
 
 

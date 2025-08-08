@@ -6,7 +6,8 @@
   --text-stroke               : rgb(0, 0, 0);
   --image-shadow              : var(--main);
 
-  --blockquote                : var(--main-dark-75a);
+  --blockquote-bg             : var(--main-dark-75a);
+  --blockquote-color          : var(--main-dark-75a);
 
   --subtext-color             : rgba(161, 165, 185, 0.631);
   --strong                    : var(--main-bright);
@@ -108,8 +109,8 @@
 .fluff,
 blockquote {
   font-style: italic;
-  background-color: var(--blockquote-color);
-  color: silver;
+  background-color: var(--blockquote-bg);
+  color: var(--blockquote-color);
   padding: 0.5rem;
   border-radius: 0.5em;
 
@@ -119,7 +120,7 @@ blockquote {
 }
 
 .back-fluff {
-  color: silver;
+  color: var(--blockquote-color);
   background-color: var(--blockquote-color);
   padding: 0.5rem;
 }

@@ -4,6 +4,10 @@
 
 {% block title %}{{ chronicle.name }}{% endblock %}
 
+{% block shortcuts %}
+  {% include "_back.html.twig" with {link: path('chronicle_show', {id: chronicle.id}) } %}
+{% endblock %}
+
 {% block body %}
 <div class="container">
   <div class="row justify-content-center">
@@ -147,7 +151,5 @@
 
   </div>
 </div>
-
-{% include "_back.html.twig" with {link: path('chronicle_show', {id: chronicle.id}) } %}
 
 {% endblock %}

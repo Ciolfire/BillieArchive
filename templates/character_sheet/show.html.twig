@@ -11,6 +11,10 @@
   {{parent() }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% include "_top.html.twig" %}
+{% endblock %}
+
 {% block body %}
   <div
     class="container-fluid container-lg {% block top_margin %}character-sheet{% endblock %}"

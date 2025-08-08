@@ -23,12 +23,15 @@
   data-search-type-value="{{ type }}"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% if chronicle|default(false) == false %}
-    {% include "_back.html.twig" %}
+    
   {% else %}
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
+{% endblock %}
+
+{% block body %}
 
   {% include "_title.html.twig" with {title: label , domain: "organization", icon: type} %}
 

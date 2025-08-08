@@ -6,8 +6,11 @@
 	{{ chronicle.name }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% include "_back.html.twig" with {link: path('chronicle_show', {id: chronicle.id}) } %}
+{% endblock %}
+
 {% block body %}
-	{% include "_back.html.twig" %}
 	<div class="container-fluid container-lg py-3">
 		<div class="row">
 			<div class="block">

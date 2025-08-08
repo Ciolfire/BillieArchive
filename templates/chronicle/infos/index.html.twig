@@ -4,8 +4,6 @@
 {% set setting = chronicle.type %}
 
 {% block body %}
-  {% include '_back.html.twig' %}
-	{% include '_top.html.twig' %}
   <div class="container-fluid container-lg py-3">
     <h1 class="strong">
       {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}

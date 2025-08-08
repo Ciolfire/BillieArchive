@@ -1,5 +1,5 @@
 :root {
-  --vampire-heading-color             : var(--vampire-main);
+  --vampire-heading-color             : var(--vampire-light);
   --vampire-heading-stroke            : var(--vampire-main-dark);
 
   --vampire-h1-font                   : "goudy";
@@ -25,30 +25,39 @@ h1.vampire, h2.vampire, h3.vampire, h4.vampire, h5.vampire,
 
 h1.vampire,
 .vampire h1 {
-  color      : var(--vampire-light);
+  color: var(--vampire-main);
+  -webkit-text-stroke: 0.15em var(--vampire-heading-stroke);
   font-family: var(--vampire-h1-font);
 }
 
 h2.vampire,
 .vampire h2 {
-  font-size  : 1.6rem;
+  color: var(--vampire-main);
+  -webkit-text-stroke: 0.15em var(--vampire-heading-stroke);
+  font-size: 1.6rem;
   font-family: var(--vampire-h2-font);
 }
 
 h3.vampire,
 .vampire h3 {
-  font-size  : 1.4rem;
+  color: var(--vampire-main);
+  -webkit-text-stroke: 0.15em var(--vampire-heading-stroke);
+  font-size: 1.4rem;
   font-family: var(--vampire-h3-font);
 }
 
 h4.vampire,
 .vampire h4 {
-  font-size  : 1.2rem;
+  color: var(--vampire-main);
+  -webkit-text-stroke: 0.15em var(--vampire-heading-stroke);
+  font-size: 1.2rem;
   font-family: var(--vampire-h4-font);
 }
 
 h5.vampire,
 .vampire h5 {
-  font-size  : 1rem;
+  color: var(--vampire-text-color);
+  -webkit-text-stroke: 0.15em var(--vampire-heading-stroke);
+  font-size: 1rem;
   font-family: var(--vampire-h5-font);
 }

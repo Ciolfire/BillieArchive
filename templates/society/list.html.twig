@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% set footer = true %}
+
+{% trans_default_domain 'society' %}
+
+{% block title %}{{ "label.multi"|trans }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="block py-3">
+      <h1 class="">{% include "_icon.html.twig" with {icon : "society", class: 'icon-lg' } only %}{{ "label.multi"|trans }}</h1>
+      <h2 class="">{{ chronicle.name }}</h2>
+      <div class="row">
+        {% for society in chronicle.societies %}
+          <div class="col-12 col-sm-6 col-lg-4 g-2">
+            {% include "society/_card.html.twig" %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center justify-content-center position-relative">
+    <a class="btn btn-primary " href="{{ path('society_chronicle_new', {'chronicle': chronicle.id }) }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'group' } only %}
+    </a>
+  </div>
+{% endblock %}

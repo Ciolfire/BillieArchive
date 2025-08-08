@@ -4,7 +4,12 @@
   {% else %}
     style="background-image:url({{ asset('SkullVTR.png', 'images') }});"
   {% endif %}
-{# {% elseif character.type == "mage" %} #}
+{% elseif character.type == "mage" %}
+  {% if character.path.rune is not null %}
+    style="background-image:url({{ asset(character.path.rune, 'paths_emblems') }});"
+  {% else %}
+    style="background-image:url({{ asset('SkullMTAw.webp', 'images') }});"
+  {% endif %}
 {% else %}
   style="background-image:none;"  
 {% endif %}

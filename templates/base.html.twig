@@ -10,10 +10,6 @@
     {% if setting is not defined %}
       {% set setting = "human" %}
     {% endif %}
-    {% block stylesheets %}
-      {# {{ encore_entry_link_tags(setting) }} #}
-      {# {{ encore_entry_link_tags('main') }} #}
-    {% endblock %}
 
     {% block javascripts %}
       {% block importmap %}
@@ -26,8 +22,6 @@
           {{ importmap('human') }} #}
         {% endif %}
       {% endblock %}
-      {# {{ encore_entry_script_tags(setting) }} #}
-      {# {{ encore_entry_script_tags('main') }} #}
     {% endblock %}
   </head>
   <body data-controller="{% block bodyController %}content{% endblock %}"{% block bodyData %}class="position-relative"{% endblock %}>
@@ -35,55 +29,17 @@
     {% if app.user %}
       {% include "header.html.twig" %}
     {% endif %}
-    <div class="toast-container fixed-bottom pe-3 pb-3">
-      {# <div class="toast toast-{{ label|default('notice') }}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-        <div class="toast-header">
-          <img src={{ asset('rabbit_move.gif', 'images') }} height="20" class="rounded me-2" alt="...">
-          <strong class="me-auto fw-bold">{{ label|default('label')|trans }}</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          {% if message|default(false) is iterable %}
-            {{ message[0]|trans(message[1]) }}
-          {% else %}
-            {{ message|default('message')|trans }}
-          {% endif %}
-        </div>
-      </div>
-      <div class="toast toast-{{ label|default('notice') }}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-        <div class="toast-header">
-          <img src={{ asset('rabbit_move.gif', 'images') }} height="20" class="rounded me-2" alt="...">
-          <strong class="me-auto fw-bold">{{ label|default('label')|trans }}</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          {% if message|default(false) is iterable %}
-            {{ message[0]|trans(message[1]) }}
-          {% else %}
-            {{ message|default('message')|trans }}
-          {% endif %}
-        </div>
-      </div> #}
-      {% for label, messages in app.flashes(['notice', 'success','warning', 'error']) %}
-        {% for message in messages %}
-          <div class="toast toast-{{ label }}" role="alert" aria-live="assertive" aria-atomic="true" {#data-bs-autohide="false"#}>
-            <div class="toast-header">
-              <img src={{ asset('rabbit_move.gif', 'images') }} height="20" class="rounded me-2" alt="...">
-              <strong class="me-auto fw-bold">{{ label|trans }}</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-              {% if message is iterable %}
-                {{ message[0]|trans(message[1]) }}
-              {% else %}
-                {{ message|trans }}
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      {% endfor %}
+    {% include "_toast.html.twig" %}
+
+    <div id="shortcuts" class="position-fixed sticky-bottom end-0 d-flex flex-column" style="bottom:3em">
+      {% block shortcuts %}
+        {% include "_back.html.twig" %}
+        {% include "_top.html.twig" %}
+      {% endblock %}
     </div>
+
     {% block body %}{% endblock %}
+
     {% if footer|default(false) %}
       {% block footer %}
         <footer class="container footer translate-middle-x">
@@ -116,6 +72,7 @@
         </footer>
       {% endblock %}
     {% endif %}
+
     <div id="rabbitBurrow">
       <div id="rabbit" class="rabbit"></div>
     </div>

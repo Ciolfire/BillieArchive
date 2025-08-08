@@ -9,7 +9,7 @@
   
   --vampire-btn-hover-bg                      : var(--vampire-main-75a);
   --vampire-btn-hover-color                   : var(--vampire-light);
-  --vampire-btn-hover-outline-color           : var(--vampire-main-dark-75a);
+  --vampire-btn-hover-outline-color           : var(--vampire-main-bright-75a);
   --vampire-btn-hover-shadow                  : var(--vampire-dark);
   --vampire-btn-hover-stroke                  : var(--vampire-dark);
   
@@ -20,9 +20,10 @@
   --vampire-btn-active-stroke                 : var(--vampire-main-dark);
 }
 
-.vampire .btn.btn-primary,
-.btn.btn-primary .btn-vampire,
-.btn.btn-primary.vampire {
+.vampire .btn, .ghoul .btn,
+.btn.btn-vampire, .btn.btn-ghoul,
+.vampire.btn, .ghoul.btn,
+.btn.btn-primary.vampire, .btn.btn-primary.ghoul {
   background-color: var(--vampire-btn-bg);
   color: var(--vampire-btn-color);
   font-weight: bold;

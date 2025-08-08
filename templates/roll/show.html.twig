@@ -4,9 +4,12 @@
 
 {% set first = true %}
 
-{% block body %}
+{% block shortcuts %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
   {% include "_top.html.twig" %}
+{% endblock %}
+
+{% block body %}
   {% include "roll/_element.html.twig" %}
 {% endblock %}
 

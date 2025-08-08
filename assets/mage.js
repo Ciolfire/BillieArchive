@@ -1,1 +1,1 @@
-import './styles/mage_override.css';
+import './styles/_mage_override.css';

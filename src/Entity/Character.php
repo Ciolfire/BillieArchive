@@ -505,7 +505,7 @@ class Character
       return $this->avatar;
     }
 
-    return "";
+    return "default.jpg";
   }
 
   public function setAvatar(?string $avatar): self
@@ -1510,6 +1510,14 @@ class Character
       if ($lesserTemplate === $template)
         $this->lesserTemplates->removeElement($lesserTemplate);
     }
+  }
+
+  public function isLesser() {
+    if ($this->getLesserTemplate()) {
+      return true;
+    }
+
+    return false;
   }
 
   /**

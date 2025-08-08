@@ -8,8 +8,11 @@
   data-controller="search" data-search-type-value="rule"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
+{% endblock %}
+
+{% block body %}
   <h1 class="py-3">{% include "_icon.html.twig" with {icon: "rule", class: 'icon-lg' } only %}
     <span>{{ 'label.multi'|trans({}, 'rule')}}</span>
   </h1>

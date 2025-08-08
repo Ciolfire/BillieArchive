@@ -47,6 +47,7 @@
   /* E Main */
 
   --blockquote-color          : var(--vampire-blockquote-color);
+  --blockquote-bg             : var(--vampire-blockquote-bg);
   --help-color                : var(--vampire-help-color);
   --label-color               : var(--vampire-label-color);
   --link-color                : var(--vampire-link-color);
@@ -104,7 +105,8 @@
   --label-font                : var(--vampire-label-font);
   /* E Form */
   /* S Heading */
-
+  --heading-color             : var(--vampire-heading-color);
+  --heading-stroke            : var(--vampire-heading-stroke);
   --h1-font                   : var(--vampire-h1-font);
   --h2-font                   : var(--vampire-h2-font);
   --h3-font                   : var(--vampire-h3-font);

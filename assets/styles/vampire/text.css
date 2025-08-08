@@ -6,8 +6,8 @@
   --vampire-text-shadow-color   : #000;
   --vampire-image-shadow        : rgb(43, 0, 0);
   
-  --vampire-blockquote          : var(--vampire-main-dark-75a);
+  --vampire-blockquote-bg       : var(--vampire-main-dark-75a);
+  --vampire-blockquote-color    : var(--vampire-main-light);
 
   --vampire-subtext-color       : #a1a5b9a1;
-
 }

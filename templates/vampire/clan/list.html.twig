@@ -23,13 +23,16 @@
   data-search-type-value="path"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% if chronicle|default(false) == false %}
-    {% include "_back.html.twig" %}
+    {{ parent() }}
   {% else %}
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
   {% endif %}
+{% endblock %}
 
+{% block body %}
   {% include "_title.html.twig" with {title: label|default("label.multi") , domain: "clan"} %}
 
   <div class="container-fluid block">
@@ -42,7 +45,11 @@
     <div class="row g-2 py-2">
       {% if clans is defined and clans is not empty %}
         {% for clan in clans|sort((a, b) => a.name|lower <=> b.name|lower) %}
-          {% include "vampire/clan/_card.html.twig" %}
+          {% if clans|length <= 5 %}
+            {% include "vampire/clan/_card.html.twig" with { hasFew : true} %}
+          {% else %}
+            {% include "vampire/clan/_card.html.twig" %}
+          {% endif %}
         {% endfor %}
       {% endif %}
       {% if bloodlines is defined %}
@@ -53,7 +60,11 @@
           </h1>
         {% endif %}
         {% for bloodline in bloodlines %}
-          {% include "vampire/clan/_card.html.twig" with {clan : bloodline} %}
+          {% if bloodlines|length <= 5 %}
+            {% include "vampire/clan/_card.html.twig" with { clan : bloodline, hasFew : true } %}
+          {% else %}
+            {% include "vampire/clan/_card.html.twig" with { clan : bloodline } %}
+          {% endif %}
         {% endfor %}
       {% endif %}
   </div>

@@ -2,10 +2,6 @@
 
 {% trans_default_domain 'character' %}
 
-{% block stylesheets %}
-  {{ parent() }}
-{% endblock %}
-
 {% block title %}{{ 'template.apply'|trans }}{% endblock %}
 
 
@@ -40,7 +36,7 @@
       {{ form_end(form) }}
     </div>
   </div>
-  {% include "_back.html.twig" %}
+  
 {% endblock %}
 
 

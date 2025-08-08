@@ -9,7 +9,7 @@
   
   --mage-btn-hover-bg                      : var(--mage-main-75a);
   --mage-btn-hover-color                   : var(--mage-light);
-  --mage-btn-hover-outline-color           : var(--mage-main-dark-75a);
+  --mage-btn-hover-outline-color           : var(--mage-main-bright-75a);
   --mage-btn-hover-shadow                  : var(--mage-dark);
   --mage-btn-hover-stroke                  : var(--mage-dark);
   
@@ -20,8 +20,9 @@
   --mage-btn-active-stroke                 : var(--mage-main-dark);
 }
 
-.mage .btn.btn-primary,
-.btn.btn-primary.btn-mage,
+.mage .btn,
+.mage.btn,
+.btn.btn-mage,
 .btn.btn-primary.mage {
   background-color: var(--mage-btn-bg);
   color: var(--mage-btn-color);

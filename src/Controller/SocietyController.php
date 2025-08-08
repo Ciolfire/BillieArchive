@@ -100,14 +100,19 @@ class SocietyController extends AbstractController
   }
 
   #[Route("{id<\d+>}", name: "society_show", methods: ["GET"])]
-  public function show(Society $society) : Response
+  public function show(Request $request, Society $society) : Response
   {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
     $setting = $society->getSetting();
     if (is_null($setting)) {
       $setting = 'human';
     }
 
-    return $this->render('society/show.html.twig', [
+    return $this->render("society/{$template}.html.twig", [
       'society' => $society,
       'setting' => $setting,
     ]);
@@ -133,7 +138,7 @@ class SocietyController extends AbstractController
   #[Route("chronicle/{id<\d+>}/", name: "chronicle_society_index", methods: ["GET"])]
   public function index(Chronicle $chronicle) : Response
   {
-    return $this->render('chronicle/societies/index.html.twig', [
+    return $this->render('society/list.html.twig', [
       'chronicle' => $chronicle,
       'setting' => $chronicle->getType(),
     ]);

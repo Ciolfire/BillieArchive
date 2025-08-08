@@ -26,7 +26,7 @@
           {% else %}
             <li class="nav-item justify-content-center d-none d-lg-flex">
               <a class="nav-link px-1" href="{{ path('character_show', {id: character.id}) }}" style="padding:1px;">
-                <img class="nav-link {{ character.type }} btn btn-secondary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
+                <img class="nav-link {{ character.type }} {% if character.isLesser %}lesser{% endif %} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" height="40" width="40">
               </a>
             </li>
           {% endif %}

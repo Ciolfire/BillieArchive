@@ -18,13 +18,15 @@
   data-search-type-value="devotion"
 {% endblock %}
 
-{% block body %}
+{% block shortcuts %}
   {% if chronicle|default(false) == false %}
-    {% include "_back.html.twig" %}
+    
   {% else %}
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
+{% endblock %}
 
+{% block body %}
   {% include "_title.html.twig" with {icon: "devotion", title: "devotion.label.multi", domain: "discipline"} %}
 
   <div class="container block">

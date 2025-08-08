@@ -24,12 +24,6 @@
   .text {
     font-family: var(--vampire-text-font);
   }
-
-  .fluff,
-  blockquote {
-    color: var(--vampire-text-bright-color);
-    background-color: var(--vampire-block-dark-bg);
-  }
 }
 
 .discipline-new-block {

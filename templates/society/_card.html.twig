@@ -1,0 +1,37 @@
+{% trans_default_domain 'society' %}
+
+
+{% extends "_simple_card.html.twig" %}
+
+{% block data %}
+  data-content-name-param="{{ society.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ link|default(path('society_show', {id: society.id})) }}"
+{% endblock %}
+
+{% block content %}
+  <div class="w-100 {{ society.setting|default("human") }}">
+    <h4 class="">
+      {{ society.name }}
+      {% if society.organization.emblem|default(false) %}
+        <span class="icon"><img src="{{ asset(society.organization.emblem, 'organizations_emblems') }}"></span>
+      {% endif %}
+    </h4>
+    <h5>
+      {% if society.type %}
+        <span class="">
+          {% include "_icon.html.twig" with {icon : society.type, class: 'accent' } only %}
+          {{ ('type.' ~ society.type)|trans }}
+          —
+        </span>
+      {% endif %}
+      {% include "_icon.html.twig" with {icon : 'person', class: 'icon-sm' } only %}
+      <span class="accent">{{ society.characters|length }}</span>
+    </h5>
+
+    <div class="text-strong">{{ society.description }}</div>
+    {% for character in society.characters %}
+      <img class="character-icon" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+    {% endfor %}
+  </div>
+{% endblock %}
