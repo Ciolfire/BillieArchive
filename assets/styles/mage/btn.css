@@ -1,5 +1,5 @@
 :root {
-  --mage-btn-focus-outline-color           : var(--mage-main-bright);
+  --mage-btn-focus-outline-color           : var(--mage-main);
   /* Primary */
   --mage-btn-bg                            : var(--mage-main-bg-75a);
   --mage-btn-color                         : var(--mage-accent-bright);
@@ -8,7 +8,7 @@
   --mage-btn-stroke                        : var(--mage-dark);
   
   --mage-btn-hover-bg                      : var(--mage-main-75a);
-  --mage-btn-hover-color                   : var(--mage-light);
+  --mage-btn-hover-color                   : var(--mage-accent);
   --mage-btn-hover-outline-color           : var(--mage-main-bright-75a);
   --mage-btn-hover-shadow                  : var(--mage-dark);
   --mage-btn-hover-stroke                  : var(--mage-dark);

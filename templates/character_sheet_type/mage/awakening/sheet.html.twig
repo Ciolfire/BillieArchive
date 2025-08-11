@@ -6,6 +6,11 @@
 
 {% block title %}{{ 'awakening.label'|trans }}{% endblock %}
 
+{% block shortcuts %}
+  {% include "_back.html.twig" with {link: path('character_show', {id: character.id})} %}
+  {% include "_top.html.twig" %}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-3 mt-5">
     <h1>{{ character.name }} {{ "awakening.title"|trans }}</h1>
@@ -22,7 +27,7 @@
         {{ "awakening.save"|trans }}
       </button>
     </div>
+    {{ form_rest(form) }}
     {{ form_end(form) }}
   </div>
-  {% include "_back.html.twig" with {link: path('character_show', {id: character.id})} %}
   {% endblock %}

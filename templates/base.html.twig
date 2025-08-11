@@ -42,7 +42,8 @@
 
     {% if footer|default(false) %}
       {% block footer %}
-        <footer class="container footer translate-middle-x">
+        <footer class="footer w-100">
+          <div class="container">
           <div class="row mb-0">
             {% if hasExtraContent|default(false) %}
               <div class="col-12">
@@ -68,6 +69,7 @@
                 <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
               </div>
             {% endblock %}
+          </div>
           </div>
         </footer>
       {% endblock %}

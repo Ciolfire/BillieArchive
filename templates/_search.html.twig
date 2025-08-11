@@ -1,4 +1,6 @@
-<span class="search-icon text-bright">
-  {% include "_icon.html.twig" with  {icon: 'search', label:false} %}
-</span>
-<input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+<div class="col-12 col-md-auto d-flex justify-content-center mb-1 align-items-center">
+  <span class="search-icon">
+    {% include "_icon.html.twig" with  {icon: 'search', label:false} %}
+  </span>
+  <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+</div>

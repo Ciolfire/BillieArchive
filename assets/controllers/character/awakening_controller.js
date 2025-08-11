@@ -27,7 +27,7 @@ export default class extends Controller {
     orderNull.checked = true;
     orderNull.dataset.action = "click->character--awakening#orderUnpicked";
     this.pathTargets.forEach(path => {
-      if (path.previousSibling.checked) {
+      if (path.previousElementSibling.checked) {
         path.dispatchEvent(new Event("click"));
       }
     });
@@ -74,7 +74,7 @@ export default class extends Controller {
     }
     this.arcanaOthersTarget.innerText = oSum;
     this.arcanaOthersTarget.classList.add("ko");
-    if ((other.length > 0 && other.length < 3) && (oSum > 0 && oSum < 4)) {
+    if ((ruling.some((arcanum) => arcanum == 3) && other.length == 1 || !ruling.some((arcanum) => arcanum == 3) && other.length >= 1 && other.length <= 2) && (oSum >= 1 && oSum <= 3)) {
       this.arcanaOthersTarget.classList.remove("ko");
       othersValid = true;
     }
@@ -186,8 +186,6 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
-    if (document.forms['awakening_form'].checkValidity()) {
-      document.forms['awakening_form'].submit();
-    }
+    console.debug("cleaned");
   }
 }

@@ -26,7 +26,8 @@ export default class extends Controller {
     covenantNull.checked = true;
     covenantNull.dataset.action = "click->character--embrace#covenantUnpicked";
     this.clanTargets.forEach(clan => {
-      if (clan.previousSibling.checked) {
+      if (clan.previousElementSibling.checked) {
+        console.debug(clan.dataset.clan);
         clan.dispatchEvent(new Event("click"));
       }
     });
@@ -161,8 +162,6 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
-    if (document.forms['embrace'].checkValidity()) {
-      document.forms['embrace'].submit();
-    }
+    console.debug("cleaned");
   }
 }

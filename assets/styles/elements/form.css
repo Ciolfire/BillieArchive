@@ -32,7 +32,7 @@ input[type=number] {
   background-color: var(--input-bg);
 
   &:focus {
-    color           : var(--main-bright-color);
+    color           : var(--main-bright);
     background-color: var(--input-active-bg);
     box-shadow      : var(--main) 0px 0px 4px 1px;
   }

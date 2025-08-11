@@ -8,6 +8,11 @@
 
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
+{% block shortcuts %}
+  {% include "_back_entity.html.twig" with {name: 'vampire_clan'} %}
+  {% include "_top.html.twig" %}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
     {% if is_granted('ROLE_ST') %}
@@ -15,6 +20,5 @@
     {% endif %}
 
     {% include "vampire/clan/_show.html.twig" with {clan : clan, isModal: 0} %}
-    {% include "_back_entity.html.twig" with {name: 'vampire_clan'} %}
   </div>
 {% endblock %}

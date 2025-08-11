@@ -103,13 +103,15 @@ body {
 
 footer.footer {
   position: fixed;
-  left: 50%;
   bottom: 0;
-  background-color: var(--footer-bg);
-  outline: 1px solid var(--outline);
-  border-bottom-width: 0px;
-  padding: 3px;
-  padding-top: 5px;
+  
+  & > .container {
+    padding: 3px;
+    padding-top: 5px;
+    background-color: var(--footer-bg);
+    border: 1px solid var(--border);
+    border-bottom-width: 0px;
+  }
 
   #expand_btn {
   display: flex;
@@ -227,7 +229,7 @@ footer.footer {
 }
 
 .search-icon {
-  color: var(--main-dark);
+  color: var(--main-bg);
   background: var(--main);
   border-radius: 50% 0% 0% 50%;
   border: 2px solid var(--main);
@@ -245,11 +247,10 @@ footer.footer {
 .search-field {
   z-index: 1;
   margin-left: -1px;
-  border-color: var(--border);
-  background-color: var(--input-back-color);
-  color: var(--main);
+  background-color: var(--input-bg);
+  color: var(--text-color);
   line-height: 1.4em;
-  border-color: var(--main);
+  border-color: var(--border);
 }
 
 .sticky-element {

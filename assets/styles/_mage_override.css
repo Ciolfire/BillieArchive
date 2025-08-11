@@ -66,25 +66,25 @@
   --block-outline-color       : var(--mage-block-outline-color);
   /* E Block */
   /* S Btn */
-  --btn-focus-outline-color           : var(--mage-btn-focus-outline-color);
+  --btn-focus-outline-color   : var(--mage-btn-focus-outline-color);
   /* Primary */
-  --btn-bg                            : var(--mage-btn-bg);
-  --btn-color                         : var(--mage-btn-color);
-  --btn-outline-color                 : var(--mage-btn-outline-color);
-  --btn-shadow                        : var(--mage-btn-shadow);
-  --btn-stroke                        : var(--mage-btn-stroke);
+  --btn-bg                    : var(--mage-btn-bg);
+  --btn-color                 : var(--mage-btn-color);
+  --btn-outline-color         : var(--mage-btn-outline-color);
+  --btn-shadow                : var(--mage-btn-shadow);
+  --btn-stroke                : var(--mage-btn-stroke);
   
-  --btn-hover-bg                      : var(--mage-btn-hover-bg);
-  --btn-hover-color                   : var(--mage-btn-hover-color);
-  --btn-hover-outline-color           : var(--mage-btn-hover-outline-color);
-  --btn-hover-shadow                  : var(--mage-btn-hover-shadow);
-  --btn-hover-stroke                  : var(--mage-btn-hover-stroke);
+  --btn-hover-bg              : var(--mage-btn-hover-bg);
+  --btn-hover-color           : var(--mage-btn-hover-color);
+  --btn-hover-outline-color   : var(--mage-btn-hover-outline-color);
+  --btn-hover-shadow          : var(--mage-btn-hover-shadow);
+  --btn-hover-stroke          : var(--mage-btn-hover-stroke);
   
-  --btn-active-bg                     : var(--mage-btn-active-bg);
-  --btn-active-color                  : var(--mage-btn-active-color);
-  --btn-active-outline-color          : var(--mage-btn-active-outline-color);
-  --btn-active-shadow                 : var(--mage-btn-active-shadow);
-  --btn-active-stroke                 : var(--mage-btn-active-stroke);
+  --btn-active-bg             : var(--mage-btn-active-bg);
+  --btn-active-color          : var(--mage-btn-active-color);
+  --btn-active-outline-color  : var(--mage-btn-active-outline-color);
+  --btn-active-shadow         : var(--mage-btn-active-shadow);
+  --btn-active-stroke         : var(--mage-btn-active-stroke);
   /* E Btn */
   /* S Fonts */
   --main-font                 :var(--mage-main-font);
