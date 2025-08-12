@@ -1,7 +1,16 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+  # form:
+  #   csrf_protection:
+  #     enabled: true
+  #     field_name: '_csrf_token'
+  #     token_id: 'submit'
+
   secret: '%env(APP_SECRET)%'
-  csrf_protection: true
+  csrf_protection: false
+  # csrf_protection:
+    # check_header: 2
+    # stateless_token_ids: ['submit', 'authenticate', 'logout']
   http_method_override: false
 
   # Enables session support. Note that the session will ONLY be started if you read or write from it.
