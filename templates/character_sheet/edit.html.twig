@@ -76,6 +76,13 @@
       {% block special %}{% endblock %}
     </div>
   </div>
+
+    <div class="text-center fixed-bottom">
+      <button class="btn btn-primary btn-submit" type="submit" data-action="click->character--edit#clean">
+        {% include "_icon.html.twig" with {icon: 'save'} only %}
+      </button>
+    </div>
+
   {% block modals %}
     {# Merit #}
     {% include "character_sheet/modals/merit_show.html.twig" %}

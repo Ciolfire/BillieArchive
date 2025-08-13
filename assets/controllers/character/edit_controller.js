@@ -12,6 +12,7 @@ export default class extends Controller
     "xpLogs",
     "ritualInput",
     "input",
+    "isFree",
   ];
   static values = {
     type: String,
@@ -134,6 +135,20 @@ export default class extends Controller
     if (this.hasDevotionInputTarget) {
       // TODO Check the prerequisite for devotions, to filter based on prerequisite
       // this.dispatch("change", { detail: { type: 'devotion', target: null } });
+    }
+
+    // Check if is free is checked
+    this.displayFree();
+  }
+
+    displayFree() {
+    // console.debug(this.isFreeTarget, this.isFreeTarget.checked);
+    if (this.isFreeTarget.checked) {
+      document.getElementById("payIcon").classList.add("d-none");
+      document.getElementById("freeIcon").classList.remove("d-none");
+    } else {
+      document.getElementById("freeIcon").classList.add("d-none");
+      document.getElementById("payIcon").classList.remove("d-none");
     }
   }
 
@@ -541,15 +556,20 @@ export default class extends Controller
   cleanSpecialty(id, entry)
   {
     if (entry.type == "specialty") {
-      let specialty = document.getElementById(id).getElementsByTagName("input")[0];
-      if (specialty.value != "") {
-        entry.info.name = specialty.value;
+      if (document.getElementById(id)) {
+        let specialty = document.getElementById(id).getElementsByTagName("input")[0];
+
+        if (specialty.value != "") {
+          entry.info.name = specialty.value;
+        } else {
+          delete this.spendInfoValue[id];
+          specialty.parentNode.removeChild(specialty);
+        }
+  
+        return true;
       } else {
         delete this.spendInfoValue[id];
-        specialty.parentNode.removeChild(specialty);
       }
-
-      return true;
     }
     return false;
   }
@@ -604,7 +624,6 @@ export default class extends Controller
     this.removeElements('arcanum');
     this.removeElements('rote');
     this.xpLogsTarget.value =  JSON.stringify(Object.assign({}, this.spendInfoValue));
-    // console.log(document.forms);
-    document.forms['character_form'].submit();
+    // console.debug(document.forms);
   }
 }

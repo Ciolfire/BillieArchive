@@ -2,19 +2,18 @@
 
 <div id="menu" class="row position-sticky pb-2">
   <div class="row text-center text g-0">
-    <div class="col-3">
-      <button class="btn btn-sm btn-menu btn-primary w-100" type="button" data-action="click->character--edit#clean">
-        {% include "_icon.html.twig" with {icon: 'save'} only %}
-      </button>
-    </div>
     <div class="col-2 px-0">
-      <input id="is_free" type="checkbox" class="btn-check" name="{{ form.vars.name }}[isFree]">
+      <input id="is_free" type="checkbox" class="btn-check" name="{{ form.vars.name }}[isFree]" data-character--edit-target="isFree" data-action="click->character--edit#displayFree">
       <label class="btn btn-sm btn-warning w-100" for="is_free" role="button">
         {% include "_icon.html.twig" with {icon: 'free'} only %}
-        <span class="d-none d-md-inline text-sub">{{ "xp.free"|trans }}</span>
+        <span class="d-none d-md-inline text-sub">
+          {{ "xp.free"|trans }}
+          <span id="payIcon">{% include "_icon.html.twig" with { icon: 'button'} %}</span>
+          <span id="freeIcon" class="d-none">{% include "_icon.html.twig" with { icon: 'confirmed'} %}</span>
+        </span>
       </label>
     </div>
-    <div class="col-5">
+    <div class="col">
       <input value="0" type="hidden" name="{{ form.vars.name }}[xp][spend]" data-character--edit-target="spend">
       <div class="w-100 block">
         <div class="d-flex flex-row justify-content-center btn btn-menu btn-primary btn-sm w-100" data-bs-toggle="collapse" role="button" data-bs-target=".usingInfo">

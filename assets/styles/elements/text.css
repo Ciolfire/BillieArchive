@@ -27,8 +27,16 @@
   color: #ffe271;
 }
 
+.valid {
+  color: var(--main);
+}
+
 .warning {
   color: var(--warning);
+}
+
+.danger {
+  color: var(--danger);
 }
 
 .error {

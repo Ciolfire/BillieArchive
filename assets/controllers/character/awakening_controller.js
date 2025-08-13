@@ -180,7 +180,7 @@ export default class extends Controller {
     target.classList.add(show);
   }
 
-  clean(event) {
+  clean() {
     this.arcanumValueTargets.forEach(element => {
       if (element.value == 0) {
         element.setAttribute('name', '');

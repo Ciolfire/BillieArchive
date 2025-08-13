@@ -7,7 +7,7 @@ framework:
   #     token_id: 'submit'
 
   secret: '%env(APP_SECRET)%'
-  csrf_protection: false
+  csrf_protection: true
   # csrf_protection:
     # check_header: 2
     # stateless_token_ids: ['submit', 'authenticate', 'logout']
