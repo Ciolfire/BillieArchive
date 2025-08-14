@@ -1,5 +1,6 @@
 :root {
   --item-bg                   : var(--block-light-bg-25a);
+  --item-header-bg            : var(--block-dark-bg);
 }
 
 .item-card .block {
@@ -18,8 +19,8 @@
   margin: 1px;
   background-color: var(--item-bg);
 
-  .item-header {
-    margin: 1px;
-    background-color: var(--item-bg);
-  }
+}
+.item-detail-header {
+  margin: 1px;
+  background-color: var(--item-header-bg);
 }

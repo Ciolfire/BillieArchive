@@ -16,9 +16,6 @@
   .discipline-header {
     background-color: var(--discipline-header-bg);
     border: none;
-    h2 {
-      -webkit-text-stroke-color: var(--discipline-header-color);
-    }
   }
 
   .text {
