@@ -1,45 +1,81 @@
 {% trans_default_domain 'chronicle' %}
 
-<div data-controller="search" data-search-type-value="character">
-    <div class="col text-center py-2 sticky-element">
+<div class="container" data-controller="search" data-search-type-value="character">
+  <div class="row g-2 pb-2" data-order-target="container">
+    <div class="col-12 text-center py-2 sticky-element">
       {% include "_icon.html.twig" with {icon : 'search' } only %}
       <input type="text" class="search-field text-strong rounded" data-search-target="query" data-action="search#getResults"/>
     </div>
-    <div class="row" data-order-target="container">
-      {% if app.user == chronicle.storyteller %}
-        <h1>{{ "item.group"|trans }}</h1>
-        {% for character in chronicle.playerCharacters %}
-          {% if character.items is not empty %}
-              <a href="{{ path('character_show', { id: character.id, _fragment: 'inventory' }) }}">
-                <div class="position-relative text-center"><img class="bdr rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50"></div>
-                <h2>{{ character.name }}</h2>
-              </a>
-          {% endif %}
-          {% for item in character.items %}
-            {% include 'item/_list_item.html.twig' with { item: item } only %}
-          {% endfor %}
+    {% if app.user == chronicle.storyteller %}
+      <h1>{{ "item.group"|trans }}</h1>
+      {% for character in chronicle.playerCharacters %}
+        {% if character.items is not empty %}
+            <a href="{{ path('character_show', { id: character.id, _fragment: 'inventory' }) }}">
+              <div class="position-relative text-center"><img class="bdr rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50"></div>
+              <h2>{{ character.name }}</h2>
+            </a>
+        {% endif %}
+        {% for item in character.items %}
+          <div class="col-2">
+            {% include 'item/_list_card.html.twig' with { item: item } only %}
+          </div>
         {% endfor %}
-        <h1>{{ "item.npc"|trans }}</h1>
-        {% for character in chronicle.npc %}
-          {% if character.items is not empty %}
-              <a href="{{ path('character_show', { id: character.id, _fragment: 'inventory' }) }}">
-                <div class="position-relative text-center"><img class="bdr rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50"></div>
-                <h2>{{ character.name }}</h2>
-              </a>
-          {% endif %}
-          {% for item in character.items %}
-            {% include 'item/_list_item.html.twig' with { item: item } only %}
-          {% endfor %}
+      {% endfor %}
+      <h1>{{ "item.npc"|trans }}</h1>
+      {% for character in chronicle.npc %}
+        {% if character.items is not empty %}
+            <a href="{{ path('character_show', { id: character.id, _fragment: 'inventory' }) }}">
+              <div class="position-relative text-center"><img class="bdr rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50"></div>
+              <h2>{{ character.name }}</h2>
+            </a>
+        {% endif %}
+        {% for item in character.items %}
+          <div class="col-2">
+            {% include 'item/_list_card.html.twig' with { item: item } only %}
+          </div>
         {% endfor %}
-        <h1>{{ "item.unowned"|trans }}</h1>
-        {% for item in chronicle.items %}
-            {% include 'item/_list_item.html.twig' with { item: item } only %}
+      {% endfor %}
+      <h1>{{ "item.unowned"|trans }}</h1>
+      {% for item in chronicle.items %}
+          <div class="col-2">
+            {% include 'item/_list_card.html.twig' with { item: item } only %}
+          </div>
+      {% endfor %}
+    {% else %}
+      {# Player page #}
+      {# Character items #}
+      {% set character = chronicle.character(app.user) %}
+        {% for item in character.items %}
+          <div class="col-2">
+            {% include 'item/_list_card.html.twig' with { item: item } only %}
+          </div>
         {% endfor %}
-      {% else %}
-        {% set character = chronicle.character(app.user) %}
-          {% for item in character.items %}
-            {% include 'item/_list_item.html.twig' with { item: item } only %}
+      {% for peekingRight in character.peekingRights %}
+        {% set current = peekingRight.target %}
+        {% if current.items is not empty and current.hasSharedItem %}
+          {# Known characters, known items #}
+          <a href="{{ path('character_peek', { id: current.id, peeker: character.id }) }}">
+            <div class="position-relative text-center"><img class="bdr rounded" src="{{ asset(current.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50"></div>
+            <h2>{{ current.name }}</h2>
+          </a>
+          {% for item in peekingRight.target.items %}
+            {% if item.isShared or (item.container and item.container.isShared) %}
+              <div class="col-2">
+                {% include 'item/_list_card.html.twig' with { item: item } only %}
+              </div>
+            {% endif %}
           {% endfor %}
-      {% endif %}
-    </div>
+        {% endif %}
+      {% endfor %}
+      <h2>{{ "item.unowned"|trans }}</h2>
+      {% for item in chronicle.items %}
+        {# Not owned items, known #}
+        {% if item.isShared %}
+          <div class="col-2">
+            {% include 'item/_list_card.html.twig' with { item: item } only %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>

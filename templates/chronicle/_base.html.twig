@@ -2,50 +2,50 @@
 
 {% set character = chronicle.character(app.user) %}
 <div class="row">
-	<h3>{{ chronicle.name }}</h3>
-	{% if character is not null %}
-		<div class="col-12">
-			<div class="w-50 m-auto h-100 py-1">
-				<a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
-					<div class="character-frame character-frame-list position-relative text-center mb-2 rounded">
-						<img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-					</div>
-					{{ character.name }}
-				</a>
-			</div>
-		</div>
-	{% else %}
-		<div class="col-12">
-			<a class="btn btn-primary w-100" href="{{path('character_new', {'chronicle': chronicle.id })}}">
-				{% include "_icon.html.twig" with {icon: 'add' } only %}
-				{{ "pc.new"|trans({}, 'character') }}
-			</a>
-		</div>
-	{% endif %}
+  <h3>{{ chronicle.name }}</h3>
+  {% if character is not null %}
+    <div class="col-12">
+      <div class="w-50 m-auto h-100 py-1">
+        <a class="{{ character.type }} btn btn-primary w-100 h-100 back-img" {% include 'character/_back.html.twig' %} href="{{path('character_show', {'id': character.id })}}">
+          <div class="character-frame character-frame-list position-relative text-center mb-2 rounded">
+            <img class="p-1 rounded" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
+          </div>
+          {{ character.name }}
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <div class="col-12">
+      <a class="btn btn-primary w-100" href="{{path('character_new', {'chronicle': chronicle.id })}}">
+        {% include "_icon.html.twig" with {icon: 'add' } only %}
+        {{ "pc.new"|trans({}, 'character') }}
+      </a>
+    </div>
+  {% endif %}
 </div>
 <div class="row g-2 pb-1">
-	<div class="col-6">
-		<a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">
-			{% include "_icon.html.twig" with {icon: 'party' } only %}
-			{{ 'party.label'|trans }}
-		</a>
-	</div>
-	<div class="col-6">
-		<a class="btn btn-primary w-100" href="{{path('chronicle_notes', {'id': chronicle.id })}}">
-			{% include "_icon.html.twig" with {icon: 'note' } only %}
-			{{ "label.multi"|trans({}, 'note') }}
-		</a>
-	</div>
-	<div class="col-6">
-		<a class="btn btn-primary w-100 text-truncate" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
-			{% include "_icon.html.twig" with {icon: 'homebrew' } only %}
-			{{ "homebrew.label"|trans }}
-		</a>
-	</div>
-	<div class="col-6">
-		<a class="btn btn-primary w-100" href="{{ path('chronicle_infos_index', {'id': chronicle.id}) }}">
-			{% include "_icon.html.twig" with {icon: 'details' } only %}
-			{{ "infos"|trans }}
-		</a>
-	</div>
+  <div class="col-6">
+    <a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">
+      {% include "_icon.html.twig" with {icon: 'party' } only %}
+      {{ 'party.label'|trans }}
+    </a>
+  </div>
+  <div class="col-6">
+    <a class="btn btn-primary w-100" href="{{path('chronicle_notes', {'id': chronicle.id })}}">
+      {% include "_icon.html.twig" with {icon: 'note' } only %}
+      {{ "label.multi"|trans({}, 'note') }}
+    </a>
+  </div>
+  <div class="col-6">
+    <a class="btn btn-primary w-100 text-truncate" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'homebrew' } only %}
+      {{ "homebrew.label"|trans }}
+    </a>
+  </div>
+  <div class="col-6">
+    <a class="btn btn-primary w-100" href="{{ path('chronicle_infos_index', {'id': chronicle.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'details' } only %}
+      {{ "infos"|trans }}
+    </a>
+  </div>
 </div>

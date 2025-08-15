@@ -66,6 +66,7 @@ maxSpeed:
 # Weapon
 damage:
   label: Dégâts
+  type.label: Type de dégâts
 ranges:
   label: Portées
 clip:
@@ -89,7 +90,7 @@ help:
 
 modal:
   move:
-    title: Déplacer cet objet dans un autre contenant
+    title: Déplacer cet objet dans un autre Contenant ou le donner à un autre Personnage
     container: Selectionnez un contenant
     empty: Aucun contenant
   drop:

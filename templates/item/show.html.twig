@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <div class="container block py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('item_edit', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+
+    {% include "item/_show.html.twig" %}
+  </div>
+{% endblock %}

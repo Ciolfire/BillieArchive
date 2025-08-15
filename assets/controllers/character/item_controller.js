@@ -9,12 +9,10 @@ export default class extends Controller {
   }
 
   connect() {
-    // this.update();
   }
 
   prepare(event) {
-    let params = event.params;
-    this.idValue = params.id;
+    this.idValue = event.params.id;
   }
 
   reset(event) {
@@ -48,6 +46,7 @@ export default class extends Controller {
 
     })
     .then(() => {
+      console.debug(this.idValue, this.choiceContainerTarget.value);
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
       if (type == "character") {
         target.remove();
@@ -101,6 +100,34 @@ export default class extends Controller {
       target.parentElement.remove();
       this.closeDropTarget.click();
     });
+  }
+
+  share(event) {
+    let target = event.currentTarget;
+    this.idValue = event.params.id;
+
+    window
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/share/switch`, {
+      headers: {
+        "Content-Type": "application/json",
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      method: "POST"
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      if (data.shared) {
+        target.classList.add("active");
+      } else {
+        target.classList.remove("active");
+      }
+    })
   }
 
   save(action) {

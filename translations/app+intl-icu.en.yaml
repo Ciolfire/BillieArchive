@@ -62,6 +62,15 @@ category:
 choice:
   label: Choice identifier
 
+damage:
+  bashing: Bashing
+  lethal: Lethal
+  aggravated: Aggravated
+  short:
+    bashing: B
+    lethal: L
+    aggravated: A
+
 help:
   action: Instant or extended.
   choice: Choice index (X or Y or ...)

@@ -8,21 +8,39 @@
 
 {% set cost = {'cost': 'cost'} %}
 
-<div id="Item{{ item.id }}" class="item-card {% block class %}{% endblock %}"
-  data-character--item-target="item" data-search-target="item" data-id="{{ item.id }}" data-name="{{ item.name }}" data-type="{{ item.typeName }}"
+<div class="{% block class %}col-12 col-md-6 col-xl-4 text-center text-md-start d-flex flex-column{% endblock %}" 
+  data-search-target="item"
+  data-name="{{ item.name ~ " " ~ item.description }}"
+  data-cost="{{ item.cost|join('|') }}"
+  data-type="{{ item.typeName }}"
+  {% block extraData %}{% endblock %}
 >
-  <div class="block p-1">
-    <h5 class="text-strong">
-      {{ item.name }}
-      {% include "_icon.html.twig" with {icon: item.typeName} %}
-      {% if item.isContainer %}
-        {% include "_icon.html.twig" with {icon: 'container', class: 'accent'} %}
-      {% endif %}
-      {% if item.homebrewFor is not null %}
-        {% include "_icon.html.twig" with {icon: 'homebrew', class: 'accent'} %}
-      {% endif %}
-    </h5>
-    <div class="item-preview text-strong text-center" data-bs-toggle="modal" data-bs-target="#{{item.id}}Modal" role="button">
+  <div class="p-2 outline card-content rounded bdr d-flex flex-column flex-grow-1"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ item.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('item_show', {id: item.id})) }}"
+  >
+    <div class="row flex-grow-1 g-0">
+      <div class="col-auto">
+      </div>
+      <div class="col text-strong text-center">
+        {{ item.name }}
+      </div>
+      <div class="col-auto text-end">
+        {% include "_icon.html.twig" with {icon: item.typeName} only %}
+        {% if item.isContainer %}
+          {% include "_icon.html.twig" with {icon: 'container', class: 'accent'} only %}
+        {% endif %}
+        {% if item.homebrewFor is not null %}
+          {% include "_icon.html.twig" with {icon: 'homebrew', class: 'accent'} only %}
+        {% endif %}
+        {# {% include "_icon.html.twig" with { icon: "skills/#{item.skill.identifier}" } %} #}
+      </div>
+    </div>
+
+    <div class="row item-preview text-strong text-center">
       {% if item.img is not null %}
         <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
       {% elseif item.isContainer %}
@@ -31,8 +49,18 @@
         {% include "_icon.html.twig" with {icon: item.typeName, class: 'mx-auto d-block icon-100'} %}
       {% endif %}
     </div>
-    <div>
+    <div class="row">
+      {# skill #}
+      <div class="col text-strong text-center">
+        {# {% include "_icon.html.twig" with { icon: "skills/#{item.skill.identifier}" } %} #}
+      </div>
+      {# description #}
+      {# <div class="col-12 text">{{ item.description }}</div> #}
       {% include "item/card/" ~ item.typeName ~".html.twig" ignore missing %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       {% block actions %}{% endblock %}
     </div>
   </div>

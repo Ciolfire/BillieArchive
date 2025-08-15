@@ -32,7 +32,7 @@ class ItemController extends AbstractController
   public function index(): Response
   {
 
-    return $this->render('item/index.html.twig', [
+    return $this->render('item/list.html.twig', [
       'items' => $this->service->getItemList(),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'items']),
     ]);
@@ -42,9 +42,23 @@ class ItemController extends AbstractController
   public function list(?string $filter = null, ?int $id = null) : Response
   {
 
-    return $this->render('item/index.html.twig', [
+    return $this->render('item/list.html.twig', [
       'items' => $this->dataService->getList($filter, $id, Item::class, "getItems"),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'item']),
+    ]);
+  }
+
+    #[Route("item/{id<\d+>}", name:"item_show", methods: ['GET'])]
+  public function itemShow(Request $request, Item $item): Response
+  {
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+    
+    return $this->render("item/$template.html.twig", [
+      'item' => $item,
+      'entity' => 'clan',
     ]);
   }
 
@@ -224,6 +238,22 @@ class ItemController extends AbstractController
       }
 
       return new JsonResponse('ok');
+    } else {
+
+      return $this->redirectToRoute('index');
+    }
+  }
+
+  #[Route('item/{item<\d+>}/share/switch', name: 'item_share_switch', methods: ['POST'])]
+  public function shareSwitchItem(Request $request, Item $item): JsonResponse|RedirectResponse
+  {
+    $this->denyAccessUnlessGranted('edit', $item->getOwner());
+
+    if ($request->isXmlHttpRequest()) {
+      $item->setIsShared(!$item->isShared());
+      $this->dataService->flush();
+      
+      return new JsonResponse(['shared' => $item->isShared()]);
     } else {
 
       return $this->redirectToRoute('index');

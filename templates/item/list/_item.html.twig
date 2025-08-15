@@ -10,6 +10,6 @@
 
 {% set cost = {'cost': 'cost'} %}
 
-{% include ["item/list/" ~ item.typeName ~".html.twig", "item/info-table.html.twig"] ignore missing %}
+{% include ["item/list/#{item.typeName}.html.twig", "item/_table.html.twig"] ignore missing %}
 
-{% include "item/info-table.html.twig" with {cols: cost, special: {cost: 'dot'}} %}
+{% include "item/_table.html.twig" with {cols: cost, special: {cost: 'dot'}} %}

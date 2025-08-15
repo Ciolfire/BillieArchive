@@ -8,7 +8,8 @@ use App\Entity\Item\Equipment;
 use App\Entity\Item\RangedWeapon;
 use App\Entity\Item\Vehicle;
 use App\Entity\Item\Weapon;
-use App\Form\ItemForm;
+use App\Entity\Traits\Status;
+use App\Form\Item\ItemForm;
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,12 +20,23 @@ use Doctrine\ORM\Mapping as ORM;
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
-#[ORM\DiscriminatorMap(["item" => Item::class, "equipment" => Equipment::class, "vehicle" => Vehicle::class, "ranged" => RangedWeapon::class, "melee" => Weapon::class])]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "items"), new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "items")])]
+#[ORM\DiscriminatorMap([
+  "item" => Item::class,
+  "equipment" => Equipment::class,
+  "vehicle" => Vehicle::class,
+  "ranged" => RangedWeapon::class,
+  "melee" => Weapon::class
+])]
+#[ORM\AssociationOverrides([
+  new ORM\AssociationOverride(name: "book", inversedBy: "items"),
+  new ORM\AssociationOverride(name: "homebrewFor", inversedBy: "items"),
+  // new ORM\AssociationOverride(name: "statusEffect", inversedBy: "items")
+])]
 class Item
 {
   use Sourcable;
   use Homebrewable;
+  use Status;
 
   const TYPELIST = [
     0 => 'item',
@@ -74,9 +86,13 @@ class Item
   #[ORM\OrderBy(["isContainer" => "DESC", "name" => "ASC"])]
   private Collection $containedItems;
 
+  #[ORM\Column(nullable: true)]
+  private ?bool $isShared = null;
+
   public function __construct()
   {
-      $this->containedItems = new ArrayCollection();
+    $this->containedItems = new ArrayCollection();
+    $this->statusEffects = new ArrayCollection();
   }
 
   public function __toString()
@@ -167,31 +183,31 @@ class Item
 
   public function getImg(): ?string
   {
-      return $this->img;
+    return $this->img;
   }
 
   public function setImg(?string $img): static
   {
-      $this->img = $img;
+    $this->img = $img;
 
-      return $this;
+    return $this;
   }
 
   public function getOwner(): ?Character
   {
-      return $this->owner;
+    return $this->owner;
   }
 
   public function setOwner(?Character $owner): static
   {
-      $this->owner = $owner;
+    $this->owner = $owner;
 
-      return $this;
+    return $this;
   }
 
   public function getContainer(): ?self
   {
-      return $this->container;
+    return $this->container;
   }
 
   public function setContainer(?Item $item): self
@@ -213,14 +229,14 @@ class Item
 
   public function getCost(): ?array
   {
-      return $this->cost;
+    return $this->cost;
   }
 
   public function setCost(?array $cost): static
   {
-      $this->cost = $cost;
+    $this->cost = $cost;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -228,32 +244,32 @@ class Item
    */
   public function getContainedItems(): Collection
   {
-      return $this->containedItems;
+    return $this->containedItems;
   }
 
   public function addContainedItem(self $containedItem): static
   {
-      if (!$this->containedItems->contains($containedItem)) {
-          $this->containedItems->add($containedItem);
-          $containedItem->setContainer($this);
-      }
+    if (!$this->containedItems->contains($containedItem)) {
+      $this->containedItems->add($containedItem);
+      $containedItem->setContainer($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeContainedItem(self $containedItem): static
   {
-      if ($this->containedItems->removeElement($containedItem)) {
-          // set the owning side to null (unless already changed)
-          if ($containedItem->getContainer() === $this) {
-              $containedItem->setContainer(null);
-          }
+    if ($this->containedItems->removeElement($containedItem)) {
+      // set the owning side to null (unless already changed)
+      if ($containedItem->getContainer() === $this) {
+        $containedItem->setContainer(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 
-  public function getContainers() : array
+  public function getContainers(): array
   {
     $containers = [];
     foreach ($this->containedItems as $item) {
@@ -263,5 +279,17 @@ class Item
     }
 
     return $containers;
+  }
+
+  public function isShared(): ?bool
+  {
+    return $this->isShared;
+  }
+
+  public function setIsShared(?bool $isShared): static
+  {
+    $this->isShared = $isShared;
+
+    return $this;
   }
 }

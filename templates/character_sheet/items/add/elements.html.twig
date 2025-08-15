@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% trans_default_domain 'item' %}
 
@@ -8,32 +8,25 @@
 	data-controller="search" data-search-type-value="item"
 {% endblock %}
 
-{% block title %}
-	{{ "label.multi"|trans }}
-{% endblock %}
-
 {% block body %}
-	{% include "_back.html.twig" with {link: path('wiki_index')} %}
-	<h1 class="py-3">{% include "_icon.html.twig" with {icon: "item", class: 'icon-lg' } only %}<span>{{ "label.multi"|trans }}</span></h1>
-	<div class="container block py-3">
-		<div class="row">
-			<div class="col-auto">
-				{% if description is defined and description is not null and description.value is not empty %}
-					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="true" aria-controls="collapseDescription">
-						<h4 class="d-inline-block text-start">{{ "description"|trans({}, 'wiki') }}</h4>
-					</a>
-				{% endif %}
-			</div>
-			<div id="collapseDescription" class="col-12 flex-grow block collapse">
-				{{ description.value|default("")|markdown_to_html }}
-			</div>
-		</div>
-		<div class="row">
-			{% for item in items %}
-				{% include "item/_list_item.html.twig" %}
-			{% endfor %}
-		</div>
-	</div>
+<div class="block block-light container">
+  
+  <div class="row p-1 g-2">
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="item-card h-100">
+        <a href="{{ path('character_item_new', {character: character.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 h-100">
+          <div>{{ "new"|trans }}</div>
+          <div class="item-preview text-strong text-center">
+            {% include "_icon.html.twig" with {icon: 'add', class: 'mx-auto d-block icon-100'} %}
+          </div>
+        </a>
+      </div>
+    </div>
+    {% for item in templates %}
+      {% include "character_sheet/items/add/element.html.twig" %}
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
 
 {% block footerContent %}

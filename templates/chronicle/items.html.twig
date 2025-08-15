@@ -3,20 +3,25 @@
 {% trans_default_domain 'chronicle' %}
 {% set setting = chronicle.type %}
 
-{% block body %}
-	{% include '_back.html.twig' %}
-	{% include '_top.html.twig' %}
-	<div class="container-fluid container-lg py-3">
-		<h1 class="strong">
-			{% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
-			{{ chronicle.name }}
-		</h1>
-		<div class="block">
-			<a class="btn btn-primary w-100" href="{{ path('item_new_for_content', {target: 'chronicle', id: chronicle.id}) }}">
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+  {% else %}
+			<a class="btn btn-primary btn-back mb-1" href="{{ path('item_new_for_content', {target: 'chronicle', id: chronicle.id}) }}">
 				<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
-				{% include "_icon.html.twig" with {icon: 'item' } only %}
 			</a>
-			{% include 'chronicle/infos/_items.html.twig' %}
-		</div>
-	</div>
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle.id})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid container-lg py-3">
+    <h1 class="strong">
+      {% include "_icon_setting.html.twig" with {setting: chronicle.type } only %}
+      {{ chronicle.name }}
+    </h1>
+    <div class="block mt-3">
+      {% include 'chronicle/infos/_items.html.twig' %}
+    </div>
+  </div>
 {% endblock %}

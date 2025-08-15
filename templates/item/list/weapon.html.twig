@@ -1,9 +1,10 @@
 {% trans_default_domain 'item' %}
 
-{% extends "item/info-table.html.twig" %}
+{% extends "item/_table.html.twig" %}
 
 {% set cols = {
-  'damage': 'damage'
+  'damage': 'damage',
+  'damageType': 'damageType',
 }|merge(cols) %}
 
 {# {% set special = {

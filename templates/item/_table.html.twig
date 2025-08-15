@@ -30,17 +30,25 @@
             {% if key in special|default([])|keys %}
               {% if special[key] == 0 and value == 0 %}
                 {{ (key ~ '.variable')|trans }}
+              
               {% elseif special[key] == 'dot' %}
+
                 {% if item.cost is empty %}
                   {{ "cost.none"|trans }}
                 {% else %}
                   {% include "_cost.html.twig" with {costs: item.cost} %}
                 {% endif %}
+
               {% else %}
                 {{ value }}
               {% endif %}
+
             {% else %}
               {{ value }}
+              {% if key == "damage" %}
+                  {{ "damage.short.#{item.damageType.name}"|trans([], 'app') }}
+                  {% include "_icon.html.twig" with { icon: item.damageType.name, class: "d-none d-sm-inline" } %}
+              {% endif %}
             {% endif %}
           </span>
         </div>

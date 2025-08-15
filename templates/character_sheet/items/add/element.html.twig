@@ -1,11 +1,7 @@
 {% extends "item/_card.html.twig" %}
 
-{% block class %}
-col-12 col-md-6 col-lg-4 mb-2
-{% endblock %}
-
 {% block actions %}
-  <a href="{{ path('character_item_add', {'character': character.id, 'template': item.id }) }}" class="btn btn-sm btn-menu btn-primary w-100">
+  <a href="{{ path('character_item_add', {'character': character.id, 'template': item.id }) }}" class="btn btn-sm btn-menu btn-primary w-100 mb-4">
     {% include "_icon.html.twig" with {icon: item.typeName, class:'text-strong'} only %}
     {% include "_icon.html.twig" with {icon: 'right', class:'text-strong'} only %}
     {% include "_icon.html.twig" with {icon: 'character', class:'text-strong'} only %}

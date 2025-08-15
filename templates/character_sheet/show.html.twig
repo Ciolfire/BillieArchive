@@ -143,9 +143,6 @@
         {# Items #}
         {% include "character_sheet/modals/item/move.html.twig" %}
         {% include "character_sheet/modals/item/drop.html.twig" %}
-        {% for item in character.items %}
-          {% include "character_sheet/modals/item/infos.html.twig" %}
-        {% endfor %}
       {% endif %}
     {% endblock %}
   </div>

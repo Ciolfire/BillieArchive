@@ -14,14 +14,17 @@
     {{ "modal.move.title"|trans }}
     {% include "_icon.html.twig" with {icon: "right"} %}
     {% include "_icon.html.twig" with {icon: "container"} %}
+    /
+    {% include "_icon.html.twig" with {icon: "character"} %}
   </h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-character--item-target="closeMove"></button>
 {% endblock %}
 
 {% block body %}
-<div class="row">
-  <label class="accent mb-2" for="container">{{ "modal.move.container"|trans }}</label>
+<div class="row justify-content-center">
+  <label class="text-center accent mb-2" for="container">{{ "modal.move.container"|trans }}</label>
   <div class="col-auto">
+    <label class="d-block text-center">{% include "_icon.html.twig" with { icon: "container" } only %}</label>
     <select class="form-control" name="container" data-character--item-target="choiceContainer" data-action="change->character--item#reset">
       <option value="0">{{ "modal.move.empty"|trans }}</option>
       {% for item in character.itemContainers %}
@@ -30,6 +33,7 @@
     </select>
   </div>
   <div class="col-auto">
+    <label class="d-block text-center">{% include "_icon.html.twig" with { icon: "character" } only %}</label>
     <select class="form-control" name="character" data-character--item-target="choiceCharacter" data-action="change->character--item#reset">
       <option value="0"></option>
       {% if character.chronicle is defined %}
@@ -47,6 +51,7 @@
     </select>
   </div>
   <div class="col-auto">
+    <label class="d-block text-center">&nbsp;</label>
     <button class="btn btn-primary" data-action="click->character--item#move">
       {{ 'action.move'|trans([], 'app') }}
       {% include "_icon.html.twig" with {icon: 'right'} %}

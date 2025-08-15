@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Item;
 
 use App\Entity\Item;
+use App\Entity\Types\DamageType;
 use App\Form\Item\RangedWeaponForm;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
@@ -28,6 +29,9 @@ class RangedWeapon extends Item
 
   #[ORM\Column(type: Types::TEXT)]
   private ?string $special = "";
+
+  #[ORM\Column(type: Types::SMALLINT, enumType: DamageType::class)]
+  private DamageType $damageType = DamageType::lethal;
 
   // #[ORM\Column]
   // private ?bool $isTwoHanded = false;
@@ -104,6 +108,18 @@ class RangedWeapon extends Item
   public function setSpecial(string $special): static
   {
     $this->special = $special;
+
+    return $this;
+  }
+
+  public function getDamageType(): ?DamageType
+  {
+    return $this->damageType;
+  }
+
+  public function setDamageType(DamageType $damageType): static
+  {
+    $this->damageType = $damageType;
 
     return $this;
   }

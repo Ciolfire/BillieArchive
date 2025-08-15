@@ -10,7 +10,7 @@
                 <div class="col-4 col-md-2 d-flex align-items-center justify-content-center">
                   <a href="{{ path('character_peek', {'id': character.id, 'peeker': access.accessor.id}) }}" class="btn btn-secondary">
                     <img class="d-block m-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access.accessor.name }}" src="{{ asset(access.accessor.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="50">
-                    {% include "_icon.html.twig" with {icon : "impersonate"} only %}
+                    {% include "_icon.html.twig" with {icon : "view"} only %}
                     {% include "_icon.html.twig" with {icon : "infos"} only %}
                   </a>
                 </div>
@@ -23,7 +23,7 @@
     {% block header %}
       {% include ["character_sheet_type/" ~ character.type ~ "/peek/header.html.twig", "character_sheet_type/human/peek/header.html.twig"] %}
     {% endblock %}
-    <div class="row block">
+    <div class="row block" data-controller="tabs" data-tabs-initial-value="description">
       {% if access.hasRight('avatar')|default(false) %}
         <div class="col-12 p-2">
           <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">{% include "_icon.html.twig" with {icon: 'picture'} %}
@@ -33,55 +33,64 @@
           </button>
         </div>
       {% endif %}
-      {% if access.hasRight('description')|default(false) %}
-        <div class="col-12 col-lg py-2">
+      <ul class="nav tabs g-0">
+        {% include "_tab.html.twig" with {name: 'description', label: 'infos.description'|trans } only %}
+        {% include "_tab.html.twig" with {name: 'background', label: 'infos.background'|trans } only %}
+        {% include "_tab.html.twig" with {name: 'infos', icon: "spy", label: 'infos.details.label'|trans} only %}
+        {% include "_tab.html.twig" with {name: 'items', icon: "item", label: 'label.multi'|trans({}, 'item')} only %}
+      </ul>
+      <div id="description" class="tab-content d-none" data-tabs-target="page">
+        {% if access.hasRight('description')|default(false) %}
+          <div class="col-12 col-lg py-2">
             <div class="card info-card">
-            <div class="card-header">
-                <h3 class="text text-light user-select-none">
-                {% include "_icon.html.twig" with {icon: 'description', class: 'icon-lg'} %}
-                {{ "infos.description"|trans }}
-                </h3>
-            </div>
-            <div class="card-body">
+              <div class="card-header">
+                  <h3 class="text text-light user-select-none">
+                  {% include "_icon.html.twig" with {icon: 'description', class: 'icon-lg'} %}
+                  {{ "infos.description"|trans }}
+                  </h3>
+              </div>
+              <div class="card-body">
                 {% if character.description != "" %}
                 {{ character.description|markdown_to_html }}
                 {% else %}
-                <p>{{ "infos.none"|trans }}</p>
+                  <h3>{{ "infos.none"|trans }}</h3>
                 {% endif %}
-            </div>
-            </div>
-        </div>
-      {% endif %}
-      {% if access.hasRight('background')|default(false) %}
-        <div class="col-12 col-lg py-2">
-          <div class="card info-card">
-            <div class="card-header">
-                <h3 class="text text-light user-select-none">
-                {% include "_icon.html.twig" with {icon: 'background', class: 'icon-lg'} %}
-                {{ "infos.background"|trans }}
-                </h3>
-            </div>
-            <div class="card-body">
-                {% if character.background != "" %}
-                {{ character.background|markdown_to_html }}
-                {% else %}
-                <p>{{ "infos.none"|trans }}</p>
-                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
-      {% endif %}
-      <div class="col-12 py-2">
-        <hr>
-        <h2 class="text text-light pt-2 user-select-none">
-          {% include "_icon.html.twig" with {icon: 'spy', class: 'icon-lg'} %}
-          {{ "infos.details.label"|trans }}
-        </h2>
+        {% else %}
+              <h3>{{ "infos.none"|trans }}</h3>
+        {% endif %}
+      </div>
+      <div id="background" class="tab-content d-none" data-tabs-target="page">
+        {% if access.hasRight('background')|default(false) %}
+          <div class="col-12 col-lg py-2">
+            <div class="card info-card">
+              <div class="card-header">
+                  <h3 class="text text-light user-select-none">
+                  {% include "_icon.html.twig" with {icon: 'background', class: 'icon-lg'} %}
+                  {{ "infos.background"|trans }}
+                  </h3>
+              </div>
+              <div class="card-body">
+                {% if character.background != "" %}
+                  {{ character.background|markdown_to_html }}
+                {% else %}
+                  <h3>{{ "infos.none"|trans }}</h3>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <h3>{{ "infos.none"|trans }}</h3>
+        {% endif %}
+      </div>
+      <div id="infos" class="tab-content d-none" data-tabs-target="page">
         <div class="row">
           {% set keyInfoEmpty = true %}
           {% for info in character.infos %}
             {% if info.hasAccess(peeker) %}
-            {% set keyInfoEmpty = false %}
+              {% set keyInfoEmpty = false %}
               <div class="col-12 col-md-6 pt-2">
                 <div class="card info-card">
                   <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
@@ -94,6 +103,19 @@
             <h3>{{ "infos.none"|trans }}</h3>
           {% endif %}
         </div>
+      </div>
+      <div id="items" class="tab-content d-none" data-tabs-target="page">
+        {% if character.hasSharedItem %}
+          <div class="row g-2">
+            {% for item in character.items %}
+              {% if item.isShared or (item.container and item.container.isShared) %}
+                {% include 'item/_card.html.twig' with { item: item } only %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <h3>{{ "infos.none"|trans }}</h3>
+        {% endif %}
       </div>
     </div>
   </div>

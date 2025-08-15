@@ -66,6 +66,7 @@ maxSpeed:
 # Weapon
 damage:
   label: Damage
+  type.label: Damage Type
 ranges:
   label: Ranges
 clip:
@@ -89,7 +90,7 @@ help:
 
 modal:
   move:
-    title: Move this item to another container
+    title: Move this item to another Container or give it to another Character
     container: Select a container or a character
     empty: No container
   drop:

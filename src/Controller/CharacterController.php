@@ -581,7 +581,7 @@ class CharacterController extends AbstractController
 
     $templates = $this->dataService->findBy(Item::class, ['owner' => null, 'homebrewFor' => [null]], ['name' => 'ASC']);
 
-    return $this->render('character_sheet/items/list.html.twig', [
+    return $this->render('character_sheet/items/add/elements.html.twig', [
       'character' => $character,
       'templates' => $templates,
     ]);

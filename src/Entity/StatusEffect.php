@@ -44,6 +44,11 @@ class StatusEffect
   #[ORM\ManyToOne(inversedBy: 'statusEffects')]
   private ?PossessedVestment $possessedVestment = null;
 
+  // #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'statusEffects')]
+  // #[ORM\ManyToOne(targetEntity: Item::class, mappedBy: 'statusEffects')]
+  #[ORM\ManyToOne(inversedBy: 'statusEffects')]
+  private ?Item $item = null;
+
   public function getId(): ?int
   {
     return $this->id;
@@ -100,10 +105,10 @@ class StatusEffect
           foreach ($this->owner->getDisciplines() as $discipline) {
             /** @var VampireDiscipline $discipline */
             if ($discipline->getDiscipline() == $power->getDiscipline()) {
-              
+
               return $discipline->getLevel() * $this->value;
             }
-          } 
+          }
         }
       }
     }
@@ -173,8 +178,7 @@ class StatusEffect
 
     if ($this->getDisciplinePower()) {
       return "discipline";
-    }
-    else if ($this->getPossessedVestment()) {
+    } else if ($this->getPossessedVestment()) {
       return "type/possessed";
     }
 
@@ -199,7 +203,7 @@ class StatusEffect
       if ($label != "") {
         $label .= "\n————\n";
       }
-      $label.= $this->description;
+      $label .= $this->description;
     }
 
     // Translation issue, to think about
@@ -227,25 +231,37 @@ class StatusEffect
 
   public function getOwner(): ?Character
   {
-      return $this->owner;
+    return $this->owner;
   }
 
   public function setOwner(?Character $owner): static
   {
-      $this->owner = $owner;
+    $this->owner = $owner;
 
-      return $this;
+    return $this;
   }
 
   public function getPossessedVestment(): ?PossessedVestment
   {
-      return $this->possessedVestment;
+    return $this->possessedVestment;
   }
 
   public function setPossessedVestment(?PossessedVestment $possessedVestment): static
   {
-      $this->possessedVestment = $possessedVestment;
+    $this->possessedVestment = $possessedVestment;
 
-      return $this;
+    return $this;
+  }
+
+  public function getItem(): ?Item
+  {
+    return $this->item;
+  }
+
+  public function setItem(?Item $item): static
+  {
+    $this->item = $item;
+
+    return $this;
   }
 }

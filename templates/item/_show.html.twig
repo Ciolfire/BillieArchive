@@ -1,0 +1,31 @@
+<div class="row flex-grow-1">
+  <h1>
+    {{ item.name }}
+    {% include "_icon.html.twig" with {icon: item.typeName} %}
+    {% if item.isContainer %}
+      {% include "_icon.html.twig" with {icon: 'container', class: 'accent'} %}
+    {% endif %}
+    {% if item.homebrewFor is not null %}
+      {% include "_icon.html.twig" with {icon: 'homebrew', class: 'accent'} %}
+    {% endif %}
+    {# {% include "_icon.html.twig" with { icon: "skills/#{item.skill.identifier}" } %} #}
+  </h1>
+  <div class="row">
+    {# skill #}
+    <div
+      class="col text-strong text-center">{# {% include "_icon.html.twig" with { icon: "skills/#{item.skill.identifier}" } %} #}
+    </div>
+    {# description #}
+    {% include "item/card/" ~ item.typeName ~".html.twig" ignore missing %}
+    <div class="col-12 text">{{ item.description }}</div>
+  </div>
+  <div class="row text-strong text-center">
+    {% if item.img is not null %}
+      <img class="rounded p-1 img-fluid" src="{{ asset(item.img, 'items') }}" alt="{{ item.name}}"/>
+    {% elseif item.isContainer %}
+      {% include "_icon.html.twig" with {icon: 'container', class: 'mx-auto d-block icon-100'} %}
+    {% else %}
+      {% include "_icon.html.twig" with {icon: item.typeName, class: 'mx-auto d-block icon-100'} %}
+    {% endif %}
+  </div>
+</div>

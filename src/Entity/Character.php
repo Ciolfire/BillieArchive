@@ -1697,6 +1697,17 @@ class Character
     return $containers;
   }
 
+  public function hasSharedItem(): bool
+  {
+    foreach ($this->items as $item) {
+      if ($item->isShared()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public function addItem(Item $item): static
   {
     if (!$this->items->contains($item)) {
