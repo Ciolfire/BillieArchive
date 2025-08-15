@@ -20,27 +20,27 @@
   --btn-active-stroke                 : var(--main-dark);
 
   /* Warning */
-  --btn-warning-bg                    : var(--warning);
+  --btn-warning-bg                    : var(--warning-dark);
   --btn-warning-color                 : var(--dark);
   --btn-warning-outline-color         : var(--warning-dark);
   --btn-warning-shadow                : var(--warning-bright);
   --btn-warning-stroke                : var(--warning-bright);
 
-  --btn-warning-hover-bg              : var(--warning-dark);
+  --btn-warning-hover-bg              : var(--warning);
   --btn-warning-hover-color           : var(--dark);
   --btn-warning-hover-outline-color   : var(--warning-dark);
   --btn-warning-hover-shadow          : var(--warning-bright);
   --btn-warning-hover-stroke          : var(--warning-bright);
 
   /* Danger */
-  --btn-danger-bg                    : var(--danger);
-  --btn-danger-color                 : var(--dark);
+  --btn-danger-bg                    : var(--danger-dark);
+  --btn-danger-color                 : var(--light);
   --btn-danger-outline-color         : var(--danger-dark);
   --btn-danger-shadow                : var(--danger-bright);
   --btn-danger-stroke                : var(--danger-bright);
 
-  --btn-danger-hover-bg              : var(--danger-dark);
-  --btn-danger-hover-color           : var(--dark);
+  --btn-danger-hover-bg              : var(--danger);
+  --btn-danger-hover-color           : var(--accent);
   --btn-danger-hover-outline-color   : var(--danger-dark);
   --btn-danger-hover-shadow          : var(--danger-bright);
   --btn-danger-hover-stroke          : var(--danger-bright);

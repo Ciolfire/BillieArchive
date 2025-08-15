@@ -110,7 +110,7 @@
   }
 }
 
-.help-text {
+.text-help, .help-text {
   color: var(--help-color);
 }
 
