@@ -67,6 +67,7 @@ export default class extends Controller
   // Display the items, depending if they match the search criterias
   getResults()
   {
+    console.debug(this.itemTargets.length);
     let hasFilter = this.checkFilters();
     let filters = this.filtersValue;
     const regex =  new RegExp(".*" + this.queryTarget.value + ".*", "i");
@@ -75,7 +76,7 @@ export default class extends Controller
       let isValid;
       if (!hasFilter) {
         isValid = true;
-        item.classList.remove("collapse");
+        item.classList.remove("d-none");
       } else {
         for (const [key, values] of Object.entries(filters)) {
           if (Object.keys(values).length > 0) {
@@ -96,9 +97,9 @@ export default class extends Controller
       }
       // check if the name match the search text
       if (isValid && regex.test(item.dataset.name)) {
-        item.classList.remove("collapse");
+        item.classList.remove("d-none");
       } else {
-        item.classList.add("collapse");
+        item.classList.add("d-none");
       }
     });
   }
