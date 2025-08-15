@@ -61,7 +61,14 @@
   </div>
   <div class="row">
     <div class="col">
-      {% block actions %}{% endblock %}
+      {% block actions %}
+        {% if item.container is not null %}
+          <span class="text-sub">
+            {% include "_icon.html.twig" with {icon: 'container', class: ''} only %}
+            {{ item.container }}
+          </span>
+        {% endif %}
+      {% endblock %}
     </div>
   </div>
 </div>
