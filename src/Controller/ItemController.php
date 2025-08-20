@@ -128,7 +128,7 @@ class ItemController extends AbstractController
                 $this->service->save($item, $form->get('img')->getData());
                 $this->addFlash('success', ['item.character.new', ['name' => $item->getName(), 'character' => $target->getName()]]);
 
-                return $this->redirectToRoute('show_character', ['id' => $target->getId(), '_fragment' => 'inventory'], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('character_show', ['id' => $target->getId(), '_fragment' => 'inventory'], Response::HTTP_SEE_OTHER);
               }
               break;
           }

@@ -41,5 +41,6 @@ rote:
     single: Rote
     multi: Rotes
   create: Create a Rote
+  created: Created Rotes
   new: New Rote
   edit: Edit Rote
