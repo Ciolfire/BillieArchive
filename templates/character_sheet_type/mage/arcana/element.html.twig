@@ -10,7 +10,7 @@
   <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}block text-color p-2{% endif %}">
     <div class="row align-items-center user-select-none">
       <div class="col-12 arcana-header text-center py-2">
-        <h2 class="text-glow text-color">
+        <h2 class="text-color">
           {% include "_icon.html.twig" with { icon: 'arcana/' ~ arcanum.identifier } %}
           {{ arcanum.name }}
         </h2>

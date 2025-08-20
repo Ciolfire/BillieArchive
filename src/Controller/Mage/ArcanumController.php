@@ -6,6 +6,8 @@ namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
 use App\Entity\Description;
+use App\Entity\Mage;
+use App\Entity\MageArcanum;
 use App\Entity\MageOrder;
 use App\Entity\MageSpell;
 use App\Entity\MageSpellArcanum;
@@ -13,6 +15,7 @@ use App\Entity\SpellRote;
 use App\Form\Mage\ArcanumForm;
 use App\Form\Mage\MageSpellForm;
 use App\Form\Mage\SpellRoteForm;
+use App\Repository\MageSpellRepository;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -207,6 +210,36 @@ class ArcanumController extends AbstractController
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $rote->getName()]]);
       return $this->redirectToRoute('mage_spell_show', ['id' => $spell->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('mage/form.html.twig', [
+      'action' => 'new',
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('/spell/{arcanum<\d+>}/rote/create/{mage<\d+>}', name: 'mage_spell_rote_create', methods: ['GET', 'POST'])]
+  public function createRote(MageSpellRepository $repo, Request $request, MageArcanum $arcanum, Mage $mage): Response
+  {
+    $this->denyAccessUnlessGranted('ROLE_ST');
+
+    
+    $rote = new SpellRote();
+    $rote->setCreator($mage);
+    $rote->setHomebrewFor($mage->getChronicle());
+
+    // dd($repo->findByArcanumLevel($arcanum->getId(), $arcanum->getLevel() - 1));
+    $spells = $repo->findByArcanumLevel($arcanum->getId(), $arcanum->getLevel() - 1);
+
+    $form = $this->createForm(SpellRoteForm::class, $rote, ['spells' => $spells]);
+    
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $mage->setWillpower($mage->getWillpower() - 1);
+      $this->dataService->save($rote);
+
+      $this->addFlash('success', ["general.new.done", ['%name%' => $rote->getName()]]);
+      return $this->redirectToRoute('character_show', ['id' => $mage->getId(), '_fragment' => 'rotes'], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('mage/form.html.twig', [

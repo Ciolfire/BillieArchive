@@ -43,12 +43,17 @@ class SpellRote implements Translatable
   #[ORM\ManyToOne(inversedBy: 'createdRotes')]
   private ?Mage $creator = null;
 
-  public function __construct(MageSpell $spell)
+  public function __construct(?MageSpell $spell = null, ?Mage $mage = null)
   {
     $this->spell = $spell;
-    $this->homebrewFor = $spell->getHomebrewFor();
-    $this->book = $spell->getBook();
-    $this->page = $spell->getPage();
+    $this->creator = $mage;
+    if ($spell instanceof MageSpell) {
+      $this->homebrewFor = $spell->getHomebrewFor();
+      $this->book = $spell->getBook();
+      $this->page = $spell->getPage();
+    } else if ($mage instanceof Mage) {
+      $this->homebrewFor = $mage->getChronicle();
+    }
   }
 
   public function getId(): ?int

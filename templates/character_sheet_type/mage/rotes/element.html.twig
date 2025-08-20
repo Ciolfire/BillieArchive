@@ -35,7 +35,7 @@
           {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
           {{ spell.skill.name }}
         </h5>
-        <span class="float-end text-strong accent">{{ spell.name }}</span>
+        <div class="text-end text-strong accent">{{ spell.name }}</div>
       </div>
       <div class="card-body d-flex flex-column">
         <span class="accent text-strong">{% block prerequisites %}{% endblock %}</span>
@@ -50,7 +50,9 @@
       </div>
       {% block source %}
         <div class="pe-3 mb-1">
-          {% include "_source_block.html.twig" with {element: rote, 'isShort': 1, class: 'text-end fst-italic', hasLink: 0 } only %}
+          {% if rote.book is not null or rote.homebrewFor != character.chronicle %}
+            {% include "_source_block.html.twig" with {element: rote, 'isShort': 1, class: 'text-end fst-italic', hasLink: 0 } only %}
+          {% endif %}
         </div>
       {% endblock %}
     </div>

@@ -40,12 +40,14 @@ class Mage extends Character
    * @var Collection<int, SpellRote>
    */
   #[ORM\ManyToMany(targetEntity: SpellRote::class)]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $rotes;
 
   /**
    * @var Collection<int, SpellRote>
    */
   #[ORM\OneToMany(targetEntity: SpellRote::class, mappedBy: 'creator')]
+  #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $createdRotes;
 
   #[ORM\ManyToOne]

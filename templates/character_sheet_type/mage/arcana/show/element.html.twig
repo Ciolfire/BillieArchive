@@ -21,7 +21,7 @@
   #}
   {% if base >= 5 %}
   <div class="col text-center">
-    <a role="button" class="btn btn-primary btn-sm disabled" href="">{{ "rote.create"|trans }}</a>
+    <a role="button" class="btn btn-primary btn-sm {% if character.willpower <= 1 %}disabled{% endif %}" href="{{ path('mage_spell_rote_create', { arcanum: arcanum.id, mage: character.id }) }}">{{ "rote.create"|trans }}</a>
   </div>
   {% endif %}
 

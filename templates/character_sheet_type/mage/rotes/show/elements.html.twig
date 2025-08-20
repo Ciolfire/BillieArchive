@@ -3,6 +3,13 @@
 {% trans_default_domain 'spell' %}
 
 {% block list %}
+  {% if character.createdRotes %}
+    <h3>{{ "rote.created"|trans }}</h3>
+    {% for rote in character.createdRotes %}
+      {% include "character_sheet_type/mage/rotes/element.html.twig" %}
+    {% endfor %}
+  {% endif %}
+  <h3 class="mt-2">{{ "rote.label.multi"|trans }}</h3>
   {% for rote in character.rotes %}
     {% include "character_sheet_type/mage/rotes/element.html.twig" %}
   {% endfor %}
