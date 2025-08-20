@@ -86,6 +86,11 @@
   --btn-active-shadow         : var(--mage-btn-active-shadow);
   --btn-active-stroke         : var(--mage-btn-active-stroke);
   /* E Btn */
+  /* S Card */
+  --card-color                : var(--mage-card-color);
+  --card-bg                   : var(--mage-card-bg);
+  --card-hover-color          : var(--mage-card-hover-color);
+  /* E Card */
   /* S Fonts */
   --main-font                 :var(--mage-main-font);
   --text-font                 :var(--mage-text-font);
@@ -110,6 +115,14 @@
   --h4-font                   : var(--mage-h4-font);
   --h5-font                   : var(--mage-h5-font);
   /* E Heading */
+  /* S Text */
+  --text-color                : var(--mage-text-color);
+  --text-strong-color         : var(--mage-text-strong-color);
+  --text-dark-color           : var(--mage-text-dark-color);
+  --text-bright-color         : var(--mage-text-bright-color);
+  /* --text-stroke               : var(--mage-text-stroke); */
+  /* --image-shadow              : var(--mage-image-shadow); */
+  /* E Text */
 }
 
 .collapse-block {

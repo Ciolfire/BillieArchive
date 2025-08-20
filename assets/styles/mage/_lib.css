@@ -58,9 +58,9 @@
   --mage-wrong             : #000968;
 
   /* Card */
-  --mage-card              : #233d4acf;
-  --mage-card-background   : #bffcffb5;
-  --mage-card-hover        : var(--mage-main-25a);
+  --mage-card-color        : #233d4acf;
+  --mage-card-bg           : #bffcffb5;
+  --mage-card-hover-color  : var(--mage-main-25a);
 
   /* Modal */
   --mage-modal             : rgb(0, 0, 0);

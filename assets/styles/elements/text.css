@@ -48,7 +48,7 @@
 }
 
 .text-color {
-  color: var(--main-dark);
+  color: var(--text-strong-color);
 }
 
 .text-bright {

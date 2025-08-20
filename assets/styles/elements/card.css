@@ -1,6 +1,6 @@
 :root {
   --card-color                : rgba(47,47,47,.478);
-  --card-background-color     : rgba(149, 149, 149, 0.71);
+  --card-bg                   : rgba(149, 149, 149, 0.71);
   --card-hover-color          : rgba(23, 23, 23, 0.478);
 }
 
@@ -8,7 +8,7 @@
   background-color: var(--card-color);
   
   &:hover {
-    color: var(--accent-color);
+    color: var(--accent);
     background-color: var(--card-hover-color);
   }
 }
@@ -20,7 +20,7 @@
 }
 
 .group-card {
-  background-color: var(--card-background-color);
+  background-color: var(--card-bg);
   outline          : 1px solid var(--main);
   box-shadow      : var(--main) 0px 0px 7px 3px;
   margin-bottom   : 1em;

@@ -1,6 +1,6 @@
 :root {
   --mage-text-color          : var(--mage-light);
-  --mage-strong-color        : var(--mage-main-bright);
+  --mage-text-strong-color   : var(--mage-main-bright);
   --mage-text-dark-color     : #000000;
   --mage-text-bright-color   : #61eaff;
   --mage-text-shadow-color   : #000;
