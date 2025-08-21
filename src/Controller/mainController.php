@@ -126,7 +126,7 @@ class mainController extends AbstractController
           'option.arcana.normal' => 0,
           'option.arcana.short' => 1,
         ],
-        'data' => $user->getPreferences()['arcanaDisplay'],
+        'data' => $user->getPreferences('arcanaDisplay'),
       ])
       ->add('save', SubmitType::class, ['label' => 'action.save'])
       ->getForm();

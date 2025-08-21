@@ -376,8 +376,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $notes;
   }
 
-  public function getPreferences(): ?array
+  public function getPreferences(?string $preference = null): mixed
   {
+    if ($preference) {
+      if (isset($preferences[$preference])) {
+        return $this->preferences[$preference];
+      } else {
+        return "";
+      }
+    }
     return $this->preferences;
   }
 
