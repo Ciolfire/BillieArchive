@@ -228,8 +228,7 @@ class ArcanumController extends AbstractController
     $rote->setCreator($mage);
     $rote->setHomebrewFor($mage->getChronicle());
 
-    // dd($repo->findByArcanumLevel($arcanum->getId(), $arcanum->getLevel() - 1));
-    $spells = $repo->findByArcanumLevel($arcanum->getId(), $arcanum->getLevel() - 1);
+    $spells = $repo->findByArcanumLevel($arcanum->getArcanum()->getId(), $arcanum->getLevel());
 
     $form = $this->createForm(SpellRoteForm::class, $rote, ['spells' => $spells]);
     
