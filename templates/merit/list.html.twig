@@ -5,21 +5,26 @@
 {% block title %}{{ 'label.multi'|trans({}, 'merit') }}{% endblock %}
 
 {% set footer = true %}
+{% set hasExtraContent = true %}
 
 {% block bodyController %}
   {{parent() }} search
 {% endblock %}
 
-{% block bodyData %}
-  data-search-type-value="merit"
-{% endblock %}
-
 {% block shortcuts %}
   {% if chronicle == false %}
-    
+    {% include "_back.html.twig" %}
   {% else %}
     {% include "_back.html.twig" with { link: path('homebrew_index', {id: chronicle}) } %}
   {% endif %}
+  {% include "_top.html.twig" %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="merit"
 {% endblock %}
 
 {% block body %}
@@ -40,19 +45,7 @@
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    {% include "_search.html.twig" %}
-    <div id="expand_btn" class="position-absolute top-0 start-50 translate-middle" data-bs-toggle="collapse" data-bs-target=".footer-collapse" aria-expanded="false" aria-controls="footer-collapse">
-      <span class="fa-layers fa-fw">
-        <i class="fa-solid fa-circle"></i>
-        <span class="ok footer-collapse collapse"><i class="fa-solid fa-lg fa-circle-chevron-down"></i></span>
-        <span class="ok footer-collapse show "><i class="fa-solid fa-lg fa-circle-chevron-up"></i></span>
-      </span>
-    </div>
-    {% if is_granted('ROLE_ST') %}
-      <a class="btn btn-primary ms-auto" href="{{ path('merit_new', {type: type, id: id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
-    {% endif %}
-  </div>
+  {% include "_search.html.twig" with { type: "merit" } %}
   <div class="col-12 footer-collapse collapse">
     {% for key, elements in search %}
       {% if key == 'type' %}

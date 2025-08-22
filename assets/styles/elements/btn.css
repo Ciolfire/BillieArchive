@@ -62,10 +62,10 @@
     .icon {
       img {
         filter: 
-          drop-shadow(-1px 1px 0 var(--btn-shadow))
-          drop-shadow(-1px -1px 0 var(--btn-shadow))
-          drop-shadow(1px -1px 0 var(--btn-shadow))
-          drop-shadow(1px 1px 0 var(--btn-shadow))
+          drop-shadow(-1px 1px 0 var(--btn-color))
+          drop-shadow(-1px -1px 0 var(--btn-color))
+          drop-shadow(1px -1px 0 var(--btn-color))
+          drop-shadow(1px 1px 0 var(--btn-color))
         ;
       }
       svg {
@@ -86,7 +86,16 @@
       -webkit-text-stroke: 0.2rem var(--btn-hover-stroke);
       paint-order: stroke fill;
 
-      .icon svg, .icon img {
+      .icon img {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-hover-color))
+          drop-shadow(-1px -1px 0 var(--btn-hover-color))
+          drop-shadow(1px -1px 0 var(--btn-hover-color))
+          drop-shadow(1px 1px 0 var(--btn-hover-color))
+        ;
+      }
+
+      .icon svg {
         filter: 
           drop-shadow(-1px 1px 0 var(--btn-hover-shadow))
           drop-shadow(-1px -1px 0 var(--btn-hover-shadow))
@@ -106,7 +115,16 @@
       paint-order: stroke fill;
       box-shadow: 0 0 0 2px var(--btn-active-outline-color)!important;
 
-      .icon svg, .icon img {
+      .icon img {
+        filter: 
+          drop-shadow(-1px 1px 0 var(--btn-active-color))
+          drop-shadow(-1px -1px 0 var(--btn-active-color))
+          drop-shadow(1px -1px 0 var(--btn-active-color))
+          drop-shadow(1px 1px 0 var(--btn-active-color))
+        ;
+      }
+
+      .icon svg {
         filter: 
           drop-shadow(-1px 1px 0 var(--btn-active-shadow))
           drop-shadow(-1px -1px 0 var(--btn-active-shadow))
@@ -203,6 +221,14 @@
   font-weight: bold;
 }
 
+#shortcuts {
+  .btn {
+    border-right: none!important;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-weight: bold;
+  }
+}
 /* 
 
 .btn.btn-secondary,

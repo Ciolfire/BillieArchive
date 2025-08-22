@@ -10,7 +10,17 @@
 {% endblock %}
 
 {% block bodyController %}
-  {{parent() }} search
+  {{ parent() }} search
+{% endblock %}
+
+{% block shortcuts %}
+  {{ parent() }}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('book_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon: 'book' } only %}
+    </a>
+  {% endif %}
 {% endblock %}
 
 {% block bodyData %}
@@ -18,8 +28,6 @@
 {% endblock %}
 
 {% block body %}
-  
-
   {% include "_title.html.twig" with {title: "label.multi" , domain: "path", icon: 'path'} %}
 
   <div class="container block">
@@ -38,18 +46,7 @@
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    {% include "_search.html.twig" %}
-
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('book_new', {filter: filter|default(null), id: id|default(null)}) }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
-          {% include "_icon.html.twig" with {icon: 'book' } only %}
-        </a>
-      </div>
-    {% endif %}
-  </div>
+  {% include "_search.html.twig" with { type: "book" } %}
   <div class="col-auto py-3 w-100 text-center footer-collapse collapse">
     {% for key, elements in search|default(null) %}
       <h5 class="pe-none">{{ (key ~ ".label")|trans({}, 'book') }}</h5>

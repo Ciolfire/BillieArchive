@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'ghoul' %}
+
+{% set setting = "vampire" %}
+{% set footer = true %}
+{% set hasExtraContent = true %}
+
+{% block title %}
+	{{ "family.label.multi"|trans }}
+{% endblock %}
+
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('ghoul_family_new') }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'ghoul_family' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
+{% block bodyData %}
+	data-controller="search" data-search-type-value="clan"
+{% endblock %}
+
+{% block body %}
+  {% include "_title.html.twig" with {title: label|default("family.label.multi") , domain: "ghoul", icon: "ghoul_family"} %}
+  
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 py-2">
+      {% if families is defined %}
+        {% for family in families %}
+          {% include "vampire/ghoul/family/_card.html.twig" with {family: family} %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block footerContent %}
+  {% include "_search.html.twig" with { type: "ghoul_family" } %}
+  <div class="col-auto py-3 footer-collapse collapse">
+    {% for key, elements in search %}
+      {% if key != 'clan' %}
+        <h5 class="pe-none">{{ (key ~ ".label")|trans }}</h5>
+      {% else %}
+        <h5 class="pe-none">{{ ('family.clan.label')|trans }}</h5>
+      {% endif %}
+      {% for element in elements %}
+        <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+          {% if key != 'clan' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}
+          {# {% if key == "clan" %}
+            <span class="icon px-3">
+              <img src="{{ asset(element.symbol|default(element.emblem), 'clans_emblems') }}" style="height:2em;"/>
+            </span>
+          {% else %}
+            {% include "_icon.html.twig" with {icon : element } only %}
+          {% endif %} #}
+        </a>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endblock %}

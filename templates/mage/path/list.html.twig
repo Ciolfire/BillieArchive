@@ -3,14 +3,24 @@
 {% trans_default_domain 'path' %}
 
 {% set setting = "mage" %}
-{% set footer = true %}
+{% set footer = false %}
 
 {% block title %}
   {{ "label.multi"|trans }}
 {% endblock %}
 
+{% block shortcuts %}
+  {{ parent() }}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('mage_path_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon: 'path' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
 {% block bodyController %}
-  {{parent() }} search
+  {{ parent() }} search
 {% endblock %}
 
 {% block bodyData %}
@@ -38,20 +48,5 @@
         {% include "mage/path/_card.html.twig" %}
       {% endfor %}
     </div>
-  </div>
-{% endblock %}
-
-{% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    {% include "_search.html.twig" %}
-
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('mage_path_new', {filter: filter|default(null), id: id|default(null)}) }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
-          {% include "_icon.html.twig" with {icon: 'path' } only %}
-        </a>
-      </div>
-    {% endif %}
   </div>
 {% endblock %}

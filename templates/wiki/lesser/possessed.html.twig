@@ -6,7 +6,19 @@
   {{ "possessed"|trans({}, 'content-type') }}
 {% endblock %}
 
-{% set footer = true %}
+{% block shortcuts %}
+  {{ parent() }}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('possessed_vestment_new') }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'extreme' } only %}
+    </a>
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('merit_new', {type: 'type', id: 'possessed'}) }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'merit' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
 
 {% block body %}
   
@@ -64,13 +76,3 @@
     </div>
   {% endblock %}
 
-  {% block footerContent %}
-    <div class="col-12 d-flex align-items-center position-relative">
-      {% if is_granted('ROLE_ST') %}
-        <a class="btn btn-primary ms-auto" href="{{ path('possessed_vestment_new') }}">
-          {% include "_icon.html.twig" with {icon : 'add' } only %}
-          {% include "_icon.html.twig" with {icon : 'extreme' } only %}
-        </a>
-      {% endif %}
-    </div>
-  {% endblock %}

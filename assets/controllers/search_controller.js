@@ -6,7 +6,8 @@ export default class extends Controller
   static targets = [
     "item",
     "query",
-    "filter"
+    "filter",
+    "counter"
   ];
   static values = {
     type: String,
@@ -15,11 +16,11 @@ export default class extends Controller
 
   connect()
   {
+    this.counterTarget.innerText = this.itemTargets.length;
   }
 
   order(event)
   {
-    
   }
 
   switchFilter(event)
@@ -67,6 +68,7 @@ export default class extends Controller
   // Display the items, depending if they match the search criterias
   getResults()
   {
+    let count = 0;
     console.debug(this.itemTargets.length);
     let hasFilter = this.checkFilters();
     let filters = this.filtersValue;
@@ -97,10 +99,12 @@ export default class extends Controller
       }
       // check if the name match the search text
       if (isValid && regex.test(item.dataset.name)) {
+        count++;
         item.classList.remove("d-none");
       } else {
         item.classList.add("d-none");
       }
     });
+    this.counterTarget.innerText = count;
   }
 }

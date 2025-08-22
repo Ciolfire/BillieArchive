@@ -1,6 +1,10 @@
+<div id="count" class="col-12 text-center">
+  <span class="text-strong" data-search-target="counter"></span>
+  {% include "_icon.html.twig" with { icon: type|default('info'), label: false } %}
+</div>
 <div class="col-12 col-md-auto d-flex justify-content-center my-1 align-items-center">
   <span class="search-icon">
-    {% include "_icon.html.twig" with  {icon: 'search', label:false} %}
+    {% include "_icon.html.twig" with  {icon: 'search', label: false} %}
   </span>
   <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
 </div>

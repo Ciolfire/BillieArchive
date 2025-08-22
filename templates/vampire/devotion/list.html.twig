@@ -10,20 +10,26 @@
   {{ "devotion.label.multi"|trans }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('vampire_devotion_new') }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'devotion' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
 {% block bodyController %}
   {{parent() }} search
 {% endblock %}
 
 {% block bodyData %}
   data-search-type-value="devotion"
-{% endblock %}
-
-{% block shortcuts %}
-  {% if chronicle|default(false) == false %}
-    
-  {% else %}
-    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
-  {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -44,33 +50,26 @@
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    <span class="search-icon">
-      {% include "_icon.html.twig" with  {icon: 'search'} %}
-    </span>
-    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('vampire_devotion_new') }}">
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
-          {% include "_icon.html.twig" with {icon : 'devotion' } only %}
-        </a>
-      </div>
-    {% endif %}
-  </div>
+  {% include "_search.html.twig" with { type: 'devotion' } %}
   <div
     class="col-auto py-3 footer-collapse collapse">
     {% for key, elements in search %}
-            {% if key != 'parent' %}
-              <h5 class="pe-none">{{ ("label.single")|trans([], key) }}</h5>
-            {% else %}
-              <h5 class="pe-none">{{ ('label.single')|trans([], key) }}</h5>
-            {% endif %}
-            {% for element in elements %}
-              <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
-                <span class="d-none d-md-inline">{{ element }}</span>
-              </a>
-            {% endfor %}
-          {% endfor %}
+      {% if key != 'parent' %}
+        <h5 class="pe-none">
+          {{ ("label.single")|trans([], key) }}
+          {% include "_icon.html.twig" with { icon : key } %}
+        </h5>
+      {% else %}
+        <h5 class="pe-none">
+          {{ ('label.single')|trans([], key) }}
+          {% include "_icon.html.twig" with { icon : key } %}
+        </h5>
+      {% endif %}
+      {% for element in elements %}
+        <a class="btn btn-primary my-1" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
+          <span class="d-none d-md-inline">{{ element }}</span>
+        </a>
+      {% endfor %}
+    {% endfor %}
   </div>
 {% endblock %}

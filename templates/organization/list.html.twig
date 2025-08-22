@@ -14,6 +14,20 @@
   {{ label|trans }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('organization_new', {setting: setting, type: item.filter|default(null), id: item.id|default(null)}) }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'covenant' } only %}</span>
+    </a>
+  {% endif %}
+{% endblock %}
+
 {% block bodyController %}
   {{parent() }}
   search
@@ -21,14 +35,6 @@
 
 {% block bodyData %}
   data-search-type-value="{{ type }}"
-{% endblock %}
-
-{% block shortcuts %}
-  {% if chronicle|default(false) == false %}
-    
-  {% else %}
-    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
-  {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -43,25 +49,15 @@
     </div>
 
     <div class="row g-2 pb-2">
-    {% if organizations is defined and organizations is not empty %}
-      {% for organization in organizations|sort((a, b) => a.name|lower <=> b.name|lower) %}
-        {% include "/organization/#{setting}/_card.html.twig" with {organization: organization} only %}
-      {% endfor %}
-    {% endif %}
+      {% if organizations is defined and organizations is not empty %}
+        {% for organization in organizations|sort((a, b) => a.name|lower <=> b.name|lower) %}
+          {% include "/organization/#{setting}/_card.html.twig" with {organization: organization} only %}
+        {% endfor %}
+      {% endif %}
+    </div>
   </div>
 {% endblock %}
 
 {% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    {% include "_search.html.twig" %}
-
-    {% if is_granted('ROLE_ST') %}
-      <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ path('organization_new', {setting: setting, type: item.filter|default(null), id: item.id|default(null)}) }}">
-          {% include "_icon.html.twig" with {icon : 'add' } only %}
-          <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'covenant' } only %}</span>
-        </a>
-      </div>
-    {% endif %}
-  </div>
+  {% include "_search.html.twig" with { type: "order" } %}
 {% endblock %}
