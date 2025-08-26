@@ -11,6 +11,21 @@
   {{ parent() }} search
 {% endblock %}
 
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {% include "_back.html.twig" %}
+  {% else %}
+    {% include "_back.html.twig" with { link: path('homebrew_index', {id: chronicle}) } %}
+  {% endif %}
+  {% include "_top.html.twig" %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('item_new') }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'item' } only %}</span>
+    </a>
+  {% endif %}
+{% endblock %}
+
 {% block bodyData %}
   data-search-type-value="item"
 {% endblock %}
@@ -27,20 +42,12 @@
 {% endblock %}
 
 {% block footerContent %}
-  {% include "_search.html.twig" %}
-  <div class="col col-md text-center">
+  {% include "_search.html.twig" with { type: "item" } %}
+  <div class="col col-md text-center pt-2">
     {% for type in constant('App\\Entity\\Item::TYPELIST') %}
       <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}">
         {% include "_icon.html.twig" with {icon : type } only %}
       </a>
     {% endfor %}
   </div>
-  {% if is_granted('ROLE_ST') %}
-    <div class="col-auto me-5 me-sm-0">
-      <a class="btn btn-primary" href="{{ path('item_new') }}">
-        {% include "_icon.html.twig" with {icon : 'add' } only %}
-        <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'item' } only %}</span>
-      </a>
-    </div>
-  {% endif %}
 {% endblock %}

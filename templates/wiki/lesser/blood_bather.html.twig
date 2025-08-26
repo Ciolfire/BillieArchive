@@ -6,6 +6,16 @@
 
 {% set footer = true %}
 
+{% block shortcuts %}
+  {{ parent() }}
+  {# {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary ms-auto" href="{{ path('facet_new', {type: 'type', id: 'blood_bather'}) }}">
+      {% include "_icon.html.twig" with {icon : 'add' } only %}
+      {% include "_icon.html.twig" with {icon : 'facet' } only %}
+    </a>
+  {% endif %} #}
+{% endblock %}
+
 {% block body %}
   
   <h1 class="pt-1">
@@ -52,16 +62,5 @@
         </div>
       </div>
     </div>
-  </div>
-{% endblock %}
-
-{% block footerContent %}
-  <div class="col-12 d-flex align-items-center position-relative">
-    {% if is_granted('ROLE_ST') %}
-      {# <a class="btn btn-primary ms-auto" href="{{ path('facet_new', {type: 'type', id: 'blood_bather'}) }}">
-        {% include "_icon.html.twig" with {icon : 'add' } only %}
-        {% include "_icon.html.twig" with {icon : 'facet' } only %}
-      </a> #}
-    {% endif %}
   </div>
 {% endblock %}

@@ -9,6 +9,21 @@
 	{{ "label.multi"|trans }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('mage_spell_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      {% include "_icon.html.twig" with {icon: 'add' } only %}
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'spell' } only %}</span>
+    </a>
+  {% endif %}
+{% endblock %}
+
 {% block bodyController %}
   {{ parent() }} search
 {% endblock %}
@@ -29,7 +44,7 @@
 {% endblock %}
 
 {% block footerContent %}
-  {% include "_search.html.twig" %}
+  {% include "_search.html.twig" with { type: "spell" } %}
   {# Search Block #}
   <div class="col col-md text-center pt-3">
     <div class="text-center footer-collapse collapse">
@@ -55,13 +70,13 @@
         </span>
       </a>
     {% endfor %}
-  </div>
-  {% if is_granted('ROLE_ST') %}
-    <div class="col-auto">
-      <a class="btn btn-primary" href="{{ path('mage_spell_new', {filter: filter|default(null), id: id|default(null)}) }}">
-        {% include "_icon.html.twig" with {icon: 'add' } only %}
-        <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'spell' } only %}</span>
-      </a>
+    {# Level #}
+    <div>
+      {% for level in 1..5 %}
+        <a class="btn btn-primary btn-sm my-1" role="button" data-action="click->search#switchFilter" data-search-type-param="level" data-search-filter-param="{{ level }}">
+          {{ level }}
+        </a>
+      {% endfor %}
     </div>
-  {% endif %}
+  </div>
 {% endblock %}

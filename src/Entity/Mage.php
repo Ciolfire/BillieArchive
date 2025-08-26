@@ -290,6 +290,17 @@ class Mage extends Character
     return $arcana;
   }
 
+  public function getArcanumLevel($find): int
+  {
+    foreach ($this->arcana as $arcanum) {
+      if ($arcanum->getIdentifier() == $find) {
+        return $arcanum->getLevel();
+      }
+    }
+
+    return 0;
+  }
+
   public function maxArcanumMastery(Arcanum $arcanum)
   {
     // TODO Maybe ?

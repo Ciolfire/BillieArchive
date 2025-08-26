@@ -32,7 +32,7 @@ class GhoulController extends AbstractController
   #[Route('/wiki/families', name: 'ghoul_families_index', methods: ['GET'])]
   public function families(): Response
   {
-    return $this->render('vampire/ghoul/family/index.html.twig', [
+    return $this->render('vampire/ghoul/family/list.html.twig', [
       'families' => $this->dataService->findBy(GhoulFamily::class, [], ['name' => 'ASC']),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
       'entity' => 'ghoul_family',
@@ -48,7 +48,7 @@ class GhoulController extends AbstractController
   {
     $families = $this->dataService->getList($filter, $id, GhoulFamily::class, 'getGhoulFamilies');
 
-    return $this->render('vampire/ghoul/family/index.html.twig', [
+    return $this->render('vampire/ghoul/family/list.html.twig', [
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'ghoul_family']),
       'entity' => 'ghoul_family',
       'category' => 'character',

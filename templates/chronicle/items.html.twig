@@ -6,12 +6,13 @@
 {% block shortcuts %}
   {% if chronicle|default(false) == false %}
   {% else %}
-			<a class="btn btn-primary btn-back mb-1" href="{{ path('item_new_for_content', {target: 'chronicle', id: chronicle.id}) }}">
-				<span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
-			</a>
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle.id})} %}
     {% include "_top.html.twig" %}
   {% endif %}
+  <a class="btn btn-primary btn-sm mt-1" href="{{ path('item_new_for_content', {target: 'chronicle', id: chronicle.id}) }}">
+    {% include "_icon.html.twig" with {icon: 'add' } only %}
+    {% include "_icon.html.twig" with {icon: 'item' } only %}
+  </a>
 {% endblock %}
 
 {% block body %}

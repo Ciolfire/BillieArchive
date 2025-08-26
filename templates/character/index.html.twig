@@ -5,8 +5,13 @@
 {% block title %}{{ 'pc.label.multi'|trans }}{% endblock %}
 
 {% set footer = true %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
 {% block bodyData %}
-  data-controller="search" data-search-type-value="character"
+  data-search-type-value="character"
 {% endblock %}
 
 {% if characters is defined %}
