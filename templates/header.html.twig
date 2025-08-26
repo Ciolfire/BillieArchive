@@ -64,25 +64,33 @@
             {% include "_icon.html.twig" with {icon: 'chronicle', label: "label.multi"|trans({}, 'chronicle') } only %}
             <span class="d-inline d-lg-none">{{ "label.multi"|trans({}, 'chronicle') }}</span>
           </a>
+          {# Chronicles menu #}
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             {% if app.user.stories is not empty %}
               <h5>{{ "story.label.multi"|trans({}, 'chronicle') }}</h5>
+              {# Stories #}
               {% for story in app.user.stories %}
                 <li>
-                  <a class="dropdown-item {{ story.type }} btn btn-primary" href="{{path('chronicle_show', {id: story.id }) }}">
-                    <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: story } only %}/>
-                    {{ story.name }}
+                  <a class="dropdown-item {{ story.type }} px-3" href="{{path('chronicle_show', {id: story.id }) }}">
+                    <div class="btn btn-primary w-100 mb-1">
+                      <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: story } only %}/>
+                      {{ story.name }}
+                    </div>
                   </a>
                 </li>
               {% endfor %}
             {% endif %}
             {% if app.user.chronicles is not empty %}
               <h5>{{ "label.multi"|trans({}, 'chronicle' ) }}</h5>
+              {# Chronicles #}
               {% for chronicle in app.user.chronicles %}
                 <li>
-                  <a class="dropdown-item {{ chronicle.type }} btn btn-primary mb-1" href="{{path('chronicle_show', {id: chronicle.id }) }}">
-                    <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: chronicle } only %}/>
-                    {{ chronicle.name }}</a>
+                  <a class="dropdown-item {{ chronicle.type }} px-3" href="{{path('chronicle_show', {id: chronicle.id }) }}">
+                    <div class="btn btn-primary w-100 mb-1">
+                      <img style="height:1em;" src={% include "chronicle/_icon.html.twig" with {chronicle: chronicle } only %}/>
+                      {{ chronicle.name }}
+                    </div>
+                  </a>
                 </li>
               {% endfor %}
             {% endif %}
@@ -118,16 +126,17 @@
         </li>
       </ul>
     </div>
-    <div id="navbarMenuCharacter" class="collapse navbar-collapse bg-dark">
-      <ul class=" mb-2 mb-lg-0 navbar-toggler">
-          {% for character in app.user.chroniclesCharacters %}
-            {% if character.id != app.user.preferences.favoriteCharacter|default(0) %}
-              <a class="d-inline-block nav-link p-1" href="{{ path('character_show', {id: character.id}) }}">
-                <img class="nav-link {{ character.type }} {% if character.isLesser %}lesser{% endif %} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';" height="40" width="40">
-              </a>
-            {% endif %}
-          {% endfor %}
-      </ul>
-    </div>
+  </div>
+  {# Main Characters List #}
+  <div id="navbarMenuCharacter" class="collapse navbar-collapse bg-dark">
+    <ul class="mb-0 navbar-toggler">
+        {% for character in app.user.chroniclesCharacters %}
+          {% if character.id != app.user.preferences.favoriteCharacter|default(0) %}
+            <a class="d-inline-block nav-link p-1" href="{{ path('character_show', {id: character.id}) }}">
+              <img class="nav-link {{ character.type }} {% if character.isLesser %}lesser{% endif %} btn btn-primary p-0 thumbnail" src="/images/characters/{{ character.avatar }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';" height="40" width="40">
+            </a>
+          {% endif %}
+        {% endfor %}
+    </ul>
   </div>
 </nav>

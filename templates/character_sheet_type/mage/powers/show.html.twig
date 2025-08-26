@@ -41,12 +41,39 @@
   5: "-8",
 } %}
 
+{% set maxArcana = character.highestArcanumLevel %}
+
 <div data-controller="tabs" data-tabs-initial-value="arcana" data-tabs-parent-value="mage">
   {% include "character_sheet_type/mage/powers/_tabs.html.twig" %}
   <div id="arcana" class="tab-content d-none" data-tabs-target="page">
     {% include 'character_sheet_type/mage/arcana/show/elements.html.twig' with {characterArcana: arcana} %}
   </div>
   <div id="magic" class="tab-content d-none" data-tabs-target="page">
+    <div class="row text-center">
+      <h3>Practice</h3>
+      <div class="col">
+        {% set currentPractice = 0 %}
+        {% for practice in special.practices %}
+          {% if practice.level <= maxArcana %}
+            {% if practice.level != currentPractice %}
+              <hr>
+              {% set currentPractice = practice.level %}
+            {% endif %}
+          
+            <h5>
+              {{ practice.name }}
+              {% for arcanum in character.arcana %}
+                {% if arcanum.level >= practice.level %}{% include "_icon.html.twig" with {icon: "arcana/#{arcanum.identifier}"} %}{% endif %}
+              {% endfor %}
+            </h5>
+            <div>
+              {{ practice.description }}
+            </div>
+          {% endif %}
+        {% endfor %}
+        <hr>
+      </div>
+    </div>
     <div class="row text-center">
       <h3>Options</h3>
         

@@ -11,6 +11,7 @@ use App\Entity\Mage;
 use App\Entity\Arcanum;
 use App\Entity\MageArcanum;
 use App\Entity\MageOrder;
+use App\Entity\MagicalPractice;
 use App\Entity\Path;
 use App\Entity\SpellRote;
 use Symfony\Component\Form\FormInterface;

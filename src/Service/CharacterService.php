@@ -20,6 +20,7 @@ use App\Entity\Ghoul;
 use App\Entity\GhoulDiscipline;
 use App\Entity\Human;
 use App\Entity\Mage;
+use App\Entity\MagicalPractice;
 use App\Entity\Merit;
 use App\Entity\Possessed;
 use App\Entity\PossessedVestment;
@@ -568,7 +569,14 @@ class CharacterService
             ])
           ];
         }
-      
+      case 'mage':
+        return [
+          'practices' => $this->dataService->findBy(MagicalPractice::class, [], [
+            'level' => 'ASC',
+            'name' => 'ASC', 
+          ]),
+        ];
+
       default:
         return null;
     }

@@ -301,6 +301,16 @@ class Mage extends Character
     return 0;
   }
 
+  public function highestArcanumLevel(): int
+  {
+    $max = 0;
+    foreach ($this->arcana as $arcanum) {
+      $max = max($max, $arcanum->getLevel());
+    }
+
+    return $max;
+  }
+
   public function maxArcanumMastery(Arcanum $arcanum)
   {
     // TODO Maybe ?

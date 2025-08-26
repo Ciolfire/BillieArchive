@@ -91,7 +91,7 @@ body {
 
     .dropdown-item {
       img {
-        filter: drop-shadow(-1px 1px 0 current-color) drop-shadow(-1px -1px 0 current-color) drop-shadow(1px -1px 0 current-color) drop-shadow(1px 1px 0 current-color);
+        filter: drop-shadow(-1px 1px 0 currentColor) drop-shadow(-1px -1px 0 currentColor) drop-shadow(1px -1px 0 currentColor) drop-shadow(1px 1px 0 currentColor);
       }
     }
   }
