@@ -575,6 +575,27 @@ class CharacterService
             'level' => 'ASC',
             'name' => 'ASC', 
           ]),
+          'magic' => [
+            'instant' => [
+              'potency' => [
+                'start' => 1,
+                'step' => 1,
+                'type' => 'standard',
+              ],
+              'target' => [
+                'start' => 1,
+                'step' => 2,
+                'type' => 'expo',
+              ],
+              'size' => [],
+              'area' => [],
+              'area-advanced' => [],
+              'duration' => [],
+            ],
+            'extended' => [
+              'potency' => [],
+            ],
+          ]
         ];
 
       default:
