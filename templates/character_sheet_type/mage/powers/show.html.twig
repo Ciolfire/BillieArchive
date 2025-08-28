@@ -127,50 +127,11 @@
     {# TODO Improvised magic #}
     {# {% include 'character_sheet_type/mage/improvised/show/elements.html.twig' with {characterArcana: arcana} %} #}
     {# {% include 'character_sheet_type/mage/creative/show/elements.html.twig' with {characterArcana: arcana} %} #}
-    <div class="row my-2">
+    <div class="row my-2" data-controller="mage--spellcasting">
       <h3>Rules</h3>
-      {% for key, element in special.magic.instant %}
-        <div class="col-6 pb-2">
-          <div class="block p-2 text-center">
-            <h3>{{ key }}</h3>
-            <div class="btn-group" role="group">
-              {% if element.step is defined %}
-                {% for i in 1..5 %}
-                  <input type="radio" class="btn-check" id="potency-{{ i }}" name="potency" value="{{ i }}"/>
-                  <label class="text-sub btn btn-primary" for="potency-{{ i }}">
-                    {% if element.type == "standard" %}
-                      {{ i * element.step }}
-                    {% else %}
-                      {% set current = current|default(1) * element.step %}
-                      {{ current }}
-                    {% endif %}
-                  </label>
-                {% endfor %}
-              {% endif %}
-            </div>
-          </div>
-        </div>
+      {% for key in special.magic.instant %}
+        {% include "character_sheet_type/mage/powers/magic/#{key}.html.twig" %}
       {% endfor %}
-      <div class="col-6 pb-2">
-        <div class="block p-2 text-center">
-          <h3>Potency</h3>
-          <p>
-            Potency describes a spell’s raw power. It is also the measure of a spell’s resiliency, how hard it is to counter or dispel. Even if a spell requires only one point of Potency, the caster might still wish to increase its Potency if he suspects a target will try to counter or dispel it. A spell with Target or Duration as its primary factor (i.e., successes are applied to one of those factors), has a default Potency of one point, making it easy to counter or dispel even if the casting resulted in an exceptional success. (The spell affects many targets or lasts a long time, but has little resilience against countering or dispelling attempts).
-          </p>
-          <p>
-            Potency is the primary factor for the majority of spells listed later in this chapter. If a spell description does not call for successes to be devoted to number of targets (or area affected) or Duration, assume that its successes apply to Potency.
-          </p>
-          <div class="btn-group" role="group">
-            {% for key, value in potency %}
-              <input type="radio" class="btn-check" id="potency-{{ key }}" name="potency" value="{{ value }}"/>
-              <label class="text-sub btn btn-primary" for="potency-{{ key }}">{{ key }}</label>
-            {% endfor %}
-          </div>
-          <div>
-            <div class="text-strong">{{ potency|first }}</div>
-          </div>
-        </div>
-      </div>
       <div class="col-6 pb-2">
         <div class="block p-2">
           <h3>Mana Cost</h3>

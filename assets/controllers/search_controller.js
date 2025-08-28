@@ -16,7 +16,9 @@ export default class extends Controller
 
   connect()
   {
-    this.counterTarget.innerText = this.itemTargets.length;
+    if (this.hasCounterTarget) {
+      this.counterTarget.innerText = this.itemTargets.length;
+    }
   }
 
   order(event)
@@ -105,6 +107,8 @@ export default class extends Controller
         item.classList.add("d-none");
       }
     });
-    this.counterTarget.innerText = count;
+    if (this.hasCounterTarget) {
+      this.counterTarget.innerText = count;
+    }
   }
 }

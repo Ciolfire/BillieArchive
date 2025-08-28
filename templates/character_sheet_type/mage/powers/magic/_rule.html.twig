@@ -1,0 +1,10 @@
+{% trans_default_domain 'spell' %}
+
+<div class="col-12 pb-2">
+  <div class="block p-2 text-center">
+    <h3>{{ "rules.#{key}.label"|trans }}</h3>
+    <p>{{ "rules.#{key}.description"|trans }}</p>
+    {% block buttons %}{% endblock %}
+    {% block value %}<div class="text-strong" data-mage--spellcasting-target="rule" data-type="{{ key }}"></div>{% endblock %}
+  </div>
+</div>

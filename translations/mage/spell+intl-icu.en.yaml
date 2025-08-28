@@ -44,3 +44,82 @@ rote:
   created: Created Rotes
   new: New Rote
   edit: Edit Rote
+
+rules:
+  potency:
+    label: Potency
+    description: "Potency describes a spell’s raw power. It is also the measure of a spell’s resiliency, how hard it is to counter or dispel"
+    value: >-
+      {count, plural,
+        one {None (basic success)}
+        =2 {-2}
+        =3 {-4}
+        =4 {-6}
+        =5 {-8}
+        other {-10⁺
+        Impose an additional –2 die penalty per extra point.}
+      }
+  size:
+    label: Size
+    description: Once a mage knows who he targets, he must account for the largest target in the group. Targets of exceptional size (larger than a dump truck) require extra spell control.
+    count: >-
+      {count, plural,
+        one {20 or less}
+        =2 {21-30}
+        =3 {31-40}
+        =4 {41-50}
+        =5 {51-60}
+        other {-10⁺
+        Impose an additional –2 die penalty per +10 extra Size.}
+      }
+    value: >-
+      {count, plural,
+        one {None (basic success)}
+        =2 {-2}
+        =3 {-4}
+        =4 {-6}
+        =5 {-8}
+        other {-10⁺
+        Impose an additional –2 die penalty per +10 extra Size.}
+      }
+  target:
+    label: Target
+    description: "Spells are targeted against one or more creatures or objects. The magic is woven directly into that target’s Pattern, bypassing any intervening obstacles. Two questions to consider are: How many targets are to be affected, and how big is each target?"
+    value: >-
+      {count, plural,
+        one {None (basic success)}
+        =2 {-2}
+        =3 {-4}
+        =4 {-6}
+        =5 {-8}
+        other {-10⁺
+        Impose an additional –2 die penalty per x2 targets.}
+      }
+  area:
+    label: Area
+    description: |
+      "Instead of one or more specified targets, a spell might affect a circular radius around a specified spot (radiating equaling in all directions), or a defined volume (measured in three dimensions — width, length and height — defined by the spellcaster). The spell then applies to anyone or anything in that radius or volume, friend or foe. The mage cannot single out specific targets within the declared space.
+      Advanced Area-Affecting: If the mage has dots in the spell’s primary Arcanum that are one or more higher than normally required to cast the spell, he can increase the radius or defined volume by more dramatic steps."
+    value: >-
+      {count, plural,
+        one {None (basic success)}
+        =2 {-2}
+        =3 {-4}
+        =4 {-6}
+        =5 {-8}
+        other {-10⁺
+        Impose an additional –2 die penalty per extra x2 area or x2 volume.
+        Advanced: Impose an additional –2 die penalty per extra x4 area or x4 volume.
+        }
+      }
+  volume:
+    count: >-
+      {count, plural,
+        one {5 m³}
+        =2 {10|20 m³}
+        =3 {15|80 m³}
+        =4 {20|320 m³}
+        =5 {25|1280 m³}
+        other {-10⁺
+        Impose an additional –2 die penalty per +10 extra Size.}
+      }

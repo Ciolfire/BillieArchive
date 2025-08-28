@@ -1,0 +1,86 @@
+{% trans_default_domain 'spell' %}
+
+{% extends "character_sheet_type/mage/powers/magic/_rule.html.twig" %}
+
+{% block buttons %}
+  {# TARGET #}
+  <div class="btn-group" role="group">
+    {% for i in 1..5 %}
+      <input type="radio" class="btn-check" id="{{ key }}-{{ i }}" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: i) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="{{ key }}"
+      />
+      <label class="text-sub btn btn-primary" for="{{ key }}-{{ i }}">
+        {% set current = current|default(0.5) * 2 %}
+        {{ current }}
+      </label>
+    {% endfor %}
+    <input type="radio" class="btn-check" id="{{ key }}-99" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: 99) }}"
+      data-action="mage--spellcasting#updateValue"
+      data-mage--spellcasting-type-param="{{ key }}"
+    />
+    <label class="text-sub btn btn-primary" for="{{ key }}-99">
+    +
+    </label>
+  </div>
+  <div class="text-strong" data-mage--spellcasting-target="rule" data-type="target"></div>
+  {# SIZE #}
+  <h5>{{ "rules.size.label"|trans }}</h5>
+  <p>{{ "rules.size.description"|trans|raw|nl2br }}</p>
+  <div class="btn-group" role="group">
+    {% for i in 1..5 %}
+      <input type="radio" class="btn-check" id="size-{{ i }}" name="size" value="{{ "rules.size.value"|trans(count: i) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="size"
+      />
+      <label class="text-sub btn btn-primary" for="size-{{ i }}">
+        {{ "rules.size.count"|trans(count: i) }}
+      </label>
+    {% endfor %}
+    <input type="radio" class="btn-check" id="size-99" name="size" value="{{ "rules.#{key}.value"|trans(count: 99) }}"
+      data-action="mage--spellcasting#updateValue"
+      data-mage--spellcasting-type-param="size"
+    />
+    <label class="text-sub btn btn-primary" for="size-99">
+    +
+    </label>
+  </div>
+  <div class="text-strong" data-mage--spellcasting-target="rule" data-type="size"></div>
+  <hr>
+  {# AREA #}
+  <h4>{{ "rules.area.label"|trans }}</h4>
+  <p>{{ "rules.area.description"|trans|raw|nl2br }}</p>
+  <div class="btn-group" role="group">
+    {% for i in 1..5 %}
+      <input type="radio" class="btn-check" id="r-{{ key }}-{{ i }}" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: i) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="area"
+      />
+      <label class="text-sub btn btn-primary" for="r-{{ key }}-{{ i }}">
+        {% if current is not defined %}
+          {% set current = 1 %}
+          {% set advanced = 1 %}
+          {{ current }}mʳ
+        {% else %}
+          {% set current = current * 2 %}
+          {% set advanced = advanced * 4 %}
+          {{ current }}mʳ | {{ advanced }}mʳ
+        {% endif %}
+        <br>
+        {{ "rules.volume.count"|trans(count: i) }}
+      </label>
+    {% endfor %}
+    <input type="radio" class="btn-check" id="r-{{ key }}-99" name="{{ key }}" value="{{ "rules.area.value"|trans(count: 99) }}"
+      data-action="mage--spellcasting#updateValue"
+      data-mage--spellcasting-type-param="area"
+    />
+    <label class="text-sub btn btn-primary" for="r-{{ key }}-99">
+    +
+    </label>
+  </div>
+  <div class="text-strong" data-mage--spellcasting-target="rule" data-type="area"></div>
+
+
+{% endblock %}
+
+{% block value %}{% endblock %}

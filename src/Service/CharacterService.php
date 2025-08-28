@@ -577,24 +577,19 @@ class CharacterService
           ]),
           'magic' => [
             'instant' => [
-              'potency' => [
-                'start' => 1,
-                'step' => 1,
-                'type' => 'standard',
-              ],
-              'target' => [
-                'start' => 1,
-                'step' => 2,
-                'type' => 'expo',
-              ],
-              'size' => [],
-              'area' => [],
-              'area-advanced' => [],
-              'duration' => [],
+              'potency',
+              'target',
+              // 'area' => [
+              //   'start' => 1,
+              //   'step' => 2,
+              //   'type' => 'expo',
+              //   'area-advanced' => [],
+              // ],
+              // 'duration' => [],
             ],
-            'extended' => [
-              'potency' => [],
-            ],
+            // 'extended' => [
+            //   'potency' => [],
+            // ],
           ]
         ];
 

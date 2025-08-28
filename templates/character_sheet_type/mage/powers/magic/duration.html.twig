@@ -1,0 +1,19 @@
+<div class="col-6 pb-2">
+  {# <div class="block p-2 text-center">
+    <h3>{{ key }}</h3>
+    <div class="btn-group" role="group">
+        {% for i in 1..5 %}
+          <input type="radio" class="btn-check" id="{{ key }}-{{ i }}" name="{{ key }}" value="{{ i }}"/>
+          <label class="text-sub btn btn-primary" for="{{ key }}-{{ i }}">
+            {{ i * element.step }}
+          </label>
+        {% endfor %}
+        {% if not element.limited|default(false) %}
+          <input type="radio" class="btn-check" id="{{ key }}-99" name="{{ key }}" value="99"/>
+          <label class="text-sub btn btn-primary" for="{{ key }}-99">
+          +
+          </label>
+        {% endif %}
+    </div>
+  </div> #}
+</div>

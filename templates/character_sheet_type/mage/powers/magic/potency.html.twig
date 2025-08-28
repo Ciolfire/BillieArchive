@@ -1,0 +1,24 @@
+{% trans_default_domain 'spell' %}
+
+{% extends "character_sheet_type/mage/powers/magic/_rule.html.twig" %}
+
+{% block buttons %}
+  <div class="btn-group" role="group">
+    {% for i in 0..4 %}
+      <input type="radio" class="btn-check" id="{{ key }}-{{ i }}" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: i + 1) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="{{ key }}"
+      />
+      <label class="text-sub btn btn-primary" for="{{ key }}-{{ i }}">
+        {{ i + 1 }}
+      </label>
+    {% endfor %}
+    <input type="radio" class="btn-check" id="{{ key }}-99" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: 99) }}"
+      data-action="mage--spellcasting#updateValue"
+      data-mage--spellcasting-type-param="{{ key }}"
+    />
+    <label class="text-sub btn btn-primary" for="{{ key }}-99">
+    +
+    </label>
+  </div>
+{% endblock %}
