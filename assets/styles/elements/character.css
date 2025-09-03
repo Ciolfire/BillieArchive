@@ -196,7 +196,7 @@
 
 .dot {
   background-color: transparent;
-  border-color: black;
+  border-color: var(--light-25a);
   color: black !important;
   margin-left: 1px !important;
   margin-right: 1px !important;
@@ -213,8 +213,8 @@
   }
 
   &:hover.btn:not(.dot-locked) {
-    border-color: var(--main-dark);
-    background-color: var(--main);
+    border-color: var(--accent);
+    background-color: var(--main-bright);
   }
 
   &::first-child {
@@ -229,16 +229,18 @@
 .btn-check:active,
 .btn-check:checked {
   + .dot {
+    border-color: var(--main-bright);
     background-color: var(--main);
 
     &:hover.btn:not(.dot-locked) {
-      border-color: rgba(255, 255, 255, 0.548);
-      background-color: var(--main);
+      border-color: var(--accent);
+      background-color: var(--accent-dark);
     }
 
     &.dot-locked {
-      background-color: black;
-      color: #232323 !important;
+      border-color: var(--main);
+      background-color: var(--main-dark);
+      /* color: var(--main-dark) !important; */
     }
   }
 }

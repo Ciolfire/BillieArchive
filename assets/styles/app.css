@@ -14,7 +14,11 @@
 
   /* Main */
   --dark                      : black;
+  --dark-25a                  : rgba(0, 0, 0, .25);
+  --dark-50a                  : rgba(0, 0, 0, .50);
   --light                     : white;
+  --light-25a                 : rgba(255, 255, 255, .25);
+  --light-50a                 : rgba(255, 255, 255, .50);
   
   --main                      : rgba(111, 128, 197, 1);
   --main-75a                  : rgba(111, 128, 197, .75);
