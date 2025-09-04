@@ -17,13 +17,13 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 #[DiscriminatorMap([
   'bloodBather' => BloodBather::class,
   'bodyThief' => BodyThief::class,
-  'feral' => Feral::class, 
-  'ghoul' => Ghoul::class, 
+  'feral' => Feral::class,
+  'ghoul' => Ghoul::class,
   'innocents' => Innocent::class,
-  'possessed' => Possessed::class, 
-  'psychic' => Psychic::class, 
+  'possessed' => Possessed::class,
+  'psychic' => Psychic::class,
   'purified' => Purified::class,
-  'thaumaturge' => Thaumaturge::class, 
+  'thaumaturge' => Thaumaturge::class,
 ])]
 class CharacterLesserTemplate
 {
@@ -49,9 +49,9 @@ class CharacterLesserTemplate
   {
     $collectionClone = new ArrayCollection();
     foreach ($collection as $item) {
-        $itemClone = clone $item;
-        $itemClone->setCharacter($this);
-        $collectionClone->add($itemClone);
+      $itemClone = clone $item;
+      $itemClone->setCharacter($this);
+      $collectionClone->add($itemClone);
     }
     return $collectionClone;
   }
@@ -71,22 +71,22 @@ class CharacterLesserTemplate
     return "";
   }
 
-  public static function getForm() : ?string
+  public static function getForm(): ?string
   {
     return null;
   }
 
-  public function getPowerRating(array $weight) : int
+  public function getPowerRating(array $weight): int
   {
     return 0;
   }
 
-  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []) : array
+  public function detailedDicePool(Collection $attributes, Collection $skills, ?Collection $specials = null, array $modifiers = []): array
   {
     return $this->sourceCharacter->detailedDicePool($attributes, $skills, $specials, $modifiers);
   }
 
-  public function getChronicle() : ?Chronicle
+  public function getChronicle(): ?Chronicle
   {
     return $this->sourceCharacter->getChronicle();
   }
@@ -113,5 +113,33 @@ class CharacterLesserTemplate
     $this->isActive = $isActive;
 
     return $this;
+  }
+
+  // Propagate status to the character
+  /**
+   * @return Collection<int, StatusEffect>
+   */
+  public function getStatusEffects(): Collection
+  {
+    return $this->getSourceCharacter()->getStatusEffects();
+  }
+
+  public function addStatusEffect(StatusEffect $statusEffect): static
+  {
+    $this->getSourceCharacter()->addStatusEffect($statusEffect);
+
+    return $this;
+  }
+
+  public function removeStatusEffect(StatusEffect $statusEffect): static
+  {
+    $this->getSourceCharacter()->removeStatusEffect($statusEffect);
+
+    return $this;
+  }
+
+  public function hasStatus(?DisciplinePower $power): bool
+  {
+    return $this->getSourceCharacter()->hasStatus($power);
   }
 }

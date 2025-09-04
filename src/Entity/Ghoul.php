@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -321,31 +323,31 @@ class Ghoul extends CharacterLesserTemplate
         }
       }
     }
-    
+
     return 10 - $restriction;
   }
 
   public function getFamily(): ?GhoulFamily
   {
-      return $this->family;
+    return $this->family;
   }
 
   public function setFamily(?GhoulFamily $family): static
   {
-      $this->family = $family;
+    $this->family = $family;
 
-      return $this;
+    return $this;
   }
 
   public function getCovenant(): ?Covenant
   {
-      return $this->covenant;
+    return $this->covenant;
   }
 
   public function setCovenant(?Covenant $covenant): static
   {
-      $this->covenant = $covenant;
+    $this->covenant = $covenant;
 
-      return $this;
+    return $this;
   }
 }

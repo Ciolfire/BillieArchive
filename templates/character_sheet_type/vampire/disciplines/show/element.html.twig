@@ -11,13 +11,15 @@
 
 
 {% block toggle %}
+{% set realId = character.sourceCharacter.id|default(character.id) %}
+
 {% if discipline.power.canToggle %}
   {% if character.hasStatus(power: discipline.power) %}
-    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: discipline.power.id, activate: 0 }) }}">
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: realId, id: discipline.power.id, activate: 0 }) }}">
       {% include "_icon.html.twig" with { icon: 'confirmed' } %}
     </a>  
   {% else %}
-    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: discipline.power.id, activate: 1 }) }}">
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: realId, id: discipline.power.id, activate: 1 }) }}">
       {% include "_icon.html.twig" with { icon: 'button' } %}
     </a>
   {% endif %}
@@ -27,11 +29,11 @@
 {% block toggleMulti %}
 {% if power.canToggle %}
   {% if character.hasStatus(power: power) %}
-    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: power.id, activate: 0 }) }}">
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: realId, id: power.id, activate: 0 }) }}">
       {% include "_icon.html.twig" with { icon: 'confirmed' } %}
     </a>  
   {% else %}
-    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: character.id, id: power.id, activate: 1 }) }}">
+    <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: realId, id: power.id, activate: 1 }) }}">
       {% include "_icon.html.twig" with { icon: 'button' } %}
     </a>
   {% endif %}
