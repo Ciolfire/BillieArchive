@@ -15,6 +15,16 @@
   outline: 1px solid var(--block-outline-color);
   border-radius: 0.5em;
 
+  &.block-top {
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+  }
+
+  &.block-bottom {
+    border-top-left-radius: 0%;
+    border-top-right-radius: 0%;
+  }
+
   &.block-backdrop {
     backdrop-filter: blur(2px);
   }
