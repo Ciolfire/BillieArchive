@@ -41,17 +41,18 @@ export default class extends Controller {
   }
 
   show(event) {
-    this.selectPage(event.params.target);
+    let page = this.selectPage(event.params.target);
     this.unselectTab(event.target.id);
     event.target.classList.add("active");
   }
 
   selectPage(selected) {
-    let result = false;
+    let result = null;
+
     this.pageTargets.forEach(page => {
       if (page.id == selected) {
         page.classList.remove("d-none");
-        result = true;
+        result = page;
       } else {
         page.classList.add("d-none");
       }
