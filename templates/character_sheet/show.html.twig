@@ -118,8 +118,9 @@
       </div>
       {# Notes #}
       {% if app.user == character.player %}
-        <div id="notes" class="tab-content d-none" data-tabs-target="page">
-          {% include "character_sheet/elements/notes.html.twig" %}
+        <div id="notes" class="tab-content d-none" data-tabs-target="page" data-content-target="lazy" data-fetch="{{ path('character_notes', {'id': character.id} ) }}">
+          {# Lazy loading #}
+          {# {% include "character_sheet/elements/notes.html.twig" %} #}
         </div>
       {% endif %}
     </div>

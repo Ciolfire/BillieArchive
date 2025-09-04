@@ -1,6 +1,7 @@
 {% trans_default_domain 'character' %}
 
-<div id="informations" class="tab-content d-none p-0" data-tabs-target="page">
-  {% include 'chronicle/infos/_characters.html.twig' with {character } only %}
+<div id="informations" class="tab-content d-none p-0" data-tabs-target="page" data-content-target="lazy" data-type="relations" data-fetch="{{ path('character_relations', {'id': character.id} ) }}">
+  {# Lazy loading #}
+  {# {% include 'chronicle/infos/_characters.html.twig' with {character } only %} #}
 </div>
 {% include "character_sheet/elements/informations.html.twig" %}

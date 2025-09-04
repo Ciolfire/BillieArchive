@@ -306,7 +306,7 @@ class DisciplineController extends AbstractController
   public function disciplinePowerToggle(Character $character, DisciplinePower $power, bool $activate): Response
   {
     if ($activate) {
-      if ($character instanceof Vampire) {
+      if ($character instanceof Vampire || $character->getType() == "ghoul") {
         foreach ($power->getStatusEffects() as $effect) {
           $newEffect = clone $effect;
           $character->addStatusEffect($newEffect);

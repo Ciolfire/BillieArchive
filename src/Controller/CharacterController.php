@@ -587,6 +587,22 @@ class CharacterController extends AbstractController
     ]);
   }
 
+  // Fetch the list of relations for the character
+  #[Route('/{id<\d+>}/relations', name: 'character_relations')]
+  public function listRelations(Request $request, Character $character): Response
+  {
+    if ($request->isXmlHttpRequest()) {
+
+    // $template = "show";
+      $template = "_show";
+      
+      return $this->render("chronicle/infos/_characters.html.twig", [
+        'character' => $character,
+      ]);
+    }
+    return $this->render("index.html.twig");
+  }
+
   #[Route('/{character<\d+>}/item/container/add', name: 'character_container_add', methods: ['GET', 'POST'])]
   public function addContainer(Request $request, Character $character): Response
   {
@@ -665,6 +681,23 @@ class CharacterController extends AbstractController
       'form' => $form,
     ]);
   }
+
+  // Fetch the list of relations for the character
+  #[Route('/{id<\d+>}/notes', name: 'character_notes')]
+  public function listNotes(Request $request, Character $character): Response
+  {
+    if ($request->isXmlHttpRequest()) {
+
+    // $template = "show";
+      $template = "_show";
+      
+      return $this->render("character_sheet/elements/notes.html.twig", [
+        'character' => $character,
+      ]);
+    }
+    return $this->render("index.html.twig");
+  }
+
 
   #[Route('/{id<\d+>}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Character $character): Response
