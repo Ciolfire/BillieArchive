@@ -3,13 +3,43 @@ import { Controller } from "@hotwired/stimulus";
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
   static targets = [
-    "modal"
+    "modal",
+    "lazy"
   ];
   static values = {
     link: String,
   }
 
   connect() {
+    this.lazyTargets.forEach(element => {
+      this.onVisible(element, () => this.lazyLoad(element));
+    });
+  }
+
+  onVisible(element, callback) {
+    new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.intersectionRatio > 0) {
+          callback(element);
+          observer.disconnect();
+        }
+      });
+    }).observe(element);
+    if(!callback) return new Promise(r => callback=r);
+  }
+
+  lazyLoad(element) {
+    window
+    .fetch(`${element.dataset.fetch}`, {
+      headers: {
+        "Content-Type": "application/json",
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+    .then((response) => response.text())
+    .then((text) => {
+      element.innerHTML = text;
+    });
   }
 
   load(event) {
