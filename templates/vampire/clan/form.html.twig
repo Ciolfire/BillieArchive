@@ -1,13 +1,27 @@
 {% extends 'vampire/form.html.twig' %}
 
 {% trans_default_domain 'clan' %}
+{% set clan = form.vars.data %}
 
-{% block title %}{% if entity == "bloodline" %}{{ ("bloodline." ~ action)|trans }}{% else %}{{ action|trans }}{% endif %}{% endblock %}
-{% block header %}{% include "_icon.html.twig" with {icon : entity, class: 'icon-lg'} only %}{% if entity == "bloodline" %}{{ ("bloodline." ~ action)|trans }}{% else %}{{ (action)|trans }}{% endif %}{% endblock %}
+{% block title %}
+  {% if clan.isBloodline %}
+    {{ ("bloodline.#{action}")|trans }}
+  {% else %}
+    {{ action|trans }}
+  {% endif %}
+{% endblock %}
+{% block header %}
+  {% if clan.isBloodline %}
+    {% include "_icon.html.twig" with {icon : "bloodline", class: 'icon-lg'} only %}
+    {{ ("bloodline.#{action}")|trans }}
+  {% else %}
+    {% include "_icon.html.twig" with {icon : "clan", class: 'icon-lg'} only %}
+    {{ (action)|trans }}
+  {% endif %}
+{% endblock %}
 
 {% block form %}
-{% set clan = form.vars.data %}
-{% if clan.id %}
+{% if clan.id is not null %}
   <div class="row">
     <div class="col row">
       <div class="col-12">
