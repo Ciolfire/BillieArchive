@@ -28,7 +28,7 @@ class Discipline implements Translatable
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[Gedmo\Translatable]
   #[ORM\Column(type: Types::STRING, length: 50)]

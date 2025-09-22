@@ -21,7 +21,7 @@ class CharacterSkills
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::SMALLINT)]
   private int $academics = 0;

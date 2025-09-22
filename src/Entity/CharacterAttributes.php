@@ -27,7 +27,7 @@ class CharacterAttributes
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[ORM\Column(type: "smallint", options: ["unsigned" => true, "default" => 1])]
   protected int $intelligence = 1;

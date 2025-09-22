@@ -12,7 +12,7 @@ class CharacterMerit
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[ORM\ManyToOne(targetEntity: Merit::class)]
   #[ORM\JoinColumn(nullable: false)]

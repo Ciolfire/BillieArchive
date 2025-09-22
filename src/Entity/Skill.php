@@ -18,7 +18,7 @@ class Skill
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type:Types::INTEGER)]
-  private ?int $id;
+  private ?int $id = null;
 
   #[ORM\Column(type: Types::STRING, length: 20)]
   private string $identifier = "";
