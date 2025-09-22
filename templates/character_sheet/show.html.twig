@@ -31,7 +31,7 @@
     {% block header %}
       {% include "character_sheet/header/show.html.twig" %}
     {% endblock %}
-    <div class="row block block-backdrop" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
+    <div class="row block block-backdrop mt-2" data-controller="tabs" data-tabs-initial-value="{{ tab }}">
       {% block background %}{% endblock %}
       <ul class="nav tabs g-0">
         {% include "_tab.html.twig" with {name: 'general', label: 'general'|trans({}, 'app')} only %}
