@@ -66,7 +66,7 @@ class Clan implements Translatable
   private ?Clan $parentClan = null;
 
   #[ORM\OneToMany(targetEntity: Clan::class, mappedBy: "parentClan")]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $bloodlines;
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
