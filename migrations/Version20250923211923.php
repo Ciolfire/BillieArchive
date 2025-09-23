@@ -21,8 +21,8 @@ final class Version20250923211923 extends AbstractMigration
   {
     // this up() migration is auto-generated, please modify it to your needs
     // $this->addSql('ALTER TABLE chronicle ADD is_ancient TINYINT(1) DEFAULT 0');
-    $this->addSql('ALTER TABLE characters ADD is_ancient is_ancient TINYINT(1) DEFAULT 0');
-    $this->addSql('ALTER TABLE skill ADD is_ancient is_ancient TINYINT(1) DEFAULT 0');
+    $this->addSql('ALTER TABLE characters ADD is_ancient TINYINT(1) DEFAULT 0');
+    $this->addSql('ALTER TABLE skill ADD is_ancient  TINYINT(1) DEFAULT 0');
     $this->addSql('ALTER TABLE merits ADD is_ancient TINYINT(1) DEFAULT 0');
     $this->addSql('ALTER TABLE devotion ADD is_ancient TINYINT(1) DEFAULT 0');
     $this->addSql('ALTER TABLE organization ADD is_ancient TINYINT(1) DEFAULT 0');
