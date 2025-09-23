@@ -21,29 +21,29 @@
 {% endblock %}
 
 {% block form %}
-{% if clan.id is not null %}
-  <div class="row">
-    <div class="col row">
-      <div class="col-12">
-        {% if clan.emblem is not null %}
-          <img class="logo" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
-        {% endif %}
+  {% if clan.id is not null %}
+    <div class="row">
+      <div class="col row">
+        <div class="col-12">
+          {% if clan.emblem is not null %}
+            <img class="logo" src="{{ asset(clan.emblem, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+        </div>
       </div>
-      <div class="col-12">
-        <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+      <div class="col row">
+        <div class="col-12">
+          {% if clan.symbol is not null %}
+            <img class="logo" src="{{ asset(clan.symbol, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "symbol.label"|trans(domain: "mage") }}</h5>
+        </div>
       </div>
     </div>
-    <div class="col row">
-      <div class="col-12">
-        {% if clan.symbol is not null %}
-          <img class="logo" src="{{ asset(clan.symbol, 'clans_emblems') }}" alt="{{ clan.name}}" height="200"/>
-        {% endif %}
-      </div>
-      <div class="col-12">
-        <h5>{{ "symbol.label"|trans(domain: "mage") }}</h5>
-      </div>
-    </div>
-  </div>
-{% endif %}
-{{ parent() }}
+  {% endif %}
+  {{ parent() }}
 {% endblock %}

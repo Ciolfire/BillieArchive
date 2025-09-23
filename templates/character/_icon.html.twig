@@ -1,7 +1,7 @@
 {% if isShared|default(true) == true %}
   {% if character.type == "mage" %}
     "{{ asset(character.path.rune|default(character.path.symbol)|default(character.path.emblem), 'paths_emblems') }}" onerror="this.src='{{ asset('SkullMTAw.webp', 'images') }}';this.onerror=null;"
-  {% elseif character.type == "vampire" %}
+  {% elseif character.type == "vampire" and character.clan.emblem %}
     "{{ asset(character.clan.emblem, 'clans_emblems') }}" onerror="this.src='{{ asset('SkullVTR.png', 'images') }}';this.onerror=null;"
   {% elseif character.type == "ghoul" %}
     {{ asset('ghoul.svg', 'images') }}

@@ -10,7 +10,11 @@
 {% endblock %} #}
 
 {% block input %}
-  {{ form_row(attribute(form.skills, skill), {'attr': {'value': base, 'data-dot-target': 'input', 'data-character--edit-target': 'dot' }}) }}
+  {{ form_row(attribute(form.skills, skill), {'attr': {
+    'value': base, 
+    'data-dot-target': 'input', 
+    'data-character--edit-target': 'dot'
+  }}) }}
 {% endblock %}
 
 {% block dot %}

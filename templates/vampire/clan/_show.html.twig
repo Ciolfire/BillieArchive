@@ -17,7 +17,7 @@
 
 {% block subname %}
   {% if clan.isBloodline is same as(true) %}
-    {% if clan.parentClan %}
+    {% if clan.parentClan and clan.parentClan.emblem %}
       <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ clan.parentClan }}" class="no-filter pe-2" src="{{ asset(clan.parentClan.symbol|default(clan.parentClan.emblem), 'clans_emblems') }}" style="height:2em;"/>
     {% else %}
       {{ "bloodline.parent.any"|trans }}

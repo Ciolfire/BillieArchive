@@ -16,7 +16,7 @@
             <img class="character-icon" src={% include "character/_icon.html.twig" %}/>
           {% endif %}
           <div class="flex-fill text-center text-strong {% if character.lesserTemplate %}lesser{% endif %}">{{ character.type|trans({}, 'content-type') }}</div>
-          {% if character.mainOrganization %}
+          {% if character.mainOrganization and character.mainOrganization.emblem %}
             <img class="character-icon" src="{{ asset(character.mainOrganization.emblem, 'organizations_emblems') }}"/>
           {% else %}
             <img class="character-icon" src="{{ asset('rabbit_move_slow.gif', 'images') }}"/>

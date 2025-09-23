@@ -6,13 +6,19 @@
   <div class="col-12">
     <h1 class="py-2 text-stylized d-flex justify-content-center">
       <div class="flex-grow-1 flex-basis-0 text-end">
-        <img class="no-filter pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+        {% if character.clan.emblem %}
+          <img class="no-filter pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+        {% endif %}
       </div>
       <span class="text-strong m-auto">
         {{ character.name }}
       </span>
       <div class="flex-grow-1 flex-basis-0 text-start">
-        <img class="no-filter ps-4" src="{% if character.clan.isBloodline %}{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}{% else %}{{ asset(character.clan.emblem, 'clans_emblems') }}{% endif %}" style="height:10rem;"/>
+        {% if character.clan.isBloodline and character.clan.parentClan.emblem %}
+          <img class="no-filter ps-4" src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+        {% elseif not character.clan.isBloodline and character.clan.emblem %}
+          <img class="no-filter ps-4" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+        {% endif %}
       </div>
     </h1>
     {% block premade %}{{ parent() }}{% endblock %}
@@ -62,7 +68,9 @@
       data-content-link-param="{{ link|default(path("organization_show", {'id': character.covenant.id})) }}"
     >
       {{ character.covenant }}
-      <span class="icon link-icon"><img src="{{ asset(character.covenant.emblem, 'organizations_emblems') }}"></span>
+      {% if character.covenant.emblem %}
+        <span class="icon link-icon"><img src="{{ asset(character.covenant.emblem, 'organizations_emblems') }}"></span>
+      {% endif %}
     </a>
   {% endif %}
 {% endblock %}
