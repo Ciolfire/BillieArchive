@@ -6,11 +6,20 @@
       {% include "_tab.html.twig" with {name: category ~ "-" ~  type , icon: 'type/' ~ type , label: type|trans({}, 'content-type') ~ " [" ~ typed_character|length ~ "]"} only %}
     {% endfor %}
   </ul>
-  <div class="col-4 offset-4 my-2">
-    {% if category != 'premade' or is_granted('ROLE_GM') %}
-      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new_premade') : category == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">{{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}{% include "_icon.html.twig" with { icon: icon|default(category) } only %}</a>
-    {% endif %}
-  </div>
+  {% if category != 'premade' or is_granted('ROLE_GM') %}
+    <div class="col-6 my-2">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new_premade') : category == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">
+        {{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}
+        {% include "_icon.html.twig" with { icon: icon|default(category) } only %}
+      </a>
+    </div>
+    <div class="col-6 my-2">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new_premade', {isAncient: true}) : category == 'npc' ? path('character_new', { isNpc: true, isAncient: true }) : path('character_new', { isNpc: 0, isAncient: true }) }}">
+        {{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}
+        {% include "_icon.html.twig" with { icon: 'covenant' } only %}
+      </a>
+    </div>
+  {% endif %}
   {% for type, typed_character in characters %}
     <div id="{{category}}-{{ type }}" class="tab-content py-0 d-none" data-tabs-target="page">
       <div class="row">

@@ -62,6 +62,35 @@ class OrganizationController extends AbstractController
     ]);
   }
 
+  #[Route('/ancient/list/{setting}', name: 'organization_ancient_index', methods: ['GET'])]
+  public function ancientOrganizations(?string $setting = null): Response
+  {
+    $organizations = $this->dataService->getOrganizations($setting, true);
+
+    if ($setting == null) {
+      $setting = "human";
+    }
+
+    switch ($setting) {
+      case 'vampire':
+        $type = "covenant";
+        break;
+      case 'mage':
+        $type = "order";
+        break;
+      default:
+        $type = "organization";
+      break;
+    }
+
+    return $this->render('organization/list.html.twig', [
+      'organizations' => $organizations,
+      'type' => $type,
+      'setting' => $setting,
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => $type]),
+    ]);
+  }
+
   #[Route("/list/{filter<\w+>}/{id<\d+>}/{setting<\w+>}", name: "organization_list", methods: ["GET"])]
   public function organizationList(string $filter, string $setting, int $id): Response
   {
@@ -131,6 +160,9 @@ class OrganizationController extends AbstractController
       default:
         $organization = new Organization();
         break;
+    }
+    if ($item->isAncient()) {
+      $organization->setIsAncient(true);
     }
     $form = $this->createForm($organization->getForm(), $organization, ['item' => $item]);
 

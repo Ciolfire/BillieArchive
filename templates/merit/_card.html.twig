@@ -17,10 +17,15 @@
     data-content-link-param="{{ link|default(path('merit_show', {id: merit.id})) }}"
   >
     <div class="row">
+      <div class="col-auto">
+        {% if merit.isAncient %}
+          {% include "_icon.html.twig" with {icon: 'covenant', class:'accent text-strong', label: 'Ancient' } only %}
+        {% endif %}
+      </div>
       <div class="col text-strong text-center">{{ merit.name }}</div>
       <div class="col-auto">
         {% if merit.type != null %}
-          {% include "_icon.html.twig" with {icon: 'type/' ~ type, class:'accent text-strong', label: (type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
+          {% include "_icon.html.twig" with {icon: "type/#{type}", class:'accent text-strong', label: (type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
         {% else %}
           {% include "_icon.html.twig" with {icon: type, class:'text-strong', label: ('universal'|trans({}, 'app')~ ' ' ~ 'label.single'|trans) } only %}
         {% endif %}

@@ -23,11 +23,11 @@
     {% include "_top.html.twig" %}
   {% endif %}
   {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {filter: filter|default(null), id: id|default(null)}) }}">
+    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {filter: filter|default(null), id: id|default(null), ancient: ancient|default(null)}) }}">
       <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
       {% include "_icon.html.twig" with {icon : 'clan' } only %}
     </a>
-    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {'bloodline': true, filter: filter|default(null), id: id|default(null)}) }}">
+    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {'bloodline': true, filter: filter|default(null), id: id|default(null), ancient: ancient|default(null)}) }}">
       <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
       {% include "_icon.html.twig" with {icon : 'bloodline' } only %}
     </a>
@@ -96,9 +96,11 @@
               <span class="d-none d-lg-inline">
                 {{ clan }}
               </span>
-              <span class="icon px-3">
-                <img src="{{ asset(clan.symbol|default(clan.emblem), 'clans_emblems') }}" style="height:2em;"/>
-              </span>
+              {% if clan.symbol or clan.emblem %}
+                <span class="icon px-3">
+                  <img src="{{ asset(clan.symbol|default(clan.emblem), 'clans_emblems') }}" style="height:2em;"/>
+                </span>
+              {% endif %}
             </a>
           {% endif %}
         {% endfor %}

@@ -31,7 +31,7 @@ class BookForm extends AbstractType
           "ruleset.first" => 1,
           "ruleset.second" => 2
         ],
-        'translation_domain' => 'rules',
+        'translation_domain' => 'rule',
       ])
       ->add('setting', ChoiceType::class, [
         'label' => 'label',

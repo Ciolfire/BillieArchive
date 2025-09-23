@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\DevotionRepository;
@@ -20,6 +21,7 @@ class Devotion implements Translatable
 {
   use Homebrewable;
   use Sourcable;
+  use Ancient;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]

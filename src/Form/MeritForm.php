@@ -54,6 +54,7 @@ class MeritForm extends AbstractType
           'category.location' => 'location',
         ],
       ])
+      ->add('isAncient')
       ->add('description', null, ['label' => 'description', 'help' => 'help.description', 'required' => true, 'empty_data' => ""])
       ->add('effect', RichTextEditorForm::class, ['label' => "effect", 'empty_data' => '', 'data' => $merit->getEffect()])
       ->add('roll', RollableForm::class, ['required' => false])

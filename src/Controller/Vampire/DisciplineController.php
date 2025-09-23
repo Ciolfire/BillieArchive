@@ -132,7 +132,7 @@ class DisciplineController extends AbstractController
       return $this->redirectToRoute('vampire_discipline_show', ['id' => $discipline->getId()]);
     }
 
-    return $this->render('vampire/discipline/new.html.twig', [
+    return $this->render('vampire/form.html.twig', [
       'action' => 'new',
       'form' => $form,
     ]);

@@ -77,8 +77,8 @@ class ClanForm extends AbstractType
       if ($clan->isBloodline()) {
         $builder->add('parentClan', null, [
             'label' => 'bloodline.parent.label',
-            'choice_filter' => function (?Clan $clan) {
-              return $clan ? !$clan->isBloodline() : false;
+            'choice_filter' => function (?Clan $parent) use ($clan) {
+              return $parent ? (!$parent->isBloodline() && $parent->isAncient() == $clan->isAncient()) : false;
             }
           ]
         );

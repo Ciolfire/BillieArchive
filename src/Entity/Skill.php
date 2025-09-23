@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[Gedmo\TranslationEntity(class: "App\Entity\Translation\SkillTranslation")]
 class Skill
 {
+  use Ancient;
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type:Types::INTEGER)]

@@ -34,6 +34,30 @@ class SkillRepository extends ServiceEntityRepository
       ->getResult();
   }
 
+  /**
+   * @return Skills[] Returns an array of Skill objects
+   */
+  public function filterModern()
+  {
+    return $this->createQueryBuilder('s')
+      ->andWhere('s.isAncient = FALSE')
+      ->orWhere('s.isAncient IS NULL')
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Skills[] Returns an array of Skill objects
+   */
+  public function filterAncient()
+  {
+    return $this->createQueryBuilder('s')
+      ->andWhere('s.isAncient = TRUE')
+      ->orWhere('s.isAncient IS NULL')
+      ->getQuery()
+      ->getResult();
+  }
+
   // /**
   //  * @return Skill[] Returns an array of Skill objects
   //  */

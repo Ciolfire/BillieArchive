@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Rollable;
 use App\Entity\Traits\Sourcable;
@@ -26,6 +27,7 @@ class Merit implements Translatable
   use Homebrewable;
   use Sourcable;
   use Rollable;
+  use Ancient;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]

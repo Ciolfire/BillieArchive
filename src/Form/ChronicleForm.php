@@ -29,6 +29,7 @@ class ChronicleForm extends AbstractType
       ])
       ->add('startAt')
       ->add('currentlyAt')
+      ->add('isAncient')
       ->add('save', SubmitType::class);
   }
 

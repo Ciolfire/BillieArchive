@@ -36,13 +36,18 @@ class CharacterSkillsForm extends AbstractType
       ->add('persuasion', HiddenType::class, ['empty_data' => 0])
       ->add('socialize', HiddenType::class, ['empty_data' => 0])
       ->add('streetwise', HiddenType::class, ['empty_data' => 0])
-      ->add('subterfuge', HiddenType::class, ['empty_data' => 0]);
+      ->add('subterfuge', HiddenType::class, ['empty_data' => 0])
+      ->add('religion', HiddenType::class, ['empty_data' => 0])
+      ->add('warfare', HiddenType::class, ['empty_data' => 0])
+      ->add('archery', HiddenType::class, ['empty_data' => 0])
+      ->add('ride', HiddenType::class, ['empty_data' => 0]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
       'data_class' => CharacterSkills::class,
+      'label' => false,
     ]);
   }
 }

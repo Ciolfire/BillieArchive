@@ -59,6 +59,7 @@ class ClanRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('c')
       ->andWhere('c.isBloodline = true')
       ->andWhere('c.homebrewFor IS NULL')
+      ->andWhere('c.isAncient <= 0')
       ->orderBy('c.name', 'ASC')
       ->getQuery()
       ->getResult();

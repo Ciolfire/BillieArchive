@@ -81,6 +81,7 @@ class DevotionForm extends AbstractType
       ])
       ->add('contestedText', null, ['label' => 'contested.text', 'attr' => ['placeholder' => 'contested.placeholder']])
       ->add('usePotency', null, ['label' => 'potency'])
+      ->add('isAncient')
       ->add('source', SourceableForm::class, [
         'data_class' => Devotion::class,
         'label' => 'source.label',

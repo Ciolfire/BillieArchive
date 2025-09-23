@@ -55,6 +55,8 @@ class CharacterController extends AbstractController
   private array $attributes;
   /** @var array<string, array<string, string|null>> */
   private array $skills;
+  /** @var array<string, array<string, string|null>> */
+  private array $ancientSkills;
 
   public function __construct(DataService $dataService, CreationService $creationService, CharacterService $service, ItemService $itemService)
   {
@@ -64,6 +66,7 @@ class CharacterController extends AbstractController
     $this->itemService = $itemService;
     $this->attributes = $this->service->getSortedAttributes();
     $this->skills = $this->service->getSortedSkills();
+    $this->ancientSkills = $this->service->getSortedAncientSkills();
   }
 
   #[Route('s', name: 'character_index', methods: ['GET'])]
@@ -201,7 +204,7 @@ class CharacterController extends AbstractController
     return $this->render("character_sheet_type/show.html.twig", [
       'character' => $character,
       'attributes' => $this->attributes,
-      'skills' => $this->skills,
+      'skills' => $this->getSkillList($character),
       'rolls' => $rolls,
       'setting' => $character->getSetting(),
       'special' => $this->service->getSpecific($character, $type),
@@ -215,9 +218,10 @@ class CharacterController extends AbstractController
   #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
   public function new(Request $request, ?Chronicle $chronicle = null, bool $isNpc = false): Response
   {
-    $character = new Human();
+    $character = new Human($chronicle->isAncient());
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
+
     /** @var User $user */
     $user = $this->getUser();
     $character->setPlayer($user);
@@ -242,15 +246,15 @@ class CharacterController extends AbstractController
       'character' => $character,
       'form' => $form,
       'attributes' => $this->attributes,
-      'skills' => $this->skills,
+      'skills' => $this->getskillList($character),
       'merits' => $merits,
     ]);
   }
 
-  #[Route('/premade/new', name: 'character_new_premade', methods: ['GET', 'POST'])]
-  public function newTemplate(Request $request): Response
+  #[Route('/premade/new/{isAncient<\d+>}', name: 'character_new_premade', methods: ['GET', 'POST'])]
+  public function newTemplate(Request $request, bool $isAncient = false): Response
   {
-    $character = new Human();
+    $character = new Human($isAncient);
     $this->denyAccessUnlessGranted('ROLE_GM');
     
     $character->setIsNpc(false);
@@ -277,7 +281,7 @@ class CharacterController extends AbstractController
       'character' => $character,
       'form' => $form,
       'attributes' => $this->attributes,
-      'skills' => $this->skills,
+      'skills' => $this->getSkillList($character),
       'merits' => $merits,
     ]);
   }
@@ -293,7 +297,6 @@ class CharacterController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $spent = $this->service->editCharacter($character, $form->getExtraData());
-
       $this->addFlash('success', ["character.edit.success", ['%count%' => $spent]]);
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
@@ -305,7 +308,7 @@ class CharacterController extends AbstractController
       'setting' => $character->getSetting(),
       'form' => $form,
       'attributes' => $this->attributes,
-      'skills' => $this->skills,
+      'skills' => $this->getSkillList($character),
       'merits' => $merits,
       //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
       $character->getType() => $this->service->getSpecial($character),
@@ -964,5 +967,14 @@ class CharacterController extends AbstractController
     //   $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
     // }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  private function getSkillList(Character $character)
+  {
+    if ($character->isAncient()) {
+      return $this->ancientSkills;
+    }
+
+    return $this->skills;
   }
 }

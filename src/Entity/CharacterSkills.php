@@ -18,6 +18,13 @@ class CharacterSkills
     'animalKen', 'empathy', 'expression', 'intimidation', 'persuasion', 'socialize', 'streetwise', 'subterfuge',
   ];
 
+  /** @var array<string> */
+  public array $ancientList = [
+    'academics', 'crafts', 'investigation', 'medicine', 'occult', 'politics', 'religion', 'warfare',
+    'archery', 'athletics', 'brawl', 'larceny', 'ride', 'stealth', 'survival', 'weaponry',
+    'animalKen', 'empathy', 'expression', 'intimidation', 'persuasion', 'socialize', 'streetwise', 'subterfuge',
+  ];
+
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
@@ -123,6 +130,21 @@ class CharacterSkills
 
   public function get(string $skill, bool $includeModifiers = true): ?int
   {
+    switch ($skill) {
+      case 'religion':
+        $skill = 'science';
+        break;
+      case 'warfare':
+        $skill = 'computer';
+        break;
+      case 'archery':
+        $skill = 'firearms';
+        break;
+      case 'ride':
+        $skill = 'drive';
+        break;
+    }
+    
     if ($includeModifiers) {
       foreach ($this->character->getStatusEffects() as $effect) {
         if ($effect->getType() == 'skill' && $effect->getChoice() == $skill) {
@@ -145,6 +167,13 @@ class CharacterSkills
   public function getAll(bool $any=true) : array
   {
     $skills = [];
+    if ($this->character->isAncient()) {
+      foreach ($this->ancientList as $skill) {
+        if ($any || $this->$skill > 0) {
+          $skills[] = ['id' => $skill, 'value' => $this->$skill];
+        }
+      }
+    }
     foreach ($this->list as $skill) {
       if ($any || $this->$skill > 0) {
         $skills[] = ['id' => $skill, 'value' => $this->$skill];
@@ -438,6 +467,64 @@ class CharacterSkills
   public function setSubterfuge(int $subterfuge): self
   {
     $this->subterfuge = $subterfuge;
+
+    return $this;
+  }
+
+  // ANCIENT
+
+  public function getReligion(): ?int
+  {
+    return $this->get('science');
+  }
+
+  public function setReligion(int $religion): self
+  {
+    if ($this->character->isAncient()) {
+      $this->science = $religion;
+    }
+
+    return $this;
+  }
+
+  public function getWarfare(): ?int
+  {
+    return $this->get('computer');
+  }
+
+  public function setWarfare(int $warfare): self
+  {
+    if ($this->character->isAncient()) {
+      $this->computer = $warfare;
+    }
+
+    return $this;
+  }
+
+  public function getArchery(): ?int
+  {
+    return $this->get('firearms');
+  }
+
+  public function setArchery(int $archery): self
+  {
+    if ($this->character->isAncient()) {
+      $this->firearms = $archery;
+    }
+
+    return $this;
+  }
+
+  public function getRide(): ?int
+  {
+    return $this->get('drive');
+  }
+
+  public function setRide(int $ride): self
+  {
+    if ($this->character->isAncient()) {
+      $this->drive = $ride;
+    }
 
     return $this;
   }

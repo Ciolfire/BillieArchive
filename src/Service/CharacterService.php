@@ -488,7 +488,31 @@ class CharacterService
   public function getSortedSkills(): array
   {
     $sortedSkills = [];
-    $skills = $this->dataService->findAll(Skill::class);
+    /** @var SkillRepository $repo */
+    $repo = $this->dataService->getRepository(Skill::class);
+    $skills = $repo->filterModern();
+
+    foreach ($skills as $skill) {
+      /** @var Skill $skill */
+      if (!isset($sortedSkills[$skill->getCategory()])) {
+        $sortedSkills[$skill->getCategory()] = [];
+      }
+      $sortedSkills[$skill->getCategory()][$skill->getIdentifier()] = $skill->getName();
+    }
+
+    return $sortedSkills;
+  }
+
+  /**
+   *  @return array<string, array<string, string|null>>
+   */
+  public function getSortedAncientSkills(): array
+  {
+    $sortedSkills = [];
+    /** @var SkillRepository $repo */
+    $repo = $this->dataService->getRepository(Skill::class);
+    $skills = $repo->filterAncient();
+
     foreach ($skills as $skill) {
       /** @var Skill $skill */
       if (!isset($sortedSkills[$skill->getCategory()])) {
@@ -577,8 +601,20 @@ class CharacterService
           ]),
           'magic' => [
             'instant' => [
-              'potency',
-              'target',
+              // 'potency' => [],
+              'target' => [
+                'normal' => [1, 2, 4, 8, 16],
+                'area' => [
+                  'simple' => [1, 2, 4, 8, 16],
+                  'advanced' => [1, 4, 16, 64, 256],
+                ],
+                'volume' => [
+                  'simple' => [5, 20, 80, 320, 16],
+                  'advanced' => [1, 4, 16, 64, 256],
+                ],
+                'size' => [],
+              ],
+              // 'duration' => [],
               // 'area' => [
               //   'start' => 1,
               //   'step' => 2,

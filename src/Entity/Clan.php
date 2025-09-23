@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Repository\ClanRepository;
@@ -20,6 +21,7 @@ class Clan implements Translatable
 {
   use Sourcable;
   use Homebrewable;
+  use Ancient;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
@@ -86,9 +88,10 @@ class Clan implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $ghoulFamilies;
 
-  public function __construct(bool $isBloodline = false, $element = null)
+  public function __construct(bool $isBloodline = false, $element = null, bool $isAncient = false)
   {
     $this->isBloodline = $isBloodline;
+    $this->isAncient = $isAncient;
 
     if ($element instanceof Chronicle) {
       $this->setHomebrewFor($element);

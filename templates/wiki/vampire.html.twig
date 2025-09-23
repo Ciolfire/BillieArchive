@@ -72,7 +72,7 @@
       </a>
     </div>
     {# Ghoul #}
-    <h3 class="text-strong">{% include "_icon.html.twig" with {icon: 'type/ghoul' } only %}<span>Ghoul</span></h3>
+    <h3 class="text-strong">{% include "_icon.html.twig" with {icon: 'type/ghoul' } only %}<span>{{ "ghoul"|trans({}, "content-type") }}</span></h3>
     <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('ghoul_families_index')}}">
         {% include "_icon.html.twig" with {icon: 'ghoul_family' } only %}
@@ -85,5 +85,31 @@
         <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'merit') }}</span>
       </a>
     </div>
+    {# Vampire Rome #}
+    <h3 class="text-strong">{% include "_icon.html.twig" with {icon: 'covenant' } only %}<span>Rome</span></h3>
+    <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('organization_ancient_index', {setting: 'vampire'})}}">
+        {% include "_icon.html.twig" with {icon: 'covenant' } only %}
+        <span class="d-none d-sm-inline">{{ "covenant.label.multi"|trans({}, 'organization')}}</span>
+      </a>
+    </div>
+    <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('vampire_clan_ancient_list')}}">
+        {% include "_icon.html.twig" with {icon: 'clan' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'clan')}}</span>
+      </a>
+    </div>
+    {# <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {filter: 'type', id: 'vampire'})}}">
+        {% include "_icon.html.twig" with {icon: 'discipline' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'discipline') }}</span>
+      </a>
+    </div> #}
+    {# <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {filter: 'type', id: 'vampire_rome'})}}">
+        {% include "_icon.html.twig" with {icon: 'devotion' } only %}
+        <span class="d-none d-sm-inline">{{ "devotion.label.multi"|trans({}, 'discipline') }}</span>
+      </a>
+    </div> #}
   </div>
 </div>

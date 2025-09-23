@@ -110,7 +110,10 @@ class CharacterForm extends AbstractType
         'label' => 'label.single',
         'translation_domain' => 'organization',
         'choice_filter' => function (?Organization $organization) use ($character) {
-          return $organization ? $organization->getType() == "organization" && $organization->getHomebrewFor() === $character->getChronicle() : true;
+          return $organization ? 
+          $organization->getType() == "organization" && 
+          ($organization->getHomebrewFor() === $character->getChronicle() || !$organization->getHomebrewFor()) && 
+          $organization->isAncient() == $character->isAncient() : true;
         },
       ])
       ->add('race', HiddenType::class, ['mapped' => false, 'data' => $character->getType()])

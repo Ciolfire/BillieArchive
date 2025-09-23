@@ -42,8 +42,8 @@ class VampireController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
-    $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false]);
-    $covenants = $this->dataService->findAll(Covenant::class);
+    $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false, 'isAncient' => $character->isAncient()]);
+    $covenants = $this->dataService->findBy(Covenant::class, ['isAncient' => $character->isAncient()]);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);
     $form = $this->createForm(EmbraceForm::class, null, ['clans' => $clans, 'covenants' => $covenants, 'attributes' => $attributes]);

@@ -88,7 +88,11 @@ class DataService
       $entity->setPowerRating();
     }
     $this->manager->persist($entity);
-    $this->flush();
+    try {
+      $this->flush();
+    } catch (\Throwable $th) {
+      dd($th, $entity);
+    }
   }
 
   /**
@@ -402,15 +406,15 @@ class DataService
     }
   }
 
-  public function getOrganizations(?string $setting)
+  public function getOrganizations(?string $setting, bool $isAncient = false)
   {
     switch ($setting) {
       case 'vampire':
 
-        return $this->findBy(Covenant::class, ['homebrewFor' => null], ['name' => 'ASC']);
+        return $this->findBy(Covenant::class, ['homebrewFor' => null, 'isAncient' => $isAncient], ['name' => 'ASC']);
       case 'mage':
 
-          return $this->findBy(MageOrder::class, ['homebrewFor' => null], ['name' => 'ASC']);
+          return $this->findBy(MageOrder::class, ['homebrewFor' => null, 'isAncient' => $isAncient], ['name' => 'ASC']);
       default:
 
         return $this->findBy(Organization::class, ['name' => $this->genericTypes]);

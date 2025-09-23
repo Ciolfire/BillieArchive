@@ -20,6 +20,7 @@ class DisciplineForm extends AbstractType
       ->add('description', null, ['label' => 'description', 'translation_domain' => 'app'])
       ->add('rules', RichTextEditorForm::class, ['label' => 'rules', 'empty_data' => ''])
       ->add('isRestricted', null, ['label' => 'restricted', 'help' => 'help.restricted'])
+      ->add('isAncient')
       ->add('source', SourceableForm::class, [
         'data_class' => Discipline::class,
         'label' => 'source.label',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Entity\Vampire;
@@ -23,6 +24,7 @@ class DisciplinePower implements Translatable
 {
   use Homebrewable;
   use Sourcable;
+  use Ancient;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
@@ -78,6 +80,7 @@ class DisciplinePower implements Translatable
   public function __construct(Discipline $discipline, int $level)
   {
     $this->discipline = $discipline;
+    $this->isAncient = $discipline->isAncient();
     $this->level = $level;
     $this->attributes = new ArrayCollection();
     $this->skills = new ArrayCollection();

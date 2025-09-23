@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\Sourcable;
 use App\Entity\References\MeritReferences;
+use App\Entity\Traits\Ancient;
 use App\Form\CharacterForm;
 use App\Repository\CharacterRepository;
 use Doctrine\DBAL\Types\Types;
@@ -32,6 +33,7 @@ enum Gender: int
 class Character
 {
   use Sourcable;
+  use Ancient;
 
   protected $weightPower = [
     // 0 => 0,
@@ -226,8 +228,9 @@ class Character
   #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'owner')]
   private Collection $statusEffects;
 
-  public function __construct()
+  public function __construct($isAncient = false)
   {
+    $this->setIsAncient($isAncient);
     $this->setAttributes(new CharacterAttributes());
     $this->setSkills(new CharacterSkills());
     $this->specialties = new ArrayCollection();

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Ancient;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Form\OrganizationForm;
@@ -22,6 +23,7 @@ class Organization implements Translatable
 {
   use Sourcable;
   use Homebrewable;
+  use Ancient;
 
   #[ORM\Id]
   #[ORM\GeneratedValue]

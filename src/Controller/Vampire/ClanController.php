@@ -47,6 +47,7 @@ class ClanController extends AbstractController
     return $this->render('vampire/clan/list.html.twig', [
       'clans' => $this->dataService->findBy(Clan::class, [
         'isBloodline' => false,
+        'isAncient' => false,
         'homebrewFor' => null,
       ]),
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
@@ -65,7 +66,7 @@ class ClanController extends AbstractController
   }
 
   #[Route("/wiki/clans/list/{filter<\w+>}/{id<\w+>}", name: "vampire_clan_list", methods: ["GET"])]
-  public function clanList(string $filter, int $id): Response
+  public function clanList(string $filter, mixed $id): Response
   {
     switch ($filter) {
       case 'chronicle':
@@ -87,6 +88,21 @@ class ClanController extends AbstractController
     return $this->bloodlinesFilter($item->getBloodlines(), $item->getClans(), $filter, $id);
   }
 
+  #[Route("/wiki/clans/ancient/list", name: "vampire_clan_ancient_list", methods: ["GET"])]
+  public function ancientClanList()
+  {
+    $clans = null;
+    return $this->render('vampire/clan/list.html.twig', [
+      'bloodlines' => $this->dataService->findBy(Clan::class, ['isAncient' => true, 'isBloodline' => true]),
+      'clans' => $this->dataService->findBy(Clan::class, ['isAncient' => true, 'isBloodline' => false]),
+      'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
+      'setting' => "vampire",
+      'ancient' => true,
+      'search' => [
+        'parents' => $clans,
+      ],
+    ]);
+  }
 
   #[Route('/wiki/clan/{id<\d+>}', name: 'vampire_clan_show', methods: ['GET'])]
   public function clanShow(Request $request, Clan $clan): Response
@@ -102,16 +118,15 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{bloodline<\d+>?0}/new', name: 'vampire_clan_new', methods: ['GET', 'POST'])]
-  public function clanNew(bool $bloodline, Request $request): Response
+  #[Route('/clan/{bloodline<\d+>?0}/{ancient<\d+>?0/new}', name: 'vampire_clan_new', methods: ['GET', 'POST'])]
+  public function clanNew(bool $bloodline, bool $ancient, Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $clan = new Clan($bloodline, $this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $clan = new Clan($bloodline, $this->dataService->getItem($request->get('filter'), $request->get('id')), $ancient);
     $form = $this->createForm(ClanForm::class, $clan);
 
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       $filePath = $this->getParameter('clans_emblems_directory');
       
@@ -240,6 +255,7 @@ class ClanController extends AbstractController
   }
 
   // Methods
+  /** Prepare the clans data to be displayed */
   private function bloodlinesFilter($bloodlines, $clans=null, $filter=null, $id=null)  {
     $parents = [];
     foreach ($bloodlines as $bloodline) {
