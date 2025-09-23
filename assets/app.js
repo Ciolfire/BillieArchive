@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
+import './form.js';
 
 import './bootstrap.js';
 // start the rabbit application
 import './wrabbit.js';
+
 /*
  * Welcome to your app's main JavaScript file!
  *
