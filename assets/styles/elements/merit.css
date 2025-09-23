@@ -3,7 +3,7 @@
   background-color: #2f2f2f7a;
 
   &.merit-btn:hover {
-    color: var(--accent-color);
+    color: var(--accent);
     background-color: #1717177a;
   }
 

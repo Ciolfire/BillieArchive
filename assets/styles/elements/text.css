@@ -20,7 +20,7 @@
 }
 
 .accent {
-  color: var(--accent-color);
+  color: var(--accent);
 }
 
 .accent-pale {
@@ -56,7 +56,6 @@
 }
 
 .text-strong {
-  color: var(--text-strong-color);
   -webkit-text-stroke: 3px var(--text-stroke);
   paint-order: stroke fill;
   img {
