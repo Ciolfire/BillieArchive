@@ -21,7 +21,7 @@
     {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
   {% endif %}
   {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary btn-sm mt-1" href="{{ path('organization_new', {setting: setting, type: item.filter|default(null), id: item.id|default(null)}) }}">
+    <a class="btn btn-primary btn-sm mt-1" href="{{ path('organization_new', {ancient: ancient|default(0), setting: setting, type: item.filter|default(null), id: item.id|default(null)}) }}">
       {% include "_icon.html.twig" with {icon : 'add' } only %}
       <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'covenant' } only %}</span>
     </a>

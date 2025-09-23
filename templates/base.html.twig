@@ -34,7 +34,7 @@
     <div id="shortcuts" class="position-fixed sticky-bottom end-0 d-flex flex-column" style="bottom:3em">
       {% block shortcuts %}
         {% include "_back.html.twig" %}
-        {% include "_top.html.twig" %}
+        {% include "_top.html.twig" with {} only %}
       {% endblock %}
     </div>
 

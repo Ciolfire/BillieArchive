@@ -87,6 +87,7 @@ class OrganizationController extends AbstractController
       'organizations' => $organizations,
       'type' => $type,
       'setting' => $setting,
+      'ancient' => true,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => $type]),
     ]);
   }
@@ -139,8 +140,8 @@ class OrganizationController extends AbstractController
     ]);
   }
 
-  #[Route('/new/{setting<\w+>}/{type<\w+>}/{id<\w+>}', name: 'organization_new', methods: ['GET', 'POST'])]
-  public function new(Request $request, $setting = null, $type = null, $id = null): Response
+  #[Route('/new/{ancient<\d+>?0}/{setting<\w+>}/{type<\w+>}/{id<\d+>}', name: 'organization_new', methods: ['GET', 'POST'])]
+  public function new(Request $request, $setting = null, $type = null, $id = null, bool $ancient = false): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
@@ -161,9 +162,7 @@ class OrganizationController extends AbstractController
         $organization = new Organization();
         break;
     }
-    if ($item->isAncient()) {
-      $organization->setIsAncient(true);
-    }
+    $organization->setIsAncient($ancient);
     $form = $this->createForm($organization->getForm(), $organization, ['item' => $item]);
 
     $form->handleRequest($request);
