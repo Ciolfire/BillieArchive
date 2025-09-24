@@ -215,10 +215,10 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/{isNpc<\d+>}/{chronicle<\d+>}', name: 'character_new', methods: ['GET', 'POST'], defaults: ['isNpc' => 0, 'chronicle' => 0])]
-  public function new(Request $request, ?Chronicle $chronicle = null, bool $isNpc = false): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
+  public function new(Request $request, ?Chronicle $chronicle = null, bool $isNpc = false, bool $isAncient): Response
   {
-    $character = new Human($chronicle->isAncient());
+    $character = new Human($isAncient);
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
 
