@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
-import './form.js';
 
 import './bootstrap.js';
+import './form.js';
 // start the rabbit application
 import './wrabbit.js';
 

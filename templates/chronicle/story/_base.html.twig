@@ -2,7 +2,11 @@
 
 <div class="row g-2">
   <a class="w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}"><h3>
-    {{ chronicle.name }}{% include "_icon.html.twig" with {icon: 'gears', class: 'icon-sm' } only %}
+    {% if chronicle.isAncient %}
+      {% include "_icon.html.twig" with { icon: 'coliseum' } only %}
+    {% endif %}
+    {{ chronicle.name }}
+    {% include "_icon.html.twig" with { icon: 'gears', class: 'icon-sm' } only %}
   </h3></a>
   {% for character in chronicle.characters %}
     {% if character.isNpc == false %}

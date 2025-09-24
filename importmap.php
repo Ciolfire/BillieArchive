@@ -33,24 +33,15 @@ return [
     '@hotwired/turbo' => [
         'version' => '8.0.13',
     ],
-    'bootstrap' => [
-        'version' => '5.3.7',
-    ],
     '@popperjs/core' => [
         'version' => '2.11.8',
     ],
     'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '5.3.7',
+        'version' => '5.3.8',
         'type' => 'css',
     ],
     '@toast-ui/editor' => [
         'version' => '3.2.2',
-    ],
-    'prosemirror-model' => [
-        'version' => '1.25.2',
-    ],
-    'prosemirror-view' => [
-        'version' => '1.40.1',
     ],
     'prosemirror-transform' => [
         'version' => '1.10.4',
@@ -80,7 +71,7 @@ return [
         'version' => '1.3.4',
     ],
     'prosemirror-view/style/prosemirror.min.css' => [
-        'version' => '1.40.1',
+        'version' => '1.41.1',
         'type' => 'css',
     ],
     '@toast-ui/editor-plugin-color-syntax' => [
@@ -104,9 +95,6 @@ return [
     '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css' => [
         'version' => '3.1.0',
         'type' => 'css',
-    ],
-    'cropperjs' => [
-        'version' => '1.6.2',
     ],
     '@cropper/utils' => [
         'version' => '2.0.1',
@@ -144,5 +132,17 @@ return [
     'cropperjs/dist/cropper.min.css' => [
         'version' => '1.6.2',
         'type' => 'css',
+    ],
+    'bootstrap' => [
+        'version' => '5.3.8',
+    ],
+    'prosemirror-model' => [
+        'version' => '1.25.3',
+    ],
+    'prosemirror-view' => [
+        'version' => '1.41.1',
+    ],
+    'cropperjs' => [
+        'version' => '1.6.2',
     ],
 ];

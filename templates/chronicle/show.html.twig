@@ -5,7 +5,6 @@
 {% block body %}
 <div class="container">
   <div class="row justify-content-center">
-    <h1>{{ chronicle.name }}</h1>
     {% if app.user == chronicle.storyteller %}
       {% include "chronicle/story/_base.html.twig" %}
     {% else %}

@@ -72,11 +72,9 @@ class Clan implements Translatable
   private Collection $bloodlines;
 
   #[ORM\ManyToMany(targetEntity: Attribute::class)]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $attributes;
 
   #[ORM\ManyToMany(targetEntity: Discipline::class)]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["name" => "ASC"])]
   private Collection $disciplines;
 
