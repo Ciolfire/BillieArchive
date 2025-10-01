@@ -414,10 +414,15 @@ class DataService
         return $this->findBy(Covenant::class, ['homebrewFor' => null, 'isAncient' => $isAncient], ['name' => 'ASC']);
       case 'mage':
 
-          return $this->findBy(MageOrder::class, ['homebrewFor' => null, 'isAncient' => $isAncient], ['name' => 'ASC']);
+        return $this->findBy(MageOrder::class, ['homebrewFor' => null, 'isAncient' => $isAncient], ['name' => 'ASC']);
       default:
-
-        return $this->findBy(Organization::class, ['name' => $this->genericTypes]);
+        $organizations = $this->findBy(Organization::class, ['homebrewFor' => null, 'isAncient' => $isAncient]);
+        foreach ($organizations as $key => $organization) {
+          if ($organization->getType() !== "organization") {
+            unset($organizations[$key]);
+          }
+        }
+        return $organizations;
     }
   }
 
