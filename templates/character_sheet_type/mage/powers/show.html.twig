@@ -129,7 +129,7 @@
     {# {% include 'character_sheet_type/mage/creative/show/elements.html.twig' with {characterArcana: arcana} %} #}
     <div class="row my-2" data-controller="mage--spellcasting">
       <h3>Rules</h3>
-      {% for key in special.magic.instant %}
+      {% for key, data in special.magic.instant %}
         {% include "character_sheet_type/mage/powers/magic/#{key}.html.twig" %}
       {% endfor %}
       <div class="col-6 pb-2">
