@@ -31,7 +31,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.13',
+        'version' => '8.0.20',
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
@@ -44,10 +44,10 @@ return [
         'version' => '3.2.2',
     ],
     'prosemirror-transform' => [
-        'version' => '1.10.4',
+        'version' => '1.10.5',
     ],
     'prosemirror-state' => [
-        'version' => '1.4.3',
+        'version' => '1.4.4',
     ],
     'prosemirror-keymap' => [
         'version' => '1.2.3',
@@ -56,10 +56,10 @@ return [
         'version' => '1.7.1',
     ],
     'prosemirror-inputrules' => [
-        'version' => '1.5.0',
+        'version' => '1.5.1',
     ],
     'prosemirror-history' => [
-        'version' => '1.4.1',
+        'version' => '1.5.0',
     ],
     'orderedmap' => [
         'version' => '2.1.1',
@@ -71,7 +71,7 @@ return [
         'version' => '1.3.4',
     ],
     'prosemirror-view/style/prosemirror.min.css' => [
-        'version' => '1.41.1',
+        'version' => '1.41.4',
         'type' => 'css',
     ],
     '@toast-ui/editor-plugin-color-syntax' => [
@@ -97,52 +97,52 @@ return [
         'type' => 'css',
     ],
     '@cropper/utils' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/elements' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-canvas' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-image' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-shade' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-handle' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-selection' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-grid' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-crosshair' => [
-        'version' => '2.0.1',
+        'version' => '2.1.0',
     ],
     '@cropper/element-viewer' => [
-        'version' => '2.0.1',
-    ],
-    'cropperjs/dist/cropper.min.css' => [
-        'version' => '1.6.2',
-        'type' => 'css',
+        'version' => '2.1.0',
     ],
     'bootstrap' => [
         'version' => '5.3.8',
     ],
     'prosemirror-model' => [
-        'version' => '1.25.3',
+        'version' => '1.25.4',
     ],
     'prosemirror-view' => [
-        'version' => '1.41.1',
+        'version' => '1.41.4',
     ],
     'cropperjs' => [
         'version' => '1.6.2',
+    ],
+    'cropperjs/dist/cropper.min.css' => [
+        'version' => '1.6.2',
+        'type' => 'css',
     ],
 ];
