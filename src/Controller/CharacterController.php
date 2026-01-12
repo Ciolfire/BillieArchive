@@ -291,14 +291,13 @@ class CharacterController extends AbstractController
   public function edit(FormFactoryInterface $formFactory, Request $request, Character $character): Response
   {
     $this->denyAccessUnlessGranted('edit', $character);
-
     $form = $formFactory->createNamed('character_form', $character->getForm(), $character, ['is_edit' => true, 'user' => $this->getUser()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
       $spent = $this->service->editCharacter($character, $form->getExtraData());
       $this->addFlash('success', ["character.edit.success", ['%count%' => $spent]]);
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+      return $this->redirectToRoute('character_show', ['id' => $character->getId(), 303]);
     }
 
     $merits = $this->service->loadMerits($character, false);

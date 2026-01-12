@@ -162,6 +162,9 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
+    if (document.getElementsByClassName("embrace_form[covenant]-null")[0].checked) {
+      document.getElementById('embrace_form_covenant').classList.add("d-none");
+    }
     console.debug("cleaned");
   }
 }

@@ -29,6 +29,7 @@ class LesserTemplateForm extends AbstractType
     $resolver->setDefaults([
       'translation_domain' => 'app',
       'templates' => [],
+      'csrf_protection' => false,
     ]);
   }
 }

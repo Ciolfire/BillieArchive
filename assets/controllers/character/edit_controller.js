@@ -152,6 +152,7 @@ export default class extends Controller
     }
   }
 
+  // Dispatch event if neeeded
   checkUpdate(type, id)
   {
     switch (type) {
