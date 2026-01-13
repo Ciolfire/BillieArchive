@@ -1136,7 +1136,7 @@ class Character
   /**
    * @return int
    */
-  public function dicePool(Collection $attributes, Collection $skills, int $bonus = 0)
+  public function dicePool(Collection $attributes, Collection $skills, int $bonus = 0): int
   {
     $total = 0;
     foreach ($attributes as $attribute) {
@@ -1616,7 +1616,7 @@ class Character
   /**
    * @return Collection<int, CharacterAccess>
    */
-  public function getOrderedPeekingRights(): array
+  public function getOrderedPeekingRights(): Collection
   {
     $list = $this->peekingRights->toArray();
 

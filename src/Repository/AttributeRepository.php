@@ -24,7 +24,7 @@ class AttributeRepository extends ServiceEntityRepository
   /**
    * @return Attribute[] Returns an array of Attribute objects
    */
-  public function filterByIdentifiers($identifiers)
+  public function filterByIdentifiers($identifiers): array
   {
     return $this->createQueryBuilder('a')
       ->andWhere('a.identifier IN (:identifiers)')

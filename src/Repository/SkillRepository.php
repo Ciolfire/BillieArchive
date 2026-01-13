@@ -24,7 +24,7 @@ class SkillRepository extends ServiceEntityRepository
   /**
    * @return Skills[] Returns an array of Skill objects
    */
-  public function filterByIdentifiers($identifiers)
+  public function filterByIdentifiers($identifiers): array
   {
     return $this->createQueryBuilder('a')
       ->andWhere('a.identifier IN (:identifiers)')
@@ -37,7 +37,7 @@ class SkillRepository extends ServiceEntityRepository
   /**
    * @return Skills[] Returns an array of Skill objects
    */
-  public function filterModern()
+  public function filterModern(): array
   {
     return $this->createQueryBuilder('s')
       ->andWhere('s.isAncient = FALSE')
@@ -49,7 +49,7 @@ class SkillRepository extends ServiceEntityRepository
   /**
    * @return Skills[] Returns an array of Skill objects
    */
-  public function filterAncient()
+  public function filterAncient(): array
   {
     return $this->createQueryBuilder('s')
       ->andWhere('s.isAncient = TRUE')

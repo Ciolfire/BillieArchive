@@ -16,7 +16,7 @@ trait Status {
   /**
    * @return Collection<int, StatusEffect>
    */
-  public function getStatusEffects(): array
+  public function getStatusEffects(): Collection
   {
     $effects = $this->statusEffects->toArray();
     foreach ($effects as $key => $effect) {

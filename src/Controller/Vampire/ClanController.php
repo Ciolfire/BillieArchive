@@ -118,7 +118,7 @@ class ClanController extends AbstractController
     ]);
   }
 
-  #[Route('/clan/{bloodline<\d+>?0}/{ancient<\d+>?0/new}', name: 'vampire_clan_new', methods: ['GET', 'POST'])]
+  #[Route('/clan/{bloodline<\d+>?0}/{ancient<\d+>?0}/new', name: 'vampire_clan_new', methods: ['GET', 'POST'])]
   public function clanNew(bool $bloodline, bool $ancient, Request $request): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

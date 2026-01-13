@@ -6,6 +6,7 @@ use App\Entity\Chronicle;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChronicleVoter extends Voter
@@ -22,7 +23,7 @@ class ChronicleVoter extends Voter
       && $subject instanceof Chronicle;
   }
 
-  protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+  protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
   {
     /** @var Chronicle $subject */
     $user = $token->getUser();

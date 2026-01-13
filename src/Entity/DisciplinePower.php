@@ -348,9 +348,6 @@ class DisciplinePower implements Translatable
     return $this;
   }
 
-  /**
-   * @return Collection<int, StatusEffect>
-   */
   public function getStatusEffects(): array
   {
     $effects = $this->statusEffects->toArray();
@@ -362,7 +359,6 @@ class DisciplinePower implements Translatable
     }
 
     return ($effects);
-    // dd($effects);
   }
 
   public function addStatusEffect(StatusEffect $statusEffect): static
