@@ -21,8 +21,8 @@
     {% include "character_sheet/morality/derangement_list.html.twig" with {id : 'accordionMoralityDerangement', 'tag' : 'morality'} %}
     <div class="row">
       <div class="col-12 mb-3">
-        <label class="accent" for="details">{{ "details"|trans }}</label>
-        <input class="form-control" name="details" type="text">
+        <label class="accent" for="details">{{ "details"|trans({}, 'derangement') }}</label>
+        <input class="form-control" name="details" type="text", maxlength="50">
       </div>
       <div class="col-12">
         <button class="btn btn-warning btn-lg w-100">

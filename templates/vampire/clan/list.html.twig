@@ -23,11 +23,11 @@
     {% include "_top.html.twig" %}
   {% endif %}
   {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {filter: filter|default(null), id: id|default(null), ancient: ancient|default(null)}) }}">
+    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {filter: filter|default(null), id: id|default(null), ancient: ancient|default(0)}) }}">
       <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
       {% include "_icon.html.twig" with {icon : 'clan' } only %}
     </a>
-    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {'bloodline': true, filter: filter|default(null), id: id|default(null), ancient: ancient|default(null)}) }}">
+    <a class="btn btn-primary mt-1" href="{{ path('vampire_clan_new', {'bloodline': true, filter: filter|default(null), id: id|default(null), ancient: ancient|default(0)}) }}">
       <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
       {% include "_icon.html.twig" with {icon : 'bloodline' } only %}
     </a>

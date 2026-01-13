@@ -3,7 +3,7 @@ label:
   multi: Derangements
 
 add: Add Derangement
-details: Details
+details: Details (max 50 characters)
 extreme: Extreme
 mild: Mild
 previous: Severe version of

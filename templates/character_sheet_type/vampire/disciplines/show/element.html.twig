@@ -27,6 +27,9 @@
 {% endblock %}
 
 {% block toggleMulti %}
+{% if realId is not defined %}
+  {% set realId = character.sourceCharacter.id|default(character.id) %}
+{% endif %}
 {% if power.canToggle %}
   {% if character.hasStatus(power: power) %}
     <a class="float-end me-1" href="{{ path('vampire_discipline_power_toggle', {character: realId, id: power.id, activate: 0 }) }}">
