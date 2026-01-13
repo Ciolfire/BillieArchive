@@ -57,7 +57,7 @@ class ClanTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/vampire/clan/0/new');
+    $client->request('GET', '/en/vampire/clan/0/0/new');
     self::assertResponseIsSuccessful();
   }
 

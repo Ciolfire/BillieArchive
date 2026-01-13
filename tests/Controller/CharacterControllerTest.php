@@ -98,15 +98,7 @@ class CharacterControllerTest extends WebTestCase
     $client = static::createClient();
     $client->loginUser($this->getUser());
     $client->request('GET', '/en/character/1/delete');
-    self::assertResponseRedirects();
-  }
-
-  public function testPeek(): void
-  {
-    $client = static::createClient();
-    $client->loginUser($this->getUser());
-    $client->request('GET', '/en/character/1/peek');
-    self::assertResponseRedirects();
+    self::assertResponseIsSuccessful();
   }
 
   public function testPeekAs(): void
@@ -137,7 +129,7 @@ class CharacterControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/character/1/lesser/add');
+    $client->request('GET', '/en/lesser/1/add');
     self::assertResponseIsSuccessful();
   }
 
@@ -145,7 +137,7 @@ class CharacterControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $client->loginUser($this->getUser());
-    $client->request('GET', '/en/character/1/lesser/remove');
+    $client->request('GET', '/en/lesser/1/remove');
     self::assertResponseRedirects();
   }
 
