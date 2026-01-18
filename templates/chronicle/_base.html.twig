@@ -16,7 +16,7 @@
     </div>
   {% else %}
     <div class="col-12">
-      <a class="btn btn-primary w-100" href="{{path('character_new', {'chronicle': chronicle.id })}}">
+      <a class="btn btn-primary w-100" href="{{ path('character_new', {chronicle: chronicle.id, isAncient: chronicle.isAncient })}}">
         {% include "_icon.html.twig" with {icon: 'add' } only %}
         {{ "pc.new"|trans({}, 'character') }}
       </a>
@@ -25,25 +25,25 @@
 </div>
 <div class="row g-2 pb-1">
   <div class="col-6">
-    <a class="btn btn-primary w-100" href="{{path('chronicle_party_index', {'id': chronicle.id })}}">
+    <a class="btn btn-primary w-100" href="{{ path('chronicle_party_index', {id: chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'party' } only %}
       {{ 'party.label'|trans }}
     </a>
   </div>
   <div class="col-6">
-    <a class="btn btn-primary w-100" href="{{path('chronicle_notes', {'id': chronicle.id })}}">
+    <a class="btn btn-primary w-100" href="{{ path('chronicle_notes', {id: chronicle.id })}}">
       {% include "_icon.html.twig" with {icon: 'note' } only %}
       {{ "label.multi"|trans({}, 'note') }}
     </a>
   </div>
   <div class="col-6">
-    <a class="btn btn-primary w-100 text-truncate" href="{{ path('homebrew_index', {'id': chronicle.id}) }}">
+    <a class="btn btn-primary w-100 text-truncate" href="{{ path('homebrew_index', {id: chronicle.id}) }}">
       {% include "_icon.html.twig" with {icon: 'homebrew' } only %}
       {{ "homebrew.label"|trans }}
     </a>
   </div>
   <div class="col-6">
-    <a class="btn btn-primary w-100" href="{{ path('chronicle_infos_index', {'id': chronicle.id}) }}">
+    <a class="btn btn-primary w-100" href="{{ path('chronicle_infos_index', {id: chronicle.id}) }}">
       {% include "_icon.html.twig" with {icon: 'details' } only %}
       {{ "infos"|trans }}
     </a>

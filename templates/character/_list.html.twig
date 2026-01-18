@@ -16,7 +16,7 @@
     <div class="col-6 my-2">
       <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new_premade', {isAncient: true}) : category == 'npc' ? path('character_new', { isNpc: true, isAncient: true }) : path('character_new', { isNpc: 0, isAncient: true }) }}">
         {{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}
-        {% include "_icon.html.twig" with { icon: 'covenant' } only %}
+        {% include "_icon.html.twig" with { icon: 'coliseum' } only %}
       </a>
     </div>
   {% endif %}
