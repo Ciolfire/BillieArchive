@@ -181,6 +181,9 @@ export default class extends Controller
     let params = event.params;
     // Get the cost for this specific dot
     let cost = this.calculateClassicCost(this.costsValue[params.type], params.base, params.value);
+    if (params.discount) {
+      cost = cost/2;
+    }
     this.allocate(cost, `${params.type}-${params.id}`, params);
     // character--edit:change->*** | used for prerequisites update, and others hook for change
     this.checkUpdate(params.type, params.id);
@@ -199,6 +202,9 @@ export default class extends Controller
     let params = event.params;
     // Get the cost for this specific dot
     let cost = this.calculateClassicCost(this.costsValue[params.type], params.base, params.value);
+    if (params.discount) {
+      cost = cost/2;
+    }
     this.allocate(cost, event.target.parentElement.parentElement.firstElementChild.id, params);
     // Prerequisites update
     this.dispatch("change", { detail: { type: params.type, target: params.id } });

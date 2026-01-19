@@ -281,4 +281,14 @@ class Merit implements Translatable
 
     return $this->name.$type.$source;
   }
+
+  public function isDiscounted(Character $character) : bool
+  {
+    if ($organization = $character->getMainOrganization()) {
+      if ($organization->getDiscountMerits() && $organization->getDiscountMerits()->contains($this)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

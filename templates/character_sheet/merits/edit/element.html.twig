@@ -28,6 +28,7 @@
     data-dot-value-param="{{ value }}"
     data-character--edit-id-param="{{ chMerit.id|default(merit.id) }}"
     data-character--edit-type-param="merit"
+    data-character--edit-discount-param="{{ merit.isDiscounted(character)|default(0) }}"
     data-character--edit-name-param="{{ merit.name }}"
     data-character--edit-value-param="{{ value }}"
     data-character--edit-base-param="{{ chMerit.level|default(0) }}"
