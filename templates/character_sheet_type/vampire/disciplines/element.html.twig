@@ -8,7 +8,7 @@
 
 
 <div class="col-12 col-md-6 col-xl-4 justify-content-center">
-  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block text-color{% endif %} rounded-top w-100">
+  <div class="{% if customBlock is defined %}{{ customBlock }}{% else %}discipline-block {% endif %} rounded-top w-100">
     <div class="row g-0 align-items-center user-select-none">
       <div class="col-12 discipline-header text-center py-2 rounded-top">
         <h2>
@@ -125,15 +125,15 @@
                         {% block toggleMulti %}{% endblock %}
                       </span>
                     </div>
-                    <div class="col-3 text-end text-glow">
+                    <div class="col-3 text-end">
                       {% if powerPool != null %}
                         {% include "_dice_pool.html.twig" with {pool : powerPool, contested : power.contestedText} %}
                       {% endif %}
                     </div>
                     <div class="col-8 offset-2 text-sub text-center">
-                      <p class="fst-italic">{{ power.short }}</p>
+                      <p class="fst-italic text-dark">{{ power.short }}</p>
                     </div>
-                    <div class="col-2 text-end text-glow">
+                    <div class="col-2 text-end">
                       {% include "vampire/discipline/powers/_cost.html.twig" %}
                     </div>
                   </div>

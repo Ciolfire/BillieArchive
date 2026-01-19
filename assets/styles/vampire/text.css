@@ -1,6 +1,6 @@
 :root {
   --vampire-text-color          : var(--vampire-light);
-  --vampire-strong-color        : var(--vampire-main-bright);
+  --vampire-text-strong-color   : var(--vampire-main-bright);
   --vampire-text-dark-color     : #000000;
   --vampire-text-bright-color   : #ff6161;
   --vampire-text-shadow-color   : #000;
