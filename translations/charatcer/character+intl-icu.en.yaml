@@ -204,6 +204,11 @@ size:
   label: Base size
   help: A normal adult is size 5, a kid is size 4.
 
+sort:
+  id: Oldest first
+  name: A🡒Z
+  recent: Newer first
+
 status:
   label: Status
   alive: Alive

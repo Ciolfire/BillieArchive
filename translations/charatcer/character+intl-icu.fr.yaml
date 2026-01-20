@@ -203,6 +203,11 @@ size:
   label: Taille de base
   help: Un adulte normal a un taille de 5, un enfant 4.
 
+sort:
+  id: Anciens en 1er
+  name: A🡒Z
+  recent: Récent en 1er
+
 status:
   label: Status
   alive: Vivant

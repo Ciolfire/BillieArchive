@@ -7,9 +7,9 @@
 {% endif %}
 
 {% set footer = true %}
-{% block bodyData %}
-  data-controller="search" data-search-type-value="character"
-{% endblock %}
+{% block bodyController %}{{ parent() }} search order{% endblock %}
+
+{% block bodyData %}data-search-type-value="character"{% endblock %}
 
 
 {% block title %}{{ "npc.label.multi"|trans }}{% endblock %}
@@ -21,10 +21,22 @@
   <div class="col-4 offset-4">
     <a class="btn btn-sm btn-primary w-100 text-center" href="{{ path('chronicle_npc_add', {'id': chronicle.id}) }}">{% include "_icon.html.twig" with {icon: 'character' } only %} {{ "action.new"|trans([], "app") }}</a>
   </div>
-  <div class="row pt-3">
+  <div class="row pt-3" data-order-target="container">
     {% for character in chronicle.npc %}
       {% include "character/_card.html.twig" %}
     {% endfor %}
   </div>
 </div>
+{% endblock %}
+
+{% block footerContent %}
+  <div class="col-12 d-flex align-items-center position-relative justify-content-center">
+    <span class="search-icon">
+      {% include "_icon.html.twig" with  {icon: 'search'} %}
+    </span>
+    <input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
+    <button class="btn btn-sm btn-primary" data-action="order#byIdInv">{{ "sort.recent"|trans({}, "character")}}</button>
+    <button class="btn btn-sm btn-primary" data-action="order#byId">{{ "sort.id"|trans({}, "character")}}</button>
+    <button class="btn btn-sm btn-primary" data-action="order#byName">{{ "sort.name"|trans({}, "character")}}</button>
+  </div>
 {% endblock %}
