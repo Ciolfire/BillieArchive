@@ -27,7 +27,6 @@ use App\Service\CreationService;
 use App\Service\DataService;
 use App\Service\ItemService;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -700,6 +699,21 @@ class CharacterController extends AbstractController
     return $this->render("index.html.twig");
   }
 
+  // Fetch the list of config for the character
+  #[Route('/{id<\d+>}/config', name: 'character_configuration')]
+  public function listOptions(Request $request, Character $character): Response
+  {
+    if ($request->isXmlHttpRequest()) {
+
+      $template = "_show";
+      
+      return $this->render("character_sheet/elements/config.html.twig", [
+        'character' => $character,
+      ]);
+    }
+    return $this->render("index.html.twig");
+  }
+
 
   #[Route('/{id<\d+>}/note/new', name: 'character_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Character $character): Response
@@ -807,6 +821,21 @@ class CharacterController extends AbstractController
       return new JsonResponse('ok');
     } else {
       return $this->redirectToRoute('character_index', []);
+    }
+  }
+
+  #[Route('/{id<\d+>}/status/update', name: 'character_status_update', methods: ['POST'])]
+  public function updateStatus(Request $request, Character $character): JsonResponse|RedirectResponse
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    if ($request->isXmlHttpRequest()) {
+      $data = json_decode($request->getContent());
+      $character->setStatus($data->status);
+      $this->dataService->update($character);
+      return new JsonResponse();
+    } else {
+      return $this->redirectToRoute('index');
     }
   }
 

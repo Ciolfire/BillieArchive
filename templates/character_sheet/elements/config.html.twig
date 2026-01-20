@@ -1,0 +1,43 @@
+{% trans_default_domain 'character' %}
+
+{% set statusList = ["alive", "locked", "unknown", "dead"] %}
+
+<div class="col-12 my-2" data-controller="character--config" data-character--config-character-value="{{ character.id }}">
+  <h1>{{ "label.multi"|trans({}, "society") }}</h1>
+  <div class="row">
+    {% for society in character.chronicle.societies %}
+      <div class="col-auto">
+        <div class="form-check">
+          <input 
+            type="checkbox" 
+            id="society-{{ society.id }}" 
+            name="society-{{ society.id }}"
+            class="form-check-input"
+            {% if society.hasCharacter(character) %}checked{% endif %}
+            data-action="character--config#setSociety" data-character--config-society-param="{{ society.id }}"
+          />
+          <label class="form-check-label" for="society-{{ society.id }}">{{ society.name }}</label>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h1>{{ "status.label"|trans({}, "character") }}</h1>
+  <div class="row">
+    {% for status in statusList %}
+      <div class="col-auto">
+        <div class="form-check">
+          <input 
+            type="radio"
+            id="{{ status }}"
+            name="status"
+            class="form-check-input"
+            {% if character.status == status %}checked{% endif %}
+            data-action="character--config#setStatus" data-character--config-status-param="{{ status }}"
+          />
+          <label class="form-check-label" for="{{ status }}">{{ "status.#{status}"|trans({}, "character") }}</label>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

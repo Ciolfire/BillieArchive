@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Society;
 use App\Form\SocietyForm;
 use App\Service\DataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -144,8 +146,8 @@ class SocietyController extends AbstractController
     ]);
   }
 
-  #[Route("{id<\d+>}/add/characters", name: "society_add_characters", methods: ["GET", "POST"])]
-  public function characterAdd(Request $request, Society $society) : Response
+  #[Route("{id<\d+>}/set/characters", name: "society_set_characters", methods: ["GET", "POST"])]
+  public function charactersSet(Request $request, Society $society) : Response
   {
     $form = $this->createForm(SocietyForm::class, $society, ['add_character' => true, 'path' => $this->getParameter('characters_direct_directory')]);
     
@@ -166,5 +168,49 @@ class SocietyController extends AbstractController
       'form' => $form,
       'setting' => $setting,
     ]);
+  }
+
+  #[Route("{id<\d+>}/add/character/{character<\d+>}", name: "society_add_character", methods: ["GET", "POST"])]
+  public function characterAdd(Request $request, Society $society, Character $character) : Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+
+    $society->addCharacter($character);
+    try {
+      $this->dataService->update($society);
+    } catch (\Throwable $th) {
+    }
+    if ($request->isXmlHttpRequest()) {
+      if ($society->hasCharacter($character)) {
+
+        return new JsonResponse('ok');
+      }
+
+      return new JsonResponse("ko");
+    }
+
+    return $this->redirectToRoute('index');
+  }
+
+  #[Route("{id<\d+>}/remove/character/{character<\d+>}", name: "society_remove_character", methods: ["GET", "POST"])]
+  public function characterRemove(Request $request, Society $society, Character $character) : Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+    
+    $society->removeCharacter($character);
+    try {
+      $this->dataService->update($society);
+    } catch (\Throwable $th) {
+    }
+    if ($request->isXmlHttpRequest()) {
+      if (!$society->hasCharacter($character)) {
+
+        return new JsonResponse('ok');
+      }
+
+      return new JsonResponse("ko");
+    }
+
+    return $this->redirectToRoute('index');
   }
 }
