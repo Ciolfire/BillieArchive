@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,7 +97,6 @@ class ResetPasswordController extends AbstractController
       /** @var User $user */
       $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
     } catch (ResetPasswordExceptionInterface $e) {
-      dd($e, $token, $e->getReason());
       $this->addFlash('reset_password_error', sprintf(
         '%s - %s',
         $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, [], 'ResetPasswordBundle'),
@@ -168,7 +168,7 @@ class ResetPasswordController extends AbstractController
         'resetToken' => $resetToken,
       ]);
 
-    $mailer->send($email);
+    //$mailer->send($email);
 
     // Store the token object in session for retrieval in check-email route.
     $this->setTokenObjectInSession($resetToken);
