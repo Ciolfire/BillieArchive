@@ -85,7 +85,7 @@ class ResetPasswordController extends AbstractController
       
       return $this->redirectToRoute('app_reset_password');
     }
-      
+
     $token = $this->getTokenFromSession();
     
     if (null === $token) {
