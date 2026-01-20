@@ -743,7 +743,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         bubble?: bool|Param, // Default: true
  *         interactive_only?: bool|Param, // Default: false
  *         app_name?: scalar|null|Param, // Default: null
- *         fill_extra_context?: bool|Param, // Default: false
  *         include_stacktraces?: bool|Param, // Default: false
  *         process_psr_3_messages?: array{
  *             enabled?: bool|null|Param, // Default: null
@@ -763,7 +762,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         activation_strategy?: scalar|null|Param, // Default: null
  *         stop_buffering?: bool|Param, // Default: true
  *         passthru_level?: scalar|null|Param, // Default: null
- *         excluded_404s?: list<scalar|null|Param>,
  *         excluded_http_codes?: list<array{ // Default: []
  *             code?: scalar|null|Param,
  *             urls?: list<scalar|null|Param>,
@@ -777,9 +775,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         url?: scalar|null|Param,
  *         exchange?: scalar|null|Param,
  *         exchange_name?: scalar|null|Param, // Default: "log"
- *         room?: scalar|null|Param,
- *         message_format?: scalar|null|Param, // Default: "text"
- *         api_version?: scalar|null|Param, // Default: null
  *         channel?: scalar|null|Param, // Default: null
  *         bot_name?: scalar|null|Param, // Default: "Monolog"
  *         use_attachment?: scalar|null|Param, // Default: true
@@ -788,9 +783,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         icon_emoji?: scalar|null|Param, // Default: null
  *         webhook_url?: scalar|null|Param,
  *         exclude_fields?: list<scalar|null|Param>,
- *         team?: scalar|null|Param,
- *         notify?: scalar|null|Param, // Default: false
- *         nickname?: scalar|null|Param, // Default: "Monolog"
  *         token?: scalar|null|Param,
  *         region?: scalar|null|Param,
  *         source?: scalar|null|Param,
@@ -808,12 +800,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         store?: scalar|null|Param, // Default: null
  *         connection_timeout?: scalar|null|Param,
  *         persistent?: bool|Param,
- *         dsn?: scalar|null|Param,
- *         hub_id?: scalar|null|Param, // Default: null
- *         client_id?: scalar|null|Param, // Default: null
- *         auto_log_stacks?: scalar|null|Param, // Default: false
- *         release?: scalar|null|Param, // Default: null
- *         environment?: scalar|null|Param, // Default: null
  *         message_type?: scalar|null|Param, // Default: 0
  *         parse_mode?: scalar|null|Param, // Default: null
  *         disable_webpage_preview?: bool|null|Param, // Default: null
@@ -823,7 +809,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         topic?: int|Param, // Default: null
  *         factor?: int|Param, // Default: 1
  *         tags?: list<scalar|null|Param>,
- *         console_formater_options?: mixed, // Deprecated: "monolog.handlers..console_formater_options.console_formater_options" is deprecated, use "monolog.handlers..console_formater_options.console_formatter_options" instead.
  *         console_formatter_options?: mixed, // Default: []
  *         formatter?: scalar|null|Param,
  *         nested?: bool|Param, // Default: false
@@ -833,15 +818,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             port?: scalar|null|Param, // Default: 12201
  *             chunk_size?: scalar|null|Param, // Default: 1420
  *             encoder?: "json"|"compressed_json"|Param,
- *         },
- *         mongo?: string|array{
- *             id?: scalar|null|Param,
- *             host?: scalar|null|Param,
- *             port?: scalar|null|Param, // Default: 27017
- *             user?: scalar|null|Param,
- *             pass?: scalar|null|Param,
- *             database?: scalar|null|Param, // Default: "monolog"
- *             collection?: scalar|null|Param, // Default: "logs"
  *         },
  *         mongodb?: string|array{
  *             id?: scalar|null|Param, // ID of a MongoDB\Client service
@@ -885,7 +861,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             id: scalar|null|Param,
  *             method?: scalar|null|Param, // Default: null
  *         },
- *         lazy?: bool|Param, // Default: true
  *         verbosity_levels?: array{
  *             VERBOSITY_QUIET?: scalar|null|Param, // Default: "ERROR"
  *             VERBOSITY_NORMAL?: scalar|null|Param, // Default: "WARNING"
