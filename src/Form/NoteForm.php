@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Form\Type\ExpandedEntityType;
@@ -21,11 +22,15 @@ class NoteForm extends AbstractType
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
+    $characters = null;
     if ($chronicle instanceof Chronicle) {
-      $character = $chronicle->getCharacter($note->getUser());
-      $characters = $character->getKnownCharacters();
-    } else {
-      $characters = null;
+      if ($chronicle->getStoryteller() === $note->getUser()) {
+        // Storyteller
+        $characters = $chronicle->getCharacters();
+      } elseif ($chronicle->getCharacter($note->getUser()) instanceof Character) {
+        // Normal player
+        $characters = $chronicle->getCharacter($note->getUser())->getKnownCharacters();
+      }
     }
     
     $builder
