@@ -56,8 +56,6 @@ doctrine:
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translator/Entity"
                 alias: GedmoTranslator # (optional) it will default to the name set for the mapping
                 is_bundle: false
-        controller_resolver:
-            auto_mapping: false
 
 when@test:
     doctrine:
