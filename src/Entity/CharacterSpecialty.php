@@ -26,7 +26,7 @@ class CharacterSpecialty
   private ?Skill $skill;
 
 
-  public function __construct(Character $character = null, Skill $skill = null, string $name = null)
+  public function __construct(?Character $character = null, ?Skill $skill = null, ?string $name = null)
   {
     $this->character = $character;
     $this->skill = $skill;

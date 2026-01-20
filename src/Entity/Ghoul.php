@@ -46,7 +46,7 @@ class Ghoul extends CharacterLesserTemplate
   #[ORM\ManyToOne]
   private ?Covenant $covenant = null;
 
-  public function __construct(?Clan $clan = null, Ghoul $ghoul = null)
+  public function __construct(?Clan $clan = null, ?Ghoul $ghoul = null)
   {
     if (isset($clan)) {
       $this->clan = $clan;
