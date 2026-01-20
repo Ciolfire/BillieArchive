@@ -285,7 +285,7 @@ class Merit implements Translatable
   public function isDiscounted(Character $character) : bool
   {
     if ($organization = $character->getMainOrganization()) {
-      if ($organization->getDiscountMerits() && $organization->getDiscountMerits()->contains($this)) {
+      if (method_exists($organization, "getDiscountMerits") && $organization->getDiscountMerits()->contains($this)) {
         return true;
       }
     }
