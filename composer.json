@@ -101,7 +101,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "8.0.*"
+            "require": "7.3.*"
         }
     },
     "require-dev": {
