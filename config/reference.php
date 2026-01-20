@@ -943,7 +943,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             options?: array<string, mixed>,
  *             mapping_types?: array<string, scalar|null|Param>,
  *             default_table_options?: array<string, scalar|null|Param>,
- *             schema_manager_factory?: scalar|null|Param, // Default: "doctrine.dbal.legacy_schema_manager_factory"
+ *             schema_manager_factory?: scalar|null|Param, // Default: "doctrine.dbal.default_schema_manager_factory"
  *             result_cache?: scalar|null|Param,
  *             slaves?: array<string, array{ // Default: []
  *                 url?: scalar|null|Param, // A URL with connection information; any parameter value parsed from this string will override explicitly set parameters
