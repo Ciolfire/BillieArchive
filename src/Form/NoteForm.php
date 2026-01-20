@@ -21,7 +21,7 @@ class NoteForm extends AbstractType
     $path = $options['path'];
     /** @var Note $note */
     $note = $options['data'];
-    $chronicle = $note->getChronicle(); 
+    $chronicle = $note->getChronicle();
     $characters = null;
     if ($chronicle instanceof Chronicle) {
       $character = $chronicle->getCharacter($note->getUser());
@@ -63,14 +63,16 @@ class NoteForm extends AbstractType
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
-          if ($character == null || in_array('avatar', $character->getSpecificPeekingRights($choice)->getRights())) {
-            $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";
-          } else {
-            $avatar = "{$path}/default.jpg";
-          }
-          $name = $choice->getPublicName($character);
-          if ($name == "") {
-            $name = "<span class=\"warning\">?</span>";
+          $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";  
+          $name = $character->getSimpleName();
+          if ($character instanceof Character) {
+            if (!in_array('avatar', $character->getSpecificPeekingRights($choice)->getRights())) {
+              $avatar = "{$path}/default.jpg";
+            }
+            $name = $choice->getPublicName($character);
+            if ($name == "") {
+              $name = "<span class=\"warning\">?</span>";
+            }
           }
           return "<div role=\"button\" class=\"d-inline-block me-1\"><img class=\"form-select-item-avatar\" src=\"$avatar\">$name</div>";
         },
