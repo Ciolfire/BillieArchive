@@ -86,6 +86,7 @@ email: Adresse Email
 username: Identifiant
 password: Mot de passe
 repeat.password: Confirmer le mot de passe
+password.reset: Cliquez sur ce lien pour réinitialiser votre mot de passe
 
 register:
   label: Inscription

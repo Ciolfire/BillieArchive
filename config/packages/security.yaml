@@ -44,6 +44,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: "^(/[a-z]{2})?/login", roles: PUBLIC_ACCESS }
+        - { path: "^(/[a-z]{2})?/reset-password", roles: PUBLIC_ACCESS }
         - { path: "^(/[a-z]{2})?(/[a-z]+)?/wiki", roles: PUBLIC_ACCESS }
         - { path: "^(/[a-z]{2})?/register", roles: PUBLIC_ACCESS }
         - { path: "^(/[a-z]{2})?/verify", roles: PUBLIC_ACCESS }

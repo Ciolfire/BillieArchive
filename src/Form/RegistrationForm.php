@@ -30,15 +30,15 @@ class RegistrationForm extends AbstractType
         'mapped' => false,
         'attr' => ['autocomplete' => 'new-password'],
         'constraints' => [
-          new NotBlank([
-            'message' => 'password.missing',
-          ]),
-          new Length([
-            'min' => 6,
-            'minMessage' => 'password.short',
+          new NotBlank(
+            message: 'password.missing',
+          ),
+          new Length(
+            min: 6,
+            max: 4096,
             // max length allowed by Symfony for security reasons
-            'max' => 4096,
-          ]),
+            minMessage: 'password.short',
+          ),
         ],
       ]);
   }
