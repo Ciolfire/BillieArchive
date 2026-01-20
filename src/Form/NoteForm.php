@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Note;
 use App\Form\Type\ExpandedEntityType;
@@ -21,11 +22,16 @@ class NoteForm extends AbstractType
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
+    $characters = null;
     if ($chronicle instanceof Chronicle) {
       $character = $chronicle->getCharacter($note->getUser());
-      $characters = $character->getKnownCharacters();
-    } else {
-      $characters = null;
+      if ($chronicle->getStoryteller() === $note->getUser()) {
+        // Storyteller
+        $characters = $chronicle->getCharacters();
+      } elseif ($character instanceof Character) {
+        // Normal player
+        $characters = $character->getKnownCharacters();
+      }
     }
     
     $builder
@@ -57,8 +63,7 @@ class NoteForm extends AbstractType
         'attr' => ['class' => 'form-control d-flex flex-wrap'],
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
-          $access = $character->getSpecificPeekingRights($choice);
-          if (in_array('avatar', $access->getRights())) {
+          if ($character == null || in_array('avatar', $character->getSpecificPeekingRights($choice)->getRights())) {
             $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";
           } else {
             $avatar = "{$path}/default.jpg";
