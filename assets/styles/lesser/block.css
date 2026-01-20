@@ -1,0 +1,27 @@
+.human {
+  color: rgb(199, 241, 255);
+}
+
+.innocents {
+  color: rgb(126, 236, 255);
+}
+
+.blood_bather {
+  color: rgb(255, 147, 147);
+}
+
+.psychic {
+  color: rgb(248, 119, 255);
+}
+
+.possessed {
+  color: rgb(176, 196, 104);
+}
+
+.thaumaturge {
+  color: rgb(179, 104, 255);
+}
+
+.ghoul {
+  color: rgb(254, 105, 105);
+}

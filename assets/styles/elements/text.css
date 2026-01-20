@@ -7,7 +7,7 @@
   --image-shadow              : var(--main);
 
   --blockquote-bg             : var(--main-dark-75a);
-  --blockquote-color          : var(--main-dark-75a);
+  --blockquote-color          : var(--text-bright-color);
 
   --subtext-color             : rgba(161, 165, 185, 0.631);
   --strong                    : var(--main-bright);
