@@ -64,7 +64,7 @@ class NoteForm extends AbstractType
         'choices' => $characters,
         'choice_label' => function ($choice) use ($path, $character): string {
           $avatar = "{$path}/{$choice->getAvatar()}\"/ onerror=\"this.src='{$path}/default.jpg';this.onerror=null;";  
-          $name = $character->getSimpleName();
+          $name = $choice->getSimpleName();
           if ($character instanceof Character) {
             if (!in_array('avatar', $character->getSpecificPeekingRights($choice)->getRights())) {
               $avatar = "{$path}/default.jpg";
