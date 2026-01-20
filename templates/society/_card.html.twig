@@ -33,5 +33,15 @@
     {% for character in society.characters %}
       <img class="character-icon" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     {% endfor %}
+    <div class="text-center pt-2">
+      <a class="btn btn-primary btn-sm" href="{{ path('society_edit', {'id': society.id }) }}">
+        {% include "_icon.html.twig" with {icon : 'edit' } only %}
+        {% include "_icon.html.twig" with {icon : 'group' } only %}
+      </a>
+      <a class="btn btn-primary btn-sm" href="{{ path('society_add_characters', {'id': society.id }) }}">
+        {% include "_icon.html.twig" with {icon : 'gears' } only %}
+        {% include "_icon.html.twig" with {icon : 'character' } only %}
+      </a>
+    </div>
   </div>
 {% endblock %}

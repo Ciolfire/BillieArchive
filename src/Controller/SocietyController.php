@@ -144,7 +144,7 @@ class SocietyController extends AbstractController
     ]);
   }
 
-  #[Route("{id<\d+>}/add/character", name: "society_add_character", methods: ["GET", "POST"])]
+  #[Route("{id<\d+>}/add/characters", name: "society_add_characters", methods: ["GET", "POST"])]
   public function characterAdd(Request $request, Society $society) : Response
   {
     $form = $this->createForm(SocietyForm::class, $society, ['add_character' => true, 'path' => $this->getParameter('characters_direct_directory')]);
