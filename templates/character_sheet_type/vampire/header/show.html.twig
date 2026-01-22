@@ -7,7 +7,7 @@
     <h1 class="py-2 text-stylized d-flex justify-content-center">
       <div class="flex-grow-1 flex-basis-0 text-end">
         {% if character.clan.emblem %}
-          <img class="no-filter pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+          <img class="no-filter pe-2" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="max-height:10rem;max-width:100%;"/>
         {% endif %}
       </div>
       <span class="text-strong m-auto">
@@ -15,9 +15,9 @@
       </span>
       <div class="flex-grow-1 flex-basis-0 text-start">
         {% if character.clan.isBloodline and character.clan.parentClan.emblem %}
-          <img class="no-filter ps-4" src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+          <img class="no-filter ps-4" src="{{ asset(character.clan.parentClan.emblem, 'clans_emblems') }}" style="max-height:10rem;max-width:100%;"/>
         {% elseif not character.clan.isBloodline and character.clan.emblem %}
-          <img class="no-filter ps-4" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="height:10rem;"/>
+          <img class="no-filter ps-4" src="{{ asset(character.clan.emblem, 'clans_emblems') }}" style="max-height:10rem;max-width:100%;"/>
         {% endif %}
       </div>
     </h1>
