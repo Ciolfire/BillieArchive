@@ -1,6 +1,10 @@
 {% trans_default_domain 'organization' %}
 
-<h2>{{ 'covenant.label.single'|trans }}</h2>
+{% if character.isAncient %}
+  <h2>{{ 'wing.label.single'|trans }}</h2>
+{% else %}
+  <h2>{{ 'covenant.label.single'|trans }}</h2>
+{% endif %}
 {{form_row(form.covenant)}}
 {% for covenant in covenants %}
   <div class="block block-solid covenant-{{ covenant.id }} text-dark d-none p-2 mb-3" data-character--embrace-target="covenantDescription">
