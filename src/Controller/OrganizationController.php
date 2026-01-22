@@ -64,6 +64,7 @@ class OrganizationController extends AbstractController
     switch ($setting) {
       case 'vampire':
         $type = "covenant";
+        $type = "wing";
         break;
       case 'mage':
         $type = "order";

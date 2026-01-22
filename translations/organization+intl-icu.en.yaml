@@ -34,6 +34,11 @@ covenant:
     discount: Half Price Merits
     limited: Restricted Merits
 
+wing:
+  label:
+    single: Wing
+    multi: Wings
+
 order:
   label:
     single: Order

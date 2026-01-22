@@ -33,6 +33,11 @@ covenant:
     discount: Atouts à demi-prix
     limited: Atouts Restreints
 
+wing:
+  label:
+    single: Aile
+    multi: Ailes
+
 order:
   label:
     single: Order
