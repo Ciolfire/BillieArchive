@@ -24,7 +24,7 @@
 }
 
 .discipline-new-block {
-  background-color: var(--vampire-block-bg);
+  background-color: rgba(255, 223, 163, 0.63);
   color: var(--vampire-text-color);
   margin: 0.5em 0;
   box-shadow: 0px 0px 5px 0px #000;
@@ -36,12 +36,6 @@
   .discipline-header {
     background-color: var(--vampire-block-dark-bg);
     border: none;
-  }
-
-  .fluff,
-  blockquote {
-    color: var(--vampire-text-bright-color);
-    background-color: var(--vampire-block-dark-bg);
   }
 }
 
