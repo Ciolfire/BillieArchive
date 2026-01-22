@@ -63,7 +63,6 @@
   {% if character.covenant %}
     <a class="d-inline-block" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
       data-action="click->content#load"
-      data-content-url-param="{{ link|default(path('organization_fetch', {id: character.covenant.id})) }}" 
       data-content-name-param="{{ character.covenant }}"
       data-content-link-param="{{ link|default(path("organization_show", {'id': character.covenant.id})) }}"
     >
