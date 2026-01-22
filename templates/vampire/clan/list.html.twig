@@ -7,7 +7,7 @@
   {% set footer = true %}
   {% set hasExtraContent = true %}
 {% endif %}
-{% if bloodlines is defined and bloodlines is not empty %}
+{% if bloodlines is defined and bloodlines is not empty and ancient|default(false) == false %}
   {% set label = "bloodline.label.multi" %}
 {% endif %}
 

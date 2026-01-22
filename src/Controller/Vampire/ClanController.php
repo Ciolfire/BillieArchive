@@ -91,10 +91,10 @@ class ClanController extends AbstractController
   #[Route("/wiki/clans/ancient/list", name: "vampire_clan_ancient_list", methods: ["GET"])]
   public function ancientClanList()
   {
-    $clans = null;
+    $clans = $this->dataService->findBy(Clan::class, ['isAncient' => true, 'isBloodline' => false]);
     return $this->render('vampire/clan/list.html.twig', [
       'bloodlines' => $this->dataService->findBy(Clan::class, ['isAncient' => true, 'isBloodline' => true]),
-      'clans' => $this->dataService->findBy(Clan::class, ['isAncient' => true, 'isBloodline' => false]),
+      'clans' => $clans,
       'description' => $this->dataService->findOneBy(Description::class, ['name' => 'clan']),
       'setting' => "vampire",
       'ancient' => true,
@@ -181,6 +181,9 @@ class ClanController extends AbstractController
       $this->dataService->update($clan);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $clan->getName()]]);
+      if ($clan->isAncient()) {
+        return $this->redirectToRoute('vampire_clan_ancient_list', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
+      }
       if ($clan->isBloodline()) {
         return $this->redirectToRoute('vampire_bloodline_index', ['_fragment' => $clan->getName()], Response::HTTP_SEE_OTHER);
       }
