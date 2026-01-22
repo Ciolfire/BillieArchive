@@ -164,9 +164,14 @@ class CharacterController extends AbstractController
   public function show(Request $request, Character $character, FormFactoryInterface $formFactory): Response
   {
     $user = $this->getUser();
-    if ($character->getPlayer() != $user && ($character->getChronicle() && $character->getChronicle()->getStoryteller() != $user)) {
-      if ($user instanceof User && $user->getRole() != 'ROLE_GM')
+    $chronicle = $character->getChronicle();
+    if ($character->getPlayer() != $user && $chronicle && $chronicle->getStoryteller() != $user) {
+      if ($chronicle->getPlayers()->contains($user) && !$chronicle->getCharacter($user)) {
+        $this->addFlash('error', "character.peek.create");
+        return $this->redirect($request->headers->get('referer'));
+      } else if ($user instanceof User && $user->getRole() != 'ROLE_GM') {
         return $this->redirectToRoute('character_peek', ['id' => $character->getId()]);
+      }
     }
     switch ($character->getType()) {
       case 'possessed':
@@ -358,7 +363,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/{id<\d+>}/peek/{peeker}', name: 'character_peek', methods: ['GET'])]
-  public function peek(Request $request, Character $character, ?Character $peeker): Response
+  public function peek(Request $request, Character $character, ?Character $peeker = null): Response
   {
     if ($request->isXmlHttpRequest()) {
       if ($peeker instanceof Character) {
@@ -376,7 +381,7 @@ class CharacterController extends AbstractController
       if (!$peeker instanceof Character) {
         $peeker = $character->getChronicle()->getCharacter($this->getUser());
       }
-      return $this->peekAs($character, $peeker);
+      return $this->peekAs($character, $peeker, $request->headers->get('referer'));
     }
   
     $this->addFlash('notice', 'character.peek.declined');
@@ -387,7 +392,7 @@ class CharacterController extends AbstractController
     return $this->redirectToRoute('character_index');
   }
 
-  public function peekAs(Character $character, Character $peeker): Response
+  public function peekAs(Character $character, Character $peeker, ?string $referer = null): Response
   {
     if (is_null($character->getChronicle())) {
       $this->addFlash('warning', 'character.peek.unavailable');
@@ -401,6 +406,9 @@ class CharacterController extends AbstractController
     } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character)) || empty($peeker->getSpecificPeekingRights($character)->getRights())) {
       
       $this->addFlash('notice', 'character.peek.declined');
+      if ($referer) {
+        return $this->redirect($referer);
+      }
       return $this->redirectToRoute('index');
     }
     $access = $peeker->getSpecificPeekingRights($character);

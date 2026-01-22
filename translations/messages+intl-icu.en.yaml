@@ -58,6 +58,7 @@ character:
     declined: "You are not allowed to look at this character informations."
     unavailable: "This character is not part of a chronicle."
     self: "This is yours, redirected to the character sheet."
+    create: "You muust create a character before venturing forth."
   template:
     lesser:
       add: >-

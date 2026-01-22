@@ -16,7 +16,7 @@
     </div>
   {% else %}
     <div class="col-12">
-      <a class="btn btn-primary w-100" href="{{ path('character_new', {chronicle: chronicle.id, isAncient: chronicle.isAncient })}}">
+      <a class="btn btn-primary w-100" href="{{ path('character_new', {chronicle: chronicle.id, isAncient: chronicle.isAncient|default(0) })}}">
         {% include "_icon.html.twig" with {icon: 'add' } only %}
         {{ "pc.new"|trans({}, 'character') }}
       </a>

@@ -30,7 +30,7 @@
               {% include "character/_card.html.twig" with {showPlayer : true, 'showChronicle' : 0} %}
             {% else %}
               <div class="col-6 col-lg-2 mb-3">
-                <a class="btn btn-primary w-100 h-100 {% if app.user.id != player.id %} disabled{% endif %}" {% if app.user.id == player.id %} href="{{path('character_new', {chronicle: chronicle.id, isAncient: chronicle.isAncient }) }}" {% endif %} href="#">
+                <a class="btn btn-primary w-100 h-100 {% if app.user.id != player.id %} disabled{% endif %}" {% if app.user.id == player.id %} href="{{path('character_new', {chronicle: chronicle.id, isAncient: chronicle.isAncient|default(0) }) }}" {% endif %} href="#">
                   <div class="character-frame character-frame-list position-relative text-center mb-2 rounded">
                     <img class="p-1 rounded" src="{{ asset('default.jpg', 'characters') }}" height="50">
                   </div>

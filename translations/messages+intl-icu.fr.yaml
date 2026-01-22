@@ -58,6 +58,7 @@ character:
     declined: "Vous n'êtes pas autorisé à regarder les informations sur ce personnage."
     unavailable: "Ce personnage ne fait pas partie d'une chronique."
     self: "Ce personnage vous appartient, affichage de sa feuille."
+    create: "Vous devez d'abord créer un personnage."
   template:
     lesser:
       add: >-
