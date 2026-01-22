@@ -1634,9 +1634,25 @@ class Character
     return $list;
   }
 
+  public function hasSpecificPeekingRights(Character $character): bool
+  {
+    if ($this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
+      if ($access->getTarget() === $character) {
+
+        return true;
+      }
+
+      return false;
+    })) {
+
+      return true;
+    }
+
+    return false;
+  }
+
   public function getSpecificPeekingRights(Character $character): CharacterAccess
   {
-
     $rights = $this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
       if ($access->getTarget() === $character) {
 

@@ -94,12 +94,12 @@ class CharacterAccessForm extends AbstractType
     if ($data instanceof CharacterAccess) {
       $character = $data->getTarget();
       if ($character instanceof Character && $character->getChronicle() instanceof Chronicle) {
-        $characters = $character->getChronicle()->getPlayerCharacters();
+        $characters = $character->getChronicle()->getPlayerCharacters() + $character->getChronicle()->getOtherPlayerCharacters();
         if (false !== array_search($character, $characters)) {
           unset($characters[array_search($character, $characters)]);
         }
         foreach ($characters as $check) {
-          if (!is_null($check->getSpecificPeekingRights($character))) {
+          if ($check->hasSpecificPeekingRights($character)) {
             unset($characters[array_search($check, $characters)]);
           }
         }

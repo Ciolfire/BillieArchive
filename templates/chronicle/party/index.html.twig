@@ -51,7 +51,7 @@
             {% for character in chronicle.otherPlayerCharacters %}
               {% include "character/_card.html.twig" with {showPlayer : true, 'showChronicle' : 0} %}
             {% endfor %}
-          {% else %}
+          {% elseif chronicle.getCharacter(app.user) %}
             {% set userPlayer = chronicle.getCharacter(app.user) %}
             {% for character in chronicle.otherPlayerCharacters %}
               {% include 'character/_peeking_card.html.twig' with { character: character, access: userPlayer.getSpecificPeekingRights(character) } only %}
