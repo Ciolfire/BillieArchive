@@ -5,8 +5,10 @@
 {% set footer = true %}
 
 {% block bodyData %}
-	data-controller="search" data-search-type-value="item"
+	data-search-type-value="item"
 {% endblock %}
+
+{% block bodyController %}content search{% endblock %}
 
 {% block body %}
 <div class="block block-light container">
@@ -36,7 +38,7 @@
 		</span>
 		<input class="search-field text-strong rounded-end" type="text" data-search-target="query" data-action="search#getResults">
 		{% for type in constant('App\\Entity\\Item::TYPELIST') %}
-      <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}">
+      <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}" data-search-mode-param="strict">
         {% include "_icon.html.twig" with {icon : type } only %}
       </a>
     {% endfor %}
