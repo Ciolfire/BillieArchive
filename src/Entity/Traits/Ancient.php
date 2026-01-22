@@ -2,7 +2,6 @@
 
 namespace App\Entity\Traits;
 
-use App\Entity\Chronicle;
 use Doctrine\ORM\Mapping as ORM;
 
 trait Ancient {
