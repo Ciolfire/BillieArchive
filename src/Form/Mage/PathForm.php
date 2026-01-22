@@ -44,12 +44,12 @@ class PathForm extends AbstractType
         'translation_domain' => 'app',
         'attr' => ['placeholder' => 'upload'],
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('symbol', DropzoneType::class, [
@@ -59,12 +59,12 @@ class PathForm extends AbstractType
         'translation_domain' => 'mage',
         'attr' => ['placeholder' => 'upload'],
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('rune', DropzoneType::class, [

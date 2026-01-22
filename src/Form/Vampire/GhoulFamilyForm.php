@@ -42,12 +42,12 @@ class GhoulFamilyForm extends AbstractType
         'required' => false,
         'translation_domain' => 'app',
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('short', null, ['label' => "family.short"])

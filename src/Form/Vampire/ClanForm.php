@@ -46,12 +46,12 @@ class ClanForm extends AbstractType
         'translation_domain' => 'app',
         'attr' => ['placeholder' => 'upload'],
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('symbol', DropzoneType::class, [
@@ -60,12 +60,12 @@ class ClanForm extends AbstractType
         'required' => false,
         'translation_domain' => 'app',
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('description', RichTextEditorForm::class, [

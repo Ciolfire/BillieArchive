@@ -35,12 +35,12 @@ class MageOrderForm extends OrganizationForm
         'translation_domain' => 'mage',
         'attr' => ['placeholder' => 'upload'],
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ->add('RoteSpecialties', EntityType::class, [

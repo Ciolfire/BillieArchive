@@ -54,12 +54,12 @@ class BookForm extends AbstractType
         'mapped' => false,
         'required' => false,
         'constraints' => [
-          new File([
-            'mimeTypes' => [
+          new File(
+            mimeTypes: [
               'image/*',
             ],
-            'mimeTypesMessage' => 'image.invalid',
-          ])
+            mimeTypesMessage: 'image.invalid',
+          )
         ],
       ])
       ;
