@@ -22,7 +22,7 @@
 					{% include "_icon.html.twig" with {icon: 'party'} only %}
 					{{ 'party.label'|trans }}
 				</h1>
-				<h2 class="py-4 bdr-b">Players</h2>
+				<h2 class="py-4 bdr-b">{{ "party.members"|trans }}</h2>
         <div class="row justify-content-center">
           {% for player in chronicle.players %}
             {% set character = chronicle.character(player) %}
@@ -43,6 +43,12 @@
                 </a>
               </div>
             {% endif %}
+          {% endfor %}
+        </div>
+        <h2 class="py-4 bdr-b">{{ "party.not.members"|trans }}</h2>
+        <div class="row justify-content-center">
+          {% for character in chronicle.otherPlayerCharacters %}
+            {% include "character/_card.html.twig" with {showPlayer : true, 'showChronicle' : 0} %}
           {% endfor %}
         </div>
         <div class="row">

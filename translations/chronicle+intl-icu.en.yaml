@@ -14,6 +14,8 @@ settings: Settings
 party:
   label: Party
   manage: Manage Party
+  members: Player
+  not.members: Other
 
 story:
   label:
