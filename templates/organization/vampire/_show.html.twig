@@ -100,7 +100,6 @@
 
 {% block body %}
   {{ parent() }}
-  <div class="text">{{ organization.description|default("")|markdown_to_html }}</div>
   <h2 class="text-stylized-alt">{{ "overview"|trans }}</h2>
   {{ organization.overview|default("")|markdown_to_html }}
   <h2 class="text-stylized-alt">{{ "members"|trans }}</h2>
