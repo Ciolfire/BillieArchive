@@ -75,7 +75,7 @@ export default class extends Controller {
     })
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
-      target.parentElement.remove();
+      target.remove();
       this.closeDropTarget.click();
     });
   }
@@ -97,7 +97,8 @@ export default class extends Controller {
     })
     .then(() => {
       let target = this.itemTargets.find(target => target.dataset.id == this.idValue);
-      target.parentElement.remove();
+      console.debug(target, target.parentElement);
+      target.remove();
       this.closeDropTarget.click();
     });
   }
