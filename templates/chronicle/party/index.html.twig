@@ -47,8 +47,10 @@
         </div>
         <h2 class="py-4 bdr-b">{{ "party.not.members"|trans }}</h2>
         <div class="row justify-content-center">
+          {% set userPlayer = chronicle.getCharacter(app.user) %}
+
           {% for character in chronicle.otherPlayerCharacters %}
-            {% include "character/_card.html.twig" with {showPlayer : true, 'showChronicle' : 0} %}
+            {% include 'character/_peeking_card.html.twig' with { character: character, access: userPlayer.getSpecificPeekingRights(character) } only %}
           {% endfor %}
         </div>
         <div class="row">

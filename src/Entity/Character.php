@@ -449,9 +449,12 @@ class Character
   }
 
   /** The name known for this character by another character */
-  public function getPublicName(Character $peeker): string
+  public function getPublicName(?Character $peeker = null): string
   {
     $name = "";
+    if (is_null($peeker)) {
+      return $name;
+    }
     $rights = $peeker->getSpecificPeekingRights($this)->getRights();
 
     if (in_array('title', $rights)) {
@@ -791,7 +794,7 @@ class Character
   public function getHealth(): ?int
   {
     $base = $this->size;
-    
+
     $bonus = 0;
     foreach ($this->getStatusEffects() as $effect) {
       if ($effect->getType() == 'health') {
@@ -1102,21 +1105,21 @@ class Character
     return $this;
   }
 
-  public function refundXp(int $refunded) : self
+  public function refundXp(int $refunded): self
   {
     $this->xpUsed -= $refunded;
 
     return $this;
   }
 
-  public function addXp(int $value) : self
+  public function addXp(int $value): self
   {
     $this->xpTotal += $value;
 
     return $this;
   }
 
-  public function removeXp(int $value) : self
+  public function removeXp(int $value): self
   {
     $this->xpTotal -= $value;
 
@@ -1129,7 +1132,7 @@ class Character
       $this->refundXp($value * $from);
       $from -= 1;
     }
-    
+
     return $this;
   }
 
@@ -1515,7 +1518,8 @@ class Character
     }
   }
 
-  public function isLesser() {
+  public function isLesser()
+  {
     if ($this->getLesserTemplate()) {
       return true;
     }
@@ -1616,7 +1620,7 @@ class Character
   /**
    * @return Collection<int, CharacterAccess>
    */
-  public function getOrderedPeekingRights(): Collection
+  public function getOrderedPeekingRights(): array
   {
     $list = $this->peekingRights->toArray();
 
@@ -1630,10 +1634,10 @@ class Character
     return $list;
   }
 
-  public function getSpecificPeekingRights(Character $character): ?CharacterAccess
+  public function getSpecificPeekingRights(Character $character): CharacterAccess
   {
 
-    return $this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
+    $rights = $this->peekingRights->findFirst(function (int $key, CharacterAccess $access) use ($character): bool {
       if ($access->getTarget() === $character) {
 
         return true;
@@ -1641,6 +1645,12 @@ class Character
 
       return false;
     });
+
+    if (is_null($rights)) {
+      return new CharacterAccess()->setAccessor($this)->setTarget($character);
+    }
+
+    return $rights;
   }
 
   public function addPeekingRight(CharacterAccess $peekingRight): static
