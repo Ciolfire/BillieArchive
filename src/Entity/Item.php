@@ -25,7 +25,9 @@ use Doctrine\ORM\Mapping as ORM;
   "equipment" => Equipment::class,
   "vehicle" => Vehicle::class,
   "ranged" => RangedWeapon::class,
-  "melee" => Weapon::class
+  "melee" => Weapon::class,
+  // "thrown" => ThrownWeapon::class,
+  // "armor" => Armor::class
 ])]
 #[ORM\AssociationOverrides([
   new ORM\AssociationOverride(name: "book", inversedBy: "items"),
@@ -42,9 +44,10 @@ class Item
     0 => 'item',
     1 => 'equipment',
     2 => 'vehicle',
-    3 => 'ranged_weapon',
-    4 => 'weapon',
-    5 => 'armor',
+    3 => 'weapon',
+    4 => 'thrown_weapon',
+    5 => 'ranged_weapon',
+    6 => 'armor',
   ];
 
   #[ORM\Id]

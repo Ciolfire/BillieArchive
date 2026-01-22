@@ -45,7 +45,7 @@
   {% include "_search.html.twig" with { type: "item" } %}
   <div class="col col-md text-center pt-2">
     {% for type in constant('App\\Entity\\Item::TYPELIST') %}
-      <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}">
+      <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="type" data-search-filter-param="{{ type }}" data-search-mode-param="strict">
         {% include "_icon.html.twig" with {icon : type } only %}
       </a>
     {% endfor %}

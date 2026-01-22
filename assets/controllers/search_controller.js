@@ -11,7 +11,8 @@ export default class extends Controller
   ];
   static values = {
     type: String,
-    filters: Object
+    filters: Object,
+    mode: String
   }
 
   connect()
@@ -30,6 +31,10 @@ export default class extends Controller
     let filters = this.filtersValue;
     let name = event.params.filter;
     let type = event.params.type;
+    if (event.params.mode) {
+      let mode = event.params.mode;
+      this.modeValue = mode;
+    }
     
     if (typeof filters[type] === "undefined") {
       let newFilter = {};
@@ -87,7 +92,12 @@ export default class extends Controller
             isValid = false;
             for (const value in values) {
               // For each item, we check if the data match the activated filters
-              if (filters[key][value] === true && item.dataset[key].includes(value)) {
+              if (this.modeValue == "strict") {
+                if (filters[key][value] === true && item.dataset[key] == value) {
+                  isValid = true;
+                  break;
+                }
+              } else if (filters[key][value] === true && item.dataset[key].includes(value)) {
                 isValid = true;
                 break;
               }
