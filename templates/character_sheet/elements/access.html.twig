@@ -2,17 +2,30 @@
 
 {% trans_default_domain 'character' %}
 
+{% block shortcuts %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
-	{% include "_back.html.twig" with {link: path('character_show', {id: character.id}) } %}
 	<div class="container-fluid container-lg py-3" data-controller="character--access">
 		<div class="row justify-content-center">
 			<h1 class="text-center mt-5">{{ ('infos.details.edit')|trans }}</h1>
         <div class="col-auto block p-5 flex-column">
-          <button name="heard" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">Heard of</button>
-          <button name="seen" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">Seen once</button>
-          <button name="acquaintance" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">Acquaintance</button>
-          <button name="know" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">Know well</button>
-          <button name="all" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">Know intimately</button>
+          <button name="heard" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">
+            {{ "right.shortcut.heard"|trans }}
+          </button>
+          <button name="seen" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">
+            {{ "right.shortcut.seen"|trans }}
+          </button>
+          <button name="acquaintance" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update
+            {{ "right.shortcut.acquaintance"|trans }}
+          </button>
+          <button name="know" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">
+            {{ "right.shortcut.known"|trans }}
+          </button>
+          <button name="all" class="btn btn-primary d-block w-100 my-3" type="button" data-character--access-target="btn" data-action="click->character--access#update">
+            {{ "right.shortcut.intimate"|trans }}
+          </button>
         </div>
         <div class="col block p-5">
 				{{ form_start(form) }}

@@ -162,18 +162,24 @@ premade:
 relation: Relations
 
 right:
-  age: Age
-  avatar: Avatar & age apparent
-  background: Historique
-  description: Description
-  faction: Faction
-  group: Groupe
-  organization: Organisation
   importance:
     label: Importance
     high: Haute
     normal: Normale
     low: Faible
+  shortcut:
+    heard: Rumeurs
+    seen: Rencontré
+    acquaintance: Connaissance
+    known: Liens
+    intimate: Proche
+  age: Age
+  avatar: Apparence
+  background: Historique
+  description: Description
+  faction: Faction
+  group: Groupe
+  organization: Organisation
   firstname: Prénom
   lastname: Nom de famille
   morality: Moralité

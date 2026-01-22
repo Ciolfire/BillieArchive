@@ -163,18 +163,24 @@ premade:
 relation: Relations
 
 right:
-  age: Age
-  avatar: Avatar & apparent age
-  background: Background
-  description: Description
-  faction: Faction
-  group: Group
-  organization: Organization
   importance:
     label: Importance
     high: High
     normal: Normal
     low: Low
+  shortcut:
+    heard: Hearsay
+    seen: Seen once
+    acquaintance: Acquaintance
+    known: Know well
+    intimate: Know intimately
+  age: Age
+  avatar: Apparence
+  background: Background
+  description: Description
+  faction: Faction
+  group: Group
+  organization: Organization
   firstname: First name
   lastname: Last name
   morality: Morality
