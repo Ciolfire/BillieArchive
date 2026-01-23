@@ -244,6 +244,34 @@ class ItemController extends AbstractController
     }
   }
 
+  #[Route('item/{item<\d+>}/equip/{character<\d+>}/switch', name: 'item_equip_switch', methods: ['POST'])]
+  public function equipSwitchItem(Request $request, Item $item, Character $character): JsonResponse|RedirectResponse
+  {
+    $this->denyAccessUnlessGranted('edit', $item->getOwner());
+
+    if ($request->isXmlHttpRequest()) {
+      $item->setIsEquipped(!$item->isEquipped());
+      if ($item->isEquipped()) {
+        foreach ($item->getStatusEffects() as $effect) {
+          $newEffect = clone $effect;
+          $character->addStatusEffect($newEffect);
+          $this->dataService->add($newEffect);
+        }
+      } else {
+        foreach ($character->getStatusEffects() as $effect) {
+          if ($effect->getItem() === $item) {
+            $this->dataService->delete($effect);
+          }
+        }
+      }
+      $this->dataService->flush();
+      return new JsonResponse(['equipped' => $item->isEquipped()]);
+    } else {
+
+      return $this->redirectToRoute('index');
+    }
+  }
+
   #[Route('item/{item<\d+>}/share/switch', name: 'item_share_switch', methods: ['POST'])]
   public function shareSwitchItem(Request $request, Item $item): JsonResponse|RedirectResponse
   {

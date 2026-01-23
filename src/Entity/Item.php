@@ -92,6 +92,9 @@ class Item
   #[ORM\Column(nullable: true)]
   private ?bool $isShared = null;
 
+  #[ORM\Column]
+  private ?bool $isEquipped = null;
+
   public function __construct()
   {
     $this->containedItems = new ArrayCollection();
@@ -294,5 +297,17 @@ class Item
     $this->isShared = $isShared;
 
     return $this;
+  }
+
+  public function isEquipped(): ?bool
+  {
+      return $this->isEquipped;
+  }
+
+  public function setIsEquipped(bool $isEquipped): static
+  {
+      $this->isEquipped = $isEquipped;
+
+      return $this;
   }
 }

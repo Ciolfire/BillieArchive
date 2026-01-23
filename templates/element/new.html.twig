@@ -13,22 +13,3 @@
   —
   {{ ("action." ~ action)|trans }}
 {% endblock %}
-
-{# 
-{% block body %}
-  <h1 class="py-3">
-    {% include "_icon.html.twig" with {icon: element} %}
-    {{ ("label.single")|trans([], element) }}
-    —
-    {{ ("action." ~ action)|trans }}
-    {% include "_icon.html.twig" with {icon: action} %}
-  </h1>
-  <div class="container block py-3">
-    {{ include('_form.html.twig') }}
-  </div>
-  {% if entity.id is not null %}
-    <button type="button" class="float-end btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ element }}-{{ entity.id }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-    {% include "element/_delete.html.twig" %}
-  {% endif %}
-  
-{% endblock %} #}

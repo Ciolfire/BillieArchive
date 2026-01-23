@@ -25,6 +25,9 @@
         {% block content_start %}{% endblock %}
         {{ form_start(form) }}
           {% block form %}
+            {% if form.statusEffects %}
+              {% include "forms/_statuseffect_field.html.twig" %}
+            {% endif %}
             {{ form_rest(form) }}
             {% block submit %}
               <div class="text-center fixed-bottom">

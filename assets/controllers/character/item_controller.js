@@ -103,6 +103,36 @@ export default class extends Controller {
     });
   }
 
+  equip(event) {
+    let target = event.currentTarget;
+    this.idValue = event.params.id;
+
+    window
+    .fetch(`/${document.location.pathname.split('/')[1]}/item/${this.idValue}/equip/${this.characterValue}/switch`, {
+      headers: {
+        "Content-Type": "application/json",
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      method: "POST"
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      if (data.equipped) {
+        // target.classList.add("active");
+        location.reload();
+      } else {
+        // target.classList.remove("active");
+        location.reload();
+      }
+    })
+  }
+
   share(event) {
     let target = event.currentTarget;
     this.idValue = event.params.id;

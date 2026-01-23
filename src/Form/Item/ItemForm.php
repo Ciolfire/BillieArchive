@@ -3,10 +3,12 @@
 namespace App\Form\Item;
 
 use App\Entity\Item;
+use App\Form\StatusEffectForm;
 use App\Form\Type\SourceableForm;
 use App\Form\Type\RichTextEditorForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -62,6 +64,17 @@ class ItemForm extends AbstractType
         'empty_data' => '',
         'data' => $item->getDescription(),
         'translation_domain' => 'app',
+      ])
+      ->add('statusEffects', CollectionType::class, [
+        'label' => false,
+        'entry_type' => StatusEffectForm::class,
+        'entry_options' => [
+          'label' => false, 
+          'type' => 'item', 
+        ],
+        'by_reference' => false,
+        'allow_add' => true,
+        'allow_delete' => true,
       ])
     ;
   }

@@ -13,6 +13,12 @@ data-id="{{ item.id }}"
       </div>
     {% endif %}
     <div class="col">
+      {# Equip #}
+      <button type="button" class="btn btn-primary {% if item.isEquipped %}active{% endif %}" data-action="click->character--item#equip" data-character--item-id-param="{{ item.id }}">
+        {% include "_icon.html.twig" with {icon: 'engagement-ring', class:'text-strong'} only %}
+      </button>
+    </div>
+    <div class="col">
       {# Move #}
       <button type="button" class="btn btn-primary position-relative"
         data-bs-toggle="modal" data-bs-target="#itemMoveModal"
