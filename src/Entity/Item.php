@@ -106,7 +106,7 @@ class Item
   }
 
   // cloning a relation which is a OneToMany
-  protected function cloneCollection($collection, $method = 'default')
+  protected function cloneCollection($collection)
   {
     $collectionClone = new ArrayCollection();
     foreach ($collection as $item) {

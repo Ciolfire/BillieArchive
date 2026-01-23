@@ -200,7 +200,7 @@ class ItemController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
     $token = $request->request->get('_token');
-    if ((is_null($token) || is_string($token)) && $this->isCsrfTokenValid('delete' . $item->getId(), $token) || $request->isXmlHttpRequest()) {
+    if ((is_null($token) || (is_string($token) && $this->isCsrfTokenValid('delete' . $item->getId(), $token))) || $request->isXmlHttpRequest()) {
       $this->dataService->remove($item);
       $this->dataService->flush();
     }

@@ -11,7 +11,7 @@ trait Status {
   /**
    * @var Collection<int, StatusEffect>
    */
-  #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'item', cascade: ["persist"])]
+  #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'item', cascade: ["persist", "remove"])]
   private Collection $statusEffects;
 
   /**
