@@ -101,6 +101,22 @@ class Item
     $this->statusEffects = new ArrayCollection();
   }
 
+  public function __clone() {
+    $this->statusEffects = $this->cloneCollection($this->statusEffects);
+  }
+
+  // cloning a relation which is a OneToMany
+  protected function cloneCollection($collection, $method = 'default')
+  {
+    $collectionClone = new ArrayCollection();
+    foreach ($collection as $item) {
+      $itemClone = clone $item;
+      $itemClone->setItem($this);
+      $collectionClone->add($itemClone);
+    }
+    return $collectionClone;
+  }
+
   public function __toString()
   {
     return $this->name;
