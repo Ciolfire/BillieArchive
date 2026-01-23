@@ -32,16 +32,16 @@
         </div>
       </div>
       {% if discipline.singlePower %}
-        <div class="col-2 text-glow">
+        <div class="col-2 text-color text-glow">
           {% set powerPool = discipline.power.detailedDicePool(character) %}
             {% if powerPool != null %}
             {% include "_dice_pool.html.twig" with {pool : powerPool, contested : discipline.power.contestedText} %}
           {% endif %}
         </div>
-        <div class="col-8 text-center">
+        <div class="col-8 text-center text-dark">
           {{ discipline.short }}
         </div>
-        <div class="col-2 text-end text-glow">
+        <div class="col-2 text-end text-color text-glow">
           {% include "vampire/discipline/powers/_cost.html.twig" with {costs: discipline.power.costs} only %}
         </div>
       {% else %}
