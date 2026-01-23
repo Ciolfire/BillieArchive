@@ -233,7 +233,6 @@ class MeritController extends AbstractController
     
     if ($form->isSubmitted() && $form->isValid()) {
       $old = $chMerit->getMerit()->getName();
-      $chMerit->setMerit($form->getData()['relation']);
       $chMerit->setChoice($form->getData()['choice']);
       $this->dataService->update($chMerit);
 
