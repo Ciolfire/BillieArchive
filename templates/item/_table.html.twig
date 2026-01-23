@@ -2,68 +2,37 @@
 
 <div class="text-center p-1">
   <div class="row g-0">
-    {% for key, col in cols|default([]) %}
+    {% for key, column in item.columns %}
       <div class="col">
         <div class="item-detail-header p-1">
           {% if key == 'size' and item.typeName == 'weapon' %}
-          {% include "_icon.html.twig" with {icon: 'strength', label: ('strength.label')|trans} %}
-          <span class="text-strong">/</span>
+            {% include "_icon.html.twig" with { icon: 'strength', label: ('strength.label')|trans } %}
+            <span class="text-strong">/</span>
           {% endif %}
-          {% include "_icon.html.twig" with {icon: col, label: (key ~ '.label')|trans} %}
+          {% include "_icon.html.twig" with {icon: column.icon, label: ("#{key}.label")|trans} %}
         </div>
       </div>
     {% endfor %}
-    {% if special['expand']|default(false) %}
-      <div class="col">
-        <div class="item-detail-header p-1">
-          {% include "_icon.html.twig" with {icon: 'info', label: (special['expand'] ~ '.label')|trans} %}
-        </div>
-      </div>
-    {% endif %}
   </div>
   <div class="row g-0">
-    {% for key, col in cols|default([]) %}
-      {% set value = attribute(item, key) %}
-      <div class="col">
-        <div class="item-detail">
-          <span class="text-strong">
-            {% if key in special|default([])|keys %}
-              {% if special[key] == 0 and value == 0 %}
-                {{ (key ~ '.variable')|trans }}
-              
-              {% elseif special[key] == 'dot' %}
-
-                {% if item.cost is empty %}
-                  {{ "cost.none"|trans }}
-                {% else %}
-                  {% include "_cost.html.twig" with {costs: item.cost} %}
-                {% endif %}
-
-              {% else %}
-                {{ value }}
-              {% endif %}
-
-            {% else %}
-              {{ value }}
-              {% if key == "damage" %}
-                  {{ "damage.short.#{item.damageType.name}"|trans([], 'app') }}
-                  {% include "_icon.html.twig" with { icon: item.damageType.name, class: "d-none d-sm-inline" } %}
-              {% endif %}
-            {% endif %}
-          </span>
-        </div>
-      </div>
+    {% for key, column in item.columns %}
+      {% include ["item/table/_#{key}.html.twig", "item/table/_column.html.twig"] %}
     {% endfor %}
-    {% if special['expand']|default(false) %}
+  </div>
+  {% if item.special|default() %}
+    <div class="row g-0">
       <div class="col">
-        <div class="item-detail">
-          <span class="text-strong">
-            {% include "_icon.html.twig" with {icon: "search", class: 'icon-sm'} %}
-          </span>
+        <div class="item-detail-header p-1">
+          {% include "_icon.html.twig" with {icon: 'info', label: ('special.label')|trans} %}
         </div>
       </div>
-    {% endif %}
-    {% block extra %}
-    {% endblock %}
-  </div>
+    </div>
+    <div class="row g-0">
+      <div class="col">
+        <div class="item-detail text-strong">
+          {{ item.special }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
 </div>

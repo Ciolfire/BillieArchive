@@ -17,7 +17,7 @@
     </div>
     {# description #}
     {% include "item/card/" ~ item.typeName ~".html.twig" ignore missing %}
-    <div class="col-12 text">{{ item.description }}</div>
+    <div class="col-12 fluff">{{ item.description }}</div>
   </div>
   <div class="row text-strong text-center">
     {% if item.img is not null %}

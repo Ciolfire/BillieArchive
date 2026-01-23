@@ -35,9 +35,11 @@ type:
   label: Type
   item: Generique
   generic: Generique
+  armor: Armor
   equipment: Équipment
   melee_weapon: Arme de mêlée
   ranged_weapon: Arme à distance
+  thrown_weapon: Thrown Weapon
   vehicle: Véhicule
   weapon: Arme
 
@@ -75,6 +77,15 @@ strength:
   label: Force
 special:
   label: Spécial
+
+# Thrown Weapon
+aerodynamic:
+  label: Aerodynamisme
+
+# Armor
+rating.label: Rating
+speed.label: Vitesse
+defense.label: Défense
 
 help:
   img: ""

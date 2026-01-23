@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Entity\Item;
-use App\Entity\Types\DamageType;
 use App\Form\Item\RangedWeaponForm;
-use App\Repository\VehicleRepository;
+use App\Repository\RangedWeaponRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: "item_weapon_ranged")]
-#[ORM\Entity(repositoryClass: VehicleRepository::class)]
-class RangedWeapon extends Item
+#[ORM\Entity(repositoryClass: RangedWeaponRepository::class)]
+class RangedWeapon extends Weapon
 {
   #[ORM\Column(length: 255)]
   private ?string $ranges = "";
@@ -22,16 +20,7 @@ class RangedWeapon extends Item
   private ?string $clip = "";
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private ?int $damage = 0;
-
-  #[ORM\Column(type: Types::SMALLINT)]
   private ?int $strength = null;
-
-  #[ORM\Column(type: Types::TEXT)]
-  private ?string $special = "";
-
-  #[ORM\Column(type: Types::SMALLINT, enumType: DamageType::class)]
-  private DamageType $damageType = DamageType::lethal;
 
   // #[ORM\Column]
   // private ?bool $isTwoHanded = false;
@@ -76,51 +65,39 @@ class RangedWeapon extends Item
     return $this;
   }
 
-  public function getDamage(): ?int
-  {
-    return $this->damage;
-  }
-
-  public function setDamage(int $damage): static
-  {
-    $this->damage = $damage;
-
-    return $this;
-  }
-
   public function getStrength(): ?int
   {
-      return $this->strength;
+    return $this->strength;
   }
 
   public function setStrength(int $strength): static
   {
-      $this->strength = $strength;
-
-      return $this;
-  }
-
-  public function getSpecial(): ?string
-  {
-    return $this->special;
-  }
-
-  public function setSpecial(string $special): static
-  {
-    $this->special = $special;
+    $this->strength = $strength;
 
     return $this;
   }
 
-  public function getDamageType(): ?DamageType
+  public function getColumns(): array
   {
-    return $this->damageType;
-  }
+    $columns = [
+      'damage' => [
+        'icon' => 'damage',
+        'value' => $this->damage,
+      ],
+      'ranges' => [
+        'icon' => 'ranges',
+        'value' => $this->ranges,
+      ],
+      'clip' => [
+        'icon' => 'clip',
+        'value' => $this->clip,
+      ],
+      'strength' => [
+        'icon' => 'strength',
+        'value' =>  $this->size,
+      ],
+    ];
 
-  public function setDamageType(DamageType $damageType): static
-  {
-    $this->damageType = $damageType;
-
-    return $this;
+    return $columns;
   }
 }

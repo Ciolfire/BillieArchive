@@ -7,23 +7,23 @@ namespace App\Entity\Item;
 use App\Entity\Item;
 use App\Entity\Types\DamageType;
 use App\Form\Item\WeaponForm;
-use App\Repository\VehicleRepository;
+use App\Repository\WeaponRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: "item_weapon")]
-#[ORM\Entity(repositoryClass: VehicleRepository::class)]
+#[ORM\Entity(repositoryClass: WeaponRepository::class)]
 class Weapon extends Item
 {
 
   #[ORM\Column(type: Types::SMALLINT)]
-  private ?int $damage = 0;
+  protected ?int $damage = 0;
 
   #[ORM\Column(type: Types::TEXT)]
-  private ?string $special = "";
+  protected ?string $special = "";
 
   #[ORM\Column(type: Types::SMALLINT, enumType: DamageType::class)]
-  private DamageType $damageType = DamageType::lethal;
+  protected DamageType $damageType = DamageType::lethal;
 
   // #[ORM\Column]
   // private ?bool $isTwoHanded = false;
@@ -84,5 +84,21 @@ class Weapon extends Item
     $this->damageType = $damageType;
 
     return $this;
+  }
+
+  public function getColumns(): array
+  {
+    $columns = [
+      'damage' => [
+        'icon' => 'damage',
+        'value' => $this->damage,
+      ],
+      'size' => [
+        'icon' => 'size',
+        'value' =>  $this->size,
+      ],
+    ];
+
+    return $columns;
   }
 }

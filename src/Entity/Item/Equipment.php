@@ -57,4 +57,16 @@ class Equipment extends Item
 
     return $this;
   }
+
+  public function getColumns(): array
+  {
+    $columns = [
+      'quality' => [
+        'icon' => 'quality',
+        'value' => $this->quality,
+      ],
+    ];
+
+    return $columns;
+  }
 }

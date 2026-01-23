@@ -83,4 +83,26 @@ class Vehicle extends Item
 
     return $this;
   }
+
+  public function getColumns(): array
+  {
+    return [
+      'handling' => [
+        'icon' => 'vehicle',
+        'value' => $this->handling,
+      ],
+      'acceleration' => [
+        'icon' => 'acceleration',
+        'value' =>  $this->acceleration,
+      ],
+      'safeSpeed' => [
+        'icon' => 'speed-low',
+        'value' => $this->safeSpeed,
+      ],
+      'maxSpeed' => [
+        'icon' => 'speed-high',
+        'value' => $this->maxSpeed,
+      ],
+    ];
+  }
 }

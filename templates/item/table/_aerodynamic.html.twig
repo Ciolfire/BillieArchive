@@ -1,0 +1,9 @@
+{% extends "item/table/_column.html.twig" %}
+
+{% block column_content %}
+  {% if item.isAerodynamic %}
+    ✔
+  {% else %}
+    ✘
+  {% endif %}
+{% endblock %}

@@ -35,9 +35,11 @@ type:
   label: Type
   item: Generic
   generic: Generic
+  armor: Armor
   equipment: Equipment
   melee_weapon: Melee Weapon
   ranged_weapon: Ranged Weapon
+  thrown_weapon: Thrown Weapon
   vehicle: Vehicle
   weapon: Weapon
 
@@ -76,6 +78,15 @@ strength:
 special:
   label: Special
 
+# Thrown Weapon
+aerodynamic:
+  label: Aerodynamic
+
+# Armor
+rating.label: Rating
+speed.label: Speed
+defense.label: Defense
+
 help:
   img: ""
   container: You can select a container for this item
@@ -87,6 +98,12 @@ help:
     Tools at +3 are reliable and precise.
     Tools rated +4 and +5 are top-of-the-line, craftsman-made and probably expensive devices.
     Equipment created or altered by supernatural or advanced means can be rated +4 or +5 (or higher!).
+
+  armor:
+    rating: "Armor provides two kinds of protection: against general attacks and against Firearms attacks. The number before the slash is armor rating for most kinds of attacks (for close combat and thrown ranged attacks, whether bashing, lethal or perhaps aggravated). The second number is for Firearms attacks — guns and bows. Bulletproof armor (kevlar vest, flak jacket and full riot gear) also downgrades damage done in Firearms attacks from lethal to bashing."
+    strength: Armor is often heavy and cumbersome. If your character does not have sufficient Strength to wear it, she cannot perform at peak efficiency. If your character’s Strength is lower than that required for armor worn, her Brawl and Weaponry attacks suffer a -1 penalty. 
+    defense: "The penalty imposed on your character’s Defense trait for the armor worn."
+    speed: "The penalty imposed on your character’s Speed trait for the armor worn."
 
 modal:
   move:

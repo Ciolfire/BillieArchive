@@ -1,0 +1,7 @@
+{% extends "item/table/_column.html.twig" %}
+
+{% block column_content %}
+  {{ column.value }}
+  {{ "damage.short.#{item.damageType.name}"|trans([], 'app') }}
+  {% include "_icon.html.twig" with { icon: item.damageType.name, class: "d-none d-sm-inline" } %}
+{% endblock %}

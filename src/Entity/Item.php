@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Item\Armor;
 use App\Entity\Traits\Homebrewable;
 use App\Entity\Traits\Sourcable;
 use App\Entity\Item\Equipment;
 use App\Entity\Item\RangedWeapon;
+use App\Entity\Item\ThrownWeapon;
 use App\Entity\Item\Vehicle;
 use App\Entity\Item\Weapon;
 use App\Entity\Traits\Status;
@@ -26,8 +28,8 @@ use Doctrine\ORM\Mapping as ORM;
   "vehicle" => Vehicle::class,
   "ranged" => RangedWeapon::class,
   "melee" => Weapon::class,
-  // "thrown" => ThrownWeapon::class,
-  // "armor" => Armor::class
+  "thrown" => ThrownWeapon::class,
+  "armor" => Armor::class
 ])]
 #[ORM\AssociationOverrides([
   new ORM\AssociationOverride(name: "book", inversedBy: "items"),
@@ -93,7 +95,7 @@ class Item
   private ?bool $isShared = null;
 
   #[ORM\Column]
-  private ?bool $isEquipped = null;
+  private ?bool $isEquipped = false;
 
   public function __construct()
   {
@@ -101,7 +103,8 @@ class Item
     $this->statusEffects = new ArrayCollection();
   }
 
-  public function __clone() {
+  public function __clone()
+  {
     $this->statusEffects = $this->cloneCollection($this->statusEffects);
   }
 
@@ -254,6 +257,16 @@ class Item
     return $this->cost;
   }
 
+  public function getCostString(): string
+  {
+    $costString = "";
+    foreach ($this->cost as $cost) {
+      $costString .= " $cost";
+    }
+
+    return $costString;
+  }
+
   public function setCost(?array $cost): static
   {
     $this->cost = $cost;
@@ -317,13 +330,35 @@ class Item
 
   public function isEquipped(): ?bool
   {
-      return $this->isEquipped;
+    return $this->isEquipped;
   }
 
   public function setIsEquipped(bool $isEquipped): static
   {
-      $this->isEquipped = $isEquipped;
+    $this->isEquipped = $isEquipped;
 
-      return $this;
+    return $this;
+  }
+
+  public function getColumns(): array
+  {
+    return [
+      'structure' => [
+        'icon' => 'structure',
+        'value' => $this->getStructure(),
+      ],
+      'size' => [
+        'icon' => 'size',
+        'value' => $this->size,
+      ],
+      'durability' => [
+        'icon' => 'durability',
+        'value' => $this->durability,
+      ],
+      'cost' => [
+        'icon' => 'cost',
+        'value' => $this->getCostString(),
+      ],
+    ];
   }
 }
