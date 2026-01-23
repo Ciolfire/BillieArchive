@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Item\Armor;
 use App\Entity\Traits\Sourcable;
 use App\Entity\References\MeritReferences;
 use App\Entity\Traits\Ancient;
@@ -870,11 +871,19 @@ class Character
       $bonus += $merit->getLevel();
     }
 
+    $equipment = 0;
+    foreach ($this->getItems() as $item) {
+      if ($item instanceof Armor) {
+        $equipment += $item->getSpeed();
+      }
+    }
+
     $details = [
       'base' => 5,
       'strength' => $this->attributes->getStrength(),
       'dexterity' => $this->attributes->getDexterity(),
       'bonus' => $bonus,
+      'equipment' => $equipment,
     ];
 
     return [
@@ -927,8 +936,14 @@ class Character
         $bonus += $effect->getRealValue();
       }
     }
+    $equipment = 0;
+    foreach ($this->getItems() as $item) {
+      if ($item instanceof Armor) {
+        $equipment += $item->getDefense();
+      }
+    }
 
-    return min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus;
+    return min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus + $equipment;
   }
 
   /**
@@ -943,14 +958,22 @@ class Character
       }
     }
 
+    $equipment = 0;
+    foreach ($this->getItems() as $item) {
+      if ($item instanceof Armor) {
+        $equipment += $item->getDefense();
+      }
+    }
+
     $details = [
       'dexterity' => $this->attributes->getDexterity(),
       'wits' => $this->attributes->getWits(),
       'bonus' => $bonus,
+      'equipment' => $equipment,
     ];
 
     return [
-      'total' => (int)min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus,
+      'total' => (int)min($this->attributes->getDexterity(), $this->attributes->getWits()) + $bonus + $equipment,
       'details' => $details,
     ];
   }
@@ -976,7 +999,11 @@ class Character
     $bonus = 0;
     foreach ($this->getStatusEffects() as $effect) {
       if ($effect->getType() == 'armor') {
-        $bonus += $effect->getRealValue();
+        if ($effect->getItem()) {
+          $items += $effect->getRealValue();
+        } else {
+          $bonus += $effect->getRealValue();
+        }
       }
     }
 

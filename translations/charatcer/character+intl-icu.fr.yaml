@@ -34,14 +34,14 @@ advantage:
     tooltip: "Equipment ({item}) + bonus ({bonus})"
   defense:
     label: Defense
-    tooltip: "le plus petit entre Dexterité ({dexterity}) et Astuce ({wits}) + bonus ({bonus})"
+    tooltip: "le plus petit entre Dexterité ({dexterity}) et Astuce ({wits}) + bonus ({bonus}) - Equipement {equipment}"
   initiative: 
     label: Initiative
     tooltip: "Dexterité {dexterity} + Calme {composure}"
   size: Taille
   speed:
     label: Vitesse
-    tooltip: "{base} + Force {strength} + Dexterité {dexterity}"
+    tooltip: "{base} + Force {strength} + Dexterité {dexterity} - Equipement {equipment}"
     value: "{speed}m/tr"
 
 avatar:
