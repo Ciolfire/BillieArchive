@@ -25,7 +25,7 @@
         {% block content_start %}{% endblock %}
         {{ form_start(form) }}
           {% block form %}
-            {% if form.statusEffects %}
+            {% if form.statusEffects is defined %}
               {% include "forms/_statuseffect_field.html.twig" %}
             {% endif %}
             {{ form_rest(form) }}
