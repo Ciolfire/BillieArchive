@@ -486,7 +486,6 @@ class CharacterController extends AbstractController
     try {
       $form = $this->createForm(CharacterAccessForm::class, $access, ['path' => $this->getParameter('characters_direct_directory')]);
     } catch (\Throwable $th) {
-      dd($th);
       if ($th->getCode() == 847) {
         $this->addFlash('warning', ["character.access.none", []]);
         return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
