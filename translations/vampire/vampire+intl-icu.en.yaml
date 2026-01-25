@@ -46,7 +46,7 @@ potency:
   label: Blood Potency
   hidden: Invisible
   stronger: Superior
-  weaker: Inferior
+  weaker:  Inferior, Equal or Protean
 feeding:
   animal: The Vampire can feed on animal, Human and Kindred alike
   human: The Vampire must find sustenance from Human or Kindred
