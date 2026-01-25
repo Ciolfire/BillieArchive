@@ -46,7 +46,7 @@ class Vampire extends Character
   private Collection $devotions;
 
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class, orphanRemoval: false, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
 

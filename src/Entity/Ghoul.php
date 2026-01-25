@@ -37,7 +37,7 @@ class Ghoul extends CharacterLesserTemplate
   private Collection $devotions;
 
   #[ORM\ManyToMany(targetEntity: DisciplinePower::class, cascade: ["persist"])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $rituals;
 
   #[ORM\ManyToOne]
