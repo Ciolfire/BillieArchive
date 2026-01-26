@@ -220,9 +220,9 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
-  public function new(Request $request, bool $isAncient, ?Chronicle $chronicle = null, bool $isNpc = false): Response
+  public function new(Request $request, bool $isAncient, ?Chronicle $chronicle = null, bool $isNpc): Response
   {
-    if ($chronicle->isAncient()) {
+    if ($chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
     $character = new Human($isAncient);
