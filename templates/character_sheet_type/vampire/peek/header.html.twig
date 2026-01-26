@@ -53,8 +53,9 @@
       {% set obfuscateLevel = character.getDiscipline(7).getLevel|default(0) %}
       {% if obfuscateLevel >= 2 %}
         {% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.hidden"|trans }}
+        {% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.protean"|trans }}
       {% else %}
-        {% if character.potency > peeker.potency or peeker.hasDiscipline(8) %}
+        {% if character.potency > peeker.potency and not peeker.hasDiscipline(8) %}
           <span class ="strong">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.stronger"|trans }}</span>
         {% elseif character.potency <= peeker.potency or character.hasDiscipline(8) %}
           <span class ="warning">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.weaker"|trans }}</span>
