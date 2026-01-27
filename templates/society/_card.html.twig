@@ -31,7 +31,7 @@
 
     <div class="text-strong">{{ society.description }}</div>
     {% for character in society.characters %}
-      <img class="character-icon" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
+      <img class="character-icon character-icon-lg" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;">
     {% endfor %}
     <div class="text-center pt-2">
       <a class="btn btn-primary btn-sm" href="{{ path('society_edit', {'id': society.id }) }}">

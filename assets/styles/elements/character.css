@@ -84,6 +84,11 @@
     max-height: 90%;
   }
 
+  &.character-icon-lg {
+    height: 3rem;
+    width: 3rem;
+  }
+
   &.lesser-icon {
     color: black !important;
     svg {
