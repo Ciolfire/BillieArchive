@@ -52,7 +52,7 @@ class Discipline implements Translatable
   private string $rules = "";
 
   #[ORM\OneToMany(targetEntity: DisciplinePower::class, mappedBy: "discipline", orphanRemoval: true)]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["level" => "ASC", "name" => "ASC"])]
   private Collection $powers;
 
