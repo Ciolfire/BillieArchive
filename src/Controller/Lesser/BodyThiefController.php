@@ -63,7 +63,7 @@ class BodyThiefController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $society = new BodyThiefSociety($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $society = new BodyThiefSociety($this->dataService->getItem($request->request->get('filter'), $request->request->get('id')));
     $form = $this->createForm(BodyThiefSocietyForm::class, $society);
 
     $form->handleRequest($request);

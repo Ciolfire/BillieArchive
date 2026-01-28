@@ -123,7 +123,7 @@ class ClanController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $clan = new Clan($bloodline, $this->dataService->getItem($request->get('filter'), $request->get('id')), $ancient);
+    $clan = new Clan($bloodline, $this->dataService->getItem($request->request->get('filter'), $request->request->get('id')), $ancient);
     $form = $this->createForm(ClanForm::class, $clan);
 
     $form->handleRequest($request);

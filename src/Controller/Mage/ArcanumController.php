@@ -138,7 +138,7 @@ class ArcanumController extends AbstractController
     $this->denyAccessUnlessGranted('ROLE_ST');
 
     
-    $spell = new MageSpell($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $spell = new MageSpell($this->dataService->getItem($request->request->get('filter'), $request->request->get('id')));
     new MageSpellArcanum($spell);
     $form = $this->createForm(MageSpellForm::class, $spell);
     

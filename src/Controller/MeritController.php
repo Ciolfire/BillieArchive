@@ -101,7 +101,7 @@ class MeritController extends AbstractController
   #[Route("/new", name: "merit_new", methods: ["GET", "POST"])]
   public function new(Request $request): Response
   {
-    $merit = new Merit($this->dataService->getItem($request->get('type'), $request->get('id')));
+    $merit = new Merit($this->dataService->getItem($request->request->get('type'), $request->request->get('id')));
 
     $form = $this->createForm(MeritForm::class, $merit);
     $form->handleRequest($request);

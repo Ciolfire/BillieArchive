@@ -73,7 +73,7 @@ class PathController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $path = new Path($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $path = new Path($this->dataService->getItem($request->request->get('filter'), $request->request->get('id')));
     $form = $this->createForm(PathForm::class, $path);
 
     $form->handleRequest($request);
@@ -168,7 +168,7 @@ class PathController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $legacy = new Legacy($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $legacy = new Legacy($this->dataService->getItem($request->request->get('filter'), $request->request->get('id')));
     $form = $this->createForm(LegacyForm::class, $legacy);
 
     $form->handleRequest($request);

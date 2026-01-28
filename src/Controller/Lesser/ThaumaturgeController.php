@@ -58,7 +58,7 @@ class ThaumaturgeController extends AbstractController
   {
     $this->denyAccessUnlessGranted('ROLE_ST');
 
-    $tradition = new ThaumaturgeTradition($this->dataService->getItem($request->get('filter'), $request->get('id')));
+    $tradition = new ThaumaturgeTradition($this->dataService->getItem($request->request->get('filter'), $request->request->get('id')));
     $form = $this->createForm(ThaumaturgeTraditionForm::class, $tradition);
 
     $form->handleRequest($request);
