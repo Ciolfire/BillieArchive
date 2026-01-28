@@ -71,7 +71,7 @@ class Merit implements Translatable
   private string $description = "";
 
   #[ORM\ManyToMany(targetEntity: Prerequisite::class, inversedBy: 'merits', cascade: ['persist', 'remove'])]
-  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   #[ORM\OrderBy(["choiceGroup" => "ASC", "type" => "ASC"])]
   private Collection $prerequisites;
 
