@@ -19,7 +19,7 @@ class MageSpellRepository extends ServiceEntityRepository
     public function findByArcanum(int $arcanum)
     {
       return $this->createQueryBuilder('s')
-        ->leftJoin('s.arcana', "sa", "s.id = sa.spell_id")
+        ->leftJoin('s.arcana', "sa", null, "s.id = sa.spell_id")
         ->andWhere('sa.arcanum = :arcanum')
         ->setParameter('arcanum', $arcanum)
         ->orderBy('s.name', 'ASC')
@@ -31,7 +31,7 @@ class MageSpellRepository extends ServiceEntityRepository
     public function findByArcanumLevel(int $arcanum, int $level)
     {
       return $this->createQueryBuilder('s')
-        ->leftJoin('s.arcana', "sa", "s.id = sa.spell_id")
+        ->leftJoin('s.arcana', "sa", null, "s.id = sa.spell_id")
         ->andWhere('sa.level < :level')
         ->andWhere('sa.arcanum = :arcanum')
         ->setParameter('arcanum', $arcanum)

@@ -23,34 +23,21 @@ class Armor extends Item
   {
     return ArmorForm::class;
   }
-  
-  #[ORM\Column(type: Types::TEXT)]
-  private ?string $rating = "";
-  
+
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $strength = null;
-  
+
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $defense = 0;
 
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $speed = 0;
 
-  public function getRating(): ?string
-  {
-    return $this->rating;
-  }
+  #[ORM\Column(type: Types::SMALLINT)]
+  private ?int $ratingMelee = null;
 
-  public function setRating(string $rating): static
-  {
-    if ($this->rating == "") {
-      $this->rating = $rating;
-    } else {
-      $this->rating = $rating;
-    }
-
-    return $this;
-  }
+  #[ORM\Column(type: Types::SMALLINT)]
+  private ?int $ratingRanged = null;
 
   public function getStrength(): ?int
   {
@@ -91,11 +78,11 @@ class Armor extends Item
   public function getColumns(): array
   {
     $columns = [
-    'rating' => [
+      'rating' => [
         'icon' => 'armor',
-        'value' => $this->rating,
+        'value' => $this->getRatingString(),
       ],
-    'strength' => [
+      'strength' => [
         'icon' => 'strength',
         'value' => $this->strength,
       ],
@@ -114,5 +101,34 @@ class Armor extends Item
     ];
 
     return $columns;
+  }
+
+  public function getRatingMelee(): ?int
+  {
+    return $this->ratingMelee;
+  }
+
+  public function setRatingMelee(int $ratingMelee): static
+  {
+    $this->ratingMelee = $ratingMelee;
+
+    return $this;
+  }
+
+  public function getRatingRanged(): ?int
+  {
+    return $this->ratingRanged;
+  }
+
+  public function setRatingRanged(int $ratingRanged): static
+  {
+    $this->ratingRanged = $ratingRanged;
+
+    return $this;
+  }
+
+  public function getRatingString(): ?string
+  {
+    return "{$this->ratingMelee} / {$this->ratingRanged}";
   }
 }
