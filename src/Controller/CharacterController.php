@@ -462,6 +462,7 @@ class CharacterController extends AbstractController
           } else {
             $this->addFlash('success', ['character.duplicate.success.list', ['name' => $newCharacter]]);
           }
+
           return $this->redirectToRoute('character_show', ['id' => $newCharacter->getId()]);
         } else {
           // Failed

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -23,6 +25,8 @@ use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -42,7 +46,8 @@ class DataService
     $this->doctrine = $doctrine;
     $this->manager = $doctrine->getManager();
     $this->slugger = $slugger;
-    $this->genericTypes = $this->findBy(ContentType::class,
+    $this->genericTypes = $this->findBy(
+      ContentType::class,
       [
         'name' => [
           'human',
@@ -57,12 +62,12 @@ class DataService
     $this->genericTypes[] = null;
   }
 
-  public function getDoctrine() : ManagerRegistry
+  public function getDoctrine(): ManagerRegistry
   {
     return $this->doctrine;
   }
 
-  public function getConnection(?string $name = null) : Connection
+  public function getConnection(?string $name = null): Connection
   {
     /** @var Connection */
     return $this->doctrine->getConnection($name);
@@ -71,7 +76,7 @@ class DataService
   /**
    * Add an entity, will add security checks there
    */
-  public function add(object $entity) : void
+  public function add(object $entity): void
   {
     if ($entity instanceof Character) {
       $entity->setPowerRating();
@@ -82,7 +87,7 @@ class DataService
   /**
    * Save an entity, will add security checks there
    */
-  public function save(object $entity) : void
+  public function save(object $entity): void
   {
     if ($entity instanceof Character) {
       $entity->setPowerRating();
@@ -98,7 +103,7 @@ class DataService
   /**
    * Flag an entity for removal
    */
-  public function delete(object $entity) : void
+  public function delete(object $entity): void
   {
     $this->manager->remove($entity);
   }
@@ -106,7 +111,7 @@ class DataService
   /**
    * Remove an entity, will add security checks there
    */
-  public function remove(object $entity) : void
+  public function remove(object $entity): void
   {
     $this->manager->remove($entity);
     $this->flush();
@@ -115,7 +120,7 @@ class DataService
   /**
    * Update an existing entity, will add security checks there
    */
-  public function update(object $entity) : void
+  public function update(object $entity): void
   {
     if ($entity instanceof Character) {
       $entity->setPowerRating();
@@ -124,12 +129,12 @@ class DataService
     $this->manager->flush();
   }
 
-  public function flush() : void
+  public function flush(): void
   {
     $this->manager->flush();
   }
 
-  public function reset() : ObjectManager
+  public function reset(): ObjectManager
   {
     return $this->doctrine->resetManager();
   }
@@ -139,7 +144,7 @@ class DataService
    * @param class-string<T> $entity
    * @return ObjectRepository<object>
    */
-  public function getRepository(string $entity) : ObjectRepository
+  public function getRepository(string $entity): ObjectRepository
   {
     return $this->doctrine->getRepository($entity);
   }
@@ -164,18 +169,18 @@ class DataService
    * @param class-string<T> $class
    * @param array<string, mixed> $criteria>
    * @return T|null
-  */
-  public function findOneBy(string $class, array $criteria) : ?object
+   */
+  public function findOneBy(string $class, array $criteria): ?object
   {
     $object = $this->getRepository($class)->findOneBy($criteria);
-    
+
     if ($object instanceof $class) {
       return $object;
     } else {
       return null;
     }
   }
-  
+
   /**
    * @param class-string $class
    * @param array<string, mixed> $criteria
@@ -192,13 +197,38 @@ class DataService
    * @param class-string $class
    * @return array<int, object>
    */
-  public function findAll(string $class) : array
+  public function findAll(string $class): array
   {
 
     return  $this->getRepository($class)->findAll();
   }
 
-  public function upload(UploadedFile $file, string $target, ?string $filename=null) : ?string
+  /**
+   * Copy a specific file
+   * If the target already exists, the file is copied only if the source modification date is later than the target.
+   */
+  public function copy(string $originFile, string $path, ?string $targetFile = null): ?string
+  {
+    $filesystem = new Filesystem();
+    $extension = substr($originFile, strrpos($originFile, '.'));
+    $filename = substr($originFile, 0, strrpos($originFile, '.'));
+    if (is_null($targetFile)) {
+      $targetFile = "{$filename}_copy";
+    }
+    $targetFile = $this->slugger->slug($targetFile);
+    $targetFile .= $extension;
+
+    try {
+      $filesystem->copy("$path/$originFile", "$path/$targetFile");
+    } catch (FileNotFoundException | IOException $e) {
+      return null;
+      // ... handle exception if something happens during file upload
+    }
+
+    return $targetFile;
+  }
+
+  public function upload(UploadedFile $file, string $target, ?string $filename = null): ?string
   {
     if (is_null($filename)) {
       $originalFilename = pathinfo($file->getBasename(), PATHINFO_FILENAME);
@@ -269,7 +299,7 @@ class DataService
     return ['type' => $type, 'id' => $id];
   }
 
-  public function getItemFromType(string $type, $id) : array
+  public function getItemFromType(string $type, $id): array
   {
     switch ($type) {
       case 'chronicle':
@@ -290,85 +320,84 @@ class DataService
     ];
   }
 
-  public function getGenericTypes() : array
+  public function getGenericTypes(): array
   {
     return $this->genericTypes;
   }
 
   /** @return array<string> */
-  public function getMeritForms(?Book $book = null) : array
+  public function getMeritForms(?Book $book = null): array
   {
     $qb = $this->getConnection()->createQueryBuilder()
-    ->select('DISTINCT t.name')
-    ->from('merits', 'm')
-    ->innerJoin('m', 'content_type', 't', 'm.type_id = t.id')
-    ;
+      ->select('DISTINCT t.name')
+      ->from('merits', 'm')
+      ->innerJoin('m', 'content_type', 't', 'm.type_id = t.id');
     if (!is_null($book)) {
       $qb->andWhere('book_id = :id')
-      ->setParameter('id', $book->getId())
+        ->setParameter('id', $book->getId())
       ;
     }
     $result = $qb->executeQuery()->fetchFirstColumn();
     $result[] = "universal";
-    
+
     return $result;
   }
 
   /** @return array<string> */
-  public function getBookForms(string $setting) : array
+  public function getBookForms(string $setting): array
   {
     return $this->getConnection()->createQueryBuilder()
-    ->select('type')
-    ->from('book')
-    ->where('setting = :setting')
-    ->andWhere('type IS NOT NULL')
-    ->groupBy('type')
-    ->setParameter('setting', $setting)
-    ->executeQuery()->fetchFirstColumn();
+      ->select('type')
+      ->from('book')
+      ->where('setting = :setting')
+      ->andWhere('type IS NOT NULL')
+      ->groupBy('type')
+      ->setParameter('setting', $setting)
+      ->executeQuery()->fetchFirstColumn();
   }
 
   /** @return array<string> */
-  public function getChronicleNotesCategory(Chronicle $chronicle, User $user) : array
+  public function getChronicleNotesCategory(Chronicle $chronicle, User $user): array
   {
     return $this->getConnection()->createQueryBuilder()
-    ->select('category')
-    ->from('note')
-    ->where('chronicle_id = :chronicle')
-    ->andWhere('user_id = :user')
-    ->groupBy('category')
-    ->orderBy('category', 'ASC')
-    ->setParameter('chronicle', $chronicle->getId())
-    ->setParameter('user', $user->getId())
-    ->executeQuery()->fetchFirstColumn();
+      ->select('category')
+      ->from('note')
+      ->where('chronicle_id = :chronicle')
+      ->andWhere('user_id = :user')
+      ->groupBy('category')
+      ->orderBy('category', 'ASC')
+      ->setParameter('chronicle', $chronicle->getId())
+      ->setParameter('user', $user->getId())
+      ->executeQuery()->fetchFirstColumn();
   }
 
   /**
    * @return array<int, array<string, mixed>>
-  **/
-  public function getLinkableNotes(User $user, Note $note) : array
+   **/
+  public function getLinkableNotes(User $user, Note $note): array
   {
     $chronicle = $note->getChronicle();
 
     if ($chronicle instanceof Chronicle) {
-      
+
       return $this->getConnection()->createQueryBuilder()
-      ->select('id, title')
-      ->from('note')
-      ->where('chronicle_id = :chronicle')
-      ->andWhere('user_id = :user')
-      ->andWhere('id != :note')
-      ->orderBy('category_id', 'ASC')
-      ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
-      ->setParameter('user', $user->getId(), Types::INTEGER)
-      ->setParameter('note', $note->getId(), Types::INTEGER)
-      ->executeQuery()->fetchAllAssociative();
+        ->select('id, title')
+        ->from('note')
+        ->where('chronicle_id = :chronicle')
+        ->andWhere('user_id = :user')
+        ->andWhere('id != :note')
+        ->orderBy('category_id', 'ASC')
+        ->setParameter('chronicle', $chronicle->getId(), Types::INTEGER)
+        ->setParameter('user', $user->getId(), Types::INTEGER)
+        ->setParameter('note', $note->getId(), Types::INTEGER)
+        ->executeQuery()->fetchAllAssociative();
     } else {
 
       return [];
     }
   }
 
-  public function loadMeritsPrerequisites(mixed $merits) : void
+  public function loadMeritsPrerequisites(mixed $merits): void
   {
     if ($merits instanceof PersistentCollection && $merits->current() instanceof CharacterMerit) {
       /** @var CharacterMerit $charMerit */
@@ -391,7 +420,7 @@ class DataService
    * @template T of Merit|Devotion
    * @param T $entity
    */
-  public function loadPrerequisites(object $entity) : void
+  public function loadPrerequisites(object $entity): void
   {
     if (method_exists(get_class($entity), 'getPrerequisites')) {
       foreach ($entity->getPrerequisites() as $prerequisite) {
@@ -426,7 +455,7 @@ class DataService
     }
   }
 
-  public function duplicateCharacter(Character $character, ?Chronicle $chronicle, User $user) : ?Character
+  public function duplicateCharacter(Character $character, ?Chronicle $chronicle, User $user, $path): ?Character
   {
     $id = $character->getId();
     $this->manager->detach($character);
@@ -446,8 +475,12 @@ class DataService
     if ($chronicle instanceof Chronicle && $chronicle->getStoryteller() === $user) {
       $newCharacter->setIsNpc(true);
     }
-    
+
     try {
+      $this->manager->persist($newCharacter);
+      $this->manager->flush();
+      $newAvatar = $this->copy($newCharacter->getAvatar(), $path, "character-{$newCharacter->getId()}");
+      $newCharacter->setAvatar($newAvatar);
       $this->manager->persist($newCharacter);
       $this->manager->flush();
     } catch (\Throwable $th) {
