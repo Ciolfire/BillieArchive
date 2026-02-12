@@ -24,9 +24,17 @@ class ArmorForm extends ItemForm
     $item = $options['data'];
 
     $builder
-      ->add('rating', null, [
-        'label' => 'rating.label',
-        'help' => 'help.armor.rating',
+      ->add('ratingMelee', null, [
+        'label' => 'rating.melee.label',
+        'help' => 'help.armor.rating.melee',
+      ])
+      ->add('ratingRanged', null, [
+        'label' => 'rating.ranged.label',
+        'help' => 'help.armor.rating.ranged',
+      ])
+      ->add('isBulletproof', null, [
+        'label' => 'bulletproof.label',
+        'help' => 'help.armor.bulletproof',
       ])
       ->add('strength', null, [
         'label' => 'strength.label',

@@ -83,7 +83,9 @@ aerodynamic:
   label: Aerodynamisme
 
 # Armor
-rating.label: Rating
+rating:
+  melee.label: Rating
+  ranged.label: Ranged
 speed.label: Vitesse
 defense.label: Défense
 
@@ -98,6 +100,13 @@ help:
     Des outils à +3 sont fiable et précis.
     Ceux à +4 ou +5 sont haut de gamme, fait sur mesure et probablement onéreux.
     Les équipements créés ou modifiés de façon surnaturelle ou d'autre moyens avancé peuvent atteindre un score de +4 ou +5 (ou plus !).
+
+  armor:
+    bulletproof: Les équipements pare-balles (gilet pare-balles, gilet pare-balles et équipement anti-émeute complet) réduisent également les dégâts des armes à feu, les faisant passer de létaux à contondants.
+    rating: "L'armure offre deux types de protection : contre les attaques générales et contre les armes à feu. Le chiffre avant la barre oblique indique le niveau de protection contre la plupart des attaques (corps à corps et attaques à distance, qu'elles soient contondantes, létales ou aggravées). Le second chiffre concerne les armes à feu (fusils et arcs)."
+    strength: Les armures sont souvent lourdes et encombrantes. Si votre personnage n'a pas la Force suffisante pour la porter, ses performances seront réduites. Si sa Force est inférieure à celle requise pour l'armure, ses attaques à mains nues et au maniement des armes subissent un malus de -1.
+    defense: "La pénalité imposée à la caractéristique Défense de votre personnage en raison de l'armure portée."
+    speed: "La pénalité imposée à la caractéristique Vitesse de votre personnage en raison de l'armure portée."
 
 modal:
   move:

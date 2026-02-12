@@ -74,7 +74,7 @@ class Weapon extends Item
     return $this;
   }
 
-  public function getDamageType(): ?DamageType
+  public function getDamageType(): DamageType
   {
     return $this->damageType;
   }

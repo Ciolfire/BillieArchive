@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Types\DamageType;
 use App\Form\Item\RangedWeaponForm;
 use App\Repository\RangedWeaponRepository;
 use Doctrine\DBAL\Types\Types;
@@ -30,6 +31,13 @@ class RangedWeapon extends Weapon
 
   // #[ORM\Column]
   // private ?bool $hasAutofire = false;
+
+  public function __construct()
+  {
+    parent::__construct();
+
+    $this->damageType = DamageType::lethal;
+  }
 
   public function getTypeName()
   {

@@ -39,6 +39,9 @@ class Armor extends Item
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $ratingRanged = null;
 
+  #[ORM\Column]
+  private ?bool $isBulletproof = null;
+
   public function getStrength(): ?int
   {
     return $this->strength;
@@ -130,5 +133,17 @@ class Armor extends Item
   public function getRatingString(): ?string
   {
     return "{$this->ratingMelee} / {$this->ratingRanged}";
+  }
+
+  public function isBulletproof(): ?bool
+  {
+      return $this->isBulletproof;
+  }
+
+  public function setIsBulletproof(bool $isBulletproof): static
+  {
+      $this->isBulletproof = $isBulletproof;
+
+      return $this;
   }
 }

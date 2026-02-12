@@ -83,7 +83,10 @@ aerodynamic:
   label: Aerodynamic
 
 # Armor
-rating.label: Rating
+bulletproof.label: Bulletproof
+rating:
+  melee.label: Rating — Melee
+  ranged.label: Rating — Ranged
 speed.label: Speed
 defense.label: Defense
 
@@ -100,7 +103,10 @@ help:
     Equipment created or altered by supernatural or advanced means can be rated +4 or +5 (or higher!).
 
   armor:
-    rating: "Armor provides two kinds of protection: against general attacks and against Firearms attacks. The number before the slash is armor rating for most kinds of attacks (for close combat and thrown ranged attacks, whether bashing, lethal or perhaps aggravated). The second number is for Firearms attacks — guns and bows. Bulletproof armor (kevlar vest, flak jacket and full riot gear) also downgrades damage done in Firearms attacks from lethal to bashing."
+    bulletproof: Bulletproof armor (kevlar vest, flak jacket and full riot gear) also downgrades damage done in Firearms attacks from lethal to bashing.
+    rating:
+      melee: "Armor provides two kinds of protection: against general attacks and against Firearms attacks. The number before the slash is armor rating for most kinds of attacks (for close combat and thrown ranged attacks, whether bashing, lethal or perhaps aggravated)."
+      ranged: The second number is for Firearms attacks — guns and bows.
     strength: Armor is often heavy and cumbersome. If your character does not have sufficient Strength to wear it, she cannot perform at peak efficiency. If your character’s Strength is lower than that required for armor worn, her Brawl and Weaponry attacks suffer a -1 penalty. 
     defense: "The penalty imposed on your character’s Defense trait for the armor worn."
     speed: "The penalty imposed on your character’s Speed trait for the armor worn."
