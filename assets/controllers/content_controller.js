@@ -64,4 +64,8 @@ export default class extends Controller {
   open() {
     window.open(this.linkValue, '_blank').focus();
   }
+
+  edit() {
+    window.open(this.linkValue, '_blank').focus();
+  }
 }

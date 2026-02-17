@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route("{_locale<%supported_locales%>?%default_locale%}/")]
 class ItemController extends AbstractController
@@ -196,16 +197,20 @@ class ItemController extends AbstractController
   }
 
   #[Route("item/{id<\d+>}/delete", name:"item_delete", methods:["GET", "DELETE"])]
+  #[IsGranted('delete', 'item')]
   public function delete(Request $request, Item $item): Response
   {
-    $this->denyAccessUnlessGranted('ROLE_ST');
     $token = $request->request->get('_token');
     if ((is_null($token) || (is_string($token) && $this->isCsrfTokenValid('delete' . $item->getId(), $token))) || $request->isXmlHttpRequest()) {
       $this->dataService->remove($item);
       $this->dataService->flush();
     }
 
-    return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
+    if ($request->headers->get('referer')) {
+      return new RedirectResponse($request->headers->get('referer'));
+    } else {
+      return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
+    }
   }
 
 

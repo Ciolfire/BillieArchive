@@ -16,6 +16,11 @@
   <button type="button" class="btn btn-primary btn-sm btn-lg" data-action="content#open">
     {% include "_icon.html.twig" with {icon: 'wiki'} only %}
   </button>
+  {% if app.user and app.user.role == "ROLE_GM" %}
+    <button type="button" class="btn btn-primary btn-sm btn-lg ms-5" data-action="content#edit">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </button>
+  {% endif %}
   <h5 class="modal-title modal-title flex-fill text-center" id="{{ id }}Title">{% block title %}{% endblock %}</h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {% endblock %}

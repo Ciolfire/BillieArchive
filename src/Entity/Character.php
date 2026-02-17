@@ -29,7 +29,12 @@ enum Gender: int
 // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: Types::STRING)]
-#[ORM\DiscriminatorMap(["human" => Human::class, "vampire" => Vampire::class, "mage" => Mage::class, "werewolf" => Werewolf::class])]
+#[ORM\DiscriminatorMap([
+  "human" => Human::class,
+  "vampire" => Vampire::class,
+  "mage" => Mage::class,
+  "werewolf" => Werewolf::class
+])]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: "book", inversedBy: "characters")])]
 class Character
 {

@@ -2,10 +2,12 @@
 
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
+    {% if access_decision('edit', item) %}
       <a class="float-end" href="{{ path('item_edit', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     {% include "item/_show.html.twig" %}
-    <a class="btn btn-danger" href="{{ path('item_delete', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
+    {% if access_decision('delete', item) %}
+      <a class="btn btn-danger" href="{{ path('item_delete', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
+    {% endif %}
   </div>
 {% endblock %}
