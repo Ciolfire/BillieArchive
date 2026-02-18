@@ -201,13 +201,18 @@ class ItemController extends AbstractController
   public function delete(Request $request, Item $item): Response
   {
     $token = $request->request->get('_token');
+    $character = $item->getOwner();
+    $chronicle = $item->getHomebrewFor();
     if ((is_null($token) || (is_string($token) && $this->isCsrfTokenValid('delete' . $item->getId(), $token))) || $request->isXmlHttpRequest()) {
       $this->dataService->remove($item);
       $this->dataService->flush();
     }
 
-    if ($request->headers->get('referer')) {
-      return new RedirectResponse($request->headers->get('referer'));
+    if ($character) {
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    } else if ($chronicle) {
+      return $this->redirectToRoute('chronicle_show', ['id' => $chronicle->getId()]);
+
     } else {
       return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -6,6 +6,7 @@
   data-content-name-param="{{ arcanum.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('mage_arcanum_show', {id: arcanum.id})) }}"
+  {% if access_decision('edit', arcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: arcanum.id })) }}"{% endif %}
 {% endblock %}
 
 {% block title %}

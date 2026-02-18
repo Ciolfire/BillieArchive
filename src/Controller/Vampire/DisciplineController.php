@@ -207,7 +207,7 @@ class DisciplineController extends AbstractController
     ]);
   }
 
-  #[Route('/discipline/{id<\d+>}/edit', name: 'discipline_edit', methods: ['GET', 'POST'])]
+  #[Route('/discipline/{id<\d+>}/edit', name: 'vampire_discipline_edit', methods: ['GET', 'POST'])]
   public function disciplineEdit(Request $request, Discipline $discipline): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ST');

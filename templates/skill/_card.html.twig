@@ -6,6 +6,7 @@
   data-content-name-param="{{ skill.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('skill_show', {id: skill.id})) }}"
+  {% if access_decision('edit', skill) %}data-content-edit-param="{{ link|default(path('skill_edit', { id: skill.id })) }}"{% endif %}
 {% endblock %}
 
 {% block title %}

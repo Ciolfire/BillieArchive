@@ -24,6 +24,7 @@
       data-content-name-param="{{ society.definingMerit }}"
       data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"
       data-content-link-param="{{ path('merit_show', {id: society.definingMerit.id}) }}"
+    {% if access_decision('edit', society.definingMerit) %}data-content-edit-param="{{ link|default(path('merit_edit', { id: society.definingMerit.id })) }}"{% endif %}
     >
       {{ society.definingMerit }}
     </h3>

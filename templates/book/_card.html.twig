@@ -37,7 +37,7 @@
       data-content-name-param="{{ book.name }}"
       data-content-type-param="{{ "label.single"|trans({}, 'book') }}"
       data-content-link-param="{{ path('book_show', {id: book.id}) }}"
-    
+      {% if access_decision('edit', book) %}data-content-edit-param="{{ link|default(path('book_edit', {id: book.id})) }}"{% endif %}
     >
       {% include "_icon.html.twig" with {icon: "wiki"} %}
     </div>

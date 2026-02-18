@@ -46,6 +46,7 @@
           data-content-name-param="{{ legacy.arcanum.name }}"
           data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
           data-content-link-param="{{ path('mage_arcanum_show', {id: legacy.arcanum.id}) }}"
+          {% if access_decision('edit', legacy.arcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: legacy.arcanum.id })) }}"{% endif %}
         >
           {{ legacy.arcanum.name }}
         </div>

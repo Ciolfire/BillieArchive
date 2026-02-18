@@ -8,6 +8,7 @@
           data-action="click->content#load"
           data-content-name-param="{{ roll.name }}"
           data-content-link-param="{{ link|default(path('roll_show', {id: roll.id})) }}"
+          {% if access_decision('edit', roll) %}data-content-edit-param="{{ link|default(path('roll_edit', {id: roll.id})) }}"{% endif %}
       >{{ roll.name }}</h5>
       {% include "_dice_pool.html.twig" with {
         pool: character.detailedDicePool(roll.attributes, roll.skills), 

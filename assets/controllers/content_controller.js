@@ -4,10 +4,12 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = [
     "modal",
-    "lazy"
+    "lazy",
+    "edit"
   ];
   static values = {
     link: String,
+    edit: String,
   }
 
   connect() {
@@ -45,8 +47,15 @@ export default class extends Controller {
   load(event) {
     this.modalTarget.querySelector("#contentModalTitle").innerHTML = event.params.type;
     this.linkValue = event.params.link;
+    
+    if (event.params.edit != undefined) {
+      this.editValue = event.params.edit;
+      this.editTarget.classList.remove("d-none");
+    } else {
+      this.editTarget.classList.add("d-none");
+    }
 
-    console.log(this.linkValue);
+    console.debug(this.linkValue);
 
     window
     .fetch(`${event.params.link}`, {
@@ -66,6 +75,6 @@ export default class extends Controller {
   }
 
   edit() {
-    window.open(this.linkValue, '_blank').focus();
+    window.open(this.editValue, '_blank').focus();
   }
 }

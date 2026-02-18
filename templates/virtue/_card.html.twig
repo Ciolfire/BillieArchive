@@ -6,6 +6,7 @@
   data-content-name-param="{{ element.name }}"
   data-content-type-param="{{ "#{type}.label.single"|trans }}"
   data-content-link-param="{{ path("#{type}_show", {id: element.id}) }}"
+  {% if access_decision('edit', element) %}data-content-edit-param="{{ link|default(path("#{type}_edit", { id: element.id })) }}"{% endif %}
 {% endblock %}
 
 {% block title %}

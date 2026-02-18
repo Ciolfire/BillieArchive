@@ -19,6 +19,7 @@
             data-content-name-param="{{ discipline.name }}"
             data-content-type-param="{{ "label.single"|trans({}, domain: "discipline") }}"
             data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+            {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
           {% endif %} 
         >
           {{ discipline.name }}
@@ -42,6 +43,7 @@
               data-content-name-param="{{ devotion.name }}"
               data-content-type-param="{{ "devotion.label.single"|trans({}, domain: "discipline") }}"
               data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+              {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', { id: devotion.id })) }}"{% endif %}
             {% endif %}
           >
             {{ devotion.name }}
@@ -65,6 +67,7 @@
             data-content-name-param="{{ merit.name }}"
             data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
             data-content-link-param="{{ path('merit_show', {id: merit.id}) }}"
+            {% if access_decision('edit', merit) %}data-content-edit-param="{{ link|default(path('merit_edit', { id: merit.id })) }}"{% endif %}
           {% endif %}
         >
           {{ merit.name }}
@@ -90,6 +93,7 @@
             data-content-name-param="{{ discountMerit.name }}"
             data-content-type-param="{{ "label.single"|trans({}, domain: "merit") }}"
             data-content-link-param="{{ path('merit_show', {id: discountMerit.id}) }}"
+            {% if access_decision('edit', discountMerit) %}data-content-edit-param="{{ link|default(path('merit_edit', { id: discountMerit.id })) }}"{% endif %}
         {% endif %} >
           {{ discountMerit.name }}
         </span>

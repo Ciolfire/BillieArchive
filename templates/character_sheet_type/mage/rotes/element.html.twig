@@ -12,6 +12,7 @@
         data-content-name-param="{{ spell.name }}"
         data-content-type-param="{{ "label.single"|trans }}"
         data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+        {% if access_decision('edit', spell) %}data-content-edit-param="{{ link|default(path('mage_spell_edit', {id: spell.id})) }}"{% endif %}
     >
       <div class="card-header">
         <span class="float-start">

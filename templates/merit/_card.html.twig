@@ -15,6 +15,7 @@
     data-content-name-param="{{ merit.name }}"
     data-content-type-param="{{ "label.single"|trans }}"
     data-content-link-param="{{ link|default(path('merit_show', {id: merit.id})) }}"
+    {% if access_decision('edit', merit) %}data-content-edit-param="{{ link|default(path('merit_edit', { id: merit.id })) }}"{% endif %}
   >
     <div class="row">
       <div class="col-auto">

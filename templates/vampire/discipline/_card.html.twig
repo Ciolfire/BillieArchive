@@ -12,6 +12,7 @@
     data-content-name-param="{{ discipline.name }}"
     data-content-type-param="{{ "label.single"|trans }}"
     data-content-link-param="{{ link|default(path('vampire_discipline_show', {id: discipline.id})) }}"
+    {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
   >
     <div class="row">
       <div class="col-12 text-strong text-center">

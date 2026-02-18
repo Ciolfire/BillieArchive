@@ -24,7 +24,7 @@
 {% block body %}
   <div class="block block-light container py-2 mt-2 rounded">
     {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('discipline_edit', {id: discipline.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+      <a class="float-end" href="{{ path('vampire_discipline_edit', {id: discipline.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     <h1 class="text-stylized py-4">{{ discipline.name }}</h1>
     <div class="row">

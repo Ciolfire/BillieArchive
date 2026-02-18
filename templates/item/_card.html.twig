@@ -21,6 +21,7 @@
     data-content-name-param="{{ item.name }}"
     data-content-type-param="{{ "label.single"|trans }}"
     data-content-link-param="{{ link|default(path('item_show', {id: item.id})) }}"
+    {% if access_decision('edit', item) %}data-content-edit-param="{{ link|default(path('item_edit', {id: item.id})) }}"{% endif %}
   >
     <div class="row g-0">
       <div class="col-auto">

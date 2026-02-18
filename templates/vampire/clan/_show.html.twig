@@ -58,6 +58,7 @@
         data-content-name-param="{{ discipline.name }}"
         data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"
         data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+      {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
       {% endif %} >
         {{ discipline.name }}
       </span>
@@ -73,6 +74,7 @@
           data-content-name-param="{{ devotion.name }}"
           data-content-type-param="{{ "devotion.label.single"|trans({}, 'discipline') }}"
           data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+          {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', { id: devotion.id })) }}"{% endif %}
         {% endif %} >
           {{ devotion.name }}
         </span>

@@ -31,6 +31,7 @@
   data-content-name-param="{{ family.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ path('ghoul_family_show', {id: family.id}) }}"
+  {% if access_decision('edit', family) %}data-content-edit-param="{{ link|default(path('ghoul_family_edit', { id: family.id })) }}"{% endif %}
 {% endblock %}
 
 {% block short %}

@@ -7,6 +7,7 @@
   data-content-name-param="{{ society.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('society_show', {id: society.id})) }}"
+  {% if access_decision('edit', society) %}data-content-edit-param="{{ link|default(path('society_edit', { id: society.id })) }}"{% endif %}
 {% endblock %}
 
 {% block content %}

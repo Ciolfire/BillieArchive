@@ -33,6 +33,7 @@
         data-content-url-param="{{ link|default(path('vampire_clan_fetch', {id: character.clan.id})) }}" 
         data-content-name-param="{{ character.covenant }}"
         data-content-link-param="{{ link|default(path("vampire_clan_show", {'id': character.clan.id})) }}"
+        {% if access_decision('edit', character.clan) %}data-content-edit-param="{{ link|default(path('vampire_clan_edit', {id: character.clan.id})) }}"{% endif %}
       >
         {% if character.clan.isBloodline %}
           {{ character.clan.name }}
@@ -65,6 +66,7 @@
       data-action="click->content#load"
       data-content-name-param="{{ character.covenant }}"
       data-content-link-param="{{ link|default(path("organization_show", {'id': character.covenant.id})) }}"
+      {% if access_decision('edit', character.covenant) %}data-content-edit-param="{{ link|default(path('organization_edit', {id: character.covenant.id})) }}"{% endif %}
     >
       {{ character.covenant }}
       {% if character.covenant.emblem %}

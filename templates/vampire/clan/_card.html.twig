@@ -68,6 +68,7 @@
       data-content-name-param="{{ discipline.name }}"
       data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"
       data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
+      {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
     >
       {{ discipline.name }}
     </div>
@@ -85,6 +86,7 @@
         data-content-name-param="{{ devotion.name }}"
         data-content-type-param="{{ "devotion.label.single"|trans({}, 'discipline') }}"
         data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
+        {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', { id: devotion.id })) }}"{% endif %}
       >
         {{ devotion.name }}
       </div>
@@ -98,6 +100,7 @@
   data-content-name-param="{{ clan.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ path('vampire_clan_show', {id: clan.id}) }}"
+  {% if access_decision('edit', clan) %}data-content-edit-param="{{ link|default(path('vampire_clan_edit', { id: clan.id })) }}"{% endif %}
 {% endblock %}
 
 {% block short %}

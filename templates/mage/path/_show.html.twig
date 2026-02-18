@@ -34,6 +34,7 @@
             data-content-name-param="{{ arcanum.name }}"
             data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
             data-content-link-param="{{ path('mage_arcanum_show', {id: arcanum.id}) }}"
+            {% if access_decision('edit', arcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: arcanum.id })) }}"{% endif %}
           >
             {{ arcanum.name }}
           </span>
@@ -52,6 +53,7 @@
           data-content-name-param="{{ path.inferiorArcanum.name }}"
           data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
           data-content-link-param="{{ path('mage_arcanum_show', {id: path.inferiorArcanum.id}) }}"
+          {% if access_decision('edit', path.inferiorArcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: path.inferiorArcanum.id })) }}"{% endif %}
         >
           {{ path.inferiorArcanum.name }}
         </div>

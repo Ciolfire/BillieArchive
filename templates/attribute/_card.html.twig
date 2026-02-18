@@ -6,6 +6,7 @@
   data-content-name-param="{{ attribute.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('attribute_show', {id: attribute.id})) }}"
+  {% if access_decision('edit', attribute) %}data-content-edit-param="{{ link|default(path('attribute_edit', {id: attribute.id})) }}"{% endif %}
 {% endblock %}
 
 {% block title %}

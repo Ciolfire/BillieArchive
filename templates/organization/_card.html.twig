@@ -30,6 +30,8 @@
   data-content-name-param="{{ organization.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ path('organization_show', {id: organization.id}) }}"
+  {% if access_decision('edit', organization) %}data-content-edit-param="{{ link|default(path('organization_edit', { id: organization.id })) }}"{% endif %}
+
 {% endblock %}
 
 {% block short %}

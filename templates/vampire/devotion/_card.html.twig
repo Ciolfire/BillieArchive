@@ -12,6 +12,7 @@
     data-content-name-param="{{ devotion.name }}"
     data-content-type-param="{{ "devotion.label.single"|trans }}"
     data-content-link-param="{{ link|default(path('vampire_devotion_show', {id: devotion.id})) }}"
+    {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', { id: devotion.id })) }}"{% endif %}
   >
     <div class="row">
       <div class="col-12 text-strong text-end">

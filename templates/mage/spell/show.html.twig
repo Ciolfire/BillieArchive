@@ -7,19 +7,14 @@
 {% block title %}{{ spell.name }}{% endblock %}
 
 {% block body %}
-  {% include "_back_entity.html.twig" with {
-    element: spell,
-    name: 'mage_spell'
-  } %}
-
   <div class="container block pt-5 pb-1">
-    {% if is_granted('ROLE_ST') %}
+    {% if access_decision('edit', spell) %}
       <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
 
     {% include "mage/spell/_show.html.twig" with {isModal: 0} %}
 
-    {% if is_granted('ROLE_ST') %}
+    {% if access_decision('edit', spell) %}
       <div class="col text-center mt-5">
         <button type="button" class="btn btn-warning w-25" data-bs-toggle="modal" data-bs-target="#deleteModal-mage_spell-{{spell.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
       </div>

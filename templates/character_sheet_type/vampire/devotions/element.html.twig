@@ -15,6 +15,7 @@
       data-content-name-param="{{ devotion.name }}"
       data-content-type-param="{{ "devotion.label.single"|trans }}"
       data-content-link-param="{{ link|default(path('vampire_devotion_show', {id: devotion.id})) }}"
+      {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', {id: devotion.id})) }}"{% endif %}
     >
       <div class="card-header rounded-top">
         <h4>{{ devotion.name }}{% if devotion.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}{% endif %}</h4>
