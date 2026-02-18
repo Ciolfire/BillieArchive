@@ -28,7 +28,7 @@
 <div class="col-4 col-lg-2 text-strong" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "advantage.armor.tooltip"|trans(armor.details) }}">
   <span class="d-none d-md-inline">{{ "advantage.armor.label"|trans }}</span>
   {% include "_icon.html.twig" with {icon: 'armor'} only %}
-  <span id="armor">{{ armor.total }}</span>
+  <span id="armor">{{ armor.total.melee }}/{{ armor.total.ranged }}</span>
 </div>
 <div class="col-4 col-lg-2 text-strong fw-bold">
   {% include "_icon.html.twig" with {icon: 'xp'} only %}<span class="d-none d-md-inline">{{ "xp.label"|trans }}</span>

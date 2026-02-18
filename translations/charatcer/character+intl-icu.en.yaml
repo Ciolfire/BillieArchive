@@ -31,7 +31,7 @@ age:
 advantage:
   armor: 
     label: Armor
-    tooltip: "Equipment ({item}) + bonus ({bonus})"
+    tooltip: "Base ({melee}/{ranged}) + items ({item}) + bonus ({bonus})"
   defense:
     label: Defense
     tooltip: "smallest between Dexterity ({dexterity}) & Wits ({wits}) + bonus ({bonus}) - Equipment {equipment}"

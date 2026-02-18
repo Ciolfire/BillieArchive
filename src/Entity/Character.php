@@ -983,9 +983,9 @@ class Character
     ];
   }
 
-  public function getArmor(): int
+  public function getArmor(): array
   {
-    $bonus = 0;
+    $bonus = [0, 0];
     foreach ($this->getStatusEffects() as $effect) {
       if ($effect->getType() == 'armor') {
         $bonus += $effect->getRealValue();
@@ -1001,24 +1001,40 @@ class Character
   public function getArmorDetails(): array
   {
     $items = 0;
+    $melee = 0;
+    $ranged = 0;
     $bonus = 0;
+
     foreach ($this->getStatusEffects() as $effect) {
       if ($effect->getType() == 'armor') {
         if ($effect->getItem()) {
-          $items += $effect->getRealValue();
+          if ($effect->getItem()->isEquipped()) {
+            $items += $effect->getRealValue();
+          }
         } else {
           $bonus += $effect->getRealValue();
         }
       }
     }
+    foreach ($this->getItems() as $item) {
+      if ($item instanceof Armor && $item->isEquipped()) {
+        $melee += $item->getRatingMelee();
+        $ranged += $item->getRatingRanged();
+      }
+    }
 
     $details = [
       'item' => $items,
+      'melee' => $melee,
+      'ranged' => $ranged,
       'bonus' => $bonus,
     ];
 
     return [
-      'total' => $items + $bonus,
+      'total' => [
+        'melee' => $melee + $items + $bonus,
+        'ranged' => $ranged + $items + $bonus,
+      ],
       'details' => $details,
     ];
   }
