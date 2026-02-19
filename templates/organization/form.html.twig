@@ -13,18 +13,18 @@
 {% block header %}{{  "action.#{action}"|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
 
 {% block content_start %}
-  <div class="row">
-    <div class="col">
-      {% if organization.emblem is not null %}
-        <img class="logo" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
-      {% endif %}
+  {% if organization.emblem is not null %}
+    <div class="row">
+      <div class="col">
+          <img class="logo" src="{{ asset(organization.emblem, 'organizations_emblems') }}" alt="{{ organization.name}}" height="200"/>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <h5>{{ "emblem"|trans }}</h5>
+    <div class="row">
+      <div class="col">
+        <h5>{{ "emblem"|trans }}</h5>
+      </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock %}
 
 {% block form %}
