@@ -324,6 +324,8 @@ class VampireService
     if ($item instanceof Book) {
 
       return $repo->findByBook($item);
+    } else if ($item instanceof Chronicle) {
+      return $repo->findAllBloodlines(chronicle: $item);
     } else {
 
       return $repo->findAllBloodlines();

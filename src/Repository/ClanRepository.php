@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\Chronicle;
 use App\Entity\Clan;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,13 +55,62 @@ class ClanRepository extends ServiceEntityRepository
   /**
    * @return Clan[] Returns an array of Clan objects
    */
-  public function findAllBloodlines() : array
+  public function findAllBloodlines(?Chronicle $chronicle = null) : array
   {
+    $isAncient = false;
+    if ($chronicle) {
+      $isAncient = $chronicle->isAncient();
+    }
     return $this->createQueryBuilder('c')
       ->andWhere('c.isBloodline = true')
-      ->andWhere('c.homebrewFor IS NULL')
-      ->andWhere('c.isAncient <= 0')
+      ->andWhere('c.homebrewFor IS NULL OR c.homebrewFor = :chronicle')
+      ->andWhere('c.isAncient IS NULL OR c.isAncient = :isAncient')
       ->orderBy('c.name', 'ASC')
+      ->setParameter('chronicle', $chronicle)
+      ->setParameter('isAncient', $isAncient)
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Clan[] Returns an array of Clan objects
+   */
+  public function findBloodlinesByClan(?Chronicle $chronicle = null, Clan $clan) : array
+  {
+    $isAncient = false;
+    if ($chronicle) {
+      $isAncient = $chronicle->isAncient();
+    }
+    return $this->createQueryBuilder('c')
+      ->andWhere('c.isBloodline = true')
+      ->andWhere('c.parentClan IS NULL OR c.parentClan = :clan')
+      ->andWhere('c.homebrewFor IS NULL OR c.homebrewFor = :chronicle')
+      ->andWhere('c.isAncient IS NULL OR c.isAncient = :isAncient')
+      ->orderBy('c.name', 'ASC')
+      ->setParameter('clan', $clan)
+      ->setParameter('chronicle', $chronicle)
+      ->setParameter('isAncient', $isAncient)
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Clan[] Returns an array of Clan objects
+   */
+  public function findAllClan(?Chronicle $chronicle = null) : array
+  {
+    $isAncient = false;
+    if ($chronicle) {
+      $isAncient = $chronicle->isAncient();
+    }
+
+    return $this->createQueryBuilder('c')
+      ->andWhere('c.isBloodline = false')
+      ->andWhere('c.homebrewFor IS NULL OR c.homebrewFor = :chronicle')
+      ->andWhere('c.isAncient IS NULL OR c.isAncient = :isAncient')
+      ->orderBy('c.name', 'ASC')
+      ->setParameter('chronicle', $chronicle)
+      ->setParameter('isAncient', $isAncient)
       ->getQuery()
       ->getResult();
   }

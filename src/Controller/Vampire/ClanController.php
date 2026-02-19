@@ -249,7 +249,7 @@ class ClanController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $vampire->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    $bloodlines = $this->dataService->findBy(Clan::class, ['isBloodline' => true, 'parentClan' => $vampire->getClan()], ['name' => 'ASC']);
+    $bloodlines = $this->dataService->getDoctrine()->getRepository(Clan::class)->findBloodlinesByClan($vampire->getChronicle(), $vampire->getClan());
 
     return $this->render('vampire/bloodline/join.html.twig', [
       'vampire' => $vampire,
