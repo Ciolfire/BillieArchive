@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}{{ "template.choose"|trans }}{% endblock %}
+
+{% block body %}
+  <div class="container block py-5">
+    <h1>{{ "template.choose"|trans }}</h1>
+    <div class="row">
+      {% for template in templates %}
+        <div class="col btn btn-primary btn-{{ template }}">
+          <a href="{{ path("character_new_#{template}", {isAncient: isAncient|default(0), isNpc: isNpc|default(0), chronicle: chronicle }) }}">
+            <h2 class="text-{{template}}">{{ template|trans([], "content-type") }}</h2>
+            <img class="w-100" src="{% include "_setting_src.html.twig" with { setting: template } %}">
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  
+{% endblock %}

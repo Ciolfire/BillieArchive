@@ -243,6 +243,7 @@ status.effect:
 
 template:
   apply: Apply Template
+  choose: Choose a template
   lesser:
     label: Lesser Template
     remove: Remove the current Lesser template

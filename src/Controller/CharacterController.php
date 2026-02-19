@@ -16,6 +16,7 @@ use App\Entity\Item;
 use App\Entity\Possessed;
 use App\Entity\Roll;
 use App\Entity\StatusEffect;
+use App\Entity\Types\SettingType;
 use App\Form\CharacterAccessForm;
 use App\Form\CharacterInfoAccessForm;
 use App\Form\CharacterNoteForm;
@@ -220,7 +221,37 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
-  public function new(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  public function newChoice(?bool $isAncient = null, ?bool $isNpc = null, ?Chronicle $chronicle = null): Response
+  {
+
+    return $this->render('character_sheet/choice.html.twig', [
+      'templates' => get_class_vars(SettingType::class),
+      'isAncient' => $isAncient,
+      'isNpc' => $isNpc,
+      'chronicle' => $chronicle->getId(),
+    ]);
+  }
+
+  #[Route('/new/werewolf/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
+  public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  {
+
+  }
+
+  #[Route('/new/vampire/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
+  public function newVampire(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  {
+
+  }
+
+  #[Route('/new/mage/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
+  public function newMage(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  {
+
+  }
+
+  #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
+  public function newHuman(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
     if ($chronicle && $chronicle->isAncient()) {
       $isAncient = true;

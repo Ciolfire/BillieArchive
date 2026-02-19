@@ -43,35 +43,32 @@
         <hr>
       </div>
     </div>
-    <div class="row text-center">
-      </div>
-      
-      </div>
-      {# <div class="row">
-      </div> #}
-      {# Instant spellcasting factors #}
-      {# <div class ="row">
-        <div>
-          Potency
-          1 ~ 5, 0 ~ -8
-        </div>
-        <div>
-          Target
-          1 ~ 16, 0 ~ -8
-        </div>
-        <div>
-          Target
-          1 ~ 16, 0 ~ -8
-        </div>
-        <div>
-          Size
-          20- ~ 60, 0 ~ -8
-        </div>
-        <div>
-          Area-Affecting
-          1- ~ 16, 0 ~ -8
-        </div>
-      </div> #}
+  </div>
+  {# Instant spellcasting factors #}
+  {#
+  <div class ="row">
+    <div>
+      Potency
+      1 ~ 5, 0 ~ -8
+    </div>
+    <div>
+      Target
+      1 ~ 16, 0 ~ -8
+    </div>
+    <div>
+      Target
+      1 ~ 16, 0 ~ -8
+    </div>
+    <div>
+      Size
+      20- ~ 60, 0 ~ -8
+    </div>
+    <div>
+      Area-Affecting
+      1- ~ 16, 0 ~ -8
+    </div>
+  </div>
+  #}
     {# TODO Improvised magic #}
     {# {% include 'character_sheet_type/mage/improvised/show/elements.html.twig' with {characterArcana: arcana} %} #}
     {# {% include 'character_sheet_type/mage/creative/show/elements.html.twig' with {characterArcana: arcana} %} #}
@@ -164,13 +161,13 @@
         </div>
       </div>
     </div>
-  </div>
-  <div id="rotes" class="tab-content d-none" data-tabs-target="page">
-    {% include 'character_sheet_type/mage/rotes/show/elements.html.twig' with {characterArcana: arcana} %}
-  </div>
-  {% if character.legacy %}
-    <div id="attainments" class="tab-content d-none" data-tabs-target="page">
+</div>
+<div id="rotes" class="tab-content d-none" data-tabs-target="page">
+  {% include 'character_sheet_type/mage/rotes/show/elements.html.twig' with {characterArcana: arcana} %}
+</div>
+{% if character.legacy %}
+  <div id="attainments" class="tab-content d-none" data-tabs-target="page">
     {% include 'character_sheet_type/mage/elements/attainments.html.twig' %}
-    </div>
-  {% endif %}
+  </div>
+{% endif %}
 </div>
