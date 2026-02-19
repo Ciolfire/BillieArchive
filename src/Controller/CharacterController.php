@@ -228,7 +228,7 @@ class CharacterController extends AbstractController
       'templates' => get_class_vars(SettingType::class),
       'isAncient' => $isAncient,
       'isNpc' => $isNpc,
-      'chronicle' => $chronicle->getId(),
+      'chronicle' => $chronicle,
     ]);
   }
 
