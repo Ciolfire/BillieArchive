@@ -2,20 +2,20 @@
   --mage-btn-focus-outline-color           : var(--mage-main);
   /* Primary */
   --mage-btn-bg                            : var(--mage-main-bg-75a);
-  --mage-btn-color                         : var(--mage-accent-bright);
+  --mage-btn-color                         : var(--mage-accent);
   --mage-btn-outline-color                 : var(--mage-main-bright-75a);
   --mage-btn-shadow                        : var(--mage-dark);
   --mage-btn-stroke                        : var(--mage-dark);
   
   --mage-btn-hover-bg                      : var(--mage-main-bright-75a);
-  --mage-btn-hover-color                   : var(--mage-accent);
+  --mage-btn-hover-color                   : var(--mage-accent-bright);
   --mage-btn-hover-outline-color           : var(--mage-main-bright);
   --mage-btn-hover-shadow                  : var(--mage-dark);
   --mage-btn-hover-stroke                  : var(--mage-dark);
   
   --mage-btn-active-bg                     : var(--mage-main-75a);
-  --mage-btn-active-color                  : var(--mage-accent);
-  --mage-btn-active-outline-color          : var(--mage-accent);
+  --mage-btn-active-color                  : var(--mage-accent-bright);
+  --mage-btn-active-outline-color          : var(--mage-accent-bright);
   --mage-btn-active-shadow                 : var(--mage-main-dark);
   --mage-btn-active-stroke                 : var(--mage-main-dark);
 }

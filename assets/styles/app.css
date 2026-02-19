@@ -212,6 +212,10 @@ footer.footer {
   }
 }
 
+.img-outlined {
+  filter: drop-shadow(1px 1px 0 currentColor) drop-shadow(-1px -1px 0 currentColor);
+}
+
 .fit-contain {
   object-fit: contain;
 }

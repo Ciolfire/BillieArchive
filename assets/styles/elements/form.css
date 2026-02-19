@@ -15,6 +15,15 @@ input::-webkit-inner-spin-button {
   margin            : 0;
 }
 
+.form-control[required=required] {
+  border: 1px solid var(--accent);
+}
+
+.form-control::placeholder {
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
 /* Firefox */
 input[type=number] {
   appearance     : textfield;
