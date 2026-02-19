@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -50,15 +52,11 @@ class Vampire extends Character
   private Collection $rituals;
 
 
-  public function __construct(?Character $character = null)
+  public function __construct($isAncient = false)
   {
+    parent::__construct($isAncient);
+
     $this->disciplines = new ArrayCollection();
-    if (is_object($character)) {
-      // Initializing class properties
-      foreach ($character->getProperties() as $property => $value) {
-        $this->$property = $value;
-      }
-    }
     $this->devotions = new ArrayCollection();
     $this->rituals = new ArrayCollection();
   }
@@ -231,7 +229,7 @@ class Vampire extends Character
     return $this->disciplines;
   }
 
-  public function getDisciplinesLevel() : array
+  public function getDisciplinesLevel(): array
   {
     $disciplines = [];
     foreach ($this->disciplines as $discipline) {
@@ -461,20 +459,20 @@ class Vampire extends Character
         }
       }
     }
-    
+
     return 10 - $restriction;
   }
 
   public function getCovenant(): ?Covenant
   {
-      return $this->covenant;
+    return $this->covenant;
   }
 
   public function setCovenant(?Covenant $covenant): static
   {
-      $this->covenant = $covenant;
+    $this->covenant = $covenant;
 
-      return $this;
+    return $this;
   }
 
   public function getMainOrganization(): ?Organization

@@ -512,7 +512,6 @@ class CharacterService
     /** @var SkillRepository $repo */
     $repo = $this->dataService->getRepository(Skill::class);
     $skills = $repo->filterAncient();
-
     foreach ($skills as $skill) {
       /** @var Skill $skill */
       if (!isset($sortedSkills[$skill->getCategory()])) {

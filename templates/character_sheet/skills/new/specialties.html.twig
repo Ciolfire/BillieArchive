@@ -1,21 +1,18 @@
 {% trans_default_domain 'skill' %}
 
-<h2 class="text-center mt-3">{{ "specialty.label.multi"|trans }}</h2>
 <p class="text-center text-sub" data-character--creation-target="creationSpec">({{ "specialty.creation"|trans }})</p>
-<div class="row mx-2">
-  <div class="col-12 col-lg-4">
-    <div class="p-1">
-      {{ form_widget(form.specialty1) }}
-    </div>
+<div class="col-12 col-lg-4">
+  <div class="p-1">
+    {{ form_widget(form.specialty1) }}
   </div>
-  <div class="col-12 col-lg-4">
-    <div class="p-1">
-      {{ form_widget(form.specialty2) }}
-    </div>
+</div>
+<div class="col-12 col-lg-4">
+  <div class="p-1">
+    {{ form_widget(form.specialty2) }}
   </div>
-  <div class="col-12 col-lg-4">
-    <div class="p-1">
-      {{ form_widget(form.specialty3) }}
-    </div>
+</div>
+<div class="col-12 col-lg-4">
+  <div class="p-1">
+    {{ form_widget(form.specialty3) }}
   </div>
 </div>

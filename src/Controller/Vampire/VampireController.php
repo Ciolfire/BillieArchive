@@ -43,11 +43,10 @@ class VampireController extends AbstractController
   #[Route('/vampire/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
   public function newVampire(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
-    if ($chronicle && $chronicle->isAncient()) {
+    if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Vampire();
-    $character->setIsAncient($isAncient);
+    $character = new Vampire($isAncient);
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
 
@@ -74,7 +73,7 @@ class VampireController extends AbstractController
     return $this->render('character_sheet/new.html.twig', [
       'character' => $character,
       'form' => $form,
-      'attributes' => $this->$this->characterService->getSortedAttributes(),
+      'attributes' => $this->characterService->getSortedAttributes(),
       'skills' => $this->characterService->getskillList($character),
       'merits' => $merits,
     ]);

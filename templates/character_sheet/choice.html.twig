@@ -9,10 +9,10 @@
     <h1>{{ "template.choose"|trans }}</h1>
     <div class="row">
       {% for template in templates %}
-        <div class="col btn btn-primary btn-{{ template }}">
-          <a href="{{ path("character_new_#{template}", {isAncient: isAncient|default(0), isNpc: isNpc|default(0), chronicle: chronicle.id|default(null) }) }}">
-            <h2 class="text-{{template}}">{{ template|trans([], "content-type") }}</h2>
-            <img class="w-100" src="{% include "_setting_src.html.twig" with { setting: template } %}">
+        <div class="col-6 col-md-4 col-lg-2 py-2 {{template}}">
+          <a class="btn btn-primary h-100" href="{{ path("character_new_#{template}", {isAncient: isAncient|default(0), isNpc: isNpc|default(0), chronicle: chronicle.id|default(null) }) }}">
+            <span class="fs-4">{{ template|trans([], "content-type") }}</span class="fs-4">
+            <img class="w-100 img-outlined" src="{% include "_setting_src.html.twig" with { setting: template } %}">
           </a>
         </div>
       {% endfor %}

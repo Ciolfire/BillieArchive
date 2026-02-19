@@ -59,6 +59,13 @@ count: >-
     other {# Personnages}
   }
 
+creation:
+  concept: Concept de personnage
+  attributes: Select Attributes
+  skills: Select Skills
+  specialities: Select Skill Specialties
+  merits: Select Merits
+
 delete:
   label: Supprimer ?
   help: Cochez cette case pour confirmer que vous voulez supprimer ce personnage

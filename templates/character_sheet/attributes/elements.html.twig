@@ -5,7 +5,9 @@
 {% set base = 1 %}
 
 {% block attributes %}
-  <h2 class="user-select-none">{{ "label.multi"|trans }}</h2>
+  {% block title %}
+    <h2 class="user-select-none">{{ "label.multi"|trans }}</h2>
+  {% endblock %}
   {% block creation %}{% endblock %}
   {% for category, attributes in attributes %}
     <div class="col col-sm-4 d-flex justify-content-center">

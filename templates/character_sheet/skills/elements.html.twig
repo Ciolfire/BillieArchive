@@ -4,7 +4,9 @@
 {% set min = 0 %}
 {% set base = 0 %}
 
-<h2 class="user-select-none text-center">{{ "label.multi"|trans }}</h2>
+{% block title %}
+  <h2 class="user-select-none text-center">{{ "label.multi"|trans }}</h2>
+{% endblock %}
 
 {% block creation %}{% endblock %}
 

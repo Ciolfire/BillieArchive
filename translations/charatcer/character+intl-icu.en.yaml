@@ -59,6 +59,13 @@ count: >-
     other {# Characters}
   }
 
+creation:
+  concept: Character Concept
+  attributes: Select Attributes
+  skills: Select Skills
+  specialities: Select Skill Specialties
+  merits: Select Merits
+
 delete:
   label: Confirm ?
   help: Check this to confirm that you want to delete this character

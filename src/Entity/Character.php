@@ -234,9 +234,11 @@ class Character
   #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'owner')]
   private Collection $statusEffects;
 
-  public function __construct($isAncient = false)
+  public function __construct($isAncient = false, $isNpc = false, $chronicle = null)
   {
-    $this->setIsAncient($isAncient);
+    $this->isAncient = $isAncient;
+    $this->chronicle = $chronicle;
+    $this->isNpc = $isNpc;
     $this->setAttributes(new CharacterAttributes());
     $this->setSkills(new CharacterSkills());
     $this->specialties = new ArrayCollection();
