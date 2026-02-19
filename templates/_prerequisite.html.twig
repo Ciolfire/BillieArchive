@@ -9,22 +9,22 @@
 <span class="d-inline-block text-strong">
   {% if prerequisite.type == 'App\\Entity\\Merit' %}
     {% include "_icon.html.twig" with {icon: 'merit'} %}
-    <a href="{{ path('merit_show', {'id': prerequisite.entityId}) }}">
+    <a href="{{ path('merit_show', {id: prerequisite.entityId}) }}">
       {{ prerequisite.entity.name }}
     </a>
   {% elseif prerequisite.type == "App\\Entity\\Devotion" %}
       {% include "_icon.html.twig" with {icon: 'devotion'} %}
-      <a href="{{ path('vampire_devotion_show', {'id': prerequisite.entity.id }) }}">
+      <a href="{{ path('vampire_devotion_show', {id: prerequisite.entity.id }) }}">
         {{ prerequisite.entity.name }}
       </a>
   {% elseif prerequisite.type == 'App\\Entity\\Clan' %}
     {% include "_icon.html.twig" with {icon: 'clan'} %}
-    <a href="{{ path('vampire_clan_show', {'id': prerequisite.entityId}) }}">
+    <a href="{{ path('vampire_clan_show', {id: prerequisite.entityId}) }}">
       {{ prerequisite.entity.name }}
     </a>
   {% elseif prerequisite.type == 'App\\Entity\\Discipline' %}
     {% include "_icon.html.twig" with {icon: 'discipline'} %}
-    <a href="{{ path('vampire_discipline_show', {'id': prerequisite.entityId}) }}">
+    <a href="{{ path('vampire_discipline_show', {id: prerequisite.entityId}) }}">
       {{ prerequisite.entity.name }}
     </a>
   {% else %}
