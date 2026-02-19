@@ -1,0 +1,32 @@
+{% trans_default_domain 'spell' %}
+
+{% set sympathetic = {
+  sensory : "—",
+  intimate : "-2",
+  known : "-4",
+  acquainted : "-6",
+  encountered : "-8",
+  described : "-10",
+  unknown : "—",
+} %}
+
+{% if character.getArcanumLevel("space") >= 2 %}
+  <div class="col-6 py-2">
+    <div class="block py-2 text-center">
+      <h4>Sympathetic Range [{% include "_icon.html.twig" with {icon: "arcana/space"} %}••]</h4>
+      <p>
+        Sympathetic spells use the Space Arcanum to extend the mage’s reach virtually anywhere, provided the mage has a strong enough connection to the spell’s target.
+      </p>
+      <div class="btn-group" role="group">
+        {% for key, value in sympathetic %}
+          <input type="radio" class="btn-check" id="sympathetic-{{ loop.index0 }}" name="sympathetic" value="{{ "#{value}\n" ~ "rules.sympathy.#{key}.text"|trans }}"
+            data-action="mage--spellcasting#updateValue"
+            data-mage--spellcasting-type-param="sympathetic"
+          />
+          <label class="text-sub btn btn-primary" for="sympathetic-{{ loop.index0 }}">{{ "rules.sympathy.#{key}.label"|trans }}</label>
+        {% endfor %}
+      </div>
+      <div class="text-strong" data-mage--spellcasting-target="rule" data-type="sympathetic"></div>
+    </div>
+  </div>
+{% endif %}

@@ -46,6 +46,54 @@ rote:
   edit: Edit Rote
 
 rules:
+  value: >-
+    {count, plural,
+      =0 {None (basic success)}
+      other {-#}
+    }
+  duration:
+    label: Duration
+    description: "There are four types of spell Duration: lasting, concentration, transitory and prolonged. The spell descriptions provided later in this chapter list each spell’s Duration."
+
+    lasting:
+      label: Lasting
+      description: |
+        A lasting spell’s effect is a natural part of reality; it has no defined Duration, since it persists as long as it is natural for it to. For example, a spell that sets a target on fire is lasting. The fire is real and continues to burn normally until it is put out or there’s nothing left to burn.
+        The target’s injuries are also real and must heal normally. Likewise, a spell that heals injuries is lasting. The healing restores the target to its natural state, so wounds do not re-appear when the spell ends.
+
+        Concentration-based, transitory and prolonged spells all create an unnatural effect, such as transforming someone’s shape. Their effects end once the spell’s Duration expires. That is, reality restores things to normal. Spells with a lasting Duration do not count against the maximum number of spells a mage can maintain (based on his Gnosis).
+    concentration:
+      label: Concentration
+      description: |
+        A concentration-based spell’s Duration is as long as the mage applies mental effort to keep it going. The mage cannot take any other action, except for simple movement (up to his Speed; he cannot run). The mage also receives no Defense against attacks, although he can seek cover from ranged attacks. If the mage is attacked, a reflexive Resolve + Composure roll must be made for him to maintain concentration.
+
+        If the mage stops concentrating for any reason, voluntarily or not, the spell ends. The exception is if he decides to add Duration factors as if it were a transitory spell (see below) before the spell is cast, in which case the spell lasts for an additional time equal to its assigned Duration, and then lapses. The mage cannot start concentrating on a spell again once he has stopped, even if the spell hasn’t lapsed yet. Note: A mage cannot use a concentration-based Duration when casting aimed spells (see “Aimed Spells,”).
+    transitory:
+      label: Transitory
+      description: A transitory spell’s default Duration is one turn.
+      count: >-
+        {count, plural,
+          one {1 turn}
+          =2 {2 turns}
+          =3 {3 turns}
+          =4 {5 turns}
+          =5 {10 turns}
+          other {# turns}
+        }
+      value: >-
+        {count, plural,
+          one {None (basic success)}
+          =2 {-2}
+          =3 {-4}
+          =4 {-6}
+          =5 {-8}
+          other {-10⁺
+            Add an additional –2 dice penalty per extra +10 turns.
+          }
+        }
+    prolonged:
+      label: Prolonged
+      description:
   potency:
     label: Potency
     description: "Potency describes a spell’s raw power. It is also the measure of a spell’s resiliency, how hard it is to counter or dispel"
@@ -69,37 +117,23 @@ rules:
         =3 {31-40}
         =4 {41-50}
         =5 {51-60}
-        other {-10⁺
-        Impose an additional –2 die penalty per +10 extra Size.}
+        other {}
       }
-    value: >-
-      {count, plural,
-        one {None (basic success)}
-        =2 {-2}
-        =3 {-4}
-        =4 {-6}
-        =5 {-8}
-        other {-10⁺
-        Impose an additional –2 die penalty per +10 extra Size.}
-      }
+    infinite: |
+      -10⁺
+      Impose an additional –2 die penalty per +10 extra Size.
+
   target:
     label: Target
     description: "Spells are targeted against one or more creatures or objects. The magic is woven directly into that target’s Pattern, bypassing any intervening obstacles. Two questions to consider are: How many targets are to be affected, and how big is each target?"
-    value: >-
-      {count, plural,
-        one {None (basic success)}
-        =2 {-2}
-        =3 {-4}
-        =4 {-6}
-        =5 {-8}
-        other {-10⁺
-        Impose an additional –2 die penalty per x2 targets.}
-      }
+    infinite: |
+      -10⁺
+      Impose an additional –2 die penalty per x2 targets.
   area:
     label: Area
     description: |
-      "Instead of one or more specified targets, a spell might affect a circular radius around a specified spot (radiating equaling in all directions), or a defined volume (measured in three dimensions — width, length and height — defined by the spellcaster). The spell then applies to anyone or anything in that radius or volume, friend or foe. The mage cannot single out specific targets within the declared space.
-      Advanced Area-Affecting: If the mage has dots in the spell’s primary Arcanum that are one or more higher than normally required to cast the spell, he can increase the radius or defined volume by more dramatic steps."
+      Instead of one or more specified targets, a spell might affect a circular radius around a specified spot (radiating equaling in all directions), or a defined volume (measured in three dimensions — width, length and height — defined by the spellcaster). The spell then applies to anyone or anything in that radius or volume, friend or foe. The mage cannot single out specific targets within the declared space.
+      Advanced: If the mage has dots in the spell’s primary Arcanum that are one or more higher than normally required to cast the spell, he can increase the radius or defined volume by more dramatic steps.
     value: >-
       {count, plural,
         one {None (basic success)}
@@ -123,3 +157,25 @@ rules:
         other {-10⁺
         Impose an additional –2 die penalty per +10 extra Size.}
       }
+  sympathy:
+    sensory: 
+      label: sensory
+      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
+    intimate: 
+      label: intimate
+      text: "You have a piece of the target’s physical substance, such as hair, nail clippings or blood from a creature, a leaf or flower from a plant, or a sliver of material from an object. Or you know the target very well, such as a longtime friend or close family member, a beloved pet or a prized possession."
+    known: 
+      label: known
+      text: "You know the target, which might be a friend, co-worker or personal possession. You have a photo or other accurate representation of the target, or you can see the target on live video or hear the target over live audio."
+    acquainted: 
+      label: acquainted
+      text: "You’re acquainted with the target. It might be a casual acquaintance, a co-worker you hardly know, or an item you held or used once."
+    encountered: 
+      label: encountered
+      text: "You have encountered the target briefly, such as a person you passed on the street or an item you touched once."
+    described: 
+      label: described
+      text: "You have never encountered the target, but can describe it. You might know a person’s name or physical description, or what an object or place looks like."
+    unknown: 
+      label: unknown
+      text: "If you know nothing about the target, you cannot cast a sympathetic spell on it. Knowing that there is a rival mage in town is not enough to affect the mysterious figure from afar. You must at least know his name, description or location."

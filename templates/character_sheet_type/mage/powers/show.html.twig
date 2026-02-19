@@ -2,37 +2,6 @@
 
 {% set arcana = character.arcana %}
 
-{% set sympathetic = {
-  sensory : {
-      value: "—",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  intimate : {
-      value: "-2",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  known : {
-      value: "-4",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  acquainted : {
-      value: "-6",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  encountered : {
-      value: "-8",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  described : {
-      value: "-10",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-  unknown : {
-      value: "—",
-      text: "You can see, hear or otherwise sense your target directly. This is the default factor, a sensory spell. (When trying to locate a target with hearing or smell, use the rules on pp. 166-167 of the World of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness RulebookWorld of Darkness Rulebook.)"
-    },
-} %}
-
 {% set potency  = {
   1: "None (basic success)",
   2: "-2",
@@ -75,27 +44,6 @@
       </div>
     </div>
     <div class="row text-center">
-      <h3>Options</h3>
-        
-      <div class="col-6 py-2">
-        {% if character.getArcanumLevel("space") >= 2 %}
-          <div class="block py-2 text-center">
-            <h4>Sympathetic Range</h4>
-            <p>
-              Sympathetic spells use the Space Arcanum to extend the mage’s reach virtually anywhere, provided the mage has a strong enough connection to the spell’s target.
-            </p>
-            <div class="btn-group" role="group">
-              {% for key, item in sympathetic %}
-                <input type="radio" class="btn-check" id="sympathetic-{{ key }}" name="sympathetic" value="{{ item.value }}" data-text="{{ item.text }}"/>
-                <label class="text-sub btn btn-primary" for="sympathetic-{{ key }}">{{ key }}</label>
-              {% endfor %}
-            </div>
-            <div>
-              <div class="text-strong">{{ sympathetic|first.value }}</div>
-              {{ sympathetic|first.text }}
-            </div>
-          </div>
-        {% endif %}
       </div>
       
       </div>
@@ -128,6 +76,67 @@
     {# {% include 'character_sheet_type/mage/improvised/show/elements.html.twig' with {characterArcana: arcana} %} #}
     {# {% include 'character_sheet_type/mage/creative/show/elements.html.twig' with {characterArcana: arcana} %} #}
     <div class="row my-2" data-controller="mage--spellcasting">
+      <h3>Options</h3>
+      {# Sympathetic range #}
+      {% include 'character_sheet_type/mage/powers/magic/sympathetic.html.twig' with {characterArcana: arcana} %}
+      {# Temporal range #}
+      {% include 'character_sheet_type/mage/powers/magic/temporal.html.twig' with {characterArcana: arcana} %}
+      {# Target Exemption #}
+      {% if character.getArcanumLevel("fate") >= 2 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Target Exemption [{% include "_icon.html.twig" with {icon: "arcana/fate"} %}••]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# conditional duration #}
+      {% if character.getArcanumLevel("fate") >= 2 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Conditional Duration [{% include "_icon.html.twig" with {icon: "arcana/fate"} %}••]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# conditional duration #}
+      {% if character.getArcanumLevel("fate") >= 2 and character.getArcanumLevel("time") >= 2 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Conditional Trigger [{% include "_icon.html.twig" with {icon: "arcana/fate"} %}•• + {% include "_icon.html.twig" with {icon: "arcana/time"} %}••]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# Unfettered #}
+      {% if character.getArcanumLevel("fate") >= 2 and character.getArcanumLevel("time") >= 4 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Unfettered [{% include "_icon.html.twig" with {icon: "arcana/fate"} %}•• + {% include "_icon.html.twig" with {icon: "arcana/time"} %}••••]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# Forces #}
+      {% if character.getArcanumLevel("forces") >= 1 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Forces [{% include "_icon.html.twig" with {icon: "arcana/forces"} %}•+]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# Sense the Threads #}
+      {% if character.getArcanumLevel("prime") >= 2 and character.getArcanumLevel("space") >= 2 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Sense the Threads [{% include "_icon.html.twig" with {icon: "arcana/prime"} %}•• + {% include "_icon.html.twig" with {icon: "arcana/space"} %}••]</h4>
+          </div>
+        </div>
+      {% endif %}
+      {# Prepared Spells #}
+      {% if character.getArcanumLevel("time") >= 2 %}
+        <div class="col-6 py-2">
+          <div class="block py-2 text-center">
+            <h4>Prepared Spells [{% include "_icon.html.twig" with {icon: "arcana/time"} %}••]</h4>
+          </div>
+        </div>
+      {% endif %}
       <h3>Rules</h3>
       {% for key, data in special.magic.instant %}
         {% include "character_sheet_type/mage/powers/magic/#{key}.html.twig" %}

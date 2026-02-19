@@ -1,19 +1,87 @@
-<div class="col-6 pb-2">
-  {# <div class="block p-2 text-center">
-    <h3>{{ key }}</h3>
+{% trans_default_domain 'spell' %}
+
+{% extends "character_sheet_type/mage/powers/magic/_rule.html.twig" %}
+
+{% block buttons %}
+<div data-controller="tabs" data-tabs-initial-value="lasting">
+  <ul class="nav tabs g-0">
+    {% include "_tab.html.twig" with {name: 'lasting', icon: '', label: 'rules.duration.lasting.label'|trans} only %}
+    {% include "_tab.html.twig" with {name: 'concentration', icon: '', label: 'rules.duration.concentration.label'|trans} only %}
+    {% include "_tab.html.twig" with {name: 'transitory', icon: '', label: 'rules.duration.transitory.label'|trans} only %}
+    {% include "_tab.html.twig" with {name: 'prolonged', icon: '', label: 'rules.duration.prolonged.label'|trans} only %}
+  </ul>
+
+  {# LASTING #}
+  <div id="lasting" class="py-0 d-none" data-tabs-target="page">
+    <p>{{ "rules.duration.lasting.description"|trans|raw|nl2br }}</p>
+  </div>
+  {# CONCENTRATION #}
+  <div id="concentration" class="py-0 d-none" data-tabs-target="page">
+    <p>{{ "rules.duration.concentration.description"|trans|raw|nl2br }}</p>
+  </div>
+  {# TRANSITORY #}
+  <div id="transitory" class="py-0 d-none" data-tabs-target="page">
+    <p>{{ "rules.duration.transitory.description"|trans|raw|nl2br }}</p>
     <div class="btn-group" role="group">
-        {% for i in 1..5 %}
-          <input type="radio" class="btn-check" id="{{ key }}-{{ i }}" name="{{ key }}" value="{{ i }}"/>
-          <label class="text-sub btn btn-primary" for="{{ key }}-{{ i }}">
-            {{ i * element.step }}
-          </label>
-        {% endfor %}
-        {% if not element.limited|default(false) %}
-          <input type="radio" class="btn-check" id="{{ key }}-99" name="{{ key }}" value="99"/>
-          <label class="text-sub btn btn-primary" for="{{ key }}-99">
-          +
-          </label>
-        {% endif %}
+      {% for i in 1..5 %}
+        <input type="radio" class="btn-check" id="r-{{ key }}-{{ i }}" name="{{ key }}" value="{{ "rules.#{key}.transitory.value"|trans(count: i) }}"
+          data-action="mage--spellcasting#updateValue"
+          data-mage--spellcasting-type-param="transitory"
+        />
+        <label class="text-sub btn btn-primary" for="r-{{ key }}-{{ i }}">
+          {{ "rules.duration.transitory.count"|trans(count: i) }}
+        </label>
+      {% endfor %}
+      <input type="radio" class="btn-check" id="r-{{ key }}-99" name="{{ key }}" value="{{ "rules.duration.transitory.value"|trans(count: 99) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="transitory"
+      />
+      <label class="text-sub btn btn-primary" for="r-{{ key }}-99">
+      +
+      </label>
     </div>
-  </div> #}
+    <div class="text-strong" data-mage--spellcasting-target="rule" data-type="transitory"></div>
+    <hr>
+  </div>
+  {# PROLONGED #}
+  <div id="prolonged" class="py-0 d-none" data-tabs-target="page">
+    <p>{{ "rules.duration.description"|trans|raw|nl2br }}</p>
+    <input type="checkbox" class="btn-check" id="btn-check-duration" autocomplete="off" data-action="click->mage--spellcasting#switchAdvanced" data-mage--spellcasting-type-param="duration">
+    <label class="btn btn-primary" for="btn-check-duration">Advanced</label>
+    <div class="btn-group" role="group">
+      {% for i in 1..5 %}
+        <input type="radio" class="btn-check" id="r-{{ key }}-{{ i }}" name="{{ key }}" value="{{ "rules.#{key}.value"|trans(count: i) }}"
+          data-action="mage--spellcasting#updateValue"
+          data-mage--spellcasting-type-param="duration"
+        />
+        <label class="text-sub btn btn-primary" for="r-{{ key }}-{{ i }}">
+          {% if default is not defined %}
+            {% set default = 1 %}
+            {% set advanced = 1 %}
+            {{ default }}mʳ
+          {% else %}
+            {% set default = default * 2 %}
+            {% set advanced = advanced * 4 %}
+            <span class="duration default">{{ default }}mʳ</span>
+            <span class="duration advanced d-none">{{ advanced }}mʳ</span>
+          {% endif %}
+          <br>
+          <span class="duration default">{{ default * 5 }}m³</span>
+          <span class="duration advanced d-none">{{ advanced * 5 }}m³</span>
+        </label>
+      {% endfor %}
+      <input type="radio" class="btn-check" id="r-{{ key }}-99" name="{{ key }}" value="{{ "rules.duration.value"|trans(count: 99) }}"
+        data-action="mage--spellcasting#updateValue"
+        data-mage--spellcasting-type-param="duration"
+      />
+      <label class="text-sub btn btn-primary" for="r-{{ key }}-99">
+      +
+      </label>
+    </div>
+    <div class="text-strong" data-mage--spellcasting-target="rule" data-type="size" data-remove="area"></div>
+    <hr>
+  </div>
 </div>
+{% endblock %}
+
+{% block value %}{% endblock %}

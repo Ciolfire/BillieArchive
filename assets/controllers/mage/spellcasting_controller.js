@@ -22,7 +22,37 @@ export default class extends Controller {
     this.ruleTargets.forEach(rule => {
       if (rule.dataset.type == type) {
         rule.innerText = currentTarget.value;
+        this.removeValue(rule.dataset.remove);
       }
+    });
+  }
+
+  removeValue(classes)
+  {
+    this.ruleTargets.forEach(rule => {
+      if (classes.includes(rule.dataset.type) ) {
+        rule.innerText = "";
+      }
+    });
+  }
+
+  switchAdvanced(event)
+  {
+    let target = event.currentTarget;
+    let type = event.params.type;
+    let show = ".default";
+    let hide = ".advanced";
+    
+    if (target.checked) {
+      show = ".advanced";
+      hide = ".default";
+    }
+
+    document.querySelectorAll(`${show}.${type}`).forEach(content => {
+      content.classList.remove('d-none');
+    });
+    document.querySelectorAll(`${hide}.${type}`).forEach(content => {
+      content.classList.add('d-none');
     });
   }
 
