@@ -145,4 +145,7 @@ return [
         'version' => '1.6.2',
         'type' => 'css',
     ],
+    '@toast-ui/editor/dist/i18n/fr-FR.js' => [
+        'version' => '3.2.2',
+    ],
 ];

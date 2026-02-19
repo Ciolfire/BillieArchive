@@ -5,10 +5,12 @@ import { Editor } from '@toast-ui/editor';
 
 import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css'; // Editor's Style
+// import '@toast-ui/editor/dist/i18n/fr-FR.js'; // Translation
 
 // Color syntax Plugin
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+
 
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
@@ -27,8 +29,10 @@ export default class extends Controller {
     this.element.after(wrapper);
     this.editor = new Editor({
       el: wrapper,
-      height: '500px',
-      initialEditType: 'markdown',
+      height: '30em',
+      autofocus: false,
+      // language: "fr-FR",
+      initialEditType: 'wysiwyg',
       initialValue: this.element.value,
       previewStyle: previewStyle,
       theme: 'dark',
