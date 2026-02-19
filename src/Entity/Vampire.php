@@ -52,9 +52,9 @@ class Vampire extends Character
   private Collection $rituals;
 
 
-  public function __construct($isAncient = false)
+  public function __construct(bool $isAncient = false, bool $isNpc = false, ?Chronicle $chronicle = null)
   {
-    parent::__construct($isAncient);
+    parent::__construct(isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
 
     $this->disciplines = new ArrayCollection();
     $this->devotions = new ArrayCollection();

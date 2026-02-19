@@ -12,7 +12,7 @@ use App\Entity\Clan;
 use App\Entity\Covenant;
 use App\Entity\Discipline;
 use App\Entity\Vampire;
-use App\Form\CharacterForm;
+use App\Form\Creation\VampireForm;
 use App\Form\Vampire\EmbraceForm;
 use App\Service\CharacterService;
 use App\Service\CreationService;
@@ -46,35 +46,35 @@ class VampireController extends AbstractController
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Vampire($isAncient);
-    $character->setChronicle($chronicle);
-    $character->setIsNpc($isNpc);
+    $vampire = new Vampire(isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
 
     /** @var User $user */
     $user = $this->getUser();
-    $character->setPlayer($user);
-    $merits = $this->characterService->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
+    $vampire->setPlayer($user);
+    $merits = $this->characterService->filterMerits($vampire);
+    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClan($vampire->getChronicle());
+    // We are creating a vampire, so we use the extended Creation/VampireForm
+    $form = $this->createForm(VampireForm::class, $vampire, ['clans' => $clans]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+        $this->creationService->addMerits($vampire, $form->getExtraData()['merits']);
       }
-      $this->creationService->getSpecialties($character, $form);
+      $this->creationService->getSpecialties($vampire, $form);
       // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
+      $vampire->setWillpower($vampire->getAttributes()->get('resolve', false) + $vampire->getAttributes()->get('composure', false));
 
-      $this->dataService->save($character);
+      $this->dataService->save($vampire);
 
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+      return $this->redirectToRoute('character_show', ['id' => $vampire->getId()]);
     }
     $this->dataService->loadMeritsPrerequisites($merits);
 
     return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
+      'character' => $vampire,
       'form' => $form,
       'attributes' => $this->characterService->getSortedAttributes(),
-      'skills' => $this->characterService->getskillList($character),
+      'skills' => $this->characterService->getskillList($vampire),
       'merits' => $merits,
     ]);
   }
@@ -88,7 +88,7 @@ class VampireController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
-    $clans = $this->dataService->findBy(Clan::class, ['isBloodline' => false, 'isAncient' => $character->isAncient()]);
+    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClan($character->getChronicle());
     $covenants = $this->dataService->findBy(Covenant::class, ['isAncient' => $character->isAncient()]);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);

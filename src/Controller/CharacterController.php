@@ -229,46 +229,11 @@ class CharacterController extends AbstractController
   #[Route('/new/werewolf/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
   public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
-    if ($chronicle && $chronicle->isAncient()) {
-      $isAncient = true;
-    }
-    $character = new Werewolf($isAncient);
-    $character->setChronicle($chronicle);
-    $character->setIsNpc($isNpc);
-
-    /** @var User $user */
-    $user = $this->getUser();
-    $character->setPlayer($user);
-    $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
-      }
-      $this->creationService->getSpecialties($character, $form);
-      // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
-
-      $this->dataService->save($character);
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-    $this->dataService->loadMeritsPrerequisites($merits);
-
-    return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
-      'form' => $form,
-      'attributes' => $this->service->getSortedAttributes(),
-      'skills' => $this->service->getSkillList($character),
-      'merits' => $merits,
-    ]);
   }
 
   #[Route('/new/mage/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
   public function newMage(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
-
   }
 
   #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
