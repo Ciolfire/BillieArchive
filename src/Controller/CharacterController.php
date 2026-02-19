@@ -17,6 +17,7 @@ use App\Entity\Possessed;
 use App\Entity\Roll;
 use App\Entity\StatusEffect;
 use App\Entity\Types\SettingType;
+use App\Entity\Werewolf;
 use App\Form\CharacterAccessForm;
 use App\Form\CharacterInfoAccessForm;
 use App\Form\CharacterNoteForm;
@@ -53,10 +54,6 @@ class CharacterController extends AbstractController
   private ItemService $itemService;
   /** @var array<string, array<string, array<string, string|null>>> */
   private array $attributes;
-  /** @var array<string, array<string, string|null>> */
-  private array $skills;
-  /** @var array<string, array<string, string|null>> */
-  private array $ancientSkills;
 
   public function __construct(DataService $dataService, CreationService $creationService, CharacterService $service, ItemService $itemService)
   {
@@ -64,9 +61,6 @@ class CharacterController extends AbstractController
     $this->creationService = $creationService;
     $this->service = $service;
     $this->itemService = $itemService;
-    $this->attributes = $this->service->getSortedAttributes();
-    $this->skills = $this->service->getSortedSkills();
-    $this->ancientSkills = $this->service->getSortedAncientSkills();
   }
 
   #[Route('s', name: 'character_index', methods: ['GET'])]
@@ -208,8 +202,8 @@ class CharacterController extends AbstractController
 
     return $this->render("character_sheet_type/show.html.twig", [
       'character' => $character,
-      'attributes' => $this->attributes,
-      'skills' => $this->getSkillList($character),
+      'attributes' => $this->service->getSortedAttributes(),
+      'skills' => $this->service->getSkillList($character),
       'rolls' => $rolls,
       'setting' => $character->getSetting(),
       'special' => $this->service->getSpecific($character, $type),
@@ -235,13 +229,40 @@ class CharacterController extends AbstractController
   #[Route('/new/werewolf/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
   public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
+    if ($chronicle && $chronicle->isAncient()) {
+      $isAncient = true;
+    }
+    $character = new Werewolf($isAncient);
+    $character->setChronicle($chronicle);
+    $character->setIsNpc($isNpc);
 
-  }
+    /** @var User $user */
+    $user = $this->getUser();
+    $character->setPlayer($user);
+    $merits = $this->service->filterMerits($character);
+    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (isset($form->getExtraData()['merits'])) {
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+      }
+      $this->creationService->getSpecialties($character, $form);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
 
-  #[Route('/new/vampire/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
-  public function newVampire(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
-  {
+      $this->dataService->save($character);
 
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+    $this->dataService->loadMeritsPrerequisites($merits);
+
+    return $this->render('character_sheet/new.html.twig', [
+      'character' => $character,
+      'form' => $form,
+      'attributes' => $this->service->getSortedAttributes(),
+      'skills' => $this->service->getSkillList($character),
+      'merits' => $merits,
+    ]);
   }
 
   #[Route('/new/mage/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
@@ -283,8 +304,8 @@ class CharacterController extends AbstractController
     return $this->render('character_sheet/new.html.twig', [
       'character' => $character,
       'form' => $form,
-      'attributes' => $this->attributes,
-      'skills' => $this->getskillList($character),
+      'attributes' => $this->service->getSortedAttributes(),
+      'skills' => $this->service->getSkillList($character),
       'merits' => $merits,
     ]);
   }
@@ -318,8 +339,8 @@ class CharacterController extends AbstractController
     return $this->render('character_sheet/new.html.twig', [
       'character' => $character,
       'form' => $form,
-      'attributes' => $this->attributes,
-      'skills' => $this->getSkillList($character),
+      'attributes' => $this->service->getSortedAttributes(),
+      'skills' => $this->service->getSkillList($character),
       'merits' => $merits,
     ]);
   }
@@ -344,8 +365,8 @@ class CharacterController extends AbstractController
       'character' => $character,
       'setting' => $character->getSetting(),
       'form' => $form,
-      'attributes' => $this->attributes,
-      'skills' => $this->getSkillList($character),
+      'attributes' => $this->service->getSortedAttributes(),
+      'skills' => $this->service->getSkillList($character),
       'merits' => $merits,
       //should send back the data of the custom form, when the form was submitted but not validated, no hurry at all though
       $character->getType() => $this->service->getSpecial($character),
@@ -1038,14 +1059,5 @@ class CharacterController extends AbstractController
     //   $this->addFlash("error", ["character.ability.not.removed", ['type' => $request->request->get('type'), 'method' => $request->request->get('method')]]);
     // }
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-  }
-
-  private function getSkillList(Character $character)
-  {
-    if ($character->isAncient()) {
-      return $this->ancientSkills;
-    }
-
-    return $this->skills;
   }
 }

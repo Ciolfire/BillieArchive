@@ -1041,4 +1041,13 @@ class CharacterService
 
     return $types;
   }
+
+  public function getSkillList(Character $character)
+  {
+    if ($character->isAncient()) {
+      return $this->getSortedAncientSkills();
+    }
+
+    return $this->getSortedSkills();
+  }
 }

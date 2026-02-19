@@ -6,13 +6,16 @@ namespace App\Controller\Vampire;
 
 use App\Entity\Attribute;
 use App\Entity\Character;
+use App\Entity\Chronicle;
 use App\Entity\User;
 use App\Entity\Clan;
 use App\Entity\Covenant;
 use App\Entity\Discipline;
 use App\Entity\Vampire;
+use App\Form\CharacterForm;
 use App\Form\Vampire\EmbraceForm;
-use App\Repository\CharacterRepository;
+use App\Service\CharacterService;
+use App\Service\CreationService;
 use App\Service\DataService;
 use App\Service\VampireService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +29,55 @@ class VampireController extends AbstractController
 {
   private DataService $dataService;
   private VampireService $service;
+  private CharacterService $characterService;
+  private CreationService $creationService;
 
-  public function __construct(DataService $dataService, VampireService $service)
+  public function __construct(DataService $dataService, VampireService $service, CharacterService $characterService, CreationService $creationService)
   {
     $this->dataService = $dataService;
     $this->service = $service;
+    $this->characterService = $characterService;
+    $this->creationService = $creationService;
+  }
+
+  #[Route('/vampire/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
+  public function newVampire(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  {
+    if ($chronicle && $chronicle->isAncient()) {
+      $isAncient = true;
+    }
+    $character = new Vampire();
+    $character->setIsAncient($isAncient);
+    $character->setChronicle($chronicle);
+    $character->setIsNpc($isNpc);
+
+    /** @var User $user */
+    $user = $this->getUser();
+    $character->setPlayer($user);
+    $merits = $this->characterService->filterMerits($character);
+    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      if (isset($form->getExtraData()['merits'])) {
+        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+      }
+      $this->creationService->getSpecialties($character, $form);
+      // We make sure the willpower is correct
+      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
+
+      $this->dataService->save($character);
+
+      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+    }
+    $this->dataService->loadMeritsPrerequisites($merits);
+
+    return $this->render('character_sheet/new.html.twig', [
+      'character' => $character,
+      'form' => $form,
+      'attributes' => $this->$this->characterService->getSortedAttributes(),
+      'skills' => $this->characterService->getskillList($character),
+      'merits' => $merits,
+    ]);
   }
 
   #[Route('/{id<\d+>}/embrace', name: 'character_embrace', methods: ['GET', 'POST'])]
