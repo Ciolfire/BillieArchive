@@ -1,4 +1,8 @@
+{% trans_default_domain 'vampire' %}
+
 <h2>{{ 'label.single'|trans({}, 'clan') }}</h2>
+
+<h4>{{ 'creation.clan'|trans }}</h4>
     {{form_row(form.clan)}}
     {% for clan in clans %}
       <div class="block block-solid {{ clan.name }} d-none mb-3" data-character--embrace-target="clanDescription">

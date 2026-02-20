@@ -2,8 +2,10 @@
 
 {% if character.isAncient %}
   <h2>{{ 'wing.label.single'|trans }}</h2>
+  <h4>{{ 'creation.wing'|trans([], 'vampire') }}</h4>
 {% else %}
   <h2>{{ 'covenant.label.single'|trans }}</h2>
+  <h4>{{ 'creation.covenant'|trans([], 'vampire') }}</h4>
 {% endif %}
 {{form_row(form.covenant)}}
 {% for covenant in covenants %}

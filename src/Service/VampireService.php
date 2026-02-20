@@ -276,17 +276,17 @@ class VampireService
   {
     foreach ($disciplines as $id => $level) {
       $discipline = $this->dataService->find(Discipline::class, $id);
-      if ($discipline instanceof Discipline) {
+      if ($discipline instanceof Discipline && $level > 0) {
         if ($character instanceof Vampire) {
           $newDiscipline = new VampireDiscipline($character, $discipline, (int)$level);
         } else {
           $newDiscipline = new GhoulDiscipline($character, $discipline, (int)$level);
         }
+        $this->dataService->add($newDiscipline);
+        $character->addDiscipline($newDiscipline);
       } else {
-        throw new \Exception("\$discipline not a Discipline");
+        // throw new \Exception("\$discipline not a Discipline");
       }
-      $this->dataService->add($newDiscipline);
-      $character->addDiscipline($newDiscipline);
     }
   }
 

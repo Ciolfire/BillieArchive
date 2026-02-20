@@ -1,8 +1,12 @@
 {% trans_default_domain 'vampire' %}
 
+{% if formName is not defined %}
+  {% set formName = "embrace_form" %}
+{% endif %}
+
 <h2>{{ 'label.multi'|trans({}, 'discipline') }}</h2>
 <div class="row mb-4 justify-content-center">
-  <div class="col-12 text-center text-dark block block-solid mt-2">
+  <div class="col-12 text-center text-strong mt-2">
     {{ "embrace.discipline.creation.info"|trans|raw|nl2br }}
     ({{ 'embrace.discipline.creation.favored'|trans }} <span data-character--embrace-target="disciplinesFavored">0</span>)
     <br>
@@ -12,7 +16,7 @@
   <div class="row justify-content-center">
     {% for discipline in disciplines %}
       <div class="col-4 discipline d-none order-2">
-        <div class="discipline-block discipline-new-block">
+        <div class="discipline-block">
           {% set max = 3 %}
           {% set min = 0 %}
           {% set base = 0 %}

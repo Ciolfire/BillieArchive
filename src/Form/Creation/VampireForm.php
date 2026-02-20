@@ -8,9 +8,6 @@ use App\Entity\Covenant;
 use App\Entity\Vampire;
 use App\Form\CharacterForm;
 use App\Form\Type\RadiobuttonType;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,10 +23,6 @@ class VampireForm extends CharacterForm
     parent::buildForm($builder, $options);
 
     $builder
-      // ->add('clan', EntityType::class, [
-      //   'class' => Clan::class,
-      //   'choices' => $options['clans'],
-      // ])
     ->add('clan', RadiobuttonType::class, [
       'choices' => $options['clans'],
       'choice_label' => 'name',
@@ -74,13 +67,33 @@ class VampireForm extends CharacterForm
         ];
       }
     ])
+    ->add('covenant', RadiobuttonType::class, [
+      'empty_data' => null,
+      'required' => false,
+      'placeholder' => null,
+      'choices' => $options['covenants'],
+      'choice_label' => 'name',
+      'choice_attr' => function(Covenant $covenant) {
+        return [
+          'data-organization' => "covenant-{$covenant->getId()}",
+          'data-action' => 'click->character--embrace#covenantPicked',
+          'data-character--embrace-target' => 'covenant'
+        ];
+      }
+    ])
       ->add('deathAge', null, [
         'label' => false,
         'attr' => [
           'placeholder' => 'embrace.at'
         ],
         'translation_domain' => 'vampire',
-      ]);
+      ])
+      ->add('sire', null, [
+        'label' => 'embrace.by',
+        'translation_domain' => 'vampire',
+        'required' => false,
+      ])
+      ;
   }
 
   public function configureOptions(OptionsResolver $resolver): void
@@ -91,9 +104,10 @@ class VampireForm extends CharacterForm
       "data_class" => Vampire::class,
       "translation_domain" => 'character',
       "allow_extra_fields" => true,
-      // "name" => "human",
+      "name" => "character",
       // "is_edit" => false,
       "clans" => null,
+      "covenants" => null,
       "attributes" => null,
     ]);
   }

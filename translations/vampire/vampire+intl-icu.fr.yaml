@@ -36,7 +36,7 @@ embrace:
   save: Commencez mon Requiem
   discipline:
     creation:
-      info: "Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan."
+      info: Dépensez <strong>trois</strong> points de Disciplines, dont au moins <strong>deux</strong> dans les <strong>pouvoirs favoris</strong> du clan.
       favored: Actuellement
       all: Total
   title: ... Vous avez été Étreint...
@@ -60,3 +60,10 @@ vitae:
   per.turn: Max <span class="accent">{value}</span> par Tour
 morality:
   label: Humanité
+
+creation:
+  clan: Choisissez le clan auquel votre personnage appartient.
+  covenant: Choisissez la ligue dont votre personnage est membre. Si vous ne souhaitez pas choisir une ligue, votre personnage sera “non-aligné” ou “indépendant”.
+  wing: Choisissez l'aile dont votre personnage est membre. Si votre personnage ne fait pas parti de la Camarilla, votre personnage sera “non-aligné” ou “indépendant”.
+  attribute: En fonction du clan choisi, sélectionnez l'un des deux attributs favoris de ce clan et attribuez à votre personnage un point supplémentaire dans cet attribut.
+  disciplines: Choisissez trois points de Disciplines, dont au moins deux doivent provenir des pouvoirs favoris du clan. Certains sont réservés aux membres de l'alliance.

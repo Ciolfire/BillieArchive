@@ -22,7 +22,7 @@ export default class extends Controller {
 
 
   connect() {
-    let covenantNull = document.getElementsByClassName("embrace_form[covenant]-null")[0];
+    let covenantNull = document.querySelector('[id$="_form_covenant_none"]');
     covenantNull.checked = true;
     covenantNull.dataset.action = "click->character--embrace#covenantUnpicked";
     this.clanTargets.forEach(clan => {
@@ -31,6 +31,16 @@ export default class extends Controller {
         clan.dispatchEvent(new Event("click"));
       }
     });
+  }
+
+  submitActivate(isValid = true) {
+    if (this.hasSubmitTarget) {
+      if (isValid) {
+        this.submitTarget.classList.remove("disabled");
+      } else {
+        this.submitTarget.classList.add("disabled");
+      }
+    }
   }
 
   disciplineUpdate() {
@@ -56,9 +66,9 @@ export default class extends Controller {
     this.disciplinesTotalTarget.innerText = total;
     this.disciplinesFavoredTarget.innerText = favored;
     if ((favored == 2 || favored == 3) && total == 3) {
-      this.submitTarget.classList.remove("disabled");
+      this.submitActivate(true);
     } else {
-      this.submitTarget.classList.add("disabled");
+      this.submitActivate(false);
     }
   }
 
@@ -86,7 +96,7 @@ export default class extends Controller {
   }
 
   covenantUnpicked(event) {
-    document.getElementsByClassName("embrace_form[covenant]-null")[0].checked = true;
+    document.querySelector('[id$="_form_covenant_none"]').checked = true;
     this.covenantDescriptionTargets.forEach(element => {
       element.classList.add('d-none');
     });
@@ -162,7 +172,7 @@ export default class extends Controller {
         element.setAttribute('name', '');
       }
     });
-    if (document.getElementsByClassName("embrace_form[covenant]-null")[0].checked) {
+    if (document.querySelector('[id$="_form_covenant_none"]').checked) {
       document.getElementById('embrace_form_covenant').classList.add("d-none");
     }
     console.debug("cleaned");

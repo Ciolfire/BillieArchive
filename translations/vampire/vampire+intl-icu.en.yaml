@@ -36,7 +36,7 @@ embrace:
   save: Start my Requiem
   discipline:
     creation:
-      info: Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>."
+      info: Spend <strong>three</strong> dots of Disciplines, at least <strong>two</strong> of which must come from the clan <strong>favored powers</strong>.
       favored: Currently
       all: Total
   title: ... You have been embraced...
@@ -60,3 +60,10 @@ vitae:
   per.turn: Max <span class="accent">{value}</span> per Turn
 morality:
   label: Humanity
+
+creation:
+  clan: Choose a clan to which your character belongs.
+  covenant: Choose a covenant in which your character claims membership. You have the option to choose no covenant, your character will be “unbound,” “unaligned” or “independent”.
+  wing: Choose a wing in which your character claims membership. If your character is not a part of the Camarilla, your character will be “unbound,” “unaligned” or “independent”.
+  attribute: Based on your choice of clan, select one of the clan’s two favored Attributes and give your character an additional dot in that trait.
+  disciplines: Choose three dots of Disciplines, at least two dots of which must come from the clan’s favored powers. Some are available to covenant members only.
