@@ -14,5 +14,12 @@
     {{ form_row(form.attribute, {'attr': {class: 'btn-check'}}) }}
     {% include "character_sheet_type/vampire/embrace/_covenants.html.twig" %}
     {% include "character_sheet_type/vampire/embrace/_disciplines.html.twig" with {formName: "character_form"}%}
+    <h2>{{ 'morality.label'|trans }}</h4>
+    <h4>{{ 'creation.humanity.title'|trans }}</h4>
+    <div class="col-12 text-center text-strong mt-2">{{ 'creation.humanity.text'|trans }}</div>
+    {{ form_row(form.moral) }}
+    <h2>{{ 'potency.label'|trans }}</h4>
+    <div class="col-12 text-center text-strong mt-2">{{ 'creation.potency'|trans }}</div>
+    {{ form_row(form.potency) }}
   </div>
 </div>

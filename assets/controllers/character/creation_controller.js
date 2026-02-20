@@ -16,6 +16,7 @@ export default class extends Controller {
     "advantage",
     "creationMerit",
     "merit",
+    "templateTrait",
   ];
 
   connect() {
@@ -81,6 +82,10 @@ export default class extends Controller {
 
   meritUpdate(event) {
     let total = this.cost(this.meritTargets, 'merit');
+    if (this.hasTemplateTraitTarget) {
+      console.debug("has Template trait");
+      total += this.traitCost(this.templateTraitTargets);
+    }
 
     this.creationMeritTarget.innerText = total;
     if (total == 7) {
@@ -116,6 +121,20 @@ export default class extends Controller {
     });
     return total;
   }
+
+    traitCost(targets) {
+    let total = 0;
+
+    targets.forEach(target => {
+      let input = target.previousElementSibling;
+      if (input.checked) {
+        total += (input.value - 1) * 3;
+      }
+    });
+    console.debug(total);
+    return total;
+  }
+
 
   switch(target, show, hide) {
     target.classList.remove(hide);

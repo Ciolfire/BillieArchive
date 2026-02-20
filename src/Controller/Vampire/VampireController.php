@@ -68,6 +68,8 @@ class VampireController extends AbstractController
 
       // We make sure the willpower is correct
       $vampire->setWillpower($vampire->getAttributes()->get('resolve', false) + $vampire->getAttributes()->get('composure', false));
+      // Bonus experience if lowerer Humanity
+      $vampire->setXpTotal((7 - $vampire->getMoral()) * 5);
       $this->service->addDisciplines($vampire, $form->getExtraData()['disciplines']);
       $this->dataService->save($vampire);
 

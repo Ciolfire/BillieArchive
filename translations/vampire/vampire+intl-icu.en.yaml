@@ -67,3 +67,7 @@ creation:
   wing: Choose a wing in which your character claims membership. If your character is not a part of the Camarilla, your character will be “unbound,” “unaligned” or “independent”.
   attribute: Based on your choice of clan, select one of the clan’s two favored Attributes and give your character an additional dot in that trait.
   disciplines: Choose three dots of Disciplines, at least two dots of which must come from the clan’s favored powers. Some are available to covenant members only.
+  humanity:
+    title: Storytellers may allow those players applying the vampire template during character creation to trade dots of Humanity for experience points.
+    text: This trade-in reflects some heinous past behavior the vampire engaged in and learned from (accounting for the added experience points), but which also scarred her deeply (explaining the loss in Humanity). Players may sacrifice one dot of Humanity for five experience points.
+  potency: Blood Potency can be increased with Merit-point expenditure at a rate of three to one.

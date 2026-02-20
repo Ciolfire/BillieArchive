@@ -67,3 +67,7 @@ creation:
   wing: Choisissez l'aile dont votre personnage est membre. Si votre personnage ne fait pas parti de la Camarilla, votre personnage sera “non-aligné” ou “indépendant”.
   attribute: En fonction du clan choisi, sélectionnez l'un des deux attributs favoris de ce clan et attribuez à votre personnage un point supplémentaire dans cet attribut.
   disciplines: Choisissez trois points de Disciplines, dont au moins deux doivent provenir des pouvoirs favoris du clan. Certains sont réservés aux membres de l'alliance.
+  humanity:
+    title: Les conteurs peuvent autoriser les joueurs utilisant le modèle de vampire lors de la création de leur personnage à échanger des points d'Humanité contre des points d'expérience.
+    text: Ce sacrifice reflète des actes passés odieux commis par la vampire, dont elle a tiré des leçons (ce qui explique les points d'expérience supplémentaires), mais qui l'ont aussi profondément marquée (ce qui explique la perte d'Humanité). Les joueurs peuvent sacrifier un point d'Humanité pour cinq points d'expérience.
+  potency: La puissance sanguine peut être augmentée en dépensant des points de mérite à un taux de trois pour un.

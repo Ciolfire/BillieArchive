@@ -93,6 +93,24 @@ class VampireForm extends CharacterForm
         'translation_domain' => 'vampire',
         'required' => false,
       ])
+      ->add('moral', RadiobuttonType::class, [
+        'choices' => [7 => 7,6 => 6,5 => 5],
+        'data' => 7,
+      ])
+      ->add('potency', RadiobuttonType::class, [
+        'choices' => [
+          1 => 1,
+          2 => 2,
+          3 => 3
+        ],
+        'empty_data' => 1,
+        'choice_attr' => function ($choice, string $key, mixed $value) {
+          return [
+            "data-character--creation-target" => "templateTrait",
+            "data-action" => "click->character--creation#meritUpdate",
+          ];
+        },
+      ])
       ;
   }
 
