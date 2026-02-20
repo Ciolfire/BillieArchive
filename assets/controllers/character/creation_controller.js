@@ -84,7 +84,7 @@ export default class extends Controller {
     let total = this.cost(this.meritTargets, 'merit');
     if (this.hasTemplateTraitTarget) {
       console.debug("has Template trait");
-      total += this.traitCost(this.templateTraitTargets);
+      total += this.traitCost(event, this.templateTraitTargets);
     }
 
     this.creationMeritTarget.innerText = total;
@@ -122,12 +122,15 @@ export default class extends Controller {
     return total;
   }
 
-    traitCost(targets) {
+    traitCost(event, targets) {
     let total = 0;
+    let current = event.currentTarget;
 
     targets.forEach(target => {
       let input = target.previousElementSibling;
-      if (input.checked) {
+      if (current == target) {
+        total += (current.dataset.value - 1) * 3;
+      } else if (input.checked && current.dataset.type != target.dataset.type) {
         total += (input.value - 1) * 3;
       }
     });

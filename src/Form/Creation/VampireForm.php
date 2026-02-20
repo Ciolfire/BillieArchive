@@ -108,6 +108,8 @@ class VampireForm extends CharacterForm
           return [
             "data-character--creation-target" => "templateTrait",
             "data-action" => "click->character--creation#meritUpdate",
+            "data-value" => $value,
+            "data-type" => "potency",
           ];
         },
       ])
