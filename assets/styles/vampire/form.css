@@ -6,6 +6,6 @@
   --vampire-input-active-bg     : #b5b5b5ed;
   --vampire-input-font          : "goudy";
   
-  --vampire-label-color         : var(--main);
+  --vampire-label-color         : var(--main-bright);
   --vampire-label-font          : "goudy";
 }
