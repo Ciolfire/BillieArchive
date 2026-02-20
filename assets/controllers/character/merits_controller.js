@@ -152,6 +152,7 @@ export default class extends Controller {
           break;
         case 'skill':
           if ((target !== null && data.name == target) || data.type == type) {
+            console.debug(`character_form_skills_${data.name}`);
             if (document.getElementById(`character_form_skills_${data.name}`).value >= data.value) {
             // if (this.attr("skills_" + data.name) >= data.value) {
               this.switch(prerequisite, "accent", "ko");
