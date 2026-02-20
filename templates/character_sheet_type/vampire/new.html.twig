@@ -1,5 +1,7 @@
 <h2 class="mt-4">Add Vampire Template</h2>
-<div class="row block my-2 py-3">
-  {{ form_row(form.clan) }}
+<div class="row block my-2 py-3" data-controller="character--embrace">
+  {# {{ form_row(form.clan) }} #}
+  {% include "character_sheet_type/vampire/embrace/_clans.html.twig" %}
+  {{ form_row(form.attribute, {'attr': {class: 'btn-check'}}) }}
   {{ form_row(form.deathAge) }}
 </div>

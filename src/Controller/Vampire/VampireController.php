@@ -53,14 +53,17 @@ class VampireController extends AbstractController
     $vampire->setPlayer($user);
     $merits = $this->characterService->filterMerits($vampire);
     $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClan($vampire->getChronicle());
+    $attributes = $this->dataService->findAll(Attribute::class);
     // We are creating a vampire, so we use the extended Creation/VampireForm
-    $form = $this->createForm(VampireForm::class, $vampire, ['clans' => $clans]);
+    $form = $this->createForm(VampireForm::class, $vampire, ['clans' => $clans, 'attributes' => $attributes]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
         $this->creationService->addMerits($vampire, $form->getExtraData()['merits']);
       }
       $this->creationService->getSpecialties($vampire, $form);
+      $vampire->addAttribute($form->get('attribute')->getData()->getIdentifier(), 1);
+
       // We make sure the willpower is correct
       $vampire->setWillpower($vampire->getAttributes()->get('resolve', false) + $vampire->getAttributes()->get('composure', false));
 
@@ -76,6 +79,7 @@ class VampireController extends AbstractController
       'attributes' => $this->characterService->getSortedAttributes(),
       'skills' => $this->characterService->getskillList($vampire),
       'merits' => $merits,
+      'clans' => $clans,
     ]);
   }
 
