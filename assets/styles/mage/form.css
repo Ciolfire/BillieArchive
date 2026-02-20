@@ -6,6 +6,6 @@
   --mage-input-active-bg     : rgba(27, 31, 31, 0.75);
   --mage-input-font          : "goudy";
   
-  --mage-label-color         : var(--main);
+  --mage-label-color         : var(--main-bright);
   --mage-label-font          : "goudy";
 }
