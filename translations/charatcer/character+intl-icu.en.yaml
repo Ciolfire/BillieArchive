@@ -68,10 +68,10 @@ creation:
     text: "Your character’s innate capabilities: Prioritize the three categories. Your character begins with one dot in each Attribute automatically, already filled in on the character sheet. Dots spent now are in addition to these starting ones. The fifth dot in any Attribute costs two dots to purchase."
   skills:
     label: Select Skills
-    text: "Our character’s learned capabilities: Prioritize the three categories (11/7/4). The fifth dot in any Skill costs two dots to purchase. For more information, see Chapter 3: Skills."
+    text: "Your character’s learned capabilities: Prioritize the three categories. The fifth dot in any Skill costs two dots to purchase. For more information, see Chapter 3: Skills."
   specialties:
     label: Select Skill Specialties
-    text: "Your character’s focused areas of expertise: Take three Skill Specialties of your choice. You can assign each how you like, whether each to a separate Skill or all three to a single Skill. There is no limit to how many Specialties can be assigned to a single Skill."
+    text: "Your character’s focused areas of expertise: You can assign each how you like, whether each to a separate Skill or all three to a single Skill. There is no limit to how many Specialties can be assigned to a single Skill."
   merits:
     label: Select Merits
     text: "Merits represent character enhancements and background elements: Spend 7 dots on Merits. The fifth dot in any Merit costs two dots to purchase. Note that many Merits have prerequisites."
