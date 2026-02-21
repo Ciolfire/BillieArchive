@@ -62,6 +62,7 @@ morality:
   label: Humanity
 
 creation:
+  vampire: Add Vampire Template
   clan: Choose a clan to which your character belongs.
   covenant: Choose a covenant in which your character claims membership. You have the option to choose no covenant, your character will be “unbound,” “unaligned” or “independent”.
   wing: Choose a wing in which your character claims membership. If your character is not a part of the Camarilla, your character will be “unbound,” “unaligned” or “independent”.

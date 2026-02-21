@@ -4,18 +4,21 @@
   <div class="d-none">
     {{ form_row(form.player) }}
   </div>
+  <div class="col-12">
+    {{ form_row(form.concept) }}
+  </div>
   <div class="row p-2 pt-4">
     <h2>{{ "name.label"|trans }}</h2>
-    <div class="col-12">
+    <div class="col-2">
       {{ form_row(form.title) }}
     </div>   
     <div class="col-4">
       {{ form_row(form.firstName) }}
     </div>
-    <div class="col-4">
+    <div class="col-3">
       {{ form_row(form.nickname) }}
     </div>
-    <div class="col-4">
+    <div class="col-3">
       {{ form_row(form.lastName) }}
     </div>
   </div>
@@ -34,9 +37,6 @@
               <div class="ps-2">{{ form_row(form.lookAge) }}</div>
             </div>
           {% endblock %}
-          <div class="col-12">
-            {{ form_row(form.concept) }}
-          </div>
           <div class="col-12">
             {{ form_row(form.status) }}
           </div>

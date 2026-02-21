@@ -16,6 +16,31 @@
   {{ (type ~ ".new")|trans({}, 'character') }}
 {% endblock %}
 
+{% block shortcuts %}
+  <a href="#concept" class="btn btn-primary">
+    {% include "_icon.html.twig" with {icon: 'description'} only %}
+  </a>
+  <a href="#attributes" class="btn btn-primary">
+    {% include "_icon.html.twig" with {icon: 'attribute'} only %}
+  </a>
+  <a href="#skills" class="btn btn-primary">
+    {% include "_icon.html.twig" with {icon: 'skill'} only %}
+  </a>
+  <a href="#specialties" class="btn btn-primary">
+    {% include "_icon.html.twig" with {icon: 'specialties'} only %}
+  </a>
+  {% if character.type != "human" %}
+    <a href="#{{ character.type }}" class="btn btn-primary">
+      {% include "_icon.html.twig" with {icon: "type/#{character.type}"} only %}
+    </a>
+  {% endif %}
+  <a href="#merits" class="btn btn-primary">
+    {% include "_icon.html.twig" with {icon: 'merit'} only %}
+  </a>
+  <div class="my-2"></div>
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <h2 class="mt-4">
     {{ character.chronicle.name|default('') }}
@@ -28,30 +53,35 @@
   {# Start Form #}
   <div class="container">
     {{ form_start(form, {'attr': {'data-controller': 'character--merits character--creation', 'data-action': 'character--creation:change->character--merits#checkPrerequisite'}}) }}
-    <h2 class="mt-4">{{ "creation.concept"|trans }}</h2>
+    <h2 class="mt-4">{% include "_icon.html.twig" with {icon: 'description'} only %} {{ "creation.concept.label"|trans }}</h2>
     <div class="row block py-3">
+      <h4 id="concept">{{ "creation.concept.text"|trans }}</h4>
       {% include "character_sheet/header/edit.html.twig" %}
     </div>
     {# Attributes #}
-    <h2 class="mt-4">{{ "creation.attributes"|trans }}</h2>
+    <h2 class="mt-4">{% include "_icon.html.twig" with {icon: 'attribute'} only %} {{ "creation.attributes.label"|trans }}</h2>
     <div class="row block py-3">
+      <h4 id="attributes">{{ "creation.attributes.text"|trans }}</h4>
       {% include "character_sheet/attributes/new/elements.html.twig" %}
     </div>
     {# Skills  #}
-    <h2 class="mt-4">{{ "creation.skills"|trans }}</h2>
+    <h2 class="mt-4">{% include "_icon.html.twig" with {icon: 'skill'} only %} {{ "creation.skills.label"|trans }}</h2>
     <div class="row block py-3">
+      <h4 id="skills">{{ "creation.skills.text"|trans }}</h4>
       {% include "character_sheet/skills/new/elements.html.twig" %}
     </div>
     {# Specialties  #}
-    <h2 class="mt-4">{{ "creation.specialities"|trans }}</h2>
+    <h2 class="mt-4">{% include "_icon.html.twig" with {icon: 'specialties'} only %} {{ "creation.specialties.label"|trans }}</h2>
     <div class="row block py-3">
+      <h4 id="specialties">{{ "creation.specialties.text"|trans }}</h4>
       {% include "character_sheet/skills/new/specialties.html.twig" %}
     </div>
     {# Special  #}
     {% include ["character_sheet_type/#{character.type}/new.html.twig", "character_sheet_type/human/new.html.twig"] %}
     {# Merits #}
-    <h2 class="mt-4">{{ "creation.merits"|trans }}</h2>
+    <h2 class="mt-4">{% include "_icon.html.twig" with {icon: 'merit'} only %} {{ "creation.merits"|trans }}</h2>
     <div class="row block my-2 py-3">
+      <h4 id="merits">{{ "creation.merits.text"|trans }}</h4>
       {% include "character_sheet/merits/new/elements.html.twig" %}
     </div>
     {# End #}

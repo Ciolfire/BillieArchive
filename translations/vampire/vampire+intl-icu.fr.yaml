@@ -62,6 +62,7 @@ morality:
   label: Humanité
 
 creation:
+  vampire: Ajouter le Modèle de Vampire
   clan: Choisissez le clan auquel votre personnage appartient.
   covenant: Choisissez la ligue dont votre personnage est membre. Si vous ne souhaitez pas choisir une ligue, votre personnage sera “non-aligné” ou “indépendant”.
   wing: Choisissez l'aile dont votre personnage est membre. Si votre personnage ne fait pas parti de la Camarilla, votre personnage sera “non-aligné” ou “indépendant”.

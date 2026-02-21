@@ -60,11 +60,21 @@ count: >-
   }
 
 creation:
-  concept: Concept de personnage
-  attributes: Select Attributes
-  skills: Select Skills
-  specialities: Select Skill Specialties
-  merits: Select Merits
+  concept: 
+    label: Concept de personnage
+    text: "Commencez par définir le concept de votre personnage. Pour mieux cerner son identité et ses motivations, rédigez une brève description en deux ou trois mots. Celle-ci inclut généralement, mais pas toujours, une idée de sa profession : « journaliste noctambule », « mécanicien stoïque », « enfant perdu », « yuppie capricieux », « jeune homme en colère »."
+  attributes:
+    label: Select Attributes
+    text: "Capacités innées de votre personnage : priorisez les trois catégories. Votre personnage commence avec un point dans chaque Attribut, déjà attribué sur sa fiche. Les points dépensés s’ajoutent à ceux de départ. Le cinquième point dans un Attribut coûte deux points."
+  skills: 
+    label: Select Skills
+    text: "Capacités acquises par notre personnage : priorisez les trois catégories (11/7/4). Le cinquième point dans une compétence coûte deux points. Pour plus d’informations, consultez le chapitre 3 : Compétences."
+  specialties:
+    label: Select Skill Specialties
+    text: "Domaines d'expertise de votre personnage : Choisissez trois spécialités de compétences. Vous pouvez les répartir comme vous le souhaitez, soit chacune à une compétence distincte, soit les trois à une seule. Le nombre de spécialités pouvant être attribuées à une compétence est illimité."
+  merits:
+    label: Select Merits
+    text: "Les Atouts représentent des améliorations de personnage et des éléments de son histoire : dépensez 7 points en Atouts. Le cinquième point d'un Atout coûte deux points. Notez que de nombreux Atouts ont des prérequis."
 
 delete:
   label: Supprimer ?
