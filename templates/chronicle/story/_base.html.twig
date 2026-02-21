@@ -1,6 +1,14 @@
 {% trans_default_domain 'chronicle' %}
 
-<div class="row g-2">
+<div class="row position-relative g-1">
+  <div class="text-end position-absolute w-auto end-0">
+    {% if not loop.first %}
+      <a class="d-block" href="{{ path('chronicle_reorder', {id: chronicle.id, isStory: true})}}">{% include "_icon.html.twig" with {icon: 'caret-up', class: 'icon-sm accent'} %}</a>
+    {% endif %}
+    {% if not loop.last %}
+      <a class="d-block" href="{{ path('chronicle_reorder', {id: chronicle.id, direction: "down", isStory: true})}}">{% include "_icon.html.twig" with {icon: 'caret-down', class: 'icon-sm accent'} %}</a>
+    {% endif %}
+  </div>
   <a class="w-100" href="{{path('chronicle_settings', {id: chronicle.id })}}"><h3>
     {% if chronicle.isAncient %}
       {% include "_icon.html.twig" with { icon: 'coliseum' } only %}

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -62,6 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
   #[ORM\Column(nullable: true)]
   private ?array $preferences = null;
+
+  #[ORM\Column]
+  private array $chroniclesOrder = [];
+
+  #[ORM\Column]
+  private array $storiesOrder = [];
 
   public function __construct()
   {
@@ -195,7 +203,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   /**
    * @see UserInterface
    */
-  public function eraseCredentials() : void
+  public function eraseCredentials(): void
   {
     // If you store any temporary, sensitive data on the user, clear it here
     // $this->plainPassword = null;
@@ -218,7 +226,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->characters;
   }
 
-  public function getChroniclesCharacters(): Array
+  public function getChroniclesCharacters(): array
   {
     $chroniclesCharacters = [];
     foreach ($this->characters as $character) {
@@ -253,9 +261,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this;
   }
 
-  public function getChronicles(): Collection
+  public function getChronicles(): array
   {
-    return $this->chronicles;
+    $chronicles = [];
+    foreach ($this->chroniclesOrder as $id) {
+      foreach ($this->chronicles as $chronicle) {
+        if ($chronicle->getId() == $id) {
+          $chronicles[] = $chronicle;
+        }
+      }
+    }
+    foreach ($this->chronicles as $chronicle) {
+      if (!in_array($chronicle->getId(), $this->chroniclesOrder)) {
+        $chronicles[] = $chronicle;
+      }
+    }
+
+    return $chronicles;
   }
 
   public function addChronicle(Chronicle $chronicle): self
@@ -274,9 +296,99 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this;
   }
 
-  public function getStories(): Collection
+  public function getChroniclesOrder(): array
   {
-    return $this->stories;
+    return $this->chroniclesOrder;
+  }
+
+  public function setChroniclesOrder(array $chroniclesOrder): static
+  {
+    $this->chroniclesOrder = $chroniclesOrder;
+
+    return $this;
+  }
+
+  public function changeChroniclesOrder(Chronicle $movedChronicle, string $direction = "up"): static
+  {
+    $chronicles = $this->getChronicles();
+
+    foreach ($chronicles as $index => $chronicle) {
+      if (isset($prev)) {
+        if ($direction == "up" && $chronicle->getId() == $movedChronicle->getId()) {
+          $chronicles[$index] = $chronicles[$prev];
+          $chronicles[$prev] = $chronicle;
+        } elseif ($direction == "down" && $chronicles[$prev]->getId() == $movedChronicle->getId()) {
+          $chronicles[$index] = $chronicles[$prev];
+          $chronicles[$prev] = $chronicle;
+        }
+      }
+      $prev = $index;
+    }
+
+    $order = [];
+    foreach ($chronicles as $chronicle) {
+      $order[] = $chronicle->getId();
+    }
+
+    $this->setChroniclesOrder($order);
+    return $this;
+  }
+
+  public function getStoriesOrder(): array
+  {
+    return $this->storiesOrder;
+  }
+
+  public function setStoriesOrder(array $storiesOrder): static
+  {
+    $this->storiesOrder = $storiesOrder;
+
+    return $this;
+  }
+
+  public function changeStoriesOrder(Chronicle $movedStory, string $direction = "up"): static
+  {
+    $stories = $this->getStories();
+
+    foreach ($stories as $index => $story) {
+      if (isset($prev)) {
+        if ($direction == "up" && $story->getId() == $movedStory->getId()) {
+          $stories[$index] = $stories[$prev];
+          $stories[$prev] = $story;
+        } elseif ($direction == "down" && $stories[$prev]->getId() == $movedStory->getId()) {
+          $stories[$index] = $stories[$prev];
+          $stories[$prev] = $story;
+        }
+      }
+      $prev = $index;
+    }
+
+    $order = [];
+    foreach ($stories as $story) {
+      $order[] = $story->getId();
+    }
+
+    $this->setStoriesOrder($order);
+    return $this;
+  }
+
+  public function getStories(): array
+  {
+    $stories = [];
+    foreach ($this->storiesOrder as $id) {
+      foreach ($this->stories as $story) {
+        if ($story->getId() == $id) {
+          $stories[] = $story;
+        }
+      }
+    }
+    foreach ($this->stories as $story) {
+      if (!in_array($story->getId(), $this->storiesOrder)) {
+        $stories[] = $story;
+      }
+    }
+
+    return $stories;
   }
 
   public function addStory(Chronicle $story): self
@@ -364,7 +476,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   /**
    * @return array<Note>
    */
-  public function getChronicleNotes(Chronicle $chronicle) : array
+  public function getChronicleNotes(Chronicle $chronicle): array
   {
     $notes = [];
     foreach ($this->notes as $note) {

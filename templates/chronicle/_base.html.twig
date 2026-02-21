@@ -1,7 +1,16 @@
 {% trans_default_domain 'chronicle' %}
 
 {% set character = chronicle.character(app.user) %}
-<div class="row">
+
+<div class="row position-relative g-1">
+  <div class="text-end position-absolute w-auto end-0">
+    {% if not loop.first %}
+      <a class="d-block" href="{{ path('chronicle_reorder', {id: chronicle.id})}}">{% include "_icon.html.twig" with {icon: 'caret-up', class: 'icon-sm accent'} %}</a>
+    {% endif %}
+    {% if not loop.last %}
+      <a class="d-block" href="{{ path('chronicle_reorder', {id: chronicle.id, direction: "down"})}}">{% include "_icon.html.twig" with {icon: 'caret-down', class: 'icon-sm accent'} %}</a>
+    {% endif %}
+  </div>
   <h3>{{ chronicle.name }}</h3>
   {% if character is not null %}
     <div class="col-12">

@@ -348,4 +348,18 @@ class ChronicleController extends AbstractController
       'form' => $form,
     ]);
   }
+
+  #[Route('/{id<\d+>}/reorder/{direction<\w+>?up}/{isStory<\d+>?0}', name: 'chronicle_reorder', methods: ['GET', 'POST'])]
+  public function reorder(Request $request, Chronicle $chronicle, string $direction, bool $isStory)
+  {
+    /** @var User $user */
+    $user = $this->getUser();
+    if ($isStory) {
+      $user->changeStoriesOrder($chronicle, $direction);
+    }
+    $user->changeChroniclesOrder($chronicle, $direction);
+    $this->dataService->flush();
+
+    return $this->redirect($request->headers->get('referer'));
+  }
 }
