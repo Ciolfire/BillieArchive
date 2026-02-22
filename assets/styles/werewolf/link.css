@@ -1,0 +1,4 @@
+:root {
+  --werewolf-link-color          : var(--werewolf-main-bright);
+  --werewolf-link-hover-color    : #ce8904;
+}

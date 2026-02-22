@@ -229,11 +229,13 @@ class CharacterController extends AbstractController
   #[Route('/new/werewolf/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
   public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
+    return new Response();
   }
 
   #[Route('/new/mage/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
   public function newMage(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
+    return new Response();
   }
 
   #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]

@@ -1,0 +1,73 @@
+@import url("block.css");
+@import url("btn.css");
+@import url("fonts.css");
+@import url("form.css");
+@import url("heading.css");
+@import url("link.css");
+@import url("text.css");
+
+@import url("merit.css");
+/* 9b796a */
+:root {
+  /* Main */
+  --werewolf-dark              : black;
+  --werewolf-light             : silver;
+  
+  --werewolf-main              : rgba(118, 48, 23, 1);
+  --werewolf-main-75a          : rgba(118, 48, 23, .75);
+  --werewolf-main-50a          : rgba(118, 48, 23, .50);
+  --werewolf-main-25a          : rgba(118, 48, 23, .25);
+
+  --werewolf-main-bright       : rgba(155, 64, 37, 1);
+  --werewolf-main-bright-75a   : rgba(155, 64, 37, .75);
+  --werewolf-main-bright-50a   : rgba(155, 64, 37, .50);
+  --werewolf-main-bright-25a   : rgba(155, 64, 37, .25);
+
+  --werewolf-main-dark         : rgba(57, 20, 12, 1);
+  --werewolf-main-dark-75a     : rgba(57, 20, 12, .75);
+  --werewolf-main-dark-50a     : rgba(57, 20, 12, .50);
+  --werewolf-main-dark-25a     : rgba(57, 20, 12, .25);
+
+  --werewolf-main-bg           : rgb(58, 17, 8);
+  --werewolf-main-bg-75a       : rgba(58, 17, 8, .75);
+  --werewolf-main-bg-50a       : rgba(58, 17, 8, .50);
+  --werewolf-main-bg-25a       : rgba(58, 17, 8, .25);
+
+  --werewolf-secondary         : rgba(155, 121, 106, 0.75);
+
+  --werewolf-warning           : rgb(251, 220, 80);
+  --werewolf-warning-dark      : rgb(138, 124, 19);
+  --werewolf-warning-bright    : rgb(255, 232, 27);
+  
+  --werewolf-danger            : rgb(181, 52, 52);
+  --werewolf-danger-dark       : rgb(96, 27, 27);
+  --werewolf-danger-bright     : rgb(224, 63, 63);
+
+  --werewolf-accent            : rgb(210, 164, 128);
+  --werewolf-accent-dark       : rgb(186, 134, 82);
+  --werewolf-accent-bright     : rgb(231, 163, 118);
+  --werewolf-accent-bg         : #1f1f1f;
+
+
+  --werewolf-page-bg           : rgb(37, 37, 37);
+  --werewolf-footer-bg         : rgba(142, 142, 142, 0.71);
+  
+  --werewolf-border            : #883200;
+  --werewolf-outline           : #8846005a;
+  
+  --werewolf-wrong             : #680000;
+
+  /* Card */
+  --werewolf-card-color        : #233d4acf;
+  --werewolf-card-bg           : #bffcffb5;
+  --werewolf-card-hover-color  : var(--werewolf-main-25a);
+
+  /* Modal */
+  --werewolf-modal             : rgb(0, 0, 0);
+  --werewolf-modal-block       : rgba(161, 142, 132, 0.95);
+  --werewolf-modal-margin      : rgb(62, 39, 4);
+
+  /* Table */
+  --werewolf-table-accent      : var(--werewolf-main-dark-75a);
+  --werewolf-table-header      : var(--werewolf-text-color);
+}

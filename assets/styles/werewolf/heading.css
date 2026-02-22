@@ -1,0 +1,54 @@
+:root {
+  --werewolf-heading-color             : var(--werewolf-main-bright);
+  --werewolf-heading-stroke            : var(--werewolf-main-dark);
+
+  --werewolf-h1-font                   : "goudy";
+  --werewolf-h2-font                   : "goudy";
+  --werewolf-h3-font                   : "goudy";
+  --werewolf-h4-font                   : "goudy";
+  --werewolf-h5-font                   : "goudy";
+}
+
+h1.werewolf, h2.werewolf, h3.werewolf, h4.werewolf, h5.werewolf,
+.werewolf h1, .werewolf h2, .werewolf h3, .werewolf h4, .werewolf h5
+{
+  color: var(--werewolf-heading-color);
+  -webkit-text-stroke: 3px var(--werewolf-heading-stroke);
+  paint-order: stroke fill;
+  /* img {
+    filter: drop-shadow(-1px 1px 0 var(--werewolf-main-color)) drop-shadow(-1px -1px 0 var(--werewolf-main-color)) drop-shadow(1px -1px 0 var(--werewolf-main-color)) drop-shadow(1px 1px 0 var(--werewolf-main-color));
+  } */
+  /* .icon {
+    color: var(--werewolf-main-color);
+  } */
+}
+
+h1.werewolf,
+.werewolf h1 {
+  color      : var(--werewolf-light);
+  font-family: var(--werewolf-h1-font);
+}
+
+h2.werewolf,
+.werewolf h2 {
+  font-size  : 1.6rem;
+  font-family: var(--werewolf-h2-font);
+}
+
+h3.werewolf,
+.werewolf h3 {
+  font-size  : 1.4rem;
+  font-family: var(--werewolf-h3-font);
+}
+
+h4.werewolf,
+.werewolf h4 {
+  font-size  : 1.2rem;
+  font-family: var(--werewolf-h4-font);
+}
+
+h5.werewolf,
+.werewolf h5 {
+  font-size  : 1rem;
+  font-family: var(--werewolf-h5-font);
+}

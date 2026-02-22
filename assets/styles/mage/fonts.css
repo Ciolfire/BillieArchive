@@ -2,7 +2,7 @@
   --mage-main-font                 : "mrsEaves-bold";
   --mage-text-font                 : "goudy";
   --mage-sub-text-font             : "goudy";
-  --mage-stylized-font             : "ZapfinoLinotypeThree";
+  --mage-stylized-font             : "Merlinn";
   --mage-stylized-font-alt         : "Cezanne";
 }
 
@@ -15,4 +15,9 @@
 @font-face {
   font-family: 'ZapfinoLinotypeThree';
   src        : url('../../fonts/Zapfino_Linotype_Three.ttf');
+}
+
+@font-face {
+  font-family: 'Merlinn';
+  src        : url('../../fonts/Merlinn.ttf');
 }

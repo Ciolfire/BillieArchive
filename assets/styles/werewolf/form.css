@@ -1,0 +1,11 @@
+:root {
+  
+  --werewolf-help-color          : #13312f;
+  
+  --werewolf-input-bg            : rgba(26, 49, 51, .75);
+  --werewolf-input-active-bg     : rgba(27, 31, 31, 0.75);
+  --werewolf-input-font          : "goudy";
+  
+  --werewolf-label-color         : var(--main-bright);
+  --werewolf-label-font          : "goudy";
+}

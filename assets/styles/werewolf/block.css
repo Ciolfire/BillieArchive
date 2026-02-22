@@ -1,0 +1,24 @@
+:root {
+  --werewolf-block-bg                  : rgba(117, 107, 92, 0.75);
+  --werewolf-block-neutral-bg          : rgba(48, 48, 48, .75);
+  --werewolf-block-neutral-bg-25a      : rgba(48, 48, 48, .25);
+  --werewolf-block-dark-bg             : rgb(62, 44, 4);
+  --werewolf-block-light-bg            : rgba(225, 193, 69, .5);
+  --werewolf-block-light-bg-25a        : rgba(225, 193, 69, .25);
+  --werewolf-block-solid-bg            : rgb(106, 106, 106);
+  --werewolf-block-outline-color       : var(--werewolf-main-75a);
+}
+
+.werewolf {
+  color: white;
+  
+  &.block {
+    box-shadow: 0px 0px 5px 0px var( --werewolf-block-outline-color);
+    background-color: #151515b5;
+    outline: solid 1px var( --werewolf-block-outline-color);
+
+    &.block-solid {
+      background-color: var(--werewolf-block-solid-bg);
+    }
+  }
+}

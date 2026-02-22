@@ -1,0 +1,87 @@
+:root {
+  --werewolf-btn-focus-outline-color           : var(--werewolf-main);
+  /* Primary */
+  --werewolf-btn-bg                            : var(--werewolf-main-bg-75a);
+  --werewolf-btn-color                         : var(--werewolf-accent);
+  --werewolf-btn-outline-color                 : var(--werewolf-main-bright-75a);
+  --werewolf-btn-shadow                        : var(--werewolf-dark);
+  --werewolf-btn-stroke                        : var(--werewolf-dark);
+  
+  --werewolf-btn-hover-bg                      : var(--werewolf-main-bright-75a);
+  --werewolf-btn-hover-color                   : var(--werewolf-accent-bright);
+  --werewolf-btn-hover-outline-color           : var(--werewolf-main-bright);
+  --werewolf-btn-hover-shadow                  : var(--werewolf-dark);
+  --werewolf-btn-hover-stroke                  : var(--werewolf-dark);
+  
+  --werewolf-btn-active-bg                     : var(--werewolf-main-75a);
+  --werewolf-btn-active-color                  : var(--werewolf-accent-bright);
+  --werewolf-btn-active-outline-color          : var(--werewolf-accent-bright);
+  --werewolf-btn-active-shadow                 : var(--werewolf-main-dark);
+  --werewolf-btn-active-stroke                 : var(--werewolf-main-dark);
+}
+
+.werewolf .btn,
+.werewolf.btn,
+.btn.btn-werewolf,
+.btn.btn-primary.werewolf {
+  background-color: var(--werewolf-btn-bg);
+  color: var(--werewolf-btn-color);
+  font-weight: bold;
+  border: 1px solid var(--werewolf-btn-outline-color);
+  -webkit-text-stroke: 2px var(--werewolf-btn-stroke);
+  paint-order: stroke fill;
+
+  &:focus, &:focus-visible {
+    box-shadow: 0 0 0 2px var(--werewolf-btn-focus-outline-color);
+  }
+
+  .icon svg, .icon img {
+    filter: 
+      drop-shadow(-1px 1px 0 var(--werewolf-btn-shadow))
+      drop-shadow(-1px -1px 0 var(--werewolf-btn-shadow))
+      drop-shadow(1px -1px 0 var(--werewolf-btn-shadow))
+      drop-shadow(1px 1px 0 var(--werewolf-btn-shadow))
+    ;
+  }
+
+  &:hover {
+    background-color: var(--werewolf-btn-hover-bg);
+    color: var(--werewolf-btn-hover-color);
+    border: 1px solid var(--werewolf-btn-hover-outline-color);
+
+    -webkit-text-stroke: 0.2rem var(--werewolf-btn-hover-stroke);
+    paint-order: stroke fill;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--werewolf-btn-hover-shadow))
+        drop-shadow(-1px -1px 0 var(--werewolf-btn-hover-shadow))
+        drop-shadow(1px -1px 0 var(--werewolf-btn-hover-shadow))
+        drop-shadow(1px 1px 0 var(--werewolf-btn-hover-shadow))
+      ;
+    }
+  }
+
+  &:active, &.active {
+    scale: 90%;
+    background-color: var(--werewolf-btn-active-bg);
+    color: var(--werewolf-btn-active-color);
+    border: 1px solid var(--werewolf-btn-active-outline-color);
+    -webkit-text-stroke: 0.2rem var(--werewolf-btn-active-stroke);
+    paint-order: stroke fill;
+    box-shadow: 0 0 0 2px var(--werewolf-btn-active-outline-color)!important;
+
+    .icon svg, .icon img {
+      filter: 
+        drop-shadow(-1px 1px 0 var(--werewolf-btn-active-shadow))
+        drop-shadow(-1px -1px 0 var(--werewolf-btn-active-shadow))
+        drop-shadow(1px -1px 0 var(--werewolf-btn-active-shadow))
+        drop-shadow(1px 1px 0 var(--werewolf-btn-active-shadow))
+      ;
+    }
+  }
+
+  &.accent:not(.disabled) {
+    color: var(--accent);
+  }
+}

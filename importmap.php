@@ -24,6 +24,10 @@ return [
         'path' => './assets/mage.js',
         'entrypoint' => true,
     ],
+    'werewolf' => [
+        'path' => './assets/werewolf.js',
+        'entrypoint' => true,
+    ],
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],

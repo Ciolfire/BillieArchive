@@ -1,0 +1,18 @@
+:root {
+  --werewolf-merit-bg          : var(--werewolf-main-dark-25a);
+}
+
+.merit {
+  &.merit-werewolf,
+  &.merit-proximus {
+    color: silver;
+    background-color: var(--werewolf-merit-bg);
+    strong {
+      color: var(--werewolf-main);
+    }
+
+    &:hover {
+      background-color: var(--werewolf-main-dark-75a);
+    }
+  }
+}

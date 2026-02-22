@@ -1,0 +1,18 @@
+:root {
+  --werewolf-main-font                 : "Get Show";
+  --werewolf-text-font                 : "goudy";
+  --werewolf-sub-text-font             : "goudy";
+  --werewolf-stylized-font             : "Get Show";
+  --werewolf-stylized-font-alt         : "Cezanne";
+}
+
+@font-face {
+  font-family: 'Get Show';
+  src        : url('../../fonts/GetShow.ttf');
+  size-adjust: 150%;
+}
+
+@font-face {
+  font-family: 'ZapfinoLinotypeThree';
+  src        : url('../../fonts/Zapfino_Linotype_Three.ttf');
+}

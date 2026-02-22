@@ -29,6 +29,7 @@
 @font-face {
   font-family: 'CaslonAntique';
   src        : url("../../fonts/CaslonAntique.ttf");
+  size-adjust: 125%;
 }
 
 @font-face {

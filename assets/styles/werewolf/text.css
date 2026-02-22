@@ -1,0 +1,13 @@
+:root {
+  --werewolf-text-color          : var(--werewolf-light);
+  --werewolf-text-strong-color   : var(--werewolf-main-bright);
+  --werewolf-text-dark-color     : #000000;
+  --werewolf-text-bright-color   : #61eaff;
+  --werewolf-text-shadow-color   : #000;
+  --werewolf-iwerewolf-shadow        : rgb(43, 0, 0);
+  
+  --werewolf-blockquote          : var(--werewolf-main-dark-75a);
+
+  --werewolf-subtext-color       : #a1a5b9a1;
+
+}

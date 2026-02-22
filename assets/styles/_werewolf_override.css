@@ -1,0 +1,144 @@
+:root {
+  --background                : url('../images/back3.jpg');
+  /* S Main */
+  --dark                      : var(--werewolf-dark);
+  --light                     : var(--werewolf-light);
+  
+  --main                      : var(--werewolf-main);
+  --main-75a                  : var(--werewolf-main-75a);
+  --main-50a                  : var(--werewolf-main-50a);
+  --main-25a                  : var(--werewolf-main-25a);
+  
+  --main-bright               : var(--werewolf-main-bright);
+  --main-bright-75a           : var(--werewolf-main-bright-75a);
+  --main-bright-50a           : var(--werewolf-main-bright-50a);
+  --main-bright-25a           : var(--werewolf-main-bright-25a);
+
+  --main-dark                 : var(--werewolf-main-dark);
+  --main-dark-75a             : var(--werewolf-main-dark-75a);
+  --main-dark-50a             : var(--werewolf-main-dark-50a);
+  --main-dark-25a             : var(--werewolf-main-dark-25a);
+  
+  --main-bg                   : var(--werewolf-main-bg);
+  --main-bg-75a               : var(--werewolf-main-bg-75a);
+  --main-bg-50a               : var(--werewolf-main-bg-50a);
+  --main-bg-25a               : var(--werewolf-main-bg-25a);
+
+  --secondary                 : var(--werewolf-secondary);
+
+  --warning                   : var(--werewolf-warning);
+  --warning-dark              : var(--werewolf-warning-dark);
+  --warning-bright            : var(--werewolf-warning-bright);
+  
+  --danger                    : var(--werewolf-danger);
+  --danger-dark               : var(--werewolf-danger-dark);
+  --danger-bright             : var(--werewolf-danger-bright);
+
+  --accent                    : var(--werewolf-accent);
+  --accent-dark               : var(--werewolf-accent-dark);
+  --accent-bright             : var(--werewolf-accent-bright);
+  --accent-bg                 : var(--werewolf-accent-bg);
+
+  --page-bg                   : var(--werewolf-page-bg);
+  --footer-bg                 : var(--werewolf-footer-bg);
+  
+  --border                    : var(--werewolf-border);
+  --outline                   : var(--werewolf-outline);
+  /* E Main */
+
+  --blockquote-color          : var(--werewolf-blockquote-color);
+  --blockquote-bg             : var(--werewolf-blockquote-bg);
+  --help-color                : var(--werewolf-help-color);
+  --label-color               : var(--werewolf-label-color);
+  --link-color                : var(--werewolf-link-color);
+  --link-hover-color          : var(--werewolf-link-hover-color);
+  --subtext-color             : var(--werewolf-subtext-color);
+  --text-strong-color         : var(--werewolf-text-strong-color);
+  /* --outline-color             : var(--werewolf-outline-color); */
+
+  /* S Block */
+  --block-bg                  : var(--werewolf-block-bg);
+  --block-neutral-bg          : var(--werewolf-block-neutral-bg);
+  --block-neutral-bg-25a      : var(--werewolf-block-neutral-bg-25a);
+  --block-dark-bg             : var(--werewolf-block-dark-bg);
+  --block-light-bg            : var(--werewolf-block-light-bg);
+  --block-light-bg-25a        : var(--werewolf-block-light-bg-25a);
+  --block-solid-bg            : var(--werewolf-block-solid-bg);
+  --block-outline-color       : var(--werewolf-block-outline-color);
+  /* E Block */
+  /* S Btn */
+  --btn-focus-outline-color   : var(--werewolf-btn-focus-outline-color);
+  /* Primary */
+  --btn-bg                    : var(--werewolf-btn-bg);
+  --btn-color                 : var(--werewolf-btn-color);
+  --btn-outline-color         : var(--werewolf-btn-outline-color);
+  --btn-shadow                : var(--werewolf-btn-shadow);
+  --btn-stroke                : var(--werewolf-btn-stroke);
+  
+  --btn-hover-bg              : var(--werewolf-btn-hover-bg);
+  --btn-hover-color           : var(--werewolf-btn-hover-color);
+  --btn-hover-outline-color   : var(--werewolf-btn-hover-outline-color);
+  --btn-hover-shadow          : var(--werewolf-btn-hover-shadow);
+  --btn-hover-stroke          : var(--werewolf-btn-hover-stroke);
+  
+  --btn-active-bg             : var(--werewolf-btn-active-bg);
+  --btn-active-color          : var(--werewolf-btn-active-color);
+  --btn-active-outline-color  : var(--werewolf-btn-active-outline-color);
+  --btn-active-shadow         : var(--werewolf-btn-active-shadow);
+  --btn-active-stroke         : var(--werewolf-btn-active-stroke);
+  /* E Btn */
+  /* S Fonts */
+  --main-font                 :var(--werewolf-main-font);
+  --text-font                 :var(--werewolf-text-font);
+  --sub-text-font             :var(--werewolf-sub-text-font);
+  --stylized-font             :var(--werewolf-stylized-font);
+  --stylized-font-alt         :var(--werewolf-stylized-font-alt);
+  /* E Fonts */
+  /* S Form */
+  --help-color                : var(--werewolf-help-color);
+  
+  --input-bg                  : var(--werewolf-input-bg);
+  --input-active-bg           : var(--werewolf-input-active-bg);
+  --input-font                : var(--werewolf-input-font);
+  
+  --label-color               : var(--werewolf-label-color);
+  --label-font                : var(--werewolf-label-font);
+  /* E Form */
+  /* S Heading */
+  --heading-color             : var(--werewolf-heading-color);
+  --heading-stroke            : var(--werewolf-heading-stroke);
+  --h1-font                   : var(--werewolf-h1-font);
+  --h2-font                   : var(--werewolf-h2-font);
+  --h3-font                   : var(--werewolf-h3-font);
+  --h4-font                   : var(--werewolf-h4-font);
+  --h5-font                   : var(--werewolf-h5-font);
+  /* E Heading */
+}
+
+.collapse-block {
+  background-color: rgba(143, 143, 143, 0.29);
+}
+
+body {
+  a, .link {
+    color          : var(--link-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link-hover-color);
+
+      .link-icon img {
+        background-color: var(--link-hover-color);
+      }
+    }
+
+    & .link-icon img {
+      background-color: silver;
+      border-radius   : 15%;
+      max-height      : 1.5em;
+      width           : 1.5em;
+      padding         : 0.1rem;
+      object-fit      : contain;
+    }
+  }
+}
