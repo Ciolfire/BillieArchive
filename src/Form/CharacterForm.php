@@ -39,7 +39,7 @@ class CharacterForm extends AbstractType
       $chronicles = [$chronicle];
     } else {
       if ($player) {
-        $chronicles = array_merge($player->getChronicles()->toArray(), $player->getStories()->toArray());
+        $chronicles = array_merge($player->getChronicles(), $player->getStories());
       } else {
         $chronicles = [];
       }
