@@ -146,6 +146,17 @@ textarea {
   opacity         : 1;
 }
 
+/* Plugins */
+
 .rich-editor {
   visibility: collapse;
+}
+
+div.dropzone-container {
+  border: 2px dashed var(--main);
+  .dropzone-placeholder {
+    color: var(--text-strong-color);
+    -webkit-text-stroke: 3px var(--text-stroke);
+    paint-order: stroke fill;
+  }
 }
