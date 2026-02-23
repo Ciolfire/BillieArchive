@@ -32,7 +32,7 @@ class MageSpellRepository extends ServiceEntityRepository
     {
       return $this->createQueryBuilder('s')
         ->leftJoin('s.arcana', "sa", \Doctrine\ORM\Query\Expr\Join::WITH , "s.id = sa.spell")
-        ->andWhere('sa.level < :level')
+        ->andWhere('sa.level <= :level')
         ->andWhere('sa.arcanum = :arcanum')
         ->setParameter('level', $level)
         ->setParameter('arcanum', $arcanum)
