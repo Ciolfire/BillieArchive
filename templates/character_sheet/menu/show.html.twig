@@ -54,7 +54,7 @@
         </a>
       </div>
     {% else %}
-      {% include "character_sheet_type/" ~ character.type ~ "/menu/show.html.twig" ignore missing %}
+      {% include "character_sheet_type/#{character.type}/menu/show.html.twig" ignore missing %}
     {% endif %}
   </div>
 </div>
