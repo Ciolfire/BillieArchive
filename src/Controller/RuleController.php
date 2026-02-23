@@ -24,10 +24,11 @@ class RuleController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/new", name:"rule_new", methods:["GET", "POST"])]
-  public function new(Request $request): Response
+  #[Route("/new/{setting<\w+>?}", name:"rule_new", methods:["GET", "POST"])]
+  public function new(Request $request, $setting = null): Response
   {
-    $rule = new Rule();
+    $type = $this->dataService->findOneBy(ContentType::class, ['name' => $setting]);
+    $rule = new Rule($type);
 
     $form = $this->createForm(RuleForm::class, $rule);
     $form->handleRequest($request);
