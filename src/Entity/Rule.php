@@ -42,8 +42,9 @@ class Rule implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $subrules;
 
-  public function __construct()
+  public function __construct(?ContentType $type = null)
   {
+    $this->type = $type;
     $this->subrules = new ArrayCollection();
   }
 
@@ -77,7 +78,7 @@ class Rule implements Translatable
   public function setDetails(string $details): self
   {
     if ($this->details == "") {
-      $this->details = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $details);
+      $this->details = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $details);
     } else {
       $this->details = $details;
     }

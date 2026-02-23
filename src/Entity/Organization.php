@@ -120,7 +120,7 @@ class Organization implements Translatable
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -136,7 +136,7 @@ class Organization implements Translatable
   public function setOverview(string $overview): static
   {
     if ($this->overview == "") {
-      $this->overview = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $overview);
+      $this->overview = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $overview);
     } else {
       $this->overview = $overview;
     }
@@ -152,7 +152,7 @@ class Organization implements Translatable
   public function setMembers(string $members): static
   {
     if ($this->members == "") {
-      $this->members = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $members);
+      $this->members = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $members);
     } else {
       $this->members = $members;
     }
@@ -168,7 +168,7 @@ class Organization implements Translatable
   public function setPhilosophy(string $philosophy): static
   {
     if ($this->philosophy == "") {
-      $this->philosophy = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $philosophy);
+      $this->philosophy = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $philosophy);
     } else {
       $this->philosophy = $philosophy;
     }
@@ -184,7 +184,7 @@ class Organization implements Translatable
   public function setObservances(string $observances): static
   {
     if ($this->observances == "") {
-      $this->observances = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $observances);
+      $this->observances = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $observances);
     } else {
       $this->observances = $observances;
     }
@@ -200,7 +200,7 @@ class Organization implements Translatable
   public function setTitles(string $titles): static
   {
     if ($this->titles == "") {
-      $this->titles = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $titles);
+      $this->titles = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $titles);
     } else {
       $this->titles = $titles;
     }

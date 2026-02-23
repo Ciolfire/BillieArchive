@@ -131,7 +131,7 @@ class ThaumaturgeTradition implements Translatable
   public function setStrengths(string $strengths): static
   {
     if ($this->strengths == "") {
-      $this->strengths = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $strengths);
+      $this->strengths = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $strengths);
     } else {
       $this->strengths = $strengths;
     }
@@ -147,7 +147,7 @@ class ThaumaturgeTradition implements Translatable
   public function setWeaknesses(string $weaknesses): static
   {
     if ($this->weaknesses == "") {
-      $this->weaknesses = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $weaknesses);
+      $this->weaknesses = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $weaknesses);
     } else {
       $this->weaknesses = $weaknesses;
     }
@@ -175,7 +175,7 @@ class ThaumaturgeTradition implements Translatable
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -191,7 +191,7 @@ class ThaumaturgeTradition implements Translatable
   public function setCreation(string $creation): static
   {
     if ($this->creation == "") {
-      $this->creation = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $creation);
+      $this->creation = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $creation);
     } else {
       $this->creation = $creation;
     }

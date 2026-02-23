@@ -1328,7 +1328,7 @@ class Character
   public function setBackground(string $background = ""): self
   {
     if ($this->background == "") {
-      $this->background = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $background);
+      $this->background = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $background);
     } else {
       $this->background = $background;
     }
@@ -1344,7 +1344,7 @@ class Character
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }

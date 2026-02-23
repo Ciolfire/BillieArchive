@@ -204,7 +204,7 @@ class Discipline implements Translatable
   public function setRules(string $rules = ""): self
   {
     if ($this->rules == "") {
-      $this->rules = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $rules);
+      $this->rules = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $rules);
     } else {
       $this->rules = $rules;
     }

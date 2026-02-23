@@ -172,7 +172,7 @@ class Roll implements Translatable
   public function setDetails(string $details): self
   {
     if ($this->details == "") {
-      $this->details = preg_replace("/(?<!(\r\n|  ))\r\n(?!\r\n)/m", " ", $details);
+      $this->details = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $details);
     } else {
       $this->details = $details;
     }
