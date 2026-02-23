@@ -28,7 +28,7 @@ class DisciplinePowerForm extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    
+
     $translator = $this->translator;
     /** @var DisciplinePower */
     $power = $options['data'];
@@ -50,8 +50,8 @@ class DisciplinePowerForm extends AbstractType
         'label' => false,
         'entry_type' => StatusEffectForm::class,
         'entry_options' => [
-          'label' => false, 
-          'type' => 'vampire', 
+          'label' => false,
+          'type' => 'vampire',
         ],
         'by_reference' => false,
         'allow_add' => true,

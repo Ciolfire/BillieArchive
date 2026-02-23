@@ -8,23 +8,23 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MageRulesForm extends AbstractType
+class RulesVampireForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $rules = $options['ruleset'];
     $builder
-      ->add('maxMana', CollectionType::class, [
+      ->add('maxVitae', CollectionType::class, [
         'label' => false,
         'entry_type' => IntegerType::class,
-        'data' => $rules['maxMana'],
+        'data' => $rules['maxVitae'],
         'translation_domain' => false,
       ])
-      ->add('maxManaPerTurn', CollectionType::class, [
-        'label' => false,
-        'entry_type' => IntegerType::class,
-        'data' => $rules['maxManaPerTurn'],
-        'translation_domain' => false,
+      ->add('maxVitaePerTurn', CollectionType::class, [
+          'label' => false,
+          'entry_type' => IntegerType::class,
+          'data' => $rules['maxVitaePerTurn'],
+          'translation_domain' => false,
       ])
       ;
   }
