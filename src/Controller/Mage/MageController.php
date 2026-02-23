@@ -98,7 +98,7 @@ final class MageController extends AbstractController
         }
         return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
       }
-      $this->addFlash('notice', "Couldn't set the character clan");
+      $this->addFlash('notice', "Couldn't set the character path");
     }
 
     return $this->render('character_sheet_type/mage/awakening/sheet.html.twig', [
