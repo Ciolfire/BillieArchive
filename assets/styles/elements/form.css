@@ -75,13 +75,16 @@ input[type=number] {
 
 .form-check:not(.form-switch) {
   input {
-    border-color: var(--btn-border-color);
+    border-color: var(--btn-outline-color);
     background-color: var(--main-50a);
     height: 2em;
     width: 2em;
     &:checked {
       background-color: var(--btn-active-color);
-      border-color: var(--btn-border-color);
+      border-color: var(--btn-outline-color);
+    }
+    &:focus {
+      box-shadow: 0 0 0 .25rem var(--btn-hover-outline-color);
     }
   }
   label {

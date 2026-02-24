@@ -47,6 +47,7 @@
   /* E Main */
 
   --blockquote-color          : var(--mage-blockquote-color);
+  --blockquote-bg             : var(--mage-blockquote-bg);
   --help-color                : var(--mage-help-color);
   --label-color               : var(--mage-label-color);
   --link-color                : var(--mage-link-color);
