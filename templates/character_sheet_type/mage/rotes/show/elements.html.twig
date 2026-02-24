@@ -6,7 +6,7 @@
   {% if character.createdRotes %}
     <h3>{{ "rote.created"|trans }}</h3>
     {% for rote in character.createdRotes %}
-      {% include "character_sheet_type/mage/rotes/element.html.twig" %}
+      {% include "character_sheet_type/mage/rotes/element.html.twig" with {isCreated: true} %}
     {% endfor %}
   {% endif %}
   <h3 class="mt-2">{{ "rote.label.multi"|trans }}</h3>

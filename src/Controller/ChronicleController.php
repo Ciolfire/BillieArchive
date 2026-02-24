@@ -6,14 +6,16 @@ use App\Entity\Chronicle;
 use App\Entity\NoteCategory;
 use App\Entity\User;
 use App\Form\ChronicleForm;
-use App\Form\MageRulesForm;
+use App\Form\RulesMageForm;
 use App\Form\NoteCategoryForm;
-use App\Form\VampireRulesForm;
+use App\Form\RulesVampireForm;
+// use App\Form\RulesWerewolfForm;
 use App\Repository\UserRepository;
 use App\Service\CharacterService;
 use App\Service\DataService;
 use App\Service\MageService;
 use App\Service\VampireService;
+// use App\Service\WerewolfService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -292,11 +294,15 @@ class ChronicleController extends AbstractController
     switch ($type) {
       case 'vampire':
         $service = new VampireService($this->dataService);
-        $form = $this->createForm(VampireRulesForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        $form = $this->createForm(RulesVampireForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
         break;
       case 'mage':
         $service = new MageService($this->dataService);
-        $form = $this->createForm(MageRulesForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        $form = $this->createForm(RulesMageForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
+        break;
+      case 'werewolf':
+        // $service = new WerewolfService($this->dataService);
+        // $form = $this->createForm(RulesWerewolfForm::class, null, ['ruleset' => $service->getRules($chronicle), 'disabled' => $disabled]);
         break;
       default:
         break;

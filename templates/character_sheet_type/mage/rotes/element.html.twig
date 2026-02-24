@@ -4,27 +4,24 @@
 
 {% set spell = rote.spell %}
 
-<div class="col-12 col-md-6 col-xl-4 mt-3" data-search-target="item" data-name="{{ rote.name ~ ' ' ~ spell.name }}" {% block data %}{% endblock %}>
+<div class="col-12 col-md-6 col-xl-4 mt-3" data-search-target="item" data-name="{{ rote.name ~ ' ' ~ spell.name }}" {% block data %} {% endblock %}>
   <div class="h-100 d-flex flex-column">
-    <div class="rounded-top bdr p-3 card-content flex-fill"
-        role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-        data-action="click->content#load"
-        data-content-name-param="{{ spell.name }}"
-        data-content-type-param="{{ "label.single"|trans }}"
-        data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
-        {% if access_decision('edit', spell) %}data-content-edit-param="{{ link|default(path('mage_spell_edit', {id: spell.id})) }}"{% endif %}
-    >
+    <div class="rounded-top bdr p-3 card-content flex-fill" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" data-content-name-param="{{ spell.name }}" data-content-type-param="{{ "label.single"|trans }}" data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}" {% if access_decision('edit', spell) %} data-content-edit-param="{{ link|default(path('mage_spell_edit', {id: spell.id})) }}" {% endif %}>
       <div class="card-header">
         <span class="float-start">
           {% include "_dice_pool.html.twig" with {pool : powerPool, contested : spell.contestedText} %}
         </span>
         <span class="float-end">
-          {% if spell.cost != "None" %}{{ spell.cost }}{% endif %}
+          {% if spell.cost != "None" %}
+            {{ spell.cost }}
+          {% endif %}
           {# {% include "mage/spell/_cost.html.twig" with {costs: spell.costs} only %} #}
         </span>
         <h4>
           {{ rote.name }}
-          {% if rote.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}{% endif %}
+          {% if rote.homebrewFor is not null %}
+            {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent' } only %}
+          {% endif %}
         </h4>
         <h5>
           {% include "mage/spell/_short_arcana.html.twig" with { arcana : spell.arcana } %}
@@ -36,28 +33,41 @@
           {% include "_icon.html.twig" with { icon: "skills/#{spell.skill.identifier}" } %}
           {{ spell.skill.name }}
         </h5>
+        <hr>
+        {% if isCreated|default(false) %}
+          <div class="text-center">
+            {% if rote.mageOrder %}
+                <span class="icon">
+                  <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ rote.mageOrder }}" src="{{ asset(rote.mageOrder.rune|default(rote.mageOrder.emblem), 'organizations_emblems') }}"/>
+                </span>
+            {% else %}
+              {% include "_icon.html.twig" with {icon: 'universal', label: 'universal'|trans({}, 'app')} %}
+            {% endif %}
+          </div>
+          <p>{{ rote.description }}</p>
+        {% endif %}
         <div class="text-end text-strong accent">{{ spell.name }}</div>
       </div>
       <div class="card-body d-flex flex-column">
-        <span class="accent text-strong">{% block prerequisites %}{% endblock %}</span>
-        <div type="button" class="card-text flex-grow-1">
-          <br>
-          {% block text %}
-            <div>
-              <p>{{ rote.spell.short }}</p>
-            </div>
-          {% endblock %}
+        <span class="accent text-strong"> {% block prerequisites %}{% endblock %}
+          </span>
+          <div type="button" class="card-text flex-grow-1">
+            <br>
+            {% block text %}
+              <div>
+                <p>{{ rote.spell.short }}</p>
+              </div>
+            {% endblock %}
+          </div>
         </div>
+        {% block source %}
+          <div class="pe-3 mb-1">
+            {% if rote.book is not null or rote.homebrewFor != character.chronicle %}
+              {% include "_source_block.html.twig" with {element: rote, 'isShort': 1, class: 'text-end fst-italic', hasLink: 0 } only %}
+            {% endif %}
+          </div>
+        {% endblock %}
       </div>
-      {% block source %}
-        <div class="pe-3 mb-1">
-          {% if rote.book is not null or rote.homebrewFor != character.chronicle %}
-            {% include "_source_block.html.twig" with {element: rote, 'isShort': 1, class: 'text-end fst-italic', hasLink: 0 } only %}
-          {% endif %}
-        </div>
-      {% endblock %}
+      {% block input %}{% endblock %}
     </div>
-    {% block input %}
-    {% endblock %}
   </div>
-</div>
