@@ -17,7 +17,7 @@
         {% for bloodline in bloodlines %}
           <div class="col-12 col-md-6 col-lg-4 py-2" data-bs-toggle="collapse" data-bs-target=".description-{{ bloodline.id }}" aria-expanded="false" aria-controls="description-{{ bloodline.id }}">
             <input type="radio" class="btn-check" name="bloodline" id="{{ bloodline.id }}" autocomplete="off" value="{{ bloodline.id }}">
-            <label class="btn btn-primary h-100" for="{{ bloodline.id }}">
+            <label class="btn btn-primary h-100 w-100" for="{{ bloodline.id }}">
               {% if bloodline.emblem is not null %}
                 <img class="logo" src="{{ asset(bloodline.emblem, 'clans_emblems') }}" alt="{{ bloodline.name}}" height="200"/>
               {% endif %}

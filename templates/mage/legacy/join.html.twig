@@ -17,7 +17,7 @@
         {% for legacy in legacies %}
           <div class="col-12 col-md-6 col-lg-4 py-2" data-bs-toggle="collapse" data-bs-target=".description-{{ legacy.id }}" aria-expanded="false" aria-controls="description-{{ legacy.id }}">
             <input type="radio" class="btn-check" name="legacy" id="{{ legacy.id }}" autocomplete="off" value="{{ legacy.id }}">
-            <label class="btn btn-primary h-100" for="{{ legacy.id }}">
+            <label class="btn btn-primary h-100 w-100" for="{{ legacy.id }}">
               {% if legacy.emblem is not null %}
                 <img class="logo" src="{{ asset(legacy.emblem, 'paths_emblems') }}" alt="{{ legacy.name}}" height="200"/>
               {% endif %}

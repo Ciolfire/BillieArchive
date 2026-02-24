@@ -42,7 +42,7 @@
         {% include "_tab.html.twig" with {name: 'relation', label: 'relation'|trans} only %}
         {% if app.user == character.player and not character.isNpc %}
           {% include "_tab.html.twig" with {name: 'notes', icon: 'note', label: 'label.multi'|trans({}, 'note')} only %}
-        {% elseif app.user == chronicle.storyteller %}
+        {% elseif app.user == character.chronicle.storyteller|default(null) %}
           {% include "_tab.html.twig" with {name: 'config', icon: 'gears', label: 'options'|trans({}, 'app')} only %}
         {% endif %}
       </ul>
