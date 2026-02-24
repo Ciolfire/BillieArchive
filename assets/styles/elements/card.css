@@ -45,8 +45,8 @@
     outline-color: var(--lesser-75a);
     box-shadow: var(--lesser-75a) 0px 0px 7px 3px;
 
-    blockquote, .back-fluff {
+    /* blockquote, .back-fluff {
       background-color: rgba(12, 0, 47, 0.83);
-    }
+    } */
   }
 }

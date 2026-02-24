@@ -128,7 +128,7 @@ blockquote {
 
 .back-fluff {
   color: var(--blockquote-color);
-  background-color: var(--blockquote-color);
+  background-color: var(--blockquote-bg);
   padding: 0.5rem;
 }
 
