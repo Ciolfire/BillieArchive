@@ -56,23 +56,23 @@ h1 {
 }
 
 h2 {
-  font-size  : 1.6rem;
+  font-size  : 1.8rem;
   font-family: var(--h2-font);
 }
 
 h3 {
-  font-size  : 1.4rem;
+  font-size  : 1.6rem;
   font-family: var(--h3-font);
 }
 
 h4 {
-  font-size  : 1.2rem;
+  font-size  : 1.4rem;
   font-family: var(--h4-font);
 }
 
 h5 {
   color: var(--text-color);
-  font-size  : 1rem;
+  font-size  : 1.2rem;
   font-weight: bold;
   font-family: var(--h5-font);
 }

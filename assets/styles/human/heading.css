@@ -21,7 +21,7 @@ h2.human,
 .human h2 {
   color: var(--human-main);
   -webkit-text-stroke: 0.15em var(--human-heading-stroke);
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   font-family: var(--human-h2-font);
 }
 
@@ -29,7 +29,7 @@ h3.human,
 .human h3 {
   color: var(--human-main);
   -webkit-text-stroke: 0.15em var(--human-heading-stroke);
-  font-size: 1.4rem;
+  /* font-size: 1.4rem; */
   font-family: var(--human-h3-font);
 }
 
@@ -37,7 +37,7 @@ h4.human,
 .human h4 {
   color: var(--human-main);
   -webkit-text-stroke: 0.15em var(--human-heading-stroke);
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   font-family: var(--human-h4-font);
 }
 
@@ -45,6 +45,6 @@ h5.human,
 .human h5 {
   color: var(--human-light);
   -webkit-text-stroke: 0.15em var(--human-heading-stroke);
-  font-size: 1rem;
+  /* font-size: 1rem; */
   font-family: var(--human-h5-font);
 }
