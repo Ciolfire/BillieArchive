@@ -9,46 +9,50 @@
 {% endif %}
 
 
-{% block title %}{{ action|trans }}{% endblock %}
-{% block header %}{{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}{% endblock %}
+{% block title %}
+  {{ action|trans }}
+{% endblock %}
+{% block header %}
+  {{ action|trans }}{% include "_icon.html.twig" with {icon : 'path', class: 'icon-lg'} only %}
+{% endblock %}
 
 {% block form %}
-{% set path = form.vars.data %}
-{% if path.id %}
-  <div class="row">
-    <div class="col row">
-      <div class="col-12">
-        {% if path.emblem is not null %}
-          <img class="logo" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-        {% endif %}
+  {% set path = form.vars.data %}
+  {% if path.id %}
+    <div class="row">
+      <div class="col row">
+        <div class="col-12">
+          {% if path.emblem is not null %}
+            <img class="logo" src="{{ asset(path.emblem, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+        </div>
       </div>
-      <div class="col-12">
-        <h5>{{ "emblem"|trans(domain: "app") }}</h5>
-      </div>
-    </div>
 
-    <div class="col row">
-      <div class="col-12">
-        {% if path.symbol is not null %}
-          <img class="logo" src="{{ asset(path.symbol, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-        {% endif %}
+      <div class="col row">
+        <div class="col-12">
+          {% if path.symbol is not null %}
+            <img class="logo" src="{{ asset(path.symbol, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "symbol.label"|trans(domain: "mage") }}</h5>
+        </div>
       </div>
-      <div class="col-12">
-        <h5>{{ "symbol.label"|trans(domain: "mage") }}</h5>
-      </div>
-    </div>
 
-    <div class="col row">
-      <div class="col-12">
-        {% if path.rune is not null %}
-          <img class="logo" src="{{ asset(path.rune, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
-        {% endif %}
-      </div>
-      <div class="col-12">
-        <h5>{{ "rune.label"|trans(domain: "mage") }}</h5>
+      <div class="col row">
+        <div class="col-12">
+          {% if path.rune is not null %}
+            <img class="logo" src="{{ asset(path.rune, 'paths_emblems') }}" alt="{{ path.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "rune.label"|trans(domain: "mage") }}</h5>
+        </div>
       </div>
     </div>
-  </div>
-{% endif %}
-{{ parent() }}
+  {% endif %}
+  {{ parent() }}
 {% endblock %}

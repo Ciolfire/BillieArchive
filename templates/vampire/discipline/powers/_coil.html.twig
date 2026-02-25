@@ -6,7 +6,7 @@
         {{ 'coil.power.level'|trans({'%level%': tier.level, '%name%': tier.name}) }}
         {% if is_granted('ROLE_ST') and isNotModal|default(1) %}<a class="float-end" href="{{ path('vampire_discipline_power_edit', {'id': tier.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
       </h3>
-      <div class="rule p-3 my-3">
+      <div class="rule p-3 my-3 text-dark">
         {{ tier.details|markdown_to_html }}
       </div>
   {% endfor %}

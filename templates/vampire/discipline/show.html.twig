@@ -22,27 +22,10 @@
 {% endblock %}
 
 {% block body %}
-  <div class="block block-light container py-2 mt-2 rounded">
+  <div class="container py-5">
     {% if is_granted('ROLE_ST') %}
       <a class="float-end" href="{{ path('vampire_discipline_edit', {id: discipline.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
-    <h1 class="text-stylized py-4">{{ discipline.name }}</h1>
-    <div class="row">
-      <div class="col">
-        <p class="fluff">{{ discipline.description }}</p>
-        <span class="text-dark">{{ discipline.rules|markdown_to_html }}</span>
-        {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic text-strong' } only %}
-        {% if discipline.isSorcery %}
-          {% include "vampire/discipline/powers/_sorcery.html.twig" with {rituals: discipline.powers} %}
-        {% elseif discipline.isCoil %}
-          {% include "vampire/discipline/powers/_coil.html.twig" with {tiers: discipline.powers} %}
-        {% elseif discipline.isThaumaturgy %}
-          {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
-          {# {% include "vampire/discipline/powers/thaumaturgy.html.twig" with {powers: discipline.powers} %} #}
-        {% else %}
-          {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
-        {% endif %}
-      </div>
-    </div>
+    {% include "vampire/discipline/_show.html.twig" with {isNotModal: 1} %}
   </div>
 {% endblock %}

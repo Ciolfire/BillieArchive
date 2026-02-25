@@ -66,13 +66,6 @@
       {% for element in elements %}
         <a class="btn btn-primary" role="button" data-action="click->search#switchFilter" data-search-type-param="{{ key }}" data-search-filter-param="{{ element }}">
           {% if key != 'clan' %}{{ (key ~ "." ~ element)|trans }}{% else %}{{ element }}{% endif %}
-          {# {% if key == "clan" %}
-            <span class="icon px-3">
-              <img src="{{ asset(element.symbol|default(element.emblem), 'clans_emblems') }}" style="height:2em;"/>
-            </span>
-          {% else %}
-            {% include "_icon.html.twig" with {icon : element } only %}
-          {% endif %} #}
         </a>
       {% endfor %}
     {% endfor %}

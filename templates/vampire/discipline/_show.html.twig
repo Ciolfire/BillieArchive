@@ -4,24 +4,27 @@
 
 {% block title %}{{ discipline.name }}{% endblock %}
 
-{% block body %}
-  <div class="block block-light container py-2 mt-2 rounded">
-    <h1 class="text-stylized py-4">{{ discipline.name }}</h1>
-    <div class="row">
-      <div class="col">
-        <p class="fluff">{{ discipline.description }}</p>
-        <span class="text-dark">{{ discipline.rules|markdown_to_html }}</span>
-        {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic text-strong' } only %}
-        {% if discipline.isSorcery %}
-          {% include "vampire/discipline/powers/_sorcery.html.twig" with {rituals: discipline.powers, isNotModal: 0} %}
-        {% elseif discipline.isCoil %}
-          {% include "vampire/discipline/powers/_coil.html.twig" with {tiers: discipline.powers, isNotModal: 0} %}
-        {% elseif discipline.isThaumaturgy %}
-          {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers, isNotModal: 0} %}
-        {% else %}
-          {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers, isNotModal: 0} %}
-        {% endif %}
-      </div>
+<div class="block block-light p-2">
+  <h1>
+    {{ discipline.name }}
+  </h1>
+  <div class="fluff">{{ discipline.description|markdown_to_html }}</div>
+  <div class="text-dark">{{ discipline.rules|markdown_to_html }}</div>
+  {% include "_source_block.html.twig" with {element: discipline, class: 'text-end fst-italic text-strong' } only %}
+</div>
+
+<div class="block block-light container py-2 mt-2 rounded">
+  <div class="row">
+    <div class="col">
+      {% if discipline.isSorcery %}
+        {% include "vampire/discipline/powers/_sorcery.html.twig" with {rituals: discipline.powers} %}
+      {% elseif discipline.isCoil %}
+        {% include "vampire/discipline/powers/_coil.html.twig" with {tiers: discipline.powers} %}
+      {% elseif discipline.isThaumaturgy %}
+        {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
+      {% else %}
+        {% include "vampire/discipline/powers/_default.html.twig" with {powers: discipline.powers} %}
+      {% endif %}
     </div>
   </div>
-{% endblock %}
+</div>
