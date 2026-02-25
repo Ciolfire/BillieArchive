@@ -46,7 +46,6 @@ class PathController extends AbstractController
     $paths = $this->dataService->getList($filter, $id, Path::class, 'getPaths');
 
     return $this->render('mage/path/list.html.twig', [
-      'setting' => "mage",
       'paths' => $paths,
       'filter' => $filter,
       'id' => $id,

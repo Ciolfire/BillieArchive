@@ -35,9 +35,9 @@
 
   --werewolf-secondary         : rgba(155, 121, 106, 0.75);
 
-  --werewolf-warning           : rgb(251, 220, 80);
-  --werewolf-warning-dark      : rgb(138, 124, 19);
-  --werewolf-warning-bright    : rgb(255, 232, 27);
+  --werewolf-warning           : rgb(251, 180, 80);
+  --werewolf-warning-dark      : rgb(138, 96, 19);
+  --werewolf-warning-bright    : rgb(255, 149, 27);
   
   --werewolf-danger            : rgb(181, 52, 52);
   --werewolf-danger-dark       : rgb(96, 27, 27);
