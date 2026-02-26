@@ -1,6 +1,6 @@
 {% if elements|length > 0 %}
   <a class="align-items-center align-self-center align-self-md-start" href="{{ path(path, {filter: 'book', id: book.id}) }}">
-    {% include "_icon.html.twig" with {icon: type, class:"text-default"} %}
+    {% include "_icon.html.twig" with {icon: icon|default(type), class:"text-default"} %}
     <span class="d-inline-block d-lg-none">{{ elements|length }}</span>
     <span class="d-lg-inline-block d-none">{{ trans|default("count")|trans({'count': elements|length}, domain|default(type)) }}</span>
   </a>
