@@ -100,7 +100,7 @@ class Note
   public function setContent(string $content): self
   {
     if ($this->content == "") {
-      $this->content = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $content);
+      $this->content = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $content);
     } else {
       $this->content = $content;
     }

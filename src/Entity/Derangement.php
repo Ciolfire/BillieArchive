@@ -84,7 +84,7 @@ class Derangement implements Translatable
   public function setDetails(string $details = ""): self
   {
     if ($this->details == "") {
-      $this->details = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $details);
+      $this->details = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $details);
     } else {
       $this->details = $details;
     }

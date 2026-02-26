@@ -134,7 +134,7 @@ class Clan implements Translatable
   public function setDescription(string $description = ""): self
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -317,7 +317,7 @@ class Clan implements Translatable
   public function setWeakness(string $weakness): self
   {
     if ($this->weakness == "") {
-      $this->weakness = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $weakness);
+      $this->weakness = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $weakness);
     } else {
       $this->weakness = $weakness;
     }

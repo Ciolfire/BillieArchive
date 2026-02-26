@@ -107,7 +107,7 @@ class PossessedVestment implements Translatable
   public function setEffect(string $effect): static
   {
         if ($this->effect == "") {
-      $this->effect = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $effect);
+      $this->effect = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $effect);
     } else {
       $this->effect = $effect;
     }

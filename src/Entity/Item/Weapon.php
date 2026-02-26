@@ -66,7 +66,7 @@ class Weapon extends Item
   public function setSpecial(string $special): static
   {
     if ($this->special == "") {
-      $this->special = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $special);
+      $this->special = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $special);
     } else {
       $this->special = $special;
     }

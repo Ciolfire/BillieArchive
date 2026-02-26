@@ -50,7 +50,7 @@ class Equipment extends Item
   public function setFunctionality(string $functionality): static
   {
     if ($this->functionality == "") {
-      $this->functionality = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $functionality);
+      $this->functionality = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $functionality);
     } else {
       $this->functionality = $functionality;
     }

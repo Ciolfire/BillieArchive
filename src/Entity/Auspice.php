@@ -154,7 +154,7 @@ class Auspice implements Translatable
   public function setDescription(?string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -218,7 +218,7 @@ class Auspice implements Translatable
   public function setTheChange(string $theChange): static
   {
     if ($this->theChange == "") {
-      $this->theChange = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $theChange);
+      $this->theChange = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $theChange);
     } else {
       $this->theChange = $theChange;
     }

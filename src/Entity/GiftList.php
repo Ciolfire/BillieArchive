@@ -94,7 +94,7 @@ class GiftList implements Translatable
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -110,7 +110,7 @@ class GiftList implements Translatable
   public function setRules(string $rules): static
   {
     if ($this->rules == "") {
-      $this->rules = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $rules);
+      $this->rules = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $rules);
     } else {
       $this->rules = $rules;
     }

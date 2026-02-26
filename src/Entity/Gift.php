@@ -108,7 +108,7 @@ class Gift implements Translatable
   public function setDetails(string $details): static
   {
     if (empty($this->details)) {
-      $this->details = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $details);
+      $this->details = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $details);
     } else {
       $this->details = $details;
     }

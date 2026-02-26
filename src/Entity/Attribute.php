@@ -114,7 +114,7 @@ class Attribute
   public function setDescription(string $description = ""): self
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -130,7 +130,7 @@ class Attribute
   public function setFluff(string $fluff = ""): self
   {
     if ($this->fluff == "") {
-      $this->fluff = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $fluff);
+      $this->fluff = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $fluff);
     } else {
       $this->fluff = $fluff;
     }

@@ -95,7 +95,7 @@ class Tribe implements Translatable
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }

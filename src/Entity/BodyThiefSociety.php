@@ -97,7 +97,7 @@ class BodyThiefSociety implements Translatable
   public function setAdvantage(string $advantage): static
   {
     if ($this->advantage == "") {
-      $this->advantage = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $advantage);
+      $this->advantage = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $advantage);
     } else {
       $this->advantage = $advantage;
     }
@@ -113,7 +113,7 @@ class BodyThiefSociety implements Translatable
   public function setWeakness(string $weakness): static
   {
     if ($this->weakness == "") {
-      $this->weakness = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $weakness);
+      $this->weakness = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $weakness);
     } else {
       $this->weakness = $weakness;
     }
@@ -129,7 +129,7 @@ class BodyThiefSociety implements Translatable
   public function setDescription(string $description): static
   {
     if ($this->description == "") {
-      $this->description = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $description);
+      $this->description = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $description);
     } else {
       $this->description = $description;
     }
@@ -145,7 +145,7 @@ class BodyThiefSociety implements Translatable
   public function setCreation(string $creation): static
   {
     if ($this->creation == "") {
-      $this->creation = preg_replace("/(?<!(\n|  ))\n(?!\n)/m", " ", $creation);
+      $this->creation = preg_replace("/(?<!(\n))\n(?!\n)/m", " ", $creation);
     } else {
       $this->creation = $creation;
     }
