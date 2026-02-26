@@ -20,11 +20,11 @@
           <div id="ritual-{{ discipline.id }}" class="block p-3 my-3 h-100" data-bs-toggle="collapse" data-bs-target=".ritual-text--{{ discipline.id }}-{{ ritual.id }}" type="button" aria-expanded="false" aria-controls="ritual-text--{{ discipline.id }}-{{ ritual.id }}">
             {% if is_granted('ROLE_ST') and isNotModal|default(1) %}<a class="float-end" href="{{ path('vampire_discipline_power_edit', {'id': ritual.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
             <h4>{{ ritual.name }}</h4>
-            {% include "_source_block.html.twig" with {element: ritual, class: 'text-end fst-italic' } only %}
             <div class="text-sub fst-italic">{{ ritual.short|markdown_to_html }}</div>
             <div class="ritual-text--{{ discipline.id }}-{{ ritual.id }} collapse bdr-t" data-bs-parent="#ritual-{{ discipline.id }}">
               {{ ritual.details|markdown_to_html }}
             </div>
+            {% include "_source_block.html.twig" with {element: ritual, class: 'text-end fst-italic' } only %}
           </div>
         </div>
     {% endfor %}
