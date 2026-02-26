@@ -1,0 +1,32 @@
+{% trans_default_domain 'gift' %}
+
+
+<div class="col-12"
+  data-search-target="item"
+  data-name="{{ gift.name ~ gift.short }}"
+>
+  <div class="rounded bdr p-3 h-100 card-content"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ gift.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('werewolf_gift_show', {id: gift.id})) }}"
+    {% if access_decision('edit', gift) %}data-content-edit-param="{{ link|default(path('werewolf_gift_edit', { id: gift.id })) }}"{% endif %}
+  >
+    <div class="row">
+      <div class="col-auto">
+        <h4>{% include "_level.html.twig" with {level: gift.level} %}</h4>
+      </div>
+      <div class="col text-strong text-center">
+        <h4>{{ gift.name }}</h4>
+        {% if gift.homebrewFor is not null %}
+          {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: gift.homebrewFor } only %}
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <span>{{ gift.short }}</span>
+      </div>
+      <hr class="my-1">
+    </div>
+  </div>
+</div>

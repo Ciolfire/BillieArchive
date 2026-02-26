@@ -102,6 +102,27 @@ class Chronicle
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $spellRotes;
 
+  // Werewolf
+  #[ORM\OneToMany(targetEntity: Auspice::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $auspices;
+
+  #[ORM\OneToMany(targetEntity: Tribe::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $tribes;
+
+  #[ORM\OneToMany(targetEntity: GiftList::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $giftLists;
+
+  #[ORM\OneToMany(targetEntity: Gift::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $gifts;
+
+  #[ORM\OneToMany(targetEntity: Rite::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $rites;
+
   public function __construct()
   {
     $this->characters = new ArrayCollection();
@@ -688,6 +709,141 @@ class Chronicle
       // set the owning side to null (unless already changed)
       if ($rote->getHomebrewFor() === $this) {
         $rote->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getAuspices(): Collection
+  {
+    return $this->auspices;
+  }
+
+  public function addAuspice(Auspice $auspice): self
+  {
+    if (!$this->auspices->contains($auspice)) {
+      $this->auspices[] = $auspice;
+      $auspice->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeAuspice(Auspice $auspice): self
+  {
+    if ($this->auspices->removeElement($auspice)) {
+      // set the owning side to null (unless already changed)
+      if ($auspice->getBook() === $this) {
+        $auspice->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getTribes(): Collection
+  {
+    return $this->tribes;
+  }
+
+  public function addTribe(Tribe $tribe): self
+  {
+    if (!$this->tribes->contains($tribe)) {
+      $this->tribes[] = $tribe;
+      $tribe->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeTribe(Tribe $tribe): self
+  {
+    if ($this->tribes->removeElement($tribe)) {
+      // set the owning side to null (unless already changed)
+      if ($tribe->getBook() === $this) {
+        $tribe->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getGifts(): Collection
+  {
+    return $this->gifts;
+  }
+
+  public function addGift(Gift $gift): self
+  {
+    if (!$this->gifts->contains($gift)) {
+      $this->gifts[] = $gift;
+      $gift->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGift(Gift $gift): self
+  {
+    if ($this->gifts->removeElement($gift)) {
+      // set the owning side to null (unless already changed)
+      if ($gift->getBook() === $this) {
+        $gift->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getGiftLists(): Collection
+  {
+    return $this->giftLists;
+  }
+
+  public function addGiftList(GiftList $giftList): self
+  {
+    if (!$this->giftLists->contains($giftList)) {
+      $this->giftLists[] = $giftList;
+      $giftList->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGiftList(GiftList $giftList): self
+  {
+    if ($this->giftLists->removeElement($giftList)) {
+      // set the owning side to null (unless already changed)
+      if ($giftList->getBook() === $this) {
+        $giftList->setHomebrewFor(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getRites(): Collection
+  {
+    return $this->rites;
+  }
+
+  public function addRite(Rite $rite): self
+  {
+    if (!$this->rites->contains($rite)) {
+      $this->rites[] = $rite;
+      $rite->setHomebrewFor($this);
+    }
+
+    return $this;
+  }
+
+  public function removeRite(Rite $rite): self
+  {
+    if ($this->rites->removeElement($rite)) {
+      // set the owning side to null (unless already changed)
+      if ($rite->getBook() === $this) {
+        $rite->setHomebrewFor(null);
       }
     }
 

@@ -31,6 +31,8 @@ public/images/books/
 public/images/organizations/
 public/images/items/
 public/images/paths/emblems/
+public/images/auspices/emblems/
+public/images/tribes/emblems/
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###

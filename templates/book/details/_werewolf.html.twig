@@ -1,0 +1,5 @@
+{% trans_default_domain 'werewolf' %}
+
+{% include "book/details/_block.html.twig" with { type: "auspice", path: "werewolf_auspice_list", elements: book.auspices, icon: "type/werewolf" } %}
+{% include "book/details/_block.html.twig" with { type: "tribe", path: "werewolf_tribe_list", elements: book.tribes} %}
+{% include "book/details/_block.html.twig" with { type: "giftList", path: "werewolf_gift_list", elements: book.giftLists, icon: "gift" } %}

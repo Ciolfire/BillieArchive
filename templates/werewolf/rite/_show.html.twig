@@ -1,0 +1,21 @@
+{% trans_default_domain 'gift' %}
+
+
+  <div class="row">
+    <div class="col-12">
+      <div id="rite-{{ rite.id }}" class="block p-3 my-3 h-100">
+        <h4>{{ rite.name }} ({% include "_level.html.twig" with {level: rite.level} %} )</h4>
+        <div class="col text-center">
+          {% if rite.costs is not empty %}
+            {% include "werewolf/gift/_cost.html.twig" with { gift: rite, size: 'icon-sm' } %}
+          {% endif %}
+        </div>
+        <div class="text-sub fst-italic">{{ rite.short|markdown_to_html }}</div>
+        <div class="rite-text--{{ rite.id }}-{{ rite.id }} bdr-t" data-bs-parent="#rite-{{ rite.id }}">
+          {{ rite.details|markdown_to_html }}
+        </div>
+        {% include "_source_block.html.twig" with {element: rite, class: 'text-end fst-italic' } only %}
+      </div>
+    </div>
+    <hr class="my-1">
+  </div>

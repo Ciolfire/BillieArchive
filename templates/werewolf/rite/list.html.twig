@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'gift' %}
+
+{% set setting = "werewolf" %}
+
+{% block title %}
+  {{ label|default("rite.list.label")|trans }}
+{% endblock %}
+
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('werewolf_rite_new') }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon : 'rite' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyController %}
+  {{parent() }}
+  search
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="gift"
+{% endblock %}
+
+{% block body %}
+  {% include "_title.html.twig" with {title: label|default("rite.list.label") , domain: "gift", icon: "rite"} %}
+
+  <div class="container-fluid block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 py-2">
+      {% for rite in rites %}
+        {% if rite.level != level|default(0) %}
+          {% set level = rite.level %}
+          <h3 class="mt-3 py-2 bdr-t">{% include "_level.html.twig" with {level: level} %}</h3>
+        {% endif %}
+        {% include "werewolf/rite/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  {% endblock %}
+
+  {% block footerContent %}
+    {% include "_search.html.twig" with { type: "rite" } %}
+  {% endblock %}

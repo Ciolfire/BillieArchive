@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'werewolf' %}
+
+{% set setting = 'werewolf' %}
+
+{% block title %}{{ giftList.name }}{% endblock %}
+
+<div class="block p-2">
+  <h1>
+    {{ giftList.name }}
+  </h1>
+  <div class="fluff">{{ giftList.description|markdown_to_html }}</div>
+  <div class="text-dark">{{ giftList.rules|markdown_to_html }}</div>
+  {% include "_source_block.html.twig" with {element: giftList, class: 'text-end fst-italic text-strong' } only %}
+</div>
+
+
+{% block body %}
+  <div class="block container py-2 mt-2 rounded">
+    {% include "werewolf/gift/list/_default.html.twig" with {gifts: giftList.gifts} %}
+  </div>
+{% endblock %}

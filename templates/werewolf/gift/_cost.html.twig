@@ -1,0 +1,14 @@
+{% if costs is not defined %}
+  {% set costs = gift.costs %}
+{% endif %}
+
+
+{% for key, cost in costs %}
+  {% for c in 1..cost %}
+    {% if key == "willpowerDot" %}
+      {% include "_icon.html.twig" with { icon: 'willpower', class: "icon-accent #{size|default(null)}" } %}
+    {% else %}
+      {% include "_icon.html.twig" with { icon: key, class: "#{size|default(null)}" } %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}

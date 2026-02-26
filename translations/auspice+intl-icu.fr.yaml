@@ -1,0 +1,22 @@
+label:
+  single: Auspice
+  multi: Auspices
+
+new: Nouveau Auspice
+edit: Modifier l'Auspice 
+
+ability:
+  label: Abilité d'Auspice
+  name: Nom de l'abilité
+
+change:
+  first: Le Changement
+
+name:
+  extended: Autres noms
+
+phase:
+  gift: List de Dons synonymes
+
+specialty:
+  label: Spécialité de compétence

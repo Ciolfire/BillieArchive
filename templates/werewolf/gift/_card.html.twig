@@ -1,0 +1,22 @@
+{% trans_default_domain 'gift' %}
+
+<div class="row">
+  <div class="col">
+    <div class="text-strong text-start">
+      {% include "_level.html.twig" with {level: gift.level} %}
+    </div>
+  </div>
+  <div class="col-auto text-strong">
+    <h5>{{ gift.name }}</h5>
+  </div>
+  <div class="col text-end">
+    {% if gift.costs is empty %}
+      <span class="text-strong">-</span>
+    {% endif %}
+    {% include "werewolf/gift/_cost.html.twig" with { size: 'icon-sm' } %}
+  </div>
+  <div class="col-12 text-start mb-2">{{ gift.short }}</div>
+  {% if not loop.last %}
+    <hr>
+  {% endif %}
+</div>

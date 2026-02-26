@@ -119,6 +119,32 @@ class Book implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $spellRotes;
 
+
+  // Werewolf
+  #[ORM\OneToMany(targetEntity: Auspice::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $auspices;
+
+  #[ORM\OneToMany(targetEntity: Renown::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $renowns;
+
+  #[ORM\OneToMany(targetEntity: Tribe::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $tribes;
+
+  #[ORM\OneToMany(targetEntity: GiftList::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $giftLists;
+
+  #[ORM\OneToMany(targetEntity: Gift::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $gifts;
+
+  #[ORM\OneToMany(targetEntity: Rite::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $rites;
+
   public function __construct(string $setting="human")
   {
     $this->setting = $setting;
@@ -679,6 +705,168 @@ class Book implements Translatable
       // set the owning side to null (unless already changed)
       if ($rote->getBook() === $this) {
         $rote->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getAuspices(): Collection
+  {
+    return $this->auspices;
+  }
+
+  public function addAuspice(Auspice $auspice): self
+  {
+    if (!$this->auspices->contains($auspice)) {
+      $this->auspices[] = $auspice;
+      $auspice->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeAuspice(Auspice $auspice): self
+  {
+    if ($this->auspices->removeElement($auspice)) {
+      // set the owning side to null (unless already changed)
+      if ($auspice->getBook() === $this) {
+        $auspice->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getRenowns(): Collection
+  {
+    return $this->renowns;
+  }
+
+  public function addRenown(Renown $renown): self
+  {
+    if (!$this->renowns->contains($renown)) {
+      $this->renowns[] = $renown;
+      $renown->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeRenown(Renown $renown): self
+  {
+    if ($this->renowns->removeElement($renown)) {
+      // set the owning side to null (unless already changed)
+      if ($renown->getBook() === $this) {
+        $renown->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getTribes(): Collection
+  {
+    return $this->tribes;
+  }
+
+  public function addTribe(Tribe $tribe): self
+  {
+    if (!$this->tribes->contains($tribe)) {
+      $this->tribes[] = $tribe;
+      $tribe->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeTribe(Tribe $tribe): self
+  {
+    if ($this->tribes->removeElement($tribe)) {
+      // set the owning side to null (unless already changed)
+      if ($tribe->getBook() === $this) {
+        $tribe->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getGiftLists(): Collection
+  {
+    return $this->giftLists;
+  }
+
+  public function addGiftList(GiftList $giftList): self
+  {
+    if (!$this->giftLists->contains($giftList)) {
+      $this->giftLists[] = $giftList;
+      $giftList->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGiftList(GiftList $giftList): self
+  {
+    if ($this->giftLists->removeElement($giftList)) {
+      // set the owning side to null (unless already changed)
+      if ($giftList->getBook() === $this) {
+        $giftList->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getGifts(): Collection
+  {
+    return $this->gifts;
+  }
+
+  public function addGift(Gift $gift): self
+  {
+    if (!$this->gifts->contains($gift)) {
+      $this->gifts[] = $gift;
+      $gift->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeGift(Gift $gift): self
+  {
+    if ($this->gifts->removeElement($gift)) {
+      // set the owning side to null (unless already changed)
+      if ($gift->getBook() === $this) {
+        $gift->setBook(null);
+      }
+    }
+
+    return $this;
+  }
+
+  public function getRites(): Collection
+  {
+    return $this->rites;
+  }
+
+  public function addRite(Rite $rite): self
+  {
+    if (!$this->rites->contains($rite)) {
+      $this->rites[] = $rite;
+      $rite->setBook($this);
+    }
+
+    return $this;
+  }
+
+  public function removeRite(Rite $rite): self
+  {
+    if ($this->rites->removeElement($rite)) {
+      // set the owning side to null (unless already changed)
+      if ($rite->getBook() === $this) {
+        $rite->setBook(null);
       }
     }
 

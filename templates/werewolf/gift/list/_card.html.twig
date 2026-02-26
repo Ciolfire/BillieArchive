@@ -1,0 +1,35 @@
+{% trans_default_domain 'gift' %}
+
+
+<div class="col-12 col-md-6 col-xl-4 text-center text-md-start"
+  data-search-target="item"
+  data-name="{{ giftList.name ~ giftList.short }}{% for gift in giftList.gifts %}{{ gift.short }}{% endfor %}"
+  {# data-gift="{{ giftList }}" #}
+>
+  <div class="rounded bdr p-3 h-100 card-content"
+    role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-content-name-param="{{ giftList.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('werewolf_gift_list_show', {id: giftList.id})) }}"
+    {% if access_decision('edit', giftList) %}data-content-edit-param="{{ link|default(path('werewolf_gift_list_edit', { id: giftList.id })) }}"{% endif %}
+  >
+    <div class="row">
+      <div class="col-12 text-strong text-center">
+        <h3>{{ giftList.name }}</h3>
+        {% if giftList.homebrewFor is not null %}
+          {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: giftList.homebrewFor } only %}
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <span>{{ giftList.short }}</span>
+      </div>
+      <hr class="my-1">
+      <div class="col-12">
+        {% for gift in giftList.gifts %}
+          {% include "werewolf/gift/_card.html.twig" %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = auspice %}
+{% set route = "werewolf_auspice" %}
+
+{% trans_default_domain 'auspice' %}
+
+{% block col_class %}col-12 col-lg{% endblock %}
+
+{% block data %}
+  data-name="{{ auspice.name }}"
+{% endblock %}
+
+{% block name %}
+  {{ auspice.name }}: {{ auspice.extendedName }}
+  {% if auspice.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+{% endblock %}
+
+{% block image %}
+  <blockquote class="m-2">{{ auspice.quote }}</blockquote>
+  {% if auspice.emblem is not null %}
+    <img class="logo" src="{{ asset(auspice.emblem, 'auspices_emblems') }}" alt="{{ auspice.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  <div class="row justify-content-center">
+    <div class="col-12">
+      {% include "_icon.html.twig" with {icon: 'renown' } %}
+    </div>
+    <div class="col-auto text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load"
+      data-content-name-param="{{ auspice.renown.name }}"
+      data-content-type-param="{{ "label.single"|trans({}, 'auspice') }}"
+      data-content-link-param="{{ path('werewolf_renown_show', {id: auspice.renown.id}) }}"
+      {% if access_decision('edit', auspice.renown) %}data-content-edit-param="{{ link|default(path('werewolf_renown_edit', { id: auspice.renown.id })) }}"{% endif %}
+    >
+      {{ auspice.renown.name }}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'specialties' } %}</div>
+    {% for skill in auspice.specialtySkills %}
+      {% if not loop.first %}
+        <div class="col-auto text-strong">/</div>
+      {% endif %}
+      <div class="col-auto text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        data-action="click->content#load"
+        data-content-name-param="{{ skill.name }}"
+        data-content-type-param="{{ "label.single"|trans({}, 'skill') }}"
+        data-content-link-param="{{ path('skill_show', {id: skill.id}) }}"
+        {% if access_decision('edit', skill) %}data-content-edit-param="{{ link|default(path('skill_edit', { id: skill.id })) }}"{% endif %}
+      >
+        {{ skill.name }}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'gift' } %}</div>
+    <div class="col pb-2">
+      <div class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        data-action="click->content#load"
+        data-content-name-param="{{ auspice.phaseGift.name }}"
+        data-content-type-param="{{ "label.single"|trans({}, 'auspice') }}"
+        data-content-link-param="{{ path('werewolf_gift_list_show', {id: auspice.phaseGift.id}) }}"
+        {% if access_decision('edit', auspice.phaseGift) %}data-content-edit-param="{{ link|default(path('werewolf_auspice_edit', { id: auspice.phaseGift.id })) }}"{% endif %}
+      >
+        {{ auspice.phaseGift.name }}
+      </div>
+      {% for giftList in auspice.gifts %}
+        <span class="text-strong">/</span>
+        <div class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+          data-action="click->content#load"
+          data-content-name-param="{{ giftList.name }}"
+          data-content-type-param="{{ "label.single"|trans({}, 'giftList') }}"
+          data-content-link-param="{{ path('werewolf_gift_list_show', {id: giftList.id}) }}"
+          {% if access_decision('edit', giftList) %}data-content-edit-param="{{ link|default(path('werewolf_auspice_edit', { id: auspice.id })) }}"{% endif %}
+        >
+          {{ giftList.name }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 text-center py-2 text-strong">
+    {{ auspice.abilityName }}
+  </div>
+{% endblock %}
+
+{% block action %}
+  data-bs-toggle="modal" data-bs-target="#contentModal"
+  data-action="click->content#load"
+  data-content-name-param="{{ auspice.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path('werewolf_auspice_show', {id: auspice.id}) }}"
+  {% if access_decision('edit', auspice) %}data-content-edit-param="{{ link|default(path('werewolf_auspice_edit', { id: auspice.id })) }}"{% endif %}
+{% endblock %}
+
+{% block short %}
+  {{ auspice.short|default("")|markdown_to_html }}
+{% endblock %}

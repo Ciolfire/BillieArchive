@@ -21,6 +21,9 @@ parameters:
   ghoul_family_emblems_directory: '%kernel.project_dir%/public/images/ghoul/emblems'
   # Mage
   paths_emblems_directory: '%kernel.project_dir%/public/images/paths/emblems'
+  # Werewolf
+  tribes_emblems_directory: '%kernel.project_dir%/public/images/tribes/emblems'
+  auspices_emblems_directory: '%kernel.project_dir%/public/images/auspices/emblems'
 
 
 services:

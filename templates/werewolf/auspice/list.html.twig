@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'auspice' %}
+
+{% set setting = "werewolf" %}
+
+{% block title %}
+  {{ label|default("label.multi")|trans }}
+{% endblock %}
+
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('werewolf_auspice_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon : 'type/werewolf' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="auspice"
+{% endblock %}
+
+{% block body %}
+  {% include "_title.html.twig" with {title: label|default("label.multi") , domain: "auspice", icon: "type/werewolf"} %}
+
+  <div class="container-fluid block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 py-2">
+    {% for auspice in auspices|sort((a, b) => a.name|lower <=> b.name|lower) %}
+      {% if auspices|length <= 5 %}
+        {% include "werewolf/auspice/_card.html.twig" with { hasFew : true} %}
+      {% else %}
+        {% include "werewolf/auspice/_card.html.twig" %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  {% include "_search.html.twig" with { type: "tribe" } %}
+{% endblock %}

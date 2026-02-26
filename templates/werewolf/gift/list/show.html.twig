@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'gift' %}
+
+{% set setting = 'werewolf' %}
+
+{% block title %}
+  {{ giftList.name }}
+{% endblock %}
+
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('werewolf_gift_new', {list: giftList.id}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon : 'gift' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <div class="container py-5">
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('werewolf_gift_list_edit', {id: giftList.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+    {% endif %}
+    {% include "werewolf/gift/list/_show.html.twig" with {isNotModal: 1} %}
+  </div>
+{% endblock %}

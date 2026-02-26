@@ -13,6 +13,6 @@ vampire:
   short: VtR
   element: "{element} — VtR"
 werewolf:
-  label: Werewolves the Forsaken
+  label: Werewolf the Forsaken
   short: WtF
   element: "{element} — WtF"

@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'renown' %}
+
+{% set setting = "werewolf" %}
+
+{% block title %}
+  {{ label|default("label.multi")|trans }}
+{% endblock %}
+
+{% block shortcuts %}
+  {% if chronicle|default(false) == false %}
+    {{ parent() }}
+  {% else %}
+    {% include "_back.html.twig" with {link: path('homebrew_index', {id: chronicle})} %}
+    {% include "_top.html.twig" %}
+  {% endif %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('werewolf_renown_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'add' } only %}</span>
+      {% include "_icon.html.twig" with {icon : 'renown' } only %}
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="renown"
+{% endblock %}
+
+{% block body %}
+  {% include "_title.html.twig" with {title: label|default("label.multi") , domain: "renown"} %}
+
+  <div class="container-fluid block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+
+    <div class="row g-2 py-2">
+      {% for renown in renowns|sort((a, b) => a.name|lower <=> b.name|lower) %}
+        <div class="col">
+          {% include "werewolf/renown/_card.html.twig" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  {% include "_search.html.twig" with { type: "renown" } %}
+{% endblock %}

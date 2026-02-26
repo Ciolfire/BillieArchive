@@ -1,0 +1,15 @@
+label:
+  single: Don
+  multi: Dons
+
+  list:
+  label:
+    single: Liste de Dons
+    multi: Listes des Dons
+
+rite:
+  list:
+    label: Rituels
+  label:
+    single: Rite
+    multi:  Rites

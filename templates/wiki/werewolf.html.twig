@@ -17,36 +17,36 @@
         <span class="d-none d-sm-inline">{{ 'label.multi'|trans({}, 'rule')}}</span>
       </a>
     </div>
-    {# <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('organization_index', {setting: 'werewolf'})}}">
-        {% include "_icon.html.twig" with {icon: 'covenant' } only %}
-        <span class="d-none d-sm-inline">{{ "order.label.multi"|trans({}, 'organization') }}</span>
+    <div class="col-6 col-md-4 col-lg-3">
+      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_renown_index', {setting: 'werewolf'})}}">
+        {% include "_icon.html.twig" with {icon: 'renown' } only %}
+        <span class="d-none d-sm-inline">{{ 'label.single'|trans({}, 'renown')}}</span>
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_paths')}}">
-        {% include "_icon.html.twig" with {icon: 'path' } only %}
-        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'path')}}</span>
+      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_tribe_index')}}">
+        {% include "_icon.html.twig" with {icon: 'tribe' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'tribe') }}</span>
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_legacies')}}">
-        {% include "_icon.html.twig" with {icon: 'legacy' } only %}
-        <span class="d-none d-sm-inline">{{ "legacy.label.multi"|trans({}, 'path')}}</span>
+      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_auspice_index')}}">
+        {% include "_icon.html.twig" with {icon: 'type/werewolf' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'auspice') }}</span>
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_arcanum_index')}}">
-        {% include "_icon.html.twig" with {icon: 'arcanum' } only %}
-        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'arcanum')}}</span>
+      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_gift_index')}}">
+        {% include "_icon.html.twig" with {icon: 'gift' } only %}
+        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'gift') }}</span>
       </a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_spell_index')}}">
-        {% include "_icon.html.twig" with {icon: 'spell' } only %}
-        <span class="d-none d-sm-inline">{{ "label.multi"|trans({}, 'spell')}}</span>
+      <a class="btn btn-primary w-100 mb-2" href="{{path('werewolf_rite_index')}}">
+        {% include "_icon.html.twig" with {icon: 'rite' } only %}
+        <span class="d-none d-sm-inline">{{ "rite.label.multi"|trans({}, 'gift') }}</span>
       </a>
-    </div> #}
+    </div>
     <div class="col-6 col-md-4 col-lg-3">
       <a class="btn btn-primary w-100 mb-2" href="{{path('merit_list', {filter: 'type', id: 'werewolf'})}}">
         {% include "_icon.html.twig" with {icon: 'merit' } only %}

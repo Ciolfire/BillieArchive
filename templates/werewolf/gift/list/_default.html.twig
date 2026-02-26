@@ -1,0 +1,22 @@
+{% trans_default_domain 'gift' %}
+
+  <h2 class="pb-2">{{ 'label.multi'|trans }}</h2>
+{% for gift in gifts %}
+  <a href="#{{giftList.id ~ '-' ~ gift.id}}" class="btn btn-primary">{% include "_level.html.twig" with {level: gift.level} %} {{ gift.name }}</a>
+{% endfor %}
+{% if is_granted('ROLE_ST') and isNotModal|default(1) %}
+  <a class="btn btn-primary" href="{{ path('werewolf_gift_new', {list: giftList.id}) }}">{% include "_icon.html.twig" with {icon : 'add', class: 'icon-sm'} only %}</a>
+{% endif %}
+<div class="row">
+  {% for gift in gifts %}
+    <div class="col-12">
+      <div id="{{ giftList.id ~ '-' ~ gift.id }}" class="block m-2 p-2 rounded">
+        {% if is_granted('ROLE_ST') and isNotModal|default(1) %}<a class="float-end" href="{{ path('werewolf_gift_edit', {'id': gift.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>{% endif %}
+        {# TODO {% if is_granted('ROLE_ST') and isNotModal|default(1) %}<a class="float-end" href="{{ path('giftList_gift_remove', {'id': gift.id}) }}">{% include "_icon.html.twig" with {icon: 'remove'} only %}</a>{% endif %} #}
+        <h3>{% include "_level.html.twig" with {level: gift.level} %} {{ gift.name }}</h3>
+        {{ gift.details|markdown_to_html }}
+        <span>{% include "_source_child.html.twig" with {element: gift, 'parent': giftList } only %}</span>
+      </div>
+    </div>
+  {% endfor %}
+</div>

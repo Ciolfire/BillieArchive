@@ -1,0 +1,76 @@
+{% extends "_group_card.html.twig" %}
+
+{% set element = tribe %}
+{% set route = "werewolf_tribe" %}
+
+{% trans_default_domain 'tribe' %}
+
+{% block col_class %}col-12 col-lg{% endblock %}
+
+{% block data %}
+  data-name="{{ tribe.name }}"
+{% endblock %}
+
+{% block name %}
+  {{ tribe.name }}
+  {% if tribe.homebrewFor is not null %}{% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent icon-lg' } only %}{% endif %}
+{% endblock %}
+
+{% block subname %}
+  <h2>{{ tribe.nickname }}</h2>
+  <blockquote>{{ tribe.quote }}</blockquote>
+{% endblock %}
+
+{% block image %}
+  {% if tribe.emblem is not null %}
+    <img class="logo" src="{{ asset(tribe.emblem, 'tribes_emblems') }}" alt="{{ tribe.name}}" height="400"/>
+  {% endif %}
+{% endblock %}
+
+{% block bonus %}
+  <div class="row justify-content-center">
+    <div class="col-12">
+      {% include "_icon.html.twig" with {icon: 'renown' } %}
+        {# {{ "primary"|trans([], 'renown') }} #}
+    </div>
+    <div class="col-auto text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load"
+      data-content-name-param="{{ tribe.renown.name }}"
+      data-content-type-param="{{ "label.single"|trans({}, 'tribe') }}"
+      data-content-link-param="{{ path('werewolf_renown_show', {id: tribe.renown.id}) }}"
+      {% if access_decision('edit', tribe.renown) %}data-content-edit-param="{{ link|default(path('werewolf_renown_edit', { id: tribe.renown.id })) }}"{% endif %}
+    >
+      {{ tribe.renown.name }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">{% include "_icon.html.twig" with {icon: 'gift' } %}</div>
+    <div class="col pb-2">
+      {% for giftList in tribe.gifts %}
+        {% if not loop.first %}/{% endif %}
+        <div class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+          data-action="click->content#load"
+          data-content-name-param="{{ giftList.name }}"
+          data-content-type-param="{{ "list.label.single"|trans({}, 'gift') }}"
+          data-content-link-param="{{ path('werewolf_gift_list_show', {id: giftList.id}) }}"
+          {% if access_decision('edit', giftList) %}data-content-edit-param="{{ link|default(path('werewolf_tribe_edit', { id: tribe.id })) }}"{% endif %}
+        >
+          {{ giftList.name }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block action %}
+  data-bs-toggle="modal" data-bs-target="#contentModal"
+  data-action="click->content#load"
+  data-content-name-param="{{ tribe.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path('werewolf_tribe_show', {id: tribe.id}) }}"
+  {% if access_decision('edit', tribe) %}data-content-edit-param="{{ link|default(path('werewolf_tribe_edit', { id: tribe.id })) }}"{% endif %}
+{% endblock %}
+
+{% block short %}
+  {{ tribe.short|default("")|markdown_to_html }}
+{% endblock %}

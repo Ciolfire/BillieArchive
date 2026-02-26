@@ -1,0 +1,22 @@
+label:
+  single: Auspice
+  multi: Auspices
+
+new: New Auspice
+edit: Edit Auspice 
+
+ability:
+  label: Auspice Ability
+  name: Ability Name
+
+change:
+  first: The Change
+
+name:
+  extended: Others name
+
+phase:
+  gift: Synonymous Gifts List
+
+specialty:
+  label: Specialty Skills

@@ -1,0 +1,17 @@
+{% extends "_simple_card.html.twig" %}
+
+{% trans_default_domain 'renown' %}
+
+{% block data %}
+  data-content-name-param="{{ renown.name }}"
+  data-content-type-param="{{ "label.single"|trans }}"
+  data-content-link-param="{{ path("werewolf_renown_show", {id: renown.id}) }}"
+  {% if access_decision('edit', renown) %}data-content-edit-param="{{ link|default(path("werewolf_renown_edit", { id: renown.id })) }}"{% endif %}
+{% endblock %}
+
+{% block title %}
+  {{ renown.name }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

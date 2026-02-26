@@ -14,7 +14,7 @@
     </a>
   </div>
   <div class="col">
-    <a class="werewolf btn btn-sm btn-menu w-100 text-truncate" href="#">
+    <a class="werewolf btn btn-sm btn-menu w-100 text-truncate" href="{{ path('character_first_change', {'id': character.id}) }}">
       {% include "_icon.html.twig" with {icon: 'type/werewolf'} only %}
       <span class="d-none d-md-inline">{{ "change.label"|trans([], 'werewolf') }}</span>
     </a>

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'gift' %}
+
+{% set setting = 'werewolf' %}
+
+{% block title %}
+  {{ rite.name }}
+{% endblock %}
+
+{% block body %}
+  <div class="container block pt-5 pb-1">
+    {# Could be used to copy a direct link to the rite #}
+    {% if is_granted('ROLE_ST') %}
+      <a class="float-end" href="{{ path('werewolf_rite_edit', {'id': rite.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
+    {% endif %}
+    
+    {% include "werewolf/rite/_show.html.twig" %}
+
+    {% if is_granted('ROLE_ST') %}
+      <div class="col text-center mt-5">
+        <button type="button" class="btn btn-warning w-25" data-bs-toggle="modal" data-bs-target="#deleteModal-rite-{{rite.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
+      </div>
+      {# {% include "element/_delete.html.twig" with {element: 'werewolf_rite', 'entity': rite} %} #}
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+label:
+  single: Gift
+  multi: Gifts
+
+list:
+  label:
+    single: Gift List
+    multi: Gift Lists
+
+rite:
+  list:
+    label: Rituals
+  label:
+    single: Rite
+    multi:  Rites

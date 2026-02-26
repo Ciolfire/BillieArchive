@@ -1,0 +1,36 @@
+{% extends 'werewolf/form.html.twig' %}
+
+{% trans_default_domain 'tribe' %}
+
+{% if form.vars.data.id|default(null) != null %}
+  {% set action = 'edit' %}
+{% else %}
+  {% set action = 'new' %}
+{% endif %}
+
+
+{% block title %}
+  {{ action|trans }}
+{% endblock %}
+{% block header %}
+  {{ action|trans }}{% include "_icon.html.twig" with {icon : 'type/werewolf', class: 'icon-lg'} only %}
+{% endblock %}
+
+{% block form %}
+  {% set tribe = form.vars.data %}
+  {% if tribe.id %}
+    <div class="row">
+      <div class="col row">
+        <div class="col-12">
+          {% if tribe.emblem is not null %}
+            <img class="logo" src="{{ asset(tribe.emblem, 'tribes_emblems') }}" alt="{{ tribe.name}}" height="200"/>
+          {% endif %}
+        </div>
+        <div class="col-12">
+          <h5>{{ "emblem"|trans(domain: "app") }}</h5>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
