@@ -94,7 +94,7 @@
     <div id="discipline-{{ discipline.id }}-body" class="row accordion m-0">
       {% block rules %}
         {% if discipline.rules %}
-          <div id="discipline-{{ discipline.id }}-rules" class="col-12 collapse" data-bs-parent="#discipline-{{ discipline.id }}-body">
+          <div id="discipline-{{ discipline.id }}-rules" class="col-12 collapse text-dark" data-bs-parent="#discipline-{{ discipline.id }}-body">
             {{ discipline.rules|markdown_to_html }}
           </div>
         {% endif %}

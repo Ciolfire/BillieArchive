@@ -58,15 +58,15 @@
         {% if character.potency > peeker.potency %}
           {% if not peeker.hasDiscipline(8) %}
             {# Peeker is weaker #}
-            <span class ="strong">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.stronger"|trans }}</span>
+            <span class ="strong" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "potency.stronger.long"|trans }}">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.stronger.short"|trans }}</span>
           {% else %}
             {# But has Protean #}
-            <span class ="warning">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.weaker"|trans }}</span>
+            <span class ="warning" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "potency.weaker.long"|trans }}">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.weaker.short"|trans }}</span>
           {% endif %}
         {% else %}
           {% if not character.hasDiscipline(8) %}
             {# Peeker is stronger #}
-            <span class ="warning">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.weaker"|trans }}</span>
+            <span class ="warning" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "potency.weaker.long"|trans }}">{% include "_icon.html.twig" with {icon: 'potency', label: "potency.label"|trans } %} {{ "potency.weaker.short"|trans }}</span>
           {% else %}
             {# But the other character has Protean #}
           {% endif %}
