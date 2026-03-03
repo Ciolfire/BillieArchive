@@ -38,7 +38,7 @@ class Werewolf extends Character
 
   public function __construct(?User $user = null, ?Chronicle $chronicle = null, bool $isAncient = false, bool $isNpc = false)
   {
-    parent::__construct(user: $user, chronicle: $chronicle, isAncient: $isAncient, isNpc: $isNpc);
+    parent::__construct(...func_get_args());
 
     $this->gifts = new ArrayCollection();
   }

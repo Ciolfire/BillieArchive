@@ -59,7 +59,7 @@ class Mage extends Character
 
   public function __construct(User $user, bool $isAncient = false, bool $isNpc = false, ?Chronicle $chronicle = null)
   {
-    parent::__construct(user: $user, isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
+    parent::__construct(...func_get_args());
 
     $this->arcana = new ArrayCollection();
     // $this->devotions = new ArrayCollection();
