@@ -20,7 +20,6 @@ class CharacterForm extends AbstractType
   {
     /** @var Character */
     $character = $options['data'];
-    $user = $options['user'];
     $player = $character->getPlayer();
     $chronicle = $character->getChronicle();
 
@@ -153,7 +152,7 @@ class CharacterForm extends AbstractType
         'required' => false,
       ]);
     }
-    if ($character->getChronicle() && $user == $character->getChronicle()->getStoryteller()) {
+    if ($character->getChronicle() && $character->getPlayer() == $character->getChronicle()->getStoryteller()) {
       $builder
       ->add('size', null, [
         'label' => 'size.label',

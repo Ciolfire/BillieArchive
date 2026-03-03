@@ -1,0 +1,18 @@
+{% trans_default_domain 'mage' %}
+
+<h2 id="mage" class="mt-4">{{ "creation.mage"|trans }}</h2>
+<div class="row block my-2 py-3" data-controller="character--awakening">
+  <div class="col-12">
+    {% include "character_sheet_type/mage/awakening/_path.html.twig" %}
+    {% include "character_sheet_type/mage/awakening/_arcana.html.twig" with {formName: "character_form"}%}
+    {% include "character_sheet_type/mage/awakening/_order.html.twig" %}
+    {# {% include "character_sheet_type/mage/awakening/_rotes.html.twig" %} #}
+    <h2>{{ 'morality.label'|trans }}</h4>
+    <h4>{{ 'creation.humanity.title'|trans }}</h4>
+    <div class="col-12 text-center text-strong mt-2">{{ 'creation.humanity.text'|trans }}</div>
+    {{ form_row(form.moral) }}
+    <h2>{{ 'gnosis.label'|trans }}</h4>
+    <div class="col-12 text-center text-strong mt-2">{{ 'creation.gnosis'|trans }}</div>
+    {{ form_row(form.gnosis) }}
+  </div>
+</div>

@@ -244,15 +244,12 @@ class CharacterController extends AbstractController
     if ($chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Human($isAncient);
+    $character = new Human(user: $this->getUser(), isAncient: $isAncient);
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
 
-    /** @var User $user */
-    $user = $this->getUser();
-    $character->setPlayer($user);
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
+    $form = $this->createForm(CharacterForm::class, $character, []);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
@@ -280,7 +277,7 @@ class CharacterController extends AbstractController
   #[Route('/premade/new/{isAncient<\d+>}', name: 'character_new_premade', methods: ['GET', 'POST'])]
   public function newTemplate(Request $request, bool $isAncient = false): Response
   {
-    $character = new Human($isAncient);
+    $character = new Human(isAncient: $isAncient);
     $this->denyAccessUnlessGranted('ROLE_GM');
     
     $character->setIsNpc(false);

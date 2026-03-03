@@ -49,7 +49,7 @@ class VampireController extends AbstractController
 
     $vampire->setPlayer($this->getUser());
     $merits = $this->characterService->filterMerits($vampire);
-    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClan(chronicle: $vampire->getChronicle(), isAncient: $isAncient);
+    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClans(chronicle: $vampire->getChronicle(), isAncient: $isAncient);
     $covenants = $this->dataService->findBy(Covenant::class, ['isAncient' => $vampire->isAncient()]);
     $attributes = $this->dataService->findAll(Attribute::class);
     // We are creating a vampire, so we use the extended Creation/VampireForm
@@ -57,7 +57,7 @@ class VampireController extends AbstractController
       'clans' => $clans,
       'covenants' => $covenants,
       'attributes' => $attributes,
-      ]);
+    ]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
@@ -65,7 +65,6 @@ class VampireController extends AbstractController
       }
       $this->creationService->getSpecialties($vampire, $form);
       $vampire->addAttribute($form->get('attribute')->getData()->getIdentifier(), 1);
-
       // We make sure the willpower is correct
       $vampire->setWillpower($vampire->getAttributes()->get('resolve', false) + $vampire->getAttributes()->get('composure', false));
       // Bonus experience if lowerer Humanity
@@ -98,7 +97,7 @@ class VampireController extends AbstractController
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     }
 
-    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClan($character->getChronicle());
+    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClans($character->getChronicle());
     $covenants = $this->dataService->findBy(Covenant::class, ['isAncient' => $character->isAncient()]);
     $attributes = $this->dataService->findAll(Attribute::class);
     $disciplines = $this->dataService->findAll(Discipline::class);

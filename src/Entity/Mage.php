@@ -54,12 +54,12 @@ class Mage extends Character
   private ?Legacy $legacy = null;
 
   #[ORM\Column]
-  private ?bool $hasOwnLegacy = null;
+  private ?bool $hasOwnLegacy = false;
 
 
-  public function __construct(bool $isAncient = false, bool $isNpc = false, ?Chronicle $chronicle = null)
+  public function __construct(User $user, bool $isAncient = false, bool $isNpc = false, ?Chronicle $chronicle = null)
   {
-    parent::__construct(isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
+    parent::__construct(user: $user, isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
 
     $this->arcana = new ArrayCollection();
     // $this->devotions = new ArrayCollection();

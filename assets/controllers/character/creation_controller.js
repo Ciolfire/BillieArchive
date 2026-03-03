@@ -124,13 +124,19 @@ export default class extends Controller {
 
     traitCost(event, targets) {
     let total = 0;
-    let current = event.currentTarget;
+
+    let current = null;
+    let type = null;
+    if (event) {
+      current = event.currentTarget;
+      type = current.dataset.type;
+    }
 
     targets.forEach(target => {
       let input = target.previousElementSibling;
       if (current == target) {
         total += (current.dataset.value - 1) * 3;
-      } else if (input.checked && current.dataset.type != target.dataset.type) {
+      } else if (input.checked && type != target.dataset.type) {
         total += (input.value - 1) * 3;
       }
     });

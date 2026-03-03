@@ -7,17 +7,17 @@ namespace App\Controller\Mage;
 use App\Entity\Arcanum;
 use App\Entity\Character;
 use App\Entity\Chronicle;
-use App\Entity\User;
 use App\Entity\Mage;
 use App\Entity\MageOrder;
 use App\Entity\Path;
-use App\Form\CharacterForm;
+use App\Form\Creation\MageForm;
 use App\Form\Mage\AwakeningForm;
 use App\Service\CharacterService;
 use App\Service\CreationService;
 use App\Service\DataService;
 use App\Service\MageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -39,40 +39,46 @@ final class MageController extends AbstractController
   }
 
   #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
-  public function newMage(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  public function newMage(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Mage(isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
+    $mage = new Mage(user: $this->getUser(), isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
 
-    /** @var User $user */
-    $user = $this->getUser();
-    $character->setPlayer($user);
-    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
+    $mage->setPlayer($this->getUser());
+    $merits = $this->characterService->filterMerits($mage);
+    $paths = $this->dataService->findAll(Path::class, chronicle: $chronicle);
+    $orders = $this->dataService->findAll(MageOrder::class, chronicle: $chronicle);
+    // We are creating a mage, so we use the extended Creation/MageForm
+    $form = $formFactory->createNamed('character_form', MageForm::class, $mage, [
+      'user' => $this->getUser(),
+      'paths' => $paths,
+      'orders' => $orders,
+    ]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
+        $this->creationService->addMerits($mage, $form->getExtraData()['merits']);
       }
-      $this->creationService->getSpecialties($character, $form);
+      $this->creationService->getSpecialties($mage, $form);
       // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
+      $mage->setXpTotal((7 - $mage->getMoral()) * 5);
+      $this->service->set($mage, $form);
 
-      $this->dataService->save($character);
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+      return $this->redirectToRoute('character_show', ['id' => $mage->getId()]);
     }
-
-    $merits = $this->characterService->filterMerits($character);
     $this->dataService->loadMeritsPrerequisites($merits);
 
     return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
+      'character' => $mage,
       'form' => $form,
       'attributes' => $this->characterService->getSortedAttributes(),
-      'skills' => $this->characterService->getskillList($character),
+      'skills' => $this->characterService->getskillList($mage),
       'merits' => $merits,
+      'paths' => $paths,
+      'orders' => $orders,
+      'arcana' => $this->dataService->findAll(Arcanum::class, $chronicle),
     ]);
   }
 

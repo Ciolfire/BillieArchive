@@ -197,8 +197,13 @@ class DataService
    * @param class-string $class
    * @return array<int, object>
    */
-  public function findAll(string $class): array
+  public function findAll(string $class, ?Chronicle $chronicle = null): array
   {
+    $repo = $this->getRepository($class);
+    $method = 'findAllByChronicle';
+    if ($chronicle && method_exists($repo, $method)) {
+      return $this->getRepository($class)->$method($chronicle);
+    }
 
     return  $this->getRepository($class)->findAll();
   }

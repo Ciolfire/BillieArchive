@@ -25,20 +25,37 @@ class MageService
     $this->dataService = $dataService;
   }
 
+  public function set(Mage $mage, FormInterface $form)
+  {
+    // Bonus attribute and starting Arcana
+    $mage->addAttribute($mage->getPath()->getAttribute()->getIdentifier(), 1);
+    $mage->setWillpower($mage->getAttributes()->get('resolve', false) + $mage->getAttributes()->get('composure', false));
+    $this->addArcana($mage, $form->getExtraData()['arcana']);
+
+    // Starting rotes, if we set it here
+    // $this->addRotes($mage, $form->getExtraData()['rotes']);
+    // Should we really ? There is potential loss of informations there
+    // $mage->cleanLesserTemplates();
+
+    if ($mage->getLesserTemplate()) {
+      $mage->getLesserTemplate()->setIsActive(false);
+    }
+    // Starting mana
+    $mage->setMana($mage->getMoral());
+
+    // Save
+    $this->dataService->save($mage);
+  }
+
   public function awaken(Character $character, FormInterface $form): bool
   {
     $connection = $this->dataService->getConnection();
     $data = $form->getData();
-    
+
     if (!$data['path'] instanceof Path) {
 
       return false;
     }
-
-    if (isset($form->getExtraData()['arcana'])) {
-      $arcana = $form->getExtraData()['arcana'];
-    }
-    $startingMana = $character->getMoral();
 
     // $lesser = $character->findLesserTemplate("LESSER");
     // // IF IT'S A LESSER TEMPLATE, MAYBE NEED TO KEEP THE ARCANA/WHATEVER/...? Didn't work with entity, had to convert to array, but well, it works.
@@ -52,7 +69,7 @@ class MageService
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->executeStatement();
     // ... as a Mage for the rest of her life
-    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `mage`(`id`, `path_id`, `order_id`, `gnosis`, `mana`) VALUES (:id, :path, :order, 1, $startingMana)");
+    $nativeQuery = $connection->prepare("INSERT IGNORE INTO `mage`(`id`, `path_id`, `order_id`, `gnosis`, `mana`) VALUES (:id, :path, :order, 1, 0)");
     $nativeQuery->bindValue('id', $character->getId());
     $nativeQuery->bindValue('path', $data['path']->getId());
     if ($data['order'] instanceof MageOrder) {
@@ -64,17 +81,8 @@ class MageService
     // // We force the change to the manager, to avoid conflict from memory (?)
     $this->dataService->reset();
     $mage = $this->dataService->find(Mage::class, $character->getId());
-    // Bonus attribute and starting Arcana
-    $mage->addAttribute($data['path']->getAttribute()->getIdentifier(), 1);
-    $this->addArcana($mage, $arcana);
-
-    // Should we really ? There is potential loss of informations there
-    // $mage->cleanLesserTemplates();
     
-    if ($mage->getLesserTemplate()) {
-      $mage->getLesserTemplate()->setIsActive(false);
-    }
-    $this->dataService->save($mage);
+    $this->set($mage, $data);
 
     return true;
   }
@@ -113,7 +121,7 @@ class MageService
         // Not owned rote
         $mage->hasRote($rote) ||
         !is_null($rote->getHomebrewFor()) && $rote->getHomebrewFor() != $mage->getChronicle() ||
-        !is_null($rote->getMageOrder()) && $rote->getMageOrder() != $mage->getOrder() 
+        !is_null($rote->getMageOrder()) && $rote->getMageOrder() != $mage->getOrder()
       ) {
         unset($rotes[$key]);
       }
@@ -128,7 +136,7 @@ class MageService
     if (isset($data['gnosis']) && $data['gnosis'] > $character->getGnosis()) {
       $character->setGnosis((int)$data['gnosis']);
     }
-    
+
     if (isset($data['arcanaUp'])) {
       foreach ($data['arcanaUp'] as $id => $level) {
         $arcanum = $character->getArcanum($id);

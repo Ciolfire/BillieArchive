@@ -15,11 +15,8 @@ class VampireForm extends CharacterForm
 {
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    // The user is the one creating the character
     /** @var Vampire $vampire */
-    $vampire = $options['data'];
-    $chronicle = $vampire->getchronicle();
-    $options['user'] = $vampire->getPlayer();
+    // $vampire = $options['data'];
     parent::buildForm($builder, $options);
 
     $builder
@@ -125,7 +122,6 @@ class VampireForm extends CharacterForm
       "translation_domain" => 'character',
       "allow_extra_fields" => true,
       "name" => "character",
-      // "is_edit" => false,
       "clans" => null,
       "covenants" => null,
       "attributes" => null,

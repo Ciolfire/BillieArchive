@@ -23,7 +23,7 @@ export default class extends Controller {
 
 
   connect() {
-    let orderNull = document.getElementsByClassName("awakening_form[order]-null")[0];
+    let orderNull = document.querySelector('[id$="_form_order_none"]');
     orderNull.checked = true;
     orderNull.dataset.action = "click->character--awakening#orderUnpicked";
     this.pathTargets.forEach(path => {
@@ -31,6 +31,16 @@ export default class extends Controller {
         path.dispatchEvent(new Event("click"));
       }
     });
+  }
+
+  submitActivate(isValid = true) {
+    if (this.hasSubmitTarget) {
+      if (isValid) {
+        this.submitTarget.classList.remove("disabled");
+      } else {
+        this.submitTarget.classList.add("disabled");
+      }
+    }
   }
 
   arcanaUpdate() {
@@ -90,9 +100,10 @@ export default class extends Controller {
     }
 
     // If all flag are valid, we allow submit
-    this.submitTarget.classList.add("disabled");
     if (rulingValid && othersValid && totalValid) {
-      this.submitTarget.classList.remove("disabled");
+      this.submitActivate(true);
+    } else {
+      this.submitActivate(false);
     }
   }
 
@@ -114,7 +125,7 @@ export default class extends Controller {
   }
 
   orderUnpicked(event) {
-    document.getElementsByClassName("awakening_form[order]-null")[0].checked = true;
+    document.querySelector('[id$="_form_order_none"]').checked = true;
     this.orderDescriptionTargets.forEach(element => {
       element.classList.add('d-none');
     });

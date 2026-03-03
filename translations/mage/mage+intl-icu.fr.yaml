@@ -41,3 +41,9 @@ rune:
   label: Rune
 
 upload: Glisser-déposer ou naviguer
+
+creation:
+  humanity:
+    title: Les Conteurs peuvent autoriser les joueurs utilisant le modèle de mage lors de la création de leur personnage à échanger des points de Sagesse contre des points d'expérience.
+    text: Ce choix reflète un comportement arrogant de la mage, dont elle a tiré des leçons (ce qui explique les points d'expérience supplémentaires), mais qui l'a aussi profondément marquée (ce qui explique la perte de Sagesse). Les joueurs peuvent sacrifier un point d'Humanité pour cinq points d'expérience, ce qui peut faire chuter la Sagesse de leur personnage jusqu'à cinq.
+  gnosis: La Gnose peut être accrue par une dépense de points d'Atout à un taux de trois pour un.

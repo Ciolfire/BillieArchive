@@ -97,7 +97,7 @@ class ClanRepository extends ServiceEntityRepository
   /**
    * @return Clan[] Returns an array of Clan objects
    */
-  public function findAllClan(?Chronicle $chronicle = null, $isAncient = false) : array
+  public function findAllClans(?Chronicle $chronicle = null, $isAncient = false) : array
   {
     if ($chronicle) {
       $isAncient = $chronicle->isAncient();
