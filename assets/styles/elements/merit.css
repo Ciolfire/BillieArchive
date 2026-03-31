@@ -47,7 +47,9 @@
 
   &.merit-owned {
     background-color: var(--block-light-bg);
-    color: var(--main-dark);
+    .merit-body {
+      color: var(--main-dark);
+    }
   }
 
   .merit-detail {
