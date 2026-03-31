@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -64,7 +66,7 @@ class Devotion implements Translatable
 
   #[ORM\Column(length: 255, nullable: true)]
   private ?string $contestedText = null;
-  
+
   #[ORM\Column]
   private ?bool $usePotency = null;
 
@@ -158,14 +160,14 @@ class Devotion implements Translatable
 
   public function getShort(): ?string
   {
-      return $this->short;
+    return $this->short;
   }
 
   public function setShort(string $short): self
   {
-      $this->short = $short;
+    $this->short = $short;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -173,23 +175,23 @@ class Devotion implements Translatable
    */
   public function getAttributes(): Collection
   {
-      return $this->attributes;
+    return $this->attributes;
   }
 
   public function addAttribute(Attribute $attribute): self
   {
-      if (!$this->attributes->contains($attribute)) {
-          $this->attributes->add($attribute);
-      }
+    if (!$this->attributes->contains($attribute)) {
+      $this->attributes->add($attribute);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeAttribute(Attribute $attribute): self
   {
-      $this->attributes->removeElement($attribute);
+    $this->attributes->removeElement($attribute);
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -197,23 +199,23 @@ class Devotion implements Translatable
    */
   public function getSkills(): Collection
   {
-      return $this->skills;
+    return $this->skills;
   }
 
   public function addSkill(Skill $skill): self
   {
-      if (!$this->skills->contains($skill)) {
-          $this->skills->add($skill);
-      }
+    if (!$this->skills->contains($skill)) {
+      $this->skills->add($skill);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeSkill(Skill $skill): self
   {
-      $this->skills->removeElement($skill);
+    $this->skills->removeElement($skill);
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -221,47 +223,47 @@ class Devotion implements Translatable
    */
   public function getDisciplines(): Collection
   {
-      return $this->disciplines;
+    return $this->disciplines;
   }
 
   public function addDiscipline(Discipline $discipline): self
   {
-      if (!$this->disciplines->contains($discipline)) {
-          $this->disciplines->add($discipline);
-      }
+    if (!$this->disciplines->contains($discipline)) {
+      $this->disciplines->add($discipline);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeDiscipline(Discipline $discipline): self
   {
-      $this->disciplines->removeElement($discipline);
+    $this->disciplines->removeElement($discipline);
 
-      return $this;
+    return $this;
   }
 
   public function getBloodline(): ?Clan
   {
-      return $this->bloodline;
+    return $this->bloodline;
   }
 
   public function setBloodline(?Clan $bloodline): self
   {
-      $this->bloodline = $bloodline;
+    $this->bloodline = $bloodline;
 
-      return $this;
+    return $this;
   }
 
   public function getContestedText(): ?string
   {
-      return $this->contestedText;
+    return $this->contestedText;
   }
 
   public function setContestedText(?string $contestedText): self
   {
-      $this->contestedText = $contestedText;
+    $this->contestedText = $contestedText;
 
-      return $this;
+    return $this;
   }
 
   public function getCosts(): array
@@ -293,41 +295,41 @@ class Devotion implements Translatable
    */
   public function getCovenants(): Collection
   {
-      return $this->covenants;
+    return $this->covenants;
   }
 
   public function addCovenant(Covenant $covenant): static
   {
-      if (!$this->covenants->contains($covenant)) {
-          $this->covenants->add($covenant);
-          $covenant->addDevotion($this);
-      }
+    if (!$this->covenants->contains($covenant)) {
+      $this->covenants->add($covenant);
+      $covenant->addDevotion($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeCovenant(Covenant $covenant): static
   {
-      if ($this->covenants->removeElement($covenant)) {
-          $covenant->removeDevotion($this);
-      }
+    if ($this->covenants->removeElement($covenant)) {
+      $covenant->removeDevotion($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function isUsePotency(): ?bool
   {
-      return $this->usePotency;
+    return $this->usePotency;
   }
 
   public function setUsePotency(bool $usePotency): static
   {
-      $this->usePotency = $usePotency;
+    $this->usePotency = $usePotency;
 
-      return $this;
+    return $this;
   }
 
-  public function getPrerequisiteDisciplines() : string
+  public function getPrerequisiteDisciplines(): string
   {
     $prerequisites = "";
     foreach ($this->prerequisites as $prerequisite) {
@@ -344,10 +346,11 @@ class Devotion implements Translatable
     foreach ($this->prerequisites as $prerequisite) {
       /** @var Prerequisite $prerequisite */
       $entity = $prerequisite->getEntity();
-      if ($entity instanceof Discipline && !$prerequisite->getChoiceGroup()) {
-        $disciplines[$entity->getId()] = $prerequisite->getValue();
+      if ($entity instanceof Discipline && !$prerequisite->getChoiceGroup() || $prerequisite->getType() == "App\Entity\Discipline") {
+        $disciplines[$prerequisite->getEntityId()] = $prerequisite->getValue();
       }
     }
+
     return $disciplines;
   }
 

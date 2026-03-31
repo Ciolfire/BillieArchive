@@ -373,6 +373,23 @@ class Vampire extends Character
     return false;
   }
 
+  public function canGetDevotion(Devotion $devotion)
+  {
+    $disciplines = $this->getDisciplinesLevel();
+
+    foreach ($devotion->getDisciplinesLevel() as $id => $level) {
+      if (
+        isset($disciplines[$id]) && $disciplines[$id] + 1 < $level
+        || (!isset($disciplines[$id]) && $level > 1)
+      ) {
+
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   /**
    * @return Collection<int, DisciplinePower>
    */
