@@ -57,13 +57,22 @@ class Mage extends Character
   private ?bool $hasOwnLegacy = false;
 
 
-  public function __construct(User $user, bool $isAncient = false, bool $isNpc = false, ?Chronicle $chronicle = null)
-  {
-    parent::__construct(...func_get_args());
+  public function __construct(
+    User $user,
+    ?Chronicle $chronicle = null,
+    bool $isAncient = false,
+    bool $isNpc = false,
+    bool $isPremade = false,
+  ) {
+    parent::__construct(
+      user: $user,
+      chronicle: $chronicle,
+      isAncient: $isAncient,
+      isNpc: $isNpc,
+      isPremade: $isPremade
+    );
 
     $this->arcana = new ArrayCollection();
-    // $this->devotions = new ArrayCollection();
-    // $this->rituals = new ArrayCollection();
     $this->rotes = new ArrayCollection();
     $this->createdRotes = new ArrayCollection();
   }

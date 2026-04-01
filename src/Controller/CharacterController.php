@@ -214,31 +214,23 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
-  public function newChoice(?bool $isAncient = null, ?bool $isNpc = null, ?Chronicle $chronicle = null): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
+  public function newChoice(?Chronicle $chronicle = null, ?bool $isAncient = null, ?bool $isNpc = null, ?bool $isPremade = null): Response
   {
+    if ($isPremade) {
+      $this->denyAccessUnlessGranted('ROLE_GM');
+    }
 
     return $this->render('character_sheet/choice.html.twig', [
       'templates' => get_class_vars(SettingType::class),
+      'chronicle' => $chronicle,
       'isAncient' => $isAncient,
       'isNpc' => $isNpc,
-      'chronicle' => $chronicle,
+      'isPremade' => $isPremade,
     ]);
   }
 
-  #[Route('/new/werewolf/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
-  public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
-  {
-    return new Response();
-  }
-
-  #[Route('/new/mage/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
-  public function newMage(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
-  {
-    return new Response();
-  }
-
-  #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
+  #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
   public function newHuman(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
   {
     if ($chronicle && $chronicle->isAncient()) {

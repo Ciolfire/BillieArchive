@@ -36,9 +36,20 @@ class Werewolf extends Character
   #[ORM\ManyToMany(targetEntity: Gift::class)]
   private Collection $gifts;
 
-  public function __construct(?User $user = null, ?Chronicle $chronicle = null, bool $isAncient = false, bool $isNpc = false)
-  {
-    parent::__construct(...func_get_args());
+  public function __construct(
+    ?User $user = null,
+    ?Chronicle $chronicle = null,
+    bool $isAncient = false,
+    bool $isNpc = false,
+    bool $isPremade = false,
+  ) {
+    parent::__construct(
+      user: $user,
+      chronicle: $chronicle,
+      isAncient: $isAncient,
+      isNpc: $isNpc,
+      isPremade: $isPremade
+    );
 
     $this->gifts = new ArrayCollection();
   }

@@ -41,13 +41,13 @@ final class WerewolfController extends AbstractController
     $this->creationService = $creationService;
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
-  public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
+  public function newWerewolf(Request $request, ?Chronicle $chronicle = null, bool $isAncient, bool $isNpc, bool $isPremade): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Werewolf(isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
+    $character = new Werewolf(isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade, chronicle: $chronicle);
 
     /** @var User $user */
     $user = $this->getUser();

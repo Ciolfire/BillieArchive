@@ -38,13 +38,13 @@ final class MageController extends AbstractController
     $this->creationService = $creationService;
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
-  public function newMage(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
+  public function newMage(Request $request, FormFactoryInterface $formFactory, ?Chronicle $chronicle = null, bool $isAncient, bool $isNpc, bool $isPremade): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $mage = new Mage(user: $this->getUser(), isAncient: $isAncient, isNpc: $isNpc, chronicle: $chronicle);
+    $mage = new Mage(user: $this->getUser(), chronicle: $chronicle, isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade);
 
     $mage->setPlayer($this->getUser());
     $merits = $this->characterService->filterMerits($mage);
