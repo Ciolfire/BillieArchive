@@ -241,7 +241,7 @@ class CharacterController extends AbstractController
     $character->setIsNpc($isNpc);
 
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character, []);
+    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       if (isset($form->getExtraData()['merits'])) {
@@ -276,7 +276,7 @@ class CharacterController extends AbstractController
     $character->setIsPremade(true);
 
     $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character);
+    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

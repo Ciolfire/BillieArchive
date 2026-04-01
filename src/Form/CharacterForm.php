@@ -152,7 +152,7 @@ class CharacterForm extends AbstractType
         'required' => false,
       ]);
     }
-    if ($character->getChronicle() && $character->getPlayer() == $character->getChronicle()->getStoryteller()) {
+    if ($character->getChronicle() && $options['user'] == $character->getChronicle()->getStoryteller()) {
       $builder
       ->add('size', null, [
         'label' => 'size.label',
