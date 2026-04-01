@@ -118,6 +118,17 @@ class Ghoul extends CharacterLesserTemplate
     return $this->disciplines;
   }
 
+  public function getDisciplinesLevel(): array
+  {
+    $disciplines = [];
+    foreach ($this->disciplines as $discipline) {
+      /** @var VampireDiscipline $discipline */
+      $disciplines[$discipline->getDiscipline()->getId()] = $discipline->getLevel();
+    }
+
+    return $disciplines;
+  }
+
   public function getFilteredDisciplines(?string $filter = null): mixed
   {
     switch ($filter) {
@@ -249,6 +260,28 @@ class Ghoul extends CharacterLesserTemplate
     }
 
     return false;
+  }
+
+  public function canGetDevotion(Devotion $devotion)
+  {
+    foreach ($devotion->getPrerequisites() as $prerequisite) {
+      if ($prerequisite->getType() == "potency") {
+        return false;
+      }
+    }
+
+    $disciplines = $this->getDisciplinesLevel();
+    foreach ($devotion->getDisciplinesLevel() as $id => $level) {
+      if (
+        isset($disciplines[$id]) && $disciplines[$id] + 1 < $level
+        || (!isset($disciplines[$id]) && $level > 1)
+      ) {
+
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**

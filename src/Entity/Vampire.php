@@ -52,9 +52,20 @@ class Vampire extends Character
   private Collection $rituals;
 
 
-  public function __construct(?User $user = null, ?Chronicle $chronicle = null, bool $isAncient = false, bool $isNpc = false)
-  {
-    parent::__construct(...func_get_args());
+  public function __construct(
+    ?User $user = null,
+    ?Chronicle $chronicle = null,
+    bool $isAncient = false,
+    bool $isNpc = false,
+    bool $isPremade = false,
+  ) {
+    parent::__construct(
+      user: $user,
+      chronicle: $chronicle,
+      isAncient: $isAncient,
+      isNpc: $isNpc,
+      isPremade: $isPremade
+    );
 
     $this->disciplines = new ArrayCollection();
     $this->devotions = new ArrayCollection();
@@ -375,6 +386,12 @@ class Vampire extends Character
 
   public function canGetDevotion(Devotion $devotion)
   {
+    foreach ($devotion->getPrerequisites() as $prerequisite) {
+      if ($prerequisite->getType() == "potency" && $prerequisite->getValue() > $this->getPotency()) {
+        return false;
+      }
+    }
+
     $disciplines = $this->getDisciplinesLevel();
 
     foreach ($devotion->getDisciplinesLevel() as $id => $level) {

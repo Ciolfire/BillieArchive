@@ -143,9 +143,9 @@ class VampireService
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
       if (
-        $vampire->hasDevotion($devotion->getId()) ||
-        !$devotion->isAvailable($vampire->getChronicle()) ||
-        !$vampire->canGetDevotion($devotion)
+        $vampire->hasDevotion($devotion->getId())
+        || !$devotion->isAvailable($vampire->getChronicle())
+        || !$vampire->canGetDevotion($devotion)
       ) {
         unset($devotions[$key]);
       }
@@ -178,7 +178,11 @@ class VampireService
     $devotions = $this->dataService->findBy(Devotion::class, [], ['name' => 'ASC']);
     foreach ($devotions as $key => $devotion) {
       /** @var Devotion $devotion */
-      if ($ghoul->hasDevotion($devotion->getId()) || !$devotion->isAvailable($ghoul->getChronicle())) {
+      if (
+        $ghoul->hasDevotion($devotion->getId())
+        || !$devotion->isAvailable($ghoul->getChronicle())
+        || !$ghoul->canGetDevotion($devotion)
+      ) {
         unset($devotions[$key]);
       }
       $this->dataService->loadPrerequisites($devotion);
