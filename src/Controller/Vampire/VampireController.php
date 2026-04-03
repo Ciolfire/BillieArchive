@@ -49,11 +49,13 @@ class VampireController extends AbstractController
 
     $vampire->setPlayer($this->getUser());
     $merits = $this->characterService->filterMerits($vampire);
-    $clans = $this->dataService->getDoctrine()->getRepository(Clan::class)->findAllClans(chronicle: $vampire->getChronicle(), isAncient: $isAncient);
+    
+    $clans = $this->dataService->getRepository(Clan::class)->findAllClans(chronicle: $chronicle, isAncient: $isAncient);
     $covenants = $this->dataService->findBy(Covenant::class, ['isAncient' => $vampire->isAncient()]);
     $attributes = $this->dataService->findAll(Attribute::class);
     // We are creating a vampire, so we use the extended Creation/VampireForm
     $form = $formFactory->createNamed('character_form', VampireForm::class, $vampire, [
+      'user' => $this->getUser(),
       'clans' => $clans,
       'covenants' => $covenants,
       'attributes' => $attributes,
