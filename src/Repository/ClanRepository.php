@@ -99,7 +99,7 @@ class ClanRepository extends ServiceEntityRepository
    */
   public function findAllClans(?Chronicle $chronicle = null, $isAncient = false) : array
   {
-    if ($chronicle) {
+    if ($chronicle && !$isAncient) {
       $isAncient = $chronicle->isAncient();
     }
 
