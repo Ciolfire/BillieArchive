@@ -40,7 +40,7 @@ class VampireController extends AbstractController
   }
 
   #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
-  public function newVampire(Request $request, FormFactoryInterface $formFactory, ?Chronicle $chronicle = null, bool $isAncient, bool $isNpc, bool $isPremade): Response
+  public function newVampire(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;

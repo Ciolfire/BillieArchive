@@ -60,7 +60,29 @@ export default class extends Controller {
       }
     });
     if (event) {
+      // Click registered, we only check the current one
       changed = event.target.getAttribute("for").split('-')[0];
+      let value = document.getElementById(`character_form_skills_${changed}`).value;
+      let options = document.getElementsByClassName(`specialty-choice ${changed}`);
+      console.debug(options);
+      for (let option of options) {
+        console.debug(value);
+        if (value == 0) {
+          option.classList.add("d-none");
+        } else {
+          option.classList.remove("d-none");
+        }
+      };
+    } else {
+      // Init event, generic check
+      let options = document.getElementsByClassName(`specialty-choice`);
+      for (let option of options) {
+        if (document.getElementById(`character_form_skills_${option.dataset.skill}`).value == 0) {
+          option.classList.add("d-none");
+        } else {
+          option.classList.remove("d-none");
+        }
+      };
     }
     this.dispatch("change", { detail: { type: 'skill', target: changed } });
   }

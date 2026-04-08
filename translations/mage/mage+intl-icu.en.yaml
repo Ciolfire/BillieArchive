@@ -42,6 +42,7 @@ rune:
 upload: Drag and drop or browse
 
 creation:
+  label: Add Mage Template
   humanity:
     title: Storytellers may allow those players applying the mage template during character creation to trade dots of Wisdom for experience points.
     text: This trade-in reflects some hubristic behavior the mage engaged in and learned from (accounting for the added experience points), but which also scarred her deeply (explaining the loss in Wisdom). Players may sacrifice one dot of Humanity for five experience points, dropping their characters’ Wisdom scores to as low as five.

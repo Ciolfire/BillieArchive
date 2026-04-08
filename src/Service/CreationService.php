@@ -102,7 +102,7 @@ class CreationService
     foreach ($specialties as $specialty) {
       $specialty = $specialty->getData();
       /** @var CharacterSpecialty $specialty */
-      if (!is_null($specialty->getName())) {
+      if ($specialty && !is_null($specialty->getName()) && !is_null($specialty->getSkill())) {
         $specialty->setCharacter($character);
         $character->addSpecialty($specialty);
       }

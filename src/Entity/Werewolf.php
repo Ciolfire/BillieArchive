@@ -54,6 +54,11 @@ class Werewolf extends Character
     $this->gifts = new ArrayCollection();
   }
 
+  public function getType(): string
+  {
+    return "werewolf";
+  }
+
   public function getPrimalUrge(): ?int
   {
     return $this->primalUrge;

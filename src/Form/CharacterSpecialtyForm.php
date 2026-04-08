@@ -27,12 +27,18 @@ class CharacterSpecialtyForm extends AbstractType
         'label' => 'specialty.label.single',
         'attr' => [
           'data-character--creation-target' => 'specialties',
-          'data-action' => 'character--creation#specialtyUpdate'
-        ]
+          'data-action' => 'character--creation#specialtyUpdate',
+        ],
       ])
       ->add('skill', null, [
-        'required' => true,
+        'required' => false,
         'label' => 'label.single',
+        'choice_attr' => function ($choice, string $key, mixed $value) {
+          return [
+            'class' => "specialty-choice {$choice->getIdentifier()} d-none",
+            'data-skill' => $choice->getIdentifier(),
+          ];
+        },
         'group_by' => function($choice) use ($translator) {
           return $translator->trans("category.{$choice->getCategory()}", [], 'app');
         },

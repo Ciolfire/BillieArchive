@@ -1,2 +1,15 @@
 change:
   label: First Change
+
+morality:
+  label: Harmony
+
+primal_urge:
+  label: Primal Urge
+
+creation:
+  label: Add Werewolf Template
+  humanity:
+    title: Storytellers may allow those players applying the werewolf template during character creation to trade dots of Harmony for experience points.
+    text: This usually reflects some horrible trauma on the part of the werewolf, usually during or directly after the First Change. The character’s lower Harmony reflects mental or emotional scarring that makes it hard to control the monstrous instincts within, while the experience points gained represent the character learning something from the event. Players may sacrifice one point of Harmony for five experience points, dropping Harmony to as low as five
+  primal_urge: Primal Urge can be increased with Merit-dot expenditure at a rate of three to one at character creation. 
