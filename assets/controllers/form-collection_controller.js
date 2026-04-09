@@ -11,7 +11,7 @@ export default class extends Controller {
 
   addCollectionElement(event) {
     const item = document.createElement('div');
-    item.classList.add("col-12", "col-lg-6", "mb-1");
+    item.classList.add("col-12", "mb-1");
     item.innerHTML = this.prototypeValue.replace(/__name__/g, this.indexValue);
     this.collectionContainerTarget.appendChild(item);
     this.indexValue++;

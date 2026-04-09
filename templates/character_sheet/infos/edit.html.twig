@@ -14,9 +14,7 @@
           >
             <ul {{ stimulus_target('form-collection', 'collectionContainer') }}>
               {% for infos in form.infos %}
-                <div class="row mb-3">
-                  {{ form_widget(infos)}}
-                </div>
+                {{ form_widget(infos)}}
               {% endfor %}
             </ul>
             <div class="d-flex flex-row-reverse">

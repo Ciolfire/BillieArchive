@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Character;
 use App\Entity\CharacterInfo;
 use App\Entity\Chronicle;
+use App\Form\Type\RichTextEditorForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -44,9 +45,8 @@ class CharacterInfoForm extends AbstractType
       ->add('title', null, [
         'label' => 'infos.details.title',
       ])
-      ->add('data', TextareaType::class, [
-        'label' => 'infos.details.data',
-        'attr' => ['style' => "height: 200px"]
+      ->add('data', RichTextEditorForm::class, [
+        'label' => false,
       ])
       ->add('accessList', EntityType::class, [
         'label' => 'infos.details.access.list',
@@ -82,7 +82,6 @@ class CharacterInfoForm extends AbstractType
       'translation_domain' => 'character',
       'path' => null,
       'attr' => [
-        // 'data-controller' => 'prerequisite',
         'data-form-collection-target' => 'block',
       ],
     ]);
