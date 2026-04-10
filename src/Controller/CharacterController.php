@@ -231,7 +231,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
-  public function newHuman(Request $request, bool $isAncient, bool $isNpc, ?Chronicle $chronicle = null): Response
+  public function newHuman(Request $request, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null): Response
   {
     if ($chronicle && $chronicle->isAncient()) {
       $isAncient = true;
@@ -239,6 +239,7 @@ class CharacterController extends AbstractController
     $character = new Human(user: $this->getUser(), isAncient: $isAncient);
     $character->setChronicle($chronicle);
     $character->setIsNpc($isNpc);
+    $character->setIsPremade($isPremade);
 
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
@@ -560,6 +561,7 @@ class CharacterController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $data = $form->get($type)->getData();
+      // dd($data);
       if ($data == null) {
         $data = "";
       }
