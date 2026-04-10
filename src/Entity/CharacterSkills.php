@@ -167,13 +167,14 @@ class CharacterSkills
   public function getAll(bool $any=true) : array
   {
     $skills = [];
-    if ($this->character->isAncient()) {
-      foreach ($this->ancientList as $skill) {
-        if ($any || $this->$skill > 0) {
-          $skills[] = ['id' => $skill, 'value' => $this->$skill];
-        }
-      }
-    }
+    // Comment for now, but probably useless and bug inducing on "old skills"
+    // if ($this->character->isAncient()) {
+    //   foreach ($this->ancientList as $skill) {
+    //     if ($any || $this->$skill > 0) {
+    //       $skills[] = ['id' => $skill, 'value' => $this->$skill];
+    //     }
+    //   }
+    // }
     foreach ($this->list as $skill) {
       if ($any || $this->$skill > 0) {
         $skills[] = ['id' => $skill, 'value' => $this->$skill];
