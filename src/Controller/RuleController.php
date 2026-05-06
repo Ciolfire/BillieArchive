@@ -37,7 +37,7 @@ class RuleController extends AbstractController
       $this->dataService->save($rule);
 
       $this->addFlash('success', ["general.new.done", ['%name%' => $rule->getTitle()]]);
-      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('rule_show', ['id' => $rule->getId()]);
     }
 
     return $this->render('element/new.html.twig', [
