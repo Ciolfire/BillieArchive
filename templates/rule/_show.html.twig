@@ -13,7 +13,7 @@
     </div>
     {% if rule.subrules is not empty %}
       <div class="block">
-        <div class="row g-2 pt-3">
+        <div class="row g-2 py-3">
           {% for subrule in rule.subrules %}
             <div class="col-6">
               <div class="rounded bdr p-3 h-100 merit merit-btn {% if subrule.type is not null %}{{subrule.type}}{% endif %}"
@@ -30,7 +30,6 @@
                     {% include "_source_block.html.twig" with {element: subrule, isShort:true} %}
                   </span>
                 </h2>
-                {# {{ subrule.details|markdown_to_html }} #}
               </div>
             </div>
           {% endfor %}
