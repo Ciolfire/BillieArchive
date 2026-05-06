@@ -33,7 +33,9 @@ class CharacterInfoForm extends AbstractType
     if ($character instanceof Character && $character->getChronicle() instanceof Chronicle) {
       $characters = $character->getChronicle()->getPlayerCharacters();
       $id = array_search($character, $characters);
-      unset($characters[$id]);
+      if ($id !== false) {
+        unset($characters[$id]);
+      }
     }
     $builder
       ->add('character', EntityType::class, [
