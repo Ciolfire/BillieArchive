@@ -11,7 +11,7 @@
   {% if rule.parentRule is null %}
     {% include "_back.html.twig" with {link: path('rule_index')} %}
   {% else %}
-    {% include "_back.html.twig" with {link: path('rule_show',{id: rule.parentRule.id})} %}
+    {% include "_back.html.twig" with {link: path('rule_show', {id: rule.parentRule.id})} %}
   {% endif %}
 {% endblock %}
 
