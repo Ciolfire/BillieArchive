@@ -96,7 +96,7 @@ class ItemController extends AbstractController
   }
 
   #[Route("item/new/{target}/{id}", name:"item_new_for_content", methods:["GET", "POST"])]
-  public function newForContent(Request $request, $target, $id): Response
+  public function newForContent(Request $request, mixed $target, int $id): Response
   {
     $types = $this->service->getTypes();
 
