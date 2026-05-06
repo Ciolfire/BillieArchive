@@ -6,11 +6,7 @@
 
 {% block shortcuts %}
   {% if is_granted('ROLE_ST') and rule.parentRule is null %}
-    {# {% if rule.type %} #}
-      <a class="btn btn-primary mt-1" href="{{ path('rule_new', {setting: rule.type|default(null), parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
-    {# {% else %} #}
-      {# <a class="btn btn-primary mt-1" href="{{ path('rule_new', {parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a> #}
-    {# {% endif %} #}
+    <a class="btn btn-primary mt-1" href="{{ path('rule_new', {setting: rule.type|default("human"), parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
   {% endif %}
   {% include "_back.html.twig" with {link: path('rule_index')} %}
 {% endblock %}
