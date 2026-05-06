@@ -5,37 +5,18 @@
 {% block title %}{{ rule.title }}{% endblock %}
 
 {% block shortcuts %}
+  {% if is_granted('ROLE_ST') and rule.parentRule is null %}
+    {# {% if rule.type %} #}
+      <a class="btn btn-primary mt-1" href="{{ path('rule_new', {setting: rule.type|default(null), parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+    {# {% else %} #}
+      {# <a class="btn btn-primary mt-1" href="{{ path('rule_new', {parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a> #}
+    {# {% endif %} #}
+  {% endif %}
   {% include "_back.html.twig" with {link: path('rule_index')} %}
 {% endblock %}
 
 {% block body %}
   <div class="container mt-5">
-    <div class="row">
-      <div class="{% if rule.type is not null %}{{rule.type}}{% endif %} block mt-3 pt-3">
-        {% if is_granted('ROLE_ST') %}
-          <a class="float-end" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-        {% endif %}
-        <h1>{{ rule.title }}</h1>
-        <div>
-          {{ rule.details|markdown_to_html }}
-        </div>
-        <div class="row">
-          {% for subrule in rule.subrules %}
-            <div class="col-6 {% if subrule.type is not null %}{{subrule.type}}{% endif %}">
-            {% if is_granted('ROLE_ST') %}
-              <a class="float-end" href="{{ path('rule_edit', {'id': subrule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-            {% endif %}
-              <h2>
-                {{ subrule.title }}
-                <span class="text-sub fs-6">
-                  {% include "_source_block.html.twig" with {element: subrule} %}
-                </span>
-              </h2>
-              {{ subrule.details|markdown_to_html }}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+    {% include "rule/_show.html.twig" %}
   </div>
 {% endblock %}

@@ -1,5 +1,10 @@
 {% extends 'form.html.twig' %}
 
+{% if element.setting is defined %}
+  {% set setting = element.setting %}
+{% endif %}
+
+
 {% trans_default_domain 'app' %}
 
 {% if entity.id is null %}

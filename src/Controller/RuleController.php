@@ -24,11 +24,11 @@ class RuleController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route("/new/{setting<\w+>?}", name:"rule_new", methods:["GET", "POST"])]
-  public function new(Request $request, $setting = null): Response
+  #[Route("/new/{setting<\w+>}/{parent<\d+>}", name:"rule_new", methods:["GET", "POST"])]
+  public function new(Request $request, ?string $setting = "human", ?Rule $parent = null): Response
   {
     $type = $this->dataService->findOneBy(ContentType::class, ['name' => $setting]);
-    $rule = new Rule($type);
+    $rule = new Rule($type, $parent);
 
     $form = $this->createForm(RuleForm::class, $rule);
     $form->handleRequest($request);
@@ -48,9 +48,14 @@ class RuleController extends AbstractController
   }
 
   #[Route("/{id<\d+>}", name:"rule_show", methods:["GET"])]
-  public function show(Rule $rule): Response
+  public function show(Request $request, Rule $rule): Response
   {
-    return $this->render('rule/show.html.twig', [
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("rule/$template.html.twig", [
       'rule' => $rule,
     ]);
   }
@@ -67,7 +72,7 @@ class RuleController extends AbstractController
       $this->dataService->update($rule);
 
       $this->addFlash('success', ["general.edit.done", ['%name%' => $rule->getTitle()]]);
-      return $this->redirectToRoute('rule_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('rule_show', ['id' => $rule->getId()]);
     }
 
     return $this->render('element/new.html.twig', [

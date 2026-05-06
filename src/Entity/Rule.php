@@ -42,9 +42,15 @@ class Rule implements Translatable
   #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
   private Collection $subrules;
 
-  public function __construct(?ContentType $type = null)
+  public function __construct(?ContentType $type = null, ?Rule $parent = null)
   {
     $this->type = $type;
+    $this->parentRule = $parent;
+    if ($parent instanceof Rule) {
+      $this->homebrewFor = $parent->getHomebrewFor();
+      $this->book = $parent->getBook();
+      $this->page = $parent->getPage();
+    }
     $this->subrules = new ArrayCollection();
   }
 
