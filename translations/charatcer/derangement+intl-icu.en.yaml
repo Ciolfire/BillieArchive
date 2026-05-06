@@ -3,7 +3,7 @@ label:
   multi: Derangements
 
 add: Add Derangement
-details: Details (max 50 characters)
+details: Details
 extreme: Extreme
 mild: Mild
 previous: Severe version of
@@ -18,5 +18,6 @@ count: >-
 
 
 help:
+  details: Details (max 50 characters)
   extreme: Character must experience a life-altering trauma or supernatural tragedy to acquire one of these extreme derangements. They cannot normally be acquired by failing a Morality roll unless the sin performed is truly gut wrenching or horrific, such as murdering one’s own children.
   previous: Can apply if a previously mild condition intensifies with more irreconcilable behavior or spectacles, or if a single act or scene is so mind numbing that only full-blown insanity and dysfunction can result.

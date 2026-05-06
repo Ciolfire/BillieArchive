@@ -3,7 +3,7 @@ label:
   multi: Dérangements
 
 add: Ajouter un Dérangement
-details: Détails (50 caractères max)
+details: Détails
 extreme: Extrême
 mild: Bénin
 previous: Version grave de
@@ -18,5 +18,6 @@ count: >-
 
 
 help:
+  details: Détails (50 caractères max)
   extreme: Le personnage doit subir un traumatisme qui change sa vie ou une tragédie surnaturelle pour acquérir l'un de ces dérangements extrèmes. Ils ne peuvent habituellement pas être obtenus en ratant un jet de moralité, à moins que le crime commis soit réellement déchirant ou horrible, comme executer ses propres enfants.
   previous: S'applique uniquement si une condition bénigne s'intensifie avec des actes répétés ou si un acte ou une scène singulière est tellement traumatisante que seul s'enfoncer dans sa folie permet d'y échapper.
