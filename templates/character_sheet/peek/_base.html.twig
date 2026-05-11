@@ -18,7 +18,6 @@
           {% endfor %}
         </div>
       {% endif %}
-      {# Maybe show menu to switch between available peek characters #}
     {% endblock %}
     {% block header %}
       {% include ["character_sheet_type/" ~ character.type ~ "/peek/header.html.twig", "character_sheet_type/human/peek/header.html.twig"] %}
@@ -87,8 +86,14 @@
       </div>
       <div id="infos" class="tab-content d-none" data-tabs-target="page">
         <div class="row">
+          {% set hasNoNote = true %}
           {% set keyInfoEmpty = true %}
           {% for info in character.infos %}
+            {% if info.creator == peeker.player %}
+              {% set hasNoNote = false %}
+              <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}" class="btn btn-primary">Edit Note</a>
+            {% endif %}
+            
             {% if info.hasAccess(peeker) %}
               {% set keyInfoEmpty = false %}
               <div class="col-12 col-md-6 pt-2">
@@ -101,6 +106,9 @@
           {% endfor %}
           {% if keyInfoEmpty %}
             <h3>{{ "infos.none"|trans }}</h3>
+          {% endif %}
+          {% if hasNoNote %}
+            <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}" class="btn btn-primary">Add Note</a>
           {% endif %}
         </div>
       </div>

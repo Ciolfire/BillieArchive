@@ -31,6 +31,9 @@ class CharacterInfo
   #[ORM\Column(length: 255)]
   private ?string $title = null;
 
+  #[ORM\ManyToOne]
+  private ?user $creator = null;
+
   public function __construct()
   {
     $this->accessList = new ArrayCollection();
@@ -73,18 +76,18 @@ class CharacterInfo
     return $this->accessList;
   }
 
-  public function addAccessList(Character $accessList): static
+  public function addAccessList(Character $character): static
   {
-    if (!$this->accessList->contains($accessList)) {
-      $this->accessList->add($accessList);
+    if (!$this->accessList->contains($character)) {
+      $this->accessList->add($character);
     }
 
     return $this;
   }
 
-  public function removeAccessList(Character $accessList): static
+  public function removeAccessList(Character $character): static
   {
-    $this->accessList->removeElement($accessList);
+    $this->accessList->removeElement($character);
 
     return $this;
   }
@@ -109,5 +112,17 @@ class CharacterInfo
     $this->title = $title;
 
     return $this;
+  }
+
+  public function getCreator(): ?user
+  {
+      return $this->creator;
+  }
+
+  public function setCreator(?user $creator): static
+  {
+      $this->creator = $creator;
+
+      return $this;
   }
 }

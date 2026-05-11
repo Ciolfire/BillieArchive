@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Character;
 use App\Entity\CharacterAccess;
+use App\Entity\CharacterInfo;
 use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\ContentType;
@@ -22,6 +23,7 @@ use App\Form\CharacterAccessForm;
 use App\Form\CharacterInfoAccessForm;
 use App\Form\CharacterNoteForm;
 use App\Form\CharacterForm;
+use App\Form\CharacterInfoForm;
 use App\Form\Type\RichTextEditorForm;
 use App\Repository\CharacterRepository;
 use App\Service\CharacterService;
@@ -402,6 +404,36 @@ class CharacterController extends AbstractController
     }
 
     return $this->redirectToRoute('character_index');
+  }
+
+  #[Route('/{id<\d+>}/peek/{peeker}/info', name: 'character_peek_info', methods: ['GET', 'POST'])]
+  public function peekInfo(Request $request, Character $character, Character $peeker): Response
+  {
+    // $this->denyAccessUnlessGranted('edit', $character);
+    $infos = $this->dataService->findBy(CharacterInfo::class, ['character' => $character]);
+    dd($infos);
+    $info = new CharacterInfo();
+
+    $info->setCharacter($character);
+    $info->addAccessList($peeker);
+    $info->setCreator($peeker->getPlayer());
+    $info->setTitle("Note");
+
+    $form = $this->createForm(CharacterInfoForm::class, $info, ['path' => $this->getParameter('characters_direct_directory'),]);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+
+      // dd($info);
+      $this->dataService->save($info);
+      // $this->dataService->flush();
+
+      return $this->redirectToRoute('character_peek', ['id' => $character->getId(), 'peeker' => $peeker, '_fragment' => 'informations']);
+    }
+    return $this->render('character_sheet/peek/info.html.twig', [
+      'peeker' => $peeker,
+      'character' => $character,
+      'form' => $form,
+    ]);
   }
 
   public function peekAs(Character $character, Character $peeker, ?string $referer = null): Response

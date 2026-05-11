@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'character' %}
+
+{% block title %}{{ "peek.info.label"|trans }}{% endblock %}
+
+{% block shortcuts %}
+  {% if peeker.player == app.user %}
+    {% include "_back.html.twig" with {link: path('character_show', {id: peeker.id, _fragment: "relation"})} %}
+  {% elseif character.player == app.user %}
+    {% include "_back.html.twig" with {link: path('character_show', {id: character.id, _fragment: "relation"})} %}
+  {% else %}
+    {# Should never happen #}
+    
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "_form.html.twig" %}
+{% endblock %}
