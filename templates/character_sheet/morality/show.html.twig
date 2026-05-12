@@ -14,6 +14,12 @@
             {% include "_icon.html.twig" with {icon: 'derangement'} only %}
           </span>
         </span>
+        <span role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newFlawModal">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ "add"|trans({}, "flaw") }}">
+            {% include "_icon.html.twig" with {icon: 'add'} only %}
+            {% include "_icon.html.twig" with {icon: 'flaw'} only %}
+          </span>
+        </span>
       {% endif %}
       <div class="row">
         {% for charDerangement in character.standardDerangements %}

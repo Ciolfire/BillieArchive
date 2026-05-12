@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% block title %}{{ 'label.multi'|trans({}, 'flaw') }}{% endblock %}
+
+{% set footer = true %}
+
+{% block bodyController %}
+  {{parent() }} search
+{% endblock %}
+
+{% block shortcuts %}
+  {# {% if chronicle == false %}
+    {% include "_back.html.twig" %}
+  {% else %}
+    {% include "_back.html.twig" with { link: path('homebrew_index', {id: chronicle}) } %}
+  {% endif %} #}
+  {% include "_top.html.twig" %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary mt-1" href="{{ path('flaw_new') }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="flaw"
+{% endblock %}
+
+{% block body %}
+  {% include "_title.html.twig" with { domain: "flaw" } %}
+
+  <div class="container block">
+    <div id="collapseDescription" class="row justify-content-center collapse p-2">
+      <div class="col-12 col-lg-10 col-xl-8">
+        {{ description.value|default("")|markdown_to_html }}
+      </div>
+    </div>
+    <div class="row g-2 pb-2">
+      {% for flaw in flaws|sort((a, b) => a.name|lower <=> b.name|lower) %}
+        {% include "flaw/_card.html.twig" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footerContent %}
+  {% include "_search.html.twig" with { type: "flaw" } %}
+{% endblock %}

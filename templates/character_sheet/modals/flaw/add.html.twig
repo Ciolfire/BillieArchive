@@ -1,0 +1,51 @@
+{% trans_default_domain 'flaw' %}
+{% extends "_modal.html.twig" %}
+
+{% set isLarge = false %}
+{% set hasFooter = false %}
+{% set id = "newFlawModal" %}
+
+{% block title %}{{ "add"|trans }}{% endblock %}
+
+{% block body %}
+  <form action="{{ path('character_flaw_new', { 'id' : character.id }) }}" method="POST">
+    <div class="row">
+      <div class="col-12 mb-3">
+        {% include "_icon.html.twig" with {icon: 'flaw'} %}
+      </div>
+    </div>
+
+    <label class="accent" for="flaw">{{ "label.single"|trans }}</label>
+    <select class="form-control" name="flaw" autocomplete="off" {% if required|default(false) %}required{% endif %}
+    >
+      <option value=""></option>
+      {% for flaw in flaws %}
+        <option value="{{ flaw.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#flaw-{{ flaw.id }}-{{ tag|default('new') }}">
+          {{ flaw.name }}
+          —
+          {% if flaw.type %} — {{ flaw.type|trans({}, 'content-type') }}{% endif %}
+        </option>
+      {% endfor %}
+    </select>
+
+    <div id="{{ id|default('accordionFlaw') }}" class="row accordion mt-2">
+      {% for flaw in flaws %}
+        <div id="flaw-{{ flaw.id }}-{{ tag|default('new') }}" class="col-12 collapse" data-bs-parent="#{{ id|default('accordionFlaw') }}">
+          <h5>
+            {{ flaw.name }}
+            {% if flaw.type %}{% include "_icon.html.twig" with {icon: ("type/" ~ flaw.type)|default('')} %}{% endif %}
+          </h5>
+          {{ flaw.effect|markdown_to_html }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-warning btn-lg w-100">
+          {% include "_icon.html.twig" with {icon: 'flaw'} %}
+          {{ 'action.add'|trans([], 'app') }}
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

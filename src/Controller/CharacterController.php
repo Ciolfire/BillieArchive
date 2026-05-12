@@ -12,6 +12,7 @@ use App\Entity\CharacterNote;
 use App\Entity\Chronicle;
 use App\Entity\ContentType;
 use App\Entity\Derangement;
+use App\Entity\Flaw;
 use App\Entity\Human;
 use App\Entity\Item;
 use App\Entity\Possessed;
@@ -180,6 +181,7 @@ class CharacterController extends AbstractController
     $this->dataService->loadMeritsPrerequisites($character->getMerits());
     $type = $this->dataService->findOneBy(ContentType::class, ['name' => $character->getType()]);
     $derangements = $this->dataService->findBy(Derangement::class, ['type' => [$type->getid(), null]], ['name' => 'ASC']);
+    $flaws = $this->dataService->findBy(Flaw::class, ['type' => [$type->getid(), null]], ['name' => 'ASC']);
     $rolls = $this->dataService->findBy(Roll::class, ['isImportant' => "true"], ['name' => 'ASC']);
 
     $removables = $this->service->getRemovableAttributes($character);
@@ -212,6 +214,7 @@ class CharacterController extends AbstractController
       'removables' => $removables,
       'statusList' => $statusList,
       'derangements' => $derangements,
+      'flaws' => $flaws,
       'avatarForm' => $avatarForm->createView(),
     ]);
   }
@@ -1007,6 +1010,15 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
     $this->service->newCharacterDerangement($character, (int)$request->request->get('derangement'), $request->request->get('details'));
+
+    return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
+  }
+
+  #[Route('/{id<\d+>}/flaw/new', name: 'character_flaw_new', methods: ['POST'])]
+  public function flawNew(Request $request, Character $character): Response
+  {
+    $this->denyAccessUnlessGranted('edit', $character);
+    // $this->service->newCharacterFlaw($character, (int)$request->request->get('flaw'));
 
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }

@@ -1,0 +1,14 @@
+{% set setting = flaw.type.name|default("human") %}
+
+<div id="{{ flaw.id }}">
+	<div class="block p-2">
+		<h2>
+			{% include "_icon.html.twig" with {icon: flaw.category } %}
+			{{ flaw.name }}
+		</h2>
+		<p class="text">{{ flaw.effect|default("")|markdown_to_html }}</p>
+		<div class="col text-end p-2">
+			{% include "_source_block.html.twig" with { 'element': flaw, class: 'text-strong fst-italic' } only %}
+		</div>
+	</div>
+</div>
