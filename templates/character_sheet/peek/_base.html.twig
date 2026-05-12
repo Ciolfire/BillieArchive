@@ -110,7 +110,13 @@
                       </h5>
                     {% else %}
                     <h4 class="text-light">
-                      {{ info.title }}
+                      {% if info.creator is not null and info.creator != peeker.player %}
+                        {% set writer = character.chronicle.character(info.creator) %}
+                        <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ writer.name }}" src="{{ asset(writer.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+                        {% include "_icon.html.twig" with {icon: "share"} %}
+                      {% else %}
+                        {{ info.title }}
+                      {% endif %}
                     </h4>
                     {% endif %}
                   </div>
