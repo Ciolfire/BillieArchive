@@ -81,7 +81,7 @@ class Merit implements Translatable
   #[ORM\ManyToMany(targetEntity: Covenant::class, mappedBy: 'discountMerits')]
   private Collection $discountForCovenants;
 
-  public function __construct($element)
+  public function __construct(mixed $element)
   {
     if ($element instanceof Chronicle) {
       $this->setHomebrewFor($element);
