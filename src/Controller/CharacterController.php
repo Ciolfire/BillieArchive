@@ -148,7 +148,7 @@ class CharacterController extends AbstractController
   }
 
   #[Route("s/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
-  public function list(?string $filter = null, ?int $id = null) : Response
+  public function list(?string $filter = null, ?int $id = null): Response
   {
     $characters = $this->dataService->getList($filter, $id, Character::class, "getCharacters");
     $characters = $this->service->sortCharacters(...$characters);;
@@ -184,7 +184,7 @@ class CharacterController extends AbstractController
 
     $removables = $this->service->getRemovableAttributes($character);
     $statusList = $this->service->getStatusType($character);
-    
+
     $avatarForm = $formFactory->createNamedBuilder("avatar", FormType::class, null, [
       'translation_domain' => 'character',
       'attr' => [
@@ -274,7 +274,7 @@ class CharacterController extends AbstractController
   {
     $character = new Human(isAncient: $isAncient);
     $this->denyAccessUnlessGranted('ROLE_GM');
-    
+
     $character->setIsNpc(false);
     $character->setIsPremade(true);
 
@@ -397,7 +397,7 @@ class CharacterController extends AbstractController
       }
       return $this->peekAs($character, $peeker, $request->headers->get('referer'));
     }
-  
+
     $this->addFlash('notice', 'character.peek.declined');
     if ($request->headers->get('referer')) {
       return $this->redirect($request->headers->get('referer'));
@@ -409,23 +409,29 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/peek/{peeker}/info', name: 'character_peek_info', methods: ['GET', 'POST'])]
   public function peekInfo(Request $request, Character $character, Character $peeker): Response
   {
-    // $this->denyAccessUnlessGranted('edit', $character);
     $infos = $this->dataService->findBy(CharacterInfo::class, ['character' => $character]);
-    dd($infos);
-    $info = new CharacterInfo();
+    foreach ($infos as $currentInfo) {
+      if ($currentInfo->getCreator() == $peeker->getPlayer()) {
+        $info = $currentInfo;
+        break;
+      }
+    }
+    if (!isset($info)) {
+      // No custom info yet, initialize
+      $info = new CharacterInfo();
+      $info->setCharacter($character);
+      $info->addAccessList($peeker);
+      $info->setCreator($peeker->getPlayer());
+      $info->setTitle("__placeholder__");
+    }
 
-    $info->setCharacter($character);
-    $info->addAccessList($peeker);
-    $info->setCreator($peeker->getPlayer());
-    $info->setTitle("Note");
-
-    $form = $this->createForm(CharacterInfoForm::class, $info, ['path' => $this->getParameter('characters_direct_directory'),]);
+    $form = $this->createForm(CharacterInfoForm::class, $info, ['character' => $character, 'path' => $this->getParameter('characters_direct_directory'),]);
     $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
 
-      // dd($info);
+    if ($form->isSubmitted() && $form->isValid()) {
+      // The current character always have access
+      $info->addAccessList($peeker);
       $this->dataService->save($info);
-      // $this->dataService->flush();
 
       return $this->redirectToRoute('character_peek', ['id' => $character->getId(), 'peeker' => $peeker, '_fragment' => 'informations']);
     }
@@ -448,7 +454,7 @@ class CharacterController extends AbstractController
       $this->addFlash('notice', 'character.peek.self');
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
     } else if (is_null($peeker) || is_null($peeker->getSpecificPeekingRights($character)) || empty($peeker->getSpecificPeekingRights($character)->getRights())) {
-      
+
       $this->addFlash('notice', 'character.peek.declined');
       if ($referer) {
         return $this->redirect($referer);
@@ -531,6 +537,8 @@ class CharacterController extends AbstractController
       if ($th->getCode() == 847) {
         $this->addFlash('warning', ["character.access.none", []]);
         return $this->redirectToRoute('character_show', ['id' => $character->getId(), '_fragment' => 'informations']);
+      } else {
+        return $this->redirectToRoute("index");
       }
     }
     $form->handleRequest($request);
@@ -575,8 +583,8 @@ class CharacterController extends AbstractController
     $this->denyAccessUnlessGranted('edit', $character);
 
     $name = ucfirst($type);
-    $get = "get".$name;
-    $set = "set".$name;
+    $get = "get" . $name;
+    $set = "set" . $name;
 
     $form = $this->createFormBuilder()
       ->add($type, RichTextEditorForm::class, [
@@ -647,10 +655,8 @@ class CharacterController extends AbstractController
   public function listRelations(Request $request, Character $character): Response
   {
     if ($request->isXmlHttpRequest()) {
+      // $template = "_show";
 
-    // $template = "show";
-      $template = "_show";
-      
       return $this->render("chronicle/infos/_characters.html.twig", [
         'character' => $character,
       ]);
@@ -743,9 +749,9 @@ class CharacterController extends AbstractController
   {
     if ($request->isXmlHttpRequest()) {
 
-    // $template = "show";
+      // $template = "show";
       $template = "_show";
-      
+
       return $this->render("character_sheet/elements/notes.html.twig", [
         'character' => $character,
       ]);
@@ -760,7 +766,7 @@ class CharacterController extends AbstractController
     if ($request->isXmlHttpRequest()) {
 
       $template = "_show";
-      
+
       return $this->render("character_sheet/elements/config.html.twig", [
         'character' => $character,
       ]);
@@ -939,7 +945,7 @@ class CharacterController extends AbstractController
   #[Route('/{id<\d+>}/avatar/crop', name: 'character_avatar_crop')]
   public function cropAvatar(Request $request, Character $character, CropperInterface $cropper)
   {
-    $filename = addslashes($this->getParameter('characters_directory')."/{$character->getAvatar()}");
+    $filename = addslashes($this->getParameter('characters_directory') . "/{$character->getAvatar()}");
     if (strpos($filename, "?")) {
       $filename = substr($filename, 0, strpos($filename, "?"));
     }
@@ -948,15 +954,14 @@ class CharacterController extends AbstractController
 
     $form = $this->createFormBuilder(['crop' => $crop])
       ->add('crop', CropperType::class, [
-        'public_url' => $this->getParameter('characters_direct_directory')."/{$character->getAvatar()}",
+        'public_url' => $this->getParameter('characters_direct_directory') . "/{$character->getAvatar()}",
         'cropper_options' => [
           'dragMode' => 'move',
           'aspectRatio' => null,
-          'initialAspectRatio' => 1/1
+          'initialAspectRatio' => 1 / 1
         ],
       ])
-      ->getForm()
-    ;
+      ->getForm();
 
     $form->handleRequest($request);
 

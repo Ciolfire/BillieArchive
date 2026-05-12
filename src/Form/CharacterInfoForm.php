@@ -26,7 +26,10 @@ class CharacterInfoForm extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
-    ;
+    if (isset($options['data'])) {
+      /** @var CharacterInfo $info */
+      $info = $options['data'];
+    }
     $characters = [];
     $character = $options['character'];
     $path = $options['path'];
@@ -43,12 +46,13 @@ class CharacterInfoForm extends AbstractType
         'data' => $character,
         'label' => false,
         'row_attr' => ["class" => "d-none"],
-      ])
-      ->add('title', null, [
-        'label' => 'infos.details.title',
-      ])
-      ->add('data', RichTextEditorForm::class, [
+      ]);
+      if (!isset($info)) {
+        $builder->add('title', null, ['label' => 'infos.details.title']);
+      }
+      $builder->add('data', RichTextEditorForm::class, [
         'label' => false,
+        'required' => true,
       ])
       ->add('accessList', EntityType::class, [
         'label' => 'infos.details.access.list',
@@ -61,19 +65,21 @@ class CharacterInfoForm extends AbstractType
         'expanded' => true,
         'multiple' => true,
         // 'attr' => ['class' => 'form-control d-flex flex-wrap'],
-      ])
-      ->add('remove', ButtonType::class, [
-        'label' => 'action.delete',
-        'translation_domain' => 'app',
-        'attr' => [
-          'data-action' => 'form-collection#removeCollectionElement',
-          'class' => 'btn-warning btn-sm',
-        ],
-        'row_attr' => [
-          'class' => 'border-bottom pb-3 mb-3',
-        ],
-      ])
-      ;
+      ]);
+      if (!isset($info)) {
+        $builder->add('remove', ButtonType::class, [
+          'label' => 'action.delete',
+          'translation_domain' => 'app',
+          'attr' => [
+            'data-action' => 'form-collection#removeCollectionElement',
+            'class' => 'btn-warning btn-sm',
+          ],
+          'row_attr' => [
+            'class' => 'border-bottom pb-3 mb-3',
+          ],
+        ])
+        ;
+      }
   }
 
   public function configureOptions(OptionsResolver $resolver): void

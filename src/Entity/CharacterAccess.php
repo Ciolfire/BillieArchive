@@ -65,6 +65,7 @@ class CharacterAccess
   public function setRights(array $rights): static
   {
     $this->rights = $rights;
+    sort($this->rights);
 
     return $this;
   }

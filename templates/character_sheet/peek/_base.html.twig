@@ -89,16 +89,31 @@
           {% set hasNoNote = true %}
           {% set keyInfoEmpty = true %}
           {% for info in character.infos %}
-            {% if info.creator == peeker.player %}
-              {% set hasNoNote = false %}
-              <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}" class="btn btn-primary">Edit Note</a>
-            {% endif %}
-            
             {% if info.hasAccess(peeker) %}
               {% set keyInfoEmpty = false %}
               <div class="col-12 col-md-6 pt-2">
                 <div class="card info-card">
-                  <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
+                  <div class="card-header">
+                    {% if info.creator == peeker.player %}
+                      <h4 class="text-light">
+                        {{ "infos.details.perso"|trans }}
+                        {% set hasNoNote = false %}
+                        <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}">{% include "_icon.html.twig" with {icon: "edit"} %}</a>
+                      </h4>
+                      <h5>
+                        {% include "_icon.html.twig" with {icon: "share"} %}
+                        {% for character in info.accessList %}
+                          {% if character != peeker %}
+                            <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+                          {% endif %}
+                        {% endfor %}
+                      </h5>
+                    {% else %}
+                    <h4 class="text-light">
+                      {{ info.title }}
+                    </h4>
+                    {% endif %}
+                  </div>
                   <div class="card-body">{{ info.data|markdown_to_html }}</div>
                 </div>
               </div>
@@ -107,10 +122,12 @@
           {% if keyInfoEmpty %}
             <h3>{{ "infos.none"|trans }}</h3>
           {% endif %}
-          {% if hasNoNote %}
-            <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}" class="btn btn-primary">Add Note</a>
-          {% endif %}
         </div>
+        {% if hasNoNote %}
+          <div class="row pt-2">
+            <a href="{{ path('character_peek_info', {id: character.id, peeker: peeker.id}) }}" class="btn btn-primary">{{ "infos.details.add"|trans }}</a>
+          </div>
+        {% endif %}
       </div>
       <div id="items" class="tab-content d-none" data-tabs-target="page">
         {% if character.hasSharedItem %}

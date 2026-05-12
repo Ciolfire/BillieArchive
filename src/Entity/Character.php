@@ -205,6 +205,7 @@ class Character
 
   #[ORM\OneToMany(targetEntity: CharacterInfo::class, mappedBy: 'character', orphanRemoval: true, cascade: ["persist"])]
   // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_often")]
+  #[ORM\OrderBy(["title" => "ASC"])]
   private Collection $infos;
 
   #[ORM\ManyToMany(targetEntity: CharacterInfo::class, mappedBy: 'accessList', cascade: ["persist"])]

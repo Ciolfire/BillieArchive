@@ -108,6 +108,7 @@ infos:
     add: Add information
     data: Text
     edit: Edit informations
+    perso: Personal Notes
     title: Title
   informations: Informations
   none: No information provided

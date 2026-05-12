@@ -26,7 +26,9 @@
               <div class="col">
                 {% include "_icon.html.twig" with {icon : "key"} only %}
                 {% for right in access.rights %}
-                  {% if right != access.rights|first %} | {% endif %}
+                  {% if right != access.rights|first %}
+                    |
+                  {% endif %}
                   {{ ('right.' ~ right)|trans }}
                 {% endfor %}
               </div>
@@ -46,19 +48,22 @@
   {% endif %}
   {% if character.infos is not empty %}
     <div class="row">
-    {% for info in character.infos %}
-      <div class="col-12 col-md-6 pt-2">
-        <div class="card info-card">
-          <div class="card-header"><h4 class="text-light">{{ info.title }}</h4></div>
-          <div class="card-body">{{ info.data|markdown_to_html }}</div>
-          <div class="card-footer">
-            {% for character in info.accessList %}
-              <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
-            {% endfor %}
+      {% for info in character.infos %}
+        <div class="col-12 col-md-6 pt-2">
+          <div class="card info-card">
+            <div class="card-header">
+              <h4 class="text-light">{{ info.title }}</h4>
+            </div>
+            <div class="card-body">{{ info.data|markdown_to_html }}</div>
+            <div class="card-footer">
+              {% include "_icon.html.twig" with {icon: "share", class: "accent"} %}
+              {% for character in info.accessList %}
+                <img data-bs-toggle="tooltip" data-bs-placement="top" title="{{ character.name }}" src="{{ asset(character.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
     </div>
   {% else %}
     <p>{{ "infos.none"|trans }}</p>

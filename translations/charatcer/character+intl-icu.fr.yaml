@@ -107,6 +107,7 @@ infos:
     add: Ajouter une information
     data: Texte
     edit: Modifer les informations
+    perso: Notes personnelles
     title: Titre
   informations: Informations
   none: Aucune information fournie
