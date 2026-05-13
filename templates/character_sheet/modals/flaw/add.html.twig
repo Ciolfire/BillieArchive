@@ -22,8 +22,7 @@
       {% for flaw in flaws %}
         <option value="{{ flaw.id }}" class="collapsed" data-bs-toggle="collapse" data-bs-target="#flaw-{{ flaw.id }}-{{ tag|default('new') }}">
           {{ flaw.name }}
-          —
-          {% if flaw.type %} — {{ flaw.type|trans({}, 'content-type') }}{% endif %}
+          {% if flaw.type is not null %} — {{ flaw.type|trans({}, 'content-type') }}{% endif %}
         </option>
       {% endfor %}
     </select>

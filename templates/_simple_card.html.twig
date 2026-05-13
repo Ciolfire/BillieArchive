@@ -1,9 +1,10 @@
 <div class="p-2 h-100 outline card-content rounded"
   {% if not isModal|default(0) %}
-    role="button" 
-    data-bs-toggle="modal" data-bs-target="#contentModal"
-    data-action="click->content#load"
+    data-bs-toggle="modal"
   {% endif %}
+  role="button" 
+  data-bs-target="#contentModal"
+  data-action="click->content#load"
   {% block data %}{% endblock %}
 >
   <h2>

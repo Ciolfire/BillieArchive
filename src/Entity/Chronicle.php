@@ -60,6 +60,10 @@ class Chronicle
   #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
   private ?\DateTimeInterface $currentlyAt = null;
 
+  #[ORM\OneToMany(targetEntity: Flaw::class, mappedBy: 'homebrewFor')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $flaws;
+
   // Human
   #[ORM\OneToMany(targetEntity: Organization::class, mappedBy: 'homebrewFor')]
   #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
@@ -483,6 +487,21 @@ class Chronicle
   public function setCurrentlyAt(?\DateTimeInterface $currentlyAt): static
   {
     $this->currentlyAt = $currentlyAt;
+
+    return $this;
+  }
+
+  public function getFlaws(): Collection
+  {
+    return $this->flaws;
+  }
+
+  public function addFlaw(Flaw $flaw): self
+  {
+    if (!$this->flaws->contains($flaw)) {
+      $this->flaws[] = $flaw;
+      $flaw->setHomebrewFor($this);
+    }
 
     return $this;
   }

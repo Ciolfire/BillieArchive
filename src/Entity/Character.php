@@ -235,6 +235,12 @@ class Character
   #[ORM\OneToMany(targetEntity: StatusEffect::class, mappedBy: 'owner')]
   private Collection $statusEffects;
 
+  /**
+   * @var Collection<int, Flaw>
+   */
+  #[ORM\ManyToMany(targetEntity: Flaw::class)]
+  private Collection $flaws;
+
   public function __construct(
     ?User $user = null,
     ?Chronicle $chronicle = null,
@@ -263,6 +269,7 @@ class Character
     $this->peekingRights = new ArrayCollection();
     $this->items = new ArrayCollection();
     $this->statusEffects = new ArrayCollection();
+    $this->flaws = new ArrayCollection();
   }
 
   public function __clone()
@@ -1886,5 +1893,29 @@ class Character
     }
 
     return false;
+  }
+
+  /**
+   * @return Collection<int, Flaw>
+   */
+  public function getFlaws(): Collection
+  {
+      return $this->flaws;
+  }
+
+  public function addFlaw(Flaw $flaw): static
+  {
+      if (!$this->flaws->contains($flaw)) {
+          $this->flaws->add($flaw);
+      }
+
+      return $this;
+  }
+
+  public function removeFlaw(Flaw $flaw): static
+  {
+      $this->flaws->removeElement($flaw);
+
+      return $this;
   }
 }

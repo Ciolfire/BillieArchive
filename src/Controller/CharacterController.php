@@ -19,7 +19,6 @@ use App\Entity\Possessed;
 use App\Entity\Roll;
 use App\Entity\StatusEffect;
 use App\Entity\Types\SettingType;
-use App\Entity\Werewolf;
 use App\Form\CharacterAccessForm;
 use App\Form\CharacterInfoAccessForm;
 use App\Form\CharacterNoteForm;
@@ -1018,7 +1017,9 @@ class CharacterController extends AbstractController
   public function flawNew(Request $request, Character $character): Response
   {
     $this->denyAccessUnlessGranted('edit', $character);
-    // $this->service->newCharacterFlaw($character, (int)$request->request->get('flaw'));
+    $flaw = $this->dataService->find(Flaw::class, $request->request->get('flaw'));
+    $character->addFlaw($flaw);
+    $this->dataService->flush();
 
     return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
   }

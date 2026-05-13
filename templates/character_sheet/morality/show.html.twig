@@ -24,9 +24,15 @@
       <div class="row">
         {% for charFlaw in character.flaws %}
           <div class="col-6 px-1 px-md-3 py-2">
-            <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charFlaw.id }}">
+            <span role="button" class="btn btn-sm btn-danger w-100"
+              data-bs-target="#contentModal"
+              data-bs-toggle="modal"
+              data-action="click->content#load"
+              data-content-type-param="{{ "label.single"|trans({}, "flaw") }}"
+              data-content-link-param="{{ link|default(path('flaw_show', {id: charFlaw.id})) }}"
+            >
               {{ charFlaw }}
-              {% if charFlaw.derangement.type is not null %}
+              {% if charFlaw.type is not null %}
                 {% include "_icon.html.twig" with {icon: "type/" ~ charFlaw.derangement.type} %}
               {% endif %}
             </span>
@@ -53,28 +59,6 @@
               {% endif %}
             </div>
           </div>
-        {% endfor %}
-      </div>
-      <div class="row">
-        {% for charFlaw in character.flaws %}
-          {# <div class="col-auto mt-2">
-            <div role="button" class="btn btn-sm btn-warning"
-              data-bs-target="#contentModal"
-              data-bs-toggle="modal"
-              data-action="click->content#load"
-              data-content-type-param="{{ "label.single"|trans }}"
-              data-content-link-param="{{ link|default(path('derangement_show', {id: charDerangement.derangement.id})) }}"
-            >
-              {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', label: 'extreme'|trans } %}{% endif %}
-              {{ charDerangement }}
-              {% if charDerangement.details %}
-                ({{ charDerangement.details }})
-              {% endif %}
-              {% if charDerangement.derangement.type is not null %}
-                {% include "_icon.html.twig" with {icon: "type/" ~ charDerangement.derangement.type} %}
-              {% endif %}
-            </div>
-          </div> #}
         {% endfor %}
       </div>
       <hr>

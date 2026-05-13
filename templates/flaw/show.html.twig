@@ -6,7 +6,7 @@
 	{{ flaw.name }}
 {% endblock %}
 
-{% set setting = flaw.type.name %}
+{% set setting = flaw.type.name|default("human") %}
 
 {% block body %}
 	<div class="container py-5">

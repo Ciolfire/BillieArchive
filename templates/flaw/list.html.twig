@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row g-2 pb-2">
-      {% for flaw in flaws|sort((a, b) => a.name|lower <=> b.name|lower) %}
+      {% for flaw in flaws|sort((a, b) => a.category|lower <=> b.category|lower) %}
         {% include "flaw/_card.html.twig" %}
       {% endfor %}
     </div>

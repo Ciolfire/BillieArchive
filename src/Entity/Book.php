@@ -69,6 +69,10 @@ class Book implements Translatable
   #[ORM\OrderBy(["firstName" => "ASC", "id" => "ASC"])]
   private Collection $characters;
 
+  #[ORM\OneToMany(targetEntity: Flaw::class, mappedBy: 'book')]
+  #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $flaws;
+  
   // Human
   // #[ORM\OneToMany(targetEntity: Organization::class, mappedBy: 'homebrewFor')]
   // #[ORM\OrderBy(["name" => "ASC", "id" => "DESC"])]
@@ -366,6 +370,21 @@ class Book implements Translatable
       if ($character->getBook() === $this) {
         $character->setBook(null);
       }
+    }
+
+    return $this;
+  }
+
+  public function getFlaws(): Collection
+  {
+    return $this->flaws;
+  }
+
+  public function addFlaw(Flaw $flaw): self
+  {
+    if (!$this->legacies->contains($flaw)) {
+      $this->flaw[] = $flaw;
+      $flaw->setBook($this);
     }
 
     return $this;
