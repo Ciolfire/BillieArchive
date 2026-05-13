@@ -22,9 +22,27 @@
         </span>
       {% endif %}
       <div class="row">
-        {% for charDerangement in character.standardDerangements %}
+        {% for charFlaw in character.flaws %}
           <div class="col-6 px-1 px-md-3 py-2">
-            <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}">
+            <span class="btn btn-sm btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charFlaw.id }}">
+              {{ charFlaw }}
+              {% if charFlaw.derangement.type is not null %}
+                {% include "_icon.html.twig" with {icon: "type/" ~ charFlaw.derangement.type} %}
+              {% endif %}
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="row">
+        {% for charDerangement in character.standardDerangements %}
+          <div class="col-auto mt-2">
+            <div role="button" class="btn btn-sm btn-warning"
+              data-bs-target="#contentModal"
+              data-bs-toggle="modal"
+              data-action="click->content#load"
+              data-content-type-param="{{ "label.single"|trans }}"
+              data-content-link-param="{{ link|default(path('derangement_show', {id: charDerangement.derangement.id})) }}"
+            >
               {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', label: 'extreme'|trans } %}{% endif %}
               {{ charDerangement }}
               {% if charDerangement.details %}
@@ -33,24 +51,30 @@
               {% if charDerangement.derangement.type is not null %}
                 {% include "_icon.html.twig" with {icon: "type/" ~ charDerangement.derangement.type} %}
               {% endif %}
-            </span>
+            </div>
           </div>
         {% endfor %}
       </div>
-      <div class="accordion mt-2 row" id="accordionCharacterDerangements">
-        {% for characterDerangement in character.derangements %}
-          <div class="col-12">
-            <div id="character-derangement-{{ characterDerangement.id }}" class="bdr-b px-5 collapse" data-bs-parent="#accordionCharacterDerangements">
-              <h4>
-                {% if characterDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: 'extreme'|trans } %}{% endif %}
-                {{ characterDerangement.derangement.name }}{% if not characterDerangement.derangement.isMild %} ({{ characterDerangement.derangement.previousAilment.name }} - {{ "severe"|trans([], 'derangement') }}){% endif %}
-                {% if characterDerangement.derangement.type is not null %}
-                  {% include "_icon.html.twig" with {icon: "type/" ~ characterDerangement.derangement.type} %}
-                {% endif %}
-              </h4>
-              {{ characterDerangement.derangement.details|markdown_to_html }}
+      <div class="row">
+        {% for charFlaw in character.flaws %}
+          {# <div class="col-auto mt-2">
+            <div role="button" class="btn btn-sm btn-warning"
+              data-bs-target="#contentModal"
+              data-bs-toggle="modal"
+              data-action="click->content#load"
+              data-content-type-param="{{ "label.single"|trans }}"
+              data-content-link-param="{{ link|default(path('derangement_show', {id: charDerangement.derangement.id})) }}"
+            >
+              {% if charDerangement.derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', label: 'extreme'|trans } %}{% endif %}
+              {{ charDerangement }}
+              {% if charDerangement.details %}
+                ({{ charDerangement.details }})
+              {% endif %}
+              {% if charDerangement.derangement.type is not null %}
+                {% include "_icon.html.twig" with {icon: "type/" ~ charDerangement.derangement.type} %}
+              {% endif %}
             </div>
-          </div>
+          </div> #}
         {% endfor %}
       </div>
       <hr>
@@ -63,7 +87,12 @@
               <span class="text-strong" role="button" data-bs-toggle="modal" data-bs-target="#moralityIncreaseModal">{% include "_icon.html.twig" with {icon: 'up', class: 'accent', label: 'morality.up'|trans({}, 'character') } only %}</span>
             {% endif %}
             {% if charDerangement is not null %}
-              <span role="button" class="{% if i >= morality %}warning{% else %}text-muted fst-italic{% endif %} text-strong" {% if charDerangement is not null %} role="button" data-bs-toggle="collapse" data-bs-target="#{{ "character-derangement-" ~ charDerangement.id }}" {% endif %}>
+              <span class="{% if i >= morality %}warning{% else %}text-muted fst-italic{% endif %} text-strong" role="button" data-bs-target="#contentModal"
+                data-bs-toggle="modal"
+                data-action="click->content#load"
+                data-content-type-param="{{ "label.single"|trans }}"
+                data-content-link-param="{{ link|default(path('derangement_show', {id: charDerangement.derangement.id})) }}"
+              >
                 {{charDerangement}}
                 {% if charDerangement.details %}
                   ({{ charDerangement.details }})
