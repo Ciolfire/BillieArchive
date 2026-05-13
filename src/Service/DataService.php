@@ -335,7 +335,7 @@ class DataService
   {
     $qb = $this->getConnection()->createQueryBuilder()
       ->select('DISTINCT t.name')
-      ->from('merits', 'm')
+      ->from('merit', 'm')
       ->innerJoin('m', 'content_type', 't', 'm.type_id = t.id');
     if (!is_null($book)) {
       $qb->andWhere('book_id = :id')
