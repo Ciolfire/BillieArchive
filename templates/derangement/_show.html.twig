@@ -1,0 +1,57 @@
+{% trans_default_domain 'derangement' %}
+
+{% set setting = derangement.type.name|default("human") %}
+{% set previousAilment = derangement.previousAilment %}
+
+<div id="{{ derangement.id }}">
+	<div class="block p-2">
+		<h2>
+			{% if derangement.type %}{% include "_icon.html.twig" with {icon: ("type/" ~ derangement.type)|default('')} %}{% endif %}
+      {{ derangement.name }}
+      {% if not derangement.isMild and derangement.name != previousAilment.name ~ " (" ~ "severe"|trans ~ ")" %} [{{ derangement.previousAilment.name }} ({{ "severe"|trans }})]{% endif %}
+      {% if derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}{% endif %}
+		</h2>
+		<p class="text">{{ derangement.details|default("")|markdown_to_html }}</p>
+    {% if derangement.degenerations %}
+      {% for degeneration in derangement.degenerations %}
+        <div class="btn btn-primary" role="button" data-bs-target="#contentModal"
+          {% if isNotModal|default(false) %}
+            data-bs-toggle="modal"
+          {% endif %}
+          data-action="click->content#load"
+          data-type="{{ degeneration.type }}"
+          data-content-name-param="{{ degeneration.name }}"
+          data-content-type-param="{{ "label.single"|trans }}"
+          data-content-link-param="{{ link|default(path('derangement_show', {id: degeneration.id})) }}"
+          {% if access_decision('edit', degeneration) %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: degeneration.id })) }}" {% endif %}
+        >
+          {{ degeneration.name }}
+          {% if degeneration.type %}
+            {% include "_icon.html.twig" with {icon: ("type/" ~ degeneration.type)|default('')} %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% if previousAilment %}
+      <div class="btn btn-primary" role="button" data-bs-target="#contentModal"
+        {% if isNotModal|default(false) %}
+          data-bs-toggle="modal"
+        {% endif %}
+        data-action="click->content#load"
+        data-type="{{ previousAilment.type }}"
+        data-content-name-param="{{ previousAilment.name }}"
+        data-content-type-param="{{ "label.single"|trans }}"
+        data-content-link-param="{{ link|default(path('derangement_show', {id: previousAilment.id})) }}"
+        {% if access_decision('edit', previousAilment) %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: previousAilment.id })) }}" {% endif %}
+      >
+        {{ previousAilment.name }}
+        {% if previousAilment.type %}
+          {% include "_icon.html.twig" with {icon: ("type/" ~ previousAilment.type)|default('')} %}
+        {% endif %}
+  </div>
+    {% endif %}
+		<div class="col text-end p-2">
+			{% include "_source_block.html.twig" with { 'element': derangement, class: 'text-strong fst-italic' } only %}
+		</div>
+	</div>
+</div>

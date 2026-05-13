@@ -109,11 +109,15 @@ class DerangementController extends AbstractController
   }
 
   #[Route("/{id<\d+>}", name:"derangement_show", methods:["GET"])]
-  public function show(Derangement $derangement): Response
+  public function show(Request $request, Derangement $derangement): Response
   {
-    return $this->render('element/show.html.twig', [
-      'element' => 'derangement',
-      'entity' => $derangement,
+    $template = "show";
+    if ($request->isXmlHttpRequest()) {
+      $template = "_show";
+    }
+
+    return $this->render("derangement/$template.html.twig", [
+      'derangement' => $derangement,
     ]);
   }
 
