@@ -10,9 +10,5 @@
 {% endblock %}
 
 {% block body %}
-  {% include "roll/_element.html.twig" %}
+  {% include "roll/_element.html.twig" with {isModal: 0} %}
 {% endblock %}
-
-{# <div class="col-2 text-end pe-3">
-  <a type="button" href="{{ path('roll_edit', {'id': roll.id }) }}" class="btn btn-primary">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-</div> #}

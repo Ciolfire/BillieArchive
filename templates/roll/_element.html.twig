@@ -16,12 +16,36 @@
       <strong>Dice Pool:</strong>
       {% for attribute in roll.attributes %}
         {% if not first %}+{% else %}{% set first = false %}{% endif %}
-        {{ attribute.name }}
+        <span role="button" class="accent"
+          data-bs-target="#contentModal"
+          {% if not isModal|default(true) %}
+            data-bs-toggle="modal"
+          {% endif %}
+          data-action="click->content#load"
+          data-content-name-param="{{ attribute.name }}"
+          data-content-type-param="{{ "label.single"|trans({}, "attribute") }}"
+          data-content-link-param="{{ link|default(path('attribute_show', {id: attribute.id})) }}"
+          {% if access_decision('edit', attribute) %}data-content-edit-param="{{ link|default(path('attribute_edit', {id: attribute.id})) }}"{% endif %}
+        >
+          {{ attribute.name }}
+        </span>
       {% endfor %}
       {% for skill in roll.skills %}
         {% if not first %}+{% else %}{% set first = false %}{% endif %}
         {% include "_icon.html.twig" with {icon : 'skills/' ~ skill.identifier, label: skill } only %}
-        {{ skill.name }}
+        <span role="button" class="accent"
+          data-bs-target="#contentModal"
+          {% if not isModal|default(true) %}
+            data-bs-toggle="modal"
+          {% endif %}
+          data-action="click->content#load"
+          data-content-name-param="{{ skill.name }}"
+          data-content-type-param="{{ "label.single"|trans({}, "skill") }}"
+          data-content-link-param="{{ link|default(path('skill_show', {id: skill.id})) }}"
+          {% if access_decision('edit', skill) %}data-content-edit-param="{{ link|default(path('skill_edit', {id: skill.id})) }}"{% endif %}
+        >
+          {{ skill.name }}
+        </span>
       {% endfor %}
       {% if roll.contestedText is not null %}
         {{ roll.contestedText }}

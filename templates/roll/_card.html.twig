@@ -17,7 +17,7 @@
   <span class="text-strong">
     {% for attribute in roll.attributes %}
       {% if not loop.first %}+{% endif %}
-    {{ attribute }}
+      {{ attribute }}
     {% endfor %}
     {% for skill in roll.skills %}
       {% if roll.attributes|length > 0 or not loop.first %}+{% endif %}

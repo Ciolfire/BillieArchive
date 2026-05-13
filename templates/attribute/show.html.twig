@@ -6,7 +6,7 @@
 
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
+    {% if access_decision('edit', attribute) %}
       <a class="float-end" href="{{ path('attribute_edit', {id: attribute.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
     {% endif %}
     
