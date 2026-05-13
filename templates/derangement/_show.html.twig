@@ -12,6 +12,7 @@
       {% if derangement.isExtreme %}{% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}{% endif %}
 		</h2>
 		<p class="text">{{ derangement.details|default("")|markdown_to_html }}</p>
+    <hr>
     {% if derangement.degenerations %}
       {% for degeneration in derangement.degenerations %}
         <div class="btn btn-primary" role="button" data-bs-target="#contentModal"
