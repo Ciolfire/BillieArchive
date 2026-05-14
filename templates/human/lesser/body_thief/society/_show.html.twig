@@ -19,7 +19,10 @@
       {{ "society.merit.defining"|trans}}
       {% include "_icon.html.twig" with {icon: "merit"} %}
     </h4>
-    <h3 class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+    <h3 class="text-strong link" role="button" data-bs-target="#contentModal"
+      {% if not isModal|default(true) %}
+        data-bs-toggle="modal"
+      {% endif %}
       data-action="click->content#load"
       data-content-name-param="{{ society.definingMerit }}"
       data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"

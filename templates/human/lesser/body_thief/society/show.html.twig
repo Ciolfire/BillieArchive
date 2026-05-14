@@ -4,14 +4,16 @@
 
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
+{% block shortcuts %}
+{% if is_granted('ROLE_ST') %}
+  <a class="btn btn-primary mb-2" href="{{ path('body_thief_society_edit', {id: society.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
+{% endif %}
+{{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('body_thief_society_edit', {id: society.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-
-    {% include "human/lesser/body_thief/society/_show.html.twig" with {society : society, shown: true} %}
+    {% include "human/lesser/body_thief/society/_show.html.twig" with {society : society, shown: true, isModal: 0} %}
   </div>
 
   
