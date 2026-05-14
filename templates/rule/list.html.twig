@@ -4,15 +4,21 @@
 
 {% block title %}{{ 'label.multi'|trans({}, 'rule')}}{% endblock %}
 
-{% block bodyData %}
-  data-controller="search" data-search-type-value="rule"
+{% set footer = true %}
+
+{% block bodyController %}
+  {{parent() }} search
 {% endblock %}
 
 {% block shortcuts %}
   {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary ms-auto w-100" href="{{ path('rule_new', {setting: setting}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+    <a class="btn btn-primary ms-auto w-100 mb-2" href="{{ path('rule_new', {setting: setting}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
   {% endif %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
+{% endblock %}
+
+{% block bodyData %}
+  data-search-type-value="rule"
 {% endblock %}
 
 {% block body %}
@@ -35,9 +41,15 @@
     <div class="p-3">
       <div class="row">
         {% for rule in rules %}
-          {% include "rule/_list_item.html.twig" %}
+          <div class="col-12">
+            {% include "rule/_list_item.html.twig" %}
+          </div>
         {% endfor %}
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block footerContent %}
+  {% include "_search.html.twig" with { type: "rule" } %}
 {% endblock %}

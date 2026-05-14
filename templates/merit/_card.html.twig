@@ -23,7 +23,7 @@
           {% include "_icon.html.twig" with {icon: 'coliseum', class:'accent text-strong', label: 'Ancient' } only %}
         {% endif %}
       </div>
-      <div class="col text-strong text-center">{{ merit.name }}</div>
+      <div class="col text-center"><h4>{{ merit.name }}</h4></div>
       <div class="col-auto">
         {% if merit.type != null %}
           {% include "_icon.html.twig" with {icon: "type/#{type}", class:'accent text-strong', label: (type|trans({}, 'content-type')~ ' ' ~ 'label.single'|trans) } only %}
