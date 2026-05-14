@@ -1,9 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
 use App\Entity\Types\TypeNote;
 use App\Repository\CharacterNoteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +39,15 @@ class CharacterNote
 
   #[ORM\Column(type: Types::SMALLINT)]
   private ?int $type = null;
+
+  #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'sharedNotes')]
+  // #[ORM\Cache(usage: "NONSTRICT_READ_WRITE", region: "write_rare")]
+  private Collection $accessList;
+
+  public function __construct()
+  {
+    $this->accessList = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -95,19 +108,19 @@ class CharacterNote
 
   public function getTitle(): ?string
   {
-      return $this->title;
+    return $this->title;
   }
 
   public function setTitle(?string $title): self
   {
-      $this->title = $title;
+    $this->title = $title;
 
-      return $this;
+    return $this;
   }
 
   public function getType(): ?int
   {
-      return $this->type;
+    return $this->type;
   }
 
   public function getTypeName(): ?string
@@ -117,8 +130,32 @@ class CharacterNote
 
   public function setType(int $type): self
   {
-      $this->type = $type;
+    $this->type = $type;
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, Character>
+   */
+  public function getAccessList(): Collection
+  {
+    return $this->accessList;
+  }
+
+  public function addAccessList(Character $character): static
+  {
+    if (!$this->accessList->contains($character)) {
+      $this->accessList->add($character);
+    }
+
+    return $this;
+  }
+
+  public function removeAccessList(Character $character): static
+  {
+    $this->accessList->removeElement($character);
+
+    return $this;
   }
 }

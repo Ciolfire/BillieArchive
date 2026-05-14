@@ -241,6 +241,12 @@ class Character
   #[ORM\ManyToMany(targetEntity: Flaw::class)]
   private Collection $flaws;
 
+  /**
+   * @var Collection<int, CharacterNote>
+   */
+  #[ORM\ManyToMany(targetEntity: CharacterNote::class, mappedBy: 'accessList')]
+  private Collection $sharedNotes;
+
   public function __construct(
     ?User $user = null,
     ?Chronicle $chronicle = null,
@@ -270,6 +276,7 @@ class Character
     $this->items = new ArrayCollection();
     $this->statusEffects = new ArrayCollection();
     $this->flaws = new ArrayCollection();
+    $this->sharedNotes = new ArrayCollection();
   }
 
   public function __clone()
@@ -1415,6 +1422,33 @@ class Character
     return $this;
   }
 
+  /**
+   * @return Collection<int, CharacterNote>
+   */
+  public function getSharedNotes(): Collection
+  {
+    return $this->sharedNotes;
+  }
+
+  public function addSharedNote(CharacterNote $sharedNote): static
+  {
+    if (!$this->sharedNotes->contains($sharedNote)) {
+      $this->sharedNotes->add($sharedNote);
+      $sharedNote->addAccessList($this);
+    }
+
+    return $this;
+  }
+
+  public function removeSharedNote(CharacterNote $sharedNote): static
+  {
+    if ($this->sharedNotes->removeElement($sharedNote)) {
+      $sharedNote->removeAccessList($this);
+    }
+
+    return $this;
+  }
+
   public function isPremade(): ?bool
   {
     return $this->isPremade;
@@ -1900,22 +1934,22 @@ class Character
    */
   public function getFlaws(): Collection
   {
-      return $this->flaws;
+    return $this->flaws;
   }
 
   public function addFlaw(Flaw $flaw): static
   {
-      if (!$this->flaws->contains($flaw)) {
-          $this->flaws->add($flaw);
-      }
+    if (!$this->flaws->contains($flaw)) {
+      $this->flaws->add($flaw);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeFlaw(Flaw $flaw): static
   {
-      $this->flaws->removeElement($flaw);
+    $this->flaws->removeElement($flaw);
 
-      return $this;
+    return $this;
   }
 }

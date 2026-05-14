@@ -789,7 +789,7 @@ class CharacterController extends AbstractController
     $note->setCharacter($character);
 
     $latestNote = $character->getNotes()->first();
-    $options = [];
+    $options = ['path' => $this->getParameter('characters_direct_directory')];
     if ($latestNote instanceof CharacterNote && $latestNote->getAssignedAt() instanceof DateTimeImmutable) {
       $options['date'] = $latestNote->getAssignedAt()->format('Y-m-d H:i:s');
     }
@@ -813,7 +813,7 @@ class CharacterController extends AbstractController
   {
     $this->denyAccessUnlessGranted('edit', $character);
 
-    $options = [];
+    $options = ['path' => $this->getParameter('characters_direct_directory')];
     $form = $this->createForm(CharacterNoteForm::class, $note, $options);
     $form->handleRequest($request);
 
