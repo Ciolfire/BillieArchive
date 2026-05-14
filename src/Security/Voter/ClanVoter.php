@@ -2,7 +2,6 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Chronicle;
 use App\Entity\Clan;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -40,18 +39,13 @@ class ClanVoter extends Voter
     switch ($attribute) {
       case self::DELETE:
         return $this->canDelete($subject, $user);
-        break;
       case self::EDIT:
         return $this->canEdit($subject, $user);
-        break;
       case self::VIEW:
         return $this->canView($subject, $user);
-        break;
       default:
         throw new \LogicException('This code should not be reached!');
     }
-
-    return false;
   }
 
   private function canView(Clan $clan, User $user): bool

@@ -7,6 +7,11 @@
 {% block title %}{{ discipline.name }}{% endblock %}
 
 {% block shortcuts %}
+  {% if access_decision('edit', discipline).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('vampire_discipline_edit', {id: discipline.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
   {% if discipline.isSorcery %}
     {% include "_back.html.twig" with {link: path('vampire_sorcery_index')} %}
   {% elseif discipline.isCoil %}
@@ -23,9 +28,6 @@
 
 {% block body %}
   <div class="container py-5">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('vampire_discipline_edit', {id: discipline.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
     {% include "vampire/discipline/_show.html.twig" with {isNotModal: 1} %}
   </div>
 {% endblock %}

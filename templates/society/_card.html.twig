@@ -7,7 +7,7 @@
   data-content-name-param="{{ society.name }}"
   data-content-type-param="{{ "label.single"|trans }}"
   data-content-link-param="{{ link|default(path('society_show', {id: society.id})) }}"
-  {% if access_decision('edit', society) %}data-content-edit-param="{{ link|default(path('society_edit', { id: society.id })) }}"{% endif %}
+  {% if access_decision('edit', society).isGranted %}data-content-edit-param="{{ link|default(path('society_edit', { id: society.id })) }}"{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -36,12 +36,12 @@
     {% endfor %}
     <div class="text-center pt-2">
       <a class="btn btn-primary btn-sm" href="{{ path('society_edit', {'id': society.id }) }}">
-        {% include "_icon.html.twig" with {icon : 'edit' } only %}
-        {% include "_icon.html.twig" with {icon : 'group' } only %}
+        {% include "_icon.html.twig" with {icon : 'edit', class : 'icon-sm' } only %}
+        {% include "_icon.html.twig" with {icon : 'society' } only %}
       </a>
       <a class="btn btn-primary btn-sm" href="{{ path('society_set_characters', {'id': society.id }) }}">
-        {% include "_icon.html.twig" with {icon : 'gears' } only %}
-        {% include "_icon.html.twig" with {icon : 'character' } only %}
+        {% include "_icon.html.twig" with {icon : 'gears', class : 'icon-sm' } only %}
+        {% include "_icon.html.twig" with {icon : 'group' } only %}
       </a>
     </div>
   </div>

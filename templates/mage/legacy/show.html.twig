@@ -4,11 +4,16 @@
 
 {% set setting = "mage" %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', legacy).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('mage_legacy_edit', { id: legacy.id }) }}">{% include "_icon.html.twig" with {icon : 'edit' } only %}</a>
+  {% endif %}
+  {% include "_back.html.twig" with {link: path('wiki_index')} %}
+  {% include "_top.html.twig" %}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('mage_legacy_edit', {id: legacy.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
 
     {% include "mage/legacy/_show.html.twig" with {isModal: 0} %}
   </div>

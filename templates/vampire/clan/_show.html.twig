@@ -52,14 +52,15 @@
   <span class="text-strong">
     {% for discipline in clan.disciplines %}
       {% if loop.last %}&{% elseif not loop.first %},{% endif %}
-      <span {% if not isModal|default(1) %}
-        class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      <span class="d-inline-block text-strong link" role="button" data-bs-target="#contentModal"
+        {% if not isModal|default(1) %}
+          data-bs-toggle="modal"
+        {% endif %}
         data-action="click->content#load"
         data-content-name-param="{{ discipline.name }}"
         data-content-type-param="{{ "label.single"|trans({}, 'discipline') }}"
         data-content-link-param="{{ path('vampire_discipline_show', {id: discipline.id}) }}"
-      {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
-      {% endif %} >
+      >
         {{ discipline.name }}
       </span>
     {% endfor %}
@@ -68,14 +69,15 @@
       {% for devotion in clan.devotions %}
         {% if loop.last and not loop.first %}&{% elseif not loop.first %},</span>
         {% endif %}
-        <span {% if not isModal|default(1) %}
-          class="d-inline-block text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        <span class="d-inline-block text-strong link" role="button" data-bs-target="#contentModal"
+          {% if not isModal|default(1) %}
+            data-bs-toggle="modal"
+          {% endif %}
           data-action="click->content#load"
           data-content-name-param="{{ devotion.name }}"
           data-content-type-param="{{ "devotion.label.single"|trans({}, 'discipline') }}"
           data-content-link-param="{{ path('vampire_devotion_show', {id: devotion.id}) }}"
-          {% if access_decision('edit', devotion) %}data-content-edit-param="{{ link|default(path('vampire_devotion_edit', { id: devotion.id })) }}"{% endif %}
-        {% endif %} >
+        >
           {{ devotion.name }}
         </span>
       {% endfor %}

@@ -6,7 +6,12 @@
 
 <div class="col-12 col-md-6 col-xl-4 mt-3" data-search-target="item" data-name="{{ rote.name ~ ' ' ~ spell.name }}" {% block data %} {% endblock %}>
   <div class="h-100 d-flex flex-column">
-    <div class="rounded-top bdr p-3 card-content flex-fill" role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" data-content-name-param="{{ spell.name }}" data-content-type-param="{{ "label.single"|trans }}" data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}" {% if access_decision('edit', spell) %} data-content-edit-param="{{ link|default(path('mage_spell_edit', {id: spell.id})) }}" {% endif %}>
+    <div class="rounded-top bdr p-3 card-content flex-fill" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+      data-action="click->content#load" data-content-name-param="{{ spell.name }}"
+      data-content-type-param="{{ "label.single"|trans }}"
+      data-content-link-param="{{ link|default(path('mage_spell_show', {id: spell.id})) }}"
+    {# TODO #}{% if access_decision('edit', spell).isGranted %} data-content-edit-param="{{ link|default(path('mage_spell_edit', {id: spell.id})) }}" {% endif %}
+  >
       <div class="card-header">
         <span class="float-start">
           {% include "_dice_pool.html.twig" with {pool : powerPool, contested : spell.contestedText} %}

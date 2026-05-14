@@ -14,13 +14,13 @@
 {% endblock %}
 
 {% block shortcuts %}
-  {{ parent() }}
   {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary btn-sm mt-1" href="{{ path('book_new', {filter: filter|default(null), id: id|default(null)}) }}">
-      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add' } only %}</span>
+    <a class="btn btn-primary btn-sm mb-2" href="{{ path('book_new', {filter: filter|default(null), id: id|default(null)}) }}">
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon: 'add', class: 'icon-sm' } only %}</span>
       {% include "_icon.html.twig" with {icon: 'book' } only %}
     </a>
   {% endif %}
+  {{ parent() }}
 {% endblock %}
 
 {% block bodyData %}

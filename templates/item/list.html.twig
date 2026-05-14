@@ -12,18 +12,18 @@
 {% endblock %}
 
 {% block shortcuts %}
+  {% if is_granted('ROLE_ST') %}
+    <a class="btn btn-primary btn-sm mb-2" href="{{ path('item_new') }}">
+      {% include "_icon.html.twig" with {icon : 'add', class: 'icon-sm' } only %}
+      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'item' } only %}</span>
+    </a>
+  {% endif %}
   {% if chronicle|default(false) == false %}
     {% include "_back.html.twig" %}
   {% else %}
     {% include "_back.html.twig" with { link: path('homebrew_index', {id: chronicle}) } %}
   {% endif %}
   {% include "_top.html.twig" %}
-  {% if is_granted('ROLE_ST') %}
-    <a class="btn btn-primary btn-sm mt-1" href="{{ path('item_new') }}">
-      {% include "_icon.html.twig" with {icon : 'add' } only %}
-      <span class="d-none d-md-inline">{% include "_icon.html.twig" with {icon : 'item' } only %}</span>
-    </a>
-  {% endif %}
 {% endblock %}
 
 {% block bodyData %}

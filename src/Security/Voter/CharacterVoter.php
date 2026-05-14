@@ -41,29 +41,22 @@ class CharacterVoter extends Voter
     switch ($attribute) {
       case self::DELETE:
         return $this->canDelete($subject, $user);
-        break;
       case self::EDIT:
         return $this->canEdit($subject, $user);
-        break;
       case self::VIEW:
         return $this->canView($subject, $user);
-        break;
       default:
         throw new \LogicException('This code should not be reached!');
     }
-
-    return false;
   }
 
   private function canView(Character $character, User $user): bool
   {
-    // Anyone can see the premade
+    // Anyone can see premade characters
     if ($character->isPremade()) {
       return true;
-    }
-
-    // Anyone that can edit can see
-    if ($this->canEdit($character, $user)) {
+    } else if ($this->canEdit($character, $user)) {
+      // Anyone that can edit can see
       return true;
     }
 

@@ -1,7 +1,21 @@
 {% trans_default_domain 'flaw' %}
 
 <div class="col-12 col-md-6 col-lg-3 {{ flaw.type }}  ">
-  <div class="p-2 h-100 outline card-content rounded" {% if not isModal|default(0) %} role="button" data-bs-toggle="modal" data-bs-target="#contentModal" data-action="click->content#load" {% endif %} data-search-target="item" data-name="{{ "#{flaw.name} #{flaw.effect}"}}" data-type="{{ flaw.type }}" data-content-name-param="{{ flaw.name }}" data-content-type-param="{{ "label.single"|trans }}" data-content-link-param="{{ link|default(path('flaw_show', {id: flaw.id})) }}" {% if access_decision('edit', flaw) %} data-content-edit-param="{{ link|default(path('flaw_edit', { id: flaw.id })) }}" {% endif %}>
+  <div class="p-2 h-100 outline card-content rounded"
+    {% if not isModal|default(0) %}
+      data-bs-toggle="modal"
+    {% endif %}
+    role="button"
+    data-bs-target="#contentModal"
+    data-action="click->content#load"
+    data-search-target="item"
+    data-name="{{ "#{flaw.name} #{flaw.effect}"}}"
+    data-type="{{ flaw.type }}"
+    data-content-name-param="{{ flaw.name }}"
+    data-content-type-param="{{ "label.single"|trans }}"
+    data-content-link-param="{{ link|default(path('flaw_show', {id: flaw.id})) }}"
+    {% if access_decision('edit', flaw).isGranted %} data-content-edit-param="{{ link|default(path('flaw_edit', { id: flaw.id })) }}" {% endif %}
+  >
     <h2>
       {% include "_icon.html.twig" with {icon: flaw.category } only %}
     </h2>

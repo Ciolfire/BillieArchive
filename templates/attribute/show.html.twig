@@ -4,11 +4,18 @@
 
 {% block title %}{{ attribute.name }}{% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', attribute).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('attribute_edit', {id: attribute.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if access_decision('edit', attribute) %}
-      <a class="float-end" href="{{ path('attribute_edit', {id: attribute.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
+
     
     {% include "attribute/_show.html.twig" with {isModal: 0} %}
   </div>

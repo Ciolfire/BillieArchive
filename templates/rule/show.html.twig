@@ -5,8 +5,13 @@
 {% block title %}{{ rule.title }}{% endblock %}
 
 {% block shortcuts %}
-  {% if is_granted('ROLE_ST') and rule.parentRule is null %}
-    <a class="btn btn-primary mt-1" href="{{ path('rule_new', {setting: rule.type|default("human"), parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+  {% if access_decision('edit', rule).isGranted %}
+    <div class="mb-2">
+      <a class="d-block btn btn-primary" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "_icon.html.twig" with {icon : 'edit' } only %}</a>
+      {% if rule.parentRule is null %}
+        <a class="d-block btn btn-primary mt-1" href="{{ path('rule_new', {setting: rule.type|default("human"), parent: rule.id}) }}">{% include "_icon.html.twig" with {icon : 'add' } only %}</a>
+      {% endif %}
+    </div>
   {% endif %}
   {% if rule.parentRule is null %}
     {% include "_back.html.twig" with {link: path('rule_index')} %}

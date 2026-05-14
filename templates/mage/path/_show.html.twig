@@ -28,40 +28,32 @@
       <div class="text-strong mb-0">{{ "ruling"|trans([], 'arcanum') }}</div>
       {% for arcanum in path.rulingArcana %}
         {% if not loop.first %}/{% endif %}
-        {% if not isModal|default(1) %}
-          <span class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+          <span class="text-strong link" role="button" data-bs-target="#contentModal"
+            {% if not isModal|default(1) %}
+              data-bs-toggle="modal"
+            {% endif %}
             data-action="click->content#load"
             data-content-name-param="{{ arcanum.name }}"
             data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
             data-content-link-param="{{ path('mage_arcanum_show', {id: arcanum.id}) }}"
-            {% if access_decision('edit', arcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: arcanum.id })) }}"{% endif %}
           >
             {{ arcanum.name }}
           </span>
-        {% else %}
-          <span class="text-glow">
-            {{ arcanum.name }}
-          </span>
-        {% endif %}
       {% endfor %}
     </div>
     <div class="col-6 pb-2 text-start">
       <div class="text-strong">{{ "inferior"|trans([], 'arcanum') }}</div>
-      {% if not isModal|default(1) %}
-        <div class="text-strong link" role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+        <div class="text-strong link" role="button" data-bs-target="#contentModal"
+          {% if not isModal|default(1) %}
+            data-bs-toggle="modal"
+          {% endif %}
           data-action="click->content#load"
           data-content-name-param="{{ path.inferiorArcanum.name }}"
           data-content-type-param="{{ "label.single"|trans({}, "arcanum") }}"
           data-content-link-param="{{ path('mage_arcanum_show', {id: path.inferiorArcanum.id}) }}"
-          {% if access_decision('edit', path.inferiorArcanum) %}data-content-edit-param="{{ link|default(path('mage_arcanum_edit', { id: path.inferiorArcanum.id })) }}"{% endif %}
         >
           {{ path.inferiorArcanum.name }}
         </div>
-      {% else %}
-        <span class="text-glow">
-          {{ path.inferiorArcanum.name }}
-        </span>
-      {% endif %}
     </div>
   </div>
 {% endblock %}

@@ -6,14 +6,17 @@
 
 {% block title %}{{ "family.label.single"|trans }}{% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', family).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('ghoul_family_edit', {'id': family.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-
     {% include "vampire/ghoul/family/_show.html.twig" with {isModal: 0} %}
-  
-    
   </div>
 {% endblock %}

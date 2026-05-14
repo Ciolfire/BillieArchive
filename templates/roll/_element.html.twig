@@ -5,9 +5,6 @@
 <div class="container block {{ roll.type }}">
   <div class="row">
     <div id="{{ roll.id }}" class="">
-      {% if is_granted('ROLE_ST') %}
-        <a class="float-end" href="{{ path('roll_edit', {id: roll.id}) }}">{% include "_icon.html.twig" with {icon: 'edit', class: 'p-1'} only %}</a>
-      {% endif %}
       <h1 class="">{{ roll.name }}</h1>
       <hr>
   </div>

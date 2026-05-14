@@ -5,6 +5,9 @@
 {% set first = true %}
 
 {% block shortcuts %}
+  {% if access_decision('edit', roll).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('roll_edit', {id: roll.id}) }}">{% include "_icon.html.twig" with {icon : 'edit' } only %}</a>
+  {% endif %}
   {% include "_back.html.twig" with {link: path('wiki_index')} %}
   {% include "_top.html.twig" %}
 {% endblock %}

@@ -6,12 +6,17 @@
 
 {% block title %}{{ book.name }}{% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', book).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('book_edit', {id: book.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('book_edit', {id: book.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-
     {% include "book/_show.html.twig" with {book : book, isModal: 0} %}
   </div>
 

@@ -1,13 +1,17 @@
 {% extends "base.html.twig" %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', item).isGranted %}
+    <a class="btn btn-primary mb-1" href="{{ path('item_edit', {id: item.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+    {# TODO confirm deletion with modal #}<a class="btn btn-danger mb-2 disabled" href="{{ path('item_delete', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if access_decision('edit', item) %}
-      <a class="float-end" href="{{ path('item_edit', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
     {% include "item/_show.html.twig" %}
-    {% if access_decision('delete', item) %}
-      <a class="btn btn-danger" href="{{ path('item_delete', {id: item.id}) }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
-    {% endif %}
   </div>
 {% endblock %}

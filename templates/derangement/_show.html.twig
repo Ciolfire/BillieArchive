@@ -24,7 +24,7 @@
           data-content-name-param="{{ degeneration.name }}"
           data-content-type-param="{{ "label.single"|trans }}"
           data-content-link-param="{{ link|default(path('derangement_show', {id: degeneration.id})) }}"
-          {% if access_decision('edit', degeneration) %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: degeneration.id })) }}" {% endif %}
+          {% if access_decision('edit', degeneration).isGranted %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: degeneration.id })) }}" {% endif %}
         >
           {{ degeneration.name }}
           {% if degeneration.type %}
@@ -43,7 +43,7 @@
         data-content-name-param="{{ previousAilment.name }}"
         data-content-type-param="{{ "label.single"|trans }}"
         data-content-link-param="{{ link|default(path('derangement_show', {id: previousAilment.id})) }}"
-        {% if access_decision('edit', previousAilment) %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: previousAilment.id })) }}" {% endif %}
+        {% if access_decision('edit', previousAilment).isGranted %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: previousAilment.id })) }}" {% endif %}
       >
         {{ previousAilment.name }}
         {% if previousAilment.type %}

@@ -10,7 +10,7 @@
       <div class="col-6">
       {% endif %}
       <div
-        class="block {{ derangement.type }} h-100 p-2"
+        class="rounded bdr py-2 h-100 card-content {{ derangement.type }}"
         role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
         data-action="click->content#load"
         data-search-target="item"
@@ -19,9 +19,9 @@
         data-content-name-param="{{ derangement.name }}"
         data-content-type-param="{{ "label.single"|trans }}"
         data-content-link-param="{{ link|default(path('derangement_show', {id: derangement.id})) }}"
-        {% if access_decision('edit', derangement) %} data-content-edit-param="{{ link|default(path('derangement_edit', { id: derangement.id })) }}" {% endif %}>
+        {% if access_decision('edit', derangement).isGranted %} data-content-edit-param="{{ link|default(path('derangement_edit', { id: derangement.id })) }}" {% endif %}>
         <div class="d-flex flex-column justify-content-around h-100">
-          <h2 class="user-select-none text-strong">
+          <h4 class="user-select-none text-strong">
             {% if derangement.type %}
               {% include "_icon.html.twig" with {icon: ("type/" ~ derangement.type)|default('')} %}
             {% endif %}
@@ -29,41 +29,33 @@
             {% if derangement.isExtreme %}
               {% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}
             {% endif %}
-          </h2>
+          </h4>
         </div>
       </div>
     </div>
 
     {% if derangement.degenerations is not empty %}
       <div class="col-6">
-        <div class="row">
-          {% for degeneration in derangement.degenerations %}
-            <div class="col-12">
-              <div
-                class="block {{ degeneration.type }} my-2 py-2"
-                role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
-                data-action="click->content#load"
-                data-search-target="item"
-                data-name="{{ "#{degeneration.name} #{degeneration.details}"}}"
-                data-type="{{ degeneration.type }}"
-                data-content-name-param="{{ degeneration.name }}"
-                data-content-type-param="{{ "label.single"|trans }}"
-                data-content-link-param="{{ link|default(path('derangement_show', {id: degeneration.id})) }}"
-                {% if access_decision('edit', degeneration) %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: degeneration.id })) }}" {% endif %}
-              >
-                <h2 class="user-select-none text-strong">
-                  {% if degeneration.type %}
-                    {% include "_icon.html.twig" with {icon: ("type/" ~ degeneration.type)|default('')} %}
-                  {% endif %}
-                  {{ degeneration.name }}
-                  {% if degeneration.isExtreme %}
-                    {% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}
-                  {% endif %}
-                </h2>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
+        {% for degeneration in derangement.degenerations %}
+          <div
+            class="rounded bdr py-2 card-content {{ degeneration.type }} my-2"
+            data-search-target="item" data-name="{{ "#{degeneration.name} #{degeneration.details}"}}" data-type="{{ degeneration.type }}"
+            role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
+            data-action="click->content#load"
+            data-content-name-param="{{ degeneration.name }}" data-content-type-param="{{ "label.single"|trans }}" data-content-link-param="{{ link|default(path('derangement_show', {id: degeneration.id})) }}"
+            {% if access_decision('edit', degeneration).isGranted %}data-content-edit-param="{{ link|default(path('derangement_edit', { id: degeneration.id })) }}" {% endif %}
+          >
+            <h2 class="user-select-none text-strong">
+              {% if degeneration.type %}
+                {% include "_icon.html.twig" with {icon: ("type/" ~ degeneration.type)|default('')} %}
+              {% endif %}
+              {{ degeneration.name }}
+              {% if degeneration.isExtreme %}
+                {% include "_icon.html.twig" with {icon: 'extreme', class: 'accent', label: "help.extreme"|trans } %}
+              {% endif %}
+            </h2>
+          </div>
+        {% endfor %}
       </div>
     {% endif %}
   </div>

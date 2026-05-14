@@ -4,7 +4,6 @@
 <div class="col-12 col-md-6 col-xl-4 text-center text-md-start"
   data-search-target="item"
   data-name="{{ discipline.name ~ discipline.short }}{% for power in discipline.powers %}{{ power.short }}{% endfor %}"
-  {# data-clan="{{ discipline }}" #}
 >
   <div class="rounded bdr p-3 h-100 card-content"
     role="button" data-bs-toggle="modal" data-bs-target="#contentModal"
@@ -12,20 +11,14 @@
     data-content-name-param="{{ discipline.name }}"
     data-content-type-param="{{ "label.single"|trans }}"
     data-content-link-param="{{ link|default(path('vampire_discipline_show', {id: discipline.id})) }}"
-    {% if access_decision('edit', discipline) %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
+    {% if access_decision('edit', discipline).isGranted %}data-content-edit-param="{{ link|default(path('vampire_discipline_edit', { id: discipline.id })) }}"{% endif %}
   >
-    <div class="row">
-      <div class="col-12 text-strong text-center">
-        <h4>{{ discipline.name }}</h4>
+        <h2>{{ discipline.name }}</h2>
         {% if discipline.homebrewFor is not null %}
           {% include "_icon.html.twig" with {icon : 'homebrew', class: 'accent', label: discipline.homebrewFor } only %}
         {% endif %}
-      </div>
-      <div class="col-12">
-        <span>{{ discipline.short }}</span>
-      </div>
+        <h5>{{ discipline.short }}</h5>
       <hr class="my-1">
-      <div class="col-12">
         {% if discipline.isSorcery %}
           {% include "vampire/discipline/powers/_card.html.twig" with {power: discipline.getRitual} %}
         {% else %}
@@ -33,7 +26,5 @@
             {% include "vampire/discipline/powers/_card.html.twig" %}
           {% endfor %}
         {% endif %}
-      </div>
-    </div>
   </div>
 </div>

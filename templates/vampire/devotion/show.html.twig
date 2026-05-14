@@ -8,13 +8,18 @@
   {{ devotion.name }}
 {% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', devotion).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   
   <div class="container block py-3">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('vampire_devotion_edit', {'id': devotion.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} %}</a>
-      {# {% include "element/_delete.html.twig" with {element: 'devotion', entity: devotion} %} #}
-    {% endif %}
     {% include "vampire/devotion/_show.html.twig" with {options: 1} %}
   </div>
 {% endblock %}

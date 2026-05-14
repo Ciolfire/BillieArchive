@@ -8,11 +8,15 @@
 
 {% set setting = derangement.type.name|default("human") %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', derangement).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('derangement_edit', {id: derangement.id}) }}">{% include "_icon.html.twig" with {icon : 'edit' } only %}</a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
 	<div class="container py-5">
-		{% if is_granted('ROLE_ST') %}
-			<a class="float-end" href="{{ path('derangement_edit', {id: derangement.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-		{% endif %}
 		{% include "derangement/_show.html.twig" with {isNotModal: true} %}
 	</div>
 

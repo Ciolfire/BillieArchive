@@ -6,11 +6,17 @@
 
 {% block title %}{{ "label.single"|trans }}{% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', path).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('mage_path_edit', {id: path.id}) }}">
+      {% include "_icon.html.twig" with {icon: 'edit'} only %}
+    </a>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block body %}
   <div class="container block py-5">
-    {% if is_granted('ROLE_ST') %}
-      <a class="float-end" href="{{ path('mage_path_edit', {id: path.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
     
     {% include "mage/path/_show.html.twig" with {isModal: 0} %}
   </div>

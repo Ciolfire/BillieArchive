@@ -6,19 +6,22 @@
 
 {% block title %}{{ spell.name }}{% endblock %}
 
+{% block shortcuts %}
+  {% if access_decision('edit', spell).isGranted %}
+    <a class="btn btn-primary mb-2" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon : 'edit' } only %}</a>
+  {% endif %}
+  {% if access_decision('delete', spell).isGranted %}
+    <a class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal-mage_spell-{{spell.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
+  {% endif %}
+
+  {% include "_back.html.twig" with {link: path('wiki_index')} %}
+  {% include "_top.html.twig" %}
+{% endblock %}
+
 {% block body %}
+
   <div class="container block pt-5 pb-1">
-    {% if access_decision('edit', spell) %}
-      <a class="float-end" href="{{ path('mage_spell_edit', {'id': spell.id}) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-    {% endif %}
-
     {% include "mage/spell/_show.html.twig" with {isModal: 0} %}
-
-    {% if access_decision('edit', spell) %}
-      <div class="col text-center mt-5">
-        <button type="button" class="btn btn-warning w-25" data-bs-toggle="modal" data-bs-target="#deleteModal-mage_spell-{{spell.id}}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</button>
-      </div>
-      {% include "element/_delete.html.twig" with {element: 'mage_spell', 'entity': spell} %}
-    {% endif %}
+    {% include "element/_delete.html.twig" with {element: 'mage_spell', 'entity': spell} %}
   </div>
 {% endblock %}

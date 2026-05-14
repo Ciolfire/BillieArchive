@@ -3,9 +3,6 @@
 {% block body %}
   <div class="row">
     <div class="{% if rule.type is not null %}{{rule.type}}{% endif %} block mt-3 pt-3">
-      {% if is_granted('ROLE_ST') %}
-        <a class="float-end" href="{{ path('rule_edit', {'id': rule.id }) }}">{% include "_icon.html.twig" with {icon: 'edit'} only %}</a>
-      {% endif %}
       <h1>{{ rule.title }}</h1>
       <div>
         {{ rule.details|markdown_to_html }}
