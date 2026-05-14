@@ -11,9 +11,3 @@
 
   --vampire-subtext-color       : #a1a5b9a1;
 }
-
-.strong, strong {
-  color: var(--vampire-text-strong-color);
-  -webkit-text-stroke: 3px var(--text-stroke);
-  paint-order: stroke fill;
-}
