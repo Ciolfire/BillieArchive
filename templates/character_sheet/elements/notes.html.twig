@@ -64,6 +64,12 @@
               <p class="text-end">{{ note.author }}</p>
             {% endif %}
           {% else %}
+            {% if note.accessList is not empty %}
+              {% include "_icon.html.twig" with {icon: 'share', class: 'accent'} %}
+              {% for access in note.accessList %}
+                <img class="rounded bdr" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ access }}" src="{{ asset(access.avatar, 'characters') }}" onerror="this.src='{{ asset('default.jpg', 'characters') }}';this.onerror=null;" height="40">
+              {% endfor %}
+            {% endif %}
             <a class="float-end" href="{{ path('character_note_delete', {'id': character.id, 'note': note.id}) }}">{% include "_icon.html.twig" with {icon: 'delete'} only %}</a>
           {% endif %}
         </div>
