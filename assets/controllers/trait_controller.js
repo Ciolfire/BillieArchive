@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-  static targets = ["input", "value"];
+  static targets = ["input", "value", "flag"];
   static values = {
     current: 0,
     id: 0,
@@ -13,6 +13,7 @@ export default class extends Controller {
 
   connect() {
     this.update();
+    this.flags();
   }
 
   switch(event) {
@@ -58,6 +59,24 @@ export default class extends Controller {
         this.show(input, "none");
       }
     });
+  }
+
+  flags(event) {
+    let value = this.currentValue;
+    let isOn = 1;
+    if (event != undefined) {
+      value = parseInt(event.currentTarget.dataset.count);
+      isOn = event.currentTarget.dataset.value;
+    }
+    this.flagTargets.forEach(flag => {
+      if ((value == flag.dataset.index && isOn == 0) || 
+        (value + 1 == flag.dataset.index & isOn == 1)
+      ) {
+        flag.classList.add("warning");
+      } else {
+        flag.classList.remove("warning");
+      }
+    })
   }
 
   show(element, type) {

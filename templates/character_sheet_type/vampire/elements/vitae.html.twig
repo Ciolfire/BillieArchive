@@ -8,7 +8,7 @@
   <div class="d-flex flex-column align-items-start">
     <div class="text-start">
     {% for index in 1..5 %}
-      <span class="d-inline-block malus-box text-center text-strong">
+      <span class="d-inline-block malus-box text-center text-strong" data-trait-target="flag" data-index="{{index}}">
         <div role="button" data-bs-toggle="tooltip" data-bs-placement="top" {% if index <= 2 %}title="{{ 'feeding.starved'|trans }}">-2{% elseif index <= 5 %}title="{{ 'feeding.hungry'|trans }}">-1{% endif %}</div>
       </span>
     {% endfor %}
@@ -22,7 +22,7 @@
         {% endif %}
         <svg class="trait-box" viewBox="0 0 100 100" role="button"
           data-trait-target="input"
-          data-action="click->trait#switch"
+          data-action="click->trait#switch click->trait#flags"
           data-count="{{ index }}"
           data-value="{{ value }}"
         >
