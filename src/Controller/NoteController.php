@@ -28,7 +28,7 @@ class NoteController extends AbstractController
     $this->dataService = $dataService;
   }
 
-  #[Route('chronicle/{id<\d+>}/note/new', name: 'chronicle_note_new', methods: ['GET', 'POST'])]
+  #[Route('/chronicle/{id<\d+>}/note/new', name: 'chronicle_note_new', methods: ['GET', 'POST'])]
   public function addNote(Request $request, Chronicle $chronicle): Response
   {
     /** @var User $user */
