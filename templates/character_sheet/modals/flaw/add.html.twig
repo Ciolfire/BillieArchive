@@ -5,7 +5,7 @@
 {% set hasFooter = false %}
 {% set id = "newFlawModal" %}
 
-{% block title %}{{ "add"|trans }}{% endblock %}
+{% block title %}{{ "action.add"|trans({}, "app") }}{% endblock %}
 
 {% block body %}
   <form action="{{ path('character_flaw_new', { 'id' : character.id }) }}" method="POST">

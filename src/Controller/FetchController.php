@@ -171,6 +171,21 @@ class FetchController extends AbstractController
           $label = "detailedName";
           break;
         case "ritual":
+          if ($character instanceof Vampire) {
+            $choices = $character->getRituals();
+          } else {
+            $lesser = $character->getLesserTemplate();
+            if ($lesser instanceof Ghoul) {
+              $choices = $lesser->getRituals();
+            }
+          }
+          unset($methods[0]);
+          $identifier = 'id';
+          break;
+        case "flaw":
+          $choices = $character->getFlaws();
+          unset($methods[0]);
+          $identifier = 'id';
           break;
         default:
           $choices = [];

@@ -306,3 +306,6 @@ xp:
   refund: Refund
   details:
     none: No change
+
+# dropzone remove
+Remove: Remove

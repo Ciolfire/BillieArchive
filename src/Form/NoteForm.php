@@ -22,6 +22,7 @@ class NoteForm extends AbstractType
     /** @var Note $note */
     $note = $options['data'];
     $chronicle = $note->getChronicle();
+    $character = null;
     $characters = null;
     if ($chronicle instanceof Chronicle) {
       $character = $chronicle->getCharacter($note->getUser());

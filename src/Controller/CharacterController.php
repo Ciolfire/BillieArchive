@@ -172,7 +172,8 @@ class CharacterController extends AbstractController
     }
     switch ($character->getType()) {
       case 'possessed':
-        if (($template = $character->getLesserTemplate()) instanceof Possessed && $template->getVices()->isEmpty()) {
+        $template = $character->getLesserTemplate();
+        if ($template instanceof Possessed && $template->getVices()->isEmpty()) {
           // We need to set the template
           return $this->redirectToRoute('possessed_setup', ['id' => $character->getLesserTemplate()->getId()]);
         }

@@ -499,6 +499,7 @@ class VampireService
       'potency' => ['label' => 'potency.label', 'domain' => 'vampire'],
       'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
       'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
+      'ritual' => ['label' => 'sorcery.power.label.single', 'domain' => 'discipline'],
     ];
 
     return $removables;
@@ -509,6 +510,7 @@ class VampireService
     $removables = [
       'discipline' => ['label' => 'label.single', 'domain' => 'discipline'],
       'devotion' => ['label' => 'devotion.label.single', 'domain' => 'discipline'],
+      'ritual' => ['label' => 'sorcery.power.label.single', 'domain' => 'discipline'],
     ];
 
     return $removables;

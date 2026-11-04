@@ -16,6 +16,8 @@ use App\Entity\CharacterSpecialty;
 use App\Entity\Derangement;
 use App\Entity\Description;
 use App\Entity\Devotion;
+use App\Entity\DisciplinePower;
+use App\Entity\Flaw;
 use App\Entity\Ghoul;
 use App\Entity\GhoulDiscipline;
 use App\Entity\Human;
@@ -662,6 +664,9 @@ class CharacterService
       case 'derangement':
         $isDone = $this->removeDerangement($method, $element, $data, $infos);
         break;
+      case 'flaw':
+        $isDone = $this->removeFlaw($character, $element, $infos);
+        break;
       // Vampire
       case 'potency':
         $isDone = $this->reducePotency($character, $element, $infos, $toRefund);
@@ -671,6 +676,9 @@ class CharacterService
         break;
       case 'devotion':
         $isDone = $this->removeDevotion($character, $element, $infos, $toRefund);
+        break;
+      case 'ritual':
+        $isDone = $this->removeRitual($character, $element, $infos, $toRefund);
         break;
       default:
         $isDone = false;
@@ -808,6 +816,20 @@ class CharacterService
     return false;
   }
 
+  private function removeFlaw(Character $character, &$element, &$infos) : bool
+  {
+    $flaw = $this->dataService->find(Flaw::class, $element);
+    if ($flaw instanceof Flaw) {
+      $element = $flaw->getName();
+      $infos['name'] = $element;
+      $character->removeFlaw($flaw);
+
+      return true;
+    }
+
+    return false;
+  }
+
   private function reducePotency(Vampire $character, &$element, &$infos, $toRefund = false) : bool
   {
     $potency = $character->getPotency();
@@ -900,6 +922,29 @@ class CharacterService
       }
       if ($toRefund) {
         $character->refundXp($devotion->getCost());
+      }
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private function removeRitual(Character $character, &$element, &$infos, $toRefund = false) : bool
+  {
+    $ritual = $this->dataService->find(DisciplinePower::class, $element);
+    if ($ritual instanceof DisciplinePower) {
+      $infos['name'] = $ritual->getName();
+      if ($character instanceof Vampire) {
+        $character->removeRitual($ritual);
+      } else {
+        $lesser = $character->getLesserTemplate();
+        if ($lesser instanceof Ghoul) {
+          $lesser->removeRitual($ritual);
+        }
+      }
+      if ($toRefund) {
+        $character->refundXp($ritual->getLevel() * 2);
       }
 
       return true;
@@ -1003,6 +1048,7 @@ class CharacterService
       'merit' => [],
       'willpower' => ['label' => 'willpower.label', 'domain' => 'character'],
       'derangement' => [],
+      'flaw' => [],
     ];
     switch ($character::class) {
       case Vampire::class:

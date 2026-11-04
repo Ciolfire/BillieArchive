@@ -49,10 +49,10 @@ class LesserController extends AbstractController
       if (!is_null($currentTemplate)) {
         if ($currentTemplate->getType() == $newTemplate) {
           // Same template, shouldn't happen, return
-          $this->addFlash('error', 'character.template.lesser.same', [
+          $this->addFlash('error', ['character.template.lesser.same', [
             'name' => $character->getName(),
             'type' => $currentTemplate->getType(),
-          ]);
+          ]]);
           return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
         }
         // Otherwise, we deactivate the old template
