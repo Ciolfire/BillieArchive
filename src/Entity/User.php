@@ -491,7 +491,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   public function getPreferences(?string $preference = null): mixed
   {
     if ($preference) {
-      if (isset($preferences[$preference])) {
+      if (isset($this->preferences[$preference])) {
         return $this->preferences[$preference];
       } else {
         return "";

@@ -138,7 +138,12 @@ upload: Drag and drop or browse
 option:
   character.favorite: Favorite Character
   language: Language
+  tab:
+    label: Tab display on small screens
+    normal: (Default) Icon only
+    both: Icon + text
+    text: Text only
   arcana: 
     label: Arcana name display
+    normal: (Default), name + icon
     short: Short, icon only
-    normal: Normal, name + icon

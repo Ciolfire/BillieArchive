@@ -138,7 +138,12 @@ upload: Glisser-déposer ou naviguer
 option:
   character.favorite: Personnage préféré
   language: Langue
+  tab:
+    label: Affichage des onglets sur petit écran
+    normal: Uniquement les icones (par défaut)
+    both: Icones + texte
+    text: Uniquement le texte
   arcana: 
     label: Affichage du nom des Arcana
+    normal: nom + icone (par défaut)
     short: Court, icone uniquement
-    normal: Normal, nom + icone

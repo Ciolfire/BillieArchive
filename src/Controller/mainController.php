@@ -93,7 +93,7 @@ class mainController extends AbstractController
     $user = $this->getUser();
     
     $character = null;
-    if ($user->getPreferences()) {
+    if ($user->getPreferences("favoriteCharacter")) {
       $character = $this->dataService->find(Character::class, $user->getPreferences()['favoriteCharacter']);
     }
     $form = $this->createFormBuilder(null, ['translation_domain' => 'app'])
@@ -120,6 +120,15 @@ class mainController extends AbstractController
         'choices' => $user->getChroniclesCharacters(),
         'data' => $character,
       ])
+      ->add('tabOption', ChoiceType::class, [
+        'label' => 'option.tab.label',
+        'choices' => [
+          'option.tab.normal' => 0,
+          'option.tab.both' => 1,
+          'option.tab.text' => 2,
+        ],
+        'data' => $user->getPreferences('tabOption'),
+      ])
       ->add('arcanaDisplay', ChoiceType::class, [
         'label' => 'option.arcana.label',
         'choices' => [
@@ -136,6 +145,7 @@ class mainController extends AbstractController
       $user->setLocale($form->getData()['language']);
       $user->setPreferences([
         'favoriteCharacter' => $form->getData()['favoriteCharacter']->getId(),
+        'tabOption' => $form->getData()['tabOption'],
         'arcanaDisplay' => $form->getData()['arcanaDisplay'],
       ]);
       $this->dataService->flush();

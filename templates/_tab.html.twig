@@ -3,12 +3,28 @@
 <li class="nav-item col text-center g-0">
   <a id="{{ name }}Tab" type="button" class="tab nav-link h-100 user-select-none p-0" data-tabs-target="tab" data-action="click->tabs#show" data-tabs-target-param="{{ name }}">
     <div class="pe-none d-flex justify-content-center p-2">
-        {% if img is defined and img is not null and imgType is defined %}
-          <img class="nav-icon" src="{{ asset(img, imgType) }}"/>
-        {% elseif (icon is defined and icon is not same as ('')) or icon is not defined %}
+      {% if img is defined and img is not null and imgType is defined %}
+        <img class="nav-icon" src="{{ asset(img, imgType) }}"/>
+      {% elseif (icon is defined and icon is not same as('')) or icon is not defined %}
+        {% if app.user.preferences.tabOption == 1 %}
+          {# If this option is set, icon and few letter are displayed on small screens #}
+          <span style="font-size: 75%;">
+            {% include "_icon.html.twig" with {icon: icon|default(name)} only %}
+            <span class="inline-block d-md-none flex-grow-1 d-inline-block px-1">
+              {{ label|default(name)[0: 7] }}
+            </span>
+          </span>
+        {% elseif app.user.preferences.tabOption == 2 %}
+          {# If this option is set, only display text on small screens #}
+          <span class="d-none d-md-inline-block">
+            {% include "_icon.html.twig" with {icon: icon|default(name)} only %}
+          </span>
+          <span class="inline-block d-md-none flex-grow-1 d-inline-block px-1">{{ label|default(name)[0: 6] }}</span>
+        {% else %}
           {% include "_icon.html.twig" with {icon: icon|default(name)} only %}
         {% endif %}
-      {% if img is not defined and (icon is defined and icon is same as ('')) %}
+      {% endif %}
+      {% if img is not defined and (icon is defined and icon is same as('')) %}
         {# we want to keep some content in the tab #}
         <span class="flex-grow-1 d-inline-block text-truncate px-1">{{ label|default(name) }}</span>
       {% else %}
