@@ -250,6 +250,7 @@ class Character
   public function __construct(
     ?User $user = null,
     ?Chronicle $chronicle = null,
+    ?Book $book = null,
     bool $isAncient = false,
     bool $isNpc = false,
     bool $isPremade = false,
@@ -257,6 +258,7 @@ class Character
     $this->player = $user;
     $this->isAncient = $isAncient;
     $this->chronicle = $chronicle;
+    $this->book = $book;
     $this->isNpc = $isNpc;
     $this->isPremade = $isPremade;
     $this->setAttributes(new CharacterAttributes());

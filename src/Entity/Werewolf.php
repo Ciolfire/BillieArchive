@@ -39,6 +39,7 @@ class Werewolf extends Character
   public function __construct(
     ?User $user = null,
     ?Chronicle $chronicle = null,
+    ?Book $book = null,
     bool $isAncient = false,
     bool $isNpc = false,
     bool $isPremade = false,
@@ -46,6 +47,7 @@ class Werewolf extends Character
     parent::__construct(
       user: $user,
       chronicle: $chronicle,
+      book: $book,
       isAncient: $isAncient,
       isNpc: $isNpc,
       isPremade: $isPremade

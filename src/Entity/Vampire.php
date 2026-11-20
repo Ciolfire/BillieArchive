@@ -55,6 +55,7 @@ class Vampire extends Character
   public function __construct(
     ?User $user = null,
     ?Chronicle $chronicle = null,
+    ?Book $book = null,
     bool $isAncient = false,
     bool $isNpc = false,
     bool $isPremade = false,
@@ -62,6 +63,7 @@ class Vampire extends Character
     parent::__construct(
       user: $user,
       chronicle: $chronicle,
+      book: $book,
       isAncient: $isAncient,
       isNpc: $isNpc,
       isPremade: $isPremade

@@ -6,20 +6,24 @@
       {% include "_tab.html.twig" with {name: category ~ "-" ~  type , icon: 'type/' ~ type , label: type|trans({}, 'content-type') ~ " [" ~ typed_character|length ~ "]"} only %}
     {% endfor %}
   </ul>
+  {# Only GM can add premade #}
   {% if category != 'premade' or is_granted('ROLE_GM') %}
+    {# Classic creation button #}
     <div class="col-6 my-2">
-      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new', { isPremade: true }) : category == 'npc' ? path('character_new', { isNpc: true }) : path('character_new', { isNpc: 0 }) }}">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new', { isPremade: true, book: book.id|default(null) }) : category == 'npc' ? path('character_new', { book: book|default(null), isNpc: true }) : path('character_new') }}">
         {{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}
         {% include "_icon.html.twig" with { icon: icon|default(category) } only %}
       </a>
     </div>
+    {# Ancient creation button #}
     <div class="col-6 my-2">
-      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new', { isPremade: true, isAncient: true }) : category == 'npc' ? path('character_new', { isNpc: true, isAncient: true }) : path('character_new', { isNpc: 0, isAncient: true }) }}">
+      <a class="btn btn-sm btn-primary w-100 text-center" href="{{ category == 'premade' ? path('character_new', { isPremade: true, isAncient: true, book: book.id|default(null) }) : category == 'npc' ? path('character_new', { isNpc: true, isAncient: true }) : path('character_new', { isAncient: true }) }}">
         {{ 'action.new'|trans({}, 'app') }} {{ (category ~ '.label.single')|trans }}
         {% include "_icon.html.twig" with { icon: 'coliseum' } only %}
       </a>
     </div>
   {% endif %}
+  {# // Display the list of characters, by category #}
   {% for type, typed_character in characters %}
     <div id="{{category}}-{{ type }}" class="tab-content py-0 d-none" data-tabs-target="page">
       <div class="row">

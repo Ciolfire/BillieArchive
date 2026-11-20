@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Werewolf;
 
 use App\Entity\Auspice;
+use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Description;
@@ -41,13 +42,13 @@ final class WerewolfController extends AbstractController
     $this->creationService = $creationService;
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
-  public function newWerewolf(Request $request, ?Chronicle $chronicle = null, bool $isAncient, bool $isNpc, bool $isPremade): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}/{book<\d+>?0}', name: 'character_new_werewolf', methods: ['GET', 'POST'])]
+  public function newWerewolf(Request $request, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null, ?Book $book = null): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Werewolf(isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade, chronicle: $chronicle);
+    $character = new Werewolf(isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade, chronicle: $chronicle, book: $book);
 
     /** @var User $user */
     $user = $this->getUser();

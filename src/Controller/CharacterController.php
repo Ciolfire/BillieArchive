@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\User;
 use App\Entity\Character;
 use App\Entity\CharacterAccess;
@@ -150,10 +151,19 @@ class CharacterController extends AbstractController
   #[Route("s/list/{filter<\w+>}/{id<\w+>}", name: "character_list", methods: ["GET"])]
   public function list(?string $filter = null, ?int $id = null): Response
   {
-    $characters = $this->dataService->getList($filter, $id, Character::class, "getCharacters");
-    $characters = $this->service->sortCharacters(...$characters);;
+    $element = $this->dataService->getItem($filter, $id);
+    $characters = $element->getCharacters();
+    $characters = $this->service->sortCharacters(...$characters);
+    if ($element instanceof Book) {
+      return $this->render('character/index.html.twig', [
+        'premade' => $characters,
+        'element' => $element,
+      ]);
+    }
+
     return $this->render('character/index.html.twig', [
       'characters' => $characters,
+      'element' => $element,
     ]);
   }
 
@@ -219,8 +229,8 @@ class CharacterController extends AbstractController
     ]);
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
-  public function newChoice(?Chronicle $chronicle = null, ?bool $isAncient = null, ?bool $isNpc = null, ?bool $isPremade = null): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}/{book<\d+>?0}', name: 'character_new', methods: ['GET', 'POST'])]
+  public function newChoice(?bool $isAncient = null, ?bool $isNpc = null, ?bool $isPremade = null, ?Chronicle $chronicle = null, ?Book $book = null): Response
   {
     if ($isPremade) {
       $this->denyAccessUnlessGranted('ROLE_GM');
@@ -228,23 +238,21 @@ class CharacterController extends AbstractController
 
     return $this->render('character_sheet/choice.html.twig', [
       'templates' => get_class_vars(SettingType::class),
-      'chronicle' => $chronicle,
       'isAncient' => $isAncient,
       'isNpc' => $isNpc,
       'isPremade' => $isPremade,
+      'chronicle' => $chronicle,
+      'book' => $book,
     ]);
   }
 
-  #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
-  public function newHuman(Request $request, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null): Response
+  #[Route('/new/human/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}/{book<\d+>?0}', name: 'character_new_human', methods: ['GET', 'POST'])]
+  public function newHuman(Request $request, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null, ?Book $book = null): Response
   {
     if ($chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $character = new Human(user: $this->getUser(), isAncient: $isAncient);
-    $character->setChronicle($chronicle);
-    $character->setIsNpc($isNpc);
-    $character->setIsPremade($isPremade);
+    $character = new Human(user: $this->getUser(), isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade, chronicle: $chronicle, book: $book);
 
     $merits = $this->service->filterMerits($character);
     $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
@@ -257,41 +265,6 @@ class CharacterController extends AbstractController
       // We make sure the willpower is correct
       $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
 
-      $this->dataService->save($character);
-
-      return $this->redirectToRoute('character_show', ['id' => $character->getId()]);
-    }
-    $this->dataService->loadMeritsPrerequisites($merits);
-
-    return $this->render('character_sheet/new.html.twig', [
-      'character' => $character,
-      'form' => $form,
-      'attributes' => $this->service->getSortedAttributes(),
-      'skills' => $this->service->getSkillList($character),
-      'merits' => $merits,
-    ]);
-  }
-
-  #[Route('/premade/new/{isAncient<\d+>}', name: 'character_new_premade', methods: ['GET', 'POST'])]
-  public function newTemplate(Request $request, bool $isAncient = false): Response
-  {
-    $character = new Human(isAncient: $isAncient);
-    $this->denyAccessUnlessGranted('ROLE_GM');
-
-    $character->setIsNpc(false);
-    $character->setIsPremade(true);
-
-    $merits = $this->service->filterMerits($character);
-    $form = $this->createForm(CharacterForm::class, $character, ['user' => $this->getUser()]);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      if (isset($form->getExtraData()['merits'])) {
-        $this->creationService->addMerits($character, $form->getExtraData()['merits']);
-      }
-      $this->creationService->getSpecialties($character, $form);
-      // We make sure the willpower is correct
-      $character->setWillpower($character->getAttributes()->get('resolve', false) + $character->getAttributes()->get('composure', false));
       $this->dataService->save($character);
 
       return $this->redirectToRoute('character_show', ['id' => $character->getId()]);

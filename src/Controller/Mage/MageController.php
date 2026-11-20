@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Mage;
 
 use App\Entity\Arcanum;
+use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Mage;
@@ -38,13 +39,13 @@ final class MageController extends AbstractController
     $this->creationService = $creationService;
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
-  public function newMage(Request $request, FormFactoryInterface $formFactory, ?Chronicle $chronicle = null, bool $isAncient, bool $isNpc, bool $isPremade): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}/{book<\d+>?0}', name: 'character_new_mage', methods: ['GET', 'POST'])]
+  public function newMage(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null , ?Book $book = null): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $mage = new Mage(user: $this->getUser(), chronicle: $chronicle, isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade);
+    $mage = new Mage(user: $this->getUser(), chronicle: $chronicle, book: $book, isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade);
 
     $mage->setPlayer($this->getUser());
     $merits = $this->characterService->filterMerits($mage);

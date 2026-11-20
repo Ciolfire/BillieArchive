@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Vampire;
 
 use App\Entity\Attribute;
+use App\Entity\Book;
 use App\Entity\Character;
 use App\Entity\Chronicle;
 use App\Entity\Clan;
@@ -39,13 +40,13 @@ class VampireController extends AbstractController
     $this->creationService = $creationService;
   }
 
-  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
-  public function newVampire(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null): Response
+  #[Route('/new/{isAncient<\d+>?0}/{isNpc<\d+>?0}/{isPremade<\d+>?0}/{chronicle<\d+>?0}/{book<\d+>?0}', name: 'character_new_vampire', methods: ['GET', 'POST'])]
+  public function newVampire(Request $request, FormFactoryInterface $formFactory, bool $isAncient, bool $isNpc, bool $isPremade, ?Chronicle $chronicle = null, ?Book $book = null): Response
   {
     if (!$isAncient && $chronicle && $chronicle->isAncient()) {
       $isAncient = true;
     }
-    $vampire = new Vampire(chronicle: $chronicle, isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade);
+    $vampire = new Vampire(chronicle: $chronicle, book: $book, isAncient: $isAncient, isNpc: $isNpc, isPremade: $isPremade);
 
     $vampire->setPlayer($this->getUser());
     $merits = $this->characterService->filterMerits($vampire);

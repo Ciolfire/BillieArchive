@@ -267,7 +267,7 @@ class DataService
     return true;
   }
 
-  public function getList(string $filter, int|string $id, $class, $method): Collection|array
+  public function getList(string $filter, int|string $id, string $class, string $method): Collection|array
   {
     $repo = $this->getRepository($class);
 
